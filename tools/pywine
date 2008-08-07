@@ -1,0 +1,4 @@
+#!/bin/sh
+root=$(cd ${0%/*};pwd)
+checkwine
+WINEPREFIX=$root/wine PYTHONPATH=$root/wubi/lib wine c:/python25/scripts/ipython.exe $@

@@ -1,0 +1,17 @@
+
+Thanks to:
+
+- Geza Kovacs <geza0kovacs@gmail.com>, initial prototypes and lupin patches.
+- Oliver Mattos <omattos@gmail.com>, initial nsis GUI.
+- Ecology2006 <ecology2007@gmail.com>, for maintaining and improving the nsis GUI.
+- Colin J Watson  <cjwatson@ubuntu.com>, for rewriting and improving the installation code
+- Evan D'andrea <evand@ubuntu.com>, for merging the Lupin patches into Ubuntu
+- Hampus Wessman <hw@vox.nu>, for the downloader and other plugins.
+- Tinybit and Bean123 for writing grub4dos and helping us with it.
+- Szabolcs Szakacsits <szaka@ntfs-3g.org>, for ntfs-3g support.
+- Computer Guru for enabling the Vista bootloader.
+- The GCC project, for 64-bit detection code.
+- The win32-loader project, for ideas and code.
+- Nullsoft, for the install system.
+- All the translators
+- All the users that helped us testing/improving Wubi

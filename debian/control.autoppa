@@ -1,0 +1,15 @@
+Source: wubi
+Section: universe/devel
+Priority: optional
+Maintainer: Agostino Russo <agostino.russo@gmail.com>
+AUTOPPA_INCLUDE(dapper):Build-Depends: debhelper, python-support, lsb-release
+AUTOPPA_INCLUDE(edgy,feisty,gutsy):Build-Depends: debhelper, python-central, lsb-release
+Standards-Version: 3.7.2
+XS-Python-Version: current
+
+Package: wubi
+Architecture: any
+Depends: ${python:Depends}, ${shlibs:Depends}
+Provides: ${python:Provides}
+XB-Python-Version: ${python:Versions}
+Description: Wubi is the Windows Ubuntu Installer

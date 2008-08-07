@@ -1,0 +1,55 @@
+#!/usr/bin/make -f
+
+dist_release := $(shell lsb_release -cs)
+ifneq ($(dist_release),dapper)
+  use_pycentral = yes
+endif
+
+package = wubi
+root_dir = debian/$(package)
+
+build: build-stamp
+build-stamp:
+	dh_testdir
+	python setup.py build
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp
+	rm -rf build
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	python setup.py install --root $(root_dir)
+
+binary-indep: build install
+
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	dh_installchangelogs
+	dh_installinit
+	dh_installdebconf
+	dh_installlogrotate
+	dh_compress
+	dh_fixperms
+
+ifeq ($(use_pycentral),yes)
+	DH_PYCENTRAL=nomove dh_pycentral
+else
+	dh_python
+endif
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+
+.PHONY: binary binary-arch binary-indep clean

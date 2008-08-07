@@ -1,0 +1,9 @@
+Wubi is the Windows Ubuntu Installer.
+
+For more information see:
+
+http://wubi-installer.org
+http://wiki.ubuntu.com/WubiGuide
+
+To run the tests, execute "./test" in the toplevel directory.
+
