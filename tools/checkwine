@@ -1,7 +1,7 @@
 #!/bin/sh
 
-root=$(cd ${0%/*}/../;pwd)
-WINEPREFIX=$root/wine
+root="$(cd ${0%/*}/../;pwd)"
+WINEPREFIX="$root"/wine
 pythonurl="http://www.python.org/ftp/python/2.5.2/python-2.5.2.msi"
 
 if [ ! -x /usr/bin/wine ]; then
@@ -11,8 +11,8 @@ fi
 
 if [ ! -e "$root/wine" ]; then
     echo "Creating wine folder..."
-    mkdir -p $WINEPREFIX
+    wineprefixcreate --prefix "$WINEPREFIX"
     cd /tmp
     wget "$pythonurl"
-    WINEPREFIX=$WINEPREFIX wine msiexe -i /tmp/${pythonurl##*/}
+    WINEPREFIX="$WINEPREFIX" wine msiexec /i /tmp/${pythonurl##*/} /qb /ADDLOCAL=DefaultFeature /ALLUSERS=1
 fi

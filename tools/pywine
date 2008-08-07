@@ -1,4 +1,4 @@
 #!/bin/sh
-root=$(cd ${0%/*}/../;pwd)
-$root/tools/checkwine
-WINEPREFIX=$root/wine wine c:/python25/python.exe $@
+root="$(cd ${0%/*}/../;pwd)"
+"$root"/tools/checkwine
+WINEPREFIX="$root"/wine wine c:/python25/python.exe $@

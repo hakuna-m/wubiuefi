@@ -2,5 +2,10 @@ wubi (8.10) UNRELEASED; urgency=low
 
   * Initial revision
   * Hello world, we have a window showing
+  * Fixed loop on quit
+  * Fixed tools
+  * Added logging support
+  * Reorganized commandline arguments
+  * Improved progress object
 
- -- Agostino Russo <agostino.russo@gmail.com>  Thu, 07 Aug 2008 07:31:52 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Thu, 07 Aug 2008 21:18:54 +0100

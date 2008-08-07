@@ -13,12 +13,15 @@ import subprocess
 import ctypes
 #import platform
 from backends.shared_backend import Backend, Progress
+import logging
+log = logging.getLogger("WindowsBackend")
+
 
 class WindowsBackend(Backend):
     '''
     Win32-specific backend
     '''
-    
+
     def get_os_version(self):
         windows_version = None
         full_version = sys.getwindowsversion()

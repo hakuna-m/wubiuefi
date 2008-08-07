@@ -63,6 +63,9 @@ def event_handler(hwnd=None, message=None, wparam=None, lparam=None):
     return decorator
 
 class BasicWindow(object):
+    '''
+    Wraps
+    '''
     _window_class_name_ = None
     _window_class_style_ = CS_HREDRAW | CS_VREDRAW
     _window_style_ = 0
@@ -223,7 +226,6 @@ class Window(BasicWindow):
     def _on_destroy(self, event):
         self.on_destroy()
 
-    ## Not working, it jams the other events
     @event_handler(message=WM_PAINT, hwnd=SELF_HWND)
     def _on_paint(self, event):
         self.on_paint()
@@ -269,15 +271,9 @@ class Application(object):
         pass
 
     def quit(self):
-        self.on_quitting()
         windll.user32.DestroyWindow(self.main_window._hwnd)
-        windll.user32.PostQuitMessage(0)
-        self.on_quit()
-        
+
     def on_quit(self):
-        pass
-        
-    def on_quitting(self):
         pass
 
     def show_error_message(self, message, title=None):
@@ -304,9 +300,11 @@ class MainWindow(Window):
     _window_style_ = WS_OVERLAPPEDWINDOW
 
     def on_destroy(self):
-        print "Destroying main window, ouch"
-        self.application.quit()
-        return 0
+        windll.user32.PostQuitMessage(0)
+        self.application.on_quit()
+
+    def __del__(self):
+        self.application.on_quitt()
 
 class MainDialogWindow(MainWindow):
     '''
@@ -361,7 +359,6 @@ class ListBox(Widget):
     _window_style_ = Widget._window_style_
 
     def add_item(self, text):
-        print "lb add", text
         self._send_message(LB_ADDSTRING, 0, unicode(text))
 
 class ComboBox(Widget):

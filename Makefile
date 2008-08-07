@@ -1,4 +1,5 @@
-PYTHON = tools/pywine
+PYTHON = python
+PYWINE = tools/pywine
 
 all: build
 
@@ -8,7 +9,7 @@ build:
 test: build
 	$(PYTHON) tools/test
 
-try: 
-	$(PYTHON) wubi/wubi.py
+run_win32:
+	$(PYWINE) wubi/wubi.py -v
 
 .PHONY: all build test
