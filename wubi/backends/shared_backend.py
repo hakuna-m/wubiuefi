@@ -1,6 +1,10 @@
 # USEFUL LINKS http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/180919
 # about creating files, detecting drives...
 
+import sys
+import os
+import locale
+import struct
 import datetime, time
 
 class Progress(object):

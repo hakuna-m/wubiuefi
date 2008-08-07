@@ -9,11 +9,8 @@
 import sys
 import os
 import _winreg
-import locale
-import struct
-import commands
-import win32file
-import win32api
+import subprocess
+import ctypes
 #import platform
 from backends.shared_backend import Backend, Progress
 
@@ -66,14 +63,14 @@ class WindowsBackend(Backend):
         drives = []
         for drive in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
             drive_path = drive.upper() + ':'
-            drive_type = win32file.GetDriveType(drive_path)
+            drive_type = ctypes.windll.kernel32.GetDriveTypeW(unicode(drive_path)) #TBD win32file.GetDriveType(drive_path)
             drive_type = [None, None, 'removable', 'hd', 'remote', 'cd', 'ram'][drive_type] #TBD USB??
             if drive_type:
                 drive = Blob()
                 drive.path = drive_path
                 drive.type = drive_type
                 try:
-                    volinfo = win32api.GetVolumeInformation(drive_path + '\\')
+                    volinfo = ctypes.windll.kernel32.GetVolumeInformationA(drive_path + '\\') #win32api.GetVolumeInformation(drive_path + '\\')
                     drive.filesystem = volinfo[-1] and volinfo[-1].lower()
                 except:
                     drive.filesystem = None

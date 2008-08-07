@@ -269,8 +269,16 @@ class Application(object):
         pass
 
     def quit(self):
+        self.on_quitting()
         windll.user32.DestroyWindow(self.main_window._hwnd)
         windll.user32.PostQuitMessage(0)
+        self.on_quit()
+        
+    def on_quit(self):
+        pass
+        
+    def on_quitting(self):
+        pass
 
     def show_error_message(self, message, title=None):
         result = windll.user32.MessageBoxW(self.main_window._hwnd, unicode(message), unicode(title), MB_OK|MB_ICONERROR)

@@ -28,8 +28,8 @@ import os
 import sys
 from optparse import OptionParser
 #TBD import modules as required at runtime
-from backends.win32 import WindowsBackend
-from frontends.win32 import WindowsFrontend
+from backends.win32.backend import WindowsBackend
+from frontends.win32.frontend import WindowsFrontend
 thisdir = os.path.abspath(os.path.dirname(__file__))
 #~ sys.path.insert(1, os.path.join(thisdir, 'lib'))
 
@@ -73,6 +73,9 @@ class Wubi(object):
 			Frontend = WindowsFrontend
 		return Frontend(self)
 	
+	def quit(self):
+		pass
+	
 	def select_task(self):
 		'''
 		Select the appropriate task to perform and run it
@@ -81,7 +84,6 @@ class Wubi(object):
 			print "%s version=%s revision=%s" % (self.info.application_name, self.info.version, self.info.revision)
 		elif self.info.is_running_from_cd:
 			self.run_cd_menu()
-		
 		elif self.info.is_installed or self.info.uninstall_dir:
 			self.run_uninstaller()
 		else:

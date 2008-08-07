@@ -27,10 +27,11 @@ import ui
 class Wizard(ui.Application):
     _main_window_class_ = ui.MainDialogWindow
     
-    def on_init(self):
+    def __init__(self, *args, **kargs):
         self.current_page_index = 0
         self.pages = []
-    
+        ui.Application.__init__(self, *args, **kargs)
+        
     def add_page(self, page_class):
         crect = self.main_window.get_client_rect()
         self.pages.append(page_class(self.main_window, *crect))

@@ -1,8 +1,7 @@
 #!/bin/sh
 
-root=$(cd ${0%/*};pwd)
+root=$(cd ${0%/*}/../;pwd)
 WINEPREFIX=$root/wine
-winecmd="WINEPREFIX=$WINEPREFIX wine"
 pythonurl="http://www.python.org/ftp/python/2.5.2/python-2.5.2.msi"
 
 if [ ! -x /usr/bin/wine ]; then
@@ -15,5 +14,5 @@ if [ ! -e "$root/wine" ]; then
     mkdir -p $WINEPREFIX
     cd /tmp
     wget "$pythonurl"
-    $winecmd /tmp/${pythonurl#*/}
+    WINEPREFIX=$WINEPREFIX wine msiexe -i /tmp/${pythonurl##*/}
 fi
