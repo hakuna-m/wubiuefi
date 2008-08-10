@@ -31,7 +31,6 @@ from optparse import OptionParser
 #TBD import modules as required at runtime
 from backends.win32.backend import WindowsBackend
 from frontends.win32.frontend import WindowsFrontend
-#~ thisdir = os.path.abspath(os.path.dirname(__file__))
 import logging
 log = logging.getLogger("")
 
@@ -39,7 +38,12 @@ class WubiError(Exception):
     pass
 
 class Blob(object):
-    pass
+
+    def __init__(self, **kargs):
+        self.__dict__.update(**kargs)
+
+    def __str__(self):
+        return "Blob(%s)" % str(self.__dict__)
 
 class Wubi(object):
 
@@ -50,6 +54,9 @@ class Wubi(object):
         self.info.application_name = _application_name_
         self.info.full_application_name = "%s-%s-rev%s" % (self.info.application_name, self.info.version, self.info.revision)
         self.info.full_version = "%s %s rev%s" % (self.info.application_name, self.info.version, self.info.revision)
+        self.info.exedir = os.path.abspath(os.path.dirname(__file__))
+        self.info.datadir = os.path.join(os.path.dirname(self.info.exedir), "data")
+        self.info.imagedir = os.path.join(self.info.datadir, "images")
 
     def run(self):
         self.parse_commandline_arguments()

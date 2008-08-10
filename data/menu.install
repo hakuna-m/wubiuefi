@@ -1,0 +1,36 @@
+#This file is modified at runtime by bootmenu.nsh
+
+debug off
+hiddenmenu 
+timeout		5
+default		0
+
+title Normal mode
+find --set-root --ignore-floppies /ubuntu/install/boot/vmlinuz
+kernel Normal mode
+initrd /ubuntu/install/boot/initrd.gz
+boot
+
+title Safe graphic mode
+find --set-root --ignore-floppies /ubuntu/install/boot/vmlinuz
+kernel Safe graphic mode
+initrd /ubuntu/install/boot/initrd.gz
+boot
+
+title ACPI workarounds
+find --set-root --ignore-floppies /ubuntu/install/boot/vmlinuz
+kernel ACPI workarounds
+initrd /ubuntu/install/boot/initrd.gz
+boot
+
+title Verbose mode
+find --set-root --ignore-floppies /ubuntu/install/boot/vmlinuz
+kernel Verbose mode
+initrd /ubuntu/install/boot/initrd.gz
+boot
+
+title Demo mode
+find --set-root --ignore-floppies /ubuntu/install/boot/vmlinuz
+kernel Demo mode
+initrd /ubuntu/install/boot/initrd.gz
+boot
