@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# DESCRIPTION: 
+# DESCRIPTION:
 # widgets and window classes wrapping win32 objects
 #
 # LINKS:
@@ -77,8 +77,8 @@ class BasicWindow(object):
             self.application = application
         else:
             self.application = parent.application
-        if not self._window_class_name_:
-            self._window_class_name_ = self.__class__.__name__
+        if not self.__class__._window_class_name_:
+            self.__class__._window_class_name_ = self.__class__.__name__
             self._register_window()
         self._create_window(x, y, width, height, text)
         self._register_handlers()
@@ -166,7 +166,7 @@ class Window(BasicWindow):
         if not windll.user32.SetWindowPos(self._hwnd, NULL, x, y, 0, 0,  SWP_NOSIZE):
         #~ if not windll.user32.MoveWindow(self._hwnd, x, y, -1, -1, self._repaint_on_move_): #repaint
             raise WinError()
-    
+
     def resize(self, width, height):
         if not windll.user32.SetWindowPos(self._hwnd, NULL, 0, 0, width, height,  SWP_NOMOVE):
             raise WinError()
@@ -241,7 +241,7 @@ class Window(BasicWindow):
 
 class Application(object):
     _main_window_class_ = Window
-    
+
     def __init__(self, main_window_class=None, **kargs):
         self._hwnd = None
         self._hinstance = windll.kernel32.GetModuleHandleW(c_int(NULL))
@@ -329,8 +329,11 @@ class StaticWidget(Window):
     _window_class_name_ = "STATIC"
     _window_style_ = WS_CHILD | WS_VISIBLE
 
-class Panel(StaticWidget):
-    _window_style_ = StaticWidget._window_style_|WS_BORDER
+class Panel(Window):
+    _window_class_name_ = None
+    _window_style_ = WS_CHILD | WS_VISIBLE
+    _window_ex_style_ = 0
+    #_window_style_ = StaticWidget._window_style_|WS_BORDER
 
 class Edit(Widget):
     _window_class_name_ = "EDIT"

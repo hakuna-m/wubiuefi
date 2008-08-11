@@ -11,5 +11,6 @@ wubi (8.10) UNRELEASED; urgency=low
   * Added win32 wizard base page class
   * Added mappings
   * Initial win32 page layout
+  * Using basic window as panel
 
- -- Agostino Russo <agostino.russo@gmail.com>  Sun, 10 Aug 2008 07:08:43 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Mon, 11 Aug 2008 21:50:39 +0100
