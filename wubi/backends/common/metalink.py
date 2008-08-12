@@ -1,6 +1,6 @@
 '''
 DESCRIPTION:
-Simple metalink parser
+Simple metalink parser, represents a metalink as nested python objects
 
 USAGE:
 metalink = Metalink(filename)
@@ -34,13 +34,13 @@ class Metalink(object):
         self.files = {}
         for file in get_subitems(root, 'files', 'file'):
             file_name = file.get('name')
-            self.files[file_name] = MetalinkFile(file)
+            self.files[file_name] = File(file)
 
     def __str__(self):
         return "Metalink(%s)" % self.metalink_file
 
 
-class MetalinkFile(object):
+class File(object):
     def __init__(self, file):
         self.name = file.get('name')
         self.size = long(get_text(file, 'size', 0))
@@ -51,13 +51,13 @@ class MetalinkFile(object):
             self.verification[hash_type] = hash.text
         self.resources = []
         for url in get_subitems(file, 'resources', 'url'):
-            self.resources.append(MetalinkURL(url))
+            self.resources.append(URL(url))
 
     def __str__(self):
-        return "MetalinkFile(%s)" % self.name
+        return "File(%s)" % self.name
 
 
-class MetalinkURL(object):
+class URL(object):
 
     def __init__(self, url):
         self.type = url.get('type')
@@ -66,7 +66,5 @@ class MetalinkURL(object):
         self.url = url.text
 
     def __str__(self):
-        return "MetalinkUrl(%s)" % self.url
+        return "URL(%s)" % self.url
 
-
-m = Metalink('/tmp/kubuntu-8.04.1-desktop-i386.metalink')

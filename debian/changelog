@@ -14,5 +14,6 @@ wubi (8.10) UNRELEASED; urgency=low
   * Using basic window as panel
   * Refactored shared_backend.py into common/backend.py & friends
   * Added metalink parser
+  * Removed testing metalink code
 
- -- Agostino Russo <agostino.russo@gmail.com>  Tue, 12 Aug 2008 08:32:50 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Tue, 12 Aug 2008 08:42:09 +0100
