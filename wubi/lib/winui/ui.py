@@ -325,6 +325,12 @@ class Widget(Window):
     def on_command(self, event):
         pass
 
+    def on_init(self):
+        font = windll.gdi32.CreateFontA(8, 0, 0, 0, FW_NORMAL, 0, 0, 0, 0, 0, 0, 0, 0, "Arial")
+        self._send_message(WM_SETFONT, 0, font)
+
+
+
 class StaticWidget(Window):
     _window_class_name_ = "STATIC"
     _window_style_ = WS_CHILD | WS_VISIBLE

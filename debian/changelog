@@ -12,5 +12,7 @@ wubi (8.10) UNRELEASED; urgency=low
   * Added mappings
   * Initial win32 page layout
   * Using basic window as panel
+  * Refactored shared_backend.py into common/backend.py & friends
+  * Added metalink parser
 
- -- Agostino Russo <agostino.russo@gmail.com>  Mon, 11 Aug 2008 21:50:39 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Tue, 12 Aug 2008 08:32:50 +0100

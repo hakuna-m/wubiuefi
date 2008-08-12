@@ -12,7 +12,7 @@ import _winreg
 import subprocess
 import ctypes
 #import platform
-from backends.shared_backend import Backend, Progress
+from backends.common.backend import Backend, Progress
 import logging
 log = logging.getLogger("WindowsBackend")
 
@@ -111,4 +111,4 @@ class WindowsBackend(Backend):
 
 
 
- 
+
