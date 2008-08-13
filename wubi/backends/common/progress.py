@@ -15,12 +15,14 @@ class Progress(object):
         self.start_time=time.time()
         self.total_time=None
         self.task_name = task_name
+        self.task_is_complete = False
+        self.subtask_is_complete = False
         self.subtask(subtask_name, total_substeps)
 
     def subtask(self, subtask_name="", total_substeps=1, step=1):
         if hasattr(self, "subtask_name"):
             log.debug("    Subtask: %s" % subtask_name)
-            if step:
+            if step and self.subtask_name:
                 self.finish_subtask(step=step) #finish previous subtask
         self.current_substep = 0
         self.run_subtime = 0
@@ -36,7 +38,7 @@ class Progress(object):
         self.run_time = time.time() - self.start_time
         if self.total_steps:
             if self.current_step > self.total_steps:
-                raise Exception("step > total_steps task=%s" % self.task_name)
+                log.exception("step > total_steps task=%s" % self.task_name)
             self.total_time = self.start_time + float(self.run_time)*self.current_step/self.total_steps
         if self.total_steps and self.current_step == self.total_steps:
             self.finish_task()
@@ -48,7 +50,7 @@ class Progress(object):
         self.run_subtime = time.time() - self.start_subtime
         if self.total_substeps:
             if self.current_substep > self.total_substeps:
-                raise Exception("substep > total_substeps subtask=%s" % self.subtask_name)
+                log.exception("substep > total_substeps subtask=%s" % self.subtask_name)
             self.total_subtime = self.start_subtime + float(self.run_subtime)*self.current_substep/self.total_substeps
         if self.total_substeps and self.current_substep == self.total_substeps:
             self.finish_subtask()
@@ -59,6 +61,7 @@ class Progress(object):
             self.step(self.total_steps - self.current_step )
         else:
             log.debug("Finished task: %s" % self.task_name)
+            self.task_is_complete = True
 
     def finish_subtask(self, step=1):
         if self.total_substeps and self.total_substeps > self.current_substep:

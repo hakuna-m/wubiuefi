@@ -67,6 +67,9 @@ class Wubi(object):
         self.backend.fetch_basic_info()
         self.select_task()
 
+    def on_quit(self):
+        sys.exit(0)
+
     def get_backend(self):
         '''
         Gets the appropriate backend for the system
@@ -93,11 +96,6 @@ class Wubi(object):
         '''
         self.frontend.quit()
 
-    def on_quit(self):
-        '''
-        Receives quit notification from frontend
-        '''
-
     def select_task(self):
         '''
         Selects the appropriate task to perform and runs it
@@ -122,7 +120,10 @@ class Wubi(object):
             self.run_uninstaller()
         log.info("Running the installer...")
         self.frontend = self.get_frontend()
-        self.frontend.run_installer()
+        settings = self.frontend.get_installer_settings()
+        log.info("Received settings %s" % settings)
+        self.frontend.show_progress(self.backend.install)
+        log.info("Finished installation")
 
     def run_uninstaller(self):
         '''

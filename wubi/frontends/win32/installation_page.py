@@ -20,8 +20,8 @@ class InstallationPage(Page):
         self.navigation.button2.on_click = self.on_install
         self.navigation.button1.on_click = self.on_accessibility
 
-    def on_install(self):
-        self.application.show_info_message("on_install")
-
     def on_accessibility(self):
         self.application.show_page(self.application.accessibility_page)
+
+    def on_install(self):
+        self.callback("ok")

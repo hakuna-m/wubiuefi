@@ -15,5 +15,6 @@ wubi (8.10) UNRELEASED; urgency=low
   * Refactored shared_backend.py into common/backend.py & friends
   * Added metalink parser
   * Removed testing metalink code
+  * Added progress page
 
- -- Agostino Russo <agostino.russo@gmail.com>  Tue, 12 Aug 2008 08:42:09 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Wed, 13 Aug 2008 09:20:41 +0100

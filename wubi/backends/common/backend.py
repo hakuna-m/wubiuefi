@@ -6,6 +6,7 @@ import os
 import locale
 import struct
 import logging
+import time
 from metalink import Metalink
 from progress import Progress
 log = logging.getLogger("CommonBackend")
@@ -50,12 +51,17 @@ class Backend(object):
         pass
 
     def install(self, progress_callback=None):
-        progress = Progress(task_name="Installing", total_steps=5)
+        progress = Progress(task_name="Installing", total_steps=5, callback=progress_callback)
         progress.subtask("Subtask 1")
+        time.sleep(1)
         progress.subtask("Subtask 2")
+        time.sleep(1)
         progress.subtask("Subtask 3")
+        time.sleep(1)
         progress.subtask("Subtask 4")
+        time.sleep(1)
         progress.subtask("Subtask 5")
+        time.sleep(1)
         progress.finish_subtask()
 
     def get_is_installed(self):

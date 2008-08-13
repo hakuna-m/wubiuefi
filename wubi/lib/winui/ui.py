@@ -207,6 +207,25 @@ class Window(BasicWindow):
         if not windll.user32.SetWindowTextW(self._hwnd, unicode(text)):
             raise WinError()
 
+    def set_font(self, family='Tahoma', size=13):
+        font = windll.gdi32.CreateFontW(
+            size, # height of font
+            0, # average character width
+            0, # angle of escapement
+            0, # base-line orientation angle
+            0, # font weight
+            0, # italic attribute option
+            0, # underline attribute option
+            0, # strikeout attribute option
+            0, # character set identifier
+            0, # output precision
+            0, # clipping precision
+            0, # output quality
+            0,#0x20, # pitch and family
+            unicode(family) #TEXT("Verdana") # typeface name
+            )
+        self._send_message(WM_SETFONT, font, True)
+
     def set_localized_text(self, text):
         text = gettext(text)
         self.set_text(text)
@@ -250,19 +269,24 @@ class Application(object):
             main_window_class = self._main_window_class_
         self.main_window = main_window_class(**kargs)
         self.on_init()
+        self.main_window.show()
 
     def run(self):
-        self.on_run()
-        self.main_window.show()
-        self._pump_messages()
-
-    def _pump_messages(self):
         msg = MSG()
         pMsg = pointer(msg)
-        while windll.user32.GetMessageW(pMsg, NULL, 0, 0):
+        self._keep_running = True
+        self.on_run()
+        while self._keep_running and windll.user32.GetMessageW(pMsg, NULL, 0, 0):
+            self.on_message()
             windll.user32.TranslateMessage(pMsg)
             windll.user32.DispatchMessageW(pMsg)
         return msg.wParam
+
+    def on_message(self):
+        pass
+
+    def stop(self):
+        self._keep_running = False
 
     def on_init(self):
         pass
@@ -272,6 +296,7 @@ class Application(object):
 
     def quit(self):
         windll.user32.DestroyWindow(self.main_window._hwnd)
+        self.on_quit()
 
     def on_quit(self):
         pass
@@ -326,12 +351,9 @@ class Widget(Window):
         pass
 
     def on_init(self):
-        font = windll.gdi32.CreateFontA(8, 0, 0, 0, FW_NORMAL, 0, 0, 0, 0, 0, 0, 0, 0, "Arial")
-        self._send_message(WM_SETFONT, 0, font)
+        self.set_font()
 
-
-
-class StaticWidget(Window):
+class StaticWidget(Widget):
     _window_class_name_ = "STATIC"
     _window_style_ = WS_CHILD | WS_VISIBLE
 
@@ -412,7 +434,7 @@ class CheckButton(Button):
 
 class Label(StaticWidget):
     _window_class_name_ = "Static"
-    _window_style_ = StaticWidget._window_style_|SS_SIMPLE
+    _window_style_ = StaticWidget._window_style_ | SS_SIMPLE | SS_NOPREFIX
 
 class Bitmap(Widget):
     _window_class_name_ = "Static"

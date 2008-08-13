@@ -1,6 +1,6 @@
 '''
 DESCRIPTION:
-Simple metalink parser, represents a metalink as nested python objects
+Simple metalink parser, represents a metalink file as nested python objects
 
 USAGE:
 metalink = Metalink(filename)
@@ -8,19 +8,6 @@ metalink = Metalink(filename)
 
 import xml.etree.ElementTree as ElementTree
 prefix = '{http://www.metalinker.org/}'
-
-def get_text(element, tag, default=None):
-    subelement = element.find(prefix + tag)
-    if subelement is not None:
-        return subelement.text
-    return default
-
-def get_subitems(element, tag, subtag):
-    subelement = element.find(prefix + tag)
-    if subelement is not None:
-        return subelement.findall(prefix + subtag)
-    else:
-        return []
 
 
 class Metalink(object):
@@ -41,6 +28,7 @@ class Metalink(object):
 
 
 class File(object):
+
     def __init__(self, file):
         self.name = file.get('name')
         self.size = long(get_text(file, 'size', 0))
@@ -68,3 +56,16 @@ class URL(object):
     def __str__(self):
         return "URL(%s)" % self.url
 
+
+def get_text(element, tag, default=None):
+    subelement = element.find(prefix + tag)
+    if subelement is not None:
+        return subelement.text
+    return default
+
+def get_subitems(element, tag, subtag):
+    subelement = element.find(prefix + tag)
+    if subelement is not None:
+        return subelement.findall(prefix + subtag)
+    else:
+        return []

@@ -43,6 +43,23 @@ class Page(ui.Page):
                 text = subtitle)
         self.header.height = hbh
 
+    def insert_main(self):
+        '''
+        Panel containing client widgets
+        '''
+        top = 0
+        height = self.height
+        if hasattr(self, "header"):
+            top += self.header.height
+            height -= self.header.height
+        elif hasattr(self, "navigation"):
+            height -= self.navigation.height
+        self.main = ui.Panel(
+            self,
+            0, top, self.width, height)
+        log.debug(str((0, top, self.width, height)))
+        self.main.height = height
+
     def insert_navigation(self, button1_text=None, button2_text=None, button3_text=None, default=None):
         '''
         Inserts navigation buttons starting from the leftmost button
@@ -68,4 +85,4 @@ class Page(ui.Page):
                 self.width -(nbw + 10) * n, 10, nbw, nbh,
                 text=text)
             setattr(self.navigation, "button%s" % ( i + 1), button)
-            self.height = nbh + 20
+            self.navigation.height = nbh + 20
