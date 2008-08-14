@@ -42,29 +42,31 @@ class Page(ui.Page):
                 hbw + 20, 30, self.width - 200, 20,
                 text = subtitle)
         self.header.height = hbh
+        #self.header.set_background_color(255,255,255)
 
     def insert_main(self):
         '''
         Panel containing client widgets
+        Inserts a control conatiner
+        appropriately resized to take care of header and footer
         '''
         top = 0
         height = self.height
         if hasattr(self, "header"):
             top += self.header.height
             height -= self.header.height
-        elif hasattr(self, "navigation"):
+        if hasattr(self, "navigation"):
             height -= self.navigation.height
         self.main = ui.Panel(
             self,
             0, top, self.width, height)
-        log.debug(str((0, top, self.width, height)))
         self.main.height = height
 
     def insert_navigation(self, button1_text=None, button2_text=None, button3_text=None, default=None):
         '''
         Inserts navigation buttons starting from the leftmost button
         '''
-        nbw = 100
+        nbw = 90
         nbh = 24
         self.navigation = ui.Panel(
             self,

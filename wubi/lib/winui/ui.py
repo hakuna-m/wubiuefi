@@ -150,6 +150,7 @@ class Window(BasicWindow):
     _repaint_on_move_ = False
 
     def __init__(self, parent=None, x=None, y=None, width=None, height=None, text=None, application=None):
+        self._gdi_disposables = []
         BasicWindow.__init__(self, parent, x, y, width, height, text, application)
 
     def get_window_rect(self):
@@ -207,28 +208,69 @@ class Window(BasicWindow):
         if not windll.user32.SetWindowTextW(self._hwnd, unicode(text)):
             raise WinError()
 
-    def set_font(self, family='Tahoma', size=13):
+    def set_font(self, family='Tahoma', size=13, bold=False):
+        weight = bold and FW_BOLD or FW_NORMAL
         font = windll.gdi32.CreateFontW(
             size, # height of font
             0, # average character width
             0, # angle of escapement
             0, # base-line orientation angle
-            0, # font weight
-            0, # italic attribute option
-            0, # underline attribute option
-            0, # strikeout attribute option
-            0, # character set identifier
-            0, # output precision
-            0, # clipping precision
-            0, # output quality
-            0,#0x20, # pitch and family
+            weight, # font weight
+            0, # FALSE italic attribute option
+            0, # FALSE underline attribute option
+            0, # FALSE strikeout attribute option
+            0, # DEFAULT_CHARSET character set identifier
+            0, # OUT_DEFAULT_PRECIS output precision
+            0, # CLIP_DEFAULT_PRECIS clipping precision
+            0, # NONANTIALIASED_QUALITY output quality
+            0, #0x20, DEFAULT_PITCH | FF_DONTCARE # pitch and family
             unicode(family) #TEXT("Verdana") # typeface name
             )
+        self._gdi_disposables.append(font)
         self._send_message(WM_SETFONT, font, True)
 
     def set_localized_text(self, text):
         text = gettext(text)
         self.set_text(text)
+
+    def set_background_color(self, red255=None, blue255=None, green255=None):
+        #~ windll.user32.SetClassLongW(self._hwnd, GCL_HBRBACKGROUND, COLOR_WINDOW+1)
+        '''
+        -1, -1, -1 = transparent
+        -2 = transparent
+        '''
+        if (red255, blue255, green255) == (None, None, None):
+            color = COLOR_WINDOW
+        else:
+            color = windll.gdi32.CreateSolidBrush(RGB(red255, blue255, green255))
+            self._gdi_disposables.append(color)
+        #NO SETS THE COLOR FOR ALL THE CLASS
+        windll.user32.SetClassLongW(self._hwnd, GCL_HBRBACKGROUND, color)#RGB(red255, blue255, green255))
+
+        #~ ps = PAINTSTRUCT()
+        #~ hdc = windll.user32.BeginPaint(self._hwnd, byref(ps))
+        #~ if (red255, blue255, green255) == (-1, -1, -1):
+            #~ windll.gdi32.SetBkMode(hdc, TRANSPARENT)
+        #~ else:
+            #~ windll.gdi32.SetBkMode(hdc, OPAQUE)
+            #~ windll.user32.SetClassLongW(self._hwnd, GCL_HBRBACKGROUND, RGB(red255, blue255, green255))
+        #~ windll.user32.EndPaint(self._hwnd, byref(ps))
+
+        #WM_CTLCOLORSTATIC (http://msdn.microsoft.com/library/en-us/shellcc/platform/commctls/staticcontrols/staticcontrolreference/staticcontrolmessages/wm_ctlcolorstatic.asp?frame=true)
+        #~ HBRUSH hBackground = CreateSolidBrush(RGB(0, 0, 0));
+        #~ case WM_CTLCOLORSTATIC:
+        #~ {
+        #~ HDC hdc = (HDC)wParam;
+        #~ SetBkMode(hdc, TRANSPARENT);
+        #~ SetTextColor(hdc, RGB(255, 255, 255));
+        #~ return (LONG) hBackground;
+        #~ }
+
+    def set_text_color(self, red255, blue255, green255):
+        ps = PAINTSTRUCT()
+        hdc = windll.user32.BeginPaint(self._hwnd, byref(ps))
+        windll.gdi32.SetTextColor(hdc, COLOR_WINDOW+1)
+        windll.user32.EndPaint(self._hwnd, byref(ps))
 
     def stop_redraw(self):
         self._send_message(WM_SETREDRAW, False, 0)
@@ -243,6 +285,8 @@ class Window(BasicWindow):
 
     @event_handler(message=WM_DESTROY, hwnd=SELF_HWND)
     def _on_destroy(self, event):
+        for x in self._gdi_disposables:
+            windll.gdi32.DeleteObject(x)
         self.on_destroy()
 
     @event_handler(message=WM_PAINT, hwnd=SELF_HWND)
@@ -276,17 +320,15 @@ class Application(object):
         pMsg = pointer(msg)
         self._keep_running = True
         self.on_run()
-        while self._keep_running and windll.user32.GetMessageW(pMsg, NULL, 0, 0):
-            self.on_message()
+        while self._keep_running and windll.user32.GetMessageW(pMsg, NULL, 0, 0) > 0:
             windll.user32.TranslateMessage(pMsg)
             windll.user32.DispatchMessageW(pMsg)
         return msg.wParam
 
-    def on_message(self):
-        pass
-
     def stop(self):
         self._keep_running = False
+        #Post a message to unblock GetMessageW
+        windll.user32.PostMessageW(self.main_window._hwnd,WM_NULL, 0, 0)
 
     def on_init(self):
         pass
@@ -295,7 +337,17 @@ class Application(object):
         pass
 
     def quit(self):
+        '''
+       Destroys the main window, which in turn calls _quit
+        '''
         windll.user32.DestroyWindow(self.main_window._hwnd)
+
+    def _quit(self):
+        '''
+        Really quit anything on the windows side, this is called by MainWindow.on_destroy
+        '''
+        windll.user32.PostQuitMessage(0)
+        self.run() #process any remaining message
         self.on_quit()
 
     def on_quit(self):
@@ -325,11 +377,10 @@ class MainWindow(Window):
     _window_style_ = WS_OVERLAPPEDWINDOW
 
     def on_destroy(self):
-        windll.user32.PostQuitMessage(0)
-        self.application.on_quit()
+        self.application._quit()
 
     def __del__(self):
-        self.application.on_quitt()
+        self.application._quit()
 
 class MainDialogWindow(MainWindow):
     '''
@@ -443,12 +494,8 @@ class Bitmap(Widget):
     def set_image(self, path, width=0, height=0):
         path = unicode(path)
         himage = windll.user32.LoadImageW(NULL, path, IMAGE_BITMAP, width, height, LR_LOADFROMFILE);
+        self._gdi_disposables.append(himage)
         test = self._send_message(STM_SETIMAGE, IMAGE_BITMAP, himage)
-
-    def on_destroy(self):
-        pass
-        #TBD Free resources
-        #windll.user32.DeleteObject(himage)???
 
 class Icon(StaticWidget):
     _window_class_name_ = "Static"

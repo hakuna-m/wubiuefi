@@ -16,5 +16,7 @@ wubi (8.10) UNRELEASED; urgency=low
   * Added metalink parser
   * Removed testing metalink code
   * Added progress page
+  * Improved quit mechanism
+  * Added tasklist as a more general replacement of the progress object
 
- -- Agostino Russo <agostino.russo@gmail.com>  Wed, 13 Aug 2008 09:20:41 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Thu, 14 Aug 2008 08:30:02 +0100

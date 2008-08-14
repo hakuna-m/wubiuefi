@@ -15,6 +15,7 @@ class WindowsFrontend(ui.Application):
         self.controller = controller
         self.info = controller.info
         self.current_page = None
+        kargs["text"] = "app title"
         ui.Application.__init__(self, *args, **kargs)
 
     def cancel(self):
@@ -22,11 +23,15 @@ class WindowsFrontend(ui.Application):
             self.quit()
 
     def on_quit(self):
+        log.debug("frontend on_quit...")
+        if hasattr(self, "tasklist") and self.tasklist:
+            log.debug("stopping background task")
+            self.tasklist.stop()
         self.controller.on_quit()
 
     def on_init(self):
         log.debug("on_init...")
-        self.main_window.resize(506,386)
+        self.main_window.resize(504,386)
         self.installation_page = InstallationPage(self.main_window)
         self.accessibility_page = AccessibilityPage(self.main_window)
         self.progress_page = ProgressPage(self.main_window)
@@ -44,7 +49,7 @@ class WindowsFrontend(ui.Application):
         self.show_page(self.installation_page)
         self.run()
 
-    def get_installer_settings(self):
+    def get_installation_settings(self):
         def on_ok(settings):
             self.installation_settings = settings
             self.stop()
@@ -56,11 +61,10 @@ class WindowsFrontend(ui.Application):
         self.run()
         return self.installation_settings
 
-    def show_progress(self, backend_task):
-        def target():
-            backend_task(self.progress_page.on_progress)
+    def run_tasks(self, tasklist):
         self.progress_page = ProgressPage(self.main_window)
         self.show_page(self.progress_page)
-        thread = threading.Thread(target=target)
-        thread.start()
-        self.run()
+        tasklist.on_progress_callback = self.progress_page.on_progress
+        self.tasklist = tasklist
+        tasklist.start()
+        self.run() #will be stopped by self.progress_page.on_progress

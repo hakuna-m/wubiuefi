@@ -26,14 +26,11 @@ class ProgressPage(Page):
         self.main.subtask_label = ui.Label(self.main, 20, 60, self.width - 200, 20)
         self.main.subprogressbar = ui.ProgressBar(self.main, 20, 80, self.width - 200, 20)
 
-    def set_backend_task(self, backend_task):
-        self.backend_task = backend_task
-
-    def on_progress(self, progress):
-        self.main.task_label.set_text(progress.task_name)
-        self.main.progressbar.set_position(progress.total_steps and int(100.0*progress.current_step/progress.total_steps) or 0)
-        self.main.subtask_label.set_text(progress.subtask_name)
-        self.main.subprogressbar.set_position(progress.total_substeps and int(100.0*progress.current_substep/progress.total_substeps) or 0)
-        if progress.task_is_complete:
+    def on_progress(self, task):
+        self.main.task_label.set_text(task.name)
+        self.main.progressbar.set_position(int(100.0*task.task_progress))
+        self.main.subtask_label.set_text(task.current_subtask_name)
+        self.main.subprogressbar.set_position(int(100.0*task.total_progress))
+        if task.is_finished:
             self.main.progressbar.set_position(100)
             self.application.stop()

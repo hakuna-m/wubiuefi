@@ -19,21 +19,23 @@ class AccessibilityPage(Page):
         self.navigation.button2.on_click = self.application.cancel
         self.navigation.button1.on_click = self.on_next
 
+        #Main control container
+        self.insert_main()
+
         #visibility aids
-        top = self.header.height
-        self.visibility_group = ui.GroupBox(self, 10, top + 10, 130, 120, text="Visibility Aids")
-        self.visibility1_button = ui.RadioButton(self, 30, top + 30, 108, 20, text = "Visibility1")
-        self.visibility2_button = ui.RadioButton(self, 30, top + 50, 108, 20, text = "Visibility2")
-        self.visibility3_button = ui.RadioButton(self, 30, top + 70, 108, 20, text = "Visibility3")
-        self.braille_button = ui.RadioButton(self, 30, top + 90, 108, 20, text = "Braille")
+        self.main.visibility_group = ui.GroupBox(self.main, 10, 10, 130, 120, text="Visibility Aids")
+        self.main.visibility1_button = ui.RadioButton(self.main, 30, 30, 108, 20, text = "Visibility1")
+        self.main.visibility2_button = ui.RadioButton(self.main, 30, 50, 108, 20, text = "Visibility2")
+        self.main.visibility3_button = ui.RadioButton(self.main, 30, 70, 108, 20, text = "Visibility3")
+        self.main.braille_button = ui.RadioButton(self.main, 30, 90, 108, 20, text = "Braille")
 
         #mobility aids
-        self.mobility_group = ui.GroupBox(self, 160, top + 10, 130, 70, text="Mobility Aids")
-        self.mobility1_button = ui.RadioButton(self, 180, top + 30, 108, 20, text = "Mobility1")
-        self.mobility2_button = ui.RadioButton(self, 180, top + 50, 108, 20, text = "Mobility2")
+        self.main.mobility_group = ui.GroupBox(self.main, 160, 10, 130, 70, text="Mobility Aids")
+        self.main.mobility1_button = ui.RadioButton(self.main, 180, 30, 108, 20, text = "Mobility1")
+        self.main.mobility2_button = ui.RadioButton(self.main, 180, 50, 108, 20, text = "Mobility2")
 
         #no aids
-        self.no_aids_button = ui.RadioButton(self, 180, top + 90, 108, 20, text="None")
+        self.main.no_aids_button = ui.RadioButton(self.main, 180, 90, 108, 20, text="None")
 
 
     def on_next(self):

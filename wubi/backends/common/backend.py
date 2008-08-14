@@ -8,7 +8,7 @@ import struct
 import logging
 import time
 from metalink import Metalink
-from progress import Progress
+from tasklist import ThreadedTaskList
 log = logging.getLogger("CommonBackend")
 
 class Backend(object):
@@ -24,45 +24,38 @@ class Backend(object):
         '''
         Basic information required by the application dispatcher select_task()
         '''
-        progress = Progress(task_name="Gathering basic information", total_steps=4)
-        progress.subtask("Detect basic info")
         self.info.exedir = os.path.abspath(os.path.dirname(sys.argv[0]))
         self.info.platform = sys.platform
         self.info.osname = os.name
         self.info.language, self.info.encoding = locale.getdefaultlocale()
         self.info.environment_variables = os.environ
-        progress.subtask("Detect arch")
         self.info.arch = struct.calcsize('P') == 8 and 64 or 32  #TBD detects python/os arch not processor arch
-        progress.subtask("Detect if installed")
         self.info.is_installed = self.get_is_installed()
-        progress.subtask("Detect running mode")
         self.info.is_running_from_cd = self.get_is_running_from_cd()
 
-    def fetch_installer_info(self, progress_callback=None):
+    def fetch_installer_info(self):
         '''
         Fetch information required by the installer
         '''
-        progress = Progress(task_name="Gathering information", total_steps=1)
-        progress.subtask("Detecting system information")
         self.fetch_system_info()
-        progress.finish_subtask()
 
     def fetch_system_info(self):
         pass
 
-    def install(self, progress_callback=None):
-        progress = Progress(task_name="Installing", total_steps=5, callback=progress_callback)
-        progress.subtask("Subtask 1")
+    def dummy_function(self):
         time.sleep(1)
-        progress.subtask("Subtask 2")
-        time.sleep(1)
-        progress.subtask("Subtask 3")
-        time.sleep(1)
-        progress.subtask("Subtask 4")
-        time.sleep(1)
-        progress.subtask("Subtask 5")
-        time.sleep(1)
-        progress.finish_subtask()
+
+    def get_installation_tasklist(self):
+        f = self.dummy_function
+        tasks = [
+            ("task 1", f),
+            ("task 2", f),
+            ("task 3", f),
+            ("task 4", f),
+            ("task 5", f),
+        ]
+        tasklist = ThreadedTaskList("Installing", tasks=tasks)
+        return tasklist
 
     def get_is_installed(self):
         '''

@@ -1,6 +1,6 @@
 import ui
 from wizard import Wizard
-            
+
 class Page1(Wizard.Page):
     def on_init(self):
         self.add_navigation_buttons()
@@ -35,7 +35,7 @@ class Page2(Wizard.Page):
         self.bitmap.set_image(r"c:\path\to\bmp")
         self.pb.on_change = self.pb_change
         self.pbpos = ui.Label(self, 110, 100, 200, 20, "pos")
-        
+
     def pb_change(self):
         pos = self.pb.get_position()
         self.pbpos.set_text(str(pos))
@@ -45,7 +45,7 @@ class Page2(Wizard.Page):
 
     def on_click(self):
         self.hide()
-        self.parent.page1.show()
+        self.application.show_previous_page()
 
 class Page3(Wizard.Page):
     def on_init(self):
