@@ -10,7 +10,7 @@ class InstallationPage(Page):
     def add_controls_block(self, parent, left, top, bmp, label, listitems=None):
         picture = ui.Bitmap(
             parent,
-            left, top, 32, 32)
+            left, top + 6, 32, 32)
         picture.set_image(
             os.path.join(self.application.info.imagedir, bmp))
         label = ui.Label(
@@ -21,10 +21,9 @@ class InstallationPage(Page):
             combo = ui.ComboBox(
                 parent,
                 left + 32 + 10, top + 20, 150, 200,
-                "")
+                listitems[0])
             for item in listitems:
                 combo.add_item(item)
-            combo.set_text(listitems[0])
         else:
             combo = None
         return picture, label, combo
@@ -84,13 +83,14 @@ class InstallationPage(Page):
         picture, label, combo = self.add_controls_block(
             self.main, h*4 + w, h*7,
             "lock.bmp", "Password:", None)
+        label.move(h*4 + w + 42, h*7 - 24)
         self.password1 = ui.Edit(
             self.main,
-            h*4 + w + 42, h*7+20, 150, 20,
+            h*4 + w + 42, h*7-4, 150, 20,
             "enter password")
         self.passowrd2 = ui.Edit(
             self.main,
-            h*4 + w + 42, h*7+44, 150, 20,
+            h*4 + w + 42, h*7+20, 150, 20,
             "repeat password")
 
 

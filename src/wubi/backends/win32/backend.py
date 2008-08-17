@@ -15,6 +15,7 @@ import sys
 import os
 import _winreg
 import subprocess
+import ctypes
 #import platform
 from drive import Drive
 from registry import get_registry_value
@@ -155,6 +156,14 @@ class WindowsBackend(Backend):
         log.debug("is_running_from_cd=%s" % is_running_from_cd)
         return is_running_from_cd
 
+    def get_windows_language_code(self):
+        windows_language_code = self.get_registry_value(
+                "HKEY_CURRENT_USER",
+                "\\Control Panel\\International",
+                "sLanguage")
+        log.debug("windows_language_code=%s" % windows_language_code)
+        return windows_language_code
+
     def get_locale(self, language_country):
         locale = lang_country2linux_locale.get(language_country, None)
         if not locale:
@@ -171,6 +180,28 @@ class WindowsBackend(Backend):
         windows_username = os.getenv("username")
         log.debug("windows_username=%s" % windows_username)
         return windows_username
+
+    def get_keyboard_layout(self):
+        keyboard_layout = ctypes.windll.user32.GetKeyboardLayout(0)
+        log.debug("keyboard_layout=%s" % keyboard_layout)
+        return keyboard_layout
+
+        #~ lower word is the locale identifier (higher word is a handler to the actual layout)
+        #~ IntOp $hkl $0 & 0xFFFFFFFF
+        #~ IntFmt $hkl "0x%08X" $hkl
+        #~ IntOp $localeid $0 & 0x0000FFFF
+        #~ IntFmt $localeid "0x%04X" $localeid
+        #~ ReadINIStr $layoutcode $PLUGINSDIR\data\keymaps.ini "keymaps" "$localeid"
+        #~ ReadINIStr $keyboardvariant $PLUGINSDIR\data\variants.ini "hkl2variant" "$hkl"
+        #~ #${debug} "hkl=$hkl, localeid=$localeid, layoutcode=$layoutcode, keyboardvariant=$keyboardvariant"
+        #~ ${if} "$layoutcode" != ""
+        #~ return
+        #~ ${endif}
+        #~ safetynet:
+        #~ StrCpy $layoutcode "$country"
+        #~ ${StrFilter} "$layoutcode" "-" "" "" "$layoutcode" #lowercase
+        #~ ${debug} "LayoutCode=$LayoutCode"
+
 
     def get_system_drive(self):
         system_drive = os.getenv("SystemDrive")
@@ -189,6 +220,8 @@ class WindowsBackend(Backend):
         self.info.windows_sp = self.get_windows_sp()
         self.info.windows_build = self.get_windows_build()
         self.info.windows_username = self.get_windows_username()
+        #~ self.info.windows_language_code = self.get_windows_language_code()
+        self.info.keyboard_layout = self.get_keyboard_layout()
         self.info.processor_name = self.get_processor_name()
         self.info.bootloader = self.get_bootloader(self.info.windows_version)
         self.info.total_memory_mb = self.get_total_memory_mb()

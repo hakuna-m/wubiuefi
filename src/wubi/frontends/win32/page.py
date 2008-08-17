@@ -24,7 +24,7 @@ class Page(ui.Page):
         hbw = 150
         self.header = ui.Panel(
             self,
-            0, 0 , self.width, hbh)
+            0, 0 , self.width, hbh+2)
         if bmp_file:
             self.header.image = ui.Bitmap(
                 self.header,
@@ -36,13 +36,17 @@ class Page(ui.Page):
                 self.header,
                 hbw + 20, 10, self.width - 200, 20,
                 text = title)
+            self.header.title.set_font(bold=True)
+            self.header.title.set_background_color(255,255,255)
         if subtitle:
             self.header.subtitle = ui.Label(
                 self.header,
                 hbw + 20, 30, self.width - 200, 20,
                 text = subtitle)
-        self.header.height = hbh
-        #self.header.set_background_color(255,255,255)
+            self.header.subtitle.set_background_color(255,255,255)
+        self.header.line = ui.EtchedRectangle(self.header,0, hbh,self.width, 2)
+        self.header.height = hbh + 2
+        self.header.set_background_color(255,255,255)
 
     def insert_main(self):
         '''
@@ -68,9 +72,20 @@ class Page(ui.Page):
         '''
         nbw = 90
         nbh = 24
+
         self.navigation = ui.Panel(
             self,
-            0, self.height - nbh - 20, self.width, nbh + 20)
+            0, self.height - nbh - 10 -18 , self.width, nbh + 28)
+
+        self.revision_label = ui.Label(
+            self.navigation,
+            10, 0, 40, 20,
+            "Rev %s" % self.application.info.revision)
+        self.revision_label.disable()
+
+        self.line = ui.EtchedRectangle(
+            self.navigation,
+            50, 6,self.width - 60, 2)
 
         for i,text in enumerate((button1_text, button2_text, button3_text)):
             if not text: continue
@@ -84,7 +99,7 @@ class Page(ui.Page):
                     n += 1
             button = Button(
                 self.navigation,
-                self.width -(nbw + 10) * n, 10, nbw, nbh,
+                self.width -(nbw + 10) * n, 18, nbw, nbh,
                 text=text)
             setattr(self.navigation, "button%s" % ( i + 1), button)
-            self.navigation.height = nbh + 20
+            self.navigation.height = nbh + 28

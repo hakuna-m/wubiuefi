@@ -152,6 +152,7 @@ class Window(BasicWindow):
     def __init__(self, parent=None, x=None, y=None, width=None, height=None, text=None, application=None):
         self._gdi_disposables = []
         BasicWindow.__init__(self, parent, x, y, width, height, text, application)
+        self._background_color = None
 
     def get_window_rect(self):
         rect = RECT()
@@ -181,10 +182,16 @@ class Window(BasicWindow):
         self.update()
 
     def enable(self):
-        pass
+        if not windll.user32.EnableWindow(self._hwnd, True):
+            #raise WinError()
+            pass
+        self.update()
 
     def disable(self):
-        pass
+        if not windll.user32.EnableWindow(self._hwnd, False):
+            #raise WinError()
+            pass
+        self.update()
 
     def hide(self):
         if not windll.user32.ShowWindow(self._hwnd, SW_HIDE):
@@ -240,12 +247,12 @@ class Window(BasicWindow):
         -2 = transparent
         '''
         if (red255, blue255, green255) == (None, None, None):
-            color = COLOR_WINDOW
+            self._background_color = None #COLOR_WINDOW
         else:
-            color = windll.gdi32.CreateSolidBrush(RGB(red255, blue255, green255))
-            self._gdi_disposables.append(color)
+            self._background_color = windll.gdi32.CreateSolidBrush(RGB(red255, blue255, green255))
+            self._gdi_disposables.append(self._background_color)
         #NO SETS THE COLOR FOR ALL THE CLASS
-        windll.user32.SetClassLongW(self._hwnd, GCL_HBRBACKGROUND, color)#RGB(red255, blue255, green255))
+        # windll.user32.SetClassLongW(self._hwnd, GCL_HBRBACKGROUND, color)#RGB(red255, blue255, green255))
 
         #~ ps = PAINTSTRUCT()
         #~ hdc = windll.user32.BeginPaint(self._hwnd, byref(ps))
@@ -265,6 +272,7 @@ class Window(BasicWindow):
         #~ SetTextColor(hdc, RGB(255, 255, 255));
         #~ return (LONG) hBackground;
         #~ }
+
 
     def set_text_color(self, red255, blue255, green255):
         ps = PAINTSTRUCT()
@@ -291,6 +299,13 @@ class Window(BasicWindow):
 
     @event_handler(message=WM_PAINT, hwnd=SELF_HWND)
     def _on_paint(self, event):
+        if self._background_color:
+            ps = PAINTSTRUCT()
+            rect = RECT()
+            windll.user32.GetClientRect(self._hwnd, byref(rect))
+            hdc = windll.user32.BeginPaint(self._hwnd, byref(ps))
+            windll.user32.FillRect(hdc, byref(rect), self._background_color);
+            windll.user32.EndPaint(self._hwnd, byref(ps))
         self.on_paint()
 
     def on_paint(self):
@@ -408,6 +423,10 @@ class StaticWidget(Widget):
     _window_class_name_ = "STATIC"
     _window_style_ = WS_CHILD | WS_VISIBLE
 
+class EtchedRectangle(Widget):
+    _window_class_name_ = "STATIC"
+    _window_style_ = WS_CHILD | WS_VISIBLE | SS_ETCHEDFRAME
+
 class Panel(Window):
     _window_class_name_ = None
     _window_style_ = WS_CHILD | WS_VISIBLE
@@ -492,7 +511,7 @@ class CheckButton(Button):
 
 class Label(StaticWidget):
     _window_class_name_ = "Static"
-    _window_style_ = StaticWidget._window_style_ | SS_SIMPLE | SS_NOPREFIX
+    _window_style_ = StaticWidget._window_style_ | SS_NOPREFIX
 
 class Bitmap(Widget):
     _window_class_name_ = "Static"
@@ -502,11 +521,18 @@ class Bitmap(Widget):
         path = unicode(path)
         himage = windll.user32.LoadImageW(NULL, path, IMAGE_BITMAP, width, height, LR_LOADFROMFILE);
         self._gdi_disposables.append(himage)
-        test = self._send_message(STM_SETIMAGE, IMAGE_BITMAP, himage)
+        self._send_message(STM_SETIMAGE, IMAGE_BITMAP, himage)
 
 class Icon(StaticWidget):
     _window_class_name_ = "Static"
     _window_style_ = StaticWidget._window_style_|SS_ICON
+
+
+    def set_image(self, path, width=0, height=0):
+        path = unicode(path)
+        himage = windll.user32.LoadImageW(NULL, path, IMAGE_ICON, width, height, LR_LOADFROMFILE);
+        self._gdi_disposables.append(himage)
+        self._send_message(STM_SETIMAGE, IMAGE_ICON, himage)
 
 class ProgressBar(Widget):
     _window_class_name_ = "msctls_progress32"

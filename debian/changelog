@@ -29,5 +29,6 @@ wubi (8.10) UNRELEASED; urgency=low
   [ Agostino Russo ]
   * Added windows system info detection
   * Added installation page (partially implemented)
+  * Minor GUI layout changes
 
- -- Agostino Russo <agostino.russo@gmail.com>  Sun, 17 Aug 2008 18:50:39 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Mon, 18 Aug 2008 00:06:02 +0100

@@ -38,7 +38,7 @@ class AccessibilityPage(Page):
         self.main.mobility2_button = ui.RadioButton(self.main, w+h*5, h*3, w, h, text = "Mobility2")
 
         #no aids
-        self.main.no_aids_button = ui.RadioButton(self.main, w+h*5, h*5, w, 20, text="None")
+        self.main.no_aids_button = ui.RadioButton(self.main, w+h*5, h*5 + 6, w, 20, text="None")
         self.main.no_aids_button.set_check(True)
 
     def on_next(self):

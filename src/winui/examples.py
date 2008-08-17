@@ -8,6 +8,8 @@ class Page1(Wizard.Page):
         self.button2 = ui.DefaultButton(self, 10 , 200, 100, 100, text="cancel")
         self.button2.on_click = self.button2_click
         self.button2.set_text("hola")
+        self.r = ui.EtchedRectangle(self,100,10, 200, 2)
+
 
     def button2_click(self):
         self.hide()
