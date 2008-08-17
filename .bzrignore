@@ -1,6 +1,6 @@
 wine.old
 old
-wine
+./wine
 src/pyinstaller
 buildpyinstaller
 src/urlgrabber

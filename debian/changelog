@@ -23,5 +23,7 @@ wubi (8.10) UNRELEASED; urgency=low
 
   [ Hampus Wessman ]
   * Added a new metalink parser
+  * Fixed the check for wine so that it looks in additonal places
+  * Added tools/wine to the branch
 
- -- Hampus Wessman <hw@vox.nu>  Sun, 17 Aug 2008 17:45:05 +0100
+ -- Hampus Wessman <hw@vox.nu>  Sun, 17 Aug 2008 18:08:43 +0100

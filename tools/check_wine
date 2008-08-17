@@ -8,7 +8,7 @@ root="$(cd ${0%/*}/../;pwd)"
 export WINEPREFIX="$root"/wine
 toolsdir="$root/tools"
 
-if [ ! -x /usr/bin/wine ]; then
+if [ ! -x /usr/bin/wine -a ! -x /usr/local/bin/wine ]; then
     echo "Could not find wine, please install it"
     exit 1
 fi
