@@ -1,4 +1,4 @@
-from lib.winui import ui
+from winui import ui
 from page import Page
 import logging
 log = logging.getLogger("WinuiInstallationPage")

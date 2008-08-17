@@ -1,0 +1,49 @@
+#!/bin/sh
+
+pythonurl="http://www.python.org/ftp/python/2.5.2/python-2.5.2.msi"
+pywinurl="http://downloads.sourceforge.net/pywin32/pywin32-212.win32-py2.5.exe"
+upxurl="http://upx.sourceforge.net/download/upx303w.zip"
+
+root="$(cd ${0%/*}/../;pwd)"
+export WINEPREFIX="$root"/wine
+toolsdir="$root/tools"
+
+if [ ! -x /usr/bin/wine ]; then
+    echo "Could not find wine, please install it"
+    exit 1
+fi
+
+install_upx(){
+	echo "Installing upx..."
+	wget -P /tmp "$upxurl"
+	fname="/tmp/${upxurl##*/}"
+	unzip "$fname" -d /tmp
+	cp "${fname%.*}/upx.exe" "$root/wine/drive_c/windows/upx.exe"
+}
+
+install_wine(){
+	echo "Creating wine folder..."
+	#wineprefixcreate --prefix "$WINEPREFIX"
+}
+
+install_python(){
+	wget -P /tmp "$pythonurl"
+    wine msiexec /i /tmp/${pythonurl##*/} /qb /ADDLOCAL=DefaultFeature /ALLUSERS=1
+}
+
+install_pywin(){
+	echo "Installing pywin..."
+	wget -P /tmp "$pywinurl"
+    wine "/tmp/${pywinurl##*/}"
+}
+
+make_wine(){
+	install_wine
+	install_python
+	#install_pywin
+	install_upx
+}
+
+if [ ! -e "$root/wine" ]; then
+	make_wine
+fi

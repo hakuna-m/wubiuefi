@@ -54,9 +54,9 @@ class Wubi(object):
         self.info.application_name = _application_name_
         self.info.full_application_name = "%s-%s-rev%s" % (self.info.application_name, self.info.version, self.info.revision)
         self.info.full_version = "%s %s rev%s" % (self.info.application_name, self.info.version, self.info.revision)
-        self.info.exedir = os.path.abspath(os.path.dirname(__file__))
-        self.info.datadir = os.path.join(os.path.dirname(self.info.exedir), "data")
-        self.info.imagedir = os.path.join(self.info.datadir, "images")
+        self.info.exedir = "." #os.path.abspath(os.path.dirname(__file__))
+        self.info.datadir = "data" #os.path.join(os.path.dirname(self.info.exedir), "data")
+        self.info.imagedir = "data/images" #os.path.join(self.info.datadir, "images")
 
     def run(self):
         self.parse_commandline_arguments()

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+urlgrabber_url="http://linux.duke.edu/projects/urlgrabber/download/urlgrabber-3.1.0.tar.gz"
+
+root="$(cd ${0%/*}/../;pwd)"
+
+install_urlgrabber(){
+    echo "Installing urlgrabber sources..."
+	wget -P /tmp "$urlgrabber_url"
+	fname="${urlgrabber_url##*/}"
+	tar -xzvf "/tmp/$fname" -C "/tmp"
+	cp -a /tmp/urlgrabber*/urlgrabber "$root/src/"
+}
+
+if [ ! -d "$root/src/urlgrabber" ]; then
+	install_urlgrabber
+fi

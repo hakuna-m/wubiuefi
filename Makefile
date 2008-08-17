@@ -4,12 +4,16 @@ PYWINE = tools/pywine
 all: build
 
 build:
-	$(PYTHON) setup.py build_ext -i
+	tools/pyinstaller_build pyinstaller.spec
+#setup.py build_ext -i
 
 test: build
-	$(PYTHON) tools/test
+	tools/wine wubi.exe -v
 
-run_win32:
-	$(PYWINE) wubi/wubi.py -v
+unittest:
+	$(pywine) tools/test
+
+run:
+	PYTHONPATH=src $(PYWINE) src/wubi/wubi.py -v
 
 .PHONY: all build test

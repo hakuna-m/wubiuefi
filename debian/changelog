@@ -18,5 +18,6 @@ wubi (8.10) UNRELEASED; urgency=low
   * Added progress page
   * Improved quit mechanism
   * Added tasklist as a more general replacement of the progress object
+  * Revised tool scripts
 
- -- Agostino Russo <agostino.russo@gmail.com>  Thu, 14 Aug 2008 08:30:02 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Sun, 17 Aug 2008 12:52:15 +0100

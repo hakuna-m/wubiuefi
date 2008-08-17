@@ -1,4 +1,4 @@
-from lib.winui import ui
+from winui import ui
 from installation_page import InstallationPage
 from accessibility_page import AccessibilityPage
 from progress_page import ProgressPage
