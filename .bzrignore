@@ -1,8 +1,8 @@
-wine.old
-old
-./wine
-src/pyinstaller
-buildpyinstaller
-src/urlgrabber
+/old
+/wine
+/src/pyinstaller
+/buildpyinstaller
+/src/urlgrabber
+/dist*
 wubi.exe
 warnpyinstaller.txt

@@ -23,20 +23,23 @@ class AccessibilityPage(Page):
         self.insert_main()
 
         #visibility aids
-        self.main.visibility_group = ui.GroupBox(self.main, 10, 10, 130, 120, text="Visibility Aids")
-        self.main.visibility1_button = ui.RadioButton(self.main, 30, 30, 108, 20, text = "Visibility1")
-        self.main.visibility2_button = ui.RadioButton(self.main, 30, 50, 108, 20, text = "Visibility2")
-        self.main.visibility3_button = ui.RadioButton(self.main, 30, 70, 108, 20, text = "Visibility3")
-        self.main.braille_button = ui.RadioButton(self.main, 30, 90, 108, 20, text = "Braille")
+        h=30
+        w = (self.width - h*7)/2
+
+        self.main.visibility_group = ui.GroupBox(self.main, h, h*1, w+h*2, h*6 - 10, text="Visibility Aids")
+        self.main.visibility1_button = ui.RadioButton(self.main, h*2, h*2, w, h, text = "Visibility1")
+        self.main.visibility2_button = ui.RadioButton(self.main, h*2, h*3, w, h, text = "Visibility2")
+        self.main.visibility3_button = ui.RadioButton(self.main, h*2, h*4, w, h, text = "Visibility3")
+        self.main.braille_button = ui.RadioButton(self.main, h*2,  h*5, w, h, text = "Braille")
 
         #mobility aids
-        self.main.mobility_group = ui.GroupBox(self.main, 160, 10, 130, 70, text="Mobility Aids")
-        self.main.mobility1_button = ui.RadioButton(self.main, 180, 30, 108, 20, text = "Mobility1")
-        self.main.mobility2_button = ui.RadioButton(self.main, 180, 50, 108, 20, text = "Mobility2")
+        self.main.mobility_group = ui.GroupBox(self.main, w+h*4, h*1, w+h*2, h*4 - 10, text="Mobility Aids")
+        self.main.mobility1_button = ui.RadioButton(self.main, w+h*5, h*2, w, h, text = "Mobility1")
+        self.main.mobility2_button = ui.RadioButton(self.main, w+h*5, h*3, w, h, text = "Mobility2")
 
         #no aids
-        self.main.no_aids_button = ui.RadioButton(self.main, 180, 90, 108, 20, text="None")
-
+        self.main.no_aids_button = ui.RadioButton(self.main, w+h*5, h*5, w, 20, text="None")
+        self.main.no_aids_button.set_check(True)
 
     def on_next(self):
         self.application.show_page(self.application.installation_page)

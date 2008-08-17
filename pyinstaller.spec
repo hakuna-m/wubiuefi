@@ -9,7 +9,7 @@ a = Analysis([
 
 exluded_binaries = [
     ('_ssl','',''),
-    ('_socket','',''),
+    #~ ('_socket','',''),
     ('bz2','',''),
     ('pyexpat','',''),
     ('select','',''),
@@ -25,7 +25,7 @@ exe = EXE(
     pyz,
     a.scripts,
     a.binaries - exluded_binaries,
-    name="wubi.exe",
+    name="dist\\wubi.exe",
     upx=True,
     #~ strip=True, #causes breakage in 2.4
     icon='data\\images\\Ubuntu.ico',

@@ -26,4 +26,8 @@ wubi (8.10) UNRELEASED; urgency=low
   * Fixed the check for wine so that it looks in additonal places
   * Added tools/wine to the branch
 
- -- Hampus Wessman <hw@vox.nu>  Sun, 17 Aug 2008 18:08:43 +0100
+  [ Agostino Russo ]
+  * Added windows system info detection
+  * Added installation page (partially implemented)
+
+ -- Agostino Russo <agostino.russo@gmail.com>  Sun, 17 Aug 2008 18:50:39 +0100

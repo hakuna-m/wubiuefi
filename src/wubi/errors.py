@@ -1,0 +1,2 @@
+class WubiError(Exception):
+    pass

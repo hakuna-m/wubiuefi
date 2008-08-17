@@ -465,6 +465,13 @@ class Button(Widget):
         value = self._send_message(BM_GETCHECK, 0, 0)
         return value == BST_CHECKED
 
+    def set_check(self, value):
+        if value:
+            value = BST_CHECKED
+        else:
+            value = BST_UNCHECKED
+        self._send_message(BM_SETCHECK, value, 0)
+
     def on_click(self):
         pass
 

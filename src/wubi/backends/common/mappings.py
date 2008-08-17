@@ -55,7 +55,7 @@ name2country  = {
     "Congo, the Democratic Republic of the" : "CD",
     "Cook Islands" : "CK",
     "Costa Rica" : "CR",
-    "Côte d'Ivoire" : "CI",
+    "Cote d'Ivoire" : "CI",
     "Croatia" : "HR",
     "Cuba" : "CU",
     "Cyprus" : "CY",
@@ -180,7 +180,7 @@ name2country  = {
     "Portugal" : "PT",
     "Puerto Rico" : "PR",
     "Qatar" : "QA",
-    "Réunion" : "RE",
+    "Reunion" : "RE",
     "Romania" : "RO",
     "Russian Federation" : "RU",
     "Rwanda" : "RW",
@@ -456,28 +456,28 @@ lang_country2linux_locale = {
 }
 
 country_gmt2tz = {
-    ("AU",8) : "Australia/Perth"
-    ("AU",9) : "Australia/Adelaide"
-    ("AU",10) : "Australia/Sydney"
+    ("AU",8) : "Australia/Perth",
+    ("AU",9) : "Australia/Adelaide",
+    ("AU",10) : "Australia/Sydney",
     ("BR",-5) : "America/Porto_Velho",
     ("BR",-4) : "America/Sao_Paulo",
-    ("BR",-3) : "America/Fortaleza"
+    ("BR",-3) : "America/Fortaleza",
     ("CA",-9) : "America/Dawson",
     ("CA",-8) : "America/Vancouver",
     ("CA",-7) : "America/Regina",
     ("CA",-6) : "America/Winnipeg",
     ("CA",-5) : "America/Montreal",
-    ("CA",-4) : "America/St_Johns"
+    ("CA",-4) : "America/St_Johns",
     ("CN",5) : "Asia/Kashgar",
     ("CN",7) : "Asia/Chongqing",
-    ("CN",8) : "Asia/Shanghai"
+    ("CN",8) : "Asia/Shanghai",
     ("MX",-8) : "America/Tijuana",
     ("MX",-7) : "America/Mexico_City",
-    ("MX",-6) : "America/Cancun"
+    ("MX",-6) : "America/Cancun",
     ("MY",6) : "Asia/Kuala_Lumpur",
-    ("MY",7) : "Asia/Kuching"
+    ("MY",7) : "Asia/Kuching",
     ("NZ",11) : "Pacific/Auckland",
-    ("NZ",12) : "Pacific/Chatham"
+    ("NZ",12) : "Pacific/Chatham",
     ("RU",1) : "Europe/Kaliningrad",
     ("RU",2) : "Europe/Moscow",
     ("RU",3) : "Europe/Samara",
@@ -487,7 +487,7 @@ country_gmt2tz = {
     ("RU",8) : "Asia/Vladivostok",
     ("RU",9) : "Asia/Sakhalin",
     ("RU",10) : "Asia/Kamchatka",
-    ("RU",11) : "Asia/Anadyr"
+    ("RU",11) : "Asia/Anadyr",
     ("US",-11) : "America/Adak",
     ("US",-10) : "America/Anchorage",
     ("US",-9) : "America/Yakutat",
@@ -901,3 +901,50 @@ country2tz = {
     "ZM" : "Africa/Lusaka",
     "ZW" : "Africa/Harare",
 }
+
+languages = [
+    "Albanian",
+    "Arabic",
+    "Basque",
+    "Belarusian",
+    "Bosnian",
+    "Bulgarian",
+    "Catalan",
+    "Chinese (Simplified)",
+    "Chinese (Traditional)",
+    "Croatian",
+    "Czech",
+    "Danish",
+    "Dutch",
+    "English",
+    "Estonian",
+    "Finnish",
+    "French",
+    "German",
+    "Greek",
+    "Hebrew",
+    "Hungarian",
+    "Indonesian",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Kurdish",
+    "Latvian",
+    "Lithuanian",
+    "Macedonian",
+    "Norwegian",
+    "NorwegianNynorsk",
+    "Polish",
+    "PortugueseBR",
+    "Portuguese",
+    "Romanian",
+    "Russian",
+    "Slovak",
+    "Slovenian",
+    "Spanish",
+    "Swedish",
+    "Thai",
+    "Turkish",
+    "Ukrainian",
+    ]
+
