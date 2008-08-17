@@ -1,71 +1,201 @@
-'''
-DESCRIPTION:
-Simple metalink parser, represents a metalink file as nested python objects
+import copy
+import xml.sax
+import xml.sax.handler
+from xml.sax.saxutils import escape, unescape
 
-USAGE:
-metalink = Metalink(filename)
-'''
-
-import xml.etree.ElementTree as ElementTree
-prefix = '{http://www.metalinker.org/}'
-
-
-class Metalink(object):
-
-    def __init__(self, metalink_file):
-        tree = ElementTree.parse(metalink_file)
-        root = tree.getroot()
-        self.metalink_file = metalink_file
-        self.version = get_text(root, 'version')
-        self.description = get_text(root, 'description')
-        self.files = {}
-        for file in get_subitems(root, 'files', 'file'):
-            file_name = file.get('name')
-            self.files[file_name] = File(file)
-
+class MetalinkException(Exception):
+    def __init__(self, message):
+        self._message = message
     def __str__(self):
-        return "Metalink(%s)" % self.metalink_file
+        return self._message
 
+class Metalink:
+    def __init__(self):
+        self.files = []
+    def get_dict(self):
+        """Return all the data as a dictionary. Used by __eq__."""
+        dict = copy.copy(self.__dict__)
+        files = []
+        for f in self.files:
+            files.append(f.get_dict())
+        dict['files'] = files
+        return dict
+    def __eq__(self, other):
+        """Returns true if this object is equal to 'other'."""
+        return self.get_dict() == other.get_dict()
 
-class File(object):
+class MetalinkFile:
+    def __init__(self):
+        self.name = ''
+        self.identity = ''
+        self.version = ''
+        self.size = -1
+        self.description = ''
+        self.language = ''
+        self.os = ''
+        self.hashes = []
+        self.piece_hashes = []
+        self.piece_length = -1
+        self.piece_type = 'sha1'
+        self.urls = []
+        self.maxconnections = -1
+    def get_dict(self):
+        dict = copy.copy(self.__dict__)
+        hashes = []
+        for x in self.hashes:
+            hashes.append(x.get_dict())
+        dict['hashes'] = hashes
+        urls = []
+        for x in self.urls:
+            urls.append(x.get_dict())
+        dict['urls'] = urls
+        return dict
+    def __eq__(self, other):
+        return self.get_dict() == other.get_dict()
 
-    def __init__(self, file):
-        self.name = file.get('name')
-        self.size = long(get_text(file, 'size', 0))
-        self.os = get_text(file, 'os')
-        self.verification = {}
-        for hash in get_subitems(file, 'verification', 'hash'):
-            hash_type = hash.get('type')
-            self.verification[hash_type] = hash.text
-        self.resources = []
-        for url in get_subitems(file, 'resources', 'url'):
-            self.resources.append(URL(url))
+class MetalinkHash:
+    def __init__(self, type='', hash=''):
+        self.type = type
+        self.hash = hash
+    def get_dict(self):
+        return copy.copy(self.__dict__)
+    def __eq__(self, other):
+        return self.get_dict() == other.get_dict()
 
-    def __str__(self):
-        return "File(%s)" % self.name
+class MetalinkUrl:
+    def __init__(self, url='', type=''):
+        self.url = url
+        self.type = type
+        self.location = ''
+        self.preference = -1
+        self.maxconnections = -1
+    def get_dict(self):
+        return copy.copy(self.__dict__)
+    def __eq__(self, other):
+        return self.get_dict() == other.get_dict()
 
+class MetalinkHandler(xml.sax.handler.ContentHandler):
+    def __init__(self, metalink):
+        self._metalink = metalink 
 
-class URL(object):
+    def startDocument(self):
+        self._elements = []
+        self._attrs = []
+        self._content = ''
+        self._file = None
+        self._pieces = {}
+    
+    def endDocument(self):
+        pass
+    
+    def startElement(self, name, attrs):
+        # Update the element list and content variable
+        self._elements.append(name.lower())
+        self._attrs.append(attrs)
+        self._content = ''
+        # Some elements are processed here (most after the end element, see below)
+        if self._elements == ['metalink', 'files', 'file']:
+            self._file = MetalinkFile()
+            if attrs.has_key('name'):
+                self._file.name = attrs['name']
+        elif self._elements == ['metalink', 'files', 'file', 'resources']:
+            if attrs.has_key('maxconnections'):
+                try:
+                    self._file.maxconnections = int(attrs['maxconnections'])
+                except:
+                    pass # Ignore this if it can't be parsed
+        elif self._elements == ['metalink', 'files', 'file', 'verification', 'pieces']:
+            if attrs.has_key('type'):
+                self._file.piece_type = attrs['type']
+            if attrs.has_key('length'):
+                try:
+                    self._file.piece_length = int(attrs['length'])
+                except:
+                    pass # Ignore this if it isn't a number
+            self._pieces = {}
+    
+    def endElement(self, name):
+        # Collect and update data
+        attrs = self._attrs.pop()
+        content = unescape(self._content.strip())
+        self._content = ''
+        # Process elements. They have to be processed here if they need the
+        # element's content.
+        if self._elements == ['metalink', 'files', 'file']:
+            # Files must have a filename, otherwise they will be ignored.
+            if self._file.name != '':
+                self._metalink.files.append(self._file)
+        elif self._elements == ['metalink', 'files', 'file', 'resources', 'url']:
+            url = MetalinkUrl()
+            url.url = content
+            if attrs.has_key('type'): url.type = attrs['type']
+            if attrs.has_key('location'): url.location = attrs['location']
+            if attrs.has_key('maxconnections'):
+                try:
+                    url.maxconnections = int(attrs['maxconnections'])
+                except:
+                    pass # Ignore this if it's not a number
+            if attrs.has_key('preference'):
+                try:
+                    url.preference = int(attrs['preference'])
+                except:
+                    pass # Ignore this if it's not a number
+            self._file.urls.append(url)
+        elif self._elements == ['metalink', 'files', 'file', 'identity']:
+            self._file.identity = content
+        elif self._elements == ['metalink', 'files', 'file', 'version']:
+            self._file.version = content
+        elif self._elements == ['metalink', 'files', 'file', 'size']:
+            try:
+                self._file.size = int(content)
+            except:
+                pass # Ignore this if it can't be parsed
+        elif self._elements == ['metalink', 'files', 'file', 'description']:
+            self._file.description = content
+        elif self._elements == ['metalink', 'files', 'file', 'language']:
+            self._file.language = content
+        elif self._elements == ['metalink', 'files', 'file', 'os']:
+            self._file.os = content
+        elif self._elements == ['metalink', 'files', 'file', 'verification', 'hash']:
+            # The hash must have a type, otherwise it will be ignored.
+            if attrs.has_key('type'):
+                hash = MetalinkHash()
+                hash.type = attrs['type']
+                hash.hash = content
+                self._file.hashes.append(hash)
+        elif self._elements == ['metalink', 'files', 'file', 'verification', 'pieces', 'hash']:
+            if attrs.has_key('piece'):
+                self._pieces[attrs['piece']] = content
+        elif self._elements == ['metalink', 'files', 'file', 'verification', 'pieces']:
+            # Add all the pieces in the right order (starting at index "0")
+            for i in range(len(self._pieces)):
+                # If this piece is missing, then skip all the pieces
+                if not self._pieces.has_key(str(i)):
+                    self._file.piece_hashes = []
+                    break
+                # If it does exist, then add it
+                self._file.piece_hashes.append(self._pieces[str(i)])
+            self._pieces = {} # Empty the temporary list
+        # Remove this element from the list
+        self._elements.pop()
+    
+    def characters(self, content):
+        self._content += content # Save these characters for later
 
-    def __init__(self, url):
-        self.type = url.get('type')
-        self.location = url.get('location')
-        self.preference = url.get('preference')
-        self.url = url.text
+def load_file(filename):
+    try:
+        metalink = Metalink()
+        xml.sax.parse(filename, MetalinkHandler(metalink))
+        return metalink
+    except xml.sax.SAXParseException:
+        raise MetalinkException('Failed to parse xml-file.')
+    except IOError:
+        raise MetalinkException('Failed to read file.')
 
-    def __str__(self):
-        return "URL(%s)" % self.url
-
-
-def get_text(element, tag, default=None):
-    subelement = element.find(prefix + tag)
-    if subelement is not None:
-        return subelement.text
-    return default
-
-def get_subitems(element, tag, subtag):
-    subelement = element.find(prefix + tag)
-    if subelement is not None:
-        return subelement.findall(prefix + subtag)
-    else:
-        return []
+def parse_string(text):
+    try:
+        metalink = Metalink()
+        xml.sax.parseString(text, MetalinkHandler(metalink))
+        return metalink
+    except xml.sax.SAXParseException:
+        raise MetalinkException('Failed to parse xml-data.')

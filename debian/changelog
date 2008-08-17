@@ -1,5 +1,6 @@
 wubi (8.10) UNRELEASED; urgency=low
 
+  [ Agostino Russo ]
   * Initial revision
   * Hello world, we have a window showing
   * Fixed loop on quit
@@ -20,4 +21,7 @@ wubi (8.10) UNRELEASED; urgency=low
   * Added tasklist as a more general replacement of the progress object
   * Revised tool scripts
 
- -- Agostino Russo <agostino.russo@gmail.com>  Sun, 17 Aug 2008 12:52:15 +0100
+  [ Hampus Wessman ]
+  * Added a new metalink parser
+
+ -- Hampus Wessman <hw@vox.nu>  Sun, 17 Aug 2008 17:45:05 +0100
