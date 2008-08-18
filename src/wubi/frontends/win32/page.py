@@ -16,6 +16,14 @@ class Page(ui.Page):
         self.width = width
         self.height = height
 
+    def insert_vertical_image(self, bmp_file):
+        self.vertical_image = ui.Bitmap(
+            self,
+            0, 0, 164, 314)
+        self.vertical_image.set_image(
+            os.path.join(self.application.info.imagedir, bmp_file))
+        self.vertical_image.width = 164
+
     def insert_header(self, title, subtitle, bmp_file):
         '''
         Inserts a header with image, title and subtitle
@@ -43,7 +51,7 @@ class Page(ui.Page):
                 self.header,
                 hbw + 20, 30, self.width - 200, 20,
                 text = subtitle)
-            self.header.subtitle.set_background_color(255,255,255)
+            #~ self.header.subtitle.set_background_color(255,255,255)
         self.header.line = ui.EtchedRectangle(self.header,0, hbh,self.width, 2)
         self.header.height = hbh + 2
         self.header.set_background_color(255,255,255)
@@ -54,17 +62,23 @@ class Page(ui.Page):
         Inserts a control conatiner
         appropriately resized to take care of header and footer
         '''
+        left=0
         top = 0
+        width = self.width
         height = self.height
         if hasattr(self, "header"):
             top += self.header.height
             height -= self.header.height
         if hasattr(self, "navigation"):
             height -= self.navigation.height
+        if hasattr(self, "vertical_image"):
+            left = self.vertical_image.width
+            width -= left
         self.main = ui.Panel(
             self,
-            0, top, self.width, height)
+            left, top, width, height)
         self.main.height = height
+        self.main.width = width
 
     def insert_navigation(self, button1_text=None, button2_text=None, button3_text=None, default=None):
         '''
@@ -72,20 +86,30 @@ class Page(ui.Page):
         '''
         nbw = 90
         nbh = 24
+        sep_top = 6
+        sep_height = 2
+
+        if hasattr(self, "vertical_image"):
+            sep_top = 0
 
         self.navigation = ui.Panel(
             self,
-            0, self.height - nbh - 10 -18 , self.width, nbh + 28)
+            0, self.height - nbh - 20 -sep_top - sep_height, self.width, nbh + 20 + sep_top + sep_height)
 
-        self.revision_label = ui.Label(
-            self.navigation,
-            10, 0, 40, 20,
-            "Rev %s" % self.application.info.revision)
-        self.revision_label.disable()
-
-        self.line = ui.EtchedRectangle(
-            self.navigation,
-            50, 6,self.width - 60, 2)
+        if not hasattr(self, "vertical_image"):
+            self.revision_label = ui.Label(
+                self.navigation,
+                10, 0, 40, 20,
+                "Rev %s" % self.application.info.revision)
+            self.revision_label.disable()
+            revision_label_width = 50
+            self.line = ui.EtchedRectangle(
+                self.navigation,
+                50, sep_top,self.width - 60, sep_height)
+        else:
+            self.line = ui.EtchedRectangle(
+                self.navigation,
+                0, sep_top, self.width, sep_height)
 
         for i,text in enumerate((button1_text, button2_text, button3_text)):
             if not text: continue
@@ -99,7 +123,7 @@ class Page(ui.Page):
                     n += 1
             button = Button(
                 self.navigation,
-                self.width -(nbw + 10) * n, 18, nbw, nbh,
+                self.width -(nbw + 10) * n, 10 + sep_top + sep_height, nbw, nbh,
                 text=text)
             setattr(self.navigation, "button%s" % ( i + 1), button)
-            self.navigation.height = nbh + 28
+            self.navigation.height = nbh + 20 + sep_top + sep_height

@@ -513,6 +513,21 @@ class Label(StaticWidget):
     _window_class_name_ = "Static"
     _window_style_ = StaticWidget._window_style_ | SS_NOPREFIX
 
+    @event_handler(message=WM_CTLCOLORSTATIC, lparam=SELF_HWND)
+    def _on_ctlcolorstatic(self, event):
+        parent_hwnd = event[0]
+        hdc = event[2]
+        #~ hdc = windll.user32.GetDC(hwnd)
+        #~ windll.gdi32.SetBkMode(hdc, TRANSPARENT);
+        #~ brush = windll.gdi32.GetStockObject(NULL_BRUSH);
+        #~ windll.user32.ReleaseDC(hwnd,hdc)
+        #~ return False
+        #~ print event, str(self._background_color)
+        #~ if self._background_color:
+            #~ return 1 #self._background_color
+        #~ else:
+        return 0
+
 class Bitmap(Widget):
     _window_class_name_ = "Static"
     _window_style_ = StaticWidget._window_style_|SS_BITMAP

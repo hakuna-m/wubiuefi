@@ -1,4 +1,5 @@
 from winui import ui
+from installation_finish_page import InstallationFinishPage
 from installation_page import InstallationPage
 from accessibility_page import AccessibilityPage
 from progress_page import ProgressPage
@@ -31,10 +32,11 @@ class WindowsFrontend(ui.Application):
 
     def on_init(self):
         log.debug("on_init...")
-        self.main_window.resize(504,386)
+        self.main_window.resize(504,385)
         self.installation_page = InstallationPage(self.main_window)
         self.accessibility_page = AccessibilityPage(self.main_window)
         self.progress_page = ProgressPage(self.main_window)
+        self.installation_finish_page = InstallationFinishPage(self.main_window)
 
     def show_page(self, page):
         if self.current_page is page:
@@ -47,6 +49,10 @@ class WindowsFrontend(ui.Application):
 
     def show_installer_page(self):
         self.show_page(self.installation_page)
+        self.run()
+
+    def show_installation_finish_page(self):
+        self.show_page(self.installation_finish_page)
         self.run()
 
     def get_installation_settings(self):

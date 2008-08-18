@@ -116,6 +116,8 @@ class Wubi(object):
         settings = self.frontend.get_installation_settings()
         log.info("Received settings %s" % settings)
         self.frontend.run_tasks(self.backend.get_installation_tasklist())
+        log.info("Almost finished")
+        self.frontend.show_installation_finish_page()
         log.info("Finished installation")
 
     def run_uninstaller(self):
