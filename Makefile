@@ -4,12 +4,13 @@ PYWINE = tools/pywine
 all: build
 
 build:
+	rm -rf dist
 	mkdir -p dist
 	tools/pyinstaller_build pyinstaller.spec
 #setup.py build_ext -i
 
 test: build
-	tools/wine dist/wubi.exe -v
+	cd dist; ../tools/wine wubi.exe -v
 
 unittest:
 	$(pywine) tools/test
@@ -19,5 +20,6 @@ run:
 
 clean:
 	rm -rf dist
+	rm -rf buildpyinstaller
 
 .PHONY: all build test

@@ -34,5 +34,6 @@ wubi (8.10) UNRELEASED; urgency=low
   * Modified code to support Python 2.3 (for licensing and size reasons)
   * Added bittornado source importer
   * Added ipython setup
+  * Added data dir to the build via pyinstaller
 
- -- Agostino Russo <agostino.russo@gmail.com>  Tue, 19 Aug 2008 00:53:12 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Tue, 19 Aug 2008 08:41:49 +0100

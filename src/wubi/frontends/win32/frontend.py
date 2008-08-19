@@ -16,7 +16,7 @@ class WindowsFrontend(ui.Application):
         self.controller = controller
         self.info = controller.info
         self.current_page = None
-        kargs["text"] = "app title"
+        kargs["text"] = self.info.application_name
         ui.Application.__init__(self, *args, **kargs)
 
     def cancel(self):

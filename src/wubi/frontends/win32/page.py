@@ -45,7 +45,7 @@ class Page(ui.Page):
                 hbw + 20, 10, self.width - 200, 20,
                 text = title)
             self.header.title.set_font(bold=True)
-            self.header.title.set_background_color(255,255,255)
+            #~ self.header.title.set_background_color(255,255,255)
         if subtitle:
             self.header.subtitle = ui.Label(
                 self.header,

@@ -3,6 +3,7 @@
 
 import sys
 import os
+import carchive
 import locale
 import struct
 import logging
@@ -30,6 +31,7 @@ class Backend(object):
     def __init__(self, application):
         self.application = application
         self.info = application.info
+        self.extract_data_dir()
 
     def fetch_basic_info(self):
         '''
@@ -101,3 +103,31 @@ class Backend(object):
         log.debug("metalin=%s" % str(metalink))
         return metalink
 
+    def extract_data_dir(self, data_pkg='data.pkg'):
+        '''
+        Hack around pyinstaller limitations
+        The data dir is packaged with the exe and must be extracted
+        '''
+        self.info.datadir = "data" #os.path.join(os.path.dirname(self.info.exedir), "data")
+        self.info.imagedir = "data/images" #os.path.join(self.info.datadir, "images")
+        if hasattr(sys,'frozen') and sys.frozen:
+            this = carchive.CArchive(sys.executable)
+            pkg = this.openEmbedded(data_pkg)
+            targetdir = os.environ['_MEIPASS2']
+            targetdir = os.path.join(targetdir,'data')
+            os.mkdir(targetdir)
+            log.debug("Extracting data")
+            log.debug("Data dir=%s" % targetdir)
+            for fnm in pkg.contents():
+                try:
+                    stuff = pkg.extract(fnm)[1]
+                    outnm = os.path.join(targetdir, fnm)
+                    dirnm = os.path.dirname(outnm)
+                    if not os.path.exists(dirnm):
+                        os.makedirs(dirnm)
+                    open(outnm, 'wb').write(stuff)
+                except Exception,mex:
+                    print mex
+            pkg = None
+            self.info.datadir = targetdir
+            self.info.imagedir = os.path.join(targetdir, 'images')

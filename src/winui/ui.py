@@ -502,36 +502,31 @@ class CheckButton(Button):
     _window_class_name_ = "BUTTON"
     _window_style_ = Widget._window_style_ | BS_AUTOCHECKBOX
 
+    #~ def _on_ctlcolorbtn(self, event):
+        #~ parent_hwnd = event[0]
+        #~ hdc = event[2]
+        #~ windll.gdi32.SetBkMode(hdc, TRANSPARENT);
+        #~ brush = windll.gdi32.CreateSolidBrush(0x00FFFFFF)
+        #~ return LONG(brush)
+    #~ _on_ctlcolorbtn = event_handler(message=WM_CTLCOLORBTN, lparam=SELF_HWND)(_on_ctlcolorbtn)
+
 class Label(StaticWidget):
     _window_class_name_ = "Static"
     _window_style_ = StaticWidget._window_style_ | SS_NOPREFIX
 
-    def _on_ctlcolorstatic(self, event):
-        parent_hwnd = event[0]
-        hdc = event[2]
-        #~ hdc = windll.user32.GetDC(hwnd)
+    #~ def _on_ctlcolorstatic(self, event):
+        #~ parent_hwnd = event[0]
+        #~ hdc = event[2]
+        #~ #WM_CTLCOLORSTATIC (http://msdn.microsoft.com/library/en-us/shellcc/platform/commctls/staticcontrols/staticcontrolreference/staticcontrolmessages/wm_ctlcolorstatic.asp?frame=true)
+        #~ # hdc = windll.user32.GetDC(hwnd)
+        #~ # brush = windll.gdi32.GetStockObject(NULL_BRUSH);
+        #~ # brush = windll.user32.GetSysColorBrush(COLOR_WINDOW)
+        #~ # brush = windll.gdi32.CreateSolidBrush(0x00FFFFFF)
+        #~ # windll.user32.ReleaseDC(hwnd,hdc)
         #~ windll.gdi32.SetBkMode(hdc, TRANSPARENT);
-        #~ brush = windll.gdi32.GetStockObject(NULL_BRUSH);
-        #~ windll.user32.ReleaseDC(hwnd,hdc)
-        #~ return False
-        #~ print event, str(self._background_color)
-        #~ if self._background_color:
-            #~ return 1 #self._background_color
-        #~ else:
-        #~ brush = windll.user32.GetSysColorBrush(COLOR_WINDOW)
-        brush = windll.gdi32.CreateSolidBrush(0x00FFFFFF)
-        return brush
-
-        #WM_CTLCOLORSTATIC (http://msdn.microsoft.com/library/en-us/shellcc/platform/commctls/staticcontrols/staticcontrolreference/staticcontrolmessages/wm_ctlcolorstatic.asp?frame=true)
-        #~ HBRUSH hBackground = CreateSolidBrush(RGB(0, 0, 0));
-        #~ case WM_CTLCOLORSTATIC:
-        #~ {
-        #~ HDC hdc = (HDC)wParam;
-        #~ SetBkMode(hdc, TRANSPARENT);
-        #~ SetTextColor(hdc, RGB(255, 255, 255));
-        #~ return (LONG) hBackground;
-        #~ }
-    _on_ctlcolorstatic = event_handler(message=WM_CTLCOLORSTATIC, lparam=SELF_HWND)(_on_ctlcolorstatic)
+        #~ self.update()
+        #~ return LONG(self._background_color)
+    #~ _on_ctlcolorstatic = event_handler(message=WM_CTLCOLORSTATIC, lparam=SELF_HWND)(_on_ctlcolorstatic)
 
 class Bitmap(Widget):
     _window_class_name_ = "Static"

@@ -1,83 +1,105 @@
-#http://pyinstaller.python-hosting.com/file/trunk/doc/Manual.html?rev=latest&format=raw#pyinstaller-archives
+# Pyinstaller build script for Wubi
+# http://pyinstaller.python-hosting.com/file/trunk/doc/Manual.html?rev=latest&format=raw#pyinstaller-archives
 
-a = Analysis([
+dist_dir = 'dist'
+data_dir = 'data'
+exe_name = dist_dir + '\\wubi.exe'
+exe_icon = 'data\\images\\Ubuntu.ico'
+use_upx = True
+strip = True #it may create problems
+
+extra_modules_paths = [
+    'src',
+    ]
+
+scripts_to_analyze = [
     os.path.join(HOMEPATH,'support\\_mountzlib.py'),
-    #os.path.join(HOMEPATH,'support\\useUnicode.py'),  #??? why is it needed
-    'src\\wubi\\wubi.py'],
-    pathex=['src']
-    )
+    os.path.join(HOMEPATH,'support\\useUnicode.py'),
+    'src\\wubi\\wubi.py', #must be last
+    ]
 
-exluded_binaries = [
-    ('_ssl','',''),
+excluded_binaries = [
+    #~ ('_ssl','',''),
     #~ ('_socket','',''),
-    ('bz2','',''),
-    ('pyexpat','',''),
-    ('select','',''),
-    ('unicodedata','',''),
-    ('pywintypes24.dll','',''),
-    ('win32api','','')]
+    #~ ('bz2','',''),
+    #~ ('pyexpat','',''),
+    #~ ('select','',''),
+    #~ ('unicodedata','',''),
+    #~ ('pywintypes24.dll','',''),
+    #~ ('win32api','',''),
+    ]
 
-exluded_modules = [
-    ('bdb','',''),
-    ('pdb','',''),
-    ('unittests','',''),
-    ('pydoc','',''),
-]
+excluded_modules = [
+    #~ ('bdb','',''),
+    #~ ('pdb','',''),
+    #~ ('unittests','',''),
+    #~ ('pydoc','',''),
+    ]
 
-#Let's pack pure modules into a library
-pyz = PYZ(a.pure)
+analysis = Analysis(scripts_to_analyze, pathex=extra_modules_paths)
+scripts = analysis.scripts
+binaries = analysis.binaries - excluded_binaries
+modules = analysis.pure - excluded_modules
+
+#Let's pack pure modules into a pyz library
+pyz = PYZ(modules)
+
+#Let's pack the data
+data_tree = Tree(data_dir)
+data_pkg = PKG(data_tree, name='data.pkg')
 
 #Let's pack the exe
 exe = EXE(
     pyz,
-    a.scripts,
-    a.binaries - exluded_binaries,
-    name="dist\\wubi.exe",
-    upx=True,
-    #~ strip=True, #causes breakage in 2.4
-    icon='data\\images\\Ubuntu.ico',
-    console=False ,)
+    data_pkg,
+    scripts,
+    binaries,
+    name = exe_name,
+    upx = use_upx,
+    strip = strip,
+    icon = exe_icon,
+    console = False ,)
 
-    #~ exclude_binaries=False,
-    #~ name='wubi.exe',
-    #~ debug=False,
-    #~ strip=False, #This has to be False or it crashes when 1 exe is used
-    #~ upx=True,
-    #~ console=False ,
-    #~ icon='data\\images\\Ubuntu.ico')
-
-#Another exe wich does not contains binaries
+## Another exe wich does not contains binaries and modules
+## It requires a separate directory with binaries andmodules
 #~ scripts_exe = EXE(
-    #~ a.scripts,
-    #~ exclude_binaries=True,
-    #~ name="wubi.exe",
-    #~ upx=False,
-    #~ icon='data\\images\\Ubuntu.ico',
-    #~ console=False,)
+    #~ scripts,
+    #~ exclude_binaries = True,
+    #~ name = exe_name,
+    #~ upx = use_upx,
+    #~ icon = exe_icon,
+    #~ console = False,)
 
-#A folder containing some files
+## A directory containing all the files
 #~ all = COLLECT(
-    #~ scripts_exe,
-    #~ a.binaries,
-    #~ a.pure,
-    #~ strip=False, #This has to be False or it crashes
-    #~ upx=False,
-    #~ name='dist-all')
+    #~ scripts,
+    #~ binaries,
+    #~ pure,
+    #~ strip = False, #This has to be False or it crashes
+    #~ upx = False,
+    #~ name = dist_dir + '\\all')
 
-#~ scripts = COLLECT(
-    #~ a.scripts,
-    #~ strip=False, #This has to be False or it crashes
-    #~ upx=False,
-    #~ name='dist-scripts')
+## A directory containing all the scripts
+#~ scripts_dir = COLLECT(
+    #~ scripts,
+    #~ strip = False, #This has to be False or it crashes
+    #~ upx = False,
+    #~ name = dist_dir + '\\scripts')
 
-#~ pure = COLLECT(
-    #~ a.pure,
-    #~ strip=False, #This has to be False or it crashes
-    #~ upx=False,
-    #~ name='dist-pure')
+## A directory containing all the scripts
+#~ modules_dir = COLLECT(
+    #~ modules,
+    #~ strip = False, #This has to be False or it crashes
+    #~ upx = False,
+    #~ name = dist_dir + '\\modules')
 
-#~ binaries = COLLECT(
-    #~ a.binaries - exluded_binaries,
-    #~ strip=False, #This has to be False or it crashes
-    #~ upx=False,
-    #~ name='dist-binaries')
+## A directory containing all the binaries
+#~ binaries_dir = COLLECT(
+    #~ binaries,
+    #~ strip = False, #This has to be False or it crashes
+    #~ upx = False,
+    #~ name = dist_dir + LECT(
+    #~ binaries,
+    #~ strip = False, #This has to be False or it crashes
+    #~ upx = False,
+    #~ name = dist_dir + '\\binaries')
