@@ -17,6 +17,13 @@ exluded_binaries = [
     ('pywintypes24.dll','',''),
     ('win32api','','')]
 
+exluded_modules = [
+    ('bdb','',''),
+    ('pdb','',''),
+    ('unittests','',''),
+    ('pydoc','',''),
+]
+
 #Let's pack pure modules into a library
 pyz = PYZ(a.pure)
 

@@ -1,8 +1,13 @@
 #!/bin/sh
 
-pythonurl="http://www.python.org/ftp/python/2.5.2/python-2.5.2.msi"
-pywinurl="http://downloads.sourceforge.net/pywin32/pywin32-212.win32-py2.5.exe"
+pythonurl="http://www.python.org/ftp/python/2.3.5/Python-2.3.5.exe"
+pywinurl="http://downloads.sourceforge.net/pywin32/pywin32-212.win32-py2.3.exe"
+ipythonurl="http://ipython.scipy.org/dist/ipython-0.8.4.win32-setup.exe"
 upxurl="http://upx.sourceforge.net/download/upx303w.zip"
+
+#2.3 modules (not needed in python 2.4+
+ctypesurl="http://downloads.sourceforge.net/ctypes/ctypes-1.0.2.win32-py2.3.exe"
+subprocessurl="http://effbot.org/media/downloads/subprocess-0.1-20041012.win32-py2.3.exe"
 
 root="$(cd ${0%/*}/../;pwd)"
 export WINEPREFIX="$root"/wine
@@ -28,7 +33,8 @@ install_wine(){
 
 install_python(){
 	wget -P /tmp "$pythonurl"
-    wine msiexec /i /tmp/${pythonurl##*/} /qb /ADDLOCAL=DefaultFeature /ALLUSERS=1
+    #wine msiexec /i /tmp/${pythonurl##*/} /qb /ADDLOCAL=DefaultFeature /ALLUSERS=1
+	wine /tmp/${pythonurl##*/}
 }
 
 install_pywin(){
@@ -37,10 +43,31 @@ install_pywin(){
     wine "/tmp/${pywinurl##*/}"
 }
 
+install_ctypes(){
+	echo "Installing ctypes..."
+	wget -P /tmp "$ctypesurl"
+    wine "/tmp/${ctypesurl##*/}"
+}
+
+install_ipython(){
+	echo "Installing ipython..."
+	wget -P /tmp "$ipythonurl"
+    wine "/tmp/${ipythonurl##*/}"
+}
+
+install_subprocess(){
+	echo "Installing subprocess..."
+	wget -P /tmp "$subprocessurl"
+    wine "/tmp/${subprocessurl##*/}"
+}
+
 make_wine(){
 	install_wine
 	install_python
-	#install_pywin
+	install_ctypes
+	install_pywin
+	install_subprocess
+	install_ipython
 	install_upx
 }
 

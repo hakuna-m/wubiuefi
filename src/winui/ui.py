@@ -25,11 +25,15 @@
 #
 
 from defs import *
+import sys
 
 __all__ = ["Window", "Application"]
 
 #TBD use weakref in _event_handlers_
 _event_handlers_ = {}
+
+if sys.version.startswith('2.3'):
+    from sets.sets import Set as set
 
 def event_dispatcher(hwnd, message, wparam, lparam):
     eh = _event_handlers_
@@ -263,17 +267,6 @@ class Window(BasicWindow):
             #~ windll.user32.SetClassLongW(self._hwnd, GCL_HBRBACKGROUND, RGB(red255, blue255, green255))
         #~ windll.user32.EndPaint(self._hwnd, byref(ps))
 
-        #WM_CTLCOLORSTATIC (http://msdn.microsoft.com/library/en-us/shellcc/platform/commctls/staticcontrols/staticcontrolreference/staticcontrolmessages/wm_ctlcolorstatic.asp?frame=true)
-        #~ HBRUSH hBackground = CreateSolidBrush(RGB(0, 0, 0));
-        #~ case WM_CTLCOLORSTATIC:
-        #~ {
-        #~ HDC hdc = (HDC)wParam;
-        #~ SetBkMode(hdc, TRANSPARENT);
-        #~ SetTextColor(hdc, RGB(255, 255, 255));
-        #~ return (LONG) hBackground;
-        #~ }
-
-
     def set_text_color(self, red255, blue255, green255):
         ps = PAINTSTRUCT()
         hdc = windll.user32.BeginPaint(self._hwnd, byref(ps))
@@ -291,13 +284,12 @@ class Window(BasicWindow):
     def _send_message(self, message, wparam=0, lparam=0):
         return windll.user32.SendMessageW(self._hwnd, message, wparam, lparam)
 
-    @event_handler(message=WM_DESTROY, hwnd=SELF_HWND)
     def _on_destroy(self, event):
         for x in self._gdi_disposables:
             windll.gdi32.DeleteObject(x)
         self.on_destroy()
+    _on_destroy = event_handler(message=WM_DESTROY, hwnd=SELF_HWND)(_on_destroy)
 
-    @event_handler(message=WM_PAINT, hwnd=SELF_HWND)
     def _on_paint(self, event):
         if self._background_color:
             ps = PAINTSTRUCT()
@@ -307,6 +299,7 @@ class Window(BasicWindow):
             windll.user32.FillRect(hdc, byref(rect), self._background_color);
             windll.user32.EndPaint(self._hwnd, byref(ps))
         self.on_paint()
+    _on_paint = event_handler(message=WM_PAINT, hwnd=SELF_HWND)(_on_paint)
 
     def on_paint(self):
         pass
@@ -409,9 +402,9 @@ class Widget(Window):
     _window_style_ = WS_CHILD | WS_VISIBLE | WS_TABSTOP
     _window_ex_style_ = 0
 
-    @event_handler(message=WM_COMMAND, lparam=SELF_HWND)
     def _on_command(self, event):
         self.on_command(event)
+    _on_command = event_handler(message=WM_COMMAND, lparam=SELF_HWND)(_on_command)
 
     def on_command(self, event):
         pass
@@ -513,7 +506,6 @@ class Label(StaticWidget):
     _window_class_name_ = "Static"
     _window_style_ = StaticWidget._window_style_ | SS_NOPREFIX
 
-    @event_handler(message=WM_CTLCOLORSTATIC, lparam=SELF_HWND)
     def _on_ctlcolorstatic(self, event):
         parent_hwnd = event[0]
         hdc = event[2]
@@ -526,7 +518,20 @@ class Label(StaticWidget):
         #~ if self._background_color:
             #~ return 1 #self._background_color
         #~ else:
-        return 0
+        #~ brush = windll.user32.GetSysColorBrush(COLOR_WINDOW)
+        brush = windll.gdi32.CreateSolidBrush(0x00FFFFFF)
+        return brush
+
+        #WM_CTLCOLORSTATIC (http://msdn.microsoft.com/library/en-us/shellcc/platform/commctls/staticcontrols/staticcontrolreference/staticcontrolmessages/wm_ctlcolorstatic.asp?frame=true)
+        #~ HBRUSH hBackground = CreateSolidBrush(RGB(0, 0, 0));
+        #~ case WM_CTLCOLORSTATIC:
+        #~ {
+        #~ HDC hdc = (HDC)wParam;
+        #~ SetBkMode(hdc, TRANSPARENT);
+        #~ SetTextColor(hdc, RGB(255, 255, 255));
+        #~ return (LONG) hBackground;
+        #~ }
+    _on_ctlcolorstatic = event_handler(message=WM_CTLCOLORSTATIC, lparam=SELF_HWND)(_on_ctlcolorstatic)
 
 class Bitmap(Widget):
     _window_class_name_ = "Static"

@@ -16,7 +16,7 @@ log = logging.getLogger("CommonBackend")
 class Blob(object):
 
     def __init__(self, **kargs):
-        self.__dict__.update(**kargs)
+        self.__dict__.update(kargs)
 
     def __str__(self):
         return "Blob(%s)" % str(self.__dict__)

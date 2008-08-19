@@ -39,74 +39,75 @@ class Task(object):
         self.subtasks = []
         self.add_subtasks(subtasks and subtasks or [])
 
-    @property
     def run_time(self):
         if not self.status: return 0
         if not self.subtasks:
             if self.end_time: return self.end_time
             return time.time() - self.start_time
         else:
-            return sum(subtask.run_time for subtask in self.subtasks if subtask.status)
+            return sum([subtask.run_time for subtask in self.subtasks if subtask.status])
+    run_time = property(run_time)
 
-    @property
     def estimated_end_time(self):
         if not self.n_current_step: return
         self.start_time + 1.0*self.run_time*self.n_current_subtask/self.n_total_subtasks
+    estimated_end_time = property(estimated_end_time)
 
-    @property
     def n_subtasks(self):
         return len(self.subtasks)
+    n_subtasks = property(n_subtasks)
 
-    @property
     def n_total_subtasks(self):
         if not self.subtasks: return 1 #1 = self
-        return sum(subtask.n_total_subtasks for subtask in self.subtasks)
+        return sum([subtask.n_total_subtasks for subtask in self.subtasks])
+    n_total_subtasks = property(n_total_subtasks)
 
-    @property
     def n_completed_subtasks(self):
         if not self.status: return 0
         if self.subtasks:
-            return sum(1 for subtask in self.subtasks if subtask.status is Task.COMPLETED)
+            return sum([1 for subtask in self.subtasks if subtask.status is Task.COMPLETED])
         else:
             if self.status is Task.COMPLETED:
                 return 1 #1 = self
             else:
                 return 0
+    n_completed_subtasks = property(n_completed_subtasks)
 
-    @property
     def n_completed_total_subtasks(self):
         if not self.status: return 0
         if self.subtasks:
-            return sum(subtask.n_completed_total_subtasks for subtask in self.subtasks if subtask.status)
+            return sum([subtask.n_completed_total_subtasks for subtask in self.subtasks if subtask.status])
         else:
             if self.status is Task.COMPLETED:
                 return 1 #1 = self
             else:
                 return 0
+    n_completed_total_subtasks = property(n_completed_total_subtasks)
 
-    @property
     def task_progress(self):
         return 1.0*self.n_completed_subtasks/self.n_subtasks
+    task_progress = property(task_progress)
 
-    @property
     def total_progress(self):
         return 1.0*self.n_completed_total_subtasks/self.n_total_subtasks
+    total_progress = property(total_progress)
 
-    @property
     def current_subtask(self):
         if not self.subtasks: return
         if self.n_current_subtask >= len(self.subtasks): return
         return self.subtasks[self.n_current_subtask]
+    current_subtask = property(current_subtask)
 
-    @property
     def current_subtask_name(self):
         current_subtask = self.current_subtask
         if current_subtask: return current_subtask.name
         return None
+        current_subtask_name = property(current_subtask_name)
+    current_subtask_name = property(current_subtask_name)
 
-    @property
     def is_finished(self):
         return self.status in (Task.COMPLETED,)
+    is_finished = property(is_finished)
 
     def add_subtasks(self, subtasks):
         if self.is_stopped(): return
