@@ -430,6 +430,11 @@ class Edit(Widget):
     _window_class_name_ = "EDIT"
     _window_ex_style_ = WS_EX_CLIENTEDGE
 
+class PasswordEdit(Widget):
+    _window_class_name_ = "EDIT"
+    _window_style_ = Widget._window_style_ | ES_PASSWORD
+    _window_ex_style_ = WS_EX_CLIENTEDGE
+
 class Tab(Widget):
     #define WC_TABCONTROLW          L"SysTabControl32"   ???
     _window_class_name_ = "SysTabControl32"

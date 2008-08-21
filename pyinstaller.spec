@@ -3,10 +3,12 @@
 
 dist_dir = 'dist'
 data_dir = 'data'
+bin_dir = 'bin'
 exe_name = dist_dir + '\\wubi.exe'
 exe_icon = 'data\\images\\Ubuntu.ico'
 use_upx = True
-strip = True #it may create problems
+strip = False #it may create problems
+console = False
 
 extra_modules_paths = [
     'src',
@@ -36,9 +38,15 @@ excluded_modules = [
     #~ ('pydoc','',''),
     ]
 
+# Binaries end up in the root dir accessible via  os.environ['_MEIPASS2']
+included_binaries = [
+    ('7z.exe', 'bin\\7z.exe', 'BINARY'),
+    ('iso.dll', 'bin\\iso.dll', 'BINARY'),
+]
+
 analysis = Analysis(scripts_to_analyze, pathex=extra_modules_paths)
 scripts = analysis.scripts
-binaries = analysis.binaries - excluded_binaries
+binaries = analysis.binaries - excluded_binaries + included_binaries
 modules = analysis.pure - excluded_modules
 
 #Let's pack pure modules into a pyz library
@@ -58,7 +66,7 @@ exe = EXE(
     upx = use_upx,
     strip = strip,
     icon = exe_icon,
-    console = False ,)
+    console = console ,)
 
 ## Another exe wich does not contains binaries and modules
 ## It requires a separate directory with binaries andmodules

@@ -4,6 +4,9 @@ pythonurl="http://www.python.org/ftp/python/2.3.5/Python-2.3.5.exe"
 pywinurl="http://downloads.sourceforge.net/pywin32/pywin32-212.win32-py2.3.exe"
 ipythonurl="http://ipython.scipy.org/dist/ipython-0.8.4.win32-setup.exe"
 upxurl="http://upx.sourceforge.net/download/upx303w.zip"
+cxfreezeurl="http://downloads.sourceforge.net/cx-freeze/cx_Freeze-3.0.3-win32-py23.zip"
+cxfreezedir="cx_Freeze-3.0.3"
+#~ cxfreezeurl="http://downloads.sourceforge.net/cx-freeze/cx_Freeze-4.0b1.win32-py2.3.exe"
 
 #2.3 modules (not needed in python 2.4+
 ctypesurl="http://downloads.sourceforge.net/ctypes/ctypes-1.0.2.win32-py2.3.exe"
@@ -24,6 +27,16 @@ install_upx(){
 	fname="/tmp/${upxurl##*/}"
 	unzip "$fname" -d /tmp
 	cp "${fname%.*}/upx.exe" "$root/wine/drive_c/windows/upx.exe"
+}
+
+
+install_cxfreeze(){
+	echo "Installing cx_freeze..."
+	wget -P /tmp "$cxfreezeurl"
+	fname="/tmp/${cxfreezeurl##*/}"
+	unzip "$fname" -d /tmp
+	cp -a "/tmp/$cxfreezedir" "$root/wine/drive_c/cx_freeze"
+	#~ wine "/tmp/${cxfreezeurl##*/}"
 }
 
 install_wine(){
@@ -65,10 +78,11 @@ make_wine(){
 	install_wine
 	install_python
 	install_ctypes
-	install_pywin
+	#~ install_pywin
 	install_subprocess
-	install_ipython
+	#~ install_ipython
 	install_upx
+	install_cxfreeze
 }
 
 if [ ! -e "$root/wine" ]; then

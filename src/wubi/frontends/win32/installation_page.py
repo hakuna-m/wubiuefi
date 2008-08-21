@@ -84,14 +84,14 @@ class InstallationPage(Page):
             self.main, h*4 + w, h*7,
             "lock.bmp", "Password:", None)
         label.move(h*4 + w + 42, h*7 - 24)
-        self.password1 = ui.Edit(
+        self.password1 = ui.PasswordEdit(
             self.main,
             h*4 + w + 42, h*7-4, 150, 20,
-            "enter password")
-        self.passowrd2 = ui.Edit(
+            "")
+        self.passowrd2 = ui.PasswordEdit(
             self.main,
             h*4 + w + 42, h*7+20, 150, 20,
-            "repeat password")
+            "")
 
 
         #~ self.pic3 = ui.Bitmap(

@@ -1,5 +1,4 @@
 import os
-import ConfigParser
 import shutil
 import logging
 from helpers import *
@@ -27,8 +26,11 @@ class Distro(object):
         self.metalink = metalink
         self.metalink2 = metalink2
         self.packages = packages
+        self.backend = backend
         if isinstance(files_to_check, basestring):
-            files_to_check = [f.strip().lower() for f in files_to_check.split(',')]
+            files_to_check = [
+                os.path.normpath(f.strip().lower())
+                for f in files_to_check.split(',')]
         self.files_to_check = files_to_check
 
     def set_cd(cd_path):
@@ -38,26 +40,32 @@ class Distro(object):
         self.iso_path
 
     def is_valid_cd(self, cd_path):
-        cd_path = os.path.normpath(cd_path)
-        log.debug('Checking cd %s' % cd_path)
+        cd_path = os.path.abspath(cd_path)
+        log.debug(' checking cd %s' % cd_path)
         if not os.path.isdir(cd_path):
             log.debug('  dir does not exist')
             return False
-        files = get_dir_file_names(cd_path)
-        if not self.check_required_files:
-            log.debug('  does not contain %s' % file)
-            return False
+        required_files = self.get_required_files()
+        for file in required_files:
+            file = os.path.join(cd_path, file)
+            if not os.path.isfile(file):
+                log.debug('  does not contain %s' % file)
+                return False
         info_file = os.path.join(cd_path, self.info_file)
         info = read_file(info_file)
-        return self.check_info(info)
+        if self.check_info(info):
+            log.info('Found a valid cd for %s: %s' % (self.name, cd_path))
+            return True
+        else:
+            return False
 
     def is_valid_iso(self, iso_path):
-        iso_path = os.path.normpath(iso_path)
-        log.debug('Checking iso %s' % iso_path)
+        iso_path = os.path.abspath(iso_path)
+        log.debug(' checking iso %s' % iso_path)
         if not os.path.isfile(iso_path):
             log.debug('  file does not exist')
             return False
-        file_size = os.path.getsize(cd_or_iso_path)
+        file_size = os.path.getsize(iso_path)
         if self.size and self.size != file_size:
             log.debug('  wrong size: %s != %s' % (file_size, self.size))
             return False
@@ -68,36 +76,40 @@ class Distro(object):
             log.debug('  wrong size: %s > %s' % (file_size, self.size))
             return False
         files = self.backend.get_iso_file_names(iso_path)
-        if not self.check_required_files:
-            log.debug('  does not contain %s' % file)
-            return False
-        info_file = backend.extract_file_from_iso(self,
+        files = [f.strip().lower() for f in files]
+        required_files = self.get_required_files()
+        for file in required_files:
+            if file.strip().lower() not in files:
+                log.debug('  does not contain %s' % file)
+                return False
+        info_file = self.backend.extract_file_from_iso(
             iso_path,
             self.info_file,
             output_dir=self.backend.info.tempdir,
             overwrite=True)
         info = read_file(info_file)
-        os.unlink(info_file)
-        return self.check_info(info)
+        if info_file and os.path.isfile(info_file):
+            os.unlink(info_file)
+        if self.check_info(info):
+            log.info('Found a valid iso for %s: %s' % (self.name, iso_path))
+            return True
+        else:
+            return False
 
-    def check_required_files(self, files):
-        files = [f.strip().lower() for f in files]
+    def get_required_files(self):
         required_files = self.files_to_check[:]
         required_files += [
             self.kernel,
             self.initrd,
             self.info_file,
             self.md5sums,]
-        for file in self.required_files:
-            if file.strip.lower() not in files:
-                return False
-        return True
+        return required_files
 
     def check_info(self, info):
         if not info:
             log.debug('  null info')
             return False
-        info = parse_isoinfo(info)
+        info = self.parse_isoinfo(info)
         if not info:
             log.debug('  could not parse info %s' % info)
             return False
@@ -111,32 +123,21 @@ class Distro(object):
         if self.arch and arch != self.arch:
             log.debug('  wrong arch: %s != %s' % (arch, self.arch))
             return False
-        log.info('Found a valid cd/iso: %s' % cd_or_iso_path)
         return True
 
-def parse_isolist(isolist_path, backend):
-    isolist = ConfigParser.ConfigParser()
-    isolist.read(isolist_path)
-    distros = {}
-    for distro in isolist.sections():
-        kargs = dict(isolist.items(distro))
-        kargs['backend'] = backend
-        distros[distro] = Distro(**kargs)
-    return distros
-
-def parse_isoinfo(info):
-    '''
-    Parses the file within the ISO
-    that contains metadata on the iso
-    e.g. .disk/info in Ubuntu
-    '''
-    #TBD use re
-    log.debug("  info=%s" % info)
-    name = info.split(' ')[0]
-    version = info.split(' ')[1]
-    codename = info.split('"')[1]
-    build = info.split('(')[1][:-1]
-    arch = info.split('(')[0].split(" ")[-2]
-    subversion = info.split('(')[0].split(" ")[-3]
-    log.debug((name, version, codename, build, arch, subversion))
-    return name, version, arch
+    def parse_isoinfo(self, info):
+        '''
+        Parses the file within the ISO
+        that contains metadata on the iso
+        e.g. .disk/info in Ubuntu
+        '''
+        #TBD use re
+        log.debug("  info=%s" % info)
+        name = info.split(' ')[0]
+        version = info.split(' ')[1]
+        codename = info.split('"')[1]
+        build = info.split('(')[1][:-1]
+        arch = info.split('(')[0].split(" ")[-2]
+        subversion = info.split('(')[0].split(" ")[-3]
+        log.debug("  parsed info=" + ", ".join((name, version, codename, build, arch, subversion)))
+        return name, version, arch

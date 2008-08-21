@@ -13,6 +13,7 @@ from drive import Drive
 from registry import get_registry_value
 from memory import get_total_memory_mb
 from backends.common.backend import Backend
+from backends.common.helpers import run_command
 import logging
 log = logging.getLogger("WindowsBackend")
 
@@ -24,7 +25,8 @@ class WindowsBackend(Backend):
 
     def __init__(self, *args, **kargs):
         Backend.__init__(self, *args, **kargs)
-        self.info.iso_extractor = os.path.join(self.info.datadir, '7z/7z.exe')
+        self.info.iso_extractor = os.path.join(self.info.bindir, '7z.exe')
+        log.debug("7z=%s" % self.info.iso_extractor)
 
     def get_registry_value(self, key, subkey, attr):
         return get_registry_value(key, subkey, attr)
@@ -179,7 +181,6 @@ class WindowsBackend(Backend):
         #~ ${StrFilter} "$layoutcode" "-" "" "" "$layoutcode" #lowercase
         #~ ${debug} "LayoutCode=$LayoutCode"
 
-
     def get_system_drive(self):
         system_drive = os.getenv("SystemDrive")
         system_drive = Drive(system_drive)
@@ -204,10 +205,7 @@ class WindowsBackend(Backend):
         self.info.total_memory_mb = self.get_total_memory_mb()
         self.info.system_drive = self.get_system_drive()
         self.info.drives = self.get_drives()
-        self.info.is_running_from_cd = self.get_is_running_from_cd()
         self.info.locale = self.get_locale(self.info.language)
-        self.info.iso_search_paths = self.get_iso_search_paths()
-        self.info.cd_search_paths = self.get_cd_search_paths()
 
     def extract_file_from_iso(self, iso_path, file_path, output_dir=None, overwrite=False):
         '''
@@ -223,13 +221,13 @@ class WindowsBackend(Backend):
                 os.unlink(output_file)
             else:
                 raise Exception("Cannot overwrite %s" % output_file)
-        command = [self.info.iso_extractor, '-i!' + file_path, '-o' + output_dir, iso_path]
+        command = [self.info.iso_extractor, 'e', '-i!' + file_path, '-o' + output_dir, iso_path]
         try:
             output = run_command(command)
         except Exception, err:
             log.exception(err)
             output_file = None
-        if os.path.isfile(output_file):
+        if output_file and os.path.isfile(output_file):
             return output_file
 
     def get_iso_search_paths(self):
@@ -241,9 +239,12 @@ class WindowsBackend(Backend):
         #~ paths += [self.info.backupfolder]
         paths += [drive.path for drive in self.info.drives]
         paths += [os.environ.get("Desktop", None)]
+        paths += ['m:\\tmp']
+        paths = [os.path.abspath(p) for p in paths]
+        return paths
 
     def get_cd_search_paths(self):
-        return [drive.path for drive in self.info.drives]
+        return [drive.path for drive in self.info.drives if drive.type == 'cd']
 
     def get_iso_file_names(self, iso_path):
         iso_path = os.path.abspath(iso_path)
@@ -252,11 +253,12 @@ class WindowsBackend(Backend):
             output = run_command(command)
         except Exception, err:
             log.exception(err)
+            log.debug("command >>%s" % " ".join(command))
             output = None
         if not output: return []
         lines = output.split(os.linesep)
         if lines < 10: return []
         lines = lines[7:-3]
         file_info = [line.split() for line in lines]
-        file_names = [x[-1].replace('\\','/') for x in file_info]
+        file_names = [os.path.normpath(x[-1]) for x in file_info]
         return file_names

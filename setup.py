@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+#~ from cx_Freeze import setup, Executable
+
 import os
 import re
 
@@ -29,10 +31,6 @@ setup(
     license="GPL",
     url="https://wubi-installer.org",
     download_url="https://launchpad.net/wubi/+download",
-    packages=find_packages(),
-    zip_safe=False,
-    include_package_data=True,
-    package_data={},
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Win32 (MS Windows)",
@@ -42,5 +40,13 @@ setup(
         "Operating System :: Microsoft :: Windows",
         "Topic :: System :: Installation/Setup",
     ],
+    packages=find_packages(),
+    zip_safe=False,
+    include_package_data=True,
+    package_data={},
     ext_modules=()
+
+    #~ ## cx_freeze
+    #~ executables = [Executable("src/wubi/wubi.py")])m
+
 )

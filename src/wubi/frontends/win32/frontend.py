@@ -16,7 +16,7 @@ class WindowsFrontend(ui.Application):
         self.controller = controller
         self.info = controller.info
         self.current_page = None
-        kargs["text"] = self.info.application_name
+        kargs["text"] = "Ubuntu Setup"
         ui.Application.__init__(self, *args, **kargs)
 
     def cancel(self):

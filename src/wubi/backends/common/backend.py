@@ -4,20 +4,19 @@
 import sys
 import os
 import tempfile
-#~ import carchive
 import locale
 import struct
 import logging
 import tempfile
 import time
-import StringIO
 import mappings
 import gettext
 import glob
+import ConfigParser
 from helpers import *
 from metalink import parse_metalink
-from distro import parse_isolist
 from tasklist import ThreadedTaskList
+from distro import Distro
 from backends.common.mappings import lang_country2linux_locale
 log = logging.getLogger("CommonBackend")
 
@@ -30,12 +29,19 @@ class Backend(object):
     def __init__(self, application):
         self.application = application
         self.info = application.info
-        self.extract_data_dir()
-        self.info.tempdir = tempfile.mkdtemp() #os.path.join(self.info.datadir, "temp")
+        if hasattr(sys,'frozen') and sys.frozen:
+            self.info.rootdir = os.path.dirname(os.path.abspath(sys.executable))
+            self.info.tempdir = tempfile.mkdtemp(dir=self.info.rootdir)
+        else:
+            self.info.rootdir = ''
+            self.info.tempdir = tempfile.mkdtemp()
+        self.info.datadir = os.path.join(self.info.rootdir, 'data')
+        self.info.bindir = os.path.join(self.info.rootdir, 'bin')
+        self.info.imagedir = os.path.join(self.info.datadir, "images") #os.path.join(self.info.datadir, "images")
 
     def change_language(self, codeset):
         domain = self.info.application_name #not sure what it is
-        localedir = self.info.datadir + '/locale'
+        localedir = os.path.join(self.info.datadir, 'locale')
         self.info.codeset = codeset # set the language
         gettext.install(domain, codeset=codeset)
 
@@ -52,10 +58,13 @@ class Backend(object):
         self.info.languages = self.get_languages()
         self.info.distros = self.get_distros()
         self.fetch_basic_os_specific_info()
+        self.info.cd_path, self.info.cd_distro = self.find_cd()
+        self.info.iso_path,  self.info.iso_distro = self.find_iso()
+        self.info.is_running_from_cd = self.get_is_running_from_cd()
 
     def get_distros(self):
         isolist_path = os.path.join(self.info.datadir, 'isolist.ini')
-        distros = parse_isolist(isolist_path, self)
+        distros = self.parse_isolist(isolist_path)
         return distros
 
     def get_exe_dir(self):
@@ -118,14 +127,14 @@ class Backend(object):
         tasklist = ThreadedTaskList("Installing", tasks=tasks)
         return tasklist
 
-    def extract_data_dir(self, data_pkg='data.pkg'):
-        '''
-        Hack around pyinstaller limitations
-        The data dir is packaged with the exe and must be extracted
-        '''
-        self.info.datadir = "data" #os.path.join(os.path.dirname(self.info.exedir), "data")
-        self.info.imagedir = "data/images" #os.path.join(self.info.datadir, "images")
-        #~ if hasattr(sys,'frozen') and sys.frozen:
+    #~ def extract_data_dir(self, data_pkg='data.pkg'):
+        #~ '''
+        #~ Hack around pyinstaller limitations
+        #~ The data dir is packaged with the exe and must be extracted
+        #~ '''
+        #~ self.info.datadir = "data" #os.path.join(os.path.dirname(self.info.exedir), "data")
+
+            #~ import carchive
             #~ this = carchive.CArchive(sys.executable)
             #~ pkg = this.openEmbedded(data_pkg)
             #~ targetdir = os.environ['_MEIPASS2']
@@ -147,23 +156,39 @@ class Backend(object):
             #~ self.info.datadir = targetdir
             #~ self.info.imagedir = os.path.join(targetdir, 'images')
 
-    def find_isos(self):
-        for path in self.info.iso_search_paths:
-            isos = glob.glob('*.iso')
-        for iso in isos:
-            for distro in self.info.distros:
-                if distro.is_valid_iso(iso):
-                    return iso, distro
+    def find_iso(self):
+        log.debug('searching for local ISOs')
+        for path in self.get_iso_search_paths():
+            path = os.path.abspath(path)
+            path = os.path.join(path, '*.iso')
+            isos = glob.glob(path)
+            for iso in isos:
+                for distro in self.info.distros.values():
+                    if distro.is_valid_iso(iso):
+                        return iso, distro
+        return None, None
 
-    def find_cds(self):
-        for cd in self.info.cd_search_paths:
-            for distro in self.info.distros:
-                if distro.is_valid_iso(cd):
-                    return cd, distro
+    def find_cd(self):
+        log.debug('searching for local CDs')
+        for path in self.get_cd_search_paths():
+            path = os.path.abspath(path)
+            for distro in self.info.distros.values():
+                if distro.is_valid_cd(path):
+                    return path, distro
+        return None, None
 
     def get_is_running_from_cd(self):
         #TBD
-        is_running_from_cd = False
+        is_running_from_cd = self.info.cd_path is not None
         log.debug("is_running_from_cd=%s" % is_running_from_cd)
         return is_running_from_cd
 
+    def parse_isolist(self, isolist_path):
+        isolist = ConfigParser.ConfigParser()
+        isolist.read(isolist_path)
+        distros = {}
+        for distro in isolist.sections():
+            kargs = dict(isolist.items(distro))
+            kargs['backend'] = self
+            distros[distro] = Distro(**kargs)
+        return distros

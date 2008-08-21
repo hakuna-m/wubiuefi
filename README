@@ -5,5 +5,5 @@ For more information see:
 http://wubi-installer.org
 http://wiki.ubuntu.com/WubiGuide
 
-To run wubi under wine, execute "make run_win32" in the toplevel directory.
-To run the tests (none yet), execute "make test" in the toplevel directory.
+To run wubi under wine directly from source, execute "make run" in the toplevel directory.
+To build and run the packaged binary, execute "make test" in the toplevel directory.
