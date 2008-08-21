@@ -76,7 +76,7 @@ class MetalinkUrl:
 
 class MetalinkHandler(xml.sax.handler.ContentHandler):
     def __init__(self, metalink):
-        self._metalink = metalink 
+        self._metalink = metalink
 
     def startDocument(self):
         self._elements = []
@@ -84,10 +84,10 @@ class MetalinkHandler(xml.sax.handler.ContentHandler):
         self._content = ''
         self._file = None
         self._pieces = {}
-    
+
     def endDocument(self):
         pass
-    
+
     def startElement(self, name, attrs):
         # Update the element list and content variable
         self._elements.append(name.lower())
@@ -113,7 +113,7 @@ class MetalinkHandler(xml.sax.handler.ContentHandler):
                 except:
                     pass # Ignore this if it isn't a number
             self._pieces = {}
-    
+
     def endElement(self, name):
         # Collect and update data
         attrs = self._attrs.pop()
@@ -178,11 +178,11 @@ class MetalinkHandler(xml.sax.handler.ContentHandler):
             self._pieces = {} # Empty the temporary list
         # Remove this element from the list
         self._elements.pop()
-    
+
     def characters(self, content):
         self._content += content # Save these characters for later
 
-def load_file(filename):
+def parse_metalink(filename):
     try:
         metalink = Metalink()
         xml.sax.parse(filename, MetalinkHandler(metalink))

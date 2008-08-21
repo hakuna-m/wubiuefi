@@ -33,7 +33,7 @@ __all__ = ["Window", "Application"]
 _event_handlers_ = {}
 
 if sys.version.startswith('2.3'):
-    from sets.sets import Set as set
+    from sets import Set as set
 
 def event_dispatcher(hwnd, message, wparam, lparam):
     eh = _event_handlers_

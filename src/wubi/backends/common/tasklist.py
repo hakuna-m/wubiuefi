@@ -22,7 +22,7 @@ class Task(object):
     FAILED = 3
     CANCELLED = 4
 
-    def __init__(self, name, function=None, subtasks=None, parent=None, on_change=None, is_stopped=None, is_required=True):
+    def __init__(self, name=None, function=None, subtasks=None, parent=None, on_change=None, is_stopped=None, is_required=True):
         if callable(function) and 'task' not in function.func_code.co_varnames:
             function = wrap_function(function)
         self.name = name
@@ -127,7 +127,8 @@ class Task(object):
         if self.is_stopped(): return
         subtask = Task(name, parent=self, subtasks=subtasks, function=function, on_change=self.on_change)
         self.subtasks.append(subtask)
-        self.on_change()
+        if callable(self.on_change):
+            self.on_change()
         return subtask
 
     def setpct(self, percentage):
@@ -165,7 +166,8 @@ class Task(object):
         self.start_time = time.time()
         self.status = Task.ACTIVE
         log.debug((self.name, "> run"))
-        self.on_change()
+        if callable(self.on_change):
+            self.on_change()
         if callable(self.function):
             log.debug((self.name, "> run > function >", self.function))
             if self.function(self):
@@ -178,7 +180,8 @@ class Task(object):
         self.status = Task.COMPLETED
         self.end_time = time.time()
         log.debug((self.name, "> finish"))
-        self.on_change()
+        if callable(self.on_change):
+            self.on_change()
         if self.parent:
             self.parent.step()
 
@@ -187,7 +190,8 @@ class Task(object):
         self.status = Task.FAILED
         self.end_time = time.time()
         log.exception((self.name, "> fail"))
-        self.on_change()
+        if callable(self.on_change):
+            self.on_change()
         if self.parent:
             self.parent.step()
 

@@ -29,7 +29,7 @@ import sys
 import tempfile
 from optparse import OptionParser
 #TBD import modules as required at runtime
-from backends.common.backend import Blob
+from backends.common.helpers import Blob
 from backends.win32.backend import WindowsBackend
 from frontends.win32.frontend import WindowsFrontend
 import logging

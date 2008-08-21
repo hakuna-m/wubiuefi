@@ -3,24 +3,23 @@
 
 import sys
 import os
-import carchive
+import tempfile
+#~ import carchive
 import locale
 import struct
 import logging
+import tempfile
 import time
+import StringIO
 import mappings
-from metalink import Metalink
+import gettext
+import glob
+from helpers import *
+from metalink import parse_metalink
+from distro import parse_isolist
 from tasklist import ThreadedTaskList
+from backends.common.mappings import lang_country2linux_locale
 log = logging.getLogger("CommonBackend")
-
-
-class Blob(object):
-
-    def __init__(self, **kargs):
-        self.__dict__.update(kargs)
-
-    def __str__(self):
-        return "Blob(%s)" % str(self.__dict__)
 
 
 class Backend(object):
@@ -32,6 +31,13 @@ class Backend(object):
         self.application = application
         self.info = application.info
         self.extract_data_dir()
+        self.info.tempdir = tempfile.mkdtemp() #os.path.join(self.info.datadir, "temp")
+
+    def change_language(self, codeset):
+        domain = self.info.application_name #not sure what it is
+        localedir = self.info.datadir + '/locale'
+        self.info.codeset = codeset # set the language
+        gettext.install(domain, codeset=codeset)
 
     def fetch_basic_info(self):
         '''
@@ -44,14 +50,28 @@ class Backend(object):
         self.info.environment_variables = os.environ
         self.info.arch = self.get_arch()
         self.info.languages = self.get_languages()
+        self.info.distros = self.get_distros()
         self.fetch_basic_os_specific_info()
 
+    def get_distros(self):
+        isolist_path = os.path.join(self.info.datadir, 'isolist.ini')
+        distros = parse_isolist(isolist_path, self)
+        return distros
+
     def get_exe_dir(self):
-        #does not work when frozen
+        #__file__ does not work when frozen
         #os.path.abspath(os.path.dirname(__file__))
+        #os.path.abspath(sys.executable)
         exedir = os.path.abspath(os.path.dirname(sys.argv[0]))
         log.debug("exedir=%s" % exedir)
         return exedir
+
+    def get_locale(self, language_country):
+        locale = lang_country2linux_locale.get(language_country, None)
+        if not locale:
+            locale = lang_country2linux_locale.get("en_US")
+        log.debug("locale=%s" % locale)
+        return locale
 
     def get_languages(self):
         return mappings.languages
@@ -98,11 +118,6 @@ class Backend(object):
         tasklist = ThreadedTaskList("Installing", tasks=tasks)
         return tasklist
 
-    def parse_metalink(self, metalink_file):
-        metalink = Metalink(metalink_file)
-        log.debug("metalin=%s" % str(metalink))
-        return metalink
-
     def extract_data_dir(self, data_pkg='data.pkg'):
         '''
         Hack around pyinstaller limitations
@@ -110,24 +125,45 @@ class Backend(object):
         '''
         self.info.datadir = "data" #os.path.join(os.path.dirname(self.info.exedir), "data")
         self.info.imagedir = "data/images" #os.path.join(self.info.datadir, "images")
-        if hasattr(sys,'frozen') and sys.frozen:
-            this = carchive.CArchive(sys.executable)
-            pkg = this.openEmbedded(data_pkg)
-            targetdir = os.environ['_MEIPASS2']
-            targetdir = os.path.join(targetdir,'data')
-            os.mkdir(targetdir)
-            log.debug("Extracting data")
-            log.debug("Data dir=%s" % targetdir)
-            for fnm in pkg.contents():
-                try:
-                    stuff = pkg.extract(fnm)[1]
-                    outnm = os.path.join(targetdir, fnm)
-                    dirnm = os.path.dirname(outnm)
-                    if not os.path.exists(dirnm):
-                        os.makedirs(dirnm)
-                    open(outnm, 'wb').write(stuff)
-                except Exception,mex:
-                    print mex
-            pkg = None
-            self.info.datadir = targetdir
-            self.info.imagedir = os.path.join(targetdir, 'images')
+        #~ if hasattr(sys,'frozen') and sys.frozen:
+            #~ this = carchive.CArchive(sys.executable)
+            #~ pkg = this.openEmbedded(data_pkg)
+            #~ targetdir = os.environ['_MEIPASS2']
+            #~ targetdir = os.path.join(targetdir,'data')
+            #~ os.mkdir(targetdir)
+            #~ log.debug("Extracting data")
+            #~ log.debug("Data dir=%s" % targetdir)
+            #~ for fnm in pkg.contents():
+                #~ try:
+                    #~ stuff = pkg.extract(fnm)[1]
+                    #~ outnm = os.path.join(targetdir, fnm)
+                    #~ dirnm = os.path.dirname(outnm)
+                    #~ if not os.path.exists(dirnm):
+                        #~ os.makedirs(dirnm)
+                    #~ open(outnm, 'wb').write(stuff)
+                #~ except Exception,mex:
+                    #~ print mex
+            #~ pkg = None
+            #~ self.info.datadir = targetdir
+            #~ self.info.imagedir = os.path.join(targetdir, 'images')
+
+    def find_isos(self):
+        for path in self.info.iso_search_paths:
+            isos = glob.glob('*.iso')
+        for iso in isos:
+            for distro in self.info.distros:
+                if distro.is_valid_iso(iso):
+                    return iso, distro
+
+    def find_cds(self):
+        for cd in self.info.cd_search_paths:
+            for distro in self.info.distros:
+                if distro.is_valid_iso(cd):
+                    return cd, distro
+
+    def get_is_running_from_cd(self):
+        #TBD
+        is_running_from_cd = False
+        log.debug("is_running_from_cd=%s" % is_running_from_cd)
+        return is_running_from_cd
+

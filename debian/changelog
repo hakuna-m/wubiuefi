@@ -35,5 +35,9 @@ wubi (8.10) UNRELEASED; urgency=low
   * Added bittornado source importer
   * Added ipython setup
   * Added data dir to the build via pyinstaller
+  * Added pylauncher
+  * Factored out helper functions
+  * Added isolist parsing and prcessing
+  * Added dependency tracking from pyinstaller
 
- -- Agostino Russo <agostino.russo@gmail.com>  Tue, 19 Aug 2008 08:45:59 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Thu, 21 Aug 2008 09:25:04 +0100

@@ -71,13 +71,19 @@ exe = EXE(
     #~ console = False,)
 
 ## A directory containing all the files
-#~ all = COLLECT(
-    #~ scripts,
-    #~ binaries,
-    #~ pure,
-    #~ strip = False, #This has to be False or it crashes
-    #~ upx = False,
-    #~ name = dist_dir + '\\all')
+all = COLLECT(
+    scripts,
+    binaries,
+    strip = False, #This has to be False or it crashes
+    upx = False,
+    name = dist_dir + '\\all')
+
+all_modules = COLLECT(
+    modules,
+    strip = False, #This has to be False or it crashes
+    upx = False,
+    name = dist_dir + '\\all\\lib')
+
 
 ## A directory containing all the scripts
 #~ scripts_dir = COLLECT(

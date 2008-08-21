@@ -1,13 +1,5 @@
-#~ win32com.client.Dispatch("WbemScripting.SWbemLocator") but it doesn't
-#~ seem to function on win 9x. This script is intended to detect the
-#~ computer's network configuration (gateway, dns, ip addr, subnet mask).
-#~ Does someone know how to obtain those informations on a win 9x ?
-#~ Windows 9x came without support for WMI. You can download WMI Core from
-#~ http://www.microsoft.com/downloads/details.aspx?FamilyId=98A4C5BA-337B-4E92-8C18-A63847760EA5&displaylang=en
-#~ although the implementation is quite limited
-
 #http://effbot.org/zone/python-register.htm
-#http://www.google.com/codesearch?hl=en&q=GetVolumeInformationA+ctypes+show:o8kEK9H1ulQ:lGMUvEL_snU:EVcgF71zwXs&sa=N&cd=1&ct=rc&cs_p=http://gentoo.osuosl.org/distfiles/BitTorrent-5.0.7.tar.gz&cs_f=BitTorrent-5.0.7/BTL/likewin32api.py#l55
+#http://www.google.com/codesearch?hl=en&q=+ctypes+show:o8kEK9H1ulQ:lGMUvEL_snU:EVcgF71zwXs&sa=N&cd=1&ct=rc&cs_p=http://gentoo.osuosl.org/distfiles/BitTorrent-5.0.7.tar.gz&cs_f=BitTorrent-5.0.7/BTL/likewin32api.py#l55
     # other nice functions in there :)
 
 
@@ -21,7 +13,6 @@ from drive import Drive
 from registry import get_registry_value
 from memory import get_total_memory_mb
 from backends.common.backend import Backend
-from backends.common.mappings import lang_country2linux_locale
 import logging
 log = logging.getLogger("WindowsBackend")
 
@@ -30,6 +21,10 @@ class WindowsBackend(Backend):
     '''
     Win32-specific backend
     '''
+
+    def __init__(self, *args, **kargs):
+        Backend.__init__(self, *args, **kargs)
+        self.info.iso_extractor = os.path.join(self.info.datadir, '7z/7z.exe')
 
     def get_registry_value(self, key, subkey, attr):
         return get_registry_value(key, subkey, attr)
@@ -108,6 +103,16 @@ class WindowsBackend(Backend):
         log.debug("bootloader=%s" % bootloader)
         return bootloader
 
+    def get_networking_info(self):
+        return NotImplemented
+        #~ win32com.client.Dispatch("WbemScripting.SWbemLocator") but it doesn't
+        #~ seem to function on win 9x. This script is intended to detect the
+        #~ computer's network configuration (gateway, dns, ip addr, subnet mask).
+        #~ Does someone know how to obtain those informations on a win 9x ?
+        #~ Windows 9x came without support for WMI. You can download WMI Core from
+        #~ http://www.microsoft.com/downloads/details.aspx?FamilyId=98A4C5BA-337B-4E92-8C18-A63847760EA5&displaylang=en
+        #~ although the implementation is quite limited
+
     def get_drives(self):
         drives = []
         for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
@@ -116,21 +121,6 @@ class WindowsBackend(Backend):
                 log.debug("drive=%s"% str(drive))
                 drives.append(drive)
         return drives
-
-    def find_isos(self, paths):
-        pass
-
-    def find_cds(self, paths):
-        pass
-
-    def is_valid_iso(self, path):
-        pass
-
-    def is_valid_cd(self, path):
-        pass
-
-    def is_valid_isoinfo(self, isoinfo):
-        pass
 
     def get_uninstaller_path(self, uninstaller_key):
         try:
@@ -150,12 +140,6 @@ class WindowsBackend(Backend):
         log.debug("registry_key=%s" % registry_key)
         return registry_key
 
-    def get_is_running_from_cd(self):
-        #TBD
-        is_running_from_cd = False
-        log.debug("is_running_from_cd=%s" % is_running_from_cd)
-        return is_running_from_cd
-
     def get_windows_language_code(self):
         windows_language_code = self.get_registry_value(
                 "HKEY_CURRENT_USER",
@@ -163,13 +147,6 @@ class WindowsBackend(Backend):
                 "sLanguage")
         log.debug("windows_language_code=%s" % windows_language_code)
         return windows_language_code
-
-    def get_locale(self, language_country):
-        locale = lang_country2linux_locale.get(language_country, None)
-        if not locale:
-            locale = lang_country2linux_locale.get(en_US)
-        log.debug("locale=%s" % locale)
-        return locale
 
     def get_total_memory_mb(self):
         total_memory_mb = get_total_memory_mb()
@@ -229,3 +206,57 @@ class WindowsBackend(Backend):
         self.info.drives = self.get_drives()
         self.info.is_running_from_cd = self.get_is_running_from_cd()
         self.info.locale = self.get_locale(self.info.language)
+        self.info.iso_search_paths = self.get_iso_search_paths()
+        self.info.cd_search_paths = self.get_cd_search_paths()
+
+    def extract_file_from_iso(self, iso_path, file_path, output_dir=None, overwrite=False):
+        '''
+        platform specific
+        '''
+        iso_path = os.path.abspath(iso_path)
+        file_path = os.path.normpath(file_path)
+        if not output_dir:
+            output_dir = tempfile.gettempdir()
+        output_file = os.path.join(output_dir, os.path.basename(file_path))
+        if os.path.exists(output_file):
+            if overwrite:
+                os.unlink(output_file)
+            else:
+                raise Exception("Cannot overwrite %s" % output_file)
+        command = [self.info.iso_extractor, '-i!' + file_path, '-o' + output_dir, iso_path]
+        try:
+            output = run_command(command)
+        except Exception, err:
+            log.exception(err)
+            output_file = None
+        if os.path.isfile(output_file):
+            return output_file
+
+    def get_iso_search_paths(self):
+        '''
+        Gets default paths scanned for CD and ISOs
+        '''
+        paths = []
+        paths += [self.info.exedir]
+        #~ paths += [self.info.backupfolder]
+        paths += [drive.path for drive in self.info.drives]
+        paths += [os.environ.get("Desktop", None)]
+
+    def get_cd_search_paths(self):
+        return [drive.path for drive in self.info.drives]
+
+    def get_iso_file_names(self, iso_path):
+        iso_path = os.path.abspath(iso_path)
+        command = [self.info.iso_extractor,'l',iso_path]
+        try:
+            output = run_command(command)
+        except Exception, err:
+            log.exception(err)
+            output = None
+        if not output: return []
+        lines = output.split(os.linesep)
+        if lines < 10: return []
+        lines = lines[7:-3]
+        file_info = [line.split() for line in lines]
+        file_names = [x[-1].replace('\\','/') for x in file_info]
+        return file_names
