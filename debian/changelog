@@ -40,5 +40,6 @@ wubi (8.10) UNRELEASED; urgency=low
   * Added isolist parsing and prcessing
   * Added dependency tracking from pyinstaller
   * Added cx_freeze support
+  * Added new installation tasks
 
- -- Agostino Russo <agostino.russo@gmail.com>  Fri, 22 Aug 2008 00:23:13 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Mon, 08 Sep 2008 08:17:48 +0100

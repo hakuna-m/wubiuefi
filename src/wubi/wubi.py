@@ -145,6 +145,7 @@ class Wubi(object):
         parser.add_option("-i", "--install", action="store_const", const="install", dest="run_task", help="run the uninstaller, it will first look for an existing uninstaller, otherwise it will run itself in uninstaller mode")
         parser.add_option("-u", "--uninstall", action="store_const", const="uninstall", dest="run_task", help="run the installer, if an existing installation is detected it will be uninstalled first")
         parser.add_option("-m", "--cdmenu", action="store_const", const="cdmenu", dest="run_task", help="run the CD menu selector")
+        parser.add_option("-b", "--cdboot", action="store_const", const="cdoot", dest="run_task", help="install a CD boot helper program")
         parser.add_option("--log-file", dest="log_file", default=None, help="use the specified log file, if omitted a log is created in your temp directory, if the value is set to 'none' no log is created")
         parser.add_option("--interface", dest="use_frontend", default=None, help="use the specified user interface, ['win32']")
         parser.add_option("--uninstall_dir", dest="uninstall_dir", default=None, help="uninstall the specified directory")

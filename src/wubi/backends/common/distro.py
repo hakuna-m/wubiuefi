@@ -33,12 +33,6 @@ class Distro(object):
                 for f in files_to_check.split(',')]
         self.files_to_check = files_to_check
 
-    def set_cd(cd_path):
-        self.cd_path = cd_path
-
-    def set_iso(iso_path):
-        self.iso_path
-
     def is_valid_cd(self, cd_path):
         cd_path = os.path.abspath(cd_path)
         log.debug(' checking cd %s' % cd_path)
@@ -51,8 +45,7 @@ class Distro(object):
             if not os.path.isfile(file):
                 log.debug('  does not contain %s' % file)
                 return False
-        info_file = os.path.join(cd_path, self.info_file)
-        info = read_file(info_file)
+        info = self.get_info(cd_path)
         if self.check_info(info):
             log.info('Found a valid cd for %s: %s' % (self.name, cd_path))
             return True
@@ -82,19 +75,37 @@ class Distro(object):
             if file.strip().lower() not in files:
                 log.debug('  does not contain %s' % file)
                 return False
-        info_file = self.backend.extract_file_from_iso(
-            iso_path,
-            self.info_file,
-            output_dir=self.backend.info.tempdir,
-            overwrite=True)
-        info = read_file(info_file)
-        if info_file and os.path.isfile(info_file):
-            os.unlink(info_file)
+        info = self.get_info(iso_path)
         if self.check_info(info):
             log.info('Found a valid iso for %s: %s' % (self.name, iso_path))
             return True
         else:
             return False
+
+    def get_info(self, cd_or_iso_path):
+        if (Distro.get_info, cd_or_iso_path, self.info_file) in cache:
+            return cache[(Distro.get_info, cd_or_iso_path, self.info_file)]
+        else:
+            cache[(Distro.get_info, cd_or_iso_path, self.info_file)] = None
+            log.debug("getting %s from %s" % (self.info_file,cd_or_iso_path))
+            if os.path.isfile(cd_or_iso_path):
+                info_file = self.backend.extract_file_from_iso(
+                    cd_or_iso_path,
+                    self.info_file,
+                    output_dir=self.backend.info.tempdir,
+                    overwrite=True)
+            elif os.path.isdir(cd_or_iso_path):
+                info_file = os.path.join(cd_path, self.info_file)
+            else:
+                return
+            if not os.path.isfile(info_file):
+                return
+            info = read_file(info_file)
+            if info_file and os.path.isfile(info_file) and os.path.isfile(cd_or_iso_path):
+                os.unlink(info_file)
+            info = self.parse_isoinfo(info)
+            cache[(Distro.get_info, cd_or_iso_path, self.info_file)] = info
+            return info
 
     def get_required_files(self):
         required_files = self.files_to_check[:]
@@ -107,11 +118,7 @@ class Distro(object):
 
     def check_info(self, info):
         if not info:
-            log.debug('  null info')
-            return False
-        info = self.parse_isoinfo(info)
-        if not info:
-            log.debug('  could not parse info %s' % info)
+            log.debug('  could not get info %s' % info)
             return False
         name, version, arch = info
         if self.name and name != self.name:

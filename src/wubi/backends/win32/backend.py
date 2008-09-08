@@ -13,7 +13,7 @@ from drive import Drive
 from registry import get_registry_value
 from memory import get_total_memory_mb
 from backends.common.backend import Backend
-from backends.common.helpers import run_command
+from backends.common.helpers import run_command, cache
 import logging
 log = logging.getLogger("WindowsBackend")
 
@@ -27,6 +27,68 @@ class WindowsBackend(Backend):
         Backend.__init__(self, *args, **kargs)
         self.info.iso_extractor = os.path.join(self.info.bindir, '7z.exe')
         log.debug("7z=%s" % self.info.iso_extractor)
+
+    def select_target_dir(self):
+        targetdir = os.path.join(self.info.targetdrive, sel.info.application_name)
+        targetdir.replace(" ", "_")
+        targetdir.replace("__", "_")
+        if os.path.exists(targetdir) \
+        and self.info.previous_targetdir != targetdir:
+            for i in range(1000):
+                targetdir = self.info.targetdir + str(i)
+                if os.path.exists(targetdir):
+                    continue
+        self.info.targetdir = targetdir
+        if self.info.previous_targetdir:
+            os.rename(self.info.previous_targetdir, self.info.targetdir)
+        log.info("Installing into %s" % targetdir)
+
+    def create_dir_structure(self):
+        self.info.disksdir = os.path.join(self.info.targetdir, "disks")
+        self.info.installdir = os.path.join(self.info.targetdir, "install")
+        for d in [
+        self.info.targetdir,
+        self.info.disksdir,
+        self.info.installdir,
+        os.path.join(self.info.disksdir, "boot"),
+        os.path.join(self.info.disksdir, "boot", "grub"),
+        os.path.join(self.info.installdir, "boot"),
+        os.path.join(self.info.installdir, "boot", "grub"),
+        os.path.join(self.info.installdir, "boot", "winboot"),] :
+            if not os.path.isdir(d):
+                os.mkdir(d):
+
+    def uncompress_files(self):
+        command1 = ["compact", os.path.join(self.info.targetdir), "/U", "/S", "/A", "/F"]
+        command2 = ["compact", os.path.join(self.info.targetdir,"*.*"), "/U", "/S", "/A", "/F"]
+        for command in [command1,command2]:
+            try:
+                runcommand(command)
+            except Exception, err:
+                log.exception(err)
+
+    def create_uninstaller(self):
+        uninstaller_name = "uninstall-%s.exe"  % self.info.application_name
+        uninstaller_name.replace(" ", "_")
+        uninstaller_name.replace("__", "_")
+        uninstaller_path = os.path.join(self.info.targetdir, uninstaller_name)
+        shutil.copyfile(self.info.original_exe, uninstaller_path)
+
+    def copy_installation_files(self):
+        dest = self.info.installdir
+        src = os.path.join(self.info.datadir, "custom-installation")
+        shutil.copytree(src, dest)
+        src = os.path.join(self.info.datadir, "winboot")
+        shutil.copytree(src, dest)
+        src = os.path.join(self.info.datadir, "menu.install")
+        dest = os.path.join(self.info.installdir, "boot", "grub", "menu.lst")
+        shutil.copytree(src, dest)
+        dest = os.path.join(self.info.installdir, "custom-installation", "hooks", "failure-command.sh")
+        msg="The installation failed. Logs have been saved in: %s." \
+            "\n\nNote that in verbose mode, the logs may include the password." \
+            "\n\nThe system will now reboot."
+        msg = msg % os.path.join(self.info.installdir, "installation-logs.zip")
+        replace_line_in_file(dest, "msg=", "msg='%s'" % msg)
 
     def get_registry_value(self, key, subkey, attr):
         return get_registry_value(key, subkey, attr)
@@ -124,18 +186,13 @@ class WindowsBackend(Backend):
                 drives.append(drive)
         return drives
 
-    def get_uninstaller_path(self, uninstaller_key):
+    def get_uninstaller_path(self):
         try:
-            uninstaller_path = _winreg.QueryValue(_winreg.HKEY_LOCAL_MACHINE, uninstaller_key)
+            uninstaller_path = _winreg.QueryValue(_winreg.HKEY_LOCAL_MACHINE, self.info.uninstaller_key)
         except:
             uninstaller_path = None
         log.debug("uninstaller_path=%s" % uninstaller_path)
         return uninstaller_path
-
-    def get_is_installed(self, uninstaller_path):
-        is_installed = uninstaller_path and os.path.exists(uninstaller_path) and True or False
-        log.debug("is_installed=%s" % is_installed)
-        return is_installed
 
     def get_registry_key(self):
         registry_key = "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\"  + self.info.application_name
@@ -190,22 +247,17 @@ class WindowsBackend(Backend):
     def fetch_basic_os_specific_info(self):
         self.info.registry_key = self.get_registry_key()
         self.info.uninstaller_subkey = "Uninstaller"
-        uninstaller_key = self.info.registry_key + self.info.uninstaller_subkey
-        self.info.uninstaller_path = self.get_uninstaller_path(uninstaller_key)
-        self.info.is_installed = self.get_is_installed(self.info.uninstaller_path)
+        self.info.uninstaller_key = self.info.registry_key + self.info.uninstaller_subkey
         self.info.windows_version = self.get_windows_version()
         self.info.windows_version2 = self.get_windows_version2()
         self.info.windows_sp = self.get_windows_sp()
         self.info.windows_build = self.get_windows_build()
         self.info.windows_username = self.get_windows_username()
         #~ self.info.windows_language_code = self.get_windows_language_code()
-        self.info.keyboard_layout = self.get_keyboard_layout()
         self.info.processor_name = self.get_processor_name()
         self.info.bootloader = self.get_bootloader(self.info.windows_version)
-        self.info.total_memory_mb = self.get_total_memory_mb()
         self.info.system_drive = self.get_system_drive()
         self.info.drives = self.get_drives()
-        self.info.locale = self.get_locale(self.info.language)
 
     def extract_file_from_iso(self, iso_path, file_path, output_dir=None, overwrite=False):
         '''
@@ -239,15 +291,19 @@ class WindowsBackend(Backend):
         #~ paths += [self.info.backupfolder]
         paths += [drive.path for drive in self.info.drives]
         paths += [os.environ.get("Desktop", None)]
-        paths += ['m:\\tmp']
+        paths += ['/home/vm/cd'] #TBD quick test
         paths = [os.path.abspath(p) for p in paths]
         return paths
 
     def get_cd_search_paths(self):
-        return [drive.path for drive in self.info.drives if drive.type == 'cd']
+        return [drive.path for drive in self.info.drives] # if drive.type == 'cd']
 
     def get_iso_file_names(self, iso_path):
         iso_path = os.path.abspath(iso_path)
+        if (self.get_iso_file_names, iso_path) in cache:
+            return cache[(self.get_iso_file_names, iso_path)]
+        else:
+            cache[(self.get_iso_file_names, iso_path)] = None
         command = [self.info.iso_extractor,'l',iso_path]
         try:
             output = run_command(command)
@@ -261,4 +317,5 @@ class WindowsBackend(Backend):
         lines = lines[7:-3]
         file_info = [line.split() for line in lines]
         file_names = [os.path.normpath(x[-1]) for x in file_info]
+        cache[(self.get_iso_file_names, iso_path)] = file_names
         return file_names

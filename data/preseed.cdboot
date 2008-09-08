@@ -1,11 +1,6 @@
 ## LOCALE
-# Locale sets language and country.
-d-i debian-installer/locale string en_US
+# set using kernel boot argumens
 
 ## KEYBOARD
-# Keyboard selection.
-# d-i console-setup/modelcode string pc104
-d-i console-setup/layoutcode string us
-# To select a variant of the selected layout (if you leave this out, the
-# basic form of the layout will be used):
-#d-i console-setup/variantcode string dvorak
+# set using kernel boot argumens
+

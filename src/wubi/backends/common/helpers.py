@@ -1,6 +1,7 @@
 import os
 import glob
 import subprocess
+cache = {}
 
 class Blob(object):
 
@@ -34,6 +35,20 @@ def read_file(file_path):
     f.close()
     return content
 
+def replace_line_in_file(file_path, old_line, new_line):
+    if not file_path or not os.path.isfile(file_path):
+        return
+    if new_line[-1] != "\n":
+        new_line += "\n"
+    f = None
+    f = open(file_path, 'w')
+    lines = f.readlines()
+    for i,line in enumerate(lines):
+        if line.startswith(old_line):
+            lines[i] = new_line
+    f.writelines(lines)
+    f.close()
+
 def get_dir_files(dir_path, depth=2):
     files = []
     if not depth:
@@ -46,8 +61,23 @@ def get_dir_files(dir_path, depth=2):
             files += [f for f in glob.glob(dir_path) if os.path.isfile(f)]
     return files
 
-def get_dir_file_names(dir_path):
-    files = []
-    for dir in os.walk(dir_path):
-        files += [dir[0] + f for f in dir[2]]
-    return files
+
+def find_line_in_file(file_path, line, endswith=False):
+    if not file_path or not os.path.isfile(file_path):
+        return
+    if line[-1] != "\n":
+        line += "\n"
+    f = None
+    f = open(file_path, 'r')
+    lines = f.readlines()
+    f.close()
+    for line in lines:
+        if (endswith and line.endswith(line)) \
+        or (not endswith and line.startswith(line)):
+            return line[:-1]
+
+def unixpath(path):
+    path = path.replace(r'\\', '/')
+    if path[1] == ':':
+        path = path[2:]
+    return path
