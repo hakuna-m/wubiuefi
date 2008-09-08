@@ -1,36 +1,36 @@
 #This file is modified at runtime by bootmenu.nsh
 
 debug off
-hiddenmenu 
+hiddenmenu
 timeout		5
 default		0
 
-title Normal mode
-find --set-root --ignore-floppies /ubuntu/install/boot/vmlinuz
-kernel Normal mode
-initrd /ubuntu/install/boot/initrd.gz
+title $(normal_mode_title)
+find --set-root --ignore-floppies $(kernel)
+$(kernel) debian-installer/custom-installation=%(custominstallationdir) iso-scan/filename=%(isopath) automatic-ubiquity noprompt quiet splash  boot=casper ro debian-installer/locale=%(locale) console-setup/layoutcode=%(layoutcode) console-setup/variantcode=%(keyboardvariant) -- %(accessibility)
+initrd $(initrd)
 boot
 
-title Safe graphic mode
-find --set-root --ignore-floppies /ubuntu/install/boot/vmlinuz
-kernel Safe graphic mode
-initrd /ubuntu/install/boot/initrd.gz
+title $(safe_graphic_mode_title)
+find --set-root --ignore-floppies $(kernel)
+$(kernel) debian-installer/custom-installation=%(custominstallationdir) iso-scan/filename=%(isopath) automatic-ubiquity noprompt debug debug-ubiquity xforcevesa boot=casper ro debian-installer/locale=%(locale) console-setup/layoutcode=%(layoutcode) console-setup/variantcode=%(keyboardvariant) -- %(accessibility)
+initrd $(initrd)
 boot
 
-title ACPI workarounds
-find --set-root --ignore-floppies /ubuntu/install/boot/vmlinuz
-kernel ACPI workarounds
-initrd /ubuntu/install/boot/initrd.gz
+title $(acpi_workarounds_title)
+find --set-root --ignore-floppies $(kernel)
+$(kernel) debian-installer/custom-installation=%(custominstallationdir) iso-scan/filename=%(isopath) automatic-ubiquity noprompt debug debug-ubiquity boot=casper ro debian-installer/locale=%(locale) console-setup/layoutcode=%(layoutcode) console-setup/variantcode=%(keyboardvariant) -- %(accessibility) acpi=off noapic nolapic
+initrd $(initrd)
 boot
 
-title Verbose mode
-find --set-root --ignore-floppies /ubuntu/install/boot/vmlinuz
-kernel Verbose mode
-initrd /ubuntu/install/boot/initrd.gz
+title $(verbose_mode_title)
+find --set-root --ignore-floppies $(kernel)
+$(kernel) debian-installer/custom-installation=%(custominstallationdir) iso-scan/filename=%(isopath) automatic-ubiquity noprompt debug debug-ubiquity boot=casper ro debian-installer/locale=%(locale) console-setup/layoutcode=%(layoutcode) console-setup/variantcode=%(keyboardvariant) -- %(accessibility)
+initrd $(initrd)
 boot
 
-title Demo mode
-find --set-root --ignore-floppies /ubuntu/install/boot/vmlinuz
-kernel Demo mode
-initrd /ubuntu/install/boot/initrd.gz
+title $(demo_mode_title)
+find --set-root --ignore-floppies $(kernel)
+$(kernel) iso-scan/filename=%(isopath) quiet splash boot=casper ro debian-installer/locale=%(locale) console-setup/layoutcode=%(layoutcode) console-setup/variantcode=%(keyboardvariant) -- %(accessibility)
+initrd $(initrd)
 boot

@@ -97,7 +97,7 @@ class Wubi(object):
             self.run_uninstaller()
         elif self.info.run_task == "cdmenu":
             self.run_cd_menu()
-        elif self.info.is_running_from_cd:
+        elif self.info.cd_path:
             self.run_cd_menu()
         else:
             self.run_installer()
@@ -106,7 +106,7 @@ class Wubi(object):
         '''
         Runs the installer
         '''
-        if self.info.is_installed or self.info.uninstall_dir:
+        if self.info.previous_targetdir or self.info.uninstall_dir:
             log.info("Already installed, running the installer...")
             self.run_uninstaller()
         log.info("Running the installer...")

@@ -41,5 +41,6 @@ wubi (8.10) UNRELEASED; urgency=low
   * Added dependency tracking from pyinstaller
   * Added cx_freeze support
   * Added new installation tasks
+  * Added menu.lst generation
 
- -- Agostino Russo <agostino.russo@gmail.com>  Mon, 08 Sep 2008 08:17:48 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Tue, 09 Sep 2008 00:53:18 +0100

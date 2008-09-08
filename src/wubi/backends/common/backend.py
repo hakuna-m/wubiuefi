@@ -50,6 +50,7 @@ class Backend(object):
         Basic information required by the application dispatcher select_task()
         '''
         self.info.exedir = self.get_exe_dir()
+        self.info.original_exe = self.info.exedir #TBD
         self.info.platform = self.get_platform()
         self.info.osname = self.get_osname
         self.info.language, self.info.encoding = self.get_language_encoding()
@@ -64,8 +65,7 @@ class Backend(object):
         self.info.total_memory_mb = self.get_total_memory_mb()
         self.info.locale = self.get_locale(self.info.language)
         self.info.cd_path, self.info.cd_distro = self.find_any_cd()
-        self.info.iso_path,  self.info.iso_distro = self.find_any_iso()
-        self.info.is_running_from_cd = self.get_is_running_from_cd()
+        #~ self.info.iso_path,  self.info.iso_distro = self.find_any_iso()
 
     def get_distros(self):
         isolist_path = os.path.join(self.info.datadir, 'isolist.ini')
@@ -127,8 +127,8 @@ class Backend(object):
     def extract_cd_content(self, cd_path):
         if os.path.isdir(cd_path):
             return
-        dest = os.path.join(self.info.installdir, "cd")
-        shutil.copytree(self.info.cd_path, dest)
+        self.info.cddir = os.path.join(self.info.installdir, "cd")
+        shutil.copytree(self.info.cd_path, self.info.cddir)
         return dest
 
     def check_cd(self, cd_path):
@@ -184,13 +184,13 @@ class Backend(object):
             raise Exception("Could not retrieve the installation ISO")
 
     def extract_kernel(self):
-        bootdir = os.path.join(self.info.installdir, "boot")
+        bootdir = self.info.installbootdir
         # Extract kernel, initrd, md5sums
         if self.info.cd_path:
             for src in [
-            os.path.join(self.info.installdir, "cd", self.info.distro.md5sums),
-            os.path.join(self.info.installdir, "cd", self.info.distro.kenel),
-            os.path.join(self.info.installdir, "cd", self.info.distro.initrd),]:
+            os.path.join(self.info.cddir, self.info.distro.md5sums),
+            os.path.join(self.info.cddir, self.info.distro.kenel),
+            os.path.join(self.info.cddir, self.info.distro.initrd),]:
                 shutil.copyfile(src, bootdir)
         else:
             self.extract_file_from_iso(self.info.iso_path, self.info.distro.md5sums, output_dir=bootdir)
@@ -198,10 +198,12 @@ class Backend(object):
             self.extract_file_from_iso(self.info.iso_path, self.info.distro.initrd, output_dir=bootdir)
 
         # Check the files
+        self.info.kernel = os.path.join(bootdir, os.path.basename(self.info.distro.kernel))
+        self.info.initrd = os.path.join(bootdir, os.path.basename(self.info.distro.initrd))
         md5sums = os.path.join(bootdir, os.path.basename(self.info.distro.md5sums))
         paths = [
-            (os.path.join(bootdir, os.path.basename(self.info.distro.kernel)), self.info.distro.kernel),
-            (os.path.join(bootdir, os.path.basename(self.info.distro.initrd)), self.info.distro.initrd),]
+            (self.info.kernel, self.info.distro.kernel),
+            (self.info.initrd, self.info.distro.initrd),]
         for file_path, rel_path in paths:
                 if not self.check_file(file_path, rel_path, md5sums):
                     raise Exception("File %s is corrupted" % file_path)
@@ -287,72 +289,26 @@ class Backend(object):
 
     def modify_grub_configuration(self):
         template_file = os.path.join(self.info.datadir, 'menu.install')
-        automatic = "automatic-ubiquity"
         if self.info.cd_path:
-            iso_scan_filename = "iso-scan/filename=" + unixpath(self.info.cd_path)
+            isopath = unixpath(self.info.cd_path)
         elif self.info.iso_path:
-            iso_scan_filename = "iso-scan/filename=" + unixpath(self.info.iso_path)
+            isopath = unixpath(self.info.iso_path)
         dic = dict(
-            automatic = automatic,
-            iso_scan_filename = iso_scan_filename,
+            custominstallationdir = unixpath(self.info.custominstall),
+            isopath = isopath,
+            keyboardvariant = self.info.keyboardvariant,
+            locale = self.info.locale,
+            layoutcode = self.info.layoutcode,
             accessibility = self.info.accessibility,
-            #TBD
+            kernel = unixpath(self.info.kernel),
+            initrd = unixpath(self.info.initrd),
+            normal_mode_title = "Normal mode",
+            safe_graphic_mode_title = "Safe graphic mode",
+            acpi_workarounds_title = "ACPI workarounds",
+            verbose_mode_title = "Verbose mode",
+            demo_mode_title =  "Demo mode",
             )
-
-    #~ strcpy $accessibility "access=$accessibility"
-    #~ ${endif}
-    #~ ${if} $braille != ""
-        #~ strcpy $braille "braille=ask"
-    #~ ${endif}
-
-    #~ strcpy $bootkernel "kernel /${DefaultInstallationDir}/install/boot/vmlinuz"
-    #~ strcpy $commonoptions "boot=casper ro debian-installer/locale=$locale console-setup/layoutcode=$layoutcode console-setup/variantcode=$keyboardvariant -- $accessibility $braille"
-    #~ strcpy $custominstallation "debian-installer/custom-installation=/${DefaultInstallationDir}/install/custom-installation"
-
-    #~ ${WriteMenuLst} "title Normal mode" "title $(BootMenuNormal)"
-    #~ strcpy $kernel_line "$bootkernel $custominstallation $iso_scan_filename $automatic noprompt quiet splash $commonoptions"
-    #~ ${WriteMenuLst}   "kernel Normal mode" "$kernel_line"
-
-    #~ ${WriteMenuLst} "title Safe graphic mode" "title $(BootMenuSafeGraphics)"
-    #~ strcpy $kernel_line "$bootkernel $custominstallation $iso_scan_filename $automatic noprompt debug debug-ubiquity xforcevesa $commonoptions"
-    #~ ${WriteMenuLst}   "kernel Safe graphic mode" "$kernel_line"
-
-    #~ ${WriteMenuLst} "title ACPI workarounds" "title $(BootMenuACPI)"
-    #~ strcpy $kernel_line "$bootkernel $custominstallation $iso_scan_filename $automatic noprompt debug debug-ubiquity $commonoptions acpi=off noapic nolapic"
-    #~ ${WriteMenuLst}   "kernel ACPI workarounds" "$kernel_line"
-
-    #~ ${WriteMenuLst} "title Verbose mode" "title $(BootMenuVerbose)"
-    #~ strcpy $kernel_line "$bootkernel $custominstallation $iso_scan_filename $automatic noprompt debug debug-ubiquity $commonoptions"
-    #~ ${WriteMenuLst}   "kernel Verbose mode" "$kernel_line"
-
-    #~ ${WriteMenuLst} "title Demo mode" "title Read-Only Demo (Live CD Desktop)"
-    #~ strcpy $kernel_line "$bootkernel $iso_scan_filename quiet splash $commonoptions"
-    #~ ${WriteMenuLst}   "kernel Demo mode" "$kernel_line"
-
-    def create_virtual_disks(self):
-        #platform specific
-        pass
-
-    def eject_cd(self):
-        if not self.info.cd_drive: return
-        #platform specific
-        #IOCTL_STORAGE_EJECT_MEDIA 0x2D4808
-        #FILE_SHARE_READ 1
-        #FILE_SHARE_WRITE 2
-        #FILE_SHARE_READ|FILE_SHARE_WRITE 3
-        #GENERIC_READ 0x80000000
-        #OPEN_EXISTING 3
-        cd_handle = windll.kernel32.CreateFile(r'\\\\.\\' + self.info.cd_drive, 0x80000000, 3, 0, 3, 0, 0)
-        log.debug("Ejecting cd_handle=%s for drive=%s" % (cd_handle, self.info.cd_drive))
-        if cd_handle:
-            x = ctypes.c_int()
-            result = windll.kernel32.DeviceIoControl(cd_handle, 0x2D4808, 0, 0, 0, 0, ctypes.byref(x), 0)
-            log.debug("EjectCD DeviceIoControl exited with code %s (1==success)" % result)
-            windll.kernel32.CloseHandle(cd_handle)
-
-    def reboot(self):
-        #platform specific
-        pass
+        grub_config = template_file % dic
 
     def get_installation_tasklist(self):
         tasks = [
@@ -373,35 +329,6 @@ class Backend(object):
         ]
         tasklist = ThreadedTaskList("Installing", tasks=tasks)
         return tasklist
-
-    #~ def extract_data_dir(self, data_pkg='data.pkg'):
-        #~ '''
-        #~ Hack around pyinstaller limitations
-        #~ The data dir is packaged with the exe and must be extracted
-        #~ '''
-        #~ self.info.datadir = "data" #os.path.join(os.path.dirname(self.info.exedir), "data")
-
-            #~ import carchive
-            #~ this = carchive.CArchive(sys.executable)
-            #~ pkg = this.openEmbedded(data_pkg)
-            #~ targetdir = os.environ['_MEIPASS2']
-            #~ targetdir = os.path.join(targetdir,'data')
-            #~ os.mkdir(targetdir)
-            #~ log.debug("Extracting data")
-            #~ log.debug("Data dir=%s" % targetdir)
-            #~ for fnm in pkg.contents():
-                #~ try:
-                    #~ stuff = pkg.extract(fnm)[1]
-                    #~ outnm = os.path.join(targetdir, fnm)
-                    #~ dirnm = os.path.dirname(outnm)
-                    #~ if not os.path.exists(dirnm):
-                        #~ os.makedirs(dirnm)
-                    #~ open(outnm, 'wb').write(stuff)
-                #~ except Exception,mex:
-                    #~ print mex
-            #~ pkg = None
-            #~ self.info.datadir = targetdir
-            #~ self.info.imagedir = os.path.join(targetdir, 'images')
 
     def find_any_iso(self):
         log.debug('searching for local ISOs')
@@ -440,12 +367,6 @@ class Backend(object):
             path = os.path.abspath(path)
             if self.distro.is_valid_cd(path):
                 return path
-
-    def get_is_running_from_cd(self):
-        #TBD
-        is_running_from_cd = self.info.cd_path is not None
-        log.debug("is_running_from_cd=%s" % is_running_from_cd)
-        return is_running_from_cd
 
     def get_previous_targetdir(self):
         if not self.info.uninstaller_path: return

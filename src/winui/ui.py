@@ -207,13 +207,10 @@ class Window(BasicWindow):
             raise WinError()
 
     def get_text(self):
-        text = ""
-        #~ textLength = self._send_message(WM_GETTEXTLENGTH) + 1
-        #~ textBuff = ' ' * textLength
-        #~ self._send_message(WM_GETTEXT, textLength, textBuff)
-        #~ return textBuff[:-1]
-        if not windll.user32.GetWindowTextW(self._hwnd, byref(text), nMaxCount=9999):
-            raise WinError()
+        buffer_max_len = 999
+        buffer = (c_wchar * buffer_max_len)()
+        if windll.user32.GetWindowTextW(self._hwnd, byref(buffer), buffer_max_len):
+            return unicode(buffer.value)
 
     def set_text(self, text):
         if not windll.user32.SetWindowTextW(self._hwnd, unicode(text)):
@@ -463,6 +460,9 @@ class ListBox(Widget):
 class ComboBox(Widget):
     _window_class_name_ = "COMBOBOX" #"ComboBoxEx32"
     _window_style_ = Widget._window_style_ | CBS_DROPDOWNLIST | WS_VSCROLL
+
+    def set_value(self, value):
+        self._send_message(CB_SELECTSTRING, -1, unicode(value)) # CB_SETCURSEL, value, 0)
 
     def add_item(self, text):
         self._send_message(CB_ADDSTRING, 0, unicode(text))

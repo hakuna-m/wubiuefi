@@ -6,6 +6,7 @@ log = logging.getLogger("WinuiAccessibilityPage")
 
 class AccessibilityPage(Page):
     def on_init(self):
+        self.application.info.accessibility = ""
         Page.on_init(self)
 
         #header
@@ -42,4 +43,18 @@ class AccessibilityPage(Page):
         self.main.no_aids_button.set_check(True)
 
     def on_next(self):
+        accessibility = ""
+        if self.main.braille_button.is_checked():
+            accessibility = "braille=ask"
+        elif self.main.visibility1_button.is_checked():
+            accessibility = "access=visibility1"
+        elif self.main.visibility2_button.is_checked():
+            accessibility = "access=visibility2"
+        elif self.main.visibility3_button.is_checked():
+            accessibility = "access=visibility3"
+        elif self.main.mobility1_button.is_checked():
+            accessibility = "access=mobility1"
+        elif self.main.mobility2_button.is_checked():
+            accessibility = "access=mobility2"
+        self.application.info.accessibility = accessibility
         self.application.show_page(self.application.installation_page)

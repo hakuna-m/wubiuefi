@@ -1,6 +1,7 @@
 import os
 import glob
 import subprocess
+import md5
 cache = {}
 
 class Blob(object):
@@ -35,6 +36,14 @@ def read_file(file_path):
     f.close()
     return content
 
+def write_file(file_path, str):
+    if not file_path:
+        return
+    f = None
+    f = open(file_path, 'w')
+    f.write(str)
+    f.close()
+
 def replace_line_in_file(file_path, old_line, new_line):
     if not file_path or not os.path.isfile(file_path):
         return
@@ -61,7 +70,6 @@ def get_dir_files(dir_path, depth=2):
             files += [f for f in glob.glob(dir_path) if os.path.isfile(f)]
     return files
 
-
 def find_line_in_file(file_path, line, endswith=False):
     if not file_path or not os.path.isfile(file_path):
         return
@@ -81,3 +89,8 @@ def unixpath(path):
     if path[1] == ':':
         path = path[2:]
     return path
+
+def get_md5(str):
+    m = md5.new(str)
+    hash = m.digest()
+    return hash

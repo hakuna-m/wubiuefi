@@ -15,6 +15,7 @@ from memory import get_total_memory_mb
 from backends.common.backend import Backend
 from backends.common.helpers import run_command, cache
 import logging
+import shutil
 log = logging.getLogger("WindowsBackend")
 
 
@@ -29,13 +30,14 @@ class WindowsBackend(Backend):
         log.debug("7z=%s" % self.info.iso_extractor)
 
     def select_target_dir(self):
-        targetdir = os.path.join(self.info.targetdrive, sel.info.application_name)
+        targetdir = os.path.join(self.info.targetdrive, self.info.application_name)
         targetdir.replace(" ", "_")
         targetdir.replace("__", "_")
+        gold_targetdir = targetdir
         if os.path.exists(targetdir) \
         and self.info.previous_targetdir != targetdir:
             for i in range(1000):
-                targetdir = self.info.targetdir + str(i)
+                targetdir = gold_targetdir + str(i)
                 if os.path.exists(targetdir):
                     continue
         self.info.targetdir = targetdir
@@ -46,17 +48,22 @@ class WindowsBackend(Backend):
     def create_dir_structure(self):
         self.info.disksdir = os.path.join(self.info.targetdir, "disks")
         self.info.installdir = os.path.join(self.info.targetdir, "install")
-        for d in [
-        self.info.targetdir,
-        self.info.disksdir,
-        self.info.installdir,
-        os.path.join(self.info.disksdir, "boot"),
-        os.path.join(self.info.disksdir, "boot", "grub"),
-        os.path.join(self.info.installdir, "boot"),
-        os.path.join(self.info.installdir, "boot", "grub"),
-        os.path.join(self.info.installdir, "boot", "winboot"),] :
+        self.info.installbootdir = os.path.join(self.info.installdir, "boot")
+        self.info.disksbootdir = os.path.join(self.info.disksdir, "boot")
+        self.info.winbootdir = os.path.join(self.info.targetdir, "winboot")
+        dirs = [
+            self.info.targetdir,
+            self.info.disksdir,
+            self.info.installdir,
+            self.info.installbootdir,
+            self.info.disksbootdir,
+            self.info.winbootdir ,
+            os.path.join(self.info.disksbootdir, "grub"),
+            os.path.join(self.info.installbootdir, "grub"),]
+        for d in dirs:
             if not os.path.isdir(d):
-                os.mkdir(d):
+                log.debug("Creating dir %s" % d)
+                os.mkdir(d)
 
     def uncompress_files(self):
         command1 = ["compact", os.path.join(self.info.targetdir), "/U", "/S", "/A", "/F"]
@@ -74,16 +81,41 @@ class WindowsBackend(Backend):
         uninstaller_path = os.path.join(self.info.targetdir, uninstaller_name)
         shutil.copyfile(self.info.original_exe, uninstaller_path)
 
+    def create_virtual_disks(self):
+        pass #TBD
+
+    def eject_cd(self):
+        if not self.info.cd_drive: return
+        #platform specific
+        #IOCTL_STORAGE_EJECT_MEDIA 0x2D4808
+        #FILE_SHARE_READ 1
+        #FILE_SHARE_WRITE 2
+        #FILE_SHARE_READ|FILE_SHARE_WRITE 3
+        #GENERIC_READ 0x80000000
+        #OPEN_EXISTING 3
+        cd_handle = windll.kernel32.CreateFile(r'\\\\.\\' + self.info.cd_drive, 0x80000000, 3, 0, 3, 0, 0)
+        log.debug("Ejecting cd_handle=%s for drive=%s" % (cd_handle, self.info.cd_drive))
+        if cd_handle:
+            x = ctypes.c_int()
+            result = windll.kernel32.DeviceIoControl(cd_handle, 0x2D4808, 0, 0, 0, 0, ctypes.byref(x), 0)
+            log.debug("EjectCD DeviceIoControl exited with code %s (1==success)" % result)
+            windll.kernel32.CloseHandle(cd_handle)
+
+    def reboot(self):
+        command = ["shutdown", "-r", "-t", "00"]
+        run_command(command) #TBD make async
+
     def copy_installation_files(self):
+        self.info.custominstall = os.path.join(self.info.datadir, "custom-installation")
         dest = self.info.installdir
-        src = os.path.join(self.info.datadir, "custom-installation")
+        src = self.info.custominstall
         shutil.copytree(src, dest)
         src = os.path.join(self.info.datadir, "winboot")
         shutil.copytree(src, dest)
         src = os.path.join(self.info.datadir, "menu.install")
         dest = os.path.join(self.info.installdir, "boot", "grub", "menu.lst")
         shutil.copytree(src, dest)
-        dest = os.path.join(self.info.installdir, "custom-installation", "hooks", "failure-command.sh")
+        dest = os.path.join(self.info.custominstall, "hooks", "failure-command.sh")
         msg="The installation failed. Logs have been saved in: %s." \
             "\n\nNote that in verbose mode, the logs may include the password." \
             "\n\nThe system will now reboot."
