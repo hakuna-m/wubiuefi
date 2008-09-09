@@ -21,6 +21,7 @@ class WindowsFrontend(ui.Application):
 
     def cancel(self):
         if self.ask_confirmation("Are you sure you want to quit?", "Quitting"):
+            log.info("Installation manually cancelled")
             self.quit()
 
     def on_quit(self):

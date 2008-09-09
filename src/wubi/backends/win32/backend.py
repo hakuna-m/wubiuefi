@@ -13,7 +13,7 @@ from drive import Drive
 from registry import get_registry_value
 from memory import get_total_memory_mb
 from backends.common.backend import Backend
-from backends.common.helpers import run_command, cache
+from backends.common.helpers import run_command, cache, replace_line_in_file
 import logging
 import shutil
 log = logging.getLogger("WindowsBackend")
@@ -30,16 +30,16 @@ class WindowsBackend(Backend):
         log.debug("7z=%s" % self.info.iso_extractor)
 
     def select_target_dir(self):
-        targetdir = os.path.join(self.info.targetdrive, self.info.application_name)
+        targetdir = os.path.join(self.info.targetdrive + "\\", self.info.application_name)
         targetdir.replace(" ", "_")
         targetdir.replace("__", "_")
         gold_targetdir = targetdir
         if os.path.exists(targetdir) \
         and self.info.previous_targetdir != targetdir:
-            for i in range(1000):
-                targetdir = gold_targetdir + str(i)
-                if os.path.exists(targetdir):
-                    continue
+            for i in range(2, 1000):
+                targetdir = gold_targetdir + "." + str(i)
+                if not os.path.exists(targetdir):
+                    break
         self.info.targetdir = targetdir
         if self.info.previous_targetdir:
             os.rename(self.info.previous_targetdir, self.info.targetdir)
@@ -91,9 +91,10 @@ class WindowsBackend(Backend):
         src = os.path.join(self.info.datadir, "custom-installation")
         log.debug("Copying %s -> %s" % (src, self.info.custominstall))
         shutil.copytree(src, self.info.custominstall)
-        src = os.path.join(self.info.rootdir, "winboot")
-        log.debug("Copying %s -> %s" % (src, self.info.targetdir))
-        shutil.copytree(src, self.info.targetdir)
+        src = os.path.join(self.info.datadir, "winboot")
+        dest = os.path.join(self.info.targetdir, "winboot")
+        log.debug("Copying %s -> %s" % (src, dest))
+        shutil.copytree(src, dest)
         dest = os.path.join(self.info.custominstall, "hooks", "failure-command.sh")
         msg="The installation failed. Logs have been saved in: %s." \
             "\n\nNote that in verbose mode, the logs may include the password." \
@@ -298,8 +299,8 @@ class WindowsBackend(Backend):
         Gets default paths scanned for CD and ISOs
         '''
         paths = []
-        paths += [self.info.exedir]
-        #~ paths += [self.info.backupfolder]
+        paths += [os.path.dirname(self.info.original_exe)]
+        paths += [self.info.previous_backupdir] #TBD search backup folder
         paths += [drive.path for drive in self.info.drives]
         paths += [os.environ.get("Desktop", None)]
         paths += ['/home/vm/cd'] #TBD quick test

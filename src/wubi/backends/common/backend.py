@@ -12,6 +12,7 @@ import time
 import mappings
 import gettext
 import glob
+import shutil
 import ConfigParser
 from helpers import *
 from metalink import parse_metalink
@@ -62,11 +63,12 @@ class Backend(object):
         self.fetch_basic_os_specific_info()
         self.info.uninstaller_path = self.get_uninstaller_path()
         self.info.previous_targetdir = self.get_previous_targetdir()
+        self.info.previous_backupdir = self.get_previous_backupdir()
         self.info.keyboard_layout = self.get_keyboard_layout()
         self.info.total_memory_mb = self.get_total_memory_mb()
         self.info.locale = self.get_locale(self.info.language)
         self.info.cd_path, self.info.cd_distro = self.find_any_cd()
-        #~ self.info.iso_path,  self.info.iso_distro = self.find_any_iso()
+        self.info.iso_path,  self.info.iso_distro = None, None #self.find_any_iso()
 
     def get_distros(self):
         isolist_path = os.path.join(self.info.datadir, 'isolist.ini')
@@ -110,7 +112,7 @@ class Backend(object):
 
     def get_arch(self):
         #TBD detects python/os arch not processor arch
-        arch = struct.calcsize('P') == 8 and 64 or 32
+        arch = struct.calcsize('P') == 8 and "amd64" or "i386"
         log.debug("arch=%s" % arch)
         return arch
 
@@ -148,21 +150,26 @@ class Backend(object):
         return dest
 
     def check_cd(self, cd_path):
-        pass
+        #TBD
+        return True
 
     def check_iso(self, iso_path):
-        pass
+        #TBD
+        return True
 
     def download_metalink(self):
+        #TBD
         pass
 
     def download_iso(self):
+        #TBD
         pass
 
     def get_iso(self):
         # Use CD if possible
         cd_path = None
-        if self.info.distro == self.info.cd_distro \
+        if self.info.cd_distro \
+        and self.info.distro == self.info.cd_distro \
         and os.path.isdir(self.info.cd_path):
             cd_path = self.info.cd_path
         else:
@@ -176,7 +183,8 @@ class Backend(object):
 
         #Use local ISO if possible
         iso_path = None
-        if self.info.distro == self.info.iso_distro \
+        if self.info.iso_distro \
+        and self.info.distro == self.info.iso_distro \
         and os.path.isfile(self.info.iso_path):
             iso_path = self.info.iso_path
         else:
@@ -185,7 +193,7 @@ class Backend(object):
             iso_name = os.path.basename(iso_path)
             dest = os.path.join(self.info.installdir, iso_name)
             if self.check_iso(iso_path):
-                if os.path.dirname(iso_path) == self.info.backupdir:
+                if os.path.dirname(iso_path) == self.info.previous_backupdir:
                     shutil.move(iso_path, dest)
                 else:
                     shutil.copyfile(iso_path, dest)
@@ -385,8 +393,20 @@ class Backend(object):
         log.debug('searching for local CDs')
         for path in self.get_cd_search_paths():
             path = os.path.abspath(path)
-            if self.distro.is_valid_cd(path):
+            if self.info.distro.is_valid_cd(path):
                 return path
+
+    def get_previous_backupdir(self):
+        if self.info.previous_targetdir:
+            drives = [self.info.previous_targetdir[:2] + "\\"]
+        else:
+            drives = []
+        drives += [d.path + "\\" for d in self.info.drives]
+        for drive in drives:
+            backupdir = os.path.join(drive, "%s*.backup" % self.info.application_name)
+            if os.path.isdir(backupdir):
+                log.debug("Previous_backupdir=%s"%backupdir)
+                return backupdir
 
     def get_previous_targetdir(self):
         if not self.info.uninstaller_path: return

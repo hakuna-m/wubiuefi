@@ -63,10 +63,10 @@ class Distro(object):
             log.debug('  wrong size: %s != %s' % (file_size, self.size))
             return False
         elif self.minsize and file_size < self.minsize:
-            log.debug('  wrong size: %s < %s' % (file_size, self.size))
+            log.debug('  wrong size: %s < %s' % (file_size, self.minsize))
             return False
-        elif self.minsize and file_size < self.minsize:
-            log.debug('  wrong size: %s > %s' % (file_size, self.size))
+        elif self.maxsize and file_size > self.maxsize:
+            log.debug('  wrong size: %s > %s' % (file_size, self.maxsize))
             return False
         files = self.backend.get_iso_file_names(iso_path)
         files = [f.strip().lower() for f in files]

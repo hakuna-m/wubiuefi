@@ -44,5 +44,6 @@ wubi (8.10) UNRELEASED; urgency=low
   * Added menu.lst generation
   * Added winboot dir (pre-compiled)
   * Copy custom-installation files to targetdir
+  * Detect previous backup dir
 
- -- Agostino Russo <agostino.russo@gmail.com>  Tue, 09 Sep 2008 08:51:32 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Wed, 10 Sep 2008 00:25:30 +0100

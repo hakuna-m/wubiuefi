@@ -68,7 +68,6 @@ class InstallationPage(Page):
             self.main, h, h*4,
             "systemsize.bmp", "Installation size:", listitems)
 
-
         listitems = ["Ubuntu", "Kubuntu", "Xubuntu"]
         picture, label, self.distro_list = self.add_controls_block(
             self.main, h, h*7,
@@ -112,7 +111,7 @@ class InstallationPage(Page):
         info = self.application.info
         targetdrive = self.targetdrive_list.get_text()[:2]
         installation_size = self.size_list.get_text()
-        distro_name = self.distro_list.get_text()
+        distro_name = str(self.distro_list.get_text())
         language = self.language_list.get_text()
         username = self.username.get_text()
         password1 = self.password1.get_text()
@@ -141,9 +140,13 @@ class InstallationPage(Page):
         if error_message:
             return
 
+        log.debug(
+            "targetdrive=%s\ninstallation_size=%s\ndistro_name=%s\nlanguage=%s\nusername=%s" \
+            % (targetdrive, installation_size, distro_name, language, username))
+
         info.targetdrive = targetdrive
         info.installation_size = installation_size
-        info.distro_name = distro_name
+        info.distro = info.distros["%s-%s" % (distro_name, info.arch)]
         info.language = language
         info.username = username
         info.password = get_md5(password1)
