@@ -49,8 +49,7 @@ class Backend(object):
         '''
         Basic information required by the application dispatcher select_task()
         '''
-        self.info.exedir = self.get_exe_dir()
-        self.info.original_exe = self.info.exedir #TBD
+        self.info.original_exe = self.get_original_exe()
         self.info.platform = self.get_platform()
         self.info.osname = self.get_osname
         self.info.language, self.info.encoding = self.get_language_encoding()
@@ -74,15 +73,10 @@ class Backend(object):
 
     def get_original_exe(self):
         #TBD
-        self.info.original_exe = os.path.abspath(sys.argv[0])
-
-    def get_exe_dir(self):
         #__file__ does not work when frozen
         #os.path.abspath(os.path.dirname(__file__))
         #os.path.abspath(sys.executable)
-        exedir = os.path.abspath(os.path.dirname(sys.argv[0]))
-        log.debug("exedir=%s" % exedir)
-        return exedir
+        self.info.original_exe = os.path.abspath(sys.argv[0])
 
     def get_locale(self, language_country):
         locale = lang_country2linux_locale.get(language_country, None)
@@ -281,7 +275,9 @@ class Backend(object):
             host_user_name = self.info.host_user_name,
             safe_host_user_name = safe_host_user_name,
             host_os_name = host_os_name,)
-        preseed = template % dic
+        content = template % dic
+        preseed_file = os.path.join(self.info.custominstall, "preseed.conf")
+        write_file(preseed_file, content)
 
     def modify_bootloader(self):
         #platform specific
@@ -308,7 +304,9 @@ class Backend(object):
             verbose_mode_title = "Verbose mode",
             demo_mode_title =  "Demo mode",
             )
-        grub_config = template_file % dic
+        content = template_file % dic
+        grub_config_file = os.path.join(self.info.installbootdir, "grub", "menu.lst")
+        write_file(grub_config_file, content)
 
     def get_installation_tasklist(self):
         tasks = [

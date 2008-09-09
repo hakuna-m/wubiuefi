@@ -1,0 +1,38 @@
+debug off
+hiddenmenu
+default 0
+timeout 0
+fallback 1
+
+title find /ubuntu/disks/boot/grub/menu.lst
+	find --set-root --ignore-floppies /ubuntu/disks/boot/grub/menu.lst
+	configfile /ubuntu/disks/boot/grub/menu.lst
+
+title find /ubuntu/install/boot/grub/menu.lst
+	fallback 2
+	find --set-root --ignore-floppies /ubuntu/install/boot/grub/menu.lst
+	configfile /ubuntu/install/boot/grub/menu.lst
+
+title find /menu.lst
+	fallback 3
+	find --set-root --ignore-floppies /menu.lst
+	configfile /menu.lst
+
+title find /boot/grub/menu.lst
+	fallback 4
+	find --set-root --ignore-floppies /boot/grub/menu.lst
+	configfile /boot/grub/menu.lst
+
+title find /grub/menu.lst
+	fallback 5
+	find --set-root --ignore-floppies /grub/menu.lst
+	configfile /grub/menu.lst
+
+title commandline
+	commandline
+
+title reboot
+	reboot
+
+title halt
+	halt

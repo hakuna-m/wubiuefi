@@ -57,7 +57,6 @@ class WindowsBackend(Backend):
             self.info.installdir,
             self.info.installbootdir,
             self.info.disksbootdir,
-            self.info.winbootdir ,
             os.path.join(self.info.disksbootdir, "grub"),
             os.path.join(self.info.installbootdir, "grub"),]
         for d in dirs:
@@ -79,6 +78,7 @@ class WindowsBackend(Backend):
         uninstaller_name.replace(" ", "_")
         uninstaller_name.replace("__", "_")
         uninstaller_path = os.path.join(self.info.targetdir, uninstaller_name)
+        log.debug("Copying uninstaller %s -> %s" % (self.info.original_exe, uninstaller_path))
         shutil.copyfile(self.info.original_exe, uninstaller_path)
 
     def create_virtual_disks(self):
@@ -106,15 +106,11 @@ class WindowsBackend(Backend):
         run_command(command) #TBD make async
 
     def copy_installation_files(self):
-        self.info.custominstall = os.path.join(self.info.datadir, "custom-installation")
-        dest = self.info.installdir
-        src = self.info.custominstall
-        shutil.copytree(src, dest)
-        src = os.path.join(self.info.datadir, "winboot")
-        shutil.copytree(src, dest)
-        src = os.path.join(self.info.datadir, "menu.install")
-        dest = os.path.join(self.info.installdir, "boot", "grub", "menu.lst")
-        shutil.copytree(src, dest)
+        self.info.custominstall = os.path.join(self.info.installdir, "custom-installation")
+        src = os.path.join(self.info.datadir, "custom-installation")
+        shutil.copytree(src, self.info.custominstall)
+        src = os.path.join(self.info.rootdir, "winboot")
+        shutil.copytree(src, self.info.targetdir)
         dest = os.path.join(self.info.custominstall, "hooks", "failure-command.sh")
         msg="The installation failed. Logs have been saved in: %s." \
             "\n\nNote that in verbose mode, the logs may include the password." \

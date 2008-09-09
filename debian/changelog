@@ -42,5 +42,6 @@ wubi (8.10) UNRELEASED; urgency=low
   * Added cx_freeze support
   * Added new installation tasks
   * Added menu.lst generation
+  * Added winboot dir (pre-compiled)
 
- -- Agostino Russo <agostino.russo@gmail.com>  Tue, 09 Sep 2008 00:53:18 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Tue, 09 Sep 2008 01:24:26 +0100
