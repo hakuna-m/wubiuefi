@@ -45,25 +45,6 @@ class WindowsBackend(Backend):
             os.rename(self.info.previous_targetdir, self.info.targetdir)
         log.info("Installing into %s" % targetdir)
 
-    def create_dir_structure(self):
-        self.info.disksdir = os.path.join(self.info.targetdir, "disks")
-        self.info.installdir = os.path.join(self.info.targetdir, "install")
-        self.info.installbootdir = os.path.join(self.info.installdir, "boot")
-        self.info.disksbootdir = os.path.join(self.info.disksdir, "boot")
-        self.info.winbootdir = os.path.join(self.info.targetdir, "winboot")
-        dirs = [
-            self.info.targetdir,
-            self.info.disksdir,
-            self.info.installdir,
-            self.info.installbootdir,
-            self.info.disksbootdir,
-            os.path.join(self.info.disksbootdir, "grub"),
-            os.path.join(self.info.installbootdir, "grub"),]
-        for d in dirs:
-            if not os.path.isdir(d):
-                log.debug("Creating dir %s" % d)
-                os.mkdir(d)
-
     def uncompress_files(self):
         command1 = ["compact", os.path.join(self.info.targetdir), "/U", "/S", "/A", "/F"]
         command2 = ["compact", os.path.join(self.info.targetdir,"*.*"), "/U", "/S", "/A", "/F"]
@@ -108,8 +89,10 @@ class WindowsBackend(Backend):
     def copy_installation_files(self):
         self.info.custominstall = os.path.join(self.info.installdir, "custom-installation")
         src = os.path.join(self.info.datadir, "custom-installation")
+        log.debug("Copying %s -> %s" % (src, self.info.custominstall))
         shutil.copytree(src, self.info.custominstall)
         src = os.path.join(self.info.rootdir, "winboot")
+        log.debug("Copying %s -> %s" % (src, self.info.targetdir))
         shutil.copytree(src, self.info.targetdir)
         dest = os.path.join(self.info.custominstall, "hooks", "failure-command.sh")
         msg="The installation failed. Logs have been saved in: %s." \

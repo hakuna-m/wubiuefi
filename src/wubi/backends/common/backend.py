@@ -30,11 +30,13 @@ class Backend(object):
         self.application = application
         self.info = application.info
         if hasattr(sys,'frozen') and sys.frozen:
-            self.info.rootdir = os.path.dirname(os.path.abspath(sys.executable))
-            self.info.tempdir = tempfile.mkdtemp(dir=self.info.rootdir)
+            rootdir = os.path.dirname(os.path.abspath(sys.executable))
+            tempdir = tempfile.mkdtemp(dir=rootdir)
         else:
-            self.info.rootdir = ''
-            self.info.tempdir = tempfile.mkdtemp()
+            rootdir = ''
+            tempdir = tempfile.mkdtemp()
+        self.info.rootdir = os.path.abspath(rootdir)
+        self.info.tempdir = os.path.abspath(tempdir)
         self.info.datadir = os.path.join(self.info.rootdir, 'data')
         self.info.bindir = os.path.join(self.info.rootdir, 'bin')
         self.info.imagedir = os.path.join(self.info.datadir, "images") #os.path.join(self.info.datadir, "images")
@@ -76,7 +78,9 @@ class Backend(object):
         #__file__ does not work when frozen
         #os.path.abspath(os.path.dirname(__file__))
         #os.path.abspath(sys.executable)
-        self.info.original_exe = os.path.abspath(sys.argv[0])
+        original_exe = os.path.abspath(sys.argv[0])
+        log.debug("original_exe=%s" % original_exe)
+        return original_exe
 
     def get_locale(self, language_country):
         locale = lang_country2linux_locale.get(language_country, None)
@@ -109,6 +113,24 @@ class Backend(object):
         arch = struct.calcsize('P') == 8 and 64 or 32
         log.debug("arch=%s" % arch)
         return arch
+
+    def create_dir_structure(self):
+        self.info.disksdir = os.path.join(self.info.targetdir, "disks")
+        self.info.installdir = os.path.join(self.info.targetdir, "install")
+        self.info.installbootdir = os.path.join(self.info.installdir, "boot")
+        self.info.disksbootdir = os.path.join(self.info.disksdir, "boot")
+        dirs = [
+            self.info.targetdir,
+            self.info.disksdir,
+            self.info.installdir,
+            self.info.installbootdir,
+            self.info.disksbootdir,
+            os.path.join(self.info.disksbootdir, "grub"),
+            os.path.join(self.info.installbootdir, "grub"),]
+        for d in dirs:
+            if not os.path.isdir(d):
+                log.debug("Creating dir %s" % d)
+                os.mkdir(d)
 
     def fetch_installer_info(self):
         '''
