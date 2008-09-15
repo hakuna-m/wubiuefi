@@ -1,0 +1,4 @@
+statefile
+*.pyc
+*.old
+*.new

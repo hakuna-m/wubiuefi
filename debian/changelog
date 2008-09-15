@@ -45,5 +45,6 @@ wubi (8.10) UNRELEASED; urgency=low
   * Added winboot dir (pre-compiled)
   * Copy custom-installation files to targetdir
   * Detect previous backup dir
+  * Added BitTornado and urlgrabber sources
 
- -- Agostino Russo <agostino.russo@gmail.com>  Wed, 10 Sep 2008 00:25:30 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Tue, 16 Sep 2008 00:37:38 +0100

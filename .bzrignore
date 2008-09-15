@@ -1,12 +1,7 @@
 /old
 /wine
-/src/pyinstaller
-/buildpyinstaller
-/src/urlgrabber
 /dist*
 wubi.exe
-warnpyinstaller.txt
-src/bittornado
 bin.old
 wine.old
 wine.old2

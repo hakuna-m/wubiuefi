@@ -1,0 +1,24 @@
+/.cvsignore/1.1/Tue Feb 24 17:22:05 2004//
+/Choker.py/1.14/Wed Jan  5 23:22:41 2005//
+/Connecter.py/1.21/Tue Oct 11 16:45:23 2005//
+/Downloader.py/1.45/Sat Mar  4 05:53:16 2006//
+/DownloaderFeedback.py/1.13/Mon Dec 13 04:26:32 2004//
+/Encrypter.py/1.34/Tue Oct  4 04:18:15 2005//
+/FileSelector.py/1.24/Sat Mar  4 05:53:16 2006//
+/Filter.py/1.1/Wed Dec 22 05:34:31 2004//
+/HTTPDownloader.py/1.16/Wed Jan 26 23:17:04 2005//
+/NatCheck.py/1.2/Sun Mar 28 16:35:29 2004//
+/PiecePicker.py/1.29/Sat Sep 30 19:34:56 2006//
+/Rerequester.py/1.24/Sat Mar  4 05:53:16 2006//
+/Statistics.py/1.21/Tue Apr 26 17:56:25 2005//
+/Storage.py/1.25/Mon Dec 13 01:35:02 2004//
+/StorageWrapper.py/1.56/Sat Mar  4 05:53:16 2006//
+/StreamCheck.py/1.1/Sat May 15 18:15:02 2004//
+/T2T.py/1.5/Wed Jan 26 23:17:04 2005//
+/Uploader.py/1.10/Thu Apr 14 17:59:27 2005//
+/__init__.py/1.4/Tue Feb 24 21:29:22 2004//
+/btformats.py/1.3/Tue May 25 19:00:58 2004//
+/fakeopen.py/1.1/Tue Feb 24 17:22:05 2004//
+/makemetafile.py/1.6/Tue Jan  4 04:49:28 2005//
+/track.py/1.60/Sat Mar  4 06:05:42 2006//
+D
