@@ -241,7 +241,7 @@ class Backend(object):
         f = open(file_path, 'r')
         content = f.read()
         f.close()
-        hash = md5(content)
+        hash = get_md5(content)
         md5 = hash.digest()
         return md5 == reference_md5
 
@@ -365,7 +365,7 @@ class Backend(object):
             path = os.path.join(path, '*.iso')
             isos = glob.glob(path)
             for iso in isos:
-                for distro in self.info.distros.values():
+                for distro in self.info.distros:
                     if distro.is_valid_iso(iso):
                         return iso, distro
         return None, None
@@ -384,7 +384,7 @@ class Backend(object):
         log.debug('searching for local CDs')
         for path in self.get_cd_search_paths():
             path = os.path.abspath(path)
-            for distro in self.info.distros.values():
+            for distro in self.info.distros:
                 if distro.is_valid_cd(path):
                     return path, distro
         return None, None
@@ -417,9 +417,9 @@ class Backend(object):
     def parse_isolist(self, isolist_path):
         isolist = ConfigParser.ConfigParser()
         isolist.read(isolist_path)
-        distros = {}
+        distros = []
         for distro in isolist.sections():
             kargs = dict(isolist.items(distro))
             kargs['backend'] = self
-            distros[distro] = Distro(**kargs)
+            distros.append(Distro(**kargs))
         return distros

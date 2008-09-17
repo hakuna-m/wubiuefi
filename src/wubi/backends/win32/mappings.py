@@ -367,7 +367,7 @@ keymaps = {
     0x0422 : "ua", # Ukrainian
 }
 
-languages = {
+n2language = {
     1052 : "sq", # Albanian
     1025 : "ar", # Arabic
     1069 : "eu", # Basque
@@ -413,7 +413,9 @@ languages = {
     1058 : "uk", # Ukrainian
 }
 
-full_languages = {
+language2n = dict([(v,k) for k,v in n2language.items()])
+
+n2fulllanguage = {
     1052 : "Albanian",
     1025 : "Arabic",
     1069 : "Basque",

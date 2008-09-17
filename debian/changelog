@@ -46,5 +46,6 @@ wubi (8.10) UNRELEASED; urgency=low
   * Copy custom-installation files to targetdir
   * Detect previous backup dir
   * Added BitTornado and urlgrabber sources
+  * Fixed main installation page data
 
- -- Agostino Russo <agostino.russo@gmail.com>  Tue, 16 Sep 2008 00:37:38 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Wed, 17 Sep 2008 02:38:55 +0100

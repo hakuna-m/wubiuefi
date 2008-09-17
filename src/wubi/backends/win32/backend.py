@@ -14,6 +14,7 @@ from registry import get_registry_value
 from memory import get_total_memory_mb
 from backends.common.backend import Backend
 from backends.common.helpers import run_command, cache, replace_line_in_file
+import mappings
 import logging
 import shutil
 log = logging.getLogger("WindowsBackend")
@@ -212,12 +213,22 @@ class WindowsBackend(Backend):
         return registry_key
 
     def get_windows_language_code(self):
-        windows_language_code = self.get_registry_value(
-                "HKEY_CURRENT_USER",
-                "\\Control Panel\\International",
-                "sLanguage")
+        #~ windows_language_code = self.get_registry_value(
+                #~ "HKEY_CURRENT_USER",
+                #~ "\\Control Panel\\International",
+                #~ "sLanguage")
+        windows_language_code = mappings.language2n.get(self.info.language[:2])
         log.debug("windows_language_code=%s" % windows_language_code)
+        if not windows_language_code:
+            windows_language_code = 1033 #English
         return windows_language_code
+
+    def get_windows_language(self):
+        windows_language = mappings.n2fulllanguage.get(self.info.windows_language_code)
+        log.debug("windows_language=%s" % windows_language)
+        if not windows_language:
+            windows_language = "English"
+        return windows_language
 
     def get_total_memory_mb(self):
         total_memory_mb = get_total_memory_mb()
@@ -265,7 +276,8 @@ class WindowsBackend(Backend):
         self.info.windows_sp = self.get_windows_sp()
         self.info.windows_build = self.get_windows_build()
         self.info.windows_username = self.get_windows_username()
-        #~ self.info.windows_language_code = self.get_windows_language_code()
+        self.info.windows_language_code = self.get_windows_language_code()
+        self.info.windows_language = self.get_windows_language()
         self.info.processor_name = self.get_processor_name()
         self.info.bootloader = self.get_bootloader(self.info.windows_version)
         self.info.system_drive = self.get_system_drive()

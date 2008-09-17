@@ -15,7 +15,7 @@ class Blob(object):
 def run_command(command):
     '''return stdout on success or raise error'''
     process = subprocess.Popen(
-        command, stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
+        command, stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=False)
     process.stdin.close()
     output = process.stdout.read()
     errormsg = process.stderr.read()
@@ -26,6 +26,12 @@ def run_command(command):
         raise Exception(
             "Error executing command\n>>command=%s\n>>retval=%s\n>>stderr=%s\n>>stdout=%s"
             % (" ".join(command), retval, output, errormsg))
+
+def run_async_command(command):
+    '''run command and return immediately'''
+    process = subprocess.Popen(
+        command, stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=False)
+    process.communicate()
 
 def read_file(file_path):
     if not file_path or not os.path.isfile(file_path):
@@ -92,5 +98,14 @@ def unixpath(path):
 
 def get_md5(str):
     m = md5.new(str)
-    hash = m.digest()
+    hash = m.hexdigest()
     return hash
+
+if __name__ == "__main__":
+    print "sleeping3"
+    run_async_command(['sleep', '3'])
+    f = open("/tmp/7za460.zip", 'r')
+    c = f.read()
+    f.close()
+    print 1, run_command(['md5sum', "/tmp/7za460.zip"])
+    print 2, get_md5(c)
