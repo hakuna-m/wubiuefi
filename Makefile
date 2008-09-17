@@ -27,7 +27,7 @@ unittest:
 	$(pywine) tools/test
 
 run:
-	PYTHONPATH=src $(PYWINE) src/wubi/wubi.py -v
+	PYTHONPATH=src $(PYWINE) src/wubi/wubi.py -v --skipsizecheck
 
 clean:
 	rm -rf dist

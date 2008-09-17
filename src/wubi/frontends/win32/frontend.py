@@ -19,9 +19,12 @@ class WindowsFrontend(ui.Application):
         kargs["text"] = "Ubuntu Setup"
         ui.Application.__init__(self, *args, **kargs)
 
-    def cancel(self):
-        if self.ask_confirmation("Are you sure you want to quit?", "Quitting"):
-            log.info("Installation manually cancelled")
+    def cancel(self, confirm=False):
+        if confirm:
+            if self.ask_confirmation("Are you sure you want to quit?", "Quitting"):
+                log.info("Installation manually cancelled")
+                self.quit()
+        else:
             self.quit()
 
     def on_quit(self):

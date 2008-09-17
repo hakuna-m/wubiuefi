@@ -47,5 +47,6 @@ wubi (8.10) UNRELEASED; urgency=low
   * Detect previous backup dir
   * Added BitTornado and urlgrabber sources
   * Fixed main installation page data
+  * Factored out the listbox filling algorithms
 
- -- Agostino Russo <agostino.russo@gmail.com>  Wed, 17 Sep 2008 02:38:55 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Wed, 17 Sep 2008 09:21:19 +0100

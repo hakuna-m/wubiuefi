@@ -16,7 +16,7 @@ re_only_alphanum = re.compile("^[\w]+$")
 
 class InstallationPage(Page):
 
-    def add_controls_block(self, parent, left, top, bmp, label, listitems=None):
+    def add_controls_block(self, parent, left, top, bmp, label, is_listbox):
         picture = ui.Bitmap(
             parent,
             left, top + 6, 32, 32)
@@ -26,18 +26,68 @@ class InstallationPage(Page):
             parent,
             left + 32 + 10, top, 150, 12,
             label)
-        if listitems:
+        if is_listbox:
             combo = ui.ComboBox(
                 parent,
                 left + 32 + 10, top + 20, 150, 200,
                 "")
-            for item in listitems:
-                combo.add_item(item)
-            combo.set_value(listitems[0])
         else:
             combo = None
         return picture, label, combo
 
+    def populate_drive_list(self):
+        #Check disk space
+        if self.application.info.skipsizecheck:
+            drives = [
+                d for d in self.application.info.drives
+                if d.type in ['removable', 'hd']
+                and d.free_space_mb > 3000]
+            if not drives:
+                self.application.show_error_message("Not enough disk space, 2.5GB minimum are required")
+                self.application.cancel()
+        else:
+            drives = [
+                d for d in self.application.info.drives
+                if d.type in ['removable', 'hd']
+                and d.free_space_mb > 4000]
+            if not drives:
+                self.application.show_error_message("Not enough disk space, 4GB minimum are required")
+                self.application.cancel()
+        #Populate dialog
+        drives = [
+            "%s (%sGB free)" % (drive.path, int(drive.free_space_mb/1024))
+            for drive in drives]
+        for drive in drives:
+            self.targetdrive_list.add_item(drive)
+        self.targetdrive_list.set_value(drives[0])
+
+    def populate_size_list(self):
+        targetdrive = self.targetdrive_list.get_text()[:2]
+        targetdrive = [d for d in self.application.info.drives if d.path == targetdrive]
+        freespace = min(30, int(targetdrive[0].free_space_mb / 1024))
+        listitems =  ["%sGB" % x for x in range(4, freespace)]
+        for item in listitems:
+            self.size_list.add_item(item)
+        self.size_list.set_value(listitems[max(0,len(listitems)-2)])
+
+    def populate_distro_list(self):
+        if self.application.info.cd_distro:
+            distros = [self.application.info.cd_distro.name]
+        else:
+            distros = []
+            for distro in self.application.info.distros:
+                if distro.name not in distros:
+                    distros.append(distro.name)
+        for distro in distros:
+            self.distro_list.add_item(distro)
+        self.distro_list.set_value(distros[0])
+
+    def populate_language_list(self):
+        languages = self.application.info.languages
+        for language in languages:
+            self.language_list.add_item(language)
+        language = self.application.info.windows_language
+        self.language_list.set_value(language)
 
     def on_init(self):
         Page.on_init(self)
@@ -59,58 +109,25 @@ class InstallationPage(Page):
         h=24
         w=150
 
-        #Check disk space
-        if self.application.info.skipsizecheck:
-            drives = [
-                d for d in self.application.info.drives
-                if d.type in ['removable', 'hd']
-                and d.free_space_mb > 2500]
-            if not drives:
-                self.application.show_error_message("Not enough disk space, 2.5GB minimum are required")
-                self.application.cancel()
-        else:
-            drives = [
-                d for d in self.application.info.drives
-                if d.type in ['removable', 'hd']
-                and d.free_space_mb > 4000]
-            if not drives:
-                self.application.show_error_message("Not enough disk space, 4GB minimum are required")
-                self.application.cancel()
-
-        #Populate dialog
-        listitems = [
-            "%s (%sGB free)" % (drive.path, int(drive.free_space_mb/1024))
-            for drive in drives]
         picture, label, self.targetdrive_list = self.add_controls_block(
             self.main, h, h,
-            "install.bmp", "Installation drive:", listitems)
+            "install.bmp", "Installation drive:", True)
+        self.populate_drive_list()
 
-        targetdrive = self.targetdrive_list.get_text()[:2]
-        targetdrive = [d for d in self.application.info.drives if d.path == targetdrive]
-        freespace = min(30, int(targetdrive[0].free_space_mb / 1024))
-        listitems =  ["%sGB" % x for x in range(4, freespace)]
         picture, label, self.size_list = self.add_controls_block(
                 self.main, h, h*4,
-                "systemsize.bmp", "Installation size:",
-                listitems)
-        self.size_list.set_value(listitems[max(0,len(listitems)-2)])
+                "systemsize.bmp", "Installation size:", True)
+        self.populate_size_list()
 
-        if self.application.info.cd_distro:
-            distros = [self.application.info.cd_distro.name]
-        else:
-            distros = set([d.name for d in self.application.info.distros])
-            distros = list(distros)
-            distros.sort()
-            #TBD set a default distro and/or distro ordering
         picture, label, self.distro_list = self.add_controls_block(
             self.main, h, h*7,
-            "desktop.bmp", "Desktop environment:", distros)
+            "desktop.bmp", "Desktop environment:", True)
+        self.populate_distro_list()
 
-        listitems = self.application.info.languages
         picture, label, self.language_list = self.add_controls_block(
             self.main, h*4 + w, h,
-            "language.bmp", "Language:", listitems)
-        self.language_list.set_value(self.application.info.windows_language)
+            "language.bmp", "Language:", True)
+        self.populate_language_list()
 
         username = self.application.info.windows_username.lower()
         username = username.replace(' ', '_')
@@ -121,7 +138,7 @@ class InstallationPage(Page):
         self.username = ui.Edit(
             self.main,
             h*4 + w + 42, h*4+20, 150, 20,
-            username)
+            username, False)
 
         picture, label, combo = self.add_controls_block(
             self.main, h*4 + w, h*7,
@@ -130,11 +147,11 @@ class InstallationPage(Page):
         self.password1 = ui.PasswordEdit(
             self.main,
             h*4 + w + 42, h*7-4, 150, 20,
-            "")
+            "", False)
         self.password2 = ui.PasswordEdit(
             self.main,
             h*4 + w + 42, h*7+20, 150, 20,
-            "")
+            "", False)
 
         self.error_label = ui.Label(
             self.main,

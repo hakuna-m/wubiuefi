@@ -422,4 +422,14 @@ class Backend(object):
             kargs = dict(isolist.items(distro))
             kargs['backend'] = self
             distros.append(Distro(**kargs))
+        #order is lost in configparser, use the ordering attribute
+        def compfunc(x, y):
+            if x.ordering == y.ordering:
+                return 0
+            elif x.ordering > y.ordering:
+                return 1
+            else:
+                return -1
+        distros.sort(compfunc)
+        log.debug(distros)
         return distros
