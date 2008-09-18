@@ -114,7 +114,7 @@ class Wubi(object):
         settings = self.frontend.get_installation_settings()
         log.info("Received settings %s" % settings)
         self.frontend.run_tasks(self.backend.get_installation_tasklist())
-        log.info("Almost finished")
+        log.info("Almost finished installing")
         self.frontend.show_installation_finish_page()
         log.info("Finished installation")
 
@@ -124,7 +124,12 @@ class Wubi(object):
         '''
         log.info("Running the uninstaller...")
         self.frontend = self.get_frontend()
-        self.frontend.run_uninstaller()
+        settings = self.frontend.get_uninstallation_settings()
+        log.info("Received settings %s" % settings)
+        self.frontend.run_tasks(self.backend.get_uninstallation_tasklist())
+        log.info("Almost finished uninstalling")
+        self.frontend.show_installation_finish_page()
+        log.info("Finished uninstallation")
 
     def run_cd_menu(self):
         '''

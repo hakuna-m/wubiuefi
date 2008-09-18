@@ -33,11 +33,14 @@ def run_async_command(command):
         command, stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=False)
     process.communicate()
 
-def read_file(file_path):
+def read_file(file_path, binary=False):
     if not file_path or not os.path.isfile(file_path):
         return
     f = None
-    f = open(file_path, 'r')
+    if binary:
+        f = open(file_path, 'rb')
+    else:
+        f = open(file_path, 'r')
     content = f.read()
     f.close()
     return content
@@ -51,13 +54,12 @@ def write_file(file_path, str):
     f.close()
 
 def replace_line_in_file(file_path, old_line, new_line):
-    if not file_path or not os.path.isfile(file_path):
-        return
     if new_line[-1] != "\n":
         new_line += "\n"
-    f = None
-    f = open(file_path, 'w')
+    f = open(file_path, 'r')
     lines = f.readlines()
+    f.close()
+    f = open(file_path, 'w')
     for i,line in enumerate(lines):
         if line.startswith(old_line):
             lines[i] = new_line
@@ -101,6 +103,10 @@ def get_md5(str):
     hash = m.hexdigest()
     return hash
 
+def reversed(list):
+    list.reverse()
+    return list
+
 if __name__ == "__main__":
     print "sleeping3"
     run_async_command(['sleep', '3'])
@@ -109,3 +115,4 @@ if __name__ == "__main__":
     f.close()
     print 1, run_command(['md5sum', "/tmp/7za460.zip"])
     print 2, get_md5(c)
+

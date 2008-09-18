@@ -6,18 +6,19 @@
 import sys
 import os
 import _winreg
+import ConfigParser
 import subprocess
 import ctypes
 #import platform
 from drive import Drive
-from registry import get_registry_value
+import registry
 from memory import get_total_memory_mb
 from backends.common.backend import Backend
-from backends.common.helpers import run_command, cache, replace_line_in_file
+from backends.common.helpers import run_command, cache, replace_line_in_file, read_file, write_file
 import mappings
 import logging
 import shutil
-log = logging.getLogger("WindowsBackend")
+log = logging.getLogger('WindowsBackend')
 
 
 class WindowsBackend(Backend):
@@ -28,27 +29,27 @@ class WindowsBackend(Backend):
     def __init__(self, *args, **kargs):
         Backend.__init__(self, *args, **kargs)
         self.info.iso_extractor = os.path.join(self.info.bindir, '7z.exe')
-        log.debug("7z=%s" % self.info.iso_extractor)
+        log.debug('7z=%s' % self.info.iso_extractor)
 
     def select_target_dir(self):
-        targetdir = os.path.join(self.info.targetdrive + "\\", self.info.application_name)
-        targetdir.replace(" ", "_")
-        targetdir.replace("__", "_")
+        targetdir = os.path.join(self.info.targetdrive + '\\', self.info.application_name)
+        targetdir.replace(' ', '_')
+        targetdir.replace('__', '_')
         gold_targetdir = targetdir
         if os.path.exists(targetdir) \
         and self.info.previous_targetdir != targetdir:
             for i in range(2, 1000):
-                targetdir = gold_targetdir + "." + str(i)
+                targetdir = gold_targetdir + '.' + str(i)
                 if not os.path.exists(targetdir):
                     break
         self.info.targetdir = targetdir
         if self.info.previous_targetdir:
             os.rename(self.info.previous_targetdir, self.info.targetdir)
-        log.info("Installing into %s" % targetdir)
+        log.info('Installing into %s' % targetdir)
 
     def uncompress_files(self):
-        command1 = ["compact", os.path.join(self.info.targetdir), "/U", "/S", "/A", "/F"]
-        command2 = ["compact", os.path.join(self.info.targetdir,"*.*"), "/U", "/S", "/A", "/F"]
+        command1 = ['compact', os.path.join(self.info.targetdir), '/U', '/S', '/A', '/F']
+        command2 = ['compact', os.path.join(self.info.targetdir,'*.*'), '/U', '/S', '/A', '/F']
         for command in [command1,command2]:
             try:
                 runcommand(command)
@@ -56,14 +57,16 @@ class WindowsBackend(Backend):
                 log.exception(err)
 
     def create_uninstaller(self):
-        uninstaller_name = "uninstall-%s.exe"  % self.info.application_name
-        uninstaller_name.replace(" ", "_")
-        uninstaller_name.replace("__", "_")
+        uninstaller_name = 'uninstall-%s.exe'  % self.info.application_name
+        uninstaller_name.replace(' ', '_')
+        uninstaller_name.replace('__', '_')
         uninstaller_path = os.path.join(self.info.targetdir, uninstaller_name)
-        log.debug("Copying uninstaller %s -> %s" % (self.info.original_exe, uninstaller_path))
+        log.debug('Copying uninstaller %s -> %s' % (self.info.original_exe, uninstaller_path))
         shutil.copyfile(self.info.original_exe, uninstaller_path)
+        registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'UninstallString', uninstaller_path)
 
     def create_virtual_disks(self):
+        self.info.targetdrive.filesystem = 'fat'
         pass #TBD
 
     def eject_cd(self):
@@ -76,66 +79,63 @@ class WindowsBackend(Backend):
         #GENERIC_READ 0x80000000
         #OPEN_EXISTING 3
         cd_handle = windll.kernel32.CreateFile(r'\\\\.\\' + self.info.cd_drive, 0x80000000, 3, 0, 3, 0, 0)
-        log.debug("Ejecting cd_handle=%s for drive=%s" % (cd_handle, self.info.cd_drive))
+        log.debug('Ejecting cd_handle=%s for drive=%s' % (cd_handle, self.info.cd_drive))
         if cd_handle:
             x = ctypes.c_int()
             result = windll.kernel32.DeviceIoControl(cd_handle, 0x2D4808, 0, 0, 0, 0, ctypes.byref(x), 0)
-            log.debug("EjectCD DeviceIoControl exited with code %s (1==success)" % result)
+            log.debug('EjectCD DeviceIoControl exited with code %s (1==success)' % result)
             windll.kernel32.CloseHandle(cd_handle)
 
     def reboot(self):
-        command = ["shutdown", "-r", "-t", "00"]
+        command = ['shutdown', '-r', '-t', '00']
         run_command(command) #TBD make async
 
     def copy_installation_files(self):
-        self.info.custominstall = os.path.join(self.info.installdir, "custom-installation")
-        src = os.path.join(self.info.datadir, "custom-installation")
-        log.debug("Copying %s -> %s" % (src, self.info.custominstall))
+        self.info.custominstall = os.path.join(self.info.installdir, 'custom-installation')
+        src = os.path.join(self.info.datadir, 'custom-installation')
+        log.debug('Copying %s -> %s' % (src, self.info.custominstall))
         shutil.copytree(src, self.info.custominstall)
-        src = os.path.join(self.info.datadir, "winboot")
-        dest = os.path.join(self.info.targetdir, "winboot")
-        log.debug("Copying %s -> %s" % (src, dest))
+        src = os.path.join(self.info.datadir, 'winboot')
+        dest = os.path.join(self.info.targetdir, 'winboot')
+        log.debug('Copying %s -> %s' % (src, dest))
         shutil.copytree(src, dest)
-        dest = os.path.join(self.info.custominstall, "hooks", "failure-command.sh")
-        msg="The installation failed. Logs have been saved in: %s." \
-            "\n\nNote that in verbose mode, the logs may include the password." \
-            "\n\nThe system will now reboot."
-        msg = msg % os.path.join(self.info.installdir, "installation-logs.zip")
-        replace_line_in_file(dest, "msg=", "msg='%s'" % msg)
-
-    def get_registry_value(self, key, subkey, attr):
-        return get_registry_value(key, subkey, attr)
+        dest = os.path.join(self.info.custominstall, 'hooks', 'failure-command.sh')
+        msg='The installation failed. Logs have been saved in: %s.' \
+            '\n\nNote that in verbose mode, the logs may include the password.' \
+            '\n\nThe system will now reboot.'
+        msg = msg % os.path.join(self.info.installdir, 'installation-logs.zip')
+        replace_line_in_file(dest, 'msg=', "msg='%s'" % msg)
 
     def get_windows_version2(self):
-        windows_version2 = self.get_registry_value(
-                "HKEY_LOCAL_MACHINE",
-                "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion",
-                "ProductName")
-        log.debug("windows_version2=%s" % windows_version2)
+        windows_version2 = registry.get_value(
+                'HKEY_LOCAL_MACHINE',
+                'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion',
+                'ProductName')
+        log.debug('windows_version2=%s' % windows_version2)
         return windows_version2
 
     def get_windows_sp(self):
-        windows_sp = self.get_registry_value(
-                "HKEY_LOCAL_MACHINE",
-                "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion",
-                "CSDVersion")
-        log.debug("windows_sp=%s" % windows_sp)
+        windows_sp = registry.get_value(
+                'HKEY_LOCAL_MACHINE',
+                'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion',
+                'CSDVersion')
+        log.debug('windows_sp=%s' % windows_sp)
         return windows_sp
 
     def get_windows_build(self):
-        windows_build  = self.get_registry_value(
-                "HKEY_LOCAL_MACHINE",
-                "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion",
-                "CurrentBuildNumber")
-        log.debug("windows_build=%s" % windows_build)
+        windows_build  = registry.get_value(
+                'HKEY_LOCAL_MACHINE',
+                'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion',
+                'CurrentBuildNumber')
+        log.debug('windows_build=%s' % windows_build)
         return windows_build
 
     def get_processor_name(self):
-        processor_name = get_registry_value(
-            "HKEY_LOCAL_MACHINE",
-            "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0",
-            "ProcessorNameString")
-        log.debug("processor_name=%s" %processor_name)
+        processor_name = registry.get_value(
+            'HKEY_LOCAL_MACHINE',
+            'HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0',
+            'ProcessorNameString')
+        log.debug('processor_name=%s' %processor_name)
         return processor_name
 
     def get_windows_version(self):
@@ -165,7 +165,7 @@ class WindowsBackend(Backend):
                     version = '2003'
             elif major == 6:
                 version = 'vista'
-        log.debug("windows version=%s" % version)
+        log.debug('windows version=%s' % version)
         return version
 
     def get_bootloader(self, windows_version):
@@ -177,12 +177,12 @@ class WindowsBackend(Backend):
             bootloader = '98'
         else:
             bootloader = None
-        log.debug("bootloader=%s" % bootloader)
+        log.debug('bootloader=%s' % bootloader)
         return bootloader
 
     def get_networking_info(self):
         return NotImplemented
-        #~ win32com.client.Dispatch("WbemScripting.SWbemLocator") but it doesn't
+        #~ win32com.client.Dispatch('WbemScripting.SWbemLocator') but it doesn't
         #~ seem to function on win 9x. This script is intended to detect the
         #~ computer's network configuration (gateway, dns, ip addr, subnet mask).
         #~ Does someone know how to obtain those informations on a win 9x ?
@@ -195,82 +195,77 @@ class WindowsBackend(Backend):
         for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
             drive = Drive(letter)
             if drive.type:
-                log.debug("drive=%s"% str(drive))
+                log.debug('drive=%s'% str(drive))
                 drives.append(drive)
         return drives
 
     def get_uninstaller_path(self):
-        try:
-            uninstaller_path = _winreg.QueryValue(_winreg.HKEY_LOCAL_MACHINE, self.info.uninstaller_key)
-        except:
-            uninstaller_path = None
-        log.debug("uninstaller_path=%s" % uninstaller_path)
+        uninstaller_path = registry.get_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'UninstallString')
+        log.debug('uninstaller_path=%s' % uninstaller_path)
         return uninstaller_path
 
     def get_registry_key(self):
-        registry_key = "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\"  + self.info.application_name
-        log.debug("registry_key=%s" % registry_key)
+        registry_key = 'Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\'  + self.info.application_name
+        log.debug('registry_key=%s' % registry_key)
         return registry_key
 
     def get_windows_language_code(self):
-        #~ windows_language_code = self.get_registry_value(
-                #~ "HKEY_CURRENT_USER",
-                #~ "\\Control Panel\\International",
-                #~ "sLanguage")
+        #~ windows_language_code = registry.get_value(
+                #~ 'HKEY_CURRENT_USER',
+                #~ '\\Control Panel\\International',
+                #~ 'sLanguage')
         windows_language_code = mappings.language2n.get(self.info.language[:2])
-        log.debug("windows_language_code=%s" % windows_language_code)
+        log.debug('windows_language_code=%s' % windows_language_code)
         if not windows_language_code:
             windows_language_code = 1033 #English
         return windows_language_code
 
     def get_windows_language(self):
         windows_language = mappings.n2fulllanguage.get(self.info.windows_language_code)
-        log.debug("windows_language=%s" % windows_language)
+        log.debug('windows_language=%s' % windows_language)
         if not windows_language:
-            windows_language = "English"
+            windows_language = 'English'
         return windows_language
 
     def get_total_memory_mb(self):
         total_memory_mb = get_total_memory_mb()
-        log.debug("total_memory_mb=%s" % total_memory_mb)
+        log.debug('total_memory_mb=%s' % total_memory_mb)
         return total_memory_mb
 
     def get_windows_username(self):
-        windows_username = os.getenv("username")
-        log.debug("windows_username=%s" % windows_username)
+        windows_username = os.getenv('username')
+        log.debug('windows_username=%s' % windows_username)
         return windows_username
 
     def get_keyboard_layout(self):
         keyboard_layout = ctypes.windll.user32.GetKeyboardLayout(0)
-        log.debug("keyboard_layout=%s" % keyboard_layout)
+        log.debug('keyboard_layout=%s' % keyboard_layout)
         return keyboard_layout
 
         #~ lower word is the locale identifier (higher word is a handler to the actual layout)
         #~ IntOp $hkl $0 & 0xFFFFFFFF
-        #~ IntFmt $hkl "0x%08X" $hkl
+        #~ IntFmt $hkl '0x%08X' $hkl
         #~ IntOp $localeid $0 & 0x0000FFFF
-        #~ IntFmt $localeid "0x%04X" $localeid
-        #~ ReadINIStr $layoutcode $PLUGINSDIR\data\keymaps.ini "keymaps" "$localeid"
-        #~ ReadINIStr $keyboardvariant $PLUGINSDIR\data\variants.ini "hkl2variant" "$hkl"
-        #~ #${debug} "hkl=$hkl, localeid=$localeid, layoutcode=$layoutcode, keyboardvariant=$keyboardvariant"
-        #~ ${if} "$layoutcode" != ""
+        #~ IntFmt $localeid '0x%04X' $localeid
+        #~ ReadINIStr $layoutcode $PLUGINSDIR\data\keymaps.ini 'keymaps' '$localeid'
+        #~ ReadINIStr $keyboardvariant $PLUGINSDIR\data\variants.ini 'hkl2variant' '$hkl'
+        #~ #${debug} 'hkl=$hkl, localeid=$localeid, layoutcode=$layoutcode, keyboardvariant=$keyboardvariant'
+        #~ ${if} '$layoutcode' != ''
         #~ return
         #~ ${endif}
         #~ safetynet:
-        #~ StrCpy $layoutcode "$country"
-        #~ ${StrFilter} "$layoutcode" "-" "" "" "$layoutcode" #lowercase
-        #~ ${debug} "LayoutCode=$LayoutCode"
+        #~ StrCpy $layoutcode '$country'
+        #~ ${StrFilter} '$layoutcode' '-' '' '' '$layoutcode' #lowercase
+        #~ ${debug} 'LayoutCode=$LayoutCode'
 
     def get_system_drive(self):
-        system_drive = os.getenv("SystemDrive")
+        system_drive = os.getenv('SystemDrive')
         system_drive = Drive(system_drive)
-        log.debug("system_drive=%s" % system_drive)
+        log.debug('system_drive=%s' % system_drive)
         return system_drive
 
     def fetch_basic_os_specific_info(self):
         self.info.registry_key = self.get_registry_key()
-        self.info.uninstaller_subkey = "Uninstaller"
-        self.info.uninstaller_key = self.info.registry_key + self.info.uninstaller_subkey
         self.info.windows_version = self.get_windows_version()
         self.info.windows_version2 = self.get_windows_version2()
         self.info.windows_sp = self.get_windows_sp()
@@ -296,7 +291,7 @@ class WindowsBackend(Backend):
             if overwrite:
                 os.unlink(output_file)
             else:
-                raise Exception("Cannot overwrite %s" % output_file)
+                raise Exception('Cannot overwrite %s' % output_file)
         command = [self.info.iso_extractor, 'e', '-i!' + file_path, '-o' + output_dir, iso_path]
         try:
             output = run_command(command)
@@ -314,10 +309,14 @@ class WindowsBackend(Backend):
         paths += [os.path.dirname(self.info.original_exe)]
         paths += [self.info.previous_backupdir] #TBD search backup folder
         paths += [drive.path for drive in self.info.drives]
-        paths += [os.environ.get("Desktop", None)]
+        paths += [os.environ.get('Desktop', None)]
         paths += ['/home/vm/cd'] #TBD quick test
         paths = [os.path.abspath(p) for p in paths]
         return paths
+
+    def verify_signature(self, file, signature):
+        #TBD
+        return True
 
     def get_cd_search_paths(self):
         return [drive.path for drive in self.info.drives] # if drive.type == 'cd']
@@ -333,7 +332,7 @@ class WindowsBackend(Backend):
             output = run_command(command)
         except Exception, err:
             log.exception(err)
-            log.debug("command >>%s" % " ".join(command))
+            log.debug('command >>%s' % ' '.join(command))
             output = None
         if not output: return []
         lines = output.split(os.linesep)
@@ -343,3 +342,160 @@ class WindowsBackend(Backend):
         file_names = [os.path.normpath(x[-1]) for x in file_info]
         cache[(self.get_iso_file_names, iso_path)] = file_names
         return file_names
+
+    def remove_registry_key(self):
+        registry.delete_key(
+            'HKEY_LOCAL_MACHINE',
+            self.info.registry_key)
+
+
+    def modify_bootloader(self):
+        for drive in self.info.drives:
+            if drive not in ('removable', 'hd'):
+                continue
+            if self.info.bootloader == 'xp':
+                self.modify_bootini(path)
+            elif self.info.bootloader == '98':
+                self.modify_configsys(path)
+            elif self.info.bootloader == 'vista':
+                self.modify_bcd(path)
+
+    def undo_bootloader(self):
+        winboot_files = ['wubildr', 'wubildr.mbr', 'wubildr.exe']
+        for drive in self.info.drives:
+            self.undo_bootini(drive)
+            self.undo_configsys(drive)
+            self.undo_bcd()
+        for f in winboot_files:
+            f = os.path.join(drive.path, '/', f)
+            if os.path.isfile(f):
+                os.unlink(f)
+
+    def modify_bootini(self, drive):
+        log.debug("modify_bootini %s" % drive)
+        bootini = os.path.join(drive.path, '/', 'boot.ini')
+        if not os.path.isfile(bootini):
+            return
+        shutil.copy(os.path.join(self.info.datadir, 'winboot', 'wubildr'),  drive.path)
+        shutil.copy(os.path.join(self.info.datadir, 'winboot', 'wubildr.mbr'),  drive.path)
+        run_command(['attrib', '-R', '-S', '-H', bootini])
+        ini = ConfigParser.ConfigParser()
+        ini.read(bootini)
+        ini.set('boot loader', 'timeout', 10)
+        ini.set('operating systems', 'c:\wubildr.mbr', self.info.distro.name)
+        f = open(bootini, 'w')
+        ini.write(f)
+        f.close()
+        run_command(['attrib', '+R', '+S', '+H', bootini])
+
+    def undo_bootini(self, drive):
+        log.debug("undo_bootini %s" % drive)
+        bootini = os.path.join(drive.path, '/', 'boot.ini')
+        if not os.path.isfile(bootini):
+            return
+        run_command(['attrib', '-R', '-S', '-H', bootini])
+        ini = ConfigParser.ConfigParser()
+        ini.read(bootini)
+        ini.remove_option('operating systems', 'c:\wubildr.mbr')
+        f = open(bootini, 'w')
+        ini.write(f)
+        f.close()
+        run_command(['attrib', '+R', '+S', '+H', bootini])
+
+    def modify_configsys(self, drive):
+        log.debug("modify_configsys %s" % drive)
+        configsys = os.path.join(drive.path, '/', 'config.sys')
+        if not os.path.isfile(configsys):
+            return
+        shutil.copy(os.path.join(self.info.datadir, 'winboot', 'wubildr.exe'),  drive.path)
+        run_command(['attrib', '-R', '-S', '-H', configsys])
+        config = read_file(configsys)
+        if 'REM WUBI MENU START\n' in config:
+            log.debug("Configsys has already been modified")
+            return
+
+        config += '''
+        REM WUBI MENU START
+        [menu]
+        menucolor=15,0
+        menuitem=windows,Windows
+        menuitem=wubildr,$distro
+        menudefault=windows,10
+        [wubildr]
+        device=wubildr.exe
+        [windows]
+
+        REM WUBI MENU END
+        '''
+        write_file(configsys, config)
+        run_command(['attrib', '+R', '+S', '+H', configsys])
+
+    def undo_configsys(self, drive):
+        log.debug("undo_configsys %s" % drive)
+        configsys = os.path.join(drive.path, '/', 'config.sys')
+        if not os.path.isfile(configsys):
+            return
+        run_command(['attrib', '-R', '-S', '-H', configsys])
+        config = read_file(configsys)
+        s = config.find('REM WUBI MENU START\n')
+        e = config.find('REM WUBI MENU END\n')
+        if s > 0 and e > 0:
+            e += len('REM WUBI MENU END')
+        config = config[:s] + config[e:]
+        write_file(configsys, config)
+        run_command(['attrib', '+R', '+S', '+H', configsys])
+
+    def modify_bcd(self, drive):
+        log.debug("modify_bcd %s" % drive)
+
+        if drive is self.info.system_drive \
+        or drive.path == "C:" \
+        or drive.path == os.environ('systemroot')[:2]:
+            shutil.copy(os.path.join(self.info.datadir, 'winboot', 'wubildr'),  drive.path)
+            shutil.copy(os.path.join(self.info.datadir, 'winboot', 'wubildr.mbr'),  drive.path)
+
+        bcdedit = os.path.join(os.getenv('SystemDrive'), 'bcdedit.exe')
+        if not os.path.isfile(bcdedit):
+            bcdedit = os.path.join(os.environ('systemroot'), 'sysnative', 'bcdedit.exe')
+        if not os.path.isfile(bcdedit):
+            log.error("Cannot find bcdedit")
+            return
+        if registry.get_key('HKEY_LOCAL_MACHINE', self.info.registry_key, 'VistaBootDrive'):
+            log.debug("BCD has already been modified")
+            return
+
+        command = [bcdedit, '/create', '/d', '"%s"' % self.info.distro.name, '/application', 'bootsector']
+        id = run_command(command)
+        id = id[id.index('{'):id.index('}')+1]
+        command = [bcdedit, '/set', id,  'device', 'partition=%s' + self.info.targetdrive]
+        run_command(command)
+        command = [bcdedit, '/set', id,  'path', 'wubildr.mbr']
+        run_command(command)
+        command = [bcdedit, ' /displayorder', id,  '/addlast']
+        run_command(command)
+        command = [bcdedit, ' /timeout', 10]
+        run_command(command)
+        registry.set_key(
+            'HKEY_LOCAL_MACHINE',
+            self.info.registry_key,
+            'VistaBootDrive',
+            id)
+
+    def undo_bcd(self):
+        log.debug("undo_bcd")
+        bcdedit = os.path.join(os.getenv('SystemDrive'), 'bcdedit.exe')
+        if not os.path.isfile(bcdedit):
+            bcdedit = os.path.join(os.getenv('SystemRoot'), 'sysnative', 'bcdedit.exe')
+        if not os.path.isfile(bcdedit):
+            log.error("Cannot find bcdedit")
+            return
+        id = registry.get_key(
+            'HKEY_LOCAL_MACHINE',
+            self.info.registry_key,
+            'VistaBootDrive')
+        if not id:
+            log.debug("Could not find bcd id")
+            return
+        log.debug("Removing bcd entry %s" % id)
+        command = [bcdedit, '/delete', id , '/f']
+        run_command(command)

@@ -48,5 +48,8 @@ wubi (8.10) UNRELEASED; urgency=low
   * Added BitTornado and urlgrabber sources
   * Fixed main installation page data
   * Factored out the listbox filling algorithms
+  * Activated download manager
+  * Added windows bootloader handlers
+  * Added uninstaller functionality
 
- -- Agostino Russo <agostino.russo@gmail.com>  Wed, 17 Sep 2008 09:21:19 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Thu, 18 Sep 2008 01:17:56 +0100

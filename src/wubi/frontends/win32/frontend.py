@@ -78,3 +78,11 @@ class WindowsFrontend(ui.Application):
         self.tasklist = tasklist
         tasklist.start()
         self.run() #will be stopped by self.progress_page.on_progress
+
+    def get_uninstallation_settings(self):
+        #TBD
+        return
+
+    def show_uninstallation_finish_page(self):
+        #TBD
+        return

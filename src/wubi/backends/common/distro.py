@@ -96,7 +96,7 @@ class Distro(object):
                     output_dir=self.backend.info.tempdir,
                     overwrite=True)
             elif os.path.isdir(cd_or_iso_path):
-                info_file = os.path.join(cd_path, self.info_file)
+                info_file = os.path.join(cd_or_iso_path, self.info_file)
             else:
                 return
             if not os.path.isfile(info_file):
