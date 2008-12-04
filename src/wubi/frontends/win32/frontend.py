@@ -1,6 +1,27 @@
+# Copyright (c) 2008 Agostino Russo
+#
+# Written by Agostino Russo <agostino.russo@gmail.com>
+#
+# This file is part of Wubi the Win32 Ubuntu Installer.
+#
+# Wubi is free software; you can redistribute it and/or modify
+# it under 5the terms of the GNU Lesser General Public License as
+# published by the Free Software Foundation; either version 2.1 of
+# the License, or (at your option) any later version.
+#
+# Wubi is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
 from winui import ui
 from installation_finish_page import InstallationFinishPage
 from installation_page import InstallationPage
+from uninstallation_page import UninstallationPage
 from accessibility_page import AccessibilityPage
 from progress_page import ProgressPage
 import logging
@@ -30,8 +51,11 @@ class WindowsFrontend(ui.Application):
     def on_quit(self):
         log.debug("frontend on_quit...")
         if hasattr(self, "tasklist") and self.tasklist:
-            log.debug("stopping background task")
-            self.tasklist.stop()
+            log.debug("stopping background task %s" % self.tasklist.name)
+            self.tasklist.cancel()
+            self.tasklist.join(1)
+            if self.tasklist.isAlive():
+                log.debug("Task cancellation timed out, the program will exit anyway")
         self.controller.on_quit()
 
     def on_init(self):
@@ -74,15 +98,19 @@ class WindowsFrontend(ui.Application):
     def run_tasks(self, tasklist):
         self.progress_page = ProgressPage(self.main_window)
         self.show_page(self.progress_page)
-        tasklist.on_progress_callback = self.progress_page.on_progress
+        tasklist.progress_callback = self.progress_page.on_progress
         self.tasklist = tasklist
         tasklist.start()
         self.run() #will be stopped by self.progress_page.on_progress
 
     def get_uninstallation_settings(self):
-        #TBD
-        return
+        def on_ok(settings):
+            self.stop()
+        self.uninstallation_page = UninstallationPage(self.main_window)
+        self.uninstallation_page.callback = on_ok
+        self.show_page(self.uninstallation_page)
+        self.run()
+        return True
 
     def show_uninstallation_finish_page(self):
-        #TBD
-        return
+        self.progress_page.hide()

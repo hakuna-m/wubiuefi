@@ -1,10 +1,35 @@
+# Copyright (c) 2008 Agostino Russo
+#
+# Written by Agostino Russo <agostino.russo@gmail.com>
+#
+# This file is part of Wubi the Win32 Ubuntu Installer.
+#
+# Wubi is free software; you can redistribute it and/or modify
+# it under 5the terms of the GNU Lesser General Public License as
+# published by the Free Software Foundation; either version 2.1 of
+# the License, or (at your option) any later version.
+#
+# Wubi is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
 import os
 import shutil
+from utils import read_file
 import logging
-from helpers import *
+
 log = logging.getLogger('Distro')
 
+
 class Distro(object):
+
+    cache = {}
+
     def __init__(
             self, name, version, kernel, initrd,
             info_file, arch, metalink, metalink2,
@@ -84,10 +109,10 @@ class Distro(object):
             return False
 
     def get_info(self, cd_or_iso_path):
-        if (Distro.get_info, cd_or_iso_path, self.info_file) in cache:
-            return cache[(Distro.get_info, cd_or_iso_path, self.info_file)]
+        if (cd_or_iso_path, self.info_file) in Distro.cache:
+            return Distro.cache[(cd_or_iso_path, self.info_file)]
         else:
-            cache[(Distro.get_info, cd_or_iso_path, self.info_file)] = None
+            Distro.cache[(cd_or_iso_path, self.info_file)] = None
             log.debug("getting %s from %s" % (self.info_file,cd_or_iso_path))
             if os.path.isfile(cd_or_iso_path):
                 info_file = self.backend.extract_file_from_iso(
@@ -105,7 +130,7 @@ class Distro(object):
             if info_file and os.path.isfile(info_file) and os.path.isfile(cd_or_iso_path):
                 os.unlink(info_file)
             info = self.parse_isoinfo(info)
-            cache[(Distro.get_info, cd_or_iso_path, self.info_file)] = info
+            Distro.cache[(cd_or_iso_path, self.info_file)] = info
             return info
 
     def get_required_files(self):

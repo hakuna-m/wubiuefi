@@ -1,3 +1,23 @@
+# Copyright (c) 2008 Agostino Russo
+#
+# Written by Agostino Russo <agostino.russo@gmail.com>
+#
+# This file is part of Wubi the Win32 Ubuntu Installer.
+#
+# Wubi is free software; you can redistribute it and/or modify
+# it under 5the terms of the GNU Lesser General Public License as
+# published by the Free Software Foundation; either version 2.1 of
+# the License, or (at your option) any later version.
+#
+# Wubi is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
 from winui import ui
 from page import Page
 import logging
@@ -11,7 +31,8 @@ class ProgressPage(Page):
 
         #header
         self.insert_header(
-            "Installing Ubuntu 8.10",
+            #TBD change it to something more dynamic
+            "Installing Ubuntu",
             "Please wait",
             "Ubuntu-header.bmp")
 
@@ -26,15 +47,16 @@ class ProgressPage(Page):
         self.main.subtask_label = ui.Label(self.main, 20, 80, self.width - 40, 20)
         self.main.subprogressbar = ui.ProgressBar(self.main, 20, 110, self.width - 40, 20)
 
-    def on_progress(self, task):
-        self.header.title.set_text(task.name)
-        self.main.progressbar.set_position(int(100.0*task.task_progress))
-        if task.current_subtask:
-            self.main.task_label.set_text(task.current_subtask_name)
-            if task.current_subtask.current_subtask:
-                self.main.subtask_label.set_text(task.current_subtask.current_subtask.name)
-            if task.current_subtask.total_progress:
-                self.main.subprogressbar.set_position(int(100.0*task.current_subtask.total_progress))
-        if task.is_finished:
+    def on_progress(self, tasklist):
+        self.header.title.set_text(tasklist.name)
+        self.main.progressbar.set_position(int(100.0*tasklist.tasks_completed()))
+        self.main.task_label.set_text(tasklist.current_task.name)
+        if tasklist.current_task.current_subtask_name:
+            self.main.subtask_label.set_text(tasklist.current_task.current_subtask_name)
+        if tasklist.current_task.percent_completed:
+            completed = "%s%%" % (100.0*tasklist.current_task.percent_completed)
+            self.main.subtask_label.set_text(completed)
+            self.main.subprogressbar.set_position(int(100.0*tasklist.current_task.percent_completed))
+        if tasklist.tasks_completed() >= 1:
             self.main.progressbar.set_position(100)
             self.application.stop()

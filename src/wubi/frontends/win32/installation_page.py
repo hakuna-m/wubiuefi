@@ -1,11 +1,32 @@
+# Copyright (c) 2008 Agostino Russo
+#
+# Written by Agostino Russo <agostino.russo@gmail.com>
+#
+# This file is part of Wubi the Win32 Ubuntu Installer.
+#
+# Wubi is free software; you can redistribute it and/or modify
+# it under 5the terms of the GNU Lesser General Public License as
+# published by the Free Software Foundation; either version 2.1 of
+# the License, or (at your option) any later version.
+#
+# Wubi is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
 from winui import ui
 from page import Page
-from backends.common.helpers import get_md5
-from backends.common.mappings import reserved_usernames
+from wubi.backends.common.mappings import reserved_usernames
 import os
 import logging
 import sys
 import re
+import md5
+
 log = logging.getLogger("WinuiInstallationPage")
 if sys.version.startswith('2.3'):
     from sets import Set as set
@@ -68,7 +89,8 @@ class InstallationPage(Page):
         listitems =  ["%sGB" % x for x in range(4, freespace)]
         for item in listitems:
             self.size_list.add_item(item)
-        self.size_list.set_value(listitems[max(0,len(listitems)-2)])
+	if listitems:
+            self.size_list.set_value(listitems[max(0,len(listitems)-2)])
 
     def populate_distro_list(self):
         if self.application.info.cd_distro:
@@ -94,7 +116,8 @@ class InstallationPage(Page):
 
         #header
         self.insert_header(
-            "You are about to install Ubuntu 8.10",
+            #TBD change it to something more dynamic
+            "You are about to install Ubuntu",
             "Please select username and password for the new account",
             "Ubuntu-header.bmp")
 
@@ -209,3 +232,8 @@ class InstallationPage(Page):
         info.username = username
         info.password = get_md5(password1)
         self.callback("ok")
+
+def get_md5(str):
+    m = md5.new(str)
+    hash = m.hexdigest()
+    return hash

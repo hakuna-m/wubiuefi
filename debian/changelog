@@ -1,4 +1,4 @@
-wubi (8.10) UNRELEASED; urgency=low
+wubi (9.04) UNRELEASED; urgency=low
 
   [ Agostino Russo ]
   * Initial revision
@@ -34,22 +34,16 @@ wubi (8.10) UNRELEASED; urgency=low
   * Modified code to support Python 2.3 (for licensing and size reasons)
   * Added bittornado source importer
   * Added ipython setup
-  * Added data dir to the build via pyinstaller
+  * Bumped version to 9.04
+  * Added required binaries (will be compiled at a later stage)
+  * Added uninstallation page
   * Added pylauncher
-  * Factored out helper functions
-  * Added isolist parsing and prcessing
-  * Added dependency tracking from pyinstaller
-  * Added cx_freeze support
-  * Added new installation tasks
-  * Added menu.lst generation
-  * Added winboot dir (pre-compiled)
-  * Copy custom-installation files to targetdir
-  * Detect previous backup dir
-  * Added BitTornado and urlgrabber sources
-  * Fixed main installation page data
-  * Factored out the listbox filling algorithms
-  * Activated download manager
-  * Added windows bootloader handlers
-  * Added uninstaller functionality
+  * Added BitTorrent source
+  * Added documentation and licenses
+  * Connected download managers
+  * Fixed download status updates
+  * Added more information to the README
+  * Made the tasklist thread daemonic so that it does not prevent the
+    main application from quitting
 
- -- Agostino Russo <agostino.russo@gmail.com>  Thu, 18 Sep 2008 01:17:56 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Wed, 03 Dec 2008 23:30:31 +0000

@@ -1,3 +1,29 @@
+#
+# Copyright (c) 2007, 2008 Agostino Russo
+#
+# Written by Agostino Russo <agostino.russo@gmail.com>
+# Mostly copied from win32con.py
+#
+# winui is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of
+# the License, or (at your option) any later version.
+#
+# winui is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+'''
+Examples, or better a messy sandbox, I will sort it out sooner or later
+In the meantime you are probably better off looking into the wubi win32
+frontend code
+'''
+
 import ui
 from wizard import Wizard
 
@@ -71,4 +97,3 @@ wizard.show_page(0)
 wizard.run()
 #~ application = ui.Application(Page3, width=200, height=200, text="Hello hello")
 #~ application.run()
-

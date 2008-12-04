@@ -1,0 +1,5 @@
+#include "../../MyVersionInfo.rc"
+
+MY_VERSION_INFO_DLL("7z Plugin", "7z")
+
+101  ICON  "7z.ico"

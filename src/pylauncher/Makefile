@@ -1,29 +1,77 @@
 export SHELL = sh
+PROG = pylauncher
 #DEBUG = yes
-PACKAGE = winlauncher
+#LDFLAGS = -shared -dll
+#LIB = -lm -static
+#LIBS = user32.lib gdi32.lib shell32.lib
 CC = i586-mingw32msvc-gcc
-LD = i586-mingw32msvc-gcc
-LDFLAGS = -shared -dll
-DLL = i586-mingw32msvc-dlltool
-ifdef DEBUG
-	CFLAGS = -g -Wl,--file-alignment,512 -MD -Wall -Os -m32 -march=i386
-	STRIP=@echo
-else
-	CFLAGS = -Wl,--file-alignment,512 -MD -Wall  -Os -m32 -march=i386
-	STRIP = i586-mingw32msvc-strip
-endif
-# CFLAGS= -W3 -O1 -GF -Gs -Gr -nologo -DWINDOWS -MD
-# -W3 max warnings
-# -O1 minimize size
+CFLAGS = \
+	-c \
+	-Os \
+	-Wall \
+	-m32 \
+	-march=i386 \
+	-D_SZ_FILE_SIZE_32
+
+# -D_SZ_FILE_SIZE_32  - define it if you need only support for files smaller than 4 GB
+# -D_LZMA_IN_CB -if defined it does not read the full archive to memory
+# -D USE_WINDOWS_FUNCTIONS use windows functions instead of libc in unpack.c
+# -DWINDOWS
+# -c do not link
+# -Os optimize for size
 # -GF read-only string constants
 # -Gs disable stack checking calls
 # -Gr fastcall calling convention
 # -MD link against MSVCRT.DLL (also required by Python)
+# -W3 max warnings
+# -Wl,--file-alignment,512  pass option --file-alignement 512 to the linker
+#	-m32
+# -march=i386
 
-all: build
+ifdef DEBUG
+	CFLAGS = -g $(CFLAGS)
+	STRIP = @echo
+else
+	STRIP = i586-mingw32msvc-strip
+endif
 
-build: pylauncher.exe
+7Z_OBJS = \
+	7zAlloc.o \
+	7zBuffer.o \
+	7zCrc.o \
+	7zDecode.o \
+	7zExtract.o \
+	7zHeader.o \
+	7zIn.o \
+	7zItem.o \
+	7zMethodID.o \
+	LzmaDecode.o \
+	BranchX86.o \
+	BranchX86_2.o
 
-pylauncher.exe: pylauncher.c
-	$(CC) $(CFLAGS) $^ -o $@
-#user32.lib gdi32.lib shell32.lib
+7Z_DIR = ../7z/C
+
+7Z_OBJS_SRC = \
+	$(7Z_DIR)/Archive/7z/*.c  \
+	$(7Z_DIR)/Compress/Branch/BranchX86.c \
+	$(7Z_DIR)/Compress/Branch/BranchX86_2.c \
+	$(7Z_DIR)/Compress/Lzma/LzmaDecode.c \
+	$(7Z_DIR)/7zCrc.c
+
+all: $(PROG).exe
+
+$(PROG).exe: $(7Z_OBJS) unpack.o pylauncher.o
+	$(CC) -o $@ $(LDFLAGS) $(LIBS) $^
+	$(STRIP) $@
+
+$(7Z_OBJS): $(7Z_OBJS_SRC)
+	$(CC) $(CFLAGS) $^
+
+pylauncher.o: pylauncher.c
+	$(CC) $(CFLAGS) $^
+
+unpack.o: unpack.c
+	$(CC) $(CFLAGS) $^
+
+clean:
+	rm -f unpack.exe pylauncher.exe $(7Z_OBJS) *.d *.o

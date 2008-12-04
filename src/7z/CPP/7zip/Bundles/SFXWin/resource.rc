@@ -1,0 +1,34 @@
+#include "../../MyVersionInfo.rc"
+#include "../../GuiCommon.rc"
+#include "resource.h"
+
+MY_VERSION_INFO_APP("7z SFX", "7z.sfx")
+
+#define xSize2 214
+#define ySize2 64
+
+#define xSize (xSize2 + marg + marg)
+#define ySize (ySize2 + marg + marg)
+
+#define bYPos (ySize - marg - bYSize)
+#define bXPos1 (xSize - marg - bXSize)
+#define bXPos2 (bXPos1 - 10 - bXSize)
+
+IDI_ICON3 ICON "7z.ico"
+
+IDD_DIALOG_EXTRACT  DIALOG  0, 0, xSize, ySize  MY_MODAL_DIALOG_STYLE
+CAPTION "7-Zip self-extracting archive"
+MY_FONT
+BEGIN
+  LTEXT          "E&xtract to:", IDC_STATIC_EXTRACT_EXTRACT_TO, marg, marg, xSize2, 8
+  EDITTEXT       IDC_EXTRACT_COMBO_PATH, marg, 21, xSize2 - bDotsSize - 13, 14, ES_AUTOHSCROLL
+  PUSHBUTTON     "...", IDC_EXTRACT_BUTTON_SET_PATH, xSize - marg - bDotsSize, 20, bDotsSize, bYSize, WS_GROUP
+  DEFPUSHBUTTON  "Extract", IDOK, ,  bXPos2, bYPos, bXSize, bYSize, WS_GROUP
+  PUSHBUTTON     "Cancel", IDCANCEL, bXPos1, bYPos, bXSize, bYSize
+END
+
+#include "../../UI/FileManager/MessagesDialog.rc"
+#include "../../UI/FileManager/OverwriteDialog.rc"
+#include "../../UI/FileManager/PasswordDialog.rc"
+#include "../../UI/FileManager/ProgressDialog.rc"
+#include "../../UI/GUI/Extract.rc"

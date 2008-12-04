@@ -1,5 +1,22 @@
-# USEFUL LINKS http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/180919
-# about creating files, detecting drives...
+# Copyright (c) 2008 Agostino Russo
+#
+# Written by Agostino Russo <agostino.russo@gmail.com>
+#
+# This file is part of Wubi the Win32 Ubuntu Installer.
+#
+# Wubi is free software; you can redistribute it and/or modify
+# it under 5the terms of the GNU Lesser General Public License as
+# published by the Free Software Foundation; either version 2.1 of
+# the License, or (at your option) any later version.
+#
+# Wubi is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
 
 import sys
 import os
@@ -14,14 +31,16 @@ import gettext
 import glob
 import shutil
 import ConfigParser
-from helpers import *
+import btdownloader
 import downloader
+
 from metalink import parse_metalink
 from tasklist import ThreadedTaskList
 from distro import Distro
-from backends.common.mappings import lang_country2linux_locale
-log = logging.getLogger("CommonBackend")
+from mappings import lang_country2linux_locale
+from utils import run_command, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unixpath
 
+log = logging.getLogger("CommonBackend")
 
 class Backend(object):
     '''
@@ -82,7 +101,10 @@ class Backend(object):
         #__file__ does not work when frozen
         #os.path.abspath(os.path.dirname(__file__))
         #os.path.abspath(sys.executable)
-        original_exe = os.path.abspath(sys.argv[0])
+        if self.info.original_exe:
+            original_exe = self.info.original_exe
+        else:
+            original_exe = os.path.abspath(sys.argv[0])
         log.debug("original_exe=%s" % original_exe)
         return original_exe
 
@@ -155,19 +177,19 @@ class Backend(object):
         if self.info.skipmd5check:
             return True
         url = base_url +"/" + self.info.distro.metalink_md5sums
-        metalink_md5sums = downloader.download(url, self.info.installdir)
+        metalink_md5sums = downloader.download(url, self.info.installdir, web_proxy=self.info.web_proxy)
         url = base_url +"/" + self.info.distro.metalink_md5sums_signature
-        metalink_md5sums_signature = downloader.download(url, self.info.installdir)
+        metalink_md5sums_signature = downloader.download(url, self.info.installdir, web_proxy=self.info.web_proxy)
         if not self.verify_signature(metalink_md5sums, metalink_md5sums_signature):
             return False
         md5sums = read_file(metalink_md5sums)
-        log.debug(md5sums)
+        log.debug("metalink md5sums:\n%s" % md5sums)
         md5sums = dict([reversed(line.split()) for line in md5sums.split('\n') if line])
         md5sum = md5sums.get(os.path.basename(metalink))
-        md5sum2 = get_md5(read_file(metalink))
+        md5sum2 = get_file_md5(metalink)
         return md5sum == md5sum2
 
-    def check_cd(self, cd_path):
+    def check_cd(self, cd_path, progress_callback):
         if self.info.skipmd5check:
             return True
         md5sums_file = os.path.join(cd_path, self.info.distro.md5sums)
@@ -178,16 +200,14 @@ class Backend(object):
             if not file_path.startswith('./'):
                 file_path = './' + file_path
             md5sum = md5sums.get(file_path)
-            #TBD doesn't this puts everything into memory?
-            f = file(os.path.join(cd_path, file_path), 'rb')
-            md5sum2 = get_md5(f.read())
-            f.close()
+            file_path = os.path.join(cd_path, file_path)
+            md5sum2 = get_file_md5(file_path, progress_callback)
             if md5sum != md5sum2:
                 log.error("Invalid md5 for %s" % file_path)
                 return False
         return True
 
-    def check_iso(self, iso_path):
+    def check_iso(self, iso_path, progress_callback):
         if self.info.skipmd5check:
             return True
         md5sum = None
@@ -196,36 +216,40 @@ class Backend(object):
                 md5sum = hash.hash
         if not md5sum:
             log.error("Could not find any md5 hash in the metalink for the ISO %s" % iso_path)
-        log.debug("Reading %s" % iso_path)
-        f = file(iso_path, 'rb')
         log.debug("Calculating md5 for %s" % iso_path)
-        md5sum2 = get_md5(f.read())
-        f.close()
+        md5sum2 = get_file_md5(iso_path, progress_callback)
         if md5sum != md5sum2:
             log.error("Invalid md5 for ISO %s" % iso_path)
             return False
         return True
 
-    def download_iso(self):
+    def download_iso(self, progress_callback=None):
         log.debug("download_iso")
         file = self.info.metalink.files[0]
         url = file.urls[0].url
-        iso = downloader.download(url, self.info.installdir)
+        save_as = os.path.join(self.info.installdir, file.name)
+        iso =None
+        if not self.info.nobittorrent:
+            try:
+                iso = btdownlaoder.download(url, save_as, progress_callback=progress_callback)
+            except: pass
+        if iso is None:
+            iso = downloader.download(url, save_as, progress_callback=progress_callback, web_proxy=self.info.web_proxy)
         return iso
 
     def get_metalink(self):
         log.debug("get_metalink")
         try:
-            metalink = downloader.download(self.info.distro.metalink, self.info.installdir)
+            metalink = downloader.download(self.info.distro.metalink, self.info.installdir, web_proxy=self.info.web_proxy)
             base_url = os.path.dirname(self.info.distro.metalink)
         except:
-            metalink = downloader.download(self.info.distro.metalink2, self.info.installdir)
+            metalink = downloader.download(self.info.distro.metalink2, self.info.installdir, web_proxy=self.info.web_proxy)
             base_url = os.path.dirname(self.info.distro.metalink2)
         if not self.check_metalink(metalink, base_url):
-            raise Exception("Cannot authenticate the metalink file, it might be corrupt")
+            log.exception("Cannot authenticate the metalink file, it might be corrupt")
         self.info.metalink = parse_metalink(metalink)
 
-    def get_iso(self):
+    def get_iso(self, progress_callback):
         # Use CD if possible
         cd_path = None
         if self.info.cd_distro \
@@ -235,8 +259,8 @@ class Backend(object):
         else:
             cd_path = self.find_cd()
         if cd_path:
-            if self.check_cd(cd_path):
-                cd_path = self.extract_cd_content(cd_path)
+            if self.check_cd(cd_path, progress_callback):
+                cd_path = self.extract_cd_content(cd_path, progress_callback)
                 self.info.cd_path = cd_path
                 self.info.iso_path = None
                 return
@@ -252,7 +276,7 @@ class Backend(object):
         if iso_path:
             iso_name = os.path.basename(iso_path)
             dest = os.path.join(self.info.installdir, iso_name)
-            if self.check_iso(iso_path):
+            if self.check_iso(iso_path, progress_callback):
                 if os.path.dirname(iso_path) == self.info.previous_backupdir:
                     shutil.move(iso_path, dest)
                 else:
@@ -264,7 +288,7 @@ class Backend(object):
         # Download the ISO
         log.debug("Could not find any ISO or CD, downloading one now")
         self.info.cd_path = None
-        self.info.iso_path = self.download_iso()
+        self.info.iso_path = self.download_iso(progress_callback)
         if not self.info.iso_path:
             raise Exception("Could not retrieve the installation ISO")
 
@@ -293,17 +317,12 @@ class Backend(object):
                 if not self.check_file(file_path, rel_path, md5sums):
                     raise Exception("File %s is corrupted" % file_path)
 
-    def check_file(self, file_path, relpath, md5sums):
+    def check_file(self, file_path, relpath, md5sums, progress_callback):
         md5line = find_line_in_file(md5sums, "./%s" % relpath, endswith=True)
         if not md5line:
             raise Exception("Cannot find md5 for %s" % relpath)
         reference_md5 = md5line.split()[0]
-        #TBD break in 100 chunks
-        f = open(file_path, 'r')
-        content = f.read()
-        f.close()
-        hash = get_md5(content)
-        md5 = hash.digest()
+        md5  = get_file_md5(file_path, progress_callback)
         return md5 == reference_md5
 
     def choose_disk_sizes(self):
@@ -405,7 +424,7 @@ class Backend(object):
             ("Creating the installation directories", self.create_dir_structure),
             ("Creating the uninstaller", self.create_uninstaller),
             ("Copying files", self.copy_installation_files),
-            ("Retrieving the Metalin", self.get_metalink),
+            ("Retrieving the Metalink", self.get_metalink),
             ("Retrieving the ISO", self.get_iso),
             ("Extracting the kernel", self.extract_kernel),
             ("Uncompressing files", self.uncompress_files),
@@ -514,17 +533,17 @@ class Backend(object):
         isolist.read(isolist_path)
         distros = []
         for distro in isolist.sections():
+            log.debug('Adding distro %s' % distro)
             kargs = dict(isolist.items(distro))
             kargs['backend'] = self
             distros.append(Distro(**kargs))
             #order is lost in configparser, use the ordering attribute
-            def compfunc(x, y):
-                if x.ordering == y.ordering:
-                    return 0
-                elif x.ordering > y.ordering:
-                    return 1
-                else:
-                    return -1
-            distros.sort(compfunc)
-            log.debug(distros)
-            return distros
+        def compfunc(x, y):
+            if x.ordering == y.ordering:
+                return 0
+            elif x.ordering > y.ordering:
+                return 1
+            else:
+                return -1
+        distros.sort(compfunc)
+        return distros

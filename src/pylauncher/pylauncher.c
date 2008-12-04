@@ -1,69 +1,80 @@
 /*
- * pylauncher
+ * Copyright (c) 2007, 2008 Agostino Russo
  *
- * extracts an ELF LZMA archive that can be appended to this executable
- * and containing:
+ *  Written by Agostino Russo <agostino.russo@gmail.com>
+ *  Heavily inspired by exemaker from Fredrik Lundh
  *
- * ./run.config         # runtime configuration file
- *./bin/python24.dll  # python dll
- *./script.py            # main script to run
- *./data                  # data
- *./lib                     # pure python modules
+ *  pylauncher is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as
+ *  published by the Free Software Foundation; either version 2 of
+ *  the License, or (at your option) any later version.
  *
- * the actual directory content can be changed in run.config
- * run.config can set other python.dll options such as
- * debug, python.dll path, pythopath, pythonhome, verbose...
+ *  pylauncher is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * Copyright (c) 2008-2009 by Agostino Russo
- * Heavily inspired by exemaker from Fredrik Lundh
- * from which most of code have been ripped
-*/
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * DESCRIPTION:
+ * Pylauncher extracts a lzma archive that can be appended to this
+ * executable and containing:
+ *
+ * ./main.py            # main script to run
+ * ./data                  # data
+ * ./lib                     # python modules, ./lib is added to PYTHONPATH
+ * ./python.dll         # python dll
+ *
+ * then it loads python.dll and runs main.py within that. A python
+ * script can be packed in the appropriate format using pack.py
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "windows.h"
+#include "unpack.h"
 
 int __cdecl
 main(int ac, char **av)
 {
     HINSTANCE dll;
-    HANDLE file;
-    DWORD n;
     char* argv[100];
     int (__cdecl * Py_Main)(int argc, char *argv[]);
     void (__cdecl * Py_SetPythonHome)(char* home);
-    char configfile[256] = "run.config";
     char exefile[256];
+    char exefilearg[256];
     DWORD i;
-    //TBD the following should be extracted from run.config
-    char dllfile[256] = "python23.dll";
-    char pythonpath[256] = ".";
+    char dllfile[256] = "python23.dll"; //TBD be a bit more flexible on the dll used
+    char pythonpath[256] = "lib";
     char pythonhome[256] = ".";
-    char scriptfile[256] = "wubi.py";
+    char scriptfile[256] = "main.pyc";
     char message[512];
     char debug[3] = "Off";
     char verbose[2] = "0";
+    char tmpdir[MAX_PATH];
 
+    //Get path of this executable
     GetModuleFileName(NULL, exefile, sizeof(exefile));
 
-    //TBD extract LZMA archive from ELF executable
+    //Create tmpdir
+    GetTempPath(MAX_PATH, &tmpdir);
+    GetTempFileName(&tmpdir, "pyl", 0, &tmpdir);
+    DeleteFile(tmpdir);
+    //~ mkdtemp(tmpdir);
+    CreateDirectory(tmpdir, NULL);
+    chdir(tmpdir);
 
-    //TBD read inputs from configfile
-    /*
-    file = CreateFile(configfile, GENERIC_READ, FILE_SHARE_READ, NULL,
-                      OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-     if (file == (HANDLE) -1) {
-        strcpy(message, "Cannot open "); strcat(message, configfile);
+    //Extract LZMA bundled archive
+    if (unpack(exefile)) {
+        strcpy(message, "Cannot unpack "); strcat(message, exefile);
         goto error;
     }
-    ReadFile(file, dllfile, sizeof(dllfile)-1, &n, NULL);
-    CloseHandle(file);
-    */
 
-    //Load dll file
+    //Load python dll file
     dll = LoadLibraryEx(dllfile, NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
     if (!dll) {
-        strcpy(message, "Cannot find "); strcat(message, dllfile+2);
+        strcpy(message, "Cannot find "); strcat(message, dllfile);
         goto error;
     }
     GetModuleFileName(dll, dllfile, sizeof(dllfile));
@@ -79,30 +90,34 @@ main(int ac, char **av)
         Py_SetPythonHome(pythonhome); // SetPythonHome keeps a reference!
     }
 
-    //TBD: set environment variables, does not seem to work !!!
-    SetEnvironmentVariable("PYTHONHOME", pythonhome); //do we need it?
+    //Set environment variables
+    SetEnvironmentVariable("PYTHONHOME", pythonhome);
     SetEnvironmentVariable("PYTHONOPTIMIZE", NULL);
     SetEnvironmentVariable("PYTHONPATH", pythonpath);
     SetEnvironmentVariable("PYTHONVERBOSE", verbose);
     SetEnvironmentVariable("PYTHONDEBUG", debug);
 
+    //Run script in python
     argv[0] = exefile;
     argv[1] = "-S";
     argv[2] = scriptfile;
+    strcpy(exefilearg, "--exefile=");
+    strcat(exefilearg, exefile);
+    argv[3] = exefilearg;
     for (i = 1; i < (DWORD) ac; i++)
-        argv[2+i] = av[i];
-    return Py_Main(2+i, argv);
+        argv[3+i] = av[i];
+    return Py_Main(3+i, argv);
+
+    //TBD delete tempdir
 
 error:
     MessageBox(NULL, message, "Internal error", MB_ICONERROR | MB_OK);
     return 1;
 }
 
-#if 0
 int WINAPI
 WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         LPSTR lpCmdLine, int nCmdShow)
 {
     return main(__argc, __argv);
 }
-#endif

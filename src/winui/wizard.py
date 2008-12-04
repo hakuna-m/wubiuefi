@@ -2,7 +2,6 @@
 # Copyright (c) 2007, 2008 Agostino Russo
 #
 # Written by Agostino Russo <agostino.russo@gmail.com>
-# Mostly copied from win32con.py
 #
 # win32.ui is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as
@@ -17,29 +16,31 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# DESCRIPTION: 
-# wizard dialog class
-#
+
+'''
+Wizard dialog class, unfinished
+see also the wubi win32 frontend for a different implementation
+'''
 
 
 import ui
 
 class Wizard(ui.Application):
     _main_window_class_ = ui.MainDialogWindow
-    
+
     def __init__(self, *args, **kargs):
         self.current_page_index = 0
         self.pages = []
         ui.Application.__init__(self, *args, **kargs)
-        
+
     def add_page(self, page_class):
         crect = self.main_window.get_client_rect()
         self.pages.append(page_class(self.main_window, *crect))
-    
+
     def cancel(self):
         if self.ask_confirmation("Are you sure you want to quit?", "Quitting"):
             self.quit()
-    
+
     def show_page(self, page_index):
         if self.current_page_index == page_index:
             self.pages[page_index].show()
@@ -51,13 +52,13 @@ class Wizard(ui.Application):
         new_page = self.pages[page_index]
         self.current_page_index = page_index
         new_page.show()
-    
+
     def show_previous_page(self):
         self.show_page(self.current_page_index - 1)
-        
+
     def show_next_page(self):
         self.show_page(self.current_page_index + 1)
-    
+
     class Page(ui.Page):
         def add_navigation_buttons(self):
             x, y, width, height = self.get_client_rect()

@@ -1,7 +1,22 @@
-#http://effbot.org/zone/python-register.htm
-#http://www.google.com/codesearch?hl=en&q=+ctypes+show:o8kEK9H1ulQ:lGMUvEL_snU:EVcgF71zwXs&sa=N&cd=1&ct=rc&cs_p=http://gentoo.osuosl.org/distfiles/BitTorrent-5.0.7.tar.gz&cs_f=BitTorrent-5.0.7/BTL/likewin32api.py#l55
-    # other nice functions in there :)
-
+# Copyright (c) 2008 Agostino Russo
+#
+# Written by Agostino Russo <agostino.russo@gmail.com>
+#
+# This file is part of Wubi the Win32 Ubuntu Installer.
+#
+# Wubi is free software; you can redistribute it and/or modify
+# it under 5the terms of the GNU Lesser General Public License as
+# published by the Free Software Foundation; either version 2.1 of
+# the License, or (at your option) any later version.
+#
+# Wubi is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
 
 import sys
 import os
@@ -13,8 +28,7 @@ import ctypes
 from drive import Drive
 import registry
 from memory import get_total_memory_mb
-from backends.common.backend import Backend
-from backends.common.helpers import run_command, cache, replace_line_in_file, read_file, write_file
+from wubi.backends.common import Backend, run_command, replace_line_in_file, read_file, write_file
 import mappings
 import logging
 import shutil
@@ -30,6 +44,7 @@ class WindowsBackend(Backend):
         Backend.__init__(self, *args, **kargs)
         self.info.iso_extractor = os.path.join(self.info.bindir, '7z.exe')
         log.debug('7z=%s' % self.info.iso_extractor)
+        self.cache = {}
 
     def select_target_dir(self):
         targetdir = os.path.join(self.info.targetdrive + '\\', self.info.application_name)
@@ -37,13 +52,16 @@ class WindowsBackend(Backend):
         targetdir.replace('__', '_')
         gold_targetdir = targetdir
         if os.path.exists(targetdir) \
+        and self.info.previous_targetdir \
+        and os.path.isdir(self.info.previous_targetdir) \
         and self.info.previous_targetdir != targetdir:
             for i in range(2, 1000):
                 targetdir = gold_targetdir + '.' + str(i)
                 if not os.path.exists(targetdir):
                     break
         self.info.targetdir = targetdir
-        if self.info.previous_targetdir:
+        if self.info.previous_targetdir \
+        and os.path.isdir(self.info.previous_targetdir):
             os.rename(self.info.previous_targetdir, self.info.targetdir)
         log.info('Installing into %s' % targetdir)
 
@@ -323,10 +341,10 @@ class WindowsBackend(Backend):
 
     def get_iso_file_names(self, iso_path):
         iso_path = os.path.abspath(iso_path)
-        if (self.get_iso_file_names, iso_path) in cache:
-            return cache[(self.get_iso_file_names, iso_path)]
+        if iso_path in self.cache:
+            return self.cache[iso_path]
         else:
-            cache[(self.get_iso_file_names, iso_path)] = None
+            self.cache[iso_path] = None
         command = [self.info.iso_extractor,'l',iso_path]
         try:
             output = run_command(command)
@@ -340,7 +358,7 @@ class WindowsBackend(Backend):
         lines = lines[7:-3]
         file_info = [line.split() for line in lines]
         file_names = [os.path.normpath(x[-1]) for x in file_info]
-        cache[(self.get_iso_file_names, iso_path)] = file_names
+        self.cache[iso_path] = file_names
         return file_names
 
     def remove_registry_key(self):

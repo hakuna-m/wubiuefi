@@ -4,12 +4,12 @@
 # Written by Agostino Russo <agostino.russo@gmail.com>
 # Mostly copied from win32con.py
 #
-# win32.ui is free software; you can redistribute it and/or modify
+# winui is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of
 # the License, or (at your option) any later version.
 #
-# win32.ui is distributed in the hope that it will be useful,
+# winui is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -17,9 +17,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# DESCRIPTION:
-# win32 constants, structures and functions
-#
+
+'''
+win32 constants, structures and functions
+'''
 
 from ctypes import *
 from ctypes.wintypes import *

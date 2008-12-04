@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-#~ from cx_Freeze import setup, Executable
-
 import os
 import re
 
@@ -22,7 +20,7 @@ def find_packages():
 
 setup(
     name="wubi",
-    version="8.10",
+    version="9.04",
     description="Wubi is the Windows Ubuntu Installer.",
     author="Agostino Russo",
     author_email="agostino.russo@gmail.com",
@@ -45,8 +43,4 @@ setup(
     include_package_data=True,
     package_data={},
     ext_modules=()
-
-    #~ ## cx_freeze
-    #~ executables = [Executable("src/wubi/wubi.py")])m
-
 )

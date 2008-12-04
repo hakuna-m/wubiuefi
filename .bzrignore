@@ -1,8 +1,2 @@
-/old
-/wine
-/dist*
-wubi.exe
-bin.old
-wine.old
-wine.old2
-build
+build/*
+wine

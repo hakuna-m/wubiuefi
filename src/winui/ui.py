@@ -16,13 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# DESCRIPTION:
-# widgets and window classes wrapping win32 objects
-#
-# LINKS:
-# Window Classes: http://msdn.microsoft.com/en-us/library/bb775491(VS.85).aspx
-# Controls http://msdn.microsoft.com/en-us/library/bb775943(VS.85).aspx
-#
+
+'''
+Python wrappers around win32 widgets and window classes
+'''
 
 from defs import *
 import sys

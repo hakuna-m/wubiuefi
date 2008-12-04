@@ -1,0 +1,294 @@
+Sources history of the 7-Zip
+----------------------------
+
+  Version 4.56 beta           2007-09-13
+  --------------------------------------
+   - some fixes in LZ encoder (LZMA and Deflate) code.
+     size_t was replaces to ptrdiff_t.
+     size_t version worked incorrectly with some compilers.
+
+     
+  Version 4.46 beta           2007-05-25
+  --------------------------------------
+   - CPP Synchronization objects now return HRes (error code) instead of bool.
+  
+  
+  Version 4.45 beta           2007-04-16
+  --------------------------------------
+   - 7-Zip now uses C version of CRC, so you must call CrcGenerateTable at 
+     stratup code, or you must add CPP/Common/CRC.cpp to your project.
+   - Method ID in .7z now is 63-bit integer (UInt64).
+   
+  
+  Version 4.30 beta           2005-11-18
+  --------------------------------------
+   - Security.h::AddLockMemoryPrivilege       - installs "Large pages" feature
+   - MemoryLock.h::EnableLockMemoryPrivilege  - enables "Large pages" feature
+   - Alloc.h::SetLargePageSize                - sets optimal LargePageSize size
+
+
+  Version 4.27                2005-09-21
+  --------------------------------------
+   - Some GUIDs/interfaces were changed.
+     IStream.h:
+       ISequentialInStream::Read now works as old ReadPart
+       ISequentialOutStream::Write now works as old WritePart
+
+
+  Version 4.26 beta           2005-08-05
+  --------------------------------------
+   -  MyAlloc(0)/BigAlloc(0) now return 0
+
+
+  Version 4.25 beta           2005-07-31
+  --------------------------------------
+   -  More 64-bit compatibilty
+
+
+  Version 4.24 beta           2005-07-06
+  --------------------------------------
+   -  Common\NewHandler.h: using throw() for code size optimization.
+
+
+  Version 4.23                2005-06-29
+  --------------------------------------
+   -  Bug was fixed: memory leak in Cab decoder.
+
+
+  Version 4.19 beta           2005-05-21
+  --------------------------------------
+   -  BZip2 code was rewritten. Now 7-Zip doesn't use original BZip2 code.
+      Old (original) version was moved to folder 7zip/Compress/BZip2Original/
+
+  
+  Version 4.14 beta           2005-01-11
+  --------------------------------------
+   -  STL using was reduced
+   -  7za now supports Split(001) archves
+
+  
+  Version 4.10 beta           2004-10-21
+  --------------------------------------
+   -  Codecs now use new interface: ICompressSetDecoderProperties2
+
+  
+  Version 4.07 beta           2004-10-03
+  --------------------------------------
+   -  some interfaces were changed slightly to support 
+      -stdin -stdout mode.
+   -  FilterCoder for simple filters
+   -  Wildcard censor class was changed.
+   -  Bug was fixed: when encrypted stream was multiple 16,
+      it used additional 16 empty bytes.
+   
+
+  Version 3.11                2003-10-06
+  --------------------------------------
+      File functions support unicode strings even
+      on Windows 95/98/ME.
+   
+
+  Version 3.08.02             2003-09-20
+  --------------------------------------
+      More compatible with GCC.
+   
+
+  Version 3.08.02 beta        2003-08-20
+  --------------------------------------
+      Extracting bug in 7zExtract.cpp was fixed.
+     
+
+  Version 3.08 beta           2003-08-19
+  --------------------------------------
+      Big source code reconstruction.
+     
+
+  Version 2.30 Beta 32        2003-05-15
+  --------------------------------------
+      Small changes in Deflate decoder.
+     
+
+  Version 2.30 Beta 31        2003-04-29
+  --------------------------------------
+      Common/NewHandler.cpp
+        HeapAlloc in (included to beta 30) was changed to malloc.
+        HeapAlloc worked slower in Win95/98/Me.
+     
+
+  Version 2.30 Beta 30        2003-04-21
+  --------------------------------------
+      new file: Common/String.cpp
+      Common/NewHandler.*  were changed
+
+
+  Version 2.30 Beta 29        2003-04-07
+  --------------------------------------
+      Small changes in LZMA code.
+
+
+  Version 2.30 Beta 28        2003-02-16
+  --------------------------------------
+      Processing anti-files was corrected.
+
+  
+  Version 2.30 Beta 27        2003-01-24
+  --------------------------------------
+      Project/Archiver/Format/Common/ArchiveInterface.h:
+        new IArchiveOpenVolumeCallback interface.
+
+
+  Version 2.30 Beta 26        2003-01-12
+  --------------------------------------
+      SDK/Interface/PropID.h:
+        kpidComment now is kpidCommented
+
+
+  Version 2.30 Beta 25        2003-01-02
+  --------------------------------------
+      Main archive interfaces were changed.
+
+
+  Version 2.30 Beta 24        2002-11-01
+  --------------------------------------
+      SDK/Windows/Synchronization.h 
+      SDK/Windows/Synchronization.cpp
+        - some changes.
+
+
+  Version 2.30 Beta 23        2002-09-07
+  --------------------------------------
+      Project/FileManager folder was added.
+      Notation of some source files was changed.
+
+
+  Version 2.30 Beta 22        2002-08-28
+  --------------------------------------
+      Project/FileManager folder was added.
+      Notation of some source files was changed.
+
+
+
+  Version 2.30 Beta 21        2002-07-08
+  --------------------------------------
+      Project/Compress/LZ/MatchFinder/BinTree/BinTree.h
+      Project/Compress/LZ/MatchFinder/BinTree/BinTreeMain.h
+      Project/Compress/LZ/MatchFinder/BinTree/HC.h
+      Project/Compress/LZ/MatchFinder/BinTree/HCMain.h
+        - RAM requirements for LZMA (7z) compression were reduced.
+
+
+  Version 2.30 Beta 20        2002-07-01
+  --------------------------------------
+    - SDK/Stream/WindowOut.h 
+        now it uses only required memory (dictionary size).
+    - Project/Archiver/Resource 
+        contains common resurces
+
+
+  Version 2.30 Beta 19        2002-04-11
+  --------------------------------------
+    - SDK/Archive/Rar/Handler.cpp
+        supporting RAR29
+
+  Version 2.30 Beta 18        2002-03-25
+  --------------------------------------
+    - SDK/Archive/Cab/MSZipDecoder.cpp
+      SDK/Archive/Cab/LZXDecoder.cpp:
+        bug with corrupted archives was fixed
+    - Project/Compress/LZ/MatchFinder/BinTree/BinTree.h 
+    - Project/Compress/LZ/MatchFinder/BinTree/BinTreeMain.h 
+        some speed optimization (using prefetching)
+
+
+  Version 2.30 Beta 17        2002-03-03
+  --------------------------------------
+    - ARJ suppport.
+
+
+  Version 2.30 Beta 16        2002-02-24
+  --------------------------------------
+    - Project/Compress/LZ/LZMA/Decoder.cpp:
+        Bug was fixed: LZMA could not extract more than 4 GB.
+    - RPM and CPIO formats.
+    - Project/Compress/LZ/LZMA/Encoder.*
+      Project/Archiver/Format/7z/OutHandler.cpp 
+        New fast compression mode for LZMA: -m0a=0.
+    - New match finders for LZMA: bt4b, hc3, hc4.
+ 
+  
+  Version 2.30 Beta 15        2002-02-17
+  --------------------------------------
+    - Compression ratio in LZMA was slightly improved:
+        Project/Compress/LZ/LZMA/Encoder.*
+        Project/Archiver/Format/7z/OutHandler.cpp 
+
+  
+  Version 2.30 Beta 14        2002-02-10
+  --------------------------------------
+    - Supporting multithreading for LZMA:
+        Project/Compress/LZ/MatchFinder/MT 
+    - Common/String.h:
+        CStringBase::Replace function was fixed.
+
+  
+  Version 2.30 Beta 13        2002-01-27
+  --------------------------------------
+    - Compress/LZ/MatchFinder/BinTree3.h: 
+       method
+    - Compress/LZ/MatchFinder/BinTreemain.h: 
+        - one VirtualAlloc array was splitted to 
+          the for 3 arrays.
+        - Hash-functions were changed.
+
+
+  
+  Version 2.30 Beta 12        2002-01-16
+  --------------------------------------
+    - Compress/LZ/MatchFinder/BinTreemain.h: 
+      Compress/LZ/MatchFinder/Patricia.h: 
+      Compress/PPM/PPMd/SubAlloc.h: 
+        Beta 11 bugs were fixed:
+          - VirtualFree was used incorrectly
+          - checking WIN32 instead _WINDOWS.
+      Compress/LZ/MatchFinder/Patricia.h: 
+        Beta 11 bug with deleting m_Hash2Descendants was fixed.
+
+  
+  Version 2.30 Beta 11        2002-01-15
+  --------------------------------------
+    - Compress/LZ/MatchFinder/BinTreemain.h: 
+      Compress/LZ/MatchFinder/Patricia.h: 
+      Compress/PPM/PPMd/SubAlloc.h: 
+        using VirtualAlloc for memory allocating
+    - Exlorer/ContextMenu.cpp: 
+        Testing supporting.
+        CreateProcess instead WinExec
+    - Format/Common/IArchiveHandler.h:
+      Exlorer/ProxyHandler.cpp:
+      FAR/Plugin.cpp:
+        New properties names: Method, HostOS.
+    - Exlorer/OverwriteDialog.cpp:
+      FAR/OverwriteDialog.cpp:
+      Windows/PropVariantConversions.h
+        Using National time format was eliminated.
+
+
+
+  Version 2.30 Beta 10        2002-01-11
+  --------------------------------------
+    - Exlorer/ContextMenu.cpp: bug with context menu on 
+      Windows NT4 in Unicode version was fixed.
+    - Format/7z/UpdateArchiveEngine.cpp: bug was fixed - 
+      Updating in Beta 8 and 9 didn't work.
+    - Exlorer/CCompressDialog.cpp: history growing bug was fixed.
+
+  
+  Version 2.30 Beta 9         2002-01-08
+  --------------------------------------
+    - SDK/Common/Vector.h: sopporting sorted object vectors .
+    - Lang features.
+    - Two new match finders: pat3h and pat4h.
+    - SDK/Archive/Zip/InEngine.cpp: bug was fixed.
+    - SDK/Windows/FileDir.cpp: function CreateComplexDirectory
+      was changed.
+

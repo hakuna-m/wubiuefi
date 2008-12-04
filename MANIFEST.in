@@ -1,4 +1,3 @@
-recursive-include storm *.py *.c
 recursive-include tests *.py *.txt
 
 include MANIFEST.in LICENSE README TODO NEWS Makefile setup.cfg test

@@ -1,37 +1,37 @@
-PYTHON = python
-PYWINE = tools/pywine
-
 all: build
 
-build: build_with_cx_freeze
+build: wubi
 
-build_with_pyinstaller:
-	rm -rf dist
-	mkdir -p dist
-	tools/pyinstaller_build pyinstaller.spec
+wubi: check_wine pylauncher src/main.py src/wubi/*.py
+	rm -rf build/wubi
+	cp wine/drive_c/windows/system32/python23.dll build/pylauncher #TBD
+	PYTHONPATH=src tools/pywine -OO build/pylauncher/pack.py src/main.py build/wubi data bin
+	mv build/wubi/application.exe build/wubi.exe
 
-build_with_cx_freeze:
-	rm -rf build
-	mkdir -p build/wubi
-	tools/wine c:/cx_freeze/FreezePython.exe -OO --include-path src --install-dir build/wubi --base-binary Win32GUI src/wubi/wubi.py
-	cp -a bin build/wubi
-	cp -a data build/wubi
-	cd build;7z a -t7z -m0=lzma -mx=9 -mfb=256 -md=32m -ms=on wubi.7z wubi
-	echo ';!@Install@!UTF-8!\nTitle="Wubi, Windows Ubuntu Installer"\nRunProgram="wubi\wubi.exe "\n;!@InstallEnd@!'> build/7z.conf
-	cat src/selfextract/7zS.sfx build/7z.conf build/wubi.7z > build/wubi.exe
+pylauncher: 7z src/pylauncher/*.c src/pylauncher/*.py
+	cp -rf src/pylauncher build
+	cd build/pylauncher; make
 
-test: build/wubi.exe
-	tools/wine build/wubi.exe -v
+# not compiling 7z at the moment, but source is used by pylauncher
+7z: src/7z/C/*.c
+	cp -rf src/7z build
+
+runbin: wubi
+	rm -rf build/test
+	mkdir build/test
+	cd build/test; ../../tools/wine ../wubi.exe -v --skipsizecheck
+
+check_wine: tools/check_wine
+	tools/check_wine
 
 unittest:
-	$(pywine) tools/test
+	tools/pywine tools/test
 
-run:
-	PYTHONPATH=src $(PYWINE) src/wubi/wubi.py -v --skipsizecheck
+runpy:
+	PYTHONPATH=src tools/pywine src/main.py -v --skipsizecheck
 
 clean:
-	rm -rf dist
-	rm -rf build
-	rm -rf buildpyinstaller
+	rm -rf dist/*
+	rm -rf build/*
 
 .PHONY: all build test

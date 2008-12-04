@@ -1,4 +1,0 @@
-#!/bin/sh
-root="$(cd ${0%/*}/../;pwd)"
-"$root/tools/"check_pyinstaller
-"$root/tools/pywine" "$root/src/pyinstaller/Build.py" $@

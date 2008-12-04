@@ -1,346 +1,214 @@
+# Copyright (c) 2008 Agostino Russo
+#
+# Written by Agostino Russo <agostino.russo@gmail.com>
+#
+# This file is part of Wubi the Win32 Ubuntu Installer.
+#
+# Wubi is free software; you can redistribute it and/or modify
+# it under 5the terms of the GNU Lesser General Public License as
+# published by the Free Software Foundation; either version 2.1 of
+# the License, or (at your option) any later version.
+#
+# Wubi is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+'''
+The tasklist object keeps track of a list of tasks and reports progress
+The tasklist can be run in a separate thread using ThreadedTaskList
+
+The object observing the TaskList needs to provide a callback to its constructor
+The callback will receive as an argument the tasklist object itself.
+
+Each function registered in a TaskList can optionally support an argument called
+'progress_callback', if such argument is in the function argument list,
+a callback is attached to it, so that the underlying function can
+use progress_callback to interact with the tasklist, usually to send notifications
+about progress. If progress_callback returns True then the function
+has to terminate immediately.
+'''
+
 import time
 import threading
 import logging
 
 log = logging.getLogger("TaskList")
 
-
 class Task(object):
-    '''
-    Allows (nested) tasks to be run in succession and keeps track of total progress and partial progress
-    Handy for progress reporting. Subtasks can be added at runtime and the progress will reflect that
-    A real task is associated to a function, the function must take as only argument the task
-    The function must return True if the tasklist has to be updated and the next task has to be run (automatic step)
-    If it returns False, the function must call task.finish() or task.step() within its body.
-    Dummy subtasks are also allowed, those are not associated to a real function
-    and are used for a more in-depth progress reporting. Manual stepping is required in this case.
-    '''
-
     INACTIVE = 0
     ACTIVE = 1
     COMPLETED = 2
     FAILED = 3
     CANCELLED = 4
 
-    def __init__(self, name=None, function=None, subtasks=None, parent=None, on_change=None, is_stopped=None, is_required=True):
-        if callable(function) and 'task' not in function.func_code.co_varnames:
-            function = wrap_function(function)
+    def __init__(self, name, function, is_required, *fargs, **fkargs):
         self.name = name
         self.function = function
-        self.is_required = True
-        self.parent = parent
-        self.status = Task.INACTIVE
-        self.n_current_subtask = 0
+        self.percent_completed = 0
         self.start_time = 0
         self.end_time = 0
-        self.on_change = on_change
-        self.children = []
-        self._is_stopped = is_stopped
-        self.subtasks = []
-        self.add_subtasks(subtasks and subtasks or [])
+        self.status = Task.INACTIVE
+        self.current_subtask_name = None
+        self.current_speed = None
+        self.tasklist = None
+        self.last_error = None
+        self.fargs = fargs
+        self.fkargs = fkargs
+        if 'progress_callback' in function.func_code.co_varnames:
+            self.fkargs['progress_callback'] = self.on_progress
+        self.is_required = is_required
 
-    def run_time(self):
-        if not self.status: return 0
-        if not self.subtasks:
-            if self.end_time: return self.end_time
-            return time.time() - self.start_time
-        else:
-            return sum([subtask.run_time for subtask in self.subtasks if subtask.status])
-    run_time = property(run_time)
-
-    def estimated_end_time(self):
-        if not self.n_current_step: return
-        self.start_time + 1.0*self.run_time*self.n_current_subtask/self.n_total_subtasks
-    estimated_end_time = property(estimated_end_time)
-
-    def n_subtasks(self):
-        return len(self.subtasks)
-    n_subtasks = property(n_subtasks)
-
-    def n_total_subtasks(self):
-        if not self.subtasks: return 1 #1 = self
-        return sum([subtask.n_total_subtasks for subtask in self.subtasks])
-    n_total_subtasks = property(n_total_subtasks)
-
-    def n_completed_subtasks(self):
-        if not self.status: return 0
-        if self.subtasks:
-            return sum([1 for subtask in self.subtasks if subtask.status is Task.COMPLETED])
-        else:
-            if self.status is Task.COMPLETED:
-                return 1 #1 = self
-            else:
-                return 0
-    n_completed_subtasks = property(n_completed_subtasks)
-
-    def n_completed_total_subtasks(self):
-        if not self.status: return 0
-        if self.subtasks:
-            return sum([subtask.n_completed_total_subtasks for subtask in self.subtasks if subtask.status])
-        else:
-            if self.status is Task.COMPLETED:
-                return 1 #1 = self
-            else:
-                return 0
-    n_completed_total_subtasks = property(n_completed_total_subtasks)
-
-    def task_progress(self):
-        return 1.0*self.n_completed_subtasks/self.n_subtasks
-    task_progress = property(task_progress)
-
-    def total_progress(self):
-        return 1.0*self.n_completed_total_subtasks/self.n_total_subtasks
-    total_progress = property(total_progress)
-
-    def current_subtask(self):
-        if not self.subtasks: return
-        if self.n_current_subtask >= len(self.subtasks): return
-        return self.subtasks[self.n_current_subtask]
-    current_subtask = property(current_subtask)
-
-    def current_subtask_name(self):
-        current_subtask = self.current_subtask
-        if current_subtask: return current_subtask.name
-        return None
-        current_subtask_name = property(current_subtask_name)
-    current_subtask_name = property(current_subtask_name)
-
-    def is_finished(self):
-        return self.status in (Task.COMPLETED,)
-    is_finished = property(is_finished)
-
-    def add_subtasks(self, subtasks):
-        if self.is_stopped(): return
-        if isinstance(subtasks, int):
-            subtasks = [str(i) for i in range(subtasks)]
-        elif isinstance(subtasks, basestring):
-            subtasks = [subtasks]
-        for subtask in subtasks:
-            if isinstance(subtask, dict):
-                self.add_subtask(**subtask)
-            elif isinstance(subtask, basestring):
-                self.add_subtask(subtask)
-            else:
-                self.add_subtask(*subtask)
-
-    def add_subtask(self, name, function=None, subtasks=None):
-        if self.is_stopped(): return
-        subtask = Task(name, parent=self, subtasks=subtasks, function=function, on_change=self.on_change)
-        self.subtasks.append(subtask)
-        if callable(self.on_change):
-            self.on_change()
-        return subtask
-
-    def setpct(self, percentage):
+    def on_progress(self, percent_completed, msg=None, current_speed=None, current_subtask_name=None):
         '''
-        Set the current task as a percentage where 1 is the last task
+        The underlying function will call this method on progress.
+        Then the message is propagated to the tasklist on_progress listener
+        This method will return True if the function has to cancel operation
         '''
-        self.n_current_subtask = int(round(self.n_subtasks * percentage))
-        if self.n_current_subtask >= self.n_subtasks:
-            self.finish()
-        else:
-            self.current_subtask.run()
 
-    def step(self):
-        if self.is_stopped(): return
-        if self.current_subtask and self.current_subtask.status is Task.INACTIVE:
-            if not self.current_subtask.function:
-                self.current_subtask.finish()
-            else:
-                # TBD what do we do in such situation ????
-                log.exception((self.name, "step > old subtask is real but inactive >", self.current_subtask.name))
-        elif self.current_subtask and self.current_subtask.status is Task.ACTIVE:
-            self.current_subtask.finish()
-        elif self.current_subtask and self.current_subtask.status is Task.FAILED:
-            # TBD what do we do in such situation ????
-            log.exception((self.name, "step > old subtask is FAILED >", self.current_subtask.name))
-        else:
-            self.n_current_subtask += 1
-            if self.n_current_subtask >= self.n_subtasks:
-                self.finish()
-            else:
-                self.current_subtask.run()
-
-    def run(self):
-        if self.is_stopped(): return
-        self.start_time = time.time()
-        self.status = Task.ACTIVE
-        log.debug((self.name, "> run"))
-        if callable(self.on_change):
-            self.on_change()
-        if callable(self.function):
-            log.debug((self.name, "> run > function >", self.function))
-            if self.function(self):
-                self.step()
-        if self.current_subtask and self.current_subtask.status is Task.INACTIVE:
-            self.current_subtask.run()
-
-    def finish(self):
-        if self.is_stopped(): return
-        self.status = Task.COMPLETED
-        self.end_time = time.time()
-        log.debug((self.name, "> finish"))
-        if callable(self.on_change):
-            self.on_change()
-        if self.parent:
-            self.parent.step()
-
-    def fail(self):
-        if self.is_stopped(): return
-        self.status = Task.FAILED
-        self.end_time = time.time()
-        log.exception((self.name, "> fail"))
-        if callable(self.on_change):
-            self.on_change()
-        if self.parent:
-            self.parent.step()
+        self.percent_completed = percent_completed
+        self.current_subtask_name = current_subtask_name
+        self.current_speed = current_speed
+        if percent_completed >= 1:
+            if msg is None:
+                msg = "Finished task %s" % self.name
+            self.percent_completed = 1
+            self.end_time = time.time()
+            self.status = Task.COMPLETED
+        self.last_msg = msg
+        self.tasklist.on_progress()
+        return self.is_cancelled()
 
     def cancel(self):
-        if self.is_stopped(): return
         self.status = Task.CANCELLED
-        self.end_time = time.time()
-        log.info((self.name, "> cancel"))
-        self.on_change()
-        if self.parent:
-            self.parent.step()
+        return
 
-    def is_stopped(self):
-        if self._is_stopped is None:
-            if self.parent:
-                is_stopped = self.parent._is_stopped
-            else:
-                return
-        else:
-            is_stopped = self._is_stopped
-        if callable(is_stopped): return is_stopped()
-        return is_stopped
+    def is_cancelled(self):
+        return self.status is Task.CANCELLED or self.tasklist.is_cancelled()
+
+    def run(self):
+        if self.is_cancelled(): return
+        self.status = Task.ACTIVE
+        self.start_time = time.time()
+        self.on_progress(0, "Starting task %s" % self.name)
+        try:
+            self.function(*self.fargs, **self.fkargs)
+        except Exception, err:
+            self.status = Task.FAILED
+            self.last_error = err
+            if self.is_required:
+                log.exception(err)
+                raise err
+            return
+        self.on_progress(1)
 
 class TaskList(Task):
     '''
-    Root object
     Takes care of reporting progress to the registered callback
     '''
-    def __init__(self, name, tasks=None,  on_progress_callback=None):
-        self.on_progress_callback = on_progress_callback
-        Task.__init__(self, name, parent=None, subtasks=tasks, function=None, on_change = self.on_change)
+    def __init__(self, name, tasks=None, progress_callback=None):
+        self.name = name
+        self.current_task = None
+        self.start_time = 0
+        self.end_time = 0
+        self.tasks = []
+        self._is_cancelled = False
+        self.progress_callback = progress_callback
+        if not tasks:
+            tasks = []
+        for task in tasks:
+            if isinstance(task, Task):
+                task.tasklist = self
+                self.tasks.append(task)
+            elif len(task) == 2:
+                self.add_task(task[0], task[1], is_required=True, *task[2:])
+            else:
+                self.add_task(*task)
 
-    def on_change(self):
-        if self.is_stopped(): return
-        if callable(self.on_progress_callback):
-            return self.on_progress_callback(self)
+    def add_task(self, name, function, is_required, *fargs, **fkargs):
+        task = Task(name, function, is_required, *fargs, **fkargs)
+        task.tasklist = self
+        self.tasks.append(task)
+
+    def run(self):
+        self.start_time = time.time()
+        for task in self.tasks:
+            if self.is_cancelled(): return
+            self.current_task = task
+            task.run()
+        self.end_time = time.time()
+
+    def on_progress(self):
+        if self.is_cancelled():
+            return
+        if callable(self.progress_callback):
+            return self.progress_callback(self)
+
+    def cancel(self):
+        self._is_cancelled = True
+
+    def is_cancelled(self):
+        return self._is_cancelled
+
+    def tasks_completed(self):
+        ntasks = len(self.tasks)
+        current_task_n = self.tasks.index(self.current_task)
+        return float(current_task_n + self.current_task.percent_completed)/ntasks
+
+    def estimated_end_time(self):
+        if self.tasks_completed():
+            ntasks = float(len(self.tasks))
+            ncompleted = self.tasks_completed()*ntasks
+            return time.time()+(time.time() - self.start_time)/ncompleted*(ntasks-ncompleted)
+        else:
+            return time.time() + len(self.tasks)
 
 class ThreadedTaskList(threading.Thread, TaskList):
     '''
     A tasklist that runs in a separate thread
     Can be started and stopped
     '''
-    def __init__ (self, name, tasks=None,  on_progress_callback=None):
-        TaskList.__init__(self, name, tasks, on_progress_callback)
+    def __init__ (self, name, tasks=None, progress_callback=None):
         threading.Thread.__init__(self)
-        self._is_stopped_event = threading.Event()
-        self._is_stopped = self._is_stopped_event.isSet
+        TaskList.__init__(self, name, tasks, progress_callback = progress_callback)
+        self._stopped_event = threading.Event()
+        self.setDaemon(True) #do not prevent the main application from closing
 
-    def stop (self):
-        self._is_stopped_event.set()
-        self.join()
+    def cancel(self):
+        self._stopped_event.set()
 
     def run(self):
-        TaskList.run(self)
+        return TaskList.run(self)
 
-def wrap_function(function):
-    def wrapped_function(task):
-        result = function()
-        return True
-    return wrapped_function
+    def is_cancelled(self):
+        return self._is_cancelled or self._stopped_event.isSet()
 
 if __name__ == "__main__":
-    logging.basicConfig()
-    log.setLevel(logging.DEBUG)
 
-    def on_progress_callback(task):
-        pstr = ":: task=%s subtask=%s %s%% (%s/%s) finished=%s" % (
-            task.name,
-            task.current_subtask_name,
-            100*task.total_progress,
-            task.n_completed_total_subtasks ,
-            task.n_total_subtasks,
-            task.is_finished,)
-        print pstr
-
-    def task_auto_step(task):
-        '''
-        This function returns True
-        which is equivalent to call finish at the end,
-        '''
-        time.sleep(1)
-        return True #this will trigger auto step
-
-    def task_manual_finish(task):
-        '''
-        This function calls finish at the end,
-        '''
-        time.sleep(1)
-        task.finish() #explicit finish
-
-    def task_manual_step(task):
-        '''
-        This function calls step at the end,
-        since the task only has 1 subtask
-        step is equivalent to finish
-        '''
-        time.sleep(1)
-        task.step() #explicit step
-
-    def task_dynamic_subtasks(task):
-        '''
-        test adding real subtasks dynamically
-        '''
-        subtasks = [
-            ("st1", task_auto_step),
-            ("st2", task_manual_finish),
-            ("st3", task_manual_step),
-        ]
-        task.add_subtasks(subtasks)
-
-    def task_dynamic_dummy_subtasks(task):
-        '''
-        test adding dummy subtasks dynamically
-        dummy subtasks have no function attached
-        and are used for a more in depth progress reporting
-        manual stepping is required
-        '''
-        subtasks = ("s1","s2","s3")
-        task.add_subtasks(subtasks)
-        for st in subtasks:
-            time.sleep(1)
-            print "task_dynamic_dummy_subtasks > step > ", st
-            task.step()
-
-    def task_simple_function():
-        '''
-        This function will be wrapped automatically
-        since it does not take 'task' as argument
-        '''
+    def fsleep():
         time.sleep(1)
 
+    def fcallback(progress_callback=None):
+        time.sleep(1)
+        if progress_callback(.3): return
+        time.sleep(1)
+        if progress_callback(.6): return
+        time.sleep(1)
 
-    def build_task_list():
-        tasks = [
-            ("t0", task_simple_function),
-            ("t1", task_dynamic_subtasks),
-            ("t2", task_auto_step),
-            ("t3", task_manual_finish),
-            ("t4", task_manual_step),
-            ("t5", task_dynamic_dummy_subtasks),
-        ]
-        tasklist = ThreadedTaskList('tasklist', tasks, on_progress_callback)
-        return tasklist
+    def progress_callback(tasklist):
+        print "===prog==="
+        print tasklist.current_task.last_msg
+        print "%s%% finished" % (tasklist.tasks_completed()*100)
+        print "remaining secs:", int(tasklist.estimated_end_time()- time.time())
+        print "current task completed: %s%%" % (tasklist.current_task.percent_completed*100)
 
-    tasklist = build_task_list()
-    tasklist.start()
-    print "******* starting tasklist ******"
-    ## uncomment the following to test stopping the tasklist thread
-    # time.sleep(5)
-    # print "******* stopping tasklist *******"
-    # tasklist.stop()
-
+    tasklist = ThreadedTaskList("test 1", progress_callback=progress_callback)
+    tasklist.add_task("fsleep1", fsleep, True)
+    tasklist.add_task("fsleep2", fsleep, True)
+    tasklist.add_task("fcallback1", fcallback, True)
+    tasklist.add_task("fcallback2", fcallback, True)
+    tasklist.run()

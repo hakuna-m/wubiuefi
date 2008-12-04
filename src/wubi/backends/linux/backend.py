@@ -1,9 +1,9 @@
 import commands
-from backends.shared_backend import Backend, Progress
+from wubi.backends.common import Backend
 
 class LinuxBackend(Backend):
     '''
-    Linux-specific backend
+    Linux-specific backend, TBD
     '''
 
     def get_stuff(self):
