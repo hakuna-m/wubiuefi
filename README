@@ -1,6 +1,9 @@
 == Introduction ==
 
-Wubi is the Windows Ubuntu Installer. Wubi installs Ubuntu inside a file within a windows partition, and thus it does not require CD burning or dedicated partitions. Jet the installation is a dual boot setup identical to a normal installation.
+Wubi is the Windows Ubuntu Installer. Wubi installs Ubuntu inside a file
+within a windows partition, and thus it does not require CD burning or
+dedicated partitions. Jet the installation is a dual boot setup identical to
+a normal installation.
 
 For more information see:
 
@@ -9,51 +12,65 @@ http://wiki.ubuntu.com/WubiGuide
 
 == Compiling ==
 
- * make: builds wubi.exe, note that the first time you run it, you will have to install python inside of wine, this is performed automatically, just confirm all the default choices in the installation screens that will appear.
+ * make: builds wubi.exe, note that the first time you run it, you will have
+to install python inside of wine, this is performed automatically, just
+confirm all the default choices in the installation screens that will appear.
  * make runpy: runs wubi under wine directly from source
  * make runbin: builds wubi and runs the packaged binary under wine
 
 == Code overview ==
 
- * src/winui: thin ctypes wrapper around win32 native graphical user interface
- * src/pylauncher: makes python code into an executable, the python script is
-examined and all the dependencies are added to an lzma archive, then an
-executable header is concatenated to the archive that decompresses it and runs
-the script using the python dll
- * src/wubi: the main wubi application, the code is split between backend and
-frontend, where each runs in its own thread. The two interact via a tasklist object,
-where the frontend usually runs a tasklist which is a set of backend tasks. Backends
-and frontends are platform specific. For now only the Windows platform is supported.
+ * src/winui: thin ctypes wrapper around win32 native graphical user
+interface
+ * src/pylauncher: makes python code into an executable, the python
+script is examined and all the dependencies are added to an lzma
+archive, then an executable header is concatenated to the archive that
+decompresses it and runs the script using the python dll
+ * src/wubi: the main wubi application, the code is split between backend
+and frontend, where each runs in its own thread. The two interact via a
+tasklist object, where the frontend usually runs a tasklist which is a set
+of backend tasks. Backends and frontends are platform specific. For
+now only the Windows platform is supported.
  * data: settings for wubi branding and customization
  * po: translations
+ * bin: other binary files required at runtime (will be compiled at a later
+stage)
 
 == Wubi tasks ==
 
 Wubi performs the following tasks
 
- * feteches information about the running system which will be used during installation
+ * feteches information about the running system which will be used
+during installation
  * checks that the minimum installation requirements are met
  * retrieves required user information via a GUI
  * looks for available local CDs and ISO files
- * downloads the ISO if one is required, using bittorrent and an http download manager
+ * downloads the ISO if one is required, using bittorrent and an http
+download manager
  * checks the ISO/CD md5 sums and the md5 signature
  * extracts the kernel and initrd from the ISO
  * adds a new boot entry to the existing windows bootloader
  * prepares a preseed file to be used during the linux-side installation
  * allocates space for the virtual disk files
 
-The actual installation is performed within linux after rebooting the machine
+The actual installation is performed within linux after rebooting the
+machine.
 
 == Customizations ==
 
  * edit the files in data as appropriate and build your image
- * you will need to provide an ISO that is similar to the Ubuntu ISO and in particular it must have .disk/info formatted like .disk/info in the Ubuntu ISO
- * you must provide a webserver with metalink file, metalink file md5 checksums and signatures for the md5 sums
+ * you will need to provide an ISO that is similar to the Ubuntu ISO and in
+particular it must have .disk/info formatted like .disk/info in the Ubuntu ISO
+ * you must provide a webserver with metalink file, metalink file md5
+checksums and signatures for the md5 sums
  * add your signing key to data/trustedkeys.gpg
+ * on the linux side, the distribution must be capable of booting and
+rebooting off a loop file, perform an automatic installation and accept
+the special boot parameters that indicate the local preseed file and ISO
+image to boot from.
 
 == License ==
 
 GPL v2
 
 See LICENSE
-
