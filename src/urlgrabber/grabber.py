@@ -9,9 +9,9 @@
 #   Lesser General Public License for more details.
 #
 #   You should have received a copy of the GNU Lesser General Public
-#   License along with this library; if not, write to the 
-#      Free Software Foundation, Inc., 
-#      59 Temple Place, Suite 330, 
+#   License along with this library; if not, write to the
+#      Free Software Foundation, Inc.,
+#      59 Temple Place, Suite 330,
 #      Boston, MA  02111-1307  USA
 
 # This file is part of urlgrabber, a high-level cross-protocol url-grabber
@@ -54,7 +54,7 @@ GENERAL ARGUMENTS (kwargs)
       po.end()
 
   text = None
-  
+
     specifies an alternativ text item in the beginning of the progress
     bar line. If not given, the basename of the file is used.
 
@@ -93,7 +93,7 @@ GENERAL ARGUMENTS (kwargs)
     the first 10 bytes of the file.
 
     If set to None, no range will be used.
-    
+
   reget = None   [None|'simple'|'check_timestamp']
 
     whether to attempt to reget a partially-downloaded file.  Reget
@@ -157,7 +157,7 @@ GENERAL ARGUMENTS (kwargs)
     partial file or directory name.
 
   opener = None
-  
+
     Overrides the default urllib2.OpenerDirector provided to urllib2
     when making requests.  This option exists so that the urllib2
     handler chain may be customized.  Note that the range, reget,
@@ -166,7 +166,7 @@ GENERAL ARGUMENTS (kwargs)
     option is provided, no attempt is made by urlgrabber to ensure
     chain integrity.  You are responsible for ensuring that any
     extension handlers are present if said features are required.
-    
+
   data = None
 
     Only relevant for the HTTP family (and ignored for other
@@ -178,7 +178,7 @@ GENERAL ARGUMENTS (kwargs)
     option.  Note that python 2.2 handles the case of these
     badly and if you do not use the proper case (shown here), your
     values will be overridden with the defaults.
-    
+
 
 RETRY RELATED ARGUMENTS
 
@@ -202,7 +202,7 @@ RETRY RELATED ARGUMENTS
       retrycodes = urlgrabber.grabber.URLGrabberOptions().retrycodes
       if 12 not in retrycodes:
           retrycodes.append(12)
-      
+
   checkfunc = None
 
     a function to do additional checks. This defaults to None, which
@@ -233,7 +233,7 @@ RETRY RELATED ARGUMENTS
       function(obj, 'arg1', 2, kwarg=3)
       # obj.filename = '/tmp/stuff'
       # obj.url = 'http://foo.com/stuff'
-      
+
     NOTE: both the "args" tuple and "kwargs" dict must be present if
     you use this syntax, but either (or both) can be empty.
 
@@ -282,7 +282,7 @@ RETRY RELATED ARGUMENTS
     This callback is very similar to failure_callback.  They are
     passed the same arguments, so you could use the same function for
     both.
-      
+
   urlparser = URLParser()
 
     The URLParser class handles pre-processing of URLs, including
@@ -469,7 +469,7 @@ def _init_default_logger():
     the form
 
       URLGRABBER_DEBUG=level,filename
-      
+
     where "level" can be either an integer or a log level from the
     logging module (DEBUG, INFO, etc).  If the integer is zero or
     less, logging will be disabled.  Filename is the filename where
@@ -482,7 +482,7 @@ def _init_default_logger():
       URLGRABBER_DEBUG=1,debug.txt   # log everything to debug.txt
       URLGRABBER_DEBUG=WARNING,-     # log warning and higher to stdout
       URLGRABBER_DEBUG=INFO          # log info and higher to stderr
-      
+
     This funtion is called during module initialization.  It is not
     intended to be called from outside.  The only reason it is a
     function at all is to keep the module-level namespace tidy and to
@@ -536,7 +536,7 @@ class URLGrabError(IOError):
         13   - malformed proxy url
         14   - HTTPError (includes .code and .exception attributes)
         15   - user abort
-        
+
       MirrorGroup error codes (256 -- 511)
         256  - No more mirrors left to try
 
@@ -589,7 +589,7 @@ def urlgrab(url, filename=None, **kwargs):
     If filename is none, the basename of the url is used.
     urlgrab returns the filename of the local file, which may be different
     from the passed-in filename if the copy_local kwarg == 0.
-    
+
     See module documentation for a description of possible kwargs.
     """
     return default_grabber.urlgrab(url, filename, **kwargs)
@@ -599,7 +599,7 @@ def urlopen(url, **kwargs):
     If a progress object or throttle specifications exist, then
     a special file object will be returned that supports them.
     The file object can be treated like any other file object.
-    
+
     See module documentation for a description of possible kwargs.
     """
     return default_grabber.urlopen(url, **kwargs)
@@ -609,7 +609,7 @@ def urlread(url, limit=None, **kwargs):
     If the limit is exceeded, an exception will be thrown.  Note that urlread
     is NOT intended to be used as a way of saying "I want the first N bytes"
     but rather 'read the whole file into memory, but don't use too much'
-    
+
     See module documentation for a description of possible kwargs.
     """
     return default_grabber.urlread(url, limit, **kwargs)
@@ -646,10 +646,10 @@ class URLParser:
           opts.quote = None  --> guess
         """
         quote = opts.quote
-        
+
         if opts.prefix:
             url = self.add_prefix(url, opts.prefix)
-            
+
         parts = urlparse.urlparse(url)
         (scheme, host, path, parm, query, frag) = parts
 
@@ -659,15 +659,15 @@ class URLParser:
             url = 'file:' + urllib.pathname2url(url)
             parts = urlparse.urlparse(url)
             quote = 0 # pathname2url quotes, so we won't do it again
-            
+
         if scheme in ['http', 'https']:
             parts = self.process_http(parts)
-            
+
         if quote is None:
             quote = self.guess_should_quote(parts)
         if quote:
             parts = self.quote(parts)
-        
+
         url = urlparse.urlunparse(parts)
         return url, parts
 
@@ -731,7 +731,7 @@ class URLParser:
                 ind = string.find(path, '%', ind+1)
             return 0
         return 1
-    
+
 class URLGrabberOptions:
     """Class to ease kwargs handling."""
 
@@ -744,30 +744,30 @@ class URLGrabberOptions:
         if delegate is None:
             self._set_defaults()
         self._set_attributes(**kwargs)
-    
+
     def __getattr__(self, name):
         if self.delegate and hasattr(self.delegate, name):
             return getattr(self.delegate, name)
         raise AttributeError, name
-    
+
     def raw_throttle(self):
-        """Calculate raw throttle value from throttle and bandwidth 
+        """Calculate raw throttle value from throttle and bandwidth
         values.
         """
-        if self.throttle <= 0:  
+        if self.throttle <= 0:
             return 0
-        elif type(self.throttle) == type(0): 
+        elif type(self.throttle) == type(0):
             return float(self.throttle)
         else: # throttle is a float
             return self.bandwidth * self.throttle
-        
+
     def derive(self, **kwargs):
         """Create a derived URLGrabberOptions instance.
         This method creates a new instance and overrides the
         options specified in kwargs.
         """
         return URLGrabberOptions(delegate=self, **kwargs)
-        
+
     def _set_attributes(self, **kwargs):
         """Update object attributes with those provided in kwargs."""
         self.__dict__.update(kwargs)
@@ -779,7 +779,7 @@ class URLGrabberOptions:
                                % (self.reget, ))
 
     def _set_defaults(self):
-        """Set all options to their default values. 
+        """Set all options to their default values.
         When adding new options, make sure a default is
         provided here.
         """
@@ -813,16 +813,16 @@ class URLGrabberOptions:
 
 class URLGrabber:
     """Provides easy opening of URLs with a variety of options.
-    
+
     All options are specified as kwargs. Options may be specified when
     the class is created and may be overridden on a per request basis.
-    
+
     New objects inherit default values from default_grabber.
     """
-    
+
     def __init__(self, **kwargs):
         self.opts = URLGrabberOptions(**kwargs)
-    
+
     def _retry(self, opts, func, *args):
         tries = 0
         while 1:
@@ -869,46 +869,46 @@ class URLGrabber:
                 if DEBUG: DEBUG.info('retrycode (%i) not in list %s, re-raising',
                                      retrycode, opts.retrycodes)
                 raise
-    
+
     def urlopen(self, url, **kwargs):
         """open the url and return a file object
-        If a progress object or throttle value specified when this 
-        object was created, then  a special file object will be 
-        returned that supports them. The file object can be treated 
+        If a progress object or throttle value specified when this
+        object was created, then  a special file object will be
+        returned that supports them. The file object can be treated
         like any other file object.
         """
         opts = self.opts.derive(**kwargs)
-        (url,parts) = opts.urlparser.parse(url, opts) 
+        (url,parts) = opts.urlparser.parse(url, opts)
         def retryfunc(opts, url):
             return URLGrabberFileObject(url, filename=None, opts=opts)
         return self._retry(opts, retryfunc, url)
-    
+
     def urlgrab(self, url, filename=None, **kwargs):
         """grab the file at <url> and make a local copy at <filename>
         If filename is none, the basename of the url is used.
-        urlgrab returns the filename of the local file, which may be 
+        urlgrab returns the filename of the local file, which may be
         different from the passed-in filename if copy_local == 0.
         """
         opts = self.opts.derive(**kwargs)
-        (url,parts) = opts.urlparser.parse(url, opts) 
+        (url,parts) = opts.urlparser.parse(url, opts)
         (scheme, host, path, parm, query, frag) = parts
         if filename is None:
             filename = os.path.basename( urllib.unquote(path) )
         if scheme == 'file' and not opts.copy_local:
-            # just return the name of the local file - don't make a 
+            # just return the name of the local file - don't make a
             # copy currently
             path = urllib.url2pathname(path)
             if host:
                 path = os.path.normpath('//' + host + path)
             if not os.path.exists(path):
-                raise URLGrabError(2, 
+                raise URLGrabError(2,
                       _('Local file does not exist: %s') % (path, ))
             elif not os.path.isfile(path):
-                raise URLGrabError(3, 
+                raise URLGrabError(3,
                               _('Not a normal file: %s') % (path, ))
             elif not opts.range:
                 return path
-        
+
         def retryfunc(opts, url, filename):
             fo = URLGrabberFileObject(url, filename, opts)
             try:
@@ -923,21 +923,21 @@ class URLGrabber:
             finally:
                 fo.close()
             return filename
-        
+
         return self._retry(opts, retryfunc, url, filename)
-    
+
     def urlread(self, url, limit=None, **kwargs):
         """read the url into a string, up to 'limit' bytes
         If the limit is exceeded, an exception will be thrown.  Note
-        that urlread is NOT intended to be used as a way of saying 
-        "I want the first N bytes" but rather 'read the whole file 
+        that urlread is NOT intended to be used as a way of saying
+        "I want the first N bytes" but rather 'read the whole file
         into memory, but don't use too much'
         """
         opts = self.opts.derive(**kwargs)
-        (url,parts) = opts.urlparser.parse(url, opts) 
+        (url,parts) = opts.urlparser.parse(url, opts)
         if limit is not None:
             limit = limit + 1
-            
+
         def retryfunc(opts, url, limit):
             fo = URLGrabberFileObject(url, filename=None, opts=opts)
             s = ''
@@ -959,13 +959,13 @@ class URLGrabber:
             finally:
                 fo.close()
             return s
-            
+
         s = self._retry(opts, retryfunc, url, limit)
         if limit and len(s) > limit:
-            raise URLGrabError(8, 
+            raise URLGrabError(8,
                         _('Exceeded limit (%i): %s') % (limit, url))
         return s
-        
+
     def _make_callback(self, callback_obj):
         if callable(callback_obj):
             return callback_obj, (), {}
@@ -977,7 +977,7 @@ class URLGrabber:
 default_grabber = URLGrabber()
 
 class URLGrabberFileObject:
-    """This is a file-object wrapper that supports progress objects 
+    """This is a file-object wrapper that supports progress objects
     and throttling.
 
     This exists to solve the following problem: lets say you want to
@@ -999,7 +999,7 @@ class URLGrabberFileObject:
         self._amount_read = 0
         self._opener = None
         self._do_open()
-        
+
     def __getattr__(self, name):
         """This effectively allows us to wrap at the instance level.
         Any attribute not found in _this_ object will be searched for
@@ -1007,7 +1007,7 @@ class URLGrabberFileObject:
         if hasattr(self.fo, name):
             return getattr(self.fo, name)
         raise AttributeError, name
-   
+
     def _get_opener(self):
         """Build a urllib2 OpenerDirector based on request options."""
         if self.opts.opener:
@@ -1061,7 +1061,7 @@ class URLGrabberFileObject:
             # TWO user-agent headers.
             self._opener.addheaders = []
         return self._opener
-        
+
     def _do_open(self):
         opener = self._get_opener()
 
@@ -1080,7 +1080,7 @@ class URLGrabberFileObject:
                 if modified_stamp > self.reget_time: fetch_again = 1
             except (TypeError,):
                 fetch_again = 1
-            
+
             if fetch_again:
                 # the server version is newer than the (incomplete) local
                 # version, so we should abandon the version we're getting
@@ -1102,19 +1102,19 @@ class URLGrabberFileObject:
             if hasattr(fo, 'readline'):
                 self.readline = fo.readline
         elif self.opts.progress_obj:
-            try:    
+            try:
                 length = int(hdr['Content-Length'])
                 length = length + self._amount_read     # Account for regets
-            except (KeyError, ValueError, TypeError): 
+            except (KeyError, ValueError, TypeError):
                 length = None
 
             self.opts.progress_obj.start(str(self.filename),
                                          urllib.unquote(self.url),
-                                         os.path.basename(path), 
+                                         os.path.basename(path),
                                          length, text=self.opts.text)
             self.opts.progress_obj.update(0)
         (self.fo, self.hdr) = (fo, hdr)
-    
+
     def _add_headers(self, req):
         if self.opts.user_agent:
             req.add_header('User-agent', self.opts.user_agent)
@@ -1143,11 +1143,11 @@ class URLGrabberFileObject:
                 reget_length = s[ST_SIZE]
 
                 # Set initial length when regetting
-                self._amount_read = reget_length    
+                self._amount_read = reget_length
 
                 rt = reget_length, ''
                 self.append = 1
-                
+
         if self.opts.range:
             if not have_range:
                 raise URLGrabError(10, _('Byte range requested but range '\
@@ -1193,7 +1193,7 @@ class URLGrabberFileObject:
                             (e.__class__.__name__, e))
         else:
             return (fo, hdr)
-        
+
     def _do_grab(self):
         """dump the file to self.filename."""
         if self.append: new_fo = open(self.filename, 'ab')
@@ -1216,7 +1216,7 @@ class URLGrabberFileObject:
         except (TypeError,), e: pass
 
         return size
-    
+
     def _fill_buffer(self, amt=None):
         """fill the buffer to contain at least 'amt' bytes by reading
         from the underlying file object.  If amt is None, then it will
@@ -1243,7 +1243,7 @@ class URLGrabberFileObject:
                        (time.time() - self._ttime)
                 if diff > 0: time.sleep(diff)
                 self._ttime = time.time()
-                
+
             # now read some data, up to self._rbufsize
             if amt is None: readamount = self._rbufsize
             else:           readamount = min(amt, self._rbufsize)
@@ -1264,7 +1264,8 @@ class URLGrabberFileObject:
             self._tsize = newsize
             self._amount_read = self._amount_read + newsize
             if self.opts.progress_obj:
-                self.opts.progress_obj.update(self._amount_read)
+                if self.opts.progress_obj.update(self._amount_read):
+                    return
 
         self._rbuf = string.join(buf, '')
         return
@@ -1348,23 +1349,23 @@ def set_progress_obj(new_progress_obj):
 def set_user_agent(new_user_agent):
     """Deprecated. Use: default_grabber.user_agent = new_user_agent"""
     default_grabber.user_agent = new_user_agent
-    
+
 def retrygrab(url, filename=None, copy_local=0, close_connection=0,
               progress_obj=None, throttle=None, bandwidth=None,
               numtries=3, retrycodes=[-1,2,4,5,6,7], checkfunc=None):
     """Deprecated. Use: urlgrab() with the retry arg instead"""
-    kwargs = {'copy_local' :  copy_local, 
+    kwargs = {'copy_local' :  copy_local,
               'close_connection' : close_connection,
-              'progress_obj' : progress_obj, 
-              'throttle' : throttle, 
+              'progress_obj' : progress_obj,
+              'throttle' : throttle,
               'bandwidth' : bandwidth,
               'retry' : numtries,
               'retrycodes' : retrycodes,
-              'checkfunc' : checkfunc 
+              'checkfunc' : checkfunc
               }
     return urlgrab(url, filename, **kwargs)
 
-        
+
 #####################################################################
 #  TESTING
 def _main_test():
@@ -1382,7 +1383,7 @@ def _main_test():
 
     set_throttle(1.0)
     set_bandwidth(32 * 1024)
-    print "throttle: %s,  throttle bandwidth: %s B/s" % (default_grabber.throttle, 
+    print "throttle: %s,  throttle bandwidth: %s B/s" % (default_grabber.throttle,
                                                         default_grabber.bandwidth)
 
     try: from progress import text_progress_meter
@@ -1423,7 +1424,7 @@ def _retry_test():
             raise URLGrabError(-2, 'forcing immediate failure')
         print 'success'
         return
-        
+
     kwargs['checkfunc'] = (cfunc, ('hello',), {'there':'there'})
     try: name = apply(retrygrab, (url, filename), kwargs)
     except URLGrabError, e: print e
@@ -1450,7 +1451,7 @@ def _file_object_test(filename=None):
         s_output = fo_output.getvalue()
         if s_output == s_input: print 'passed'
         else: print 'FAILED'
-            
+
 def _test_file_object_smallread(wrapper, fo_output):
     while 1:
         s = wrapper.read(23)

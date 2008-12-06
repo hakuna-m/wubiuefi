@@ -51,12 +51,13 @@ class ProgressPage(Page):
         self.header.title.set_text(tasklist.name)
         self.main.progressbar.set_position(int(100.0*tasklist.tasks_completed()))
         self.main.task_label.set_text(tasklist.current_task.name)
+        subtask = ""
         if tasklist.current_task.current_subtask_name:
-            self.main.subtask_label.set_text(tasklist.current_task.current_subtask_name)
-        if tasklist.current_task.percent_completed:
-            completed = "%s%%" % (100.0*tasklist.current_task.percent_completed)
-            self.main.subtask_label.set_text(completed)
+            subtask += tasklist.current_task.current_subtask_name + " "
+        if tasklist.current_task.percent_completed and tasklist.current_task.percent_completed<1:
+            subtask +=  "Downloading (%.1f%%)" % (100.0*tasklist.current_task.percent_completed)
             self.main.subprogressbar.set_position(int(100.0*tasklist.current_task.percent_completed))
+        self.main.subtask_label.set_text(subtask)
         if tasklist.tasks_completed() >= 1:
             self.main.progressbar.set_position(100)
             self.application.stop()

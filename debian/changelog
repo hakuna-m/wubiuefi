@@ -46,5 +46,7 @@ wubi (9.04) UNRELEASED; urgency=low
   * Made the tasklist thread daemonic so that it does not prevent the
     main application from quitting
   * Reformatted the README file
+  * Modified urlgrabber to make the download terminate if so
+    instructed by the controlling thread via the update callback
 
- -- Agostino Russo <agostino.russo@gmail.com>  Thu, 04 Dec 2008 08:08:58 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Sat, 06 Dec 2008 00:15:14 +0000
