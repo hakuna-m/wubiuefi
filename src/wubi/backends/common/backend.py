@@ -35,10 +35,10 @@ import btdownloader
 import downloader
 
 from metalink import parse_metalink
-from tasklist import ThreadedTaskList
+from tasklist import ThreadedTaskList, Task
 from distro import Distro
 from mappings import lang_country2linux_locale
-from utils import run_command, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unixpath
+from utils import run_command, copy_file, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unixpath
 
 log = logging.getLogger("CommonBackend")
 
@@ -88,8 +88,11 @@ class Backend(object):
         self.info.keyboard_layout = self.get_keyboard_layout()
         self.info.total_memory_mb = self.get_total_memory_mb()
         self.info.locale = self.get_locale(self.info.language)
-        self.info.cd_path, self.info.cd_distro = self.find_any_cd()
-        self.info.iso_path,  self.info.iso_distro = None, None #self.find_any_iso()
+        self.info.iso_path, self.info.iso_distro = self.find_any_iso()
+        if self.info.iso_path:
+            self.info.cd_path, self.info.cd_distro = None, None
+        else:
+            self.info.cd_path, self.info.cd_distro = self.find_any_cd()
 
     def get_distros(self):
         isolist_path = os.path.join(self.info.datadir, 'isolist.ini')
@@ -189,67 +192,88 @@ class Backend(object):
         md5sum2 = get_file_md5(metalink)
         return md5sum == md5sum2
 
-    def check_cd(self, cd_path, progress_callback):
+    def check_cd(self, cd_path, associated_task):
         if self.info.skipmd5check:
             return True
         md5sums_file = os.path.join(cd_path, self.info.distro.md5sums)
-        md5sums = file_read(md5sums_file)
-        md5sums = dict([reversed(line.split()) for line in md5sums.split('\n') if line])
-        for file_path in self.info.distro.get_required_files():
-            file_path = file_path.replace('\\','/')
-            if not file_path.startswith('./'):
-                file_path = './' + file_path
-            md5sum = md5sums.get(file_path)
-            file_path = os.path.join(cd_path, file_path)
-            md5sum2 = get_file_md5(file_path, progress_callback)
-            if md5sum != md5sum2:
-                log.error("Invalid md5 for %s" % file_path)
+        subtasks = [
+            associated_task.add_subtask("Checking %s" % f, self.check_file)
+            for f in self.info.distro.get_required_files()]
+        for subtask in subtasks:
+            if not subtask.run(file_path, file_path, md5sums_file):
                 return False
         return True
 
-    def check_iso(self, iso_path, progress_callback):
+    def check_iso(self, iso_path, associated_task=None):
         if self.info.skipmd5check:
             return True
         md5sum = None
+        if not self.info.metalink:
+            log.error("The metalink file is not available, cannot check the md5 for %s, hoping for the better..." % iso_path)
+            return True
         for hash in self.info.metalink.files[0].hashes:
             if hash.type == 'md5':
                 md5sum = hash.hash
         if not md5sum:
-            log.error("Could not find any md5 hash in the metalink for the ISO %s" % iso_path)
+            log.error("Could not find any md5 hash in the metalink for the ISO %s, ignoring" % iso_path)
+            return True
         log.debug("Calculating md5 for %s" % iso_path)
-        md5sum2 = get_file_md5(iso_path, progress_callback)
+        md5sum2 = get_file_md5(iso_path, associated_task)
         if md5sum != md5sum2:
             log.error("Invalid md5 for ISO %s" % iso_path)
             return False
         return True
 
-    def download_iso(self, progress_callback=None):
+    def download_iso(self, associated_task):
         log.debug("download_iso")
         file = self.info.metalink.files[0]
         url = file.urls[0].url
         save_as = os.path.join(self.info.installdir, file.name)
         iso =None
         if not self.info.nobittorrent:
-            try:
-                iso = btdownlaoder.download(url, save_as, progress_callback=progress_callback)
-            except: pass
+            btdownloader = self.associated_task.add_subtask(
+                "Downloading %s" % url, #TBD get the torrent url from metalink
+                btdownlaoder.download,
+                is_required = False)
+            iso = btdownloader.run(url, save_as)
         if iso is None:
-            iso = downloader.download(url, save_as, progress_callback=progress_callback, web_proxy=self.info.web_proxy)
+            download = self.associated_task.add_subtask(
+                "Downloading %s" % url,
+                downlaoder.download,
+                is_required = True)
+            iso = downloader.run(url, save_as, web_proxy=self.info.web_proxy)
         return iso
 
     def get_metalink(self):
         log.debug("get_metalink")
+        self.info.metalink = None
         try:
             metalink = downloader.download(self.info.distro.metalink, self.info.installdir, web_proxy=self.info.web_proxy)
             base_url = os.path.dirname(self.info.distro.metalink)
         except:
-            metalink = downloader.download(self.info.distro.metalink2, self.info.installdir, web_proxy=self.info.web_proxy)
-            base_url = os.path.dirname(self.info.distro.metalink2)
+            log.error("Cannot download metalink file %s" % self.info.distro.metalink)
+            try:
+                metalink = downloader.download(self.info.distro.metalink2, self.info.installdir, web_proxy=self.info.web_proxy)
+                base_url = os.path.dirname(self.info.distro.metalink2)
+            except:
+                log.error("Cannot download metalink file2 %s" % self.info.distro.metalink)
+                return
         if not self.check_metalink(metalink, base_url):
             log.exception("Cannot authenticate the metalink file, it might be corrupt")
         self.info.metalink = parse_metalink(metalink)
 
-    def get_iso(self, progress_callback):
+    def get_iso(self, associated_task):
+        #Use pre-specified ISO
+        if self.info.iso_path \
+        and os.path.exists(self.info.iso_path):
+            #TBD shall we do md5 check? Doesn't work well with daylies
+            #TBD if a specified ISO cannot be used notify the user
+            is_valid_iso = associated_task.add_subtask(
+                "Validating %s" % self.info.iso_path, self.info.distro.is_valid_iso)
+            if is_valid_iso.run(self.info.iso_path):
+                self.info.cd_path = None
+                return associated_task.finish()
+
         # Use CD if possible
         cd_path = None
         if self.info.cd_distro \
@@ -259,11 +283,15 @@ class Backend(object):
         else:
             cd_path = self.find_cd()
         if cd_path:
-            if self.check_cd(cd_path, progress_callback):
-                cd_path = self.extract_cd_content(cd_path, progress_callback)
+            check_cd = associated_task.add_subtask(
+                "Checking %s" % cd_path, self.check_cd)
+            extract_cd_content = associated_task.add_subtask(
+                "Extracting files from %s" % cd_path, self.extract_cd_content)
+            if check_cd.run(cd_path):
+                cd_path = extract_cd_content.run(cd_path)
                 self.info.cd_path = cd_path
                 self.info.iso_path = None
-                return
+                return associated_task.finish()
 
         #Use local ISO if possible
         iso_path = None
@@ -276,21 +304,34 @@ class Backend(object):
         if iso_path:
             iso_name = os.path.basename(iso_path)
             dest = os.path.join(self.info.installdir, iso_name)
-            if self.check_iso(iso_path, progress_callback):
+            check_iso = associated_task.add_subtask(
+                "Checking %s" % iso_path, self.check_iso)
+            move_iso = associated_task.add_subtask(
+                "Moving %s > %s" % (iso_path, dest), shutil.move)
+            copy_iso = associated_task.add_subtask(
+                "Copying %s > %s" % (iso_path, dest), copy_file)
+            if check_iso.run(iso_path):
                 if os.path.dirname(iso_path) == self.info.previous_backupdir:
-                    shutil.move(iso_path, dest)
+                    move_iso.run(iso_path, dest)
                 else:
-                    shutil.copyfile(iso_path, dest)
+                    copy_file.run(iso_path, dest)
                 self.info.cd_path = None
                 self.info.iso_path = dest
-                return
+                return associated_task.finish()
 
         # Download the ISO
         log.debug("Could not find any ISO or CD, downloading one now")
         self.info.cd_path = None
-        self.info.iso_path = self.download_iso(progress_callback)
+        download_iso = associated_task.add_subtask(
+            "Downloading ISO", self.check_iso)
+        check_iso = associated_task.add_subtask(
+            "Checking %s" % iso_path, self.check_iso)
+        self.info.iso_path = download_iso.run()
         if not self.info.iso_path:
             raise Exception("Could not retrieve the installation ISO")
+        elif not check_iso.run(iso_path):
+            raise Exception("ISO file is corrupted")
+        return associated_task.finish()
 
     def extract_kernel(self):
         bootdir = self.info.installbootdir
@@ -317,12 +358,15 @@ class Backend(object):
                 if not self.check_file(file_path, rel_path, md5sums):
                     raise Exception("File %s is corrupted" % file_path)
 
-    def check_file(self, file_path, relpath, md5sums, progress_callback):
+    def check_file(self, file_path, relpath, md5sums, associated_task=None):
+        relpath = relpath.replace("\\", "/")
+        log.debug("find_line_in_file(%s, %s)" % (md5sums, "./%s" % relpath))
         md5line = find_line_in_file(md5sums, "./%s" % relpath, endswith=True)
         if not md5line:
             raise Exception("Cannot find md5 for %s" % relpath)
         reference_md5 = md5line.split()[0]
-        md5  = get_file_md5(file_path, progress_callback)
+        md5  = get_file_md5(file_path, associated_task)
+        log.debug("Checking %s ref_md5=%s calculated_md5=%s" % (file_path, reference_md5, md5))
         return md5 == reference_md5
 
     def choose_disk_sizes(self):
@@ -420,21 +464,21 @@ class Backend(object):
 
     def get_installation_tasklist(self):
         tasks = [
-            ("Selecting target directory", self.select_target_dir),
-            ("Creating the installation directories", self.create_dir_structure),
-            ("Creating the uninstaller", self.create_uninstaller),
-            ("Copying files", self.copy_installation_files),
-            ("Retrieving the Metalink", self.get_metalink),
-            ("Retrieving the ISO", self.get_iso),
-            ("Extracting the kernel", self.extract_kernel),
-            ("Uncompressing files", self.uncompress_files),
-            ("Choosing disk sizes", self.choose_disk_sizes),
-            ("Creating a preseed file", self.create_preseed),
-            ("Adding a new bootlader entry", self.modify_bootloader),
-            ("Creating the virtual disks", self.create_virtual_disks),
-            ("Uncompressing files", self.uncompress_files),
-            ("Ejecting the CD", self.eject_cd),
-            ("Rebooting", self.reboot),
+            Task("Selecting target directory", self.select_target_dir),
+            Task("Creating the installation directories", self.create_dir_structure),
+            Task("Creating the uninstaller", self.create_uninstaller),
+            Task("Copying files", self.copy_installation_files, True, weight=5),
+            Task("Retrieving the Metalink", self.get_metalink, True, weight=10),
+            Task("Retrieving the ISO", self.get_iso, True, weight=1000),
+            Task("Extracting the kernel", self.extract_kernel, True, weight=5),
+            Task("Uncompressing files", self.uncompress_files),
+            Task("Choosing disk sizes", self.choose_disk_sizes),
+            Task("Creating a preseed file", self.create_preseed),
+            Task("Adding a new bootlader entry", self.modify_bootloader),
+            Task("Creating the virtual disks", self.create_virtual_disks),
+            Task("Uncompressing files", self.uncompress_files),
+            Task("Ejecting the CD", self.eject_cd),
+            Task("Rebooting", self.reboot),
         ]
         tasklist = ThreadedTaskList("Installing", tasks=tasks)
         return tasklist
@@ -471,18 +515,6 @@ class Backend(object):
         log.debug("Deleting %s" % self.info.previous_targetdir)
         shutil.rmtree(self.info.previous_targetdir)
 
-    def find_any_iso(self):
-        log.debug('searching for local ISOs')
-        for path in self.get_iso_search_paths():
-            path = os.path.abspath(path)
-            path = os.path.join(path, '*.iso')
-            isos = glob.glob(path)
-            for iso in isos:
-                for distro in self.info.distros:
-                    if distro.is_valid_iso(iso):
-                        return iso, distro
-        return None, None
-
     def find_iso(self):
         log.debug('searching for local ISOs')
         for path in self.get_iso_search_paths():
@@ -492,6 +524,29 @@ class Backend(object):
             for iso in isos:
                 if self.info.distro.is_valid_iso(iso):
                     return iso
+
+    def find_any_iso(self):
+        '''
+        look for usb keys with ISO or pre specified ISO
+        '''
+        log.debug('searching for local ISOs')
+        #Use pre-specified ISO
+        if self.info.iso_path \
+        and os.path.exists(self.info.iso_path):
+            for distro in self.info.distros:
+                if distro.is_valid_iso(self.info.iso_path):
+                    self.info.cd_path = None
+                    return self.info.iso_path, distro
+        #Search USB devices
+        for path in self.get_usb_search_paths():
+            path = os.path.abspath(path)
+            path = os.path.join(path, '*.iso')
+            isos = glob.glob(path)
+            for iso in isos:
+                for distro in self.info.distros:
+                    if distro.is_valid_iso(iso):
+                        return iso, distro
+        return None, None
 
     def find_any_cd(self):
         log.debug('searching for local CDs')

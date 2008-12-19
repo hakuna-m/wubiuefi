@@ -89,12 +89,14 @@ class InstallationPage(Page):
         listitems =  ["%sGB" % x for x in range(4, freespace)]
         for item in listitems:
             self.size_list.add_item(item)
-	if listitems:
+        if listitems:
             self.size_list.set_value(listitems[max(0,len(listitems)-2)])
 
     def populate_distro_list(self):
         if self.application.info.cd_distro:
             distros = [self.application.info.cd_distro.name]
+        elif self.application.info.iso_distro:
+            distros = [self.application.info.iso_distro.name]
         else:
             distros = []
             for distro in self.application.info.distros:
@@ -223,6 +225,7 @@ class InstallationPage(Page):
 
         info.targetdrive = targetdrive
         info.installation_size = installation_size
+        info.installation_size_mb = int(installation_size[:-2])*1024*1024
         for distro in info.distros:
             if distro.name == distro_name \
             and distro.arch == info.arch:

@@ -28,7 +28,7 @@ stop_signal = Event()
 class DownloadError(Exception):
     pass
 
-def download(url, filename, progress_callback=None):
+def download(url, filename, associated_task=None):
     params = ['--url', url, '--saveas', filename]
     cols = 80
     stop_signal = Event()
@@ -44,13 +44,13 @@ def download(url, filename, progress_callback=None):
         percent_completed = float(kargs.get("fractionDone", 0))
         percent_completed = min(0.99, percent_completed)
         current_speed = "%sKBps" % int(kargs.get("downRate", 0)/1024.0)
-        if callable(progress_callback):
-            if progress_callback(percent_completed, current_speed=current_speed):
+        if associated_task:
+            if associated_task.set_progress(percent_completed, current_speed=current_speed):
                 stop_signal.set()
 
     def finish_callback():
-        if callable(progress_callback):
-            progress_callback(1)
+        if associated_task:
+            associated_task.set_progress(1)
         stop_signal.set()
 
     def error_callback(message):
@@ -74,4 +74,4 @@ if __name__ == "__main__":
     saveas = '/tmp/x/myfile'
     def progress_callback(percent_completed, current_speed=None):
         print "pc",percent_completed, current_speed
-    download(url, saveas, progress_callback)
+    Task(url, saveas, associated_task)

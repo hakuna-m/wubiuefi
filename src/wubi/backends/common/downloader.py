@@ -34,8 +34,8 @@ import encodings.ascii #required by urlgrabber
 import encodings.utf_8 #required by urlgrabber
 
 class DownloadProgress(object):
-    def __init__(self, progress_callback):
-        self.progress_callback = progress_callback
+    def __init__(self, associated_task):
+        self.associated_task = associated_task
 
     def start(self, filename, url, basename, length, text):
         self.filename = filename
@@ -45,23 +45,23 @@ class DownloadProgress(object):
         self.text = text
         log.debug("Download start filename=%s, url=%s, basename=%s, length=%s, text=%s" %
             (filename, url, basename, length, text))
-        if callable(self.progress_callback):
-            self.progress_callback(0, "Downloading %s from %s" % (basename, url))
+        if callable(self.associated_task):
+            self.associated_task.set_progress(0, "Downloading %s from %s" % (basename, url))
 
     def update(self, amount_read):
         progress = 1.0*amount_read/float(self.length+1)
-        if callable(self.progress_callback):
-            if self.progress_callback(progress):
+        if callable(self.associated_task):
+            if self.associated_task.set_progress(progress):
                 return True #TBD cancel download
 
     def end(self, amount_read):
         log.debug("download finished (read %s bytes)" % amount_read)
-        if callable(self.progress_callback):
-            self.progress_callback(1)
+        if callable(self.associated_task):
+            self.associated_task.set_progress(1)
 
-def download(url, filename=None, progress_callback=None, web_proxy = None):
+def download(url, filename=None, associated_task=None, web_proxy = None):
     log.debug("downloading %s > %s" % (url, filename))
-    progress_obj = DownloadProgress(progress_callback)
+    progress_obj = DownloadProgress(associated_task)
     if web_proxy:
         web_proxy={'http':web_proxy}
     urlgrabber = URLGrabber(

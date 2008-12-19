@@ -20,7 +20,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from wubi import Wubi
+from wubi.application import Wubi
 
 application = Wubi()
 application.run()

@@ -48,5 +48,6 @@ wubi (9.04) UNRELEASED; urgency=low
   * Reformatted the README file
   * Modified urlgrabber to make the download terminate if so
     instructed by the controlling thread via the update callback
+  * Improved the tasklist module to allow for nested backend jobs
 
- -- Agostino Russo <agostino.russo@gmail.com>  Sat, 06 Dec 2008 00:15:14 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Fri, 19 Dec 2008 02:19:26 +0000

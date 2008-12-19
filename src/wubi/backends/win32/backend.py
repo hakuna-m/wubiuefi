@@ -296,6 +296,12 @@ class WindowsBackend(Backend):
         self.info.system_drive = self.get_system_drive()
         self.info.drives = self.get_drives()
 
+    def detect_proxy(self):
+        '''
+        https://bugs.edge.launchpad.net/wubi/+bug/135815
+        '''
+        #TBD
+
     def extract_file_from_iso(self, iso_path, file_path, output_dir=None, overwrite=False):
         '''
         platform specific
@@ -318,6 +324,12 @@ class WindowsBackend(Backend):
             output_file = None
         if output_file and os.path.isfile(output_file):
             return output_file
+
+    def get_usb_search_paths(self):
+        '''
+        Used to detect ISOs in USB keys
+        '''
+        return [drive.path for drive in self.info.drives] #TBD only look in USB devices
 
     def get_iso_search_paths(self):
         '''

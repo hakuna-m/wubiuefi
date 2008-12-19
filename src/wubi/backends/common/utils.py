@@ -48,7 +48,7 @@ def run_async_command(command):
         command, stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=False)
     process.communicate()
 
-def get_file_md5(file_path, progress_callback=None):
+def get_file_md5(file_path, associated_task=None):
     file_size = os.path.getsize(file_path)
     file = open(file_path, "rb")
     md5hash = md5.new()
@@ -56,17 +56,44 @@ def get_file_md5(file_path, progress_callback=None):
     for i in range(100):
         data = file.read(1024**2)
         data_read += 1024.0**2
-        if data == "": break
-        if callable(progress_callback):
-            if progress_callback(data_read/float(file_size+1)):
+        if data == "":
+            break
+        if associated_task:
+            if associated_task.set_progress(data_read/float(file_size+1)):
                 file.close()
                 return
         md5hash.update(data)
     file.close()
     md5hash = md5hash.hexdigest()
-    if callable(progress_callback):
-        progress_callback(1)
+    if associated_task:
+        associated_task.set_progress(1)
     return md5hash
+
+def copy_file(source, target, associated_task=None):
+    '''
+    Copy file with progress report
+    '''
+    file_size = os.path.getsize(source)
+    source_file = open(source, "rb")
+    target_file = open(target, "wb")
+    data_read = 0
+    while True:
+        data = source_file.read(1024**2)
+        data_read += 1024.0**2
+        if data == "":
+            break
+        if associated_task:
+            if associated_task.set_progress(data_read/float(file_size+1)):
+                source_file.close()
+                target_file.close()
+                return
+        target_file.write(data)
+        if data_read >= file_size:
+            break
+    source_file.close()
+    target_file.close()
+    if associated_task:
+        associated_task.set_progress(1)
 
 def reversed(list):
     list.reverse()
@@ -105,18 +132,17 @@ def replace_line_in_file(file_path, old_line, new_line):
     f.writelines(lines)
     f.close()
 
-def find_line_in_file(file_path, line, endswith=False):
+def find_line_in_file(file_path, text, endswith=False):
     if not file_path or not os.path.isfile(file_path):
         return
-    if line[-1] != "\n":
-        line += "\n"
-    f = None
+    if endswith and text[-1] != "\n":
+        text += "\n"
     f = open(file_path, 'r')
     lines = f.readlines()
     f.close()
     for line in lines:
-        if (endswith and line.endswith(line)) \
-        or (not endswith and line.startswith(line)):
+        if (endswith and line.endswith(text)) \
+        or (not endswith and line.startswith(text)):
             return line[:-1]
 
 def unixpath(path):

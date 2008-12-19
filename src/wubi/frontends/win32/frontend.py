@@ -98,7 +98,7 @@ class WindowsFrontend(ui.Application):
     def run_tasks(self, tasklist):
         self.progress_page = ProgressPage(self.main_window)
         self.show_page(self.progress_page)
-        tasklist.progress_callback = self.progress_page.on_progress
+        tasklist.callback = self.progress_page.on_progress
         self.tasklist = tasklist
         tasklist.start()
         self.run() #will be stopped by self.progress_page.on_progress
