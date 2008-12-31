@@ -25,15 +25,15 @@ import logging
 
 log = logging.getLogger("TaskList")
 
-
 class Task(object):
     '''
-    Each task is associated to a function and/or a list of subtasks
-    The task runs the associated function and subtasks, and keeps track of progress
+    Each task is associated to a function and optionally a list of subtasks
+    The task runs the associated function and then the subtasks, and keeps track of progress
     New subtasks can be added at runtime, and nested configurations are possible
     The task can be run in a separate thread using ThreadedTaskList
 
-    An observer needs to provide a callback to the Task constructor
+    An observer needs to provide a callback by the setting the callback property
+    of the Task instance
     The callback will be triggered any time there is a change in progress or status
     The callback will receive as argument the task object itself and a message.
 
@@ -55,80 +55,109 @@ class Task(object):
     FAILED = 3
     CANCELLED = 4
 
-    def __init__(self, name, associated_function=None, is_required=True, weight=0):
-        self.name = name
-        self._percent_completed = 0
-        self._current_speed = None
-        self._last_message = None
-        self._last_error = None
+    def __init__(self, associated_function, name=None, description=None, size=None, unit=None, weight=None, is_required=None):
+        self.associated_function = associated_function
+        if name:
+            self.name = name
+        elif hasattr(associated_function, "name"):
+            self.name = associated_function.name
+        else:
+            self.name = associated_function.__name__
+        if description:
+            self._description = description
+        elif hasattr(associated_function, "description"):
+            self._description = associated_function.description
+        else:
+            self._description = None
+        if unit:
+            self.unit = unit
+        elif hasattr(associated_function, "unit"):
+            self.unit = associated_function.unit
+        else:
+            self.unit = None
+        if weight:
+            self.weight = weight
+        elif hasattr(associated_function, "weight"):
+            self.weight = associated_function.weight
+        else:
+            self.weight = 1
+        if size:
+            self.size = size
+        elif hasattr(associated_function, "size"):
+            self.size = associated_function.size
+        else:
+            self.size = 1
+        if is_required is not None:
+            self.is_required = is_required
+        elif hasattr(associated_function, "is_required"):
+            self.is_required  = associated_function.is_required
+        else:
+            self.is_required  = True
+        self.completed = 0
+        self.last_completed = 0
         self.start_time = 0
         self.end_time = 0
         self.status = Task.INACTIVE
+        self._speed = None
+        self.progress_timestamp = None
+        self.last_progress_timestamp = None
         self.current_subtask = None
         self.parent = None
-        self.associated_function = associated_function
         self.associated_function_args = []
         self.associated_function_kargs = {}
-        self.associated_function_weight = weight
         self.associated_function_result = None
+        self.error = None
         self.callback = None
-        self.is_required = is_required
         self.subtasks = []
 
-    def add_subtask(self, name, associated_function=None, is_required=True, weight=1):
-        subtask = Task(name)
-        subtask.parent = self
-        subtask.is_required = is_required
-        self.subtasks.append(subtask)
-        if callable(associated_function):
-            subtask.associated_function = associated_function
-            subtask.associated_function_weight = weight
-        return subtask
+    def add_subtask(self, task_or_function, name=None, description=None, size=None, unit=None, weight=None, is_required=None):
+        if isinstance(task_or_function, Task):
+            task = task_or_function
+        else:
+            task = Task(task_or_function, name, description, size, unit, weight, is_required)
+        task.parent = self
+        self.subtasks.append(task)
+        message = "New task %s" % task.name
+        self.log_debug(message)
+        self._notify_listeners(message)
+        return task
 
-    def add_subtasks(self, subtasks):
-        for subtask in subtasks:
-            if isinstance(subtask, Task):
-                subtask.parent = self
-                self.subtasks.append(subtask)
-            elif isinstance(subtask, (list, tuple)):
-                self.add_subtask(*subtask)
-            elif isinstance(subtask, dict):
-                self.add_subtask(*subtask)
-
-    def set_progress(self, percent_completed=None, message=None, current_speed=None):
+    def set_progress(self, completed=0, size=None, unit="", speed=None, message=None):
         '''
         The associated function will call this method on progress.
-        Then the message is propagated to the tasklist on_progress listener
+        Then the message is propagated to the parent and any listener
         This method will return True if the function has to cancel operation
-        When called without arguments, it returns True if the task was cancelled or finished.
         '''
         if self.is_cancelled():
             return True
-        self._percent_completed = percent_completed
-        self._current_speed = current_speed
-        if percent_completed >= 1:
-            self.run_subtasks()
+        self._speed = speed
+        self.last_progress_timestamp = self.progress_timestamp
+        self.progress_timestamp = time.time()
+        self.last_completed = self.completed
+        self.completed = completed
+        if size:
+            self.size = size
+        if completed >= self.size:
+            self._run_subtasks()
             self.finish()
-            if message is None:
-                message = self.get_indent() + "Finished %s" % self.name
-        if message is None:
-            message = self.get_indent() + self.name
-        self.notify_listeners(message)
+        else:
+            if not message:
+                message = "%s progressing" % self.name
+            self._notify_listeners(message)
 
     def finish(self):
-        self.percent_completed = 1
+        message = "Finished %s" % self.name
+        self.log_debug(message)
+        self.completed = self.size
         self.end_time = time.time()
         self.status = Task.COMPLETED
-
-    def notify_listeners(self, message):
-        if callable(self.callback):
-            self.callback(self, message=message)
-        if self.parent:
-            self.parent.notify_listeners(message=message)
+        self._notify_listeners(message)
 
     def cancel(self):
         self.status = Task.CANCELLED
-        self.notify_listeners("Cancelling %s" % self.name)
+        message = "Cancelling %s" % self.name
+        self.log_debug(message)
+        self._notify_listeners(message)
 
     def is_cancelled(self):
         return self.status is Task.CANCELLED or \
@@ -138,15 +167,15 @@ class Task(object):
         return self.status is Task.ACTIVE and \
             (self.parent is None or self.parent.is_active())
 
-    def run(self, *args, **kargs):
+    def __call__(self, *args, **kargs):
         if self.status is not Task.INACTIVE \
         or self.parent and not self.parent.is_active():
             return
+        message = "Running %s..." % self.name
+        self.log_debug(message)
         self.status = Task.ACTIVE
         self.start_time = time.time()
-        message = self.get_indent() + "%s ..." % self.name
-        log.debug(message)
-        self.set_progress(0, message)
+        self._notify_listeners(message)
         if callable(self.associated_function):
             if args:
                 self.associated_function_args = args
@@ -154,85 +183,162 @@ class Task(object):
                 self.associated_function_kargs = kargs
             if 'associated_task' in self.associated_function.func_code.co_varnames:
                 self.associated_function_kargs['associated_task'] = self
-            try:
+            if self.is_required:
                 result = self.associated_function(*self.associated_function_args, **self.associated_function_kargs)
-                self.associated_function_result = result
-            except Exception, err:
-                self.status = Task.FAILED
-                if self.is_required:
-                    log.exception(err)
-                    raise err
-                else:
-                    log.error("Non fatal error %s in task %s" % (err.description, self.name))
-                    self.notify_listeners(self.get_indent() + "Error: %s" % err.description)
-        self.run_subtasks()
-        self.set_progress(1)
-        log.debug(self.get_indent() + "Finished %s" % self.name)
+            else:
+                try:
+                    result = self.associated_function(*self.associated_function_args, **self.associated_function_kargs)
+                except:
+                    self.error = err
+                    self.status = Task.FAILED
+                    message = "Non fatal error %s in task %s" % (err.description, self.name)
+                    log.error(message)
+                    self._notify_listeners(message)
+            self.associated_function_result = result
+        self._run_subtasks()
+        self.finish()
         return self.associated_function_result
-
-    def run_subtasks(self):
-        for subtask in self.subtasks:
-            self.current_subtask = subtask
-            subtask.run()
 
     def get_root(self):
         if self.parent:
             return self.parent.get_root()
         return self
 
-    def get_progress(self):
-        '''
-        progress for current task and its subtasks
-        use get_root().get_progress() for the total progress
-        '''
-        return 1.0*self._get_completed()/self._get_weight()
-
-    def _get_completed(self):
-        completed_subtasks = [s._get_completed() for s in self.subtasks]
-        return self._percent_completed*self.associated_function_weight + sum(completed_subtasks)
-
-    def _get_weight(self):
-        subtasks_weight = [s._get_weight() for s in self.subtasks]
-        return self.associated_function_weight + sum(subtasks_weight)
+    def get_speed(self):
+        if self._speed:
+            return self._speed
+        if not self.last_completed or not self.completed:
+            return ""
+        task_time = self.progress_timestamp - self.last_progress_timestamp
+        if not task_time:
+            return ""
+        speed = (self.completed - self.last_completed)/task_time
+        if int(speed) <= 0:
+            return ""
+        unit = "ps"
+        if self.unit:
+            unit = self.unit + unit
+        speed = "%i%s" % (int(speed), unit)
+        return speed
 
     def estimate_end_time(self):
         '''
-        estimates end time for current tasks
+        estimates end time for current tasks and associated subtasks
         use get_root().estimate_end_time() for the total end time
         '''
-        progress = self.get_progress()
+        progress = self.get_percent_completed()
+        if self.end_time:
+            return self.end_time
         if progress:
-            return self.start_time + (time.time() - self.start_time)/self.get_progress()
+            return self.start_time + (time.time() - self.start_time)/progress
         else:
             return time.time() + self._get_weight()
 
+    def estimate_remaining_time(self):
+        '''
+        Remaining time in human readable format
+        '''
+        if self.end_time:
+            return "0s"
+        end_time = self.estimate_end_time()
+        secs = end_time - time.time()
+        if secs <= 0:
+            return "0s"
+        hours = int(secs/3600)
+        secs = secs - hours*3600
+        mins = int(secs/60)
+        secs = secs - mins*60
+        message = ""
+        if hours:
+            message += "%ih" % hours
+        if mins:
+            message += "%imin" % mins
+        if secs:
+            message += "%is" % secs
+        return message
+
     def get_level(self):
+        '''
+        Nesting level of current task
+        '''
         level = 1
         if self.parent:
             level += self.parent.get_level()
         return level
 
-    def get_indent(self):
-        return "  " * (self.get_level()-1)
+    def log_debug(self, message):
+        level = self.get_level()
+        message = "  "*level + message
+        log.debug(message)
 
-    def get_speed(self):
-        if self.current_subtask:
-            speed = self.current_subtask.get_speed()
-            if speed is not None:
-                return speed
-        return self._current_speed
+    def get_progress_info(self):
+        '''
+        human readable progress message
+        '''
+        message = ""
+        message += "%i%% " % (self.get_percent_completed()*100)
+        if self.get_speed():
+            message += self.speed + " "
+        message += self.estimate_remaining_time()
+        message = message.strip()
+        return message
 
+    def get_percent_completed(self):
+        weight = self._get_weight()
+        if weight:
+            return self._get_completed()/weight
+        else:
+            return 0.0
+
+    def _notify_listeners(self, message):
+        if callable(self.callback):
+            self.callback(self, message=message)
+        if self.parent:
+            self.parent._notify_listeners(message=message)
+
+    def _run_subtasks(self):
+        for subtask in self.subtasks:
+            self.current_subtask = subtask
+            subtask()
+
+    def _get_completed(self):
+        '''
+        get weighted sum of percent completed for this task and all the subtasks
+        '''
+        completed_subtasks = [s._get_completed() for s in self.subtasks]
+        return 1.0*self.completed/self.size*self.weight + sum(completed_subtasks)
+
+    def _get_weight(self):
+        '''
+        get total weight for this task and all the subtasks
+        '''
+        subtasks_weight = [s._get_weight() for s in self.subtasks]
+        return self.weight + sum(subtasks_weight)
+
+    def _get_decription(self):
+        if self._description:
+            return self._description
+        else:
+            return self.name
+
+    def _set_description(self, description):
+        self._description = description
+
+    description = property(_get_decription, _set_description)
 
 class TaskList(Task):
     '''
     Root Task object which contains other tasks
     '''
-    def __init__(self, name, tasks=None, callback=None):
-        Task.__init__(self, name)
+    def __init__(self, name=None, tasks=None, callback=None):
+        def tasklist():
+            return
+        Task.__init__(self, tasklist, name=name, weight=0.01)
         self.callback = callback
         if tasks:
-            self.add_subtasks(tasks)
-
+            for task in tasks:
+                task.parent = self
+                self.subtasks.append(task)
 
 class ThreadedTaskList(threading.Thread, TaskList):
     '''
@@ -240,9 +346,9 @@ class ThreadedTaskList(threading.Thread, TaskList):
     Can be started and stopped.
     Should be used as root Task object which contains other tasks.
     '''
-    def __init__ (self, name, tasks=None, callback=None):
+    def __init__ (self, name=None, tasks=None, callback=None, description=None):
         threading.Thread.__init__(self)
-        TaskList.__init__(self, name, tasks=tasks, callback = callback)
+        TaskList.__init__(self, name=name, tasks=tasks, callback = callback)
         self._stopped_event = threading.Event()
         self.setDaemon(True) #do not prevent the main application from closing
 
@@ -251,34 +357,43 @@ class ThreadedTaskList(threading.Thread, TaskList):
         TaskList.cancel(self)
 
     def run(self):
-        TaskList.run(self)
+        TaskList.__call__(self)
 
     def is_cancelled(self):
         return self._stopped_event.isSet() or TaskList.is_cancelled(self)
 
-
-if __name__ == "__main__":
+def test():
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter('%(message)s', datefmt='%m-%d %H:%M')
+    handler.setFormatter(formatter)
+    handler.setLevel(logging.DEBUG)
+    log.addHandler(handler)
 
     def fsleep():
         time.sleep(1)
 
-    def fcallback(associated_task=None):
+    def fcallback(associated_task):
         time.sleep(1)
-        if associated_task.set_progress(.3): return
+        if associated_task.set_progress(.3):
+            return
         time.sleep(1)
-        if associated_task.set_progress(.6): return
+        if associated_task.set_progress(.6):
+            return
         time.sleep(1)
-        associated_task.add_subtask("fsleepsub", fsleep)
+        associated_task.add_subtask(fsleep, "fsleepsub")
 
     def callback(task, message):
         tasklist = task.get_root()
-        progress = tasklist.get_progress()*100
-        secs = int(tasklist.estimate_end_time()- time.time())
-        print "%s (%s%% completed, %s secs remaining)" % (message, progress, secs)
+        print "%s (%s)" % (message, tasklist.get_progress_info())
+
     tasks = [
-        ("fsleep1", fsleep),
-        ("fsleep2", fsleep),
-        ("fcallback1", fcallback, True),
-        ("fcallback2", fcallback, True)]
-    tasklist = ThreadedTaskList("test 1", tasks=tasks, callback=callback)
+        Task(fsleep, "fsleep1"),
+        Task(fsleep, "fsleep2"),
+        Task(fcallback, "fcallback1"),
+        Task(fcallback, "fcallback2")
+        ]
+    tasklist = ThreadedTaskList(name="test 1", tasks=tasks, callback=callback)
     tasklist.run()
+
+if __name__ == "__main__":
+    test()

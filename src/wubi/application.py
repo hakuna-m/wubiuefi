@@ -92,7 +92,7 @@ class Wubi(object):
             self.run_installer()
         elif self.info.run_task == "uninstall":
             self.run_uninstaller()
-        elif self.info.cd_path or self.info.run_task == "cdmenu":
+        elif self.info.cd_path or self.info.run_task == "cd_menu":
             self.run_cd_menu()
         else:
             self.run_installer()
@@ -102,11 +102,12 @@ class Wubi(object):
         '''
         Runs the installer
         '''
-        if self.info.previous_targetdir or self.info.uninstall_dir:
+        #TBD add non_interactive mode
+        if self.info.previous_target_dir or self.info.uninstall_dir:
             log.info("Already installed, running the installer...")
             self.run_uninstaller()
             self.backend.fetch_basic_info()
-            if self.info.previous_targetdir or self.info.uninstall_dir:
+            if self.info.previous_target_dir or self.info.uninstall_dir:
                 self.quit()
         else:
             self.frontend = self.get_frontend()
@@ -124,8 +125,9 @@ class Wubi(object):
         '''
         log.info("Running the uninstaller...")
         self.frontend = self.get_frontend()
-        settings = self.frontend.get_uninstallation_settings()
-        log.info("Received settings %s" % settings)
+        if not self.info.test:
+            settings = self.frontend.get_uninstallation_settings()
+            log.info("Received settings %s" % settings)
         self.frontend.run_tasks(self.backend.get_uninstallation_tasklist())
         log.info("Almost finished uninstalling")
         self.frontend.show_uninstallation_finish_page()
@@ -149,15 +151,17 @@ class Wubi(object):
         parser.add_option("-v", "--verbose", action="store_const", const="verbose", dest="verbosity", help="run in verbose mode, all messages are displayed")
         parser.add_option("-i", "--install", action="store_const", const="install", dest="run_task", help="run the uninstaller, it will first look for an existing uninstaller, otherwise it will run itself in uninstaller mode")
         parser.add_option("-u", "--uninstall", action="store_const", const="uninstall", dest="run_task", help="run the installer, if an existing installation is detected it will be uninstalled first")
-        parser.add_option("-m", "--cdmenu", action="store_const", const="cdmenu", dest="run_task", help="run the CD menu selector")
-        parser.add_option("-b", "--cdboot", action="store_const", const="cdoot", dest="run_task", help="install a CD boot helper program")
-        parser.add_option("--nobittorrent", action="store_true", dest="nobittorrent", help="Do not use the bittorrent downloader")
-        parser.add_option("--skipmd5check", action="store_true", dest="skipmd5check", help="Skip md5 checks")
-        parser.add_option("--skipsizecheck", action="store_true", dest="skipsizecheck", help="Skip disk size checks")
-        parser.add_option("--skipmemorycheck", action="store_true", dest="skipmemorycheck", help="Skip memory size checks")
-        parser.add_option("--noninteractive", action="store_true", dest="noninteractive", help="Non interactive mode")
+        parser.add_option("-m", "--cd_menu", action="store_const", const="cd_menu", dest="run_task", help="run the CD menu selector")
+        parser.add_option("-b", "--cdboot", action="store_const", const="cd_boot", dest="run_task", help="install a CD boot helper program")
+        parser.add_option("--nobittorrent", action="store_true", dest="no_bittorrent", help="Do not use the bittorrent downloader")
+        parser.add_option("--skipmd5check", action="store_true", dest="skip_md5_check", help="Skip md5 checks")
+        parser.add_option("--skipsizecheck", action="store_true", dest="skip_size_check", help="Skip disk size checks")
+        parser.add_option("--skipmemorycheck", action="store_true", dest="skip_memory_check", help="Skip memory size checks")
+        parser.add_option("--noninteractive", action="store_true", dest="non_interactive", help="Non interactive mode")
+        parser.add_option("--test", action="store_true", dest="test", help="Test mode")
+        parser.add_option("--debug", action="store_true", dest="debug", help="Debug mode")
         parser.add_option("--drive", dest="target_drive", help="Target drive")
-        parser.add_option("--size", dest="installation_size", help="Installation size in GB")
+        parser.add_option("--size", dest="installation_size_mb", help="Installation size in MB")
         parser.add_option("--locale", dest="locale", help="Linux locale")
         parser.add_option("--language", dest="language", help="Language")
         parser.add_option("--username", dest="username", help="Username")
@@ -172,6 +176,10 @@ class Wubi(object):
         parser.add_option("--uninstall_dir", dest="uninstall_dir", default=None, help="uninstall the specified directory")
         (options, self.args) = parser.parse_args()
         self.info.__dict__.update(options.__dict__)
+        if self.info.test:
+            self.info.debug = True
+        if self.info.debug:
+            self.info.verbose = True
 
     def set_logger(self):
         '''
@@ -199,8 +207,7 @@ class Wubi(object):
         else:
             handler.setLevel(logging.INFO)
         log.addHandler(handler)
-        log.setLevel(logging.DEBUG)
-
+        log.setLevel(handler.level)
 
 class Info(object):
 

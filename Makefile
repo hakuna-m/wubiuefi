@@ -28,7 +28,7 @@ unittest:
 	tools/pywine tools/test
 
 runpy:
-	PYTHONPATH=src tools/pywine src/main.py -v --skipsizecheck
+	PYTHONPATH=src tools/pywine src/main.py --test
 
 clean:
 	rm -rf dist/*

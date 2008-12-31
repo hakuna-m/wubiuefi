@@ -58,7 +58,7 @@ class InstallationPage(Page):
 
     def populate_drive_list(self):
         #Check disk space
-        if self.application.info.skipsizecheck:
+        if self.application.info.skip_size_check or self.application.info.test:
             drives = [
                 d for d in self.application.info.drives
                 if d.type in ['removable', 'hd']
@@ -79,13 +79,26 @@ class InstallationPage(Page):
             "%s (%sGB free)" % (drive.path, int(drive.free_space_mb/1024))
             for drive in drives]
         for drive in drives:
-            self.targetdrive_list.add_item(drive)
-        self.targetdrive_list.set_value(drives[0])
+            self.target_drive_list.add_item(drive)
+        #Select default drive
+        target_drive = self.application.info.target_drive
+        if target_drive:
+            Drive = self.application.info.drives[0].__class__
+            if isinstance(target_drive, Drive):
+                target_drive = target_drive.path
+            target_drive = target_drive[:2]
+            for drive in drives:
+                if drive[:2] == target_drive:
+                    target_drive = drive
+                    break
+        if not target_drive:
+            target_drive = drives[0]
+        self.target_drive_list.set_value(target_drive)
 
     def populate_size_list(self):
-        targetdrive = self.targetdrive_list.get_text()[:2]
-        targetdrive = [d for d in self.application.info.drives if d.path == targetdrive]
-        freespace = min(30, int(targetdrive[0].free_space_mb / 1024))
+        target_drive = self.target_drive_list.get_text()[:2]
+        target_drive = [d for d in self.application.info.drives if d.path == target_drive]
+        freespace = min(30, int(target_drive[0].free_space_mb / 1024))
         listitems =  ["%sGB" % x for x in range(4, freespace)]
         for item in listitems:
             self.size_list.add_item(item)
@@ -134,7 +147,7 @@ class InstallationPage(Page):
         h=24
         w=150
 
-        picture, label, self.targetdrive_list = self.add_controls_block(
+        picture, label, self.target_drive_list = self.add_controls_block(
             self.main, h, h,
             "install.bmp", "Installation drive:", True)
         self.populate_drive_list()
@@ -154,7 +167,7 @@ class InstallationPage(Page):
             "language.bmp", "Language:", True)
         self.populate_language_list()
 
-        username = self.application.info.windows_username.lower()
+        username = self.application.info.host_username.lower()
         username = username.replace(' ', '_')
         username = username.replace('_', '__')
         picture, label, combo = self.add_controls_block(
@@ -164,20 +177,21 @@ class InstallationPage(Page):
             self.main,
             h*4 + w + 42, h*4+20, 150, 20,
             username, False)
-
         picture, label, combo = self.add_controls_block(
             self.main, h*4 + w, h*7,
             "lock.bmp", "Password:", None)
         label.move(h*4 + w + 42, h*7 - 24)
+        password = ""
+        if self.application.info.test:
+            password = "test"
         self.password1 = ui.PasswordEdit(
             self.main,
             h*4 + w + 42, h*7-4, 150, 20,
-            "", False)
+            password, False)
         self.password2 = ui.PasswordEdit(
             self.main,
             h*4 + w + 42, h*7+20, 150, 20,
-            "", False)
-
+            password, False)
         self.error_label = ui.Label(
             self.main,
             40, self.main.height - 20, self.main.width - 80, 12,
@@ -188,7 +202,7 @@ class InstallationPage(Page):
 
     def on_install(self):
         info = self.application.info
-        targetdrive = self.targetdrive_list.get_text()[:2]
+        target_drive = self.target_drive_list.get_text()[:2]
         installation_size = self.size_list.get_text()
         distro_name = str(self.distro_list.get_text())
         language = self.language_list.get_text()
@@ -218,19 +232,19 @@ class InstallationPage(Page):
         self.error_label.set_text(error_message)
         if error_message:
             return
-
         log.debug(
-            "targetdrive=%s\ninstallation_size=%s\ndistro_name=%s\nlanguage=%s\nusername=%s" \
-            % (targetdrive, installation_size, distro_name, language, username))
-
-        info.targetdrive = targetdrive
-        info.installation_size = installation_size
-        info.installation_size_mb = int(installation_size[:-2])*1024*1024
+            "target_drive=%s\ninstallation_size=%s\ndistro_name=%s\nlanguage=%s\nusername=%s" \
+            % (target_drive, installation_size, distro_name, language, username))
+        for drive in info.drives:
+            if drive.path[:2] == target_drive:
+                info.target_drive = drive
+                break
         for distro in info.distros:
             if distro.name == distro_name \
             and distro.arch == info.arch:
                 info.distro = distro
                 break
+        info.installation_size_mb = int(installation_size[:-2])*1024*1024
         info.language = language
         info.username = username
         info.password = get_md5(password1)

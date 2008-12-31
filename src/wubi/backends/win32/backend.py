@@ -47,44 +47,44 @@ class WindowsBackend(Backend):
         self.cache = {}
 
     def select_target_dir(self):
-        targetdir = os.path.join(self.info.targetdrive + '\\', self.info.application_name)
-        targetdir.replace(' ', '_')
-        targetdir.replace('__', '_')
-        gold_targetdir = targetdir
-        if os.path.exists(targetdir) \
-        and self.info.previous_targetdir \
-        and os.path.isdir(self.info.previous_targetdir) \
-        and self.info.previous_targetdir != targetdir:
+        target_dir = os.path.join(self.info.target_drive.path + '\\', self.info.application_name)
+        target_dir.replace(' ', '_')
+        target_dir.replace('__', '_')
+        gold_target_dir = target_dir
+        if os.path.exists(target_dir) \
+        and self.info.previous_target_dir \
+        and os.path.isdir(self.info.previous_target_dir) \
+        and self.info.previous_target_dir != target_dir:
             for i in range(2, 1000):
-                targetdir = gold_targetdir + '.' + str(i)
-                if not os.path.exists(targetdir):
+                target_dir = gold_target_dir + '.' + str(i)
+                if not os.path.exists(target_dir):
                     break
-        self.info.targetdir = targetdir
-        if self.info.previous_targetdir \
-        and os.path.isdir(self.info.previous_targetdir):
-            os.rename(self.info.previous_targetdir, self.info.targetdir)
-        log.info('Installing into %s' % targetdir)
+        self.info.target_dir = target_dir
+        if self.info.previous_target_dir \
+        and os.path.isdir(self.info.previous_target_dir):
+            os.rename(self.info.previous_target_dir, self.info.target_dir)
+        log.info('Installing into %s' % target_dir)
 
-    def uncompress_files(self):
-        command1 = ['compact', os.path.join(self.info.targetdir), '/U', '/S', '/A', '/F']
-        command2 = ['compact', os.path.join(self.info.targetdir,'*.*'), '/U', '/S', '/A', '/F']
+    def uncompress_files(self, associated_task):
+        command1 = ['compact', os.path.join(self.info.target_dir), '/U', '/S', '/A', '/F']
+        command2 = ['compact', os.path.join(self.info.target_dir,'*.*'), '/U', '/S', '/A', '/F']
         for command in [command1,command2]:
+            associated_task.log_debug(" ".join(command))
             try:
-                runcommand(command)
+                run_command(command)
             except Exception, err:
                 log.exception(err)
 
-    def create_uninstaller(self):
+    def create_uninstaller(self, associated_task):
         uninstaller_name = 'uninstall-%s.exe'  % self.info.application_name
         uninstaller_name.replace(' ', '_')
         uninstaller_name.replace('__', '_')
-        uninstaller_path = os.path.join(self.info.targetdir, uninstaller_name)
+        uninstaller_path = os.path.join(self.info.target_dir, uninstaller_name)
         log.debug('Copying uninstaller %s -> %s' % (self.info.original_exe, uninstaller_path))
         shutil.copyfile(self.info.original_exe, uninstaller_path)
         registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'UninstallString', uninstaller_path)
 
-    def create_virtual_disks(self):
-        self.info.targetdrive.filesystem = 'fat'
+    def create_virtual_disks(self, associated_task):
         pass #TBD
 
     def eject_cd(self):
@@ -114,7 +114,7 @@ class WindowsBackend(Backend):
         log.debug('Copying %s -> %s' % (src, self.info.custominstall))
         shutil.copytree(src, self.info.custominstall)
         src = os.path.join(self.info.datadir, 'winboot')
-        dest = os.path.join(self.info.targetdir, 'winboot')
+        dest = os.path.join(self.info.target_dir, 'winboot')
         log.debug('Copying %s -> %s' % (src, dest))
         shutil.copytree(src, dest)
         dest = os.path.join(self.info.custominstall, 'hooks', 'failure-command.sh')
@@ -255,6 +255,11 @@ class WindowsBackend(Backend):
         log.debug('windows_username=%s' % windows_username)
         return windows_username
 
+    def get_windows_user_dir(self):
+        user_directory = os.getenv('username') #TBD get user directory
+        log.debug('user_directory=%s' % user_directory)
+        return user_directory
+
     def get_keyboard_layout(self):
         keyboard_layout = ctypes.windll.user32.GetKeyboardLayout(0)
         log.debug('keyboard_layout=%s' % keyboard_layout)
@@ -288,7 +293,8 @@ class WindowsBackend(Backend):
         self.info.windows_version2 = self.get_windows_version2()
         self.info.windows_sp = self.get_windows_sp()
         self.info.windows_build = self.get_windows_build()
-        self.info.windows_username = self.get_windows_username()
+        self.info.host_username = self.get_windows_username()
+        self.info.user_directory = self.get_windows_user_dir()
         self.info.windows_language_code = self.get_windows_language_code()
         self.info.windows_language = self.get_windows_language()
         self.info.processor_name = self.get_processor_name()
@@ -344,7 +350,7 @@ class WindowsBackend(Backend):
         paths = [os.path.abspath(p) for p in paths]
         return paths
 
-    def verify_signature(self, file, signature):
+    def verify_signature(self, file, signature, associated_task=None):
         #TBD
         return True
 
@@ -378,7 +384,6 @@ class WindowsBackend(Backend):
             'HKEY_LOCAL_MACHINE',
             self.info.registry_key)
 
-
     def modify_bootloader(self):
         for drive in self.info.drives:
             if drive not in ('removable', 'hd'):
@@ -390,19 +395,19 @@ class WindowsBackend(Backend):
             elif self.info.bootloader == 'vista':
                 self.modify_bcd(path)
 
-    def undo_bootloader(self):
+    def undo_bootloader(self, associated_task):
         winboot_files = ['wubildr', 'wubildr.mbr', 'wubildr.exe']
         for drive in self.info.drives:
-            self.undo_bootini(drive)
-            self.undo_configsys(drive)
-            self.undo_bcd()
+            self.undo_bootini(drive, associated_task)
+            self.undo_configsys(drive, associated_task)
+            self.undo_bcd(associated_task)
         for f in winboot_files:
             f = os.path.join(drive.path, '/', f)
             if os.path.isfile(f):
                 os.unlink(f)
 
-    def modify_bootini(self, drive):
-        log.debug("modify_bootini %s" % drive)
+    def modify_bootini(self, drive, associated_task):
+        associated_task.log_debug("modify_bootini %s" % drive)
         bootini = os.path.join(drive.path, '/', 'boot.ini')
         if not os.path.isfile(bootini):
             return
@@ -418,8 +423,8 @@ class WindowsBackend(Backend):
         f.close()
         run_command(['attrib', '+R', '+S', '+H', bootini])
 
-    def undo_bootini(self, drive):
-        log.debug("undo_bootini %s" % drive)
+    def undo_bootini(self, drive, associated_task):
+        associated_task.log_debug("undo_bootini %s" % drive)
         bootini = os.path.join(drive.path, '/', 'boot.ini')
         if not os.path.isfile(bootini):
             return
@@ -432,8 +437,8 @@ class WindowsBackend(Backend):
         f.close()
         run_command(['attrib', '+R', '+S', '+H', bootini])
 
-    def modify_configsys(self, drive):
-        log.debug("modify_configsys %s" % drive)
+    def modify_configsys(self, drive, associated_task):
+        associated_task.log_debug("modify_configsys %s" % drive)
         configsys = os.path.join(drive.path, '/', 'config.sys')
         if not os.path.isfile(configsys):
             return
@@ -441,7 +446,7 @@ class WindowsBackend(Backend):
         run_command(['attrib', '-R', '-S', '-H', configsys])
         config = read_file(configsys)
         if 'REM WUBI MENU START\n' in config:
-            log.debug("Configsys has already been modified")
+            associated_task.log_debug("Configsys has already been modified")
             return
 
         config += '''
@@ -460,8 +465,8 @@ class WindowsBackend(Backend):
         write_file(configsys, config)
         run_command(['attrib', '+R', '+S', '+H', configsys])
 
-    def undo_configsys(self, drive):
-        log.debug("undo_configsys %s" % drive)
+    def undo_configsys(self, drive, associated_task):
+        associated_task.log_debug("undo_configsys %s" % drive)
         configsys = os.path.join(drive.path, '/', 'config.sys')
         if not os.path.isfile(configsys):
             return
@@ -475,8 +480,8 @@ class WindowsBackend(Backend):
         write_file(configsys, config)
         run_command(['attrib', '+R', '+S', '+H', configsys])
 
-    def modify_bcd(self, drive):
-        log.debug("modify_bcd %s" % drive)
+    def modify_bcd(self, drive, associated_task):
+        associated_task.log_debug("modify_bcd %s" % drive)
 
         if drive is self.info.system_drive \
         or drive.path == "C:" \
@@ -491,13 +496,13 @@ class WindowsBackend(Backend):
             log.error("Cannot find bcdedit")
             return
         if registry.get_key('HKEY_LOCAL_MACHINE', self.info.registry_key, 'VistaBootDrive'):
-            log.debug("BCD has already been modified")
+            associated_task.log_debug("BCD has already been modified")
             return
 
         command = [bcdedit, '/create', '/d', '"%s"' % self.info.distro.name, '/application', 'bootsector']
         id = run_command(command)
         id = id[id.index('{'):id.index('}')+1]
-        command = [bcdedit, '/set', id,  'device', 'partition=%s' + self.info.targetdrive]
+        command = [bcdedit, '/set', id,  'device', 'partition=%s' + self.info.target_drive.path]
         run_command(command)
         command = [bcdedit, '/set', id,  'path', 'wubildr.mbr']
         run_command(command)
@@ -511,8 +516,32 @@ class WindowsBackend(Backend):
             'VistaBootDrive',
             id)
 
-    def undo_bcd(self):
-        log.debug("undo_bcd")
+    def choose_disk_sizes(self, associated_task):
+        total_size_mb = self.info.installation_size_mb
+        home_size_mb = 0
+        usr_size_mb = 0
+        swap_size_mb = 256
+        root_size_mb = total_size_mb - swap_size_mb
+        if self.info.target_drive.filesystem == "vfat":
+            if root_size_mb > 8500:
+                home_size_mb = root_size_mb - 8000
+                usr_size_mb = 4000
+                root_size_mb = 4000
+            elif root_size_mb > 5500:
+                usr_size_mb = 4000
+                root_size_mb -= 4000
+            elif root_size_mb > 4000:
+                usr_size_mb = root_size_mb - 1500
+                root_size_mb = 1500
+            if home_size_mb > 4000:
+               home_size_mb = 4000
+        self.info.home_size_mb = home_size_mb
+        self.info.usr_size_mb = usr_size_mb
+        self.info.swap_size_mb = swap_size_mb
+        self.info.root_size_mb = root_size_mb
+        associated_task.log_debug("total size: %s\nroot size: %s\nswap size: %s\nhome size: %s\n usr size: %s" % (total_size_mb, root_size_mb, swap_size_mb, home_size_mb, usr_size_mb))
+
+    def undo_bcd(self, associated_task):
         bcdedit = os.path.join(os.getenv('SystemDrive'), 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
             bcdedit = os.path.join(os.getenv('SystemRoot'), 'sysnative', 'bcdedit.exe')
@@ -524,8 +553,8 @@ class WindowsBackend(Backend):
             self.info.registry_key,
             'VistaBootDrive')
         if not id:
-            log.debug("Could not find bcd id")
+            associated_task.log_debug("Could not find bcd id")
             return
-        log.debug("Removing bcd entry %s" % id)
+        associated_task.log_debug("Removing bcd entry %s" % id)
         command = [bcdedit, '/delete', id , '/f']
         run_command(command)

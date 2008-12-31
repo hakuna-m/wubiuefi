@@ -54,7 +54,7 @@ class UninstallationPage(Page):
             "Backup the downloaded files (ISO)")
         self.backup_iso.set_check(False)
         self.backup_iso.hide()
-        installdir = os.path.join(self.application.info.previous_targetdir, 'install')
+        installdir = os.path.join(self.application.info.previous_target_dir, 'install')
         if os.path.isdir(installdir):
             for f in os.listdir(installdir):
                 if f.endswith('.iso'):

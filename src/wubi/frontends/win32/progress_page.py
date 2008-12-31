@@ -49,10 +49,10 @@ class ProgressPage(Page):
 
     def on_progress(self, task, message=None):
         tasklist = task.get_root()
-        self.header.title.set_text(tasklist.name)
-        self.main.progressbar.set_position(int(100*tasklist.get_progress()))
-        self.main.task_label.set_text(task.name)
-        self.main.subprogressbar.set_position(int(100*task.get_progress()))
+        self.header.title.set_text(tasklist.description)
+        self.main.progressbar.set_position(int(100*tasklist.get_percent_completed()))
+        self.main.task_label.set_text(task.description)
+        self.main.subprogressbar.set_position(int(100*task.get_percent_completed()))
         self.main.subtask_label.set_text(message.strip())
         if tasklist.status is not tasklist.ACTIVE:
             self.main.progressbar.set_position(100)
