@@ -118,6 +118,9 @@ class Wubi(object):
         log.info("Almost finished installing")
         self.frontend.show_installation_finish_page()
         log.info("Finished installation")
+        if self.info.reboot_now:
+            log.info("Rebooting")
+            self.backend.get_reboot_tasklist().run()
 
     def run_uninstaller(self):
         '''
@@ -139,7 +142,8 @@ class Wubi(object):
         '''
         log.info("Running the CD menu...")
         self.frontend = self.get_frontend()
-        self.frontend.run_cd_menu()
+        self.frontend.show_cd_menu_page()
+        log.info("CD menu finished")
 
     def parse_commandline_arguments(self):
         '''

@@ -24,6 +24,7 @@ from installation_page import InstallationPage
 from uninstallation_page import UninstallationPage
 from accessibility_page import AccessibilityPage
 from progress_page import ProgressPage
+from cd_menu_page import CDMenuPage
 import logging
 import threading
 log = logging.getLogger("WindowsFrontend")
@@ -79,7 +80,17 @@ class WindowsFrontend(ui.Application):
         self.show_page(self.installation_page)
         self.run()
 
+    def show_cd_menu_page(self):
+        def on_ok(settings):
+            self.stop()
+        self.cd_menu_page.callback = on_ok
+        self.show_page(self.cd_menu_page)
+        self.run()
+
     def show_installation_finish_page(self):
+        def on_ok(settings): #TBD improve the on_ok/stop mechanism
+            self.stop()
+        self.installation_finish_page.callback = on_ok
         self.show_page(self.installation_finish_page)
         self.run()
 

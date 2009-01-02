@@ -78,9 +78,16 @@ class Backend(object):
             Task(self.modify_bootloader, description="Adding a new bootlader entry"),
             Task(self.create_virtual_disks, description="Creating the virtual disks"),
             Task(self.uncompress_files, description="Uncompressing files"),
-            Task(self.eject_cd, description="Ejecting the CD"),
-            Task(self.reboot, description="Rebooting"),]
+            ]
         tasklist = ThreadedTaskList(description="Installing", tasks=tasks)
+        return tasklist
+
+    def get_reboot_tasklist(self):
+        tasks = [
+            Task(self.eject_cd, description="Ejecting the CD"),
+            Task(self.reboot, description="Rebooting"),
+            ]
+        tasklist = ThreadedTaskList(description="Rebooting", tasks=tasks)
         return tasklist
 
     def get_uninstallation_tasklist(self):
@@ -431,11 +438,11 @@ class Backend(object):
         host_os_name = "Windows XP Professional"
         dic = dict(
             timezone = self.info.timezone,
-            password = self.info.user_password,
+            password = self.info.password,
             user_full_name = self.info.user_full_name,
-            distro_packages = self.info.distro_packages,
+            distro_packages = self.info.distro.packages,
             host_username = self.info.host_username,
-            user_name = self.info.user_name,
+            user_name = self.info.username,
             partitioning = partitioning,
             user_directory = user_directory,
             safe_host_username = safe_host_username,

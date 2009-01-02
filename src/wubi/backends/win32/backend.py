@@ -46,6 +46,23 @@ class WindowsBackend(Backend):
         log.debug('7z=%s' % self.info.iso_extractor)
         self.cache = {}
 
+    def fetch_basic_os_specific_info(self):
+        self.info.registry_key = self.get_registry_key()
+        self.info.windows_version = self.get_windows_version()
+        self.info.windows_version2 = self.get_windows_version2()
+        self.info.windows_sp = self.get_windows_sp()
+        self.info.windows_build = self.get_windows_build()
+        self.info.timezone = self.get_timezone()
+        self.info.host_username = self.get_windows_username()
+        self.info.user_full_name = self.get_windows_user_full_name()
+        self.info.user_directory = self.get_windows_user_dir()
+        self.info.windows_language_code = self.get_windows_language_code()
+        self.info.windows_language = self.get_windows_language()
+        self.info.processor_name = self.get_processor_name()
+        self.info.bootloader = self.get_bootloader(self.info.windows_version)
+        self.info.system_drive = self.get_system_drive()
+        self.info.drives = self.get_drives()
+
     def select_target_dir(self):
         target_dir = os.path.join(self.info.target_drive.path + '\\', self.info.application_name)
         target_dir.replace(' ', '_')
@@ -73,7 +90,7 @@ class WindowsBackend(Backend):
             try:
                 run_command(command)
             except Exception, err:
-                log.exception(err)
+                log.error(err)
 
     def create_uninstaller(self, associated_task):
         uninstaller_name = 'uninstall-%s.exe'  % self.info.application_name
@@ -88,7 +105,6 @@ class WindowsBackend(Backend):
         pass #TBD
 
     def eject_cd(self):
-        if not self.info.cd_drive: return
         #platform specific
         #IOCTL_STORAGE_EJECT_MEDIA 0x2D4808
         #FILE_SHARE_READ 1
@@ -96,8 +112,10 @@ class WindowsBackend(Backend):
         #FILE_SHARE_READ|FILE_SHARE_WRITE 3
         #GENERIC_READ 0x80000000
         #OPEN_EXISTING 3
-        cd_handle = windll.kernel32.CreateFile(r'\\\\.\\' + self.info.cd_drive, 0x80000000, 3, 0, 3, 0, 0)
-        log.debug('Ejecting cd_handle=%s for drive=%s' % (cd_handle, self.info.cd_drive))
+        if not self.info.cd_path:
+            return
+        cd_handle = windll.kernel32.CreateFile(r'\\\\.\\' + self.info.cd_path, 0x80000000, 3, 0, 3, 0, 0)
+        log.debug('Ejecting cd_handle=%s for drive=%s' % (cd_handle, self.info.cd_path))
         if cd_handle:
             x = ctypes.c_int()
             result = windll.kernel32.DeviceIoControl(cd_handle, 0x2D4808, 0, 0, 0, 0, ctypes.byref(x), 0)
@@ -106,7 +124,10 @@ class WindowsBackend(Backend):
 
     def reboot(self):
         command = ['shutdown', '-r', '-t', '00']
-        run_command(command) #TBD make async
+        if self.info.test:
+            log.info("Test mode, skipping reboot, normally the following command would be run: %s" % " ".join(command))
+        else:
+            run_command(command) #TBD make async
 
     def copy_installation_files(self):
         self.info.custominstall = os.path.join(self.info.installdir, 'custom-installation')
@@ -155,6 +176,11 @@ class WindowsBackend(Backend):
             'ProcessorNameString')
         log.debug('processor_name=%s' %processor_name)
         return processor_name
+
+    def get_timezone(self):
+        timezone = "" #TBD
+        log.debug('timezone=%s' % timezone)
+        return timezone
 
     def get_windows_version(self):
         windows_version = None
@@ -255,6 +281,11 @@ class WindowsBackend(Backend):
         log.debug('windows_username=%s' % windows_username)
         return windows_username
 
+    def get_windows_user_full_name(self):
+        user_full_name = os.getenv('username') #TBD
+        log.debug('user full name=%s' % user_full_name)
+        return user_full_name
+
     def get_windows_user_dir(self):
         user_directory = os.getenv('username') #TBD get user directory
         log.debug('user_directory=%s' % user_directory)
@@ -286,21 +317,6 @@ class WindowsBackend(Backend):
         system_drive = Drive(system_drive)
         log.debug('system_drive=%s' % system_drive)
         return system_drive
-
-    def fetch_basic_os_specific_info(self):
-        self.info.registry_key = self.get_registry_key()
-        self.info.windows_version = self.get_windows_version()
-        self.info.windows_version2 = self.get_windows_version2()
-        self.info.windows_sp = self.get_windows_sp()
-        self.info.windows_build = self.get_windows_build()
-        self.info.host_username = self.get_windows_username()
-        self.info.user_directory = self.get_windows_user_dir()
-        self.info.windows_language_code = self.get_windows_language_code()
-        self.info.windows_language = self.get_windows_language()
-        self.info.processor_name = self.get_processor_name()
-        self.info.bootloader = self.get_bootloader(self.info.windows_version)
-        self.info.system_drive = self.get_system_drive()
-        self.info.drives = self.get_drives()
 
     def detect_proxy(self):
         '''

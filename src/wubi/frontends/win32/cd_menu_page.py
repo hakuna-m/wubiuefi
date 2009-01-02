@@ -21,10 +21,10 @@
 from winui import ui
 from page import Page
 import logging
-log = logging.getLogger("WinuiInstallationFinishPage")
+log = logging.getLogger("WinuiICDMenuPage")
 
 
-class InstallationFinishPage(Page):
+class CDMenuPage(Page):
 
     def on_init(self):
         Page.on_init(self)
@@ -38,14 +38,10 @@ class InstallationFinishPage(Page):
         #main container
         self.insert_main()
         self.main.set_background_color(255,255,255)
-        self.main.title = ui.Label(self.main, 40, 20, self.main.width - 80, 60, "Completing the Ubuntu Setup Wizard")
+        self.main.title = ui.Label(self.main, 40, 20, self.main.width - 80, 60, "CD Menu")
         self.main.title.set_font(size=20, bold=True, family="Arial")
-        self.main.label = ui.Label(self.main, 40, 90, self.main.width - 80, 40, "You need to reboot to complete the installation")
-        self.main.reboot_now = ui.RadioButton(self.main, 60, 150, self.main.width - 100, 20, "Reboot now")
-        self.main.reboot_later = ui.RadioButton(self.main, 60, 180, self.main.width - 100, 20, "I want to manually reboot later")
-        self.main.reboot_later.set_check(True)
+        #TBD
 
     def on_finish(self):
-        self.application.info.reboot_now = self.main.reboot_now.is_checked()
         self.callback("ok")
 
