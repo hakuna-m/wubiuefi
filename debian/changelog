@@ -54,5 +54,6 @@ wubi (9.04) UNRELEASED; urgency=low
   * Fixed installation finsih page, since reboot was executed before
     showing the page
   * Added cd menu page, to be completed
+  * Modified log formatting
 
- -- Agostino Russo <agostino.russo@gmail.com>  Fri, 02 Jan 2009 09:58:51 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Sat, 03 Jan 2009 13:14:27 +0000

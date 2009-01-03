@@ -51,7 +51,7 @@ def download(url, filename, associated_task=None):
 
     def finish_callback():
         if associated_task:
-            associated_task.set_progress(1)
+            associated_task.finish()
         stop_signal.set()
 
     def error_callback(message):

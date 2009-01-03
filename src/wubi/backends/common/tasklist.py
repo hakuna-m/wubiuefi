@@ -118,7 +118,7 @@ class Task(object):
         task.parent = self
         self.subtasks.append(task)
         message = "New task %s" % task.name
-        self.log_debug(message)
+        log.debug(message)
         self._notify_listeners(message)
         return task
 
@@ -147,16 +147,21 @@ class Task(object):
 
     def finish(self):
         message = "Finished %s" % self.name
-        self.log_debug(message)
+        self.log(message)
         self.completed = self.size
         self.end_time = time.time()
         self.status = Task.COMPLETED
         self._notify_listeners(message)
 
+    def log(self, message, indent=True, log_level=logging.DEBUG):
+        if indent:
+            message = "#" * self.get_level()  + " " + message
+        log.log(log_level, message)
+
     def cancel(self):
         self.status = Task.CANCELLED
         message = "Cancelling %s" % self.name
-        self.log_debug(message)
+        self.log(message)
         self._notify_listeners(message)
 
     def is_cancelled(self):
@@ -172,7 +177,7 @@ class Task(object):
         or self.parent and not self.parent.is_active():
             return
         message = "Running %s..." % self.name
-        self.log_debug(message)
+        self.log(message)
         self.status = Task.ACTIVE
         self.start_time = time.time()
         self._notify_listeners(message)
@@ -265,11 +270,6 @@ class Task(object):
         if self.parent:
             level += self.parent.get_level()
         return level
-
-    def log_debug(self, message):
-        level = self.get_level()
-        message = "  "*level + message
-        log.debug(message)
 
     def get_progress_info(self):
         '''

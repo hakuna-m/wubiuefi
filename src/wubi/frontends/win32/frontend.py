@@ -52,11 +52,12 @@ class WindowsFrontend(ui.Application):
     def on_quit(self):
         log.debug("frontend on_quit...")
         if hasattr(self, "tasklist") and self.tasklist:
-            log.debug("stopping background task: '%s'" % self.tasklist.name)
-            self.tasklist.cancel()
-            self.tasklist.join(1)
             if self.tasklist.isAlive():
-                log.debug("Task cancellation timed out, the program will exit anyway")
+                log.debug("stopping remaining background tasks: '%s'" % self.tasklist.name)
+                self.tasklist.cancel()
+                self.tasklist.join(1)
+                if self.tasklist.isAlive():
+                    log.debug("Task cancellation timed out, the program will exit anyway")
         self.controller.on_quit()
 
     def on_init(self):

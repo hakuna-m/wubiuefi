@@ -155,7 +155,7 @@ class Wubi(object):
         parser.add_option("-v", "--verbose", action="store_const", const="verbose", dest="verbosity", help="run in verbose mode, all messages are displayed")
         parser.add_option("-i", "--install", action="store_const", const="install", dest="run_task", help="run the uninstaller, it will first look for an existing uninstaller, otherwise it will run itself in uninstaller mode")
         parser.add_option("-u", "--uninstall", action="store_const", const="uninstall", dest="run_task", help="run the installer, if an existing installation is detected it will be uninstalled first")
-        parser.add_option("-m", "--cd_menu", action="store_const", const="cd_menu", dest="run_task", help="run the CD menu selector")
+        parser.add_option("-m", "--cdmenu", action="store_const", const="cd_menu", dest="run_task", help="run the CD menu selector")
         parser.add_option("-b", "--cdboot", action="store_const", const="cd_boot", dest="run_task", help="install a CD boot helper program")
         parser.add_option("--nobittorrent", action="store_true", dest="no_bittorrent", help="Do not use the bittorrent downloader")
         parser.add_option("--skipmd5check", action="store_true", dest="skip_md5_check", help="Skip md5 checks")
@@ -183,7 +183,7 @@ class Wubi(object):
         if self.info.test:
             self.info.debug = True
         if self.info.debug:
-            self.info.verbose = True
+            self.info.verbosity = "verbose"
 
     def set_logger(self):
         '''

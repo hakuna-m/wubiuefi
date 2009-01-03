@@ -57,7 +57,7 @@ class DownloadProgress(object):
     def end(self, amount_read):
         log.debug("download finished (read %s bytes)" % amount_read)
         if callable(self.associated_task):
-            self.associated_task.set_progress(1)
+            self.associated_task.finish()
 
 def download(url, filename=None, associated_task=None, web_proxy = None):
     associated_task.description = "Downloading %s" % url

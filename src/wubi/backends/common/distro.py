@@ -61,15 +61,15 @@ class Distro(object):
 
     def is_valid_cd(self, cd_path):
         cd_path = os.path.abspath(cd_path)
-        log.debug('checking cd %s' % cd_path)
+        log.debug('  checking CD %s' % cd_path)
         if not os.path.isdir(cd_path):
-            log.debug('dir does not exist')
+            log.debug('    dir does not exist')
             return False
         required_files = self.get_required_files()
         for file in required_files:
             file = os.path.join(cd_path, file)
             if not os.path.isfile(file):
-                log.debug('does not contain %s' % file)
+                log.debug('    does not contain %s' % file)
                 return False
         info = self.get_info(cd_path)
         if self.check_info(info):
@@ -80,26 +80,26 @@ class Distro(object):
 
     def is_valid_iso(self, iso_path):
         iso_path = os.path.abspath(iso_path)
-        log.debug('checking iso %s' % iso_path)
+        log.debug('  checking iso %s' % iso_path)
         if not os.path.isfile(iso_path):
-            log.debug('file does not exist')
+            log.debug('    file does not exist')
             return False
         file_size = os.path.getsize(iso_path)
         if self.size and self.size != file_size:
-            log.debug('wrong size: %s != %s' % (file_size, self.size))
+            log.debug('    wrong size: %s != %s' % (file_size, self.size))
             return False
         elif self.minsize and file_size < self.minsize:
-            log.debug('wrong size: %s < %s' % (file_size, self.minsize))
+            log.debug('    wrong size: %s < %s' % (file_size, self.minsize))
             return False
         elif self.maxsize and file_size > self.maxsize:
-            log.debug('wrong size: %s > %s' % (file_size, self.maxsize))
+            log.debug('    wrong size: %s > %s' % (file_size, self.maxsize))
             return False
         files = self.backend.get_iso_file_names(iso_path)
         files = [f.strip().lower() for f in files]
         required_files = self.get_required_files()
         for file in required_files:
             if file.strip().lower() not in files:
-                log.debug('does not contain %s' % file)
+                log.debug('    does not contain %s' % file)
                 return False
         info = self.get_info(iso_path)
         if self.check_info(info):

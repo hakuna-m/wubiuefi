@@ -70,7 +70,7 @@ class Backend(object):
             Task(self.create_uninstaller, description="Creating the uninstaller"),
             Task(self.copy_installation_files, description="Copying files", weight=5),
             Task(self.get_metalink, description="Retrieving the Metalink", weight=10),
-            Task(self.get_iso, description="Retrieving the ISO", weight=1000),
+            Task(self.get_iso, description="Retrieving the ISO", weight=10),
             Task(self.extract_kernel, description="Extracting the kernel", weight=5),
             Task(self.uncompress_files, description="Uncompressing files"),
             Task(self.choose_disk_sizes, description="Choosing disk sizes"),
@@ -78,13 +78,13 @@ class Backend(object):
             Task(self.modify_bootloader, description="Adding a new bootlader entry"),
             Task(self.create_virtual_disks, description="Creating the virtual disks"),
             Task(self.uncompress_files, description="Uncompressing files"),
+            Task(self.eject_cd, description="Ejecting the CD"),
             ]
-        tasklist = ThreadedTaskList(description="Installing", tasks=tasks)
+        tasklist = ThreadedTaskList(name="installer", description="Installing", tasks=tasks)
         return tasklist
 
     def get_reboot_tasklist(self):
         tasks = [
-            Task(self.eject_cd, description="Ejecting the CD"),
             Task(self.reboot, description="Rebooting"),
             ]
         tasklist = ThreadedTaskList(description="Rebooting", tasks=tasks)
@@ -96,7 +96,7 @@ class Backend(object):
             Task(self.undo_bootloader, "Remove bootloader entry"),
             Task(self.remove_target_dir, "Remove target dir"),
             Task(self.remove_registry_key, "Remove registry key"),]
-        tasklist = ThreadedTaskList("Uninstalling", tasks=tasks)
+        tasklist = ThreadedTaskList(name="Uninstaller", description="Uninstalling", tasks=tasks)
         return tasklist
 
     def change_language(self, codeset):
@@ -109,6 +109,7 @@ class Backend(object):
         '''
         Basic information required by the application dispatcher select_task()
         '''
+        log.debug("Fetching basic info...")
         self.info.original_exe = self.get_original_exe()
         self.info.platform = self.get_platform()
         self.info.osname = self.get_osname
@@ -117,7 +118,7 @@ class Backend(object):
         self.info.arch = self.get_arch()
         self.info.languages = self.get_languages()
         self.info.distros = self.get_distros()
-        self.fetch_basic_os_specific_info()
+        self.fetch_host_info()
         self.info.uninstaller_path = self.get_uninstaller_path()
         self.info.previous_target_dir = self.get_previous_target_dir()
         self.info.previous_backupdir = self.get_previous_backupdir()
@@ -194,7 +195,7 @@ class Backend(object):
             os.path.join(self.info.installbootdir, "grub"),]
         for d in dirs:
             if not os.path.isdir(d):
-                associated_task.log_debug("Creating dir %s" % d)
+                log.debug("Creating dir %s" % d)
                 os.mkdir(d)
 
     def fetch_installer_info(self):
@@ -222,7 +223,7 @@ class Backend(object):
         if not self.verify_signature(metalink_md5sums, metalink_md5sums_signature):
             return False
         md5sums = read_file(metalink_md5sums)
-        associated_task.log_debug("metalink md5sums:\n%s" % md5sums)
+        log.debug("metalink md5sums:\n%s" % md5sums)
         md5sums = dict([reversed(line.split()) for line in md5sums.split('\n') if line])
         md5sum = md5sums.get(os.path.basename(metalink))
         md5sum2 = get_file_md5(metalink)
@@ -481,7 +482,7 @@ class Backend(object):
         write_file(grub_config_file, content)
 
     def backup_iso(self, associated_task=None):
-        associated_task.log_debug("Backing up ISOs")
+        log.debug("Backing up ISOs")
         backupdir = os.path.join(self.info.previous_target_dir[:2], '/', "%s.backup" % self.info.application_name)
         installdir = os.path.join(self.info.previous_target_dir, "install")
         if not os.path.isdir(installdir):
@@ -492,17 +493,18 @@ class Backend(object):
             or not os.path.isfile(f) \
             or os.path.getsize(f) < 1000000:
                 continue
-            associated_task.log_debug("Backing up %s -> %s" % (f, backupdir))
+            log.debug("Backing up %s -> %s" % (f, backupdir))
             shutil.copy(f, backupdir)
 
     def remove_target_dir(self, associated_task=None):
         if not os.path.isdir(self.info.previous_target_dir):
-            associated_task.log_debug("Cannot find %s" % self.info.previous_target_dir)
+            log.debug("Cannot find %s" % self.info.previous_target_dir)
             return
-        associated_task.log_debug("Deleting %s" % self.info.previous_target_dir)
+        log.debug("Deleting %s" % self.info.previous_target_dir)
         shutil.rmtree(self.info.previous_target_dir)
 
     def find_iso(self, associated_task=None):
+        log.debug("Searching for local ISO")
         for path in self.get_iso_search_paths():
             path = os.path.abspath(path)
             path = os.path.join(path, '*.iso')
@@ -518,11 +520,13 @@ class Backend(object):
         #Use pre-specified ISO
         if self.info.iso_path \
         and os.path.exists(self.info.iso_path):
+            log.debug("Checking pre-specified ISO %s" % self.info.iso_path)
             for distro in self.info.distros:
                 if distro.is_valid_iso(self.info.iso_path):
                     self.info.cd_path = None
                     return self.info.iso_path, distro
         #Search USB devices
+        log.debug("Searching ISOs on USB devices")
         for path in self.get_usb_search_paths():
             path = os.path.abspath(path)
             path = os.path.join(path, '*.iso')
@@ -534,9 +538,7 @@ class Backend(object):
         return None, None
 
     def find_any_cd(self):
-        '''
-        searching for local CDs
-        '''
+        log.debug("Searching for local CDs")
         for path in self.get_cd_search_paths():
             path = os.path.abspath(path)
             for distro in self.info.distros:
@@ -545,9 +547,7 @@ class Backend(object):
         return None, None
 
     def find_cd(self):
-        '''
-        searching for local CD
-        '''
+        log.debug("Searching for local CD")
         for path in self.get_cd_search_paths():
             path = os.path.abspath(path)
             if self.info.distro.is_valid_cd(path):
@@ -577,7 +577,7 @@ class Backend(object):
         isolist.read(isolist_path)
         distros = []
         for distro in isolist.sections():
-            log.debug('Adding distro %s' % distro)
+            log.debug('  Adding distro %s' % distro)
             kargs = dict(isolist.items(distro))
             kargs['backend'] = self
             distros.append(Distro(**kargs))

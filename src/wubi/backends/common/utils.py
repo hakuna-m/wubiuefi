@@ -66,7 +66,7 @@ def get_file_md5(file_path, associated_task=None):
     file.close()
     md5hash = md5hash.hexdigest()
     if associated_task:
-        associated_task.set_progress(1)
+        associated_task.finish()
     return md5hash
 
 def copy_file(source, target, associated_task=None):
@@ -74,16 +74,19 @@ def copy_file(source, target, associated_task=None):
     Copy file with progress report
     '''
     file_size = os.path.getsize(source)
+    if associated_task:
+        associated_task.size = file_size
+        associated_task.unit = "B"
     source_file = open(source, "rb")
     target_file = open(target, "wb")
     data_read = 0
     while True:
         data = source_file.read(1024**2)
         data_read += 1024.0**2
-        if data == "":
+        if not data:
             break
         if associated_task:
-            if associated_task.set_progress(data_read/float(file_size+1)):
+            if associated_task.set_progress(data_read):
                 source_file.close()
                 target_file.close()
                 return
@@ -93,7 +96,7 @@ def copy_file(source, target, associated_task=None):
     source_file.close()
     target_file.close()
     if associated_task:
-        associated_task.set_progress(1)
+        associated_task.finish()
 
 def reversed(list):
     list.reverse()
