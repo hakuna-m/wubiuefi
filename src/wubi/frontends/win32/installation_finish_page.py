@@ -46,6 +46,6 @@ class InstallationFinishPage(Page):
         self.main.reboot_later.set_check(True)
 
     def on_finish(self):
-        self.application.info.reboot_now = self.main.reboot_now.is_checked()
-        self.callback("ok")
+        self.frontend.reboot()
+        self.stop()
 

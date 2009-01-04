@@ -42,7 +42,7 @@ class InstallationPage(Page):
             parent,
             left, top + 6, 32, 32)
         picture.set_image(
-            os.path.join(self.application.info.imagedir, bmp))
+            os.path.join(self.info.imagedir, bmp))
         label = ui.Label(
             parent,
             left + 32 + 10, top, 150, 12,
@@ -58,22 +58,22 @@ class InstallationPage(Page):
 
     def populate_drive_list(self):
         #Check disk space
-        if self.application.info.skip_size_check or self.application.info.test:
+        if self.info.skip_size_check or self.info.test:
             drives = [
-                d for d in self.application.info.drives
+                d for d in self.info.drives
                 if d.type in ['removable', 'hd']
                 and d.free_space_mb > 3000]
             if not drives:
-                self.application.show_error_message("Not enough disk space, 2.5GB minimum are required")
-                self.application.cancel()
+                self.frontend.show_error_message("Not enough disk space, 2.5GB minimum are required")
+                self.frontend.cancel()
         else:
             drives = [
-                d for d in self.application.info.drives
+                d for d in self.info.drives
                 if d.type in ['removable', 'hd']
                 and d.free_space_mb > 4000]
             if not drives:
-                self.application.show_error_message("Not enough disk space, 4GB minimum are required")
-                self.application.cancel()
+                self.frontend.show_error_message("Not enough disk space, 4GB minimum are required")
+                self.frontend.cancel()
         #Populate dialog
         drives = [
             "%s (%sGB free)" % (drive.path, int(drive.free_space_mb/1024))
@@ -81,9 +81,9 @@ class InstallationPage(Page):
         for drive in drives:
             self.target_drive_list.add_item(drive)
         #Select default drive
-        target_drive = self.application.info.target_drive
+        target_drive = self.info.target_drive
         if target_drive:
-            Drive = self.application.info.drives[0].__class__
+            Drive = self.info.drives[0].__class__
             if isinstance(target_drive, Drive):
                 target_drive = target_drive.path
             target_drive = target_drive[:2]
@@ -97,7 +97,7 @@ class InstallationPage(Page):
 
     def populate_size_list(self):
         target_drive = self.target_drive_list.get_text()[:2]
-        target_drive = [d for d in self.application.info.drives if d.path == target_drive]
+        target_drive = [d for d in self.info.drives if d.path == target_drive]
         freespace = min(30, int(target_drive[0].free_space_mb / 1024))
         listitems =  ["%sGB" % x for x in range(4, freespace)]
         for item in listitems:
@@ -106,13 +106,13 @@ class InstallationPage(Page):
             self.size_list.set_value(listitems[max(0,len(listitems)-2)])
 
     def populate_distro_list(self):
-        if self.application.info.cd_distro:
-            distros = [self.application.info.cd_distro.name]
-        elif self.application.info.iso_distro:
-            distros = [self.application.info.iso_distro.name]
+        if self.info.cd_distro:
+            distros = [self.info.cd_distro.name]
+        elif self.info.iso_distro:
+            distros = [self.info.iso_distro.name]
         else:
             distros = []
-            for distro in self.application.info.distros:
+            for distro in self.info.distros:
                 if distro.name not in distros:
                     distros.append(distro.name)
         for distro in distros:
@@ -120,10 +120,10 @@ class InstallationPage(Page):
         self.distro_list.set_value(distros[0])
 
     def populate_language_list(self):
-        languages = self.application.info.languages
+        languages = self.info.languages
         for language in languages:
             self.language_list.add_item(language)
-        language = self.application.info.windows_language
+        language = self.info.windows_language
         self.language_list.set_value(language)
 
     def on_init(self):
@@ -138,7 +138,7 @@ class InstallationPage(Page):
 
         #navigation
         self.insert_navigation("Accessibility", "Install", "Cancel", default=2)
-        self.navigation.button3.on_click = self.application.cancel
+        self.navigation.button3.on_click = self.on_cancel
         self.navigation.button2.on_click = self.on_install
         self.navigation.button1.on_click = self.on_accessibility
 
@@ -167,7 +167,7 @@ class InstallationPage(Page):
             "language.bmp", "Language:", True)
         self.populate_language_list()
 
-        username = self.application.info.host_username.lower()
+        username = self.info.host_username.lower()
         username = username.replace(' ', '_')
         username = username.replace('_', '__')
         picture, label, combo = self.add_controls_block(
@@ -182,7 +182,7 @@ class InstallationPage(Page):
             "lock.bmp", "Password:", None)
         label.move(h*4 + w + 42, h*7 - 24)
         password = ""
-        if self.application.info.test:
+        if self.info.test:
             password = "test"
         self.password1 = ui.PasswordEdit(
             self.main,
@@ -197,11 +197,14 @@ class InstallationPage(Page):
             40, self.main.height - 20, self.main.width - 80, 12,
             "")
 
+    def on_cancel(self):
+        self.frontend.cancel()
+
     def on_accessibility(self):
-        self.application.show_page(self.application.accessibility_page)
+        self.frontend.show_page(self.frontend.accessibility_page)
 
     def on_install(self):
-        info = self.application.info
+        info = self.info
         target_drive = self.target_drive_list.get_text()[:2]
         installation_size = self.size_list.get_text()
         distro_name = str(self.distro_list.get_text())
@@ -248,7 +251,7 @@ class InstallationPage(Page):
         info.language = language
         info.username = username
         info.password = get_md5(password1)
-        self.callback("ok")
+        self.frontend.stop()
 
 def get_md5(str):
     m = md5.new(str)

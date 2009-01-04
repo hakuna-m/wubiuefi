@@ -39,7 +39,7 @@ class UninstallationPage(Page):
 
         #navigation
         self.insert_navigation("Uninstall", "Cancel", default=2)
-        self.navigation.button2.on_click = self.application.cancel
+        self.navigation.button2.on_click = self.on_cancel
         self.navigation.button1.on_click = self.on_uninstall
 
         #Main control container
@@ -54,7 +54,7 @@ class UninstallationPage(Page):
             "Backup the downloaded files (ISO)")
         self.backup_iso.set_check(False)
         self.backup_iso.hide()
-        installdir = os.path.join(self.application.info.previous_target_dir, 'install')
+        installdir = os.path.join(self.info.previous_target_dir, 'install')
         if os.path.isdir(installdir):
             for f in os.listdir(installdir):
                 if f.endswith('.iso'):
@@ -63,6 +63,8 @@ class UninstallationPage(Page):
                     break
 
     def on_uninstall(self):
-        info = self.application.info
-        self.application.backup_iso = self.backup_iso.is_checked()
-        self.callback("ok")
+        self.info.backup_iso = self.backup_iso.is_checked()
+        self.frontend.stop()
+
+    def on_cancel(self):
+        self.frontend.cancel()

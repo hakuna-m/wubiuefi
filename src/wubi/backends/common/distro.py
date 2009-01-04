@@ -35,7 +35,7 @@ class Distro(object):
             info_file, arch, metalink, metalink2,
             packages, size, md5sums, files_to_check,
             metalink_md5sums, metalink_md5sums_signature,
-            backend, ordering, minsize=0, maxsize=0):
+            backend, ordering, website, minsize=0, maxsize=0):
         self.name = name
         self.version = version
         self.arch = arch
@@ -53,6 +53,8 @@ class Distro(object):
         self.packages = packages
         self.backend = backend
         self.ordering = ordering
+        self.website = website
+
         if isinstance(files_to_check, basestring):
             files_to_check = [
                 os.path.normpath(f.strip().lower())

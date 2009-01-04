@@ -26,8 +26,8 @@ log = logging.getLogger("WinuiAccessibilityPage")
 
 class AccessibilityPage(Page):
     def on_init(self):
-        self.application.info.accessibility = ""
         Page.on_init(self)
+        self.info.accessibility = ""
 
         #header
         self.insert_header(
@@ -37,7 +37,7 @@ class AccessibilityPage(Page):
 
         #navigation
         self.insert_navigation("Next >>", "Cancel", default=1)
-        self.navigation.button2.on_click = self.application.cancel
+        self.navigation.button2.on_click = self.on_cancel
         self.navigation.button1.on_click = self.on_next
 
         #Main control container
@@ -62,6 +62,9 @@ class AccessibilityPage(Page):
         self.main.no_aids_button = ui.RadioButton(self.main, w+h*5, h*5 + 6, w, 20, text="None")
         self.main.no_aids_button.set_check(True)
 
+    def on_cancel(self):
+        self.frontend.cancel()
+
     def on_next(self):
         accessibility = ""
         if self.main.braille_button.is_checked():
@@ -76,5 +79,5 @@ class AccessibilityPage(Page):
             accessibility = "access=mobility1"
         elif self.main.mobility2_button.is_checked():
             accessibility = "access=mobility2"
-        self.application.info.accessibility = accessibility
-        self.application.show_page(self.application.installation_page)
+        self.info.accessibility = accessibility
+        self.frontend.show_page(self.frontend.installation_page)

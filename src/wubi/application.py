@@ -35,6 +35,7 @@ log = logging.getLogger("")
 class Wubi(object):
 
     def __init__(self):
+        self.frontend = None
         self.info = Info()
         self.info.version = _version_
         self.info.revision = _revision_
@@ -78,6 +79,8 @@ class Wubi(object):
         Gets the appropriate frontend for the system
         '''
         #TBD do proper detection of frontend
+        if self.frontend:
+            return self.frontend
         if self.info.use_frontend:
             raise NotImplemented
         else:
@@ -90,10 +93,16 @@ class Wubi(object):
         '''
         if self.info.run_task == "install":
             self.run_installer()
+        elif self.info.run_task == "cd_boot":
+            self.run_cd_boot()
         elif self.info.run_task == "uninstall":
             self.run_uninstaller()
+        elif self.info.run_task == "show_info":
+            self.show_info()
         elif self.info.cd_path or self.info.run_task == "cd_menu":
             self.run_cd_menu()
+        elif self.info.run_task == "reboot":
+            self.reboot()
         else:
             self.run_installer()
         self.quit()
@@ -103,24 +112,23 @@ class Wubi(object):
         Runs the installer
         '''
         #TBD add non_interactive mode
+        #TBD add cd_boot mode
         if self.info.previous_target_dir or self.info.uninstall_dir:
             log.info("Already installed, running the installer...")
             self.run_uninstaller()
             self.backend.fetch_basic_info()
             if self.info.previous_target_dir or self.info.uninstall_dir:
                 self.quit()
-        else:
-            self.frontend = self.get_frontend()
+        self.frontend = self.get_frontend()
         log.info("Running the installer...")
-        settings = self.frontend.get_installation_settings()
-        log.info("Received settings %s" % settings)
+        self.frontend.show_installation_settings()
+        log.info("Received settings")
         self.frontend.run_tasks(self.backend.get_installation_tasklist())
         log.info("Almost finished installing")
         self.frontend.show_installation_finish_page()
         log.info("Finished installation")
-        if self.info.reboot_now:
-            log.info("Rebooting")
-            self.backend.get_reboot_tasklist().run()
+        if self.info.run_task == "reboot":
+            self.reboot()
 
     def run_uninstaller(self):
         '''
@@ -129,8 +137,8 @@ class Wubi(object):
         log.info("Running the uninstaller...")
         self.frontend = self.get_frontend()
         if not self.info.test:
-            settings = self.frontend.get_uninstallation_settings()
-            log.info("Received settings %s" % settings)
+            self.frontend.show_uninstallation_settings()
+            log.info("Received settings")
         self.frontend.run_tasks(self.backend.get_uninstallation_tasklist())
         log.info("Almost finished uninstalling")
         self.frontend.show_uninstallation_finish_page()
@@ -144,6 +152,19 @@ class Wubi(object):
         self.frontend = self.get_frontend()
         self.frontend.show_cd_menu_page()
         log.info("CD menu finished")
+        self.select_task()
+
+    def run_cd_boot(self):
+        log.info("Running the CD boot helper...")
+        #TBD
+
+    def reboot(self):
+        log.info("Rebooting")
+        tasklist = self.backend.get_reboot_tasklist()
+        tasklist.run()
+
+    def show_info(self):
+        self.backend.show_info()
 
     def parse_commandline_arguments(self):
         '''
@@ -151,12 +172,13 @@ class Wubi(object):
         '''
         usage = "%s [options]" % self.info.application_name
         parser = OptionParser(usage=usage, version=self.info.full_version)
-        parser.add_option("-q", "--quiet", action="store_const", const="quiet", dest="verbosity", help="run in quiet mode, only critical error messages are displayed")
-        parser.add_option("-v", "--verbose", action="store_const", const="verbose", dest="verbosity", help="run in verbose mode, all messages are displayed")
-        parser.add_option("-i", "--install", action="store_const", const="install", dest="run_task", help="run the uninstaller, it will first look for an existing uninstaller, otherwise it will run itself in uninstaller mode")
-        parser.add_option("-u", "--uninstall", action="store_const", const="uninstall", dest="run_task", help="run the installer, if an existing installation is detected it will be uninstalled first")
-        parser.add_option("-m", "--cdmenu", action="store_const", const="cd_menu", dest="run_task", help="run the CD menu selector")
-        parser.add_option("-b", "--cdboot", action="store_const", const="cd_boot", dest="run_task", help="install a CD boot helper program")
+        parser.add_option("--quiet", action="store_const", const="quiet", dest="verbosity", help="run in quiet mode, only critical error messages are displayed")
+        parser.add_option("--verbose", action="store_const", const="verbose", dest="verbosity", help="run in verbose mode, all messages are displayed")
+        parser.add_option("--install", action="store_const", const="install", dest="run_task", help="run the uninstaller, it will first look for an existing uninstaller, otherwise it will run itself in uninstaller mode")
+        parser.add_option("--uninstall", action="store_const", const="uninstall", dest="run_task", help="run the installer, if an existing installation is detected it will be uninstalled first")
+        parser.add_option("--cdmenu", action="store_const", const="cd_menu", dest="run_task", help="run the CD menu selector")
+        parser.add_option("--cdboot", action="store_const", const="cd_boot", dest="run_task", help="install a CD boot helper program")
+        parser.add_option("--showinfo", action="store_const", const="show_info", dest="run_task", help="install a CD boot helper program")
         parser.add_option("--nobittorrent", action="store_true", dest="no_bittorrent", help="Do not use the bittorrent downloader")
         parser.add_option("--skipmd5check", action="store_true", dest="skip_md5_check", help="Skip md5 checks")
         parser.add_option("--skipsizecheck", action="store_true", dest="skip_size_check", help="Skip disk size checks")

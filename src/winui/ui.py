@@ -24,7 +24,7 @@ Python wrappers around win32 widgets and window classes
 from defs import *
 import sys
 
-__all__ = ["Window", "Application"]
+__all__ = ["Window", "Frontend"]
 
 #TBD use weakref in _event_handlers_
 _event_handlers_ = {}
@@ -72,12 +72,12 @@ class BasicWindow(object):
     _window_style_ = 0
     _window_ex_style_ = 0
 
-    def __init__(self, parent=None, x=None, y=None, width=None, height=None, text=None, application=None):
+    def __init__(self, parent=None, x=None, y=None, width=None, height=None, text=None, frontend=None):
         self.parent = parent
-        if application:
-            self.application = application
+        if frontend:
+            self.frontend = frontend
         else:
-            self.application = parent.application
+            self.frontend = parent.frontend
         if not self.__class__._window_class_name_:
             self.__class__._window_class_name_ = self.__class__.__name__
             self._register_window()
@@ -98,7 +98,7 @@ class BasicWindow(object):
         hmenu = NULL
         lpparam = NULL
         hwnd = self.parent and self.parent._hwnd or NULL
-        application_hinstance = self.application._hinstance
+        frontend_hinstance = self.frontend._hinstance
         if x is None:
             x = CW_USEDEFAULT
         if y is None:
@@ -117,7 +117,7 @@ class BasicWindow(object):
             x, y, width, height,
             hwnd,
             hmenu,
-            application_hinstance,
+            frontend_hinstance,
             lpparam)
 
     def _register_handlers(self):
@@ -132,7 +132,7 @@ class BasicWindow(object):
                     elif subkey is PARENT_HWND:
                         handled_event[i] = self.parent._hwnd
                     elif subkey is APPLICATION_HINSTANCE:
-                        handled_event[i] = self.application._hinstance
+                        handled_event[i] = self.frontend._hinstance
                 self._add_event_handler(key , handled_event)
 
     def _add_event_handler(self, handler_name, handled_event):
@@ -150,9 +150,9 @@ class BasicWindow(object):
 class Window(BasicWindow):
     _repaint_on_move_ = False
 
-    def __init__(self, parent=None, x=None, y=None, width=None, height=None, text=None, application=None):
+    def __init__(self, parent=None, x=None, y=None, width=None, height=None, text=None, frontend=None):
         self._gdi_disposables = []
-        BasicWindow.__init__(self, parent, x, y, width, height, text, application)
+        BasicWindow.__init__(self, parent, x, y, width, height, text, frontend)
         self._background_color = None
 
     def get_window_rect(self):
@@ -304,13 +304,18 @@ class Window(BasicWindow):
     def on_destroy(self):
         pass
 
-class Application(object):
+class Frontend(object):
+    '''
+    Wraps a Windows application
+    It is associated to a main window
+    It controls the message processing
+    '''
     _main_window_class_ = Window
 
     def __init__(self, main_window_class=None, **kargs):
         self._hwnd = None
         self._hinstance = windll.kernel32.GetModuleHandleW(c_int(NULL))
-        kargs["application"] = self
+        kargs["frontend"] = self
         if not main_window_class:
             main_window_class = self._main_window_class_
         self.main_window = main_window_class(**kargs)
@@ -318,6 +323,9 @@ class Application(object):
         self.main_window.show()
 
     def run(self):
+        '''
+        Starts the message processing
+        '''
         msg = MSG()
         pMsg = pointer(msg)
         self._keep_running = True
@@ -328,6 +336,9 @@ class Application(object):
         return msg.wParam
 
     def stop(self):
+        '''
+        Stops the message processing
+        '''
         self._keep_running = False
         #Post a message to unblock GetMessageW
         windll.user32.PostMessageW(self.main_window._hwnd,WM_NULL, 0, 0)
@@ -372,17 +383,17 @@ class Application(object):
 class MainWindow(Window):
     '''
     Main Window
-    Has borders, and is overlapped, when it is closed, the application quits
+    Has borders, and is overlapped, when it is closed, the frontend quits
     '''
 
     _window_class_name_ = None
     _window_style_ = WS_OVERLAPPEDWINDOW
 
     def on_destroy(self):
-        self.application._quit()
+        self.frontend._quit()
 
     def __del__(self):
-        self.application._quit()
+        self.frontend._quit()
 
 class MainDialogWindow(MainWindow):
     '''

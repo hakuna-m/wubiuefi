@@ -87,7 +87,7 @@ class Backend(object):
         tasks = [
             Task(self.reboot, description="Rebooting"),
             ]
-        tasklist = ThreadedTaskList(description="Rebooting", tasks=tasks)
+        tasklist = ThreadedTaskList(name="Reboot", description="Rebooting", tasks=tasks)
         return tasklist
 
     def get_uninstallation_tasklist(self):
@@ -98,6 +98,10 @@ class Backend(object):
             Task(self.remove_registry_key, "Remove registry key"),]
         tasklist = ThreadedTaskList(name="Uninstaller", description="Uninstalling", tasks=tasks)
         return tasklist
+
+    def show_info(self):
+        log.debug("Showing info")
+        os.startfile(self.info.distro.website)
 
     def change_language(self, codeset):
         domain = self.info.application_name #not sure what it is
@@ -117,6 +121,7 @@ class Backend(object):
         self.info.environment_variables = os.environ
         self.info.arch = self.get_arch()
         self.info.languages = self.get_languages()
+        self.info.distro = None
         self.info.distros = self.get_distros()
         self.fetch_host_info()
         self.info.uninstaller_path = self.get_uninstaller_path()

@@ -19,7 +19,7 @@ pylauncher: 7z src/pylauncher/*.c src/pylauncher/*.py
 runbin: wubi
 	rm -rf build/test
 	mkdir build/test
-	cd build/test; ../../tools/wine ../wubi.exe -v --skipsizecheck
+	cd build/test; ../../tools/wine ../wubi.exe --test 
 
 check_wine: tools/check_wine
 	tools/check_wine

@@ -38,7 +38,7 @@ class ProgressPage(Page):
 
         #navigation
         self.insert_navigation("Cancel")
-        self.navigation.button1.on_click = self.application.cancel
+        self.navigation.button1.on_click = self.on_cancel
 
         #main container
         self.insert_main()
@@ -56,4 +56,7 @@ class ProgressPage(Page):
         self.main.subtask_label.set_text(message.strip())
         if tasklist.status is not tasklist.ACTIVE:
             self.main.progressbar.set_position(100)
-            self.application.stop()
+            self.frontend.stop()
+
+    def on_cancel(self):
+        self.frontend.cancel()

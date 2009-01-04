@@ -32,6 +32,7 @@ class Page(ui.Page):
 
     def on_init(self):
         x, y, width, height = self.parent.get_client_rect()
+        self.info = self.frontend.application.info
         self.resize(width, height)
         self.width = width
         self.height = height
@@ -41,7 +42,7 @@ class Page(ui.Page):
             self,
             0, 0, 164, 314)
         self.vertical_image.set_image(
-            os.path.join(self.application.info.imagedir, bmp_file))
+            os.path.join(self.info.imagedir, bmp_file))
         self.vertical_image.width = 164
 
     def insert_header(self, title, subtitle, bmp_file):
@@ -58,7 +59,7 @@ class Page(ui.Page):
                 self.header,
                 0, 0, hbw, hbh)
             self.header.image.set_image(
-                os.path.join(self.application.info.imagedir, bmp_file))
+                os.path.join(self.info.imagedir, bmp_file))
         if title:
             self.header.title = ui.Label(
                 self.header,
@@ -120,7 +121,7 @@ class Page(ui.Page):
             self.revision_label = ui.Label(
                 self.navigation,
                 10, 0, 40, 20,
-                "Rev %s" % self.application.info.revision)
+                "Rev %s" % self.info.revision)
             self.revision_label.disable()
             revision_label_width = 50
             self.line = ui.EtchedRectangle(
