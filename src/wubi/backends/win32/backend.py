@@ -33,6 +33,8 @@ from os.path import abspath, dirname, isfile, isdir, exists
 import mappings
 import logging
 import shutil
+from winui.defs import NULL, FILE_SHARE_READ, FILE_SHARE_WRITE, GENERIC_READ, GENERIC_WRITE,CREATE_ALWAYS, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL
+IOCTL_STORAGE_EJECT_MEDIA = 0x2D4808
 log = logging.getLogger('WindowsBackend')
 
 
@@ -104,32 +106,56 @@ class WindowsBackend(Backend):
         registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'UninstallString', uninstaller_path)
 
     def create_virtual_disks(self, associated_task):
-        pass #TBD
+        self.info.disks_dir
+        for disk in ["root", "home", "usr", "swap"]:
+            path = join_path(self.info.disks_dir, disk + ".disk")
+            size_mb = int(getattr(self.info, disk + "_size_mb"))
+            if size_mb:
+                self.create_virtual_disk(path, size_mb)
+
+    def create_virtual_disk(self, path, size_mb):
+        log.debug(" Creating virtual disk %s of %sMB" % (path, size_mb))
+        create_file = ctypes.windll.kernel32.CreateFileW
+        close_handle = ctypes.windll.kernel32.CloseHandle
+        file_handle = create_file(
+            path,
+            GENERIC_READ | GENERIC_WRITE,
+            0,
+            NULL,
+            CREATE_ALWAYS,
+            FILE_ATTRIBUTE_NORMAL,
+            NULL)
+        close_handle(file_handle)
+        #TBD
 
     def eject_cd(self, associated_task):
         #platform specific
-        #IOCTL_STORAGE_EJECT_MEDIA 0x2D4808
-        #FILE_SHARE_READ 1
-        #FILE_SHARE_WRITE 2
-        #FILE_SHARE_READ|FILE_SHARE_WRITE 3
-        #GENERIC_READ 0x80000000
-        #OPEN_EXISTING 3
         if not self.info.cd_path:
             return
-        cd_handle = windll.kernel32.CreateFile(r'\\\\.\\' + self.info.cd_path, 0x80000000, 3, 0, 3, 0, 0)
+        create_file = ctypes.windll.kernel32.CreateFileW
+        cd_handle = create_file(
+            r'\\\\.\\' + self.info.cd_path,
+            GENERIC_READ,
+            FILE_SHARE_READ|FILE_SHARE_WRITE,
+            0,
+            OPEN_EXISTING,
+            0, 0)
         log.debug('Ejecting cd_handle=%s for drive=%s' % (cd_handle, self.info.cd_path))
         if cd_handle:
             x = ctypes.c_int()
-            result = windll.kernel32.DeviceIoControl(cd_handle, 0x2D4808, 0, 0, 0, 0, ctypes.byref(x), 0)
+            result = ctypes.windll.kernel32.DeviceIoControl(
+                cd_handle,
+                IOCTL_STORAGE_EJECT_MEDIA,
+                0, 0, 0, 0, ctypes.byref(x), 0)
             log.debug('EjectCD DeviceIoControl exited with code %s (1==success)' % result)
-            windll.kernel32.CloseHandle(cd_handle)
+            ctypes.windll.kernel32.CloseHandle(cd_handle)
 
     def reboot(self):
         command = ['shutdown', '-r', '-t', '00']
         run_command(command) #TBD make async
 
     def copy_installation_files(self, associated_task):
-        self.info.custominstall = join_path(self.info.installdir, 'custom-installation')
+        self.info.custominstall = join_path(self.info.install_dir, 'custom-installation')
         src = join_path(self.info.datadir, 'custom-installation')
         log.debug('Copying %s -> %s' % (src, self.info.custominstall))
         shutil.copytree(src, self.info.custominstall)
@@ -141,7 +167,7 @@ class WindowsBackend(Backend):
         msg='The installation failed. Logs have been saved in: %s.' \
             '\n\nNote that in verbose mode, the logs may include the password.' \
             '\n\nThe system will now reboot.'
-        msg = msg % join_path(self.info.installdir, 'installation-logs.zip')
+        msg = msg % join_path(self.info.install_dir, 'installation-logs.zip')
         replace_line_in_file(dest, 'msg=', "msg='%s'" % msg)
 
     def get_windows_version2(self):
@@ -374,9 +400,9 @@ class WindowsBackend(Backend):
 
     def backup_iso(self, associated_task=None):
         backup_dir = join_path(self.info.previous_target_dir[:2],  self.info.backup_dir)
-        installdir = join_path(self.info.previous_target_dir, "install")
-        for f in os.listdir(installdir):
-            f = join_path(installdir, f)
+        install_dir = join_path(self.info.previous_target_dir, "install")
+        for f in os.listdir(install_dir):
+            f = join_path(install_dir, f)
             if f.endswith('.iso') \
             and os.path.isfile(f) \
             and os.path.getsize(f) > 1000000:

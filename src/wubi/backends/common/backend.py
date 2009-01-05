@@ -188,18 +188,18 @@ class Backend(object):
         return arch
 
     def create_dir_structure(self, associated_task=None):
-        self.info.disksdir = join_path(self.info.target_dir, "disks")
-        self.info.installdir = join_path(self.info.target_dir, "install")
-        self.info.installbootdir = join_path(self.info.installdir, "boot")
-        self.info.disksbootdir = join_path(self.info.disksdir, "boot")
+        self.info.disks_dir = join_path(self.info.target_dir, "disks")
+        self.info.install_dir = join_path(self.info.target_dir, "install")
+        self.info.install_boot_dir = join_path(self.info.install_dir, "boot")
+        self.info.disks_boot_dir = join_path(self.info.disks_dir, "boot")
         dirs = [
             self.info.target_dir,
-            self.info.disksdir,
-            self.info.installdir,
-            self.info.installbootdir,
-            self.info.disksbootdir,
-            join_path(self.info.disksbootdir, "grub"),
-            join_path(self.info.installbootdir, "grub"),]
+            self.info.disks_dir,
+            self.info.install_dir,
+            self.info.install_boot_dir,
+            self.info.disks_boot_dir,
+            join_path(self.info.disks_boot_dir, "grub"),
+            join_path(self.info.install_boot_dir, "grub"),]
         for d in dirs:
             if not os.path.isdir(d):
                 log.debug("Creating dir %s" % d)
@@ -216,7 +216,7 @@ class Backend(object):
     def extract_cd_content(self, cd_path):
         if os.path.isdir(cd_path):
             return
-        self.info.cddir = join_path(self.info.installdir, "cd")
+        self.info.cddir = join_path(self.info.install_dir, "cd")
         shutil.copytree(self.info.cd_path, self.info.cddir)
         return dest
 
@@ -224,9 +224,9 @@ class Backend(object):
         if self.info.skip_md5_check:
             return True
         url = base_url +"/" + self.info.distro.metalink_md5sums
-        metalink_md5sums = downloader.download(url, self.info.installdir, web_proxy=self.info.web_proxy)
+        metalink_md5sums = downloader.download(url, self.info.install_dir, web_proxy=self.info.web_proxy)
         url = base_url +"/" + self.info.distro.metalink_md5sums_signature
-        metalink_md5sums_signature = downloader.download(url, self.info.installdir, web_proxy=self.info.web_proxy)
+        metalink_md5sums_signature = downloader.download(url, self.info.install_dir, web_proxy=self.info.web_proxy)
         if not self.verify_signature(metalink_md5sums, metalink_md5sums_signature):
             return False
         md5sums = read_file(metalink_md5sums)
@@ -274,7 +274,7 @@ class Backend(object):
     def download_iso(self, associated_task=None):
         file = self.info.metalink.files[0]
         url = file.urls[0].url
-        save_as = join_path(self.info.installdir, file.name)
+        save_as = join_path(self.info.install_dir, file.name)
         iso =None
         if not self.info.no_bittorrent:
             btdownloader = associated_task.add_subtask(
@@ -292,12 +292,12 @@ class Backend(object):
         associated_task.description = "Retrieving metalink file..."
         self.info.metalink = None
         try:
-            metalink = downloader.download(self.info.distro.metalink, self.info.installdir, web_proxy=self.info.web_proxy)
+            metalink = downloader.download(self.info.distro.metalink, self.info.install_dir, web_proxy=self.info.web_proxy)
             base_url = os.path.dirname(self.info.distro.metalink)
         except:
             log.error("Cannot download metalink file %s" % self.info.distro.metalink)
             try:
-                metalink = downloader.download(self.info.distro.metalink2, self.info.installdir, web_proxy=self.info.web_proxy)
+                metalink = downloader.download(self.info.distro.metalink2, self.info.install_dir, web_proxy=self.info.web_proxy)
                 base_url = os.path.dirname(self.info.distro.metalink2)
             except:
                 log.error("Cannot download metalink file2 %s" % self.info.distro.metalink2)
@@ -350,7 +350,7 @@ class Backend(object):
             iso_path = self.find_iso()
         if iso_path:
             iso_name = os.path.basename(iso_path)
-            dest = join_path(self.info.installdir, iso_name)
+            dest = join_path(self.info.install_dir, iso_name)
             check_iso = associated_task.add_subtask(
                 self.check_iso,
                 description = "Checking %s" % iso_path)
@@ -385,7 +385,7 @@ class Backend(object):
             raise Exception("ISO file is corrupted")
 
     def extract_kernel(self):
-        bootdir = self.info.installbootdir
+        bootdir = self.info.install_boot_dir
         # Extract kernel, initrd, md5sums
         if self.info.cd_path:
             log.debug("Copying files from mounted CD %s" % self.info.cd_path)
@@ -435,16 +435,16 @@ class Backend(object):
         '''
         if self.info.root_size_mb:
             partitioning += '%s 3000 %s %s ext3 method{ format } format{ } use_filesystem{ } filesystem{ ext3 } mountpoint{ / } .' \
-            %(join_path(self.info.disksdir, 'root.disk'), self.info.root_size_mb, self.info.root_size_mb)
+            %(join_path(self.info.disks_dir, 'root.disk'), self.info.root_size_mb, self.info.root_size_mb)
         if self.info.swap_size_mb:
             partitioning += '%s 100 %s %s linux-swap method{ swap } format{ } .' \
-            %(join_path(self.info.disksdir, 'swap.disk'), self.info.swap_size_mb, self.info.swap_size_mb)
+            %(join_path(self.info.disks_dir, 'swap.disk'), self.info.swap_size_mb, self.info.swap_size_mb)
         if self.info.home_size_mb:
             partitioning += '%s 100 %s %s ext3 method{ format } format{ } use_filesystem{ } filesystem{ ext3 } mountpoint{ /home } .' \
-            %(join_path(self.info.disksdir, 'home.disk'), self.info.home_size_mb, self.info.home_size_mb)
+            %(join_path(self.info.disks_dir, 'home.disk'), self.info.home_size_mb, self.info.home_size_mb)
         if self.info.usr_size_mb:
             partitioning += '%s 100 %s %s ext3 method{ format } format{ } use_filesystem{ } filesystem{ ext3 } mountpoint{ /usr } .' \
-            %(join_path(self.info.disksdir, 'usr.disk'), self.info.usr_size_mb, self.info.usr_size_mb)
+            %(join_path(self.info.disks_dir, 'usr.disk'), self.info.usr_size_mb, self.info.usr_size_mb)
         safe_host_username = self.info.host_username.replace(" ", "+")
         user_directory = self.info.user_directory.replace("\\", "/")[2:]
         host_os_name = "Windows XP Professional"
@@ -489,7 +489,7 @@ class Backend(object):
             demo_mode_title =  "Demo mode",
             )
         content = template_file % dic
-        grub_config_file = join_path(self.info.installbootdir, "grub", "menu.lst")
+        grub_config_file = join_path(self.info.install_boot_dir, "grub", "menu.lst")
         write_file(grub_config_file, content)
 
     def remove_target_dir(self, associated_task=None):

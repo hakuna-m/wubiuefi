@@ -247,7 +247,7 @@ class InstallationPage(Page):
             and distro.arch == info.arch:
                 info.distro = distro
                 break
-        info.installation_size_mb = int(installation_size[:-2])*1024*1024
+        info.installation_size_mb = int(installation_size[:-2])*1000 #using 1000 as opposed to 1024
         info.language = language
         info.username = username
         info.password = get_md5(password1)
