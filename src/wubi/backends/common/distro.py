@@ -63,7 +63,7 @@ class Distro(object):
 
     def is_valid_cd(self, cd_path):
         cd_path = os.path.abspath(cd_path)
-        log.debug('  checking CD %s' % cd_path)
+        log.debug('  checking whether %s is a valid %s CD' % (cd_path, self.name))
         if not os.path.isdir(cd_path):
             log.debug('    dir does not exist')
             return False
@@ -75,14 +75,14 @@ class Distro(object):
                 return False
         info = self.get_info(cd_path)
         if self.check_info(info):
-            log.info('Found a valid cd for %s: %s' % (self.name, cd_path))
+            log.info('Found a valid CD for %s: %s' % (self.name, cd_path))
             return True
         else:
             return False
 
     def is_valid_iso(self, iso_path):
         iso_path = os.path.abspath(iso_path)
-        log.debug('  checking iso %s' % iso_path)
+        log.debug('  checking %s ISO %s' % (self.name, iso_path))
         if not os.path.isfile(iso_path):
             log.debug('    file does not exist')
             return False
