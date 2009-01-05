@@ -114,7 +114,7 @@ class Wubi(object):
         #TBD add non_interactive mode
         #TBD add cd_boot mode
         if self.info.previous_target_dir or self.info.uninstall_dir:
-            log.info("Already installed, running the installer...")
+            log.info("Already installed, running the uninstaller...")
             self.run_uninstaller()
             self.backend.fetch_basic_info()
             if self.info.previous_target_dir or self.info.uninstall_dir:
@@ -136,9 +136,8 @@ class Wubi(object):
         '''
         log.info("Running the uninstaller...")
         self.frontend = self.get_frontend()
-        if not self.info.test:
-            self.frontend.show_uninstallation_settings()
-            log.info("Received settings")
+        self.frontend.show_uninstallation_settings()
+        log.info("Received settings")
         self.frontend.run_tasks(self.backend.get_uninstallation_tasklist())
         log.info("Almost finished uninstalling")
         self.frontend.show_uninstallation_finish_page()
@@ -150,6 +149,9 @@ class Wubi(object):
         '''
         log.info("Running the CD menu...")
         self.frontend = self.get_frontend()
+        if not self.info.cd_distro:
+            self.frontend.show_error_message("No CD detected, cannot run CD menu", "CD menu")
+            self.quit()
         self.frontend.show_cd_menu_page()
         log.info("CD menu finished")
         self.select_task()

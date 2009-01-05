@@ -28,7 +28,8 @@ import ctypes
 from drive import Drive
 import registry
 from memory import get_total_memory_mb
-from wubi.backends.common import Backend, run_command, replace_line_in_file, read_file, write_file
+from wubi.backends.common import Backend, run_command, replace_line_in_file, read_file, write_file, join_path
+from os.path import abspath, dirname, isfile, isdir, exists
 import mappings
 import logging
 import shutil
@@ -42,7 +43,7 @@ class WindowsBackend(Backend):
 
     def __init__(self, *args, **kargs):
         Backend.__init__(self, *args, **kargs)
-        self.info.iso_extractor = os.path.join(self.info.bindir, '7z.exe')
+        self.info.iso_extractor = join_path(self.info.bindir, '7z.exe')
         log.debug('7z=%s' % self.info.iso_extractor)
         self.cache = {}
 
@@ -65,7 +66,7 @@ class WindowsBackend(Backend):
         self.info.drives = self.get_drives()
 
     def select_target_dir(self):
-        target_dir = os.path.join(self.info.target_drive.path + '\\', self.info.application_name)
+        target_dir = join_path(self.info.target_drive.path, self.info.application_name)
         target_dir.replace(' ', '_')
         target_dir.replace('__', '_')
         gold_target_dir = target_dir
@@ -84,8 +85,8 @@ class WindowsBackend(Backend):
         log.info('Installing into %s' % target_dir)
 
     def uncompress_files(self, associated_task):
-        command1 = ['compact', os.path.join(self.info.target_dir), '/U', '/S', '/A', '/F']
-        command2 = ['compact', os.path.join(self.info.target_dir,'*.*'), '/U', '/S', '/A', '/F']
+        command1 = ['compact', join_path(self.info.target_dir), '/U', '/S', '/A', '/F']
+        command2 = ['compact', join_path(self.info.target_dir,'*.*'), '/U', '/S', '/A', '/F']
         for command in [command1,command2]:
             log.debug(" ".join(command))
             try:
@@ -97,7 +98,7 @@ class WindowsBackend(Backend):
         uninstaller_name = 'uninstall-%s.exe'  % self.info.application_name
         uninstaller_name.replace(' ', '_')
         uninstaller_name.replace('__', '_')
-        uninstaller_path = os.path.join(self.info.target_dir, uninstaller_name)
+        uninstaller_path = join_path(self.info.target_dir, uninstaller_name)
         log.debug('Copying uninstaller %s -> %s' % (self.info.original_exe, uninstaller_path))
         shutil.copyfile(self.info.original_exe, uninstaller_path)
         registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'UninstallString', uninstaller_path)
@@ -125,25 +126,22 @@ class WindowsBackend(Backend):
 
     def reboot(self):
         command = ['shutdown', '-r', '-t', '00']
-        if self.info.test:
-            log.info("Test mode, skipping reboot, normally the following command would be run: %s" % " ".join(command))
-        else:
-            run_command(command) #TBD make async
+        run_command(command) #TBD make async
 
     def copy_installation_files(self, associated_task):
-        self.info.custominstall = os.path.join(self.info.installdir, 'custom-installation')
-        src = os.path.join(self.info.datadir, 'custom-installation')
+        self.info.custominstall = join_path(self.info.installdir, 'custom-installation')
+        src = join_path(self.info.datadir, 'custom-installation')
         log.debug('Copying %s -> %s' % (src, self.info.custominstall))
         shutil.copytree(src, self.info.custominstall)
-        src = os.path.join(self.info.datadir, 'winboot')
-        dest = os.path.join(self.info.target_dir, 'winboot')
+        src = join_path(self.info.datadir, 'winboot')
+        dest = join_path(self.info.target_dir, 'winboot')
         log.debug('Copying %s -> %s' % (src, dest))
         shutil.copytree(src, dest)
-        dest = os.path.join(self.info.custominstall, 'hooks', 'failure-command.sh')
+        dest = join_path(self.info.custominstall, 'hooks', 'failure-command.sh')
         msg='The installation failed. Logs have been saved in: %s.' \
             '\n\nNote that in verbose mode, the logs may include the password.' \
             '\n\nThe system will now reboot.'
-        msg = msg % os.path.join(self.info.installdir, 'installation-logs.zip')
+        msg = msg % join_path(self.info.installdir, 'installation-logs.zip')
         replace_line_in_file(dest, 'msg=', "msg='%s'" % msg)
 
     def get_windows_version2(self):
@@ -329,11 +327,14 @@ class WindowsBackend(Backend):
         '''
         platform specific
         '''
-        iso_path = os.path.abspath(iso_path)
+        log.debug("  extracting %s from %s" % (file_path, iso_path))
+        if not iso_path or not os.path.exists(iso_path):
+            raise Exception('Invalid path %s' % iso_path)
+        iso_path = abspath(iso_path)
         file_path = os.path.normpath(file_path)
         if not output_dir:
             output_dir = tempfile.gettempdir()
-        output_file = os.path.join(output_dir, os.path.basename(file_path))
+        output_file = join_path(output_dir, os.path.basename(file_path))
         if os.path.exists(output_file):
             if overwrite:
                 os.unlink(output_file)
@@ -345,7 +346,7 @@ class WindowsBackend(Backend):
         except Exception, err:
             log.exception(err)
             output_file = None
-        if output_file and os.path.isfile(output_file):
+        if output_file and isfile(output_file):
             return output_file
 
     def get_usb_search_paths(self):
@@ -360,22 +361,51 @@ class WindowsBackend(Backend):
         '''
         paths = []
         paths += [os.path.dirname(self.info.original_exe)]
-        paths += [self.info.previous_backupdir] #TBD search backup folder
+        paths += [self.info.previous_backup_dir] #TBD search backup folder
         paths += [drive.path for drive in self.info.drives]
         paths += [os.environ.get('Desktop', None)]
         paths += ['/home/vm/cd'] #TBD quick test
-        paths = [os.path.abspath(p) for p in paths]
+        paths = [abspath(p) for p in paths]
         return paths
 
     def verify_signature(self, file, signature, associated_task=None):
         #TBD
         return True
 
+    def backup_iso(self, associated_task=None):
+        backup_dir = join_path(self.info.previous_target_dir[:2],  self.info.backup_dir)
+        installdir = join_path(self.info.previous_target_dir, "install")
+        for f in os.listdir(installdir):
+            f = join_path(installdir, f)
+            if f.endswith('.iso') \
+            and os.path.isfile(f) \
+            and os.path.getsize(f) > 1000000:
+                log.debug("Backing up %s -> %s" % (f, backup_dir))
+                if not isdir(backup_dir):
+                    if isfile(backup_dir):
+                        #TBD do something more sensible
+                        return
+                    os.mkdir(backup_dir)
+                target_path = join_path(backup_dir, os.path.basename(f))
+                shutil.move(f, target_path)
+
+    def get_previous_backup_dir(self):
+        if self.info.previous_target_dir:
+            drives = [self.info.previous_target_dir[:2]]
+        else:
+            drives = []
+        drives += [d.path[:2] for d in self.info.drives]
+        for drive in drives:
+            backup_dir = join_path(drive, self.info.backup_dir)
+            if os.path.isdir(backup_dir):
+                log.debug("Previous_backup_dir=%s" % backup_dir)
+                return backup_dir
+
     def get_cd_search_paths(self):
         return [drive.path for drive in self.info.drives] # if drive.type == 'cd']
 
     def get_iso_file_names(self, iso_path):
-        iso_path = os.path.abspath(iso_path)
+        iso_path = abspath(iso_path)
         if iso_path in self.cache:
             return self.cache[iso_path]
         else:
@@ -419,17 +449,17 @@ class WindowsBackend(Backend):
             self.undo_configsys(drive, associated_task)
             self.undo_bcd(associated_task)
         for f in winboot_files:
-            f = os.path.join(drive.path, '/', f)
+            f = join_path(drive.path, f)
             if os.path.isfile(f):
                 os.unlink(f)
 
     def modify_bootini(self, drive, associated_task):
         log.debug("modify_bootini %s" % drive)
-        bootini = os.path.join(drive.path, '/', 'boot.ini')
+        bootini = join_path(drive.path, 'boot.ini')
         if not os.path.isfile(bootini):
             return
-        shutil.copy(os.path.join(self.info.datadir, 'winboot', 'wubildr'),  drive.path)
-        shutil.copy(os.path.join(self.info.datadir, 'winboot', 'wubildr.mbr'),  drive.path)
+        shutil.copy(join_path(self.info.datadir, 'winboot', 'wubildr'),  drive.path)
+        shutil.copy(join_path(self.info.datadir, 'winboot', 'wubildr.mbr'),  drive.path)
         run_command(['attrib', '-R', '-S', '-H', bootini])
         ini = ConfigParser.ConfigParser()
         ini.read(bootini)
@@ -442,7 +472,7 @@ class WindowsBackend(Backend):
 
     def undo_bootini(self, drive, associated_task):
         log.debug("undo_bootini %s" % drive)
-        bootini = os.path.join(drive.path, '/', 'boot.ini')
+        bootini = join_path(drive.path, 'boot.ini')
         if not os.path.isfile(bootini):
             return
         run_command(['attrib', '-R', '-S', '-H', bootini])
@@ -456,10 +486,10 @@ class WindowsBackend(Backend):
 
     def modify_configsys(self, drive, associated_task):
         log.debug("modify_configsys %s" % drive)
-        configsys = os.path.join(drive.path, '/', 'config.sys')
+        configsys = join_path(drive.path, 'config.sys')
         if not os.path.isfile(configsys):
             return
-        shutil.copy(os.path.join(self.info.datadir, 'winboot', 'wubildr.exe'),  drive.path)
+        shutil.copy(join_path(self.info.datadir, 'winboot', 'wubildr.exe'),  drive.path)
         run_command(['attrib', '-R', '-S', '-H', configsys])
         config = read_file(configsys)
         if 'REM WUBI MENU START\n' in config:
@@ -484,7 +514,7 @@ class WindowsBackend(Backend):
 
     def undo_configsys(self, drive, associated_task):
         log.debug("undo_configsys %s" % drive)
-        configsys = os.path.join(drive.path, '/', 'config.sys')
+        configsys = join_path(drive.path, 'config.sys')
         if not os.path.isfile(configsys):
             return
         run_command(['attrib', '-R', '-S', '-H', configsys])
@@ -503,12 +533,12 @@ class WindowsBackend(Backend):
         if drive is self.info.system_drive \
         or drive.path == "C:" \
         or drive.path == os.environ('systemroot')[:2]:
-            shutil.copy(os.path.join(self.info.datadir, 'winboot', 'wubildr'),  drive.path)
-            shutil.copy(os.path.join(self.info.datadir, 'winboot', 'wubildr.mbr'),  drive.path)
+            shutil.copy(join_path(self.info.datadir, 'winboot', 'wubildr'),  drive.path)
+            shutil.copy(join_path(self.info.datadir, 'winboot', 'wubildr.mbr'),  drive.path)
 
-        bcdedit = os.path.join(os.getenv('SystemDrive'), 'bcdedit.exe')
+        bcdedit = join_path(os.getenv('SystemDrive'), 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
-            bcdedit = os.path.join(os.environ('systemroot'), 'sysnative', 'bcdedit.exe')
+            bcdedit = join_path(os.environ('systemroot'), 'sysnative', 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
             log.error("Cannot find bcdedit")
             return
@@ -559,9 +589,9 @@ class WindowsBackend(Backend):
         log.debug("total size=%s\n  root=%s\n  swap=%s\n  home=%s\n  usr=%s" % (total_size_mb, root_size_mb, swap_size_mb, home_size_mb, usr_size_mb))
 
     def undo_bcd(self, associated_task):
-        bcdedit = os.path.join(os.getenv('SystemDrive'), 'bcdedit.exe')
-        if not os.path.isfile(bcdedit):
-            bcdedit = os.path.join(os.getenv('SystemRoot'), 'sysnative', 'bcdedit.exe')
+        bcdedit = join_path(os.getenv('SystemDrive'), 'bcdedit.exe')
+        if not isfile(bcdedit):
+            bcdedit = join_path(os.getenv('SystemRoot'), 'sysnative', 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
             log.error("Cannot find bcdedit")
             return

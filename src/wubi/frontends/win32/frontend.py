@@ -22,6 +22,7 @@ from winui import ui
 from installation_finish_page import InstallationFinishPage
 from installation_page import InstallationPage
 from uninstallation_page import UninstallationPage
+from uninstallation_finish_page import UninstallationFinishPage
 from accessibility_page import AccessibilityPage
 from progress_page import ProgressPage
 from cd_menu_page import CDMenuPage
@@ -99,7 +100,8 @@ class WindowsFrontend(ui.Frontend):
         self.show_page(self.uninstallation_page)
 
     def show_uninstallation_finish_page(self):
-        self.progress_page.hide()
+        self.uninstallation_finish_page = UninstallationFinishPage(self.main_window)
+        self.show_page(self.uninstallation_finish_page)
 
     def run_tasks(self, tasklist):
         '''

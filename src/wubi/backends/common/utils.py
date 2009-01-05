@@ -23,6 +23,9 @@ import os
 import md5
 import subprocess
 
+def join_path(*args):
+    return os.path.abspath(os.path.join(*args))
+
 def run_command(command):
     '''
     return stdout on success or raise error

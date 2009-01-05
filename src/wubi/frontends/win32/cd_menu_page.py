@@ -30,8 +30,6 @@ class CDMenuPage(Page):
         Page.on_init(self)
         self.set_background_color(255,255,255)
         self.insert_vertical_image("Ubuntu-vertical.bmp")
-        if not self.info.cd_distro and self.info.test:
-            self.info.cd_distro = self.info.distros[0]
         distro_name = self.info.cd_distro.name
 
         #navigation
