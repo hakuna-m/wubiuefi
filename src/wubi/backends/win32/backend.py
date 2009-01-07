@@ -29,6 +29,7 @@ from drive import Drive
 import registry
 from memory import get_total_memory_mb
 from wubi.backends.common import Backend, run_command, replace_line_in_file, read_file, write_file, join_path
+from wubi.backends.common.mappings import country2tz, name2country, gmt2country, country_gmt2tz, gmt2tz
 from os.path import abspath, dirname, isfile, isdir, exists
 import mappings
 import logging
@@ -56,6 +57,8 @@ class WindowsBackend(Backend):
         self.info.windows_version2 = self.get_windows_version2()
         self.info.windows_sp = self.get_windows_sp()
         self.info.windows_build = self.get_windows_build()
+        self.info.gmt = self.get_gmt()
+        self.info.country = self.get_country()
         self.info.timezone = self.get_timezone()
         self.info.host_username = self.get_windows_username()
         self.info.user_full_name = self.get_windows_user_full_name()
@@ -202,8 +205,37 @@ class WindowsBackend(Backend):
         log.debug('processor_name=%s' %processor_name)
         return processor_name
 
+    def get_gmt(self):
+        gmt = registry.get_value('HKEY_LOCAL_MACHINE', 'SYSTEM\\CurrentControlSet\\Control\\TimeZoneInformation', 'Bias')
+        if gmt:
+            gmt = -bias/60
+        if not gmt \
+        or gmt > 12 \
+        or gmt < -12:
+            gmt = 0
+        log.debug('gmt=%s' %gmt)
+        return gmt
+
+    def get_country(self):
+        icountry = registry.get_value('HKEY_CURRENT_USER', 'Control Panel\\International', 'iCountry')
+        country = mappings.icountry2country.get(icountry)
+        if not country:
+            scountry = registry.get_value('HKEY_CURRENT_USER', 'Control Panel\\International', 'sCountry')
+            country = name2country.get(scountry)
+        if not country:
+           country = gmt2country.get(self.info.gmt)
+        if not country:
+            country = "US"
+        log.debug('country=%s' %country)
+        return country
+
     def get_timezone(self):
-        timezone = "" #TBD
+        timezone = country2tz.get(self.info.country)
+        timezone = country_gmt2tz.get((self.info.country, self.info.gmt), timezone)
+        if not timezone:
+            timezone = gmt2tz.get(self.info.gmt)
+        if not timezone:
+            timezone = "America/New_York"
         log.debug('timezone=%s' % timezone)
         return timezone
 
@@ -308,7 +340,7 @@ class WindowsBackend(Backend):
 
     def get_windows_user_full_name(self):
         user_full_name = os.getenv('username') #TBD
-        log.debug('user full name=%s' % user_full_name)
+        log.debug('user_full_name=%s' % user_full_name)
         return user_full_name
 
     def get_windows_user_dir(self):
