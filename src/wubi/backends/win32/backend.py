@@ -26,16 +26,16 @@ import subprocess
 import ctypes
 #import platform
 from drive import Drive
+from virtualdisk import create_virtual_disk
+from eject import eject_cd
 import registry
 from memory import get_total_memory_mb
 from wubi.backends.common import Backend, run_command, replace_line_in_file, read_file, write_file, join_path
 from wubi.backends.common.mappings import country2tz, name2country, gmt2country, country_gmt2tz, gmt2tz
 from os.path import abspath, dirname, isfile, isdir, exists
 import mappings
-import logging
 import shutil
-from winui.defs import NULL, FILE_SHARE_READ, FILE_SHARE_WRITE, GENERIC_READ, GENERIC_WRITE,CREATE_ALWAYS, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL
-IOCTL_STORAGE_EJECT_MEDIA = 0x2D4808
+import logging
 log = logging.getLogger('WindowsBackend')
 
 
@@ -114,44 +114,7 @@ class WindowsBackend(Backend):
             path = join_path(self.info.disks_dir, disk + ".disk")
             size_mb = int(getattr(self.info, disk + "_size_mb"))
             if size_mb:
-                self.create_virtual_disk(path, size_mb)
-
-    def create_virtual_disk(self, path, size_mb):
-        log.debug(" Creating virtual disk %s of %sMB" % (path, size_mb))
-        create_file = ctypes.windll.kernel32.CreateFileW
-        close_handle = ctypes.windll.kernel32.CloseHandle
-        file_handle = create_file(
-            path,
-            GENERIC_READ | GENERIC_WRITE,
-            0,
-            NULL,
-            CREATE_ALWAYS,
-            FILE_ATTRIBUTE_NORMAL,
-            NULL)
-        close_handle(file_handle)
-        #TBD
-
-    def eject_cd(self, associated_task):
-        #platform specific
-        if not self.info.cd_path:
-            return
-        create_file = ctypes.windll.kernel32.CreateFileW
-        cd_handle = create_file(
-            r'\\\\.\\' + self.info.cd_path,
-            GENERIC_READ,
-            FILE_SHARE_READ|FILE_SHARE_WRITE,
-            0,
-            OPEN_EXISTING,
-            0, 0)
-        log.debug('Ejecting cd_handle=%s for drive=%s' % (cd_handle, self.info.cd_path))
-        if cd_handle:
-            x = ctypes.c_int()
-            result = ctypes.windll.kernel32.DeviceIoControl(
-                cd_handle,
-                IOCTL_STORAGE_EJECT_MEDIA,
-                0, 0, 0, 0, ctypes.byref(x), 0)
-            log.debug('EjectCD DeviceIoControl exited with code %s (1==success)' % result)
-            ctypes.windll.kernel32.CloseHandle(cd_handle)
+                create_virtual_disk(path, size_mb)
 
     def reboot(self):
         command = ['shutdown', '-r', '-t', '00']
@@ -238,6 +201,9 @@ class WindowsBackend(Backend):
             timezone = "America/New_York"
         log.debug('timezone=%s' % timezone)
         return timezone
+
+    def eject_cd(self):
+        eject_cd(self.info.cd_path)
 
     def get_windows_version(self):
         windows_version = None
