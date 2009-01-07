@@ -33,6 +33,7 @@ from modulegraph.find_modules import find_modules
 from modulegraph.modulegraph import SourceModule, Package, Script
 from os.path import abspath, join, basename, dirname, exists
 import py_compile
+from optparse import OptionParser
 
 def ajoin(*args):
     return abspath(join(*args))
@@ -43,28 +44,32 @@ def makedirs(target_path):
     except:
         pass
 
-def add_modules(script, target_lib):
+def compile(source, target, nopyc):
+    print "compiling %s -> %s" % (source, target)
+    shutil.copy(source, target)
+    if not nopyc:
+        py_compile.compile(target, doraise=True)
+        os.unlink(target)
+
+def add_modules(script, target_lib, nopyc):
     mf = find_modules((script,))
     modules = mf.flatten()
     for module in modules:
         if not module.filename:
             continue
         if isinstance(module, SourceModule):
-            target_path = ajoin(target_lib, module.identifier.replace('.','/') + '.pyc')
+            target_path = ajoin(target_lib, module.identifier.replace('.','/') + '.py')
             makedirs(dirname(target_path))
-            print "compiling %s -> %s" % (module.filename, target_path)
-            py_compile.compile(module.filename, target_path)
+            compile(module.filename, target_path, nopyc)
         elif isinstance(module, Package):
-            target_path = ajoin(target_lib, module.identifier.replace('.','/'), '__init__.pyc')
+            target_path = ajoin(target_lib, module.identifier.replace('.','/'), '__init__.py')
             makedirs(dirname(target_path))
-            print "compiling %s -> %s" % (module.filename, target_path)
-            py_compile.compile(module.filename, target_path)
+            compile(module.filename, target_path, nopyc)
         elif isinstance(module, Script):
-            script_name = os.path.splitext(basename(module.identifier))[0] + '.pyc'
+            script_name = os.path.splitext(basename(module.identifier))[0] + '.py'
             target_path = ajoin(dirname(target_lib), script_name)
             makedirs(dirname(target_path))
-            print "compiling %s -> %s" % (module.filename, target_path)
-            py_compile.compile(module.filename, target_path)
+            compile(module.filename, target_path, nopyc)
         else:
             target_path = ajoin(target_lib, module.identifier.replace('.','/'))
             target_path = dirname(target_path)
@@ -104,14 +109,14 @@ def add_python_dll(target_dir):
     pythondll = join(dirname(__file__), 'python23.dll')
     shutil.copy(pythondll, target_dir)
 
-def pack(script, target_dir, extras):
+def pack(script, target_dir, extras, nopyc):
     target_dir = join(target_dir, 'files')
     target_lib = join(target_dir, 'lib')
 
     if exists(target_lib):
         raise Exception("Target directory %s already exists" % target_lib)
 
-    add_modules(script, target_lib)
+    add_modules(script, target_lib, nopyc)
 
     #Add other dirs
     for extra in extras:
@@ -123,8 +128,19 @@ def pack(script, target_dir, extras):
     compress(target_dir)
     make_self_extracting_exe(target_dir)
 
+def parse_arguments():
+    usage = "python pack.py [options] main_script target_dir [extra [extra [extra..]]]"
+    parser = OptionParser(usage=usage)
+    parser.add_option("--nopyc", action="store_const", const=True, dest="nopyc", help="Do not bytecompile the python files")
+    options, args = parser.parse_args()
+    args = [args[0], args[1], args[2:]]
+    return  options, args
+
+def main():
+    options, args = parse_arguments()
+    nopyc=options.nopyc
+    args.append(nopyc)
+    pack(*args)
+
 if __name__ == "__main__":
-    script = sys.argv[1]
-    target_dir = sys.argv[2]
-    extras = sys.argv[3:]
-    pack(script, target_dir, extras)
+    main()

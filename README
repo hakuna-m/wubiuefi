@@ -17,6 +17,10 @@ to install python inside of wine, this is performed automatically, just
 confirm all the default choices in the installation screens that will appear.
  * make runpy: runs wubi under wine directly from source
  * make runbin: builds wubi and runs the packaged binary under wine
+ * make wubizip: creates a special zip file conatining python.exe and non
+   byte compiled python files that is convenient for debugging purposes.
+   Inside of Windows, unzip the archive, then run
+   "python.exe main.py --verbose". You can edit any file inside of ./lib.
 
 == Code overview ==
 

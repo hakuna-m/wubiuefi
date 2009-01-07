@@ -21,13 +21,17 @@
  * Pylauncher extracts a lzma archive that can be appended to this
  * executable and containing:
  *
- * ./main.py            # main script to run
+ * ./main.pyo           # main script to run
  * ./data                  # data
  * ./lib                     # python modules, ./lib is added to PYTHONPATH
  * ./python.dll         # python dll
  *
  * then it loads python.dll and runs main.py within that. A python
  * script can be packed in the appropriate format using pack.py
+ *
+ * Note that the current implementation assumes that the python modules
+ * are bytecompiled and  optimized (*.pyo)
+ *
  */
 
 #include <stdio.h>
@@ -48,7 +52,7 @@ main(int ac, char **av)
     char dllfile[256] = "python23.dll"; //TBD be a bit more flexible on the dll used
     char pythonpath[256] = "lib";
     char pythonhome[256] = ".";
-    char scriptfile[256] = "main.pyc";
+    char scriptfile[256] = "main.pyo";
     char message[512];
     char debug[3] = "Off";
     char verbose[2] = "0";
@@ -100,13 +104,14 @@ main(int ac, char **av)
     //Run script in python
     argv[0] = exefile;
     argv[1] = "-S";
-    argv[2] = scriptfile;
+    argv[2] = "-OO";
+    argv[3] = scriptfile;
     strcpy(exefilearg, "--exefile=");
     strcat(exefilearg, exefile);
-    argv[3] = exefilearg;
+    argv[4] = exefilearg;
     for (i = 1; i < (DWORD) ac; i++)
-        argv[3+i] = av[i];
-    return Py_Main(3+i, argv);
+        argv[4+i] = av[i];
+    return Py_Main(4+i, argv);
 
     //TBD delete tempdir
 

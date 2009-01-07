@@ -171,7 +171,7 @@ class WindowsBackend(Backend):
     def get_gmt(self):
         gmt = registry.get_value('HKEY_LOCAL_MACHINE', 'SYSTEM\\CurrentControlSet\\Control\\TimeZoneInformation', 'Bias')
         if gmt:
-            gmt = -bias/60
+            gmt = -gmt/60
         if not gmt \
         or gmt > 12 \
         or gmt < -12:
