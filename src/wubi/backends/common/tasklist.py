@@ -142,7 +142,7 @@ class Task(object):
             self.finish()
         else:
             if not message:
-                message = "%s progressing" % self.name
+                message = "Progress"
             self._notify_listeners(message)
 
     def finish(self):
@@ -279,7 +279,7 @@ class Task(object):
         message = ""
         message += "%i%% " % (self.get_percent_completed()*100)
         if self.get_speed():
-            message += self.speed + " "
+            message += self.get_speed() + " "
         message += self.estimate_remaining_time()
         message = message.strip()
         return message
@@ -291,11 +291,13 @@ class Task(object):
         else:
             return 0.0
 
-    def _notify_listeners(self, message):
+    def _notify_listeners(self, message, task=None):
+        if not task:
+            task = self
         if callable(self.callback):
-            self.callback(self, message=message)
+            self.callback(task, message=message)
         if self.parent:
-            self.parent._notify_listeners(message=message)
+            self.parent._notify_listeners(message, task)
 
     def _run_subtasks(self):
         for subtask in self.subtasks:
@@ -373,25 +375,25 @@ def test():
     def fsleep():
         time.sleep(1)
 
-    def fcallback(associated_task):
+    def fnested(associated_task):
         time.sleep(1)
-        if associated_task.set_progress(.3):
-            return
-        time.sleep(1)
-        if associated_task.set_progress(.6):
-            return
-        time.sleep(1)
-        associated_task.add_subtask(fsleep, "fsleepsub")
+        associated_task.add_subtask(fsleep, "fsleepsub1")
+        for i in range(10):
+            if associated_task.set_progress(i/10.0):
+                return
+            time.sleep(0.3)
+        associated_task.add_subtask(fsleep, "fsleepsub2")
 
     def callback(task, message):
         tasklist = task.get_root()
-        print "%s (%s)" % (message, tasklist.get_progress_info())
+        #~ print message, "tasklist=" + tasklist.get_progress_info(), "task=" + task.get_progress_info()
+        print message, task._get_weight(), task._get_completed(), task.weight, task.size, task.completed
 
     tasks = [
         Task(fsleep, "fsleep1"),
         Task(fsleep, "fsleep2"),
-        Task(fcallback, "fcallback1"),
-        Task(fcallback, "fcallback2")
+        Task(fnested, "fcallback1"),
+        Task(fnested, "fcallback2")
         ]
     tasklist = ThreadedTaskList(name="test 1", tasks=tasks, callback=callback)
     tasklist.run()

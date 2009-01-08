@@ -66,5 +66,7 @@ wubi (9.04) UNRELEASED; urgency=low
   * Added wubizip compilation mode, to create a debugger friendly
     environment
   * More robust copytree
+  * Use regex to parse .disk/info
+  * Fixed task progress callback
 
- -- Agostino Russo <agostino.russo@gmail.com>  Thu, 08 Jan 2009 01:24:06 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Thu, 08 Jan 2009 09:31:18 +0000

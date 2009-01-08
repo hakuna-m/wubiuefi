@@ -22,9 +22,11 @@ import os
 import shutil
 from utils import read_file
 import logging
+import re
 
 log = logging.getLogger('Distro')
-
+disk_info_re = '''(?P<name>[\w\s]+) (?P<version>[\d.]+) \"(?P<codename>[\D]+)\" - (?P<subversion>[\D]+) (?P<arch>i386|amd64) \((?P<build>[\d.]+)\)'''
+disk_info_re = re.compile(disk_info_re)
 
 class Distro(object):
 
@@ -165,14 +167,16 @@ class Distro(object):
         Parses the file within the ISO
         that contains metadata on the iso
         e.g. .disk/info in Ubuntu
+        Ubuntu 9.04 "Jaunty Jackalope" - Alpha i386 (20090106)
+        Ubuntu 9.04 "Jaunty Jackalope" - Alpha i386 (20090106.1)
+        Ubuntu Split Name 9.04.1 "Jaunty Jackalope" - Final Release i386 (20090106.2)
         '''
-        #TBD use re
         log.debug("info=%s" % info)
-        name = info.split(' ')[0]
-        version = info.split(' ')[1]
-        codename = info.split('"')[1]
-        build = info.split('(')[1][:-1]
-        arch = info.split('(')[0].split(" ")[-2]
-        subversion = info.split('(')[0].split(" ")[-3]
-        log.debug("parsed info=" + ", ".join((name, version, codename, build, arch, subversion)))
+        info = disk_info_re.match(info)
+        if not info:
+            return None, None, None
+        name = info.group('name')
+        version = info.group('version')
+        arch = info.group('arch')
+        log.debug("parsed info=%s" % info.groupdict())
         return name, version, arch
