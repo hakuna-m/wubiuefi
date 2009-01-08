@@ -22,6 +22,7 @@ import sys
 import os
 import md5
 import subprocess
+import shutil
 
 def join_path(*args):
     return os.path.abspath(os.path.join(*args))
@@ -156,3 +157,14 @@ def unixpath(path):
     if path[1] == ':':
         path = path[2:]
     return path
+
+def copytree(source, dest):
+    '''
+    Copies a tree, replacing any pre-existing destination file/directory
+    '''
+    if os.path.exists(dest):
+        if os.path.isfile(dest):
+            os.unlink(dest)
+        elif os.path.isdir(dest):
+            shutil.rmtree(dest)
+    shutil.copytree(source, dest)

@@ -97,9 +97,13 @@ class InstallationPage(Page):
 
     def populate_size_list(self):
         target_drive = self.target_drive_list.get_text()[:2]
-        target_drive = [d for d in self.info.drives if d.path == target_drive]
-        freespace = min(30, int(target_drive[0].free_space_mb / 1024))
-        listitems =  ["%sGB" % x for x in range(4, freespace)]
+        for drive in self.info.drives:
+            if drive.path == target_drive:
+                target_drive = drive
+                break
+        freespace = min(30, int(target_drive.free_space_mb / 1024.0))
+        #this will be 1-2GB less than the full disk to have space for the ISO
+        listitems =  ["%sGB" % x for x in range(3, freespace)]
         for item in listitems:
             self.size_list.add_item(item)
         if listitems:

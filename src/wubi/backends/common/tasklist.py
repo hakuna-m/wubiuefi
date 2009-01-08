@@ -191,12 +191,13 @@ class Task(object):
             if self.is_required:
                 result = self.associated_function(*self.associated_function_args, **self.associated_function_kargs)
             else:
+                result = None
                 try:
                     result = self.associated_function(*self.associated_function_args, **self.associated_function_kargs)
-                except:
+                except Exception, err:
                     self.error = err
                     self.status = Task.FAILED
-                    message = "Non fatal error %s in task %s" % (err.description, self.name)
+                    message = "Non fatal error %s in task %s" % (err, self.name)
                     log.error(message)
                     self._notify_listeners(message)
             self.associated_function_result = result

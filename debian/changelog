@@ -65,5 +65,6 @@ wubi (9.04) UNRELEASED; urgency=low
   * Allocate disk space for virtual disks, to be tested
   * Added wubizip compilation mode, to create a debugger friendly
     environment
+  * More robust copytree
 
- -- Agostino Russo <agostino.russo@gmail.com>  Wed, 07 Jan 2009 10:13:08 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Thu, 08 Jan 2009 01:24:06 +0000

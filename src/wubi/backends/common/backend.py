@@ -38,7 +38,7 @@ from metalink import parse_metalink
 from tasklist import ThreadedTaskList, Task
 from distro import Distro
 from mappings import lang_country2linux_locale
-from utils import join_path, run_command, copy_file, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unixpath
+from utils import copytree, join_path, run_command, copy_file, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unixpath
 from os.path import abspath, dirname, isfile, isdir, exists
 
 log = logging.getLogger("CommonBackend")
@@ -217,7 +217,7 @@ class Backend(object):
         if os.path.isdir(cd_path):
             return
         self.info.cddir = join_path(self.info.install_dir, "cd")
-        shutil.copytree(self.info.cd_path, self.info.cddir)
+        copytree(self.info.cd_path, self.info.cddir)
         return dest
 
     def check_metalink(self, metalink, base_url, associated_task=None):
@@ -262,30 +262,32 @@ class Backend(object):
         if not md5sum:
             log.error("ERROR: Could not find any md5 hash in the metalink for the ISO %s, ignoring" % iso_path)
             return True
-        get_file_md5 = associated_task.add_subtask(
+        get_md5 = associated_task.add_subtask(
             get_file_md5,
             description = "Calculating md5 for %s" % iso_path)
-        md5sum2 = get_file_md5(iso_path)
+        md5sum2 = get_md5(iso_path)
         if md5sum != md5sum2:
             log.error("Invalid md5 for ISO %s" % iso_path)
             return False
         return True
 
     def download_iso(self, associated_task=None):
+        if not self.info.metalink:
+            raise exception("Cannot download the metalink and therefore the ISO")
         file = self.info.metalink.files[0]
         url = file.urls[0].url
         save_as = join_path(self.info.install_dir, file.name)
         iso =None
         if not self.info.no_bittorrent:
-            btdownloader = associated_task.add_subtask(
-                btdownlaoder.download,
+            btdownload = associated_task.add_subtask(
+                btdownloader.download,
                 is_required = False)
-            iso = btdownloader(url, save_as) #TBD get the torrent url from metalink
+            iso = btdownload(url, save_as) #TBD get the torrent url from metalink
         if iso is None:
             download = associated_task.add_subtask(
-                downlaoder.download,
+                downloader.download,
                 is_required = True)
-            iso = downloader(url, save_as, web_proxy=self.info.web_proxy)
+            iso = download(url, save_as, web_proxy=self.info.web_proxy)
         return iso
 
     def get_metalink(self, associated_task=None):

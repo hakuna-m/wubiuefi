@@ -30,7 +30,8 @@ from virtualdisk import create_virtual_disk
 from eject import eject_cd
 import registry
 from memory import get_total_memory_mb
-from wubi.backends.common import Backend, run_command, replace_line_in_file, read_file, write_file, join_path
+from wubi.backends.common.backend import Backend
+from wubi.backends.common.utils import run_command, replace_line_in_file, read_file, write_file, join_path, copytree
 from wubi.backends.common.mappings import country2tz, name2country, gmt2country, country_gmt2tz, gmt2tz
 from os.path import abspath, dirname, isfile, isdir, exists
 import mappings
@@ -123,12 +124,13 @@ class WindowsBackend(Backend):
     def copy_installation_files(self, associated_task):
         self.info.custominstall = join_path(self.info.install_dir, 'custom-installation')
         src = join_path(self.info.datadir, 'custom-installation')
-        log.debug('Copying %s -> %s' % (src, self.info.custominstall))
-        shutil.copytree(src, self.info.custominstall)
+        dest = self.info.custominstall
+        log.debug('Copying %s -> %s' % (src, dest))
+        copytree(src, dest)
         src = join_path(self.info.datadir, 'winboot')
         dest = join_path(self.info.target_dir, 'winboot')
         log.debug('Copying %s -> %s' % (src, dest))
-        shutil.copytree(src, dest)
+        copytree(src, dest)
         dest = join_path(self.info.custominstall, 'hooks', 'failure-command.sh')
         msg='The installation failed. Logs have been saved in: %s.' \
             '\n\nNote that in verbose mode, the logs may include the password.' \
