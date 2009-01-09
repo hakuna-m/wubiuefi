@@ -115,6 +115,7 @@ class Wubi(object):
         #TBD add cd_boot mode
         if self.info.previous_target_dir or self.info.uninstall_dir:
             log.info("Already installed, running the uninstaller...")
+            self.info.uninstall_before_install = True
             self.run_uninstaller()
             self.backend.fetch_basic_info()
             if self.info.previous_target_dir or self.info.uninstall_dir:

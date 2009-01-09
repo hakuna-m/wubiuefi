@@ -19,6 +19,7 @@
 #
 
 import bittorrent.download
+import gzip #required by bittorrent
 from threading import Event
 import logging
 log = logging.getLogger('btdownloader')

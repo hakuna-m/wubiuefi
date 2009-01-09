@@ -44,7 +44,7 @@ class DownloadProgress(object):
         self.length = length
         self.text = text
         if self.associated_task:
-            self.associated_task.size = length
+            self.associated_task.size = length/1024
         log.debug("Download start filename=%s, url=%s, basename=%s, length=%s, text=%s" %
             (filename, url, basename, length, text))
         if self.associated_task:
@@ -53,7 +53,7 @@ class DownloadProgress(object):
     def update(self, amount_read):
         progress = 1.0*amount_read/float(self.length+1)
         if self.associated_task:
-            if self.associated_task.set_progress(amount_read):
+            if self.associated_task.set_progress(amount_read/1024):
                 return True #TBD cancel download
 
     def end(self, amount_read):
@@ -64,6 +64,7 @@ class DownloadProgress(object):
 def download(url, filename=None, associated_task=None, web_proxy = None):
     if associated_task:
         associated_task.description = "Downloading %s" % url
+        associated_task.unit = "KB"
     log.debug("downloading %s > %s" % (url, filename))
     progress_obj = DownloadProgress(associated_task)
     if web_proxy:

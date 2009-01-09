@@ -25,6 +25,9 @@ import subprocess
 import shutil
 
 def join_path(*args):
+    if args and args[0][-1] == ":":
+        args = list(args)
+        args[0] = args[0] + os.path.sep
     return os.path.abspath(os.path.join(*args))
 
 def run_command(command):

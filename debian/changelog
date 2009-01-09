@@ -68,5 +68,9 @@ wubi (9.04) UNRELEASED; urgency=low
   * More robust copytree
   * Use regex to parse .disk/info
   * Fixed task progress callback
+  * Have a different uninstallation message when the installer is run
+    and a previous installation is detected
+  * Path joining whith a drive as first item whitout trailing slash was
+    returning the user home directory
 
- -- Agostino Russo <agostino.russo@gmail.com>  Thu, 08 Jan 2009 09:31:18 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Fri, 09 Jan 2009 08:45:05 +0000

@@ -115,6 +115,7 @@ class Backend(object):
         Basic information required by the application dispatcher select_task()
         '''
         log.debug("Fetching basic info...")
+        self.info.uninstall_before_install = False
         self.info.backup_dir = "%s.backup" % self.info.application_name
         self.info.original_exe = self.get_original_exe()
         self.info.platform = self.get_platform()
@@ -273,7 +274,7 @@ class Backend(object):
 
     def download_iso(self, associated_task=None):
         if not self.info.metalink:
-            raise exception("Cannot download the metalink and therefore the ISO")
+            raise Exception("Cannot download the metalink and therefore the ISO")
         file = self.info.metalink.files[0]
         url = file.urls[0].url
         save_as = join_path(self.info.install_dir, file.name)
@@ -296,13 +297,13 @@ class Backend(object):
         try:
             metalink = downloader.download(self.info.distro.metalink, self.info.install_dir, web_proxy=self.info.web_proxy)
             base_url = os.path.dirname(self.info.distro.metalink)
-        except:
-            log.error("Cannot download metalink file %s" % self.info.distro.metalink)
+        except Exception, err:
+            log.error("Cannot download metalink file %s err=%s" % (self.info.distro.metalink, err))
             try:
                 metalink = downloader.download(self.info.distro.metalink2, self.info.install_dir, web_proxy=self.info.web_proxy)
                 base_url = os.path.dirname(self.info.distro.metalink2)
-            except:
-                log.error("Cannot download metalink file2 %s" % self.info.distro.metalink2)
+            except Exception, err:
+                log.error("Cannot download metalink file2 %s err=%s" % (self.info.distro.metalink2, err))
                 return
         if not self.check_metalink(metalink, base_url):
             log.exception("Cannot authenticate the metalink file, it might be corrupt")
