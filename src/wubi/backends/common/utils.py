@@ -56,17 +56,20 @@ def run_async_command(command):
     process.communicate()
 
 def get_file_md5(file_path, associated_task=None):
-    file_size = os.path.getsize(file_path)
+    file_size = os.path.getsize(file_path)/(1024**2)
+    if associated_task:
+        associated_task.unit = "MB"
+        associated_task.size = file_size
     file = open(file_path, "rb")
     md5hash = md5.new()
     data_read = 0
-    for i in range(100):
+    for i in range(file_size + 1):
         data = file.read(1024**2)
-        data_read += 1024.0**2
+        data_read += 1
         if data == "":
             break
         if associated_task:
-            if associated_task.set_progress(data_read/float(file_size+1)):
+            if associated_task.set_progress(data_read):
                 file.close()
                 return
         md5hash.update(data)

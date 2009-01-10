@@ -5189,3 +5189,42 @@ class LOGFONT(Structure):
                 ("lfQuality", BYTE),
                 ("lfPitchAndFamily", BYTE),
                 ("lfFaceName", c_wchar_p * LF_FACESIZE)]
+
+class LUID(Structure):
+    _fields_ = [
+        # C:/PROGRA~1/gccxml/bin/Vc6/Include/winnt.h 394
+        ('LowPart', DWORD),
+        ('HighPart', LONG),
+        ]
+
+class LUID_AND_ATTRIBUTES(Structure):
+    _fields_ = [
+        # C:/PROGRA~1/gccxml/bin/Vc6/Include/winnt.h 3241
+        ('Luid', LUID),
+        ('Attributes', DWORD),
+        ]
+
+class TOKEN_PRIVILEGES(Structure):
+    _fields_ = [
+        # C:/PROGRA~1/gccxml/bin/Vc6/Include/winnt.h 4188
+        ('PrivilegeCount', DWORD),
+        ('Privileges', LUID_AND_ATTRIBUTES * 1),
+        ]
+
+class LARGE_INTEGER(Structure):
+    _fields_ = [
+        ('QuadPart', c_longlong),
+        ]
+
+CreateFileW = windll.kernel32.CreateFileW
+CloseHandle = windll.kernel32.CloseHandle
+SetFilePointerEx = windll.kernel32.SetFilePointerEx
+SetEndOfFile = windll.kernel32.SetEndOfFile
+GetVersion = windll.kernel32.GetVersion
+WriteFile = windll.kernel32.WriteFile
+OpenProcessToken = windll.Advapi32.OpenProcessToken
+GetCurrentProcess = windll.kernel32.GetCurrentProcess
+LookupPrivilegeValue = windll.Advapi32.LookupPrivilegeValueW
+AdjustTokenPrivileges = windll.Advapi32.AdjustTokenPrivileges
+
+SE_MANAGE_VOLUME_NAME = u"SeManageVolumePrivilege"

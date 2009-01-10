@@ -30,6 +30,7 @@ class DownloadError(Exception):
     pass
 
 def download(url, filename, associated_task=None):
+    associated_task.name = "btdownloader"
     associated_task.description = "Downloading %s" % url
     params = ['--url', url, '--saveas', filename]
     cols = 80
@@ -58,7 +59,7 @@ def download(url, filename, associated_task=None):
     def error_callback(message):
         raise DownloadError(message)
 
-    BitTorrent.download.download(
+    bittorrent.download.download(
         params,
         set_saveas,
         on_progress,

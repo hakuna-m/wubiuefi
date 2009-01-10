@@ -268,27 +268,49 @@ class Backend(object):
             description = "Calculating md5 for %s" % iso_path)
         md5sum2 = get_md5(iso_path)
         if md5sum != md5sum2:
-            log.error("Invalid md5 for ISO %s" % iso_path)
+            log.exception("Invalid md5 for ISO %s (%s != %s)" % (iso_path, md5sum, md5sum2))
             return False
         return True
+
+    def select_mirrors(self, urls):
+        '''
+        Sort urls by preference giving a "boost" to the urls in the
+        same country as the client
+        '''
+        def cmp(x, y):
+            return y.score - x.score #reverse order
+        urls = list(urls)
+        for url in urls:
+            url.score = url.preference
+            if self.info.country == url.location:
+                url.score += 50
+        urls.sort(cmp)
+        return urls
 
     def download_iso(self, associated_task=None):
         if not self.info.metalink:
             raise Exception("Cannot download the metalink and therefore the ISO")
         file = self.info.metalink.files[0]
-        url = file.urls[0].url
         save_as = join_path(self.info.install_dir, file.name)
+        urls = self.select_mirrors(file.urls)
         iso =None
-        if not self.info.no_bittorrent:
-            btdownload = associated_task.add_subtask(
-                btdownloader.download,
-                is_required = False)
-            iso = btdownload(url, save_as) #TBD get the torrent url from metalink
-        if iso is None:
-            download = associated_task.add_subtask(
-                downloader.download,
-                is_required = True)
-            iso = download(url, save_as, web_proxy=self.info.web_proxy)
+        for url in urls[:5]:
+            if url.type == 'bittorrent':
+                if self.info.no_bittorrent:
+                    continue
+                btdownload = associated_task.add_subtask(
+                    btdownloader.download,
+                    is_required = False)
+                iso = btdownload(url.url, save_as)
+                if iso:
+                    break
+            else:
+                download = associated_task.add_subtask(
+                    downloader.download,
+                    is_required = True)
+                iso = download(url.url, save_as, web_proxy=self.info.web_proxy)
+                if iso:
+                    break
         return iso
 
     def get_metalink(self, associated_task=None):
