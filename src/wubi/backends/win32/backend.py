@@ -31,7 +31,7 @@ from eject import eject_cd
 import registry
 from memory import get_total_memory_mb
 from wubi.backends.common.backend import Backend
-from wubi.backends.common.utils import run_command, replace_line_in_file, read_file, write_file, join_path, copytree
+from wubi.backends.common.utils import run_command, replace_line_in_file, read_file, write_file, join_path, copytree, remove_line_in_file
 from wubi.backends.common.mappings import country2tz, name2country, gmt2country, country_gmt2tz, gmt2tz
 from os.path import abspath, dirname, isfile, isdir, exists
 import mappings
@@ -457,20 +457,25 @@ class WindowsBackend(Backend):
             'HKEY_LOCAL_MACHINE',
             self.info.registry_key)
 
-    def modify_bootloader(self):
+    def modify_bootloader(self, associated_task):
         for drive in self.info.drives:
-            if drive not in ('removable', 'hd'):
+            if drive.type not in ('removable', 'hd'):
                 continue
+            mb = None
             if self.info.bootloader == 'xp':
-                self.modify_bootini(path)
+                mb = associated_task.add_subtask(self.modify_bootini)
             elif self.info.bootloader == '98':
-                self.modify_configsys(path)
+                mb = associated_task.add_subtask(self.modify_bootini)
             elif self.info.bootloader == 'vista':
-                self.modify_bcd(path)
+                mb = associated_task.add_subtask(self.modify_bootini)
+            if mb:
+                mb(drive)
 
     def undo_bootloader(self, associated_task):
         winboot_files = ['wubildr', 'wubildr.mbr', 'wubildr.exe']
         for drive in self.info.drives:
+            if drive.type not in ('removable', 'hd'):
+                continue
             self.undo_bootini(drive, associated_task)
             self.undo_configsys(drive, associated_task)
             self.undo_bcd(associated_task)
@@ -480,12 +485,16 @@ class WindowsBackend(Backend):
                 os.unlink(f)
 
     def modify_bootini(self, drive, associated_task):
-        log.debug("modify_bootini %s" % drive)
+        log.debug("modify_bootini %s" % drive.path)
         bootini = join_path(drive.path, 'boot.ini')
         if not os.path.isfile(bootini):
             return
-        shutil.copy(join_path(self.info.datadir, 'winboot', 'wubildr'),  drive.path)
-        shutil.copy(join_path(self.info.datadir, 'winboot', 'wubildr.mbr'),  drive.path)
+        src = join_path(self.info.datadir, 'winboot', 'wubildr')
+        dest = join_path(drive.path, 'wubildr')
+        shutil.copyfile(src,  dest)
+        src = join_path(self.info.datadir, 'winboot', 'wubildr.mbr')
+        dest = join_path(drive.path, 'wubildr.mbr')
+        shutil.copyfile(src,  dest)
         run_command(['attrib', '-R', '-S', '-H', bootini])
         ini = ConfigParser.ConfigParser()
         ini.read(bootini)
@@ -497,25 +506,22 @@ class WindowsBackend(Backend):
         run_command(['attrib', '+R', '+S', '+H', bootini])
 
     def undo_bootini(self, drive, associated_task):
-        log.debug("undo_bootini %s" % drive)
+        log.debug("undo_bootini %s" % drive.path)
         bootini = join_path(drive.path, 'boot.ini')
         if not os.path.isfile(bootini):
             return
         run_command(['attrib', '-R', '-S', '-H', bootini])
-        ini = ConfigParser.ConfigParser()
-        ini.read(bootini)
-        ini.remove_option('operating systems', 'c:\wubildr.mbr')
-        f = open(bootini, 'w')
-        ini.write(f)
-        f.close()
+        remove_line_in_file(bootini, 'c:\wubildr.mbr')
         run_command(['attrib', '+R', '+S', '+H', bootini])
 
     def modify_configsys(self, drive, associated_task):
-        log.debug("modify_configsys %s" % drive)
+        log.debug("modify_configsys %s" % drive.path)
         configsys = join_path(drive.path, 'config.sys')
         if not os.path.isfile(configsys):
             return
-        shutil.copy(join_path(self.info.datadir, 'winboot', 'wubildr.exe'),  drive.path)
+        src = join_path(self.info.datadir, 'winboot', 'wubildr.exe')
+        dest = join_path(drive.path, 'wubildr.exe')
+        shutil.copyfile(src,  dest)
         run_command(['attrib', '-R', '-S', '-H', configsys])
         config = read_file(configsys)
         if 'REM WUBI MENU START\n' in config:
@@ -559,9 +565,12 @@ class WindowsBackend(Backend):
         if drive is self.info.system_drive \
         or drive.path == "C:" \
         or drive.path == os.environ('systemroot')[:2]:
-            shutil.copy(join_path(self.info.datadir, 'winboot', 'wubildr'),  drive.path)
-            shutil.copy(join_path(self.info.datadir, 'winboot', 'wubildr.mbr'),  drive.path)
-
+            src = join_path(self.info.datadir, 'winboot', 'wubildr')
+            dest = join_path(drive.path, 'wubildr')
+            shutil.copyfile(src,  dest)
+            src = join_path(self.info.datadir, 'winboot', 'wubildr.mbr')
+            dest = join_path(drive.path, 'wubildr.mbr')
+            shutil.copyfile(src,  dest)
         bcdedit = join_path(os.getenv('SystemDrive'), 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
             bcdedit = join_path(os.environ('systemroot'), 'sysnative', 'bcdedit.exe')

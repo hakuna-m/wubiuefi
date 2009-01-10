@@ -288,6 +288,9 @@ class Backend(object):
         return urls
 
     def download_iso(self, associated_task=None):
+        # Download the ISO
+        log.debug("Could not find any ISO or CD, downloading one now")
+        self.info.cd_path = None
         if not self.info.metalink:
             raise Exception("Cannot download the metalink and therefore the ISO")
         file = self.info.metalink.files[0]
@@ -301,17 +304,20 @@ class Backend(object):
                 btdownload = associated_task.add_subtask(
                     btdownloader.download,
                     is_required = False)
-                iso = btdownload(url.url, save_as)
-                if iso:
-                    break
+                iso_path = btdownload(url.url, save_as)
             else:
                 download = associated_task.add_subtask(
                     downloader.download,
                     is_required = True)
-                iso = download(url.url, save_as, web_proxy=self.info.web_proxy)
-                if iso:
-                    break
-        return iso
+                iso_path = download(url.url, save_as, web_proxy=self.info.web_proxy)
+            if iso_path:
+                check_iso = associated_task.add_subtask(
+                    self.check_iso,
+                    description = "Checking ISO")
+                if check_iso(iso_path):
+                    return True
+                else:
+                    os.unlink(iso_path)
 
     def get_metalink(self, associated_task=None):
         associated_task.description = "Retrieving metalink file..."
@@ -331,20 +337,45 @@ class Backend(object):
             log.exception("Cannot authenticate the metalink file, it might be corrupt")
         self.info.metalink = parse_metalink(metalink)
 
-    def get_iso(self, associated_task=None):
-        #Use pre-specified ISO
+    def get_prespecified_iso(self, associated_task):
         if self.info.iso_path \
         and os.path.exists(self.info.iso_path):
             #TBD shall we do md5 check? Doesn't work well with daylies
             #TBD if a specified ISO cannot be used notify the user
+            log.debug("Trying to use pre-specified ISO %s" % self.info.iso_path)
             is_valid_iso = associated_task.add_subtask(
                 self.info.distro.is_valid_iso,
                 description = "Validating %s" % self.info.iso_path)
             if is_valid_iso(self.info.iso_path):
                 self.info.cd_path = None
-                return associated_task.finish()
+            return self.copy_iso(self.info.iso_path, associated_task)
 
-        # Use CD if possible
+    def copy_iso(self, iso_path, associated_task):
+        if not iso_path:
+            return
+        iso_name = os.path.basename(iso_path)
+        dest = join_path(self.info.install_dir, iso_name)
+        check_iso = associated_task.add_subtask(
+            self.check_iso,
+            description = "Checking %s" % iso_path)
+        if check_iso(iso_path):
+            if os.path.dirname(iso_path) == dest:
+                pass
+            elif os.path.dirname(iso_path) == self.info.previous_backup_dir:
+                move_iso = associated_task.add_subtask(
+                    shutil.move,
+                    description = "Moving %s > %s" % (iso_path, dest))
+                move_iso(iso_path, dest)
+            else:
+                copy_iso = associated_task.add_subtask(
+                    copy_file,
+                    description = "Copying %s > %s" % (iso_path, dest),)
+                copy_iso(iso_path, dest)
+            self.info.cd_path = None
+            self.info.iso_path = dest
+            return True
+
+    def use_cd(self, associated_task):
         cd_path = None
         if self.info.cd_distro \
         and self.info.distro == self.info.cd_distro \
@@ -353,6 +384,7 @@ class Backend(object):
         else:
             cd_path = self.find_cd()
         if cd_path:
+            log.debug("Trying to use CD %s" % cd_path)
             check_cd = associated_task.add_subtask(
                 self.check_cd,
                 description = "Checking %s" % cd_path, )
@@ -363,9 +395,9 @@ class Backend(object):
                 cd_path = extract_cd_content(cd_path)
                 self.info.cd_path = cd_path
                 self.info.iso_path = None
-                return associated_task.finish()
+                return True
 
-        #Use local ISO if possible
+    def use_iso(self, associated_task):
         iso_path = None
         if self.info.iso_distro \
         and self.info.distro == self.info.iso_distro \
@@ -374,40 +406,16 @@ class Backend(object):
         else:
             iso_path = self.find_iso()
         if iso_path:
-            iso_name = os.path.basename(iso_path)
-            dest = join_path(self.info.install_dir, iso_name)
-            check_iso = associated_task.add_subtask(
-                self.check_iso,
-                description = "Checking %s" % iso_path)
-            if check_iso(iso_path):
-                if os.path.dirname(iso_path) == self.info.previous_backup_dir:
-                    move_iso = associated_task.add_subtask(
-                        shutil.move,
-                        description = "Moving %s > %s" % (iso_path, dest))
-                    move_iso(iso_path, dest)
-                else:
-                    copy_iso = associated_task.add_subtask(
-                        copy_file,
-                        description = "Copying %s > %s" % (iso_path, dest),)
-                    copy_iso(iso_path, dest)
-                self.info.cd_path = None
-                self.info.iso_path = dest
-                return associated_task.finish()
+            log.debug("Trying to use ISO %s" % iso_path)
+            return self.copy_iso(iso_path, associated_task)
 
-        # Download the ISO
-        log.debug("Could not find any ISO or CD, downloading one now")
-        self.info.cd_path = None
-        download_iso = associated_task.add_subtask(
-            self.download_iso,
-            description = "Downloading ISO")
-        check_iso = associated_task.add_subtask(
-            self.check_iso,
-            description = "Checking ISO")
-        self.info.iso_path = download_iso()
-        if not self.info.iso_path:
-            raise Exception("Could not retrieve the installation ISO")
-        elif not check_iso(self.info.iso_path):
-            raise Exception("ISO file is corrupted")
+    def get_iso(self, associated_task=None):
+        if self.get_prespecified_iso(associated_task) \
+        or self.use_cd(associated_task) \
+        or self.use_iso(associated_task) \
+        or self.download_iso(associated_task):
+            return associated_task.finish()
+        raise Exception("Could not retrieve the installation ISO")
 
     def extract_kernel(self):
         bootdir = self.info.install_boot_dir

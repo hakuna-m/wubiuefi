@@ -56,7 +56,7 @@ def create_virtual_disk(path, size_mb):
         log.exception("Failed to create file %s" % path)
 
     # Set pointer to end of file */
-    file_pos = LARGE_INTEGER
+    file_pos = LARGE_INTEGER()
     file_pos.QuadPart = size_mb*1024
     if not SetFilePointerEx(file_handle, file_pos, 0, FILE_BEGIN):
         log.exception("Failed to set file pointer to end of file")
@@ -109,13 +109,13 @@ def grant_privileges():
     #  introduce race conditions. */
     handle = ctypes.c_long(0)
     if OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES|TOKEN_QUERY, byref(handle)):
-        luid = LUID
-        if LookupPrivilegeValue(NULL, SE_MANAGE_VOLUME_NAME, POINTER(luid)):
-            tp = TOKEN_PRIVILEGES
+        luid = LUID()
+        if LookupPrivilegeValue(NULL, SE_MANAGE_VOLUME_NAME, byref(luid)):
+            tp = TOKEN_PRIVILEGES()
             tp.PrivilegeCount = 1
             tp.Privileges[0].Luid = luid
             tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED
-            if not AdjustTokenPrivileges(handle, FALSE, POINTER(tp), 0, NULL, NULL):
+            if not AdjustTokenPrivileges(handle, FALSE, byref(tp), 0, NULL, NULL):
                 log.debug("grant_privileges: AdjustTokenPrivileges() failed.")
         else:
             log.debug("grant_privileges: LookupPrivilegeValue() failed.")

@@ -85,14 +85,14 @@ def copy_file(source, target, associated_task=None):
     '''
     file_size = os.path.getsize(source)
     if associated_task:
-        associated_task.size = file_size
-        associated_task.unit = "B"
+        associated_task.size = file_size/1024**2
+        associated_task.unit = "MB"
     source_file = open(source, "rb")
     target_file = open(target, "wb")
     data_read = 0
     while True:
         data = source_file.read(1024**2)
-        data_read += 1024.0**2
+        data_read += 1
         if not data:
             break
         if associated_task:
@@ -142,6 +142,17 @@ def replace_line_in_file(file_path, old_line, new_line):
     for i,line in enumerate(lines):
         if line.startswith(old_line):
             lines[i] = new_line
+    f.writelines(lines)
+    f.close()
+
+def remove_line_in_file(file_path, rm_line):
+    f = open(file_path, 'r')
+    lines = f.readlines()
+    f.close()
+    f = open(file_path, 'w')
+    for i,line in enumerate(lines):
+        if line.startswith(rm_line):
+            lines[i] = ""
     f.writelines(lines)
     f.close()
 
