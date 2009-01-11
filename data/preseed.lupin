@@ -32,7 +32,7 @@ d-i mirror/http/proxy string
 d-i mirror/suite string jaunty
 
 ## PARTITIONING
-$(partitioning)s
+$(partitioning)
 d-i partman/confirm_write_new_label boolean true
 d-i partman/choose_partition \
        select Finish partitioning and write changes to disk
@@ -40,13 +40,13 @@ d-i partman/confirm boolean true
 
 ## CLOCK AND TIME ZONE
 d-i clock-setup/utc boolean false
-d-i time/zone string $(timezone)s
+d-i time/zone string $(timezone)
 
 ## USER ACCOUNT
 d-i passwd/root-login boolean false
-d-i passwd/user-fullname string $(user_full_name)s
-d-i passwd/username string $(user_name)s
-d-i passwd/user-password-crypted password $(password)s
+d-i passwd/user-fullname string $(user_full_name)
+d-i passwd/username string $(username)
+d-i passwd/user-password-crypted password $(password)
 
 ## BOOT LOADER
 d-i lilo-installer/skip boolean true
@@ -55,7 +55,7 @@ d-i grub-installer/only_debian boolean true
 d-i grub-installer/with_other_os boolean true
 
 ## PACKAGE SELECTION
-tasksel tasksel/first multiselect $(distro_packages)s
+tasksel tasksel/first multiselect $(distro_packages)
 
 ## FINISH FIRST STAGE
 d-i finish-install/reboot_in_progress note
@@ -67,8 +67,8 @@ xserver-xorg xserver-xorg/autodetect_monitor boolean true
 ## MIGRATION-ASSISTANT
 #UserFolder=$(user_directory)
 d-i anna/choose_modules multiselect migration-assistant
-d-i migration-assistant/partitions multiselect $(host_os_name)s (/dev/MADEVICE)
-d-i migration-assistant/MADEVICE/users multiselect $(host_user_name)s
-d-i migration-assistant/MADEVICE/$(safe_host_user_name)s/items multiselect AIM Triton, Internet Explorer, Yahoo, MSN, Opera, Firefox, Wallpaper, User Picture, Outlook Express, Gaim
-d-i migration-assistant/MADEVICE/$(safe_host_user_name)s/user string $(user_name)s
+d-i migration-assistant/partitions multiselect $(host_os_name) (/dev/MADEVICE)
+d-i migration-assistant/MADEVICE/users multiselect $(host_username)
+d-i migration-assistant/MADEVICE/$(safe_host_username)/items multiselect AIM Triton, Internet Explorer, Yahoo, MSN, Opera, Firefox, Wallpaper, User Picture, Outlook Express, Gaim
+d-i migration-assistant/MADEVICE/$(safe_host_username)/user string $(username)
 

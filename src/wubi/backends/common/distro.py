@@ -117,7 +117,6 @@ class Distro(object):
             return Distro.cache[(cd_or_iso_path, self.info_file)]
         else:
             Distro.cache[(cd_or_iso_path, self.info_file)] = None
-            log.debug("getting %s from %s" % (self.info_file,cd_or_iso_path))
             if os.path.isfile(cd_or_iso_path):
                 info_file = self.backend.extract_file_from_iso(
                     cd_or_iso_path,
@@ -171,12 +170,12 @@ class Distro(object):
         Ubuntu 9.04 "Jaunty Jackalope" - Alpha i386 (20090106.1)
         Ubuntu Split Name 9.04.1 "Jaunty Jackalope" - Final Release i386 (20090106.2)
         '''
-        log.debug("info=%s" % info)
+        log.debug("  info=%s" % info)
         info = disk_info_re.match(info)
         if not info:
             return None, None, None
         name = info.group('name')
         version = info.group('version')
         arch = info.group('arch')
-        log.debug("parsed info=%s" % info.groupdict())
+        log.debug("  parsed info=%s" % info.groupdict())
         return name, version, arch

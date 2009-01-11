@@ -77,6 +77,7 @@ class Backend(object):
             Task(self.choose_disk_sizes, description="Choosing disk sizes"),
             Task(self.create_preseed, description="Creating a preseed file"),
             Task(self.modify_bootloader, description="Adding a new bootlader entry"),
+            Task(self.modify_grub_configuration, description="Setting up installation boot menu"),
             Task(self.create_virtual_disks, description="Creating the virtual disks"),
             Task(self.uncompress_files, description="Uncompressing files"),
             Task(self.eject_cd, description="Ejecting the CD"),
@@ -130,7 +131,7 @@ class Backend(object):
         self.info.uninstaller_path = self.get_uninstaller_path()
         self.info.previous_target_dir = self.get_previous_target_dir()
         self.info.previous_backup_dir = self.get_previous_backup_dir()
-        self.info.keyboard_layout = self.get_keyboard_layout()
+        self.info.keyboard_layout, self.info.keyboard_variant = self.get_keyboard_layout()
         self.info.total_memory_mb = self.get_total_memory_mb()
         self.info.locale = self.get_locale(self.info.language)
         self.info.iso_path, self.info.iso_distro = self.find_any_iso()
@@ -480,19 +481,22 @@ class Backend(object):
             %(join_path(self.info.disks_dir, 'usr.disk'), self.info.usr_size_mb, self.info.usr_size_mb)
         safe_host_username = self.info.host_username.replace(" ", "+")
         user_directory = self.info.user_directory.replace("\\", "/")[2:]
-        host_os_name = "Windows XP Professional"
+        host_os_name = "Windows XP Professional" #TBD
         dic = dict(
             timezone = self.info.timezone,
             password = self.info.password,
             user_full_name = self.info.user_full_name,
             distro_packages = self.info.distro.packages,
             host_username = self.info.host_username,
-            user_name = self.info.username,
+            username = self.info.username,
             partitioning = partitioning,
             user_directory = user_directory,
             safe_host_username = safe_host_username,
             host_os_name = host_os_name,)
-        content = template % dic
+        content = template
+        for k,v in dic.items():
+            k = "$(%s)" % k
+            content = content.replace(k, v)
         preseed_file = join_path(self.info.custominstall, "preseed.conf")
         write_file(preseed_file, content)
 
@@ -502,16 +506,17 @@ class Backend(object):
 
     def modify_grub_configuration(self):
         template_file = join_path(self.info.datadir, 'menu.install')
+        template = read_file(template_file)
         if self.info.cd_path:
             isopath = unixpath(self.info.cd_path)
         elif self.info.iso_path:
             isopath = unixpath(self.info.iso_path)
         dic = dict(
-            custominstallationdir = unixpath(self.info.custominstall),
-            isopath = isopath,
-            keyboardvariant = self.info.keyboardvariant,
+            custom_installation_dir = unixpath(self.info.custominstall),
+            iso_path = isopath,
+            keyboard_variant = self.info.keyboard_variant,
+            keyboard_layout = self.info.keyboard_layout,
             locale = self.info.locale,
-            layoutcode = self.info.layoutcode,
             accessibility = self.info.accessibility,
             kernel = unixpath(self.info.kernel),
             initrd = unixpath(self.info.initrd),
@@ -521,7 +526,10 @@ class Backend(object):
             verbose_mode_title = "Verbose mode",
             demo_mode_title =  "Demo mode",
             )
-        content = template_file % dic
+        content = template
+        for k,v in dic.items():
+            k = "$(%s)" % k
+            content = content.replace(k, v)
         grub_config_file = join_path(self.info.install_boot_dir, "grub", "menu.lst")
         write_file(grub_config_file, content)
 

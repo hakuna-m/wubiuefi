@@ -82,7 +82,7 @@ def create_virtual_disk(path, size_mb):
     zero_file(file_handle, clear_bytes)
 
     # Set pointer to end - clear_bytes of file
-    file_pos.QuadPart = -clear_bytes-2
+    file_pos.QuadPart = -clear_bytes - 2
     result = SetFilePointerEx(
                    file_handle,
                    file_pos,

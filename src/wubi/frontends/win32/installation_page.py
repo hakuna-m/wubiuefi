@@ -200,6 +200,7 @@ class InstallationPage(Page):
             self.main,
             40, self.main.height - 20, self.main.width - 80, 12,
             "")
+        self.error_label.set_text_color(255, 0, 0)
 
     def on_cancel(self):
         self.frontend.cancel()

@@ -317,25 +317,22 @@ class WindowsBackend(Backend):
         return user_directory
 
     def get_keyboard_layout(self):
-        keyboard_layout = ctypes.windll.user32.GetKeyboardLayout(0)
-        log.debug('keyboard_layout=%s' % keyboard_layout)
-        return keyboard_layout
-
+        win_keyboard_id = ctypes.windll.user32.GetKeyboardLayout(0)
         #~ lower word is the locale identifier (higher word is a handler to the actual layout)
-        #~ IntOp $hkl $0 & 0xFFFFFFFF
-        #~ IntFmt $hkl '0x%08X' $hkl
-        #~ IntOp $localeid $0 & 0x0000FFFF
-        #~ IntFmt $localeid '0x%04X' $localeid
-        #~ ReadINIStr $layoutcode $PLUGINSDIR\data\keymaps.ini 'keymaps' '$localeid'
-        #~ ReadINIStr $keyboardvariant $PLUGINSDIR\data\variants.ini 'hkl2variant' '$hkl'
-        #~ #${debug} 'hkl=$hkl, localeid=$localeid, layoutcode=$layoutcode, keyboardvariant=$keyboardvariant'
-        #~ ${if} '$layoutcode' != ''
-        #~ return
-        #~ ${endif}
-        #~ safetynet:
-        #~ StrCpy $layoutcode '$country'
-        #~ ${StrFilter} '$layoutcode' '-' '' '' '$layoutcode' #lowercase
-        #~ ${debug} 'LayoutCode=$LayoutCode'
+        locale_id = win_keyboard_id & 0x0000FFFF
+        locale_id = '0x%04X' % locale_id
+        keyboard_layout = mappings.keymaps.get(locale_id)
+        if not keyboard_layout:
+            keyboard_layout = self.info.country.lower()
+        variant_id = win_keyboard_id & 4294967295L #0xFFFFFFFF
+        variant_id = '0x%08X' % variant_id
+        keyboard_variant = mappings.hkl2variant.get(variant_id)
+        if not keyboard_variant:
+            keyboard_variant = ""
+        log.debug('keyboard_id=%s' % win_keyboard_id)
+        log.debug('keyboard_layout=%s' % keyboard_layout)
+        log.debug('keyboard_variant=%s' % keyboard_variant)
+        return keyboard_layout, keyboard_variant
 
     def get_system_drive(self):
         system_drive = os.getenv('SystemDrive')

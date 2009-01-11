@@ -149,11 +149,15 @@ class BasicWindow(object):
 
 class Window(BasicWindow):
     _repaint_on_move_ = False
+    _is_transparent_ = False
 
     def __init__(self, parent=None, x=None, y=None, width=None, height=None, text=None, frontend=None):
         self._gdi_disposables = []
-        BasicWindow.__init__(self, parent, x, y, width, height, text, frontend)
         self._background_color = None
+        self._background_color_  = None
+        self._text_color = None
+        BasicWindow.__init__(self, parent, x, y, width, height, text, frontend)
+        self.set_font()
 
     def get_window_rect(self):
         rect = RECT()
@@ -199,7 +203,10 @@ class Window(BasicWindow):
             #~ raise WinError()
             pass
 
-    def update(self):
+    def update(self, full=False):
+        if full:
+            windll.user32.ShowWindow(self._hwnd, SW_HIDE)
+            windll.user32.ShowWindow(self._hwnd, SW_SHOW)
         if not windll.user32.UpdateWindow(self._hwnd):
             raise WinError()
 
@@ -238,15 +245,16 @@ class Window(BasicWindow):
         text = gettext(text)
         self.set_text(text)
 
-    def set_background_color(self, red255=None, blue255=None, green255=None):
+    def set_background_color(self, red255=None, green255=None, blue255=None):
         #~ windll.user32.SetClassLongW(self._hwnd, GCL_HBRBACKGROUND, COLOR_WINDOW+1)
         '''
         -1, -1, -1 = transparent
         -2 = transparent
         '''
-        if (red255, blue255, green255) == (None, None, None):
-            self._background_color = None #COLOR_WINDOW
+        if (red255, green255, blue255) == (None, None, None):
+            self._background_color_ = None
         else:
+            self._background_color_ = (red255, green255, blue255)
             self._background_color = windll.gdi32.CreateSolidBrush(RGB(red255, blue255, green255))
             self._gdi_disposables.append(self._background_color)
         #NO SETS THE COLOR FOR ALL THE CLASS
@@ -261,11 +269,22 @@ class Window(BasicWindow):
             #~ windll.user32.SetClassLongW(self._hwnd, GCL_HBRBACKGROUND, RGB(red255, blue255, green255))
         #~ windll.user32.EndPaint(self._hwnd, byref(ps))
 
-    def set_text_color(self, red255, blue255, green255):
-        ps = PAINTSTRUCT()
-        hdc = windll.user32.BeginPaint(self._hwnd, byref(ps))
-        windll.gdi32.SetTextColor(hdc, COLOR_WINDOW+1)
-        windll.user32.EndPaint(self._hwnd, byref(ps))
+    def set_text_color(self, red255=None, green255=None, blue255=None):
+        if (red255, green255, blue255) == (None, None, None):
+            self._text_color = None
+        else:
+            self._text_color = (red255, green255, blue255)
+
+    def set_transparency(self, transparent):
+        self.is_transparent = transparent
+        self.update(full = True)
+
+    def _on_command(self, event):
+        self.on_command(event)
+    _on_command = event_handler(message=WM_COMMAND, lparam=SELF_HWND)(_on_command)
+
+    def on_command(self, event):
+        pass
 
     def stop_redraw(self):
         self._send_message(WM_SETREDRAW, False, 0)
@@ -294,6 +313,36 @@ class Window(BasicWindow):
             windll.user32.EndPaint(self._hwnd, byref(ps))
         self.on_paint()
     _on_paint = event_handler(message=WM_PAINT, hwnd=SELF_HWND)(_on_paint)
+
+    def _paint_background_rect(self):
+        ps = PAINTSTRUCT()
+        rect = RECT()
+        windll.user32.GetClientRect(self._hwnd, byref(rect))
+        hdc = windll.user32.BeginPaint(self._hwnd, byref(ps))
+        windll.user32.FillRect(hdc, byref(rect), RGB(255, 0, 0));
+        windll.user32.EndPaint(self._hwnd, byref(ps))
+
+    def _on_ctlcolorstatic(self, event):
+        parent_hwnd = event[0]
+        hdc = event[2]
+        #WM_CTLCOLORSTATIC (http://msdn.microsoft.com/library/en-us/shellcc/platform/commctls/staticcontrols/staticcontrolreference/staticcontrolmessages/wm_ctlcolorstatic.asp?frame=true)
+        # hdc = windll.user32.GetDC(hwnd)
+        # brush = windll.gdi32.GetStockObject(NULL_BRUSH);
+        # brush = windll.user32.GetSysColorBrush(COLOR_WINDOW)
+        # brush = windll.gdi32.CreateSolidBrush(0x00FFFFFF)
+        # windll.user32.ReleaseDC(hwnd,hdc)
+        brush = None
+        if self._text_color:
+            color=RGB(*self._text_color)
+            windll.gdi32.SetTextColor(hdc, color)
+        if self._is_transparent_:
+            self._paint_background_rect()
+            windll.gdi32.SetBkMode(hdc, TRANSPARENT)
+            brush = LONG(windll.gdi32.GetStockObject(NULL_BRUSH))
+            self._paint_background_rect()
+        #~ brush = LONG(windll.gdi32.GetStockObject(3))
+        return None
+    _on_ctlcolorstatic = event_handler(message=WM_CTLCOLORSTATIC, lparam=SELF_HWND)(_on_ctlcolorstatic)
 
     def on_paint(self):
         pass
@@ -359,6 +408,7 @@ class Frontend(object):
         '''
         Really quit anything on the windows side, this is called by MainWindow.on_destroy
         '''
+        print "quitting"
         windll.user32.PostQuitMessage(0)
         self.run() #process any remaining message
         self.on_quit()
@@ -407,19 +457,11 @@ class Widget(Window):
     _window_style_ = WS_CHILD | WS_VISIBLE | WS_TABSTOP
     _window_ex_style_ = 0
 
-    def _on_command(self, event):
-        self.on_command(event)
-    _on_command = event_handler(message=WM_COMMAND, lparam=SELF_HWND)(_on_command)
-
-    def on_command(self, event):
-        pass
-
-    def on_init(self):
-        self.set_font()
-
 class StaticWidget(Widget):
     _window_class_name_ = "STATIC"
     _window_style_ = WS_CHILD | WS_VISIBLE
+    _window_ex_style_ = WS_EX_TRANSPARENT
+    _is_transparent_ = True
 
 class EtchedRectangle(Widget):
     _window_class_name_ = "STATIC"
@@ -506,14 +548,18 @@ class DefaultButton(Button):
 class RadioButton(Button):
     _window_class_name_ = "BUTTON"
     _window_style_ = Widget._window_style_ | BS_AUTORADIOBUTTON
+    _is_transparent_ = True
+    _window_ex_style_ = WS_EX_TRANSPARENT
 
 class GroupBox(Button):
     _window_class_name_ = "BUTTON"
     _window_style_ = Widget._window_style_ |BS_GROUPBOX
+    _is_transparent_ = True
 
 class CheckButton(Button):
     _window_class_name_ = "BUTTON"
     _window_style_ = Widget._window_style_ | BS_AUTOCHECKBOX
+    _is_transparent_ = True
 
     #~ def _on_ctlcolorbtn(self, event):
         #~ parent_hwnd = event[0]
@@ -527,23 +573,10 @@ class Label(StaticWidget):
     _window_class_name_ = "Static"
     _window_style_ = StaticWidget._window_style_ | SS_NOPREFIX
 
-    #~ def _on_ctlcolorstatic(self, event):
-        #~ parent_hwnd = event[0]
-        #~ hdc = event[2]
-        #~ #WM_CTLCOLORSTATIC (http://msdn.microsoft.com/library/en-us/shellcc/platform/commctls/staticcontrols/staticcontrolreference/staticcontrolmessages/wm_ctlcolorstatic.asp?frame=true)
-        #~ # hdc = windll.user32.GetDC(hwnd)
-        #~ # brush = windll.gdi32.GetStockObject(NULL_BRUSH);
-        #~ # brush = windll.user32.GetSysColorBrush(COLOR_WINDOW)
-        #~ # brush = windll.gdi32.CreateSolidBrush(0x00FFFFFF)
-        #~ # windll.user32.ReleaseDC(hwnd,hdc)
-        #~ windll.gdi32.SetBkMode(hdc, TRANSPARENT);
-        #~ self.update()
-        #~ return LONG(self._background_color)
-    #~ _on_ctlcolorstatic = event_handler(message=WM_CTLCOLORSTATIC, lparam=SELF_HWND)(_on_ctlcolorstatic)
-
-class Bitmap(Widget):
+class Bitmap(StaticWidget):
     _window_class_name_ = "Static"
-    _window_style_ = StaticWidget._window_style_|SS_BITMAP
+    _window_style_ = StaticWidget._window_style_ | SS_BITMAP
+    _window_ex_style_ = WS_EX_TRANSPARENT
 
     def set_image(self, path, width=0, height=0):
         path = unicode(path)
