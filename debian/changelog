@@ -85,4 +85,7 @@ wubi (9.04) UNRELEASED; urgency=low
   [ Hampus Wessman ]
   * Fixed a bug in virtualdisk.py
 
- -- Hampus Wessman <hampus@debian.home>  Sun, 11 Jan 2009 20:06:42 +0100
+  [ Agostino Russo ]
+  * Fixed formatting of the partitioning section in the preseed file
+
+ -- Agostino Russo <agostino.russo@gmail.com>  Sun, 11 Jan 2009 19:23:07 +0000

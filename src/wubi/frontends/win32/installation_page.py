@@ -64,7 +64,7 @@ class InstallationPage(Page):
                 if d.type in ['removable', 'hd']
                 and d.free_space_mb > 3000]
             if not drives:
-                self.frontend.show_error_message("Not enough disk space, 2.5GB minimum are required")
+                self.frontend.show_error_message("Not enough disk space, 4GB minimum are required")
                 self.frontend.cancel()
         else:
             drives = [
@@ -108,6 +108,9 @@ class InstallationPage(Page):
             self.size_list.add_item(item)
         if listitems:
             self.size_list.set_value(listitems[max(0,len(listitems)-2)])
+        else:
+            self.frontend.show_error_message("Not enough disk space, 4GB minimum are required")
+            self.frontend.cancel()
 
     def populate_distro_list(self):
         if self.info.cd_distro:

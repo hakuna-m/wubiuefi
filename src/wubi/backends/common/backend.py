@@ -38,7 +38,7 @@ from metalink import parse_metalink
 from tasklist import ThreadedTaskList, Task
 from distro import Distro
 from mappings import lang_country2linux_locale
-from utils import copytree, join_path, run_command, copy_file, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unixpath
+from utils import copytree, join_path, linux_path, run_command, copy_file, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unixpath
 from os.path import abspath, dirname, isfile, isdir, exists
 
 log = logging.getLogger("CommonBackend")
@@ -461,24 +461,25 @@ class Backend(object):
     def create_preseed(self):
         template_file = join_path(self.info.datadir, 'preseed.lupin')
         template = read_file(template_file)
-        partitioning = '''
-        d-i partman-auto/disk string LIDISK
-        d-i partman-auto/method string loop
-        d-i partman-auto-loop/partition string LIPARTITION
-        d-i partman-auto-loop/recipe string   \
-        '''
+        partitioning = ""
+        partitioning += "d-i partman-auto/disk string LIDISK\n"
+        partitioning += "d-i partman-auto/method string loop\n"
+        partitioning += "d-i partman-auto-loop/partition string LIPARTITION\n"
+        partitioning += "d-i partman-auto-loop/recipe string \\ \n"
+        disks_dir = linux_path(self.info.disks_dir) + '/'
         if self.info.root_size_mb:
-            partitioning += '%s 3000 %s %s ext3 method{ format } format{ } use_filesystem{ } filesystem{ ext3 } mountpoint{ / } .' \
-            %(join_path(self.info.disks_dir, 'root.disk'), self.info.root_size_mb, self.info.root_size_mb)
+            partitioning += '  %s 3000 %s %s ext3 method{ format } format{ } use_filesystem{ } filesystem{ ext3 } mountpoint{ / } . \\ \n' \
+            %(disks_dir + 'root.disk', self.info.root_size_mb, self.info.root_size_mb)
         if self.info.swap_size_mb:
-            partitioning += '%s 100 %s %s linux-swap method{ swap } format{ } .' \
-            %(join_path(self.info.disks_dir, 'swap.disk'), self.info.swap_size_mb, self.info.swap_size_mb)
+            partitioning += '  %s 100 %s %s linux-swap method{ swap } format{ } . \\ \n' \
+            %(disks_dir + 'swap.disk', self.info.swap_size_mb, self.info.swap_size_mb)
         if self.info.home_size_mb:
-            partitioning += '%s 100 %s %s ext3 method{ format } format{ } use_filesystem{ } filesystem{ ext3 } mountpoint{ /home } .' \
-            %(join_path(self.info.disks_dir, 'home.disk'), self.info.home_size_mb, self.info.home_size_mb)
+            partitioning += '  %s 100 %s %s ext3 method{ format } format{ } use_filesystem{ } filesystem{ ext3 } mountpoint{ /home } . \\ \n' \
+            %(disks_dir + 'home.disk', self.info.home_size_mb, self.info.home_size_mb)
         if self.info.usr_size_mb:
-            partitioning += '%s 100 %s %s ext3 method{ format } format{ } use_filesystem{ } filesystem{ ext3 } mountpoint{ /usr } .' \
-            %(join_path(self.info.disks_dir, 'usr.disk'), self.info.usr_size_mb, self.info.usr_size_mb)
+            partitioning += '  %s 100 %s %s ext3 method{ format } format{ } use_filesystem{ } filesystem{ ext3 } mountpoint{ /usr } . \\ \n' \
+            %(disks_dir + 'usr.disk', self.info.usr_size_mb, self.info.usr_size_mb)
+        partitioning += "\n"
         safe_host_username = self.info.host_username.replace(" ", "+")
         user_directory = self.info.user_directory.replace("\\", "/")[2:]
         host_os_name = "Windows XP Professional" #TBD
