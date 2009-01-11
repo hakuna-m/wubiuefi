@@ -57,7 +57,7 @@ def create_virtual_disk(path, size_mb):
 
     # Set pointer to end of file */
     file_pos = LARGE_INTEGER()
-    file_pos.QuadPart = size_mb*1024
+    file_pos.QuadPart = size_mb*1024*1024
     if not SetFilePointerEx(file_handle, file_pos, 0, FILE_BEGIN):
         log.exception("Failed to set file pointer to end of file")
 
@@ -82,12 +82,12 @@ def create_virtual_disk(path, size_mb):
     zero_file(file_handle, clear_bytes)
 
     # Set pointer to end - clear_bytes of file
-    file_pos.QuadPart = -clear_bytes - 2
+    file_pos.QuadPart = size_mb*1024*1024 - clear_bytes
     result = SetFilePointerEx(
                    file_handle,
                    file_pos,
                    NULL,
-                   FILE_END)
+                   FILE_BEGIN)
     if not result:
         log.exception("Failed to set file pointer to end - clear_bytes of file")
 

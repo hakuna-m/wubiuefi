@@ -82,4 +82,7 @@ wubi (9.04) UNRELEASED; urgency=low
     incomplete
   * Added wunui functionality that might help with transparent widgets
 
- -- Agostino Russo <agostino.russo@gmail.com>  Sun, 11 Jan 2009 17:27:01 +0000
+  [ Hampus Wessman ]
+  * Fixed a bug in virtualdisk.py
+
+ -- Hampus Wessman <hampus@debian.home>  Sun, 11 Jan 2009 20:06:42 +0100
