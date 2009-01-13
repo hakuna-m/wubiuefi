@@ -113,6 +113,7 @@ class Wubi(object):
         '''
         #TBD add non_interactive mode
         #TBD add cd_boot mode
+        self.frontend = self.get_frontend()
         if self.info.previous_target_dir or self.info.uninstall_dir:
             log.info("Already installed, running the uninstaller...")
             self.info.uninstall_before_install = True
@@ -120,7 +121,6 @@ class Wubi(object):
             self.backend.fetch_basic_info()
             if self.info.previous_target_dir or self.info.uninstall_dir:
                 self.quit()
-        self.frontend = self.get_frontend()
         log.info("Running the installer...")
         self.frontend.show_installation_settings()
         log.info("Received settings")
@@ -227,6 +227,7 @@ class Wubi(object):
             handler.setLevel(logging.DEBUG)
             log.addHandler(handler)
         # console logging
+        #~ if self.info.debug:
         handler = logging.StreamHandler()
         formatter = logging.Formatter('%(message)s', datefmt='%m-%d %H:%M')
         handler.setFormatter(formatter)

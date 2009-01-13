@@ -70,9 +70,12 @@ class WindowsBackend(Backend):
         self.info.bootloader = self.get_bootloader(self.info.windows_version)
         self.info.system_drive = self.get_system_drive()
         self.info.drives = self.get_drives()
+        drives = [(d.path[:2].lower(), d) for d in self.info.drives]
+        self.info.drives_dict = dict(drives)
 
     def select_target_dir(self):
-        target_dir = join_path(self.info.target_drive.path, self.info.application_name)
+        #TBD do not hardcode the "Ubuntu" name
+        target_dir = join_path(self.info.target_drive.path, "ubuntu")
         target_dir.replace(' ', '_')
         target_dir.replace('__', '_')
         gold_target_dir = target_dir
@@ -396,6 +399,8 @@ class WindowsBackend(Backend):
         return True
 
     def backup_iso(self, associated_task=None):
+        if not self.info.backup_iso:
+            return
         backup_dir = join_path(self.info.previous_target_dir[:2],  self.info.backup_dir)
         install_dir = join_path(self.info.previous_target_dir, "install")
         for f in os.listdir(install_dir):

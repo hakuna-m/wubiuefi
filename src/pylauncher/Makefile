@@ -2,6 +2,7 @@ export SHELL = sh
 PROG = pylauncher
 #DEBUG = yes
 #LDFLAGS = -shared -dll
+LDFLAGS = -mwindows
 #LIB = -lm -static
 #LIBS = user32.lib gdi32.lib shell32.lib
 CC = i586-mingw32msvc-gcc

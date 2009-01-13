@@ -74,6 +74,7 @@ class WindowsFrontend(ui.Frontend):
             self.current_page.hide()
         self.current_page = page
         page.show()
+        self.main_window.show()
         self.run()
 
     def show_installer_page(self):

@@ -56,61 +56,85 @@ class InstallationPage(Page):
             combo = None
         return picture, label, combo
 
+    def check_disk_free_space(self):
+        if self.info.skip_size_check:
+            return
+        distro = self.get_distro()
+        min_space_mb = distro.min_disk_space_mb + distro.max_iso_size/(1024**2)+ 100
+        max_space_mb = 0
+        max_space_mb2 = 0
+        for drive in self.info.drives:
+            if drive.type not in ['removable', 'hd']:
+                continue
+            max_space_mb = max(max_space_mb, drive.free_space_mb)
+            if int(drive.free_space_mb/1024) * 1000 > min_space_mb:
+                max_space_mb2 = max(max_space_mb2, drive.free_space_mb)
+        if max_space_mb2 < min_space_mb:
+            message = "%sMB of disk size are required for installation, only %sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?"
+            min_space_mb = round(min_space_mb/1024+0.5)*1000
+            message = message % (int(min_space_mb), int(max_space_mb))
+            if not self.frontend.ask_confirmation(message):
+                self.quit()
+            else:
+                self.info.skip_size_check = True
+
     def populate_drive_list(self):
-        #Check disk space
-        if self.info.skip_size_check or self.info.test:
-            drives = [
-                d for d in self.info.drives
-                if d.type in ['removable', 'hd']
-                and d.free_space_mb > 3000]
-            if not drives:
-                self.frontend.show_error_message("Not enough disk space, 4GB minimum are required")
-                self.frontend.cancel()
-        else:
-            drives = [
-                d for d in self.info.drives
-                if d.type in ['removable', 'hd']
-                and d.free_space_mb > 4000]
-            if not drives:
-                self.frontend.show_error_message("Not enough disk space, 4GB minimum are required")
-                self.frontend.cancel()
-        #Populate dialog
-        drives = [
-            "%s (%sGB free)" % (drive.path, int(drive.free_space_mb/1024))
-            for drive in drives]
-        for drive in drives:
-            self.target_drive_list.add_item(drive)
-        #Select default drive
-        target_drive = self.info.target_drive
-        if target_drive:
+        self.check_disk_free_space()
+        distro = self.get_distro()
+        min_space_mb = distro.min_disk_space_mb + distro.max_iso_size/(1024**2)+ 100
+        self.drives_gb = []
+        for drive in self.info.drives:
+            if drive.type not in ['removable', 'hd']:
+                continue
+            drive_space_mb = int(drive.free_space_mb/1024) * 1000
+            if self.info.skip_size_check \
+            or drive_space_mb > min_space_mb:
+                text = "%s (%sGB free)" % (drive.path, drive_space_mb/1000)
+                self.drives_gb.append(text)
+                self.target_drive_list.add_item(text)
+        self.select_default_drive()
+
+    def select_default_drive(self):
+        drive = self.info.target_drive
+        if drive:
             Drive = self.info.drives[0].__class__
-            if isinstance(target_drive, Drive):
-                target_drive = target_drive.path
-            target_drive = target_drive[:2]
-            for drive in drives:
-                if drive[:2] == target_drive:
-                    target_drive = drive
-                    break
-        if not target_drive:
-            target_drive = drives[0]
-        self.target_drive_list.set_value(target_drive)
+            if isinstance(drive, Drive):
+                pass
+            else:
+                drive = self.info.drives_dict.get(drive[:2].lower())
+        if drive:
+            drive = "%s (%sGB free)" % (drive.path, int(drive.free_space_mb/1024))
+        else:
+            drive = self.drives_gb[0]
+        self.target_drive_list.set_value(drive)
+        self.on_drive_change()
 
     def populate_size_list(self):
-        target_drive = self.target_drive_list.get_text()[:2]
-        for drive in self.info.drives:
-            if drive.path == target_drive:
-                target_drive = drive
-                break
-        freespace = min(30, int(target_drive.free_space_mb / 1024.0))
-        #this will be 1-2GB less than the full disk to have space for the ISO
-        listitems =  ["%sGB" % x for x in range(3, freespace)]
-        for item in listitems:
-            self.size_list.add_item(item)
-        if listitems:
-            self.size_list.set_value(listitems[max(0,len(listitems)-2)])
-        else:
-            self.frontend.show_error_message("Not enough disk space, 4GB minimum are required")
-            self.frontend.cancel()
+        target_drive = self.get_drive()
+        distro = self.get_distro()
+        min_space_mb = distro.min_disk_space_mb
+        #this will be 1-2GB less than the disk free space, to have space for the ISO
+        self.size_list_gb = []
+        for i in range(1, 31):
+            #~ log.debug("%s < %s and %s > %s" % (i * 1000 + distro.max_iso_size/1024**2 + 100 , target_drive.free_space_mb, i * 1000 , distro.min_disk_space_mb))
+            if self.info.skip_size_check \
+            or i * 1000 >= distro.min_disk_space_mb: #use 1000 as it is more conservative
+                if i * 1000 + distro.max_iso_size/1024**2 + 100 <= target_drive.free_space_mb:
+                    self.size_list_gb.append(i)
+                    self.size_list.add_item("%sGB" % i)
+        self.select_default_size()
+
+    def select_default_size(self):
+        if self.info.installation_size_mb:
+            installation_size_gb = int(self.info.installation_size_mb/1000)
+            for i in self.size_list_gb:
+                if i >= installation_size_gb:
+                    self.size_list.set_value("%sGB" % i)
+                    return
+        i = int(len(self.size_list_gb)/2)
+        installation_size_gb = self.size_list_gb[i]
+        self.size_list.set_value("%sGB" % installation_size_gb)
+        self.on_size_change()
 
     def populate_distro_list(self):
         if self.info.cd_distro:
@@ -125,6 +149,7 @@ class InstallationPage(Page):
         for distro in distros:
             self.distro_list.add_item(distro)
         self.distro_list.set_value(distros[0])
+        self.on_distro_change()
 
     def populate_language_list(self):
         languages = self.info.languages
@@ -157,17 +182,20 @@ class InstallationPage(Page):
         picture, label, self.target_drive_list = self.add_controls_block(
             self.main, h, h,
             "install.bmp", "Installation drive:", True)
-        self.populate_drive_list()
+        # populated by on_distro_change
+        self.target_drive_list.on_change = self.on_drive_change
 
         picture, label, self.size_list = self.add_controls_block(
                 self.main, h, h*4,
                 "systemsize.bmp", "Installation size:", True)
-        self.populate_size_list()
+        # populated by on_drive_change
+        self.size_list.on_change = self.on_size_change
 
         picture, label, self.distro_list = self.add_controls_block(
             self.main, h, h*7,
             "desktop.bmp", "Desktop environment:", True)
         self.populate_distro_list()
+        self.distro_list.on_change = self.on_distro_change
 
         picture, label, self.language_list = self.add_controls_block(
             self.main, h*4 + w, h,
@@ -205,6 +233,41 @@ class InstallationPage(Page):
             "")
         self.error_label.set_text_color(255, 0, 0)
 
+    def get_drive(self):
+        target_drive = self.target_drive_list.get_text()[:2].lower()
+        drive = self.info.drives_dict.get(target_drive)
+        return drive
+
+    def get_distro(self):
+        distro_name = str(self.distro_list.get_text()).lower()
+        distro = self.info.distros_dict.get((distro_name, self.info.arch))
+        return distro
+
+    def get_installation_size_mb(self):
+        installation_size = self.size_list.get_text()
+        #using 1000 as opposed to 1024
+        installation_size = int(installation_size[:-2])*1000
+        return installation_size
+
+    def on_distro_change(self):
+        distro = self.get_distro()
+        if not self.info.skip_memory_check:
+            if self.info.total_memory_mb < distro.min_memory_mb:
+                message = "%sMB of memory are required for installation, only %sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?"
+                message = message % (int(distro.min_memory_mb), int(self.info.total_memory_mb))
+                if not self.frontend.ask_confirmation(message):
+                    self.quit()
+                else:
+                    self.info.skip_memory_check = True
+        self.populate_drive_list()
+
+    def on_drive_change(self):
+        self.info.target_drive = self.get_drive()
+        self.populate_size_list()
+
+    def on_size_change(self):
+        self.info.installation_size_mb = self.get_installation_size_mb()
+
     def on_cancel(self):
         self.frontend.cancel()
 
@@ -213,14 +276,13 @@ class InstallationPage(Page):
 
     def on_install(self):
         info = self.info
-        target_drive = self.target_drive_list.get_text()[:2]
-        installation_size = self.size_list.get_text()
-        distro_name = str(self.distro_list.get_text())
+        drive = self.get_drive()
+        installation_size_mb = self.get_installation_size_mb()
+        distro = self.get_distro()
         language = self.language_list.get_text()
         username = self.username.get_text()
         password1 = self.password1.get_text()
         password2 = self.password2.get_text()
-
         error_message = ""
         if not username:
             error_message = _("Please enter a valid username")
@@ -244,18 +306,11 @@ class InstallationPage(Page):
         if error_message:
             return
         log.debug(
-            "target_drive=%s\ninstallation_size=%s\ndistro_name=%s\nlanguage=%s\nusername=%s" \
-            % (target_drive, installation_size, distro_name, language, username))
-        for drive in info.drives:
-            if drive.path[:2] == target_drive:
-                info.target_drive = drive
-                break
-        for distro in info.distros:
-            if distro.name == distro_name \
-            and distro.arch == info.arch:
-                info.distro = distro
-                break
-        info.installation_size_mb = int(installation_size[:-2])*1000 #using 1000 as opposed to 1024
+            "target_drive=%s\ninstallation_size=%sMB\ndistro_name=%s\nlanguage=%s\nusername=%s" \
+            % (drive.path, installation_size_mb, distro.name, language, username))
+        info.target_drive = drive
+        info.distro = distro
+        info.installation_size_mb = installation_size_mb
         info.language = language
         info.username = username
         info.password = get_md5(password1)

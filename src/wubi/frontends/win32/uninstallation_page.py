@@ -58,7 +58,7 @@ class UninstallationPage(Page):
             40, 40, self.main.width - 80, 30,
             msg)
         self.backup_iso = ui.CheckButton(
-            self.main, 80, 60, self.main.width - 120, 12,
+            self.main, 80, 70, self.main.width - 120, 12,
             "Backup the downloaded files (ISO)")
         self.backup_iso.set_check(False)
         self.backup_iso.hide()

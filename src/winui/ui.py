@@ -46,7 +46,7 @@ def event_dispatcher(hwnd, message, wparam, lparam):
         handler = getattr(obj, handler_name, None)
         if not callable(handler): continue
         if handler((hwnd, message, wparam, lparam)):
-            return
+            return 1
     return windll.user32.DefWindowProcW(
         c_int(hwnd),
         c_int(message),
@@ -203,6 +203,9 @@ class Window(BasicWindow):
             #~ raise WinError()
             pass
 
+    def set_focus(self):
+        windll.user32.SetFocus(self._hwnd)
+
     def update(self, full=False):
         if full:
             windll.user32.ShowWindow(self._hwnd, SW_HIDE)
@@ -314,14 +317,6 @@ class Window(BasicWindow):
         self.on_paint()
     _on_paint = event_handler(message=WM_PAINT, hwnd=SELF_HWND)(_on_paint)
 
-    def _paint_background_rect(self):
-        ps = PAINTSTRUCT()
-        rect = RECT()
-        windll.user32.GetClientRect(self._hwnd, byref(rect))
-        hdc = windll.user32.BeginPaint(self._hwnd, byref(ps))
-        windll.user32.FillRect(hdc, byref(rect), RGB(255, 0, 0));
-        windll.user32.EndPaint(self._hwnd, byref(ps))
-
     def _on_ctlcolorstatic(self, event):
         parent_hwnd = event[0]
         hdc = event[2]
@@ -336,12 +331,9 @@ class Window(BasicWindow):
             color=RGB(*self._text_color)
             windll.gdi32.SetTextColor(hdc, color)
         if self._is_transparent_:
-            self._paint_background_rect()
             windll.gdi32.SetBkMode(hdc, TRANSPARENT)
             brush = LONG(windll.gdi32.GetStockObject(NULL_BRUSH))
-            self._paint_background_rect()
-        #~ brush = LONG(windll.gdi32.GetStockObject(3))
-        return None
+        return brush
     _on_ctlcolorstatic = event_handler(message=WM_CTLCOLORSTATIC, lparam=SELF_HWND)(_on_ctlcolorstatic)
 
     def on_paint(self):
@@ -369,7 +361,6 @@ class Frontend(object):
             main_window_class = self._main_window_class_
         self.main_window = main_window_class(**kargs)
         self.on_init()
-        self.main_window.show()
 
     def run(self):
         '''
@@ -380,9 +371,14 @@ class Frontend(object):
         self._keep_running = True
         self.on_run()
         while self._keep_running and windll.user32.GetMessageW(pMsg, NULL, 0, 0) > 0:
-            windll.user32.TranslateMessage(pMsg)
-            windll.user32.DispatchMessageW(pMsg)
-        return msg.wParam
+            #~ print pMsg.contents.message, pMsg.contents.hWnd, pMsg.contents.lParam, pMsg.contents.wParam, pMsg.contents.pt, pMsg.contents.time
+            #TBD if IsDialogMessage is used, other messages are not processed, for now doing a manual exception
+            if self.main_window._hwnd == NULL \
+            or pMsg.contents.message in (WM_COMMAND, WM_PAINT, WM_CTLCOLORSTATIC, WM_DESTROY) \
+            or not windll.user32.IsDialogMessage(self.main_window._hwnd , pMsg):
+                windll.user32.TranslateMessage(pMsg)
+                windll.user32.DispatchMessageW(pMsg)
+        #~ return msg.wParam
 
     def stop(self):
         '''
@@ -438,6 +434,7 @@ class MainWindow(Window):
 
     _window_class_name_ = None
     _window_style_ = WS_OVERLAPPEDWINDOW
+    _window_ex_style_ = WS_EX_CONTROLPARENT
 
     def on_destroy(self):
         self.frontend._quit()
@@ -470,16 +467,17 @@ class EtchedRectangle(Widget):
 class Panel(Window):
     _window_class_name_ = None
     _window_style_ = WS_CHILD | WS_VISIBLE
-    _window_ex_style_ = 0
+    _window_ex_style_ = WS_EX_CONTROLPARENT
     #_window_style_ = StaticWidget._window_style_|WS_BORDER
 
 class Edit(Widget):
     _window_class_name_ = "EDIT"
+    _window_style_ = Widget._window_style_ | WS_TABSTOP
     _window_ex_style_ = WS_EX_CLIENTEDGE
 
 class PasswordEdit(Widget):
     _window_class_name_ = "EDIT"
-    _window_style_ = Widget._window_style_ | ES_PASSWORD
+    _window_style_ = Widget._window_style_ | ES_PASSWORD | WS_TABSTOP
     _window_ex_style_ = WS_EX_CLIENTEDGE
 
 class Tab(Widget):
@@ -502,14 +500,18 @@ class Tooltip(Widget):
 
 class ListBox(Widget):
     _window_class_name_ = "ListBox"
-    _window_style_ = Widget._window_style_
+    _window_style_ = Widget._window_style_  | WS_TABSTOP
 
     def add_item(self, text):
         self._send_message(LB_ADDSTRING, 0, unicode(text))
 
 class ComboBox(Widget):
     _window_class_name_ = "COMBOBOX" #"ComboBoxEx32"
-    _window_style_ = Widget._window_style_ | CBS_DROPDOWNLIST | WS_VSCROLL
+    _window_style_ = Widget._window_style_ | CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+
+    def on_command(self, event):
+        if event[2] == 589824: #TBD use a constant name
+            self.on_change()
 
     def set_value(self, value):
         self._send_message(CB_SELECTSTRING, -1, unicode(value)) # CB_SETCURSEL, value, 0)
@@ -517,12 +519,15 @@ class ComboBox(Widget):
     def add_item(self, text):
         self._send_message(CB_ADDSTRING, 0, unicode(text))
 
+    def on_change(self):
+        pass
+
 class SortedComboBox(ComboBox):
     _window_style_ = ComboBox._window_style_ | CBS_SORT
 
 class Button(Widget):
     _window_class_name_ = "BUTTON"
-    _window_style_ = Widget._window_style_ | BS_PUSHBUTTON
+    _window_style_ = Widget._window_style_ | BS_PUSHBUTTON | WS_TABSTOP
 
     def on_command(self, event):
         if event[2] == 0:
@@ -543,23 +548,25 @@ class Button(Widget):
         pass
 
 class DefaultButton(Button):
-    _window_style_ = Widget._window_style_ | BS_DEFPUSHBUTTON
+    _window_style_ = Widget._window_style_ | BS_DEFPUSHBUTTON  | WS_TABSTOP
 
 class RadioButton(Button):
     _window_class_name_ = "BUTTON"
-    _window_style_ = Widget._window_style_ | BS_AUTORADIOBUTTON
+    _window_style_ = Widget._window_style_ | BS_AUTORADIOBUTTON | WS_TABSTOP
     _is_transparent_ = True
     _window_ex_style_ = WS_EX_TRANSPARENT
 
 class GroupBox(Button):
     _window_class_name_ = "BUTTON"
-    _window_style_ = Widget._window_style_ |BS_GROUPBOX
+    _window_style_ = Widget._window_style_ | BS_GROUPBOX  #| WS_TABSTOP
     _is_transparent_ = True
+    _window_ex_style_ = WS_EX_CONTROLPARENT
 
 class CheckButton(Button):
     _window_class_name_ = "BUTTON"
-    _window_style_ = Widget._window_style_ | BS_AUTOCHECKBOX
+    _window_style_ = Widget._window_style_ | BS_AUTOCHECKBOX  | WS_TABSTOP
     _is_transparent_ = True
+    _window_ex_style_ = WS_EX_TRANSPARENT
 
     #~ def _on_ctlcolorbtn(self, event):
         #~ parent_hwnd = event[0]
@@ -627,4 +634,4 @@ class Link(Widget):
 class Page(Window):
     _window_class_name_ = None
     _window_style_ = WS_CHILD
-    _window_ex_style_ = 0
+    _window_ex_style_ = WS_EX_CONTROLPARENT

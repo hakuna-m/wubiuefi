@@ -38,7 +38,7 @@ from metalink import parse_metalink
 from tasklist import ThreadedTaskList, Task
 from distro import Distro
 from mappings import lang_country2linux_locale
-from utils import copytree, join_path, linux_path, run_command, copy_file, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unixpath
+from utils import copytree, join_path, run_command, copy_file, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unixpath
 from os.path import abspath, dirname, isfile, isdir, exists
 
 log = logging.getLogger("CommonBackend")
@@ -127,6 +127,8 @@ class Backend(object):
         self.info.languages = self.get_languages()
         self.info.distro = None
         self.info.distros = self.get_distros()
+        distros = [((d.name.lower(), d.arch), d) for d in  self.info.distros]
+        self.info.distros_dict = dict(distros)
         self.fetch_host_info()
         self.info.uninstaller_path = self.get_uninstaller_path()
         self.info.previous_target_dir = self.get_previous_target_dir()
@@ -466,7 +468,7 @@ class Backend(object):
         partitioning += "d-i partman-auto/method string loop\n"
         partitioning += "d-i partman-auto-loop/partition string LIPARTITION\n"
         partitioning += "d-i partman-auto-loop/recipe string \\ \n"
-        disks_dir = linux_path(self.info.disks_dir) + '/'
+        disks_dir = unixpath(self.info.disks_dir) + '/'
         if self.info.root_size_mb:
             partitioning += '  %s 3000 %s %s ext3 method{ format } format{ } use_filesystem{ } filesystem{ ext3 } mountpoint{ / } . \\ \n' \
             %(disks_dir + 'root.disk', self.info.root_size_mb, self.info.root_size_mb)

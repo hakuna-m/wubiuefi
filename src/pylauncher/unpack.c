@@ -32,7 +32,6 @@ typedef FILE *MY_FILE_HANDLE;
 //TBD using a global here is ugly as hell, but will do for now
 size_t g_offset = 0;
 
-
 #ifdef USE_WINDOWS_FUNCTIONS
 /*
    ReadFile and WriteFile functions in Windows have BUG:
@@ -212,14 +211,16 @@ int create_directory(char *directory_name)
 
 void print_error(char *sz)
 {
+    #ifdef DEBUG
     printf("\nERROR: %s\n", sz);
+    #endif
 }
 
 CFileSize seek_beginning_of_archive(CFileInStream archive_stream)
 {
     return (CFileSize) 0;
 }
-\
+
 int unpack(char archive[512])
 {
     CFileInStream archive_stream;
@@ -227,8 +228,9 @@ int unpack(char archive[512])
     SZ_RESULT res;
     ISzAlloc alloc_imp;
     ISzAlloc alloc_temp_imp;
-
+    #ifdef DEBUG
     printf("extracting %s...\n", archive);
+    #endif
     archive_stream.File = open_file_r(archive);
     if (archive_stream.File == 0)
     {
@@ -266,8 +268,9 @@ int unpack(char archive[512])
             break;
         }
     }
+    #ifdef DEBUG
     printf("signature=%s, offset=%i, found=%i\n", b, i, is_found);
-
+    #endif
     SzArDbExInit(&db);
 
     //SET THE OFFSET
@@ -275,8 +278,9 @@ int unpack(char archive[512])
     seek_file_imp(&archive_stream.InStream, 0); //seek to beginning of file including offset
 
     res = SzArchiveOpen(&archive_stream.InStream, &db, &alloc_imp, &alloc_temp_imp);
+    #ifdef DEBUG
     printf("res = %i\n",res);
-
+    #endif
     if (res == SZ_OK)
     {
         /*
@@ -290,13 +294,9 @@ int unpack(char archive[512])
         //~ for (i = db.Database.NumFolders-1; i >0; i--)
         //~ {
             //~ CFileItem *f = db.Database.Folders + i;
-            //~ printf("Dir f name %s", f->Name);
             //~ if (!f->IsDirectory){
-                //~ printf("NO");
             //~ } else {
-                //~ printf("YES");
             //~ }
-            //~ printf("\n");
         //~ }
 
         for (i = db.Database.NumFiles-1; i >0; i--)
@@ -305,12 +305,16 @@ int unpack(char archive[512])
             if (!f->IsDirectory){
                 continue;
             }
+            #ifdef DEBUG
             printf("Creating directory %s", f->Name);
+            #endif
             if (create_directory(f->Name) != 0)
             {
                 print_error("can not create directory");
             }
+            #ifdef DEBUG
             printf("\n");
+            #endif
         }
 
         for (i = 0; i < db.Database.NumFiles; i++)
@@ -320,7 +324,9 @@ int unpack(char archive[512])
                 continue;
             }
             size_t out_size_processed;
+            #ifdef DEBUG
             printf("Extracting %s", f->Name);
+            #endif
             res = SzExtract(&archive_stream.InStream, &db, i,
                     &block_index, &out_buffer, &out_buffer_size,
                     &offset, &out_size_processed,
@@ -351,7 +357,9 @@ int unpack(char archive[512])
                 res = SZE_FAIL;
                 break;
             }
+            #ifdef DEBUG
             printf("\n");
+            #endif
         }
         alloc_imp.Free(out_buffer);
     }
@@ -360,7 +368,9 @@ int unpack(char archive[512])
     close_file(archive_stream.File);
     if (res == SZ_OK)
     {
+        #ifdef DEBUG
         printf("\nEverything is Ok\n");
+        #endif
         return 0;
     }
     if (res == (SZ_RESULT)SZE_NOTIMPL)
@@ -370,6 +380,6 @@ int unpack(char archive[512])
     else if (res == (SZ_RESULT)SZE_CRC_ERROR)
         print_error("CRC error");
     else
-        printf("\nERROR #%d\n", res);
+        print_error("Unknown error"); //TBD print res
     return 1;
 }

@@ -37,7 +37,7 @@ class Distro(object):
             info_file, arch, metalink, metalink2,
             packages, size, md5sums, files_to_check,
             metalink_md5sums, metalink_md5sums_signature,
-            backend, ordering, website, minsize=0, maxsize=0):
+            backend, ordering, website, min_disk_space_mb, min_memory_mb, min_iso_size=0, max_iso_size=0):
         self.name = name
         self.version = version
         self.arch = arch
@@ -46,8 +46,10 @@ class Distro(object):
         self.md5sums = os.path.normpath(md5sums)
         self.info_file = os.path.normpath(info_file)
         self.size = size and int(size) or 0
-        self.minsize = minsize and int(minsize) or 0
-        self.maxsize = maxsize and int(maxsize) or 0
+        self.min_iso_size = min_iso_size and int(min_iso_size) or 0
+        self.max_iso_size = max_iso_size and int(max_iso_size) or 0
+        self.min_disk_space_mb = int(min_disk_space_mb)
+        self.min_memory_mb = int(min_memory_mb)
         self.metalink_md5sums = metalink_md5sums
         self.metalink_md5sums_signature = metalink_md5sums_signature
         self.metalink = metalink
@@ -92,11 +94,11 @@ class Distro(object):
         if self.size and self.size != file_size:
             log.debug('    wrong size: %s != %s' % (file_size, self.size))
             return False
-        elif self.minsize and file_size < self.minsize:
-            log.debug('    wrong size: %s < %s' % (file_size, self.minsize))
+        elif self.min_iso_size and file_size < self.min_iso_size:
+            log.debug('    wrong size: %s < %s' % (file_size, self.min_iso_size))
             return False
-        elif self.maxsize and file_size > self.maxsize:
-            log.debug('    wrong size: %s > %s' % (file_size, self.maxsize))
+        elif self.max_iso_size and file_size > self.max_iso_size:
+            log.debug('    wrong size: %s > %s' % (file_size, self.max_iso_size))
             return False
         files = self.backend.get_iso_file_names(iso_path)
         files = [f.strip().lower() for f in files]
@@ -153,7 +155,7 @@ class Distro(object):
         if self.name and name != self.name:
             log.debug('wrong name: %s != %s' % (name, self.name))
             return False
-        if self.version and version != self.version:
+        if self.version and not (version == self.version or version.startswith(self.version + '.')):
             log.debug('wrong version: %s != %s' % (version, self.version))
             return False
         if self.arch and arch != self.arch:

@@ -87,5 +87,11 @@ wubi (9.04) UNRELEASED; urgency=low
 
   [ Agostino Russo ]
   * Fixed formatting of the partitioning section in the preseed file
+  * Do not show the console when running pylauncher (thanks Hampus
+    Wessman)
+  * Added memory and size checks
+  * Added tabstops to controls in winui
+  * When checking the version string, be less strict and allow
+    for subversions (thanks Evan Dandrea)
 
- -- Agostino Russo <agostino.russo@gmail.com>  Sun, 11 Jan 2009 19:23:07 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Mon, 12 Jan 2009 23:43:41 +0000

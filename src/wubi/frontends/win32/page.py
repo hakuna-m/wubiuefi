@@ -133,7 +133,8 @@ class Page(ui.Page):
                 0, sep_top, self.width, sep_height)
 
         for i,text in enumerate((button1_text, button2_text, button3_text)):
-            if not text: continue
+            if not text:
+                continue
             if default and i + 1 == default:
                 Button = ui.DefaultButton
             else:
@@ -146,5 +147,7 @@ class Page(ui.Page):
                 self.navigation,
                 self.width -(nbw + 10) * n, 10 + sep_top + sep_height, nbw, nbh,
                 text=text)
+            if default and i + 1 == default:
+                button.set_focus()
             setattr(self.navigation, "button%s" % ( i + 1), button)
             self.navigation.height = nbh + 20 + sep_top + sep_height
