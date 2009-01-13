@@ -401,7 +401,7 @@ class WindowsBackend(Backend):
     def backup_iso(self, associated_task=None):
         if not self.info.backup_iso:
             return
-        backup_dir = join_path(self.info.previous_target_dir[:2],  self.info.backup_dir)
+        backup_dir = self.info.previous_target_dir + '.backup'
         install_dir = join_path(self.info.previous_target_dir, "install")
         for f in os.listdir(install_dir):
             f = join_path(install_dir, f)

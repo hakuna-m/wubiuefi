@@ -210,6 +210,8 @@ class Wubi(object):
             self.info.debug = True
         if self.info.debug:
             self.info.verbosity = "verbose"
+        if os.path.basename(self.info.original_exe).startswith("uninstall-"):
+            self.info.run_task = "uninstall"
 
     def set_logger(self):
         '''

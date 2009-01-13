@@ -70,11 +70,11 @@ class InstallationPage(Page):
             if int(drive.free_space_mb/1024) * 1000 > min_space_mb:
                 max_space_mb2 = max(max_space_mb2, drive.free_space_mb)
         if max_space_mb2 < min_space_mb:
-            message = "%sMB of disk size are required for installation, only %sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?"
-            min_space_mb = round(min_space_mb/1024+0.5)*1000
+            message = "%sMB of disk size are required for installation.\nOnly %sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?"
+            min_space_mb = round(min_space_mb/1000+0.5)*1024
             message = message % (int(min_space_mb), int(max_space_mb))
             if not self.frontend.ask_confirmation(message):
-                self.quit()
+                self.frontend.quit()
             else:
                 self.info.skip_size_check = True
 
@@ -253,10 +253,10 @@ class InstallationPage(Page):
         distro = self.get_distro()
         if not self.info.skip_memory_check:
             if self.info.total_memory_mb < distro.min_memory_mb:
-                message = "%sMB of memory are required for installation, only %sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?"
+                message = "%sMB of memory are required for installation.\nOnly %sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?"
                 message = message % (int(distro.min_memory_mb), int(self.info.total_memory_mb))
                 if not self.frontend.ask_confirmation(message):
-                    self.quit()
+                    self.frontend.quit()
                 else:
                     self.info.skip_memory_check = True
         self.populate_drive_list()
