@@ -96,5 +96,9 @@ wubi (9.04) UNRELEASED; urgency=low
   * Fixed typo in the grub menu template
   * Run the uninstaller if the binary name begings with 'uninstall-'
   * Make sure that the backup dir is named after the target dir
+  * Typo, it is preseed.cfg and not preseed.conf
+  * Cleaned up custom installation hooks
+  * Trailing white space does not get along well with line continuations
+    in preseed.cfg
 
- -- Agostino Russo <agostino.russo@gmail.com>  Tue, 13 Jan 2009 01:40:51 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Wed, 14 Jan 2009 01:07:01 +0000

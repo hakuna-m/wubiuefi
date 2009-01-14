@@ -467,19 +467,19 @@ class Backend(object):
         partitioning += "d-i partman-auto/disk string LIDISK\n"
         partitioning += "d-i partman-auto/method string loop\n"
         partitioning += "d-i partman-auto-loop/partition string LIPARTITION\n"
-        partitioning += "d-i partman-auto-loop/recipe string \\ \n"
+        partitioning += "d-i partman-auto-loop/recipe string \\\n"
         disks_dir = unixpath(self.info.disks_dir) + '/'
         if self.info.root_size_mb:
-            partitioning += '  %s 3000 %s %s ext3 method{ format } format{ } use_filesystem{ } filesystem{ ext3 } mountpoint{ / } . \\ \n' \
+            partitioning += '  %s 3000 %s %s ext3 method{ format } format{ } use_filesystem{ } filesystem{ ext3 } mountpoint{ / } . \\\n' \
             %(disks_dir + 'root.disk', self.info.root_size_mb, self.info.root_size_mb)
         if self.info.swap_size_mb:
-            partitioning += '  %s 100 %s %s linux-swap method{ swap } format{ } . \\ \n' \
+            partitioning += '  %s 100 %s %s linux-swap method{ swap } format{ } . \\\n' \
             %(disks_dir + 'swap.disk', self.info.swap_size_mb, self.info.swap_size_mb)
         if self.info.home_size_mb:
-            partitioning += '  %s 100 %s %s ext3 method{ format } format{ } use_filesystem{ } filesystem{ ext3 } mountpoint{ /home } . \\ \n' \
+            partitioning += '  %s 100 %s %s ext3 method{ format } format{ } use_filesystem{ } filesystem{ ext3 } mountpoint{ /home } . \\\n' \
             %(disks_dir + 'home.disk', self.info.home_size_mb, self.info.home_size_mb)
         if self.info.usr_size_mb:
-            partitioning += '  %s 100 %s %s ext3 method{ format } format{ } use_filesystem{ } filesystem{ ext3 } mountpoint{ /usr } . \\ \n' \
+            partitioning += '  %s 100 %s %s ext3 method{ format } format{ } use_filesystem{ } filesystem{ ext3 } mountpoint{ /usr } . \\\n' \
             %(disks_dir + 'usr.disk', self.info.usr_size_mb, self.info.usr_size_mb)
         partitioning += "\n"
         safe_host_username = self.info.host_username.replace(" ", "+")
@@ -500,7 +500,7 @@ class Backend(object):
         for k,v in dic.items():
             k = "$(%s)" % k
             content = content.replace(k, v)
-        preseed_file = join_path(self.info.custominstall, "preseed.conf")
+        preseed_file = join_path(self.info.custominstall, "preseed.cfg")
         write_file(preseed_file, content)
 
     def modify_bootloader(self):

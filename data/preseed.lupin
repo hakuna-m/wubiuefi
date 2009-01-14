@@ -37,6 +37,9 @@ d-i partman/confirm_write_new_label boolean true
 d-i partman/choose_partition \
        select Finish partitioning and write changes to disk
 d-i partman/confirm boolean true
+d-i partman/filter_mounted boolean false
+d-i ubiquity/partman-skip-unmount boolean true
+
 
 ## CLOCK AND TIME ZONE
 d-i clock-setup/utc boolean false
@@ -71,4 +74,3 @@ d-i migration-assistant/partitions multiselect $(host_os_name) (/dev/MADEVICE)
 d-i migration-assistant/MADEVICE/users multiselect $(host_username)
 d-i migration-assistant/MADEVICE/$(safe_host_username)/items multiselect AIM Triton, Internet Explorer, Yahoo, MSN, Opera, Firefox, Wallpaper, User Picture, Outlook Express, Gaim
 d-i migration-assistant/MADEVICE/$(safe_host_username)/user string $(username)
-
