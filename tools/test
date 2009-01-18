@@ -63,12 +63,6 @@ def find_tests(testpaths=()):
 
             if filename.endswith(".py"):
                 unittests.append(relpath)
-            elif relpath == os.path.join("tests", "zope", "README.txt"):
-                # Special case the inclusion of the Zope-dependent
-                # ZStorm doctest.
-                from tests.zope.zstorm import has_zope
-                if has_zope:
-                    doctests.append(relpath)
             elif filename.endswith(".txt"):
                 doctests.append(relpath)
 
@@ -100,7 +94,7 @@ def test_with_py_test():
     sys.argv.extend(unittests)
     sys.argv.extend(doctests)
     # For timestamp checking when looping:
-    sys.argv.append(os.path.join(os.path.dirname(__file__), "storm/"))
+    sys.argv.append(os.path.join(os.path.dirname(__file__), "wubi/"))
     py.test.cmdline.main()
 
 
@@ -117,7 +111,7 @@ def test_with_unittest():
 
     if opts.verbose:
         runner.verbosity = 2
- 
+
     loader = unittest.TestLoader()
 
     unittests, doctests = find_tests(args)
@@ -174,7 +168,7 @@ def test_with_unittest():
     sys.exit(failed)
 
 if __name__ == "__main__":
-    runner = os.environ.get("STORM_TEST_RUNNER")
+    runner = os.environ.get("WUBI_TEST_RUNNER")
     if not runner:
         runner = "unittest"
     runner_func = globals().get("test_with_%s" % runner.replace(".", "_"))

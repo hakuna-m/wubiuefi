@@ -148,10 +148,6 @@ class Backend(object):
         return distros
 
     def get_original_exe(self):
-        #TBD
-        #__file__ does not work when frozen
-        #os.path.abspath(os.path.dirname(__file__))
-        #os.path.abspath(sys.executable)
         if self.info.original_exe:
             original_exe = self.info.original_exe
         else:
@@ -186,7 +182,8 @@ class Backend(object):
         return language, encoding
 
     def get_arch(self):
-        #TBD detects python/os arch not processor arch
+        #detects python/os arch not processor arch
+        #overridden by platform specific backends
         arch = struct.calcsize('P') == 8 and "amd64" or "i386"
         log.debug("arch=%s" % arch)
         return arch

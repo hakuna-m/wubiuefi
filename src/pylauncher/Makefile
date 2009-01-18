@@ -1,5 +1,5 @@
 export SHELL = sh
-PROG = pylauncher
+PROGRAM = pylauncher
 #DEBUG = yes
 #LDFLAGS = -shared -dll
 LDFLAGS = -mwindows
@@ -59,9 +59,9 @@ endif
 	$(7Z_DIR)/Compress/Lzma/LzmaDecode.c \
 	$(7Z_DIR)/7zCrc.c
 
-all: $(PROG).exe
+all: $(PROGRAM).exe
 
-$(PROG).exe: $(7Z_OBJS) unpack.o pylauncher.o
+$(PROGRAM).exe: $(7Z_OBJS) unpack.o pylauncher.o
 	$(CC) -o $@ $(LDFLAGS) $(LIBS) $^
 	$(STRIP) $@
 

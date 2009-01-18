@@ -48,6 +48,7 @@ class WindowsBackend(Backend):
     def __init__(self, *args, **kargs):
         Backend.__init__(self, *args, **kargs)
         self.info.iso_extractor = join_path(self.info.bindir, '7z.exe')
+        self.info.cpuid = join_path(self.info.bindir, 'cpuid.dll')
         log.debug('7z=%s' % self.info.iso_extractor)
         self.cache = {}
 
@@ -501,7 +502,7 @@ class WindowsBackend(Backend):
         ini = ConfigParser.ConfigParser()
         ini.read(bootini)
         ini.set('boot loader', 'timeout', 10)
-        ini.set('operating systems', 'c:\wubildr.mbr', self.info.distro.name)
+        ini.set('operating systems', 'c:\wubildr.mbr', '"%s"' % self.info.distro.name)
         f = open(bootini, 'w')
         ini.write(f)
         f.close()
@@ -642,3 +643,12 @@ class WindowsBackend(Backend):
         log.debug("Removing bcd entry %s" % id)
         command = [bcdedit, '/delete', id , '/f']
         run_command(command)
+
+    def get_arch(self):
+        cpuid = ctypes.windll.LoadLibrary(self.info.cpuid)
+        if cpuid.check_64bit():
+            arch = "amd64"
+        else:
+            arch = "i386"
+        log.debug("arch=%s" % arch)
+        return arch

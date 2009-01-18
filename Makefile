@@ -1,11 +1,19 @@
+export SHELL = sh
+PACKAGE = wubi
+VERSION = $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g")
+
+
 all: build
 
 build: wubi
 
-wubi: check_wine pylauncher src/main.py src/wubi/*.py
+wubi: check_wine pylauncher src/main.py src/wubi/*.py cpuid
 	rm -rf build/wubi
+	rm -rf build/bin
+	cp -a blobs build/bin
 	cp wine/drive_c/windows/system32/python23.dll build/pylauncher #TBD
-	PYTHONPATH=src tools/pywine -OO build/pylauncher/pack.py src/main.py build/wubi data bin
+	cp build/cpuid/cpuid.dll build/bin
+	PYTHONPATH=src tools/pywine -OO build/pylauncher/pack.py src/main.py build/wubi data build/bin
 	mv build/wubi/application.exe build/wubi.exe
 
 wubizip: check_wine pylauncher src/main.py src/wubi/*.py
@@ -13,6 +21,7 @@ wubizip: check_wine pylauncher src/main.py src/wubi/*.py
 	cp wine/drive_c/windows/system32/python23.dll build/pylauncher #TBD
 	PYTHONPATH=src tools/pywine build/pylauncher/pack.py src/main.py --nopyc build/wubi data bin
 	cp wine/drive_c/Python23/python.exe build/wubi/files #TBD
+	cp wine/drive_c/Python23/pythonw.exe build/wubi/files #TBD
 	mv build/wubi/files build/wubi/wubi
 	cd build/wubi; zip -r ../wubi.zip wubi
 	mv build/wubi/wubi build/wubi/files
@@ -20,6 +29,10 @@ wubizip: check_wine pylauncher src/main.py src/wubi/*.py
 pylauncher: 7z src/pylauncher/*.c src/pylauncher/*.py
 	cp -rf src/pylauncher build
 	cd build/pylauncher; make
+
+cpuid: src/cpuid/cpuid.c
+	cp -rf src/cpuid build
+	cd build/cpuid; make
 
 # not compiling 7z at the moment, but source is used by pylauncher
 7z: src/7z/C/*.c

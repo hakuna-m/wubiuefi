@@ -100,5 +100,6 @@ wubi (9.04) UNRELEASED; urgency=low
   * Cleaned up custom installation hooks
   * Trailing white space does not get along well with line continuations
     in preseed.cfg
+  * Improved arch detection
 
- -- Agostino Russo <agostino.russo@gmail.com>  Wed, 14 Jan 2009 01:07:01 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Sun, 18 Jan 2009 22:08:55 +0000
