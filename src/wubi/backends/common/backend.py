@@ -39,6 +39,7 @@ from tasklist import ThreadedTaskList, Task
 from distro import Distro
 from mappings import lang_country2linux_locale
 from utils import copytree, join_path, run_command, copy_file, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unixpath
+from signature import verify_gpg_signature
 from os.path import abspath, dirname, isfile, isdir, exists
 
 log = logging.getLogger("CommonBackend")
@@ -61,7 +62,8 @@ class Backend(object):
         self.info.tempdir = abspath(tempdir)
         self.info.datadir = join_path(self.info.rootdir, 'data')
         self.info.bindir = join_path(self.info.rootdir, 'bin')
-        self.info.imagedir = join_path(self.info.datadir, "images")
+        self.info.imagedir = join_path(self.info.datadir, 'images')
+        self.info.trustedkeys = join_path(self.info.datadir, 'trustedkeys.gpg')
         log.debug('datadir=%s' % self.info.datadir)
 
     def get_installation_tasklist(self):
@@ -228,14 +230,18 @@ class Backend(object):
         metalink_md5sums = downloader.download(url, self.info.install_dir, web_proxy=self.info.web_proxy)
         url = base_url +"/" + self.info.distro.metalink_md5sums_signature
         metalink_md5sums_signature = downloader.download(url, self.info.install_dir, web_proxy=self.info.web_proxy)
-        if not self.verify_signature(metalink_md5sums, metalink_md5sums_signature):
+        if not verify_gpg_signature(metalink_md5sums, metalink_md5sums_signature, self.info.trustedkeys):
+            log.error("Could not verify signature for metalink md5sums")
             return False
         md5sums = read_file(metalink_md5sums)
         log.debug("metalink md5sums:\n%s" % md5sums)
         md5sums = dict([reversed(line.split()) for line in md5sums.split('\n') if line])
         md5sum = md5sums.get(os.path.basename(metalink))
         md5sum2 = get_file_md5(metalink)
-        return md5sum == md5sum2
+        if md5sum != md5sum2:
+            log.error("The md5 of the metalink does match")
+            return False
+        return True
 
     def check_cd(self, cd_path, associated_task=None):
         associated_task.description = "Checking CD %s" % cd_path
@@ -615,3 +621,4 @@ class Backend(object):
                 return -1
         distros.sort(compfunc)
         return distros
+

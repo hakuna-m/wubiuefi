@@ -23,6 +23,7 @@ import os
 import md5
 import subprocess
 import shutil
+import sys
 
 def join_path(*args):
     if args and args[0][-1] == ":":
@@ -93,7 +94,7 @@ def copy_file(source, target, associated_task=None):
     while True:
         data = source_file.read(1024**2)
         data_read += 1
-        if not data:
+        if data == "":
             break
         if associated_task:
             if associated_task.set_progress(data_read):

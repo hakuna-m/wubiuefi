@@ -34,12 +34,12 @@ log = logging.getLogger("")
 
 class Wubi(object):
 
-    def __init__(self):
+    def __init__(self, application_name, version, revision):
         self.frontend = None
         self.info = Info()
-        self.info.version = _version_
-        self.info.revision = _revision_
-        self.info.application_name = _application_name_
+        self.info.version = version
+        self.info.revision = revision
+        self.info.application_name = application_name
         self.info.full_application_name = "%s-%s-rev%s" % (self.info.application_name, self.info.version, self.info.revision)
         self.info.full_version = "%s %s rev%s" % (self.info.application_name, self.info.version, self.info.revision)
 
@@ -213,7 +213,7 @@ class Wubi(object):
         if self.info.original_exe and os.path.basename(self.info.original_exe).startswith("uninstall-"):
             self.info.run_task = "uninstall"
 
-    def set_logger(self):
+    def set_logger(self, log_to_console=True):
         '''
         Adjust the application root logger settings
         '''
@@ -229,18 +229,18 @@ class Wubi(object):
             handler.setLevel(logging.DEBUG)
             log.addHandler(handler)
         # console logging
-        #~ if self.info.debug:
-        handler = logging.StreamHandler()
-        formatter = logging.Formatter('%(message)s', datefmt='%m-%d %H:%M')
-        handler.setFormatter(formatter)
-        if self.info.verbosity == "verbose":
-            handler.setLevel(logging.DEBUG)
-        elif self.info.verbosity == "quiet":
-            handler.setLevel(logging.ERROR)
-        else:
-            handler.setLevel(logging.INFO)
-        log.addHandler(handler)
-        log.setLevel(handler.level)
+        if log_to_console and not bool(self.info.original_exe):
+            handler = logging.StreamHandler()
+            formatter = logging.Formatter('%(message)s', datefmt='%m-%d %H:%M')
+            handler.setFormatter(formatter)
+            if self.info.verbosity == "verbose":
+                handler.setLevel(logging.DEBUG)
+            elif self.info.verbosity == "quiet":
+                handler.setLevel(logging.ERROR)
+            else:
+                handler.setLevel(logging.INFO)
+            log.addHandler(handler)
+        log.setLevel(logging.DEBUG)
 
 class Info(object):
 

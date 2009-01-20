@@ -101,5 +101,10 @@ wubi (9.04) UNRELEASED; urgency=low
   * Trailing white space does not get along well with line continuations
     in preseed.cfg
   * Improved arch detection
+  * Strip cpuid binary to reduce size
+  * Set the version and revision via the makefile
+  * Verify metalink md5 signature using openpgp and python-crypto
+  * Check md5 of blobs installed within wine during compilation
+  * Skip console logging when running as a packaged executable (pythonw)
 
- -- Agostino Russo <agostino.russo@gmail.com>  Sun, 18 Jan 2009 22:08:55 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Tue, 20 Jan 2009 22:10:29 +0000

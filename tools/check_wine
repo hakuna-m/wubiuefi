@@ -1,63 +1,91 @@
 #!/bin/sh
 
-#TBD verify md5 checksums
-pythonurl="http://www.python.org/ftp/python/2.3.5/Python-2.3.5.exe"
-p7zipurl="http://heanet.dl.sourceforge.net/sourceforge/sevenzip/7z457.exe"
-pywinurl="http://downloads.sourceforge.net/pywin32/pywin32-212.win32-py2.3.exe"
-ipythonurl="http://ipython.scipy.org/dist/ipython-0.8.4.win32-setup.exe"
+#Required programs
+python_url="http://www.python.org/ftp/python/2.3.5/Python-2.3.5.exe"
+python_md5="ba6f9eb9da40ad23bc631a1f31149a01"
+p7zip_url="http://heanet.dl.sourceforge.net/sourceforge/sevenzip/7z464.exe"
+p7zip_md5="d2810e3dd4b60ab05fe7c29a50921efa"
+pywin_url="http://downloads.sourceforge.net/pywin32/pywin32-212.win32-py2.3.exe"
+pywin_md5="eceb1b2d9a0d854cb7c7dace13680fba"
+
+#Compiled modules
+pycrypto_url="http://www.voidspace.org.uk/cgi-bin/voidspace/downman.py?file=pycrypto-2.0.1.win32-py2.3.zip"
+pycrypto_md5="1556d8e51b18fee30f12e22abbf0e46f"
 
 #2.3 modules (not needed in python 2.4+)
-ctypesurl="http://downloads.sourceforge.net/ctypes/ctypes-1.0.2.win32-py2.3.exe"
-subprocessurl="http://effbot.org/media/downloads/subprocess-0.1-20041012.win32-py2.3.exe"
+ctypes_url="http://downloads.sourceforge.net/ctypes/ctypes-1.0.2.win32-py2.3.exe"
+ctypes_md5="9afe4b75240a8808a24df7a76b6081e3"
+subprocess_url="http://effbot.org/media/downloads/subprocess-0.1-20041012.win32-py2.3.exe"
+subprocess_md5="00a249ec321786b17b8bb87a4eebcaeb"
 
 root="$(cd ${0%/*}/../;pwd)"
 export WINEPREFIX="$root"/wine
+python_site="$WINEPREFIX/drive_c/Python23/Lib/site-packages"
 toolsdir="$root/tools"
 
-if [ ! -x /usr/bin/wine -a ! -x /usr/local/bin/wine ]; then
-    echo "Could not find wine, please install it"
-    exit 1
-fi
+download(){
+	wget  -P /tmp -O "$2" "$1"
+	md5=$(md5sum $2)
+	md5=${md5%% *}
+	if [ ! "$md5" = "$3" ]; then
+		echo "Invalid download for $1, md5 does not match"
+		exit 1
+	fi
+}
 
 install_7z(){
 	echo "Installing 7z..."
-	wget -P /tmp "$p7zipurl"
-	wine "/tmp/${p7zipurl##*/}"
+	download "$p7zip_url" "/tmp/p7zip.exe" "$p7zip_md5"
+	wine "/tmp/p7zip.exe"
 }
 
 install_wine(){
-	echo "Creating wine folder..."
+	if [ ! -x /usr/bin/wine -a ! -x /usr/local/bin/wine ]; then
+		echo "Installing wine..."
+		sudo apt-get install wine #TBD do not assume apt
+	fi
+	#echo "Creating wine folder..."
 	#wineprefixcreate --prefix "$WINEPREFIX"
 }
 
+install_unzip(){
+	if [ ! -x /usr/bin/unzip -a ! -x /usr/local/bin/unzip ]; then
+		echo "Installing unzip..."
+		sudo apt-get install unzip #TBD do not assume apt
+	fi
+}
+
 install_python(){
-	wget -P /tmp "$pythonurl"
-    #wine msiexec /i /tmp/${pythonurl##*/} /qb /ADDLOCAL=DefaultFeature /ALLUSERS=1
-	wine /tmp/${pythonurl##*/}
+	echo "Installing python..."
+	download "$python_url" "/tmp/python.exe" "$python_md5"
+    #wine msiexec /i /tmp/${python_url##*/} /qb /ADDLOCAL=DefaultFeature /ALLUSERS=1
+	wine "/tmp/python.exe"
 }
 
 install_pywin(){
 	echo "Installing pywin..."
-	wget -P /tmp "$pywinurl"
-    wine "/tmp/${pywinurl##*/}"
+	download "$pywin_url" "/tmp/pywin.exe" "$pywin_md5"
+    wine "/tmp/pywin"
 }
 
 install_ctypes(){
 	echo "Installing ctypes..."
-	wget -P /tmp "$ctypesurl"
-    wine "/tmp/${ctypesurl##*/}"
-}
-
-install_ipython(){
-	echo "Installing ipython..."
-	wget -P /tmp "$ipythonurl"
-    wine "/tmp/${ipythonurl##*/}"
+	download "$ctypes_url" "/tmp/ctypes.exe" "$ctypes_md5"
+    wine "/tmp/ctypes.exe"
 }
 
 install_subprocess(){
 	echo "Installing subprocess..."
-	wget -P /tmp "$subprocessurl"
-    wine "/tmp/${subprocessurl##*/}"
+	download "$subprocess_url" "/tmp/subprocess.exe" "$subprocess_md5"
+    wine "/tmp/subprocess.exe"
+}
+
+install_pycrypto(){
+	echo "Installing pycrypto..."
+	download "$pycrypto_url" "/tmp/pycrypto.zip" "$pycrypto_md5"
+    install_unzip
+	unzip "/tmp/pycrypto.zip" -d "/tmp"
+	cp -a "/tmp/Crypto" "$python_site"
 }
 
 make_wine(){
@@ -65,9 +93,9 @@ make_wine(){
 	install_python
 	install_ctypes
 	install_7z
+	install_pycrypto
 	#~ install_pywin
 	install_subprocess
-	#~ install_ipython
 }
 
 if [ ! -e "$root/wine" ]; then

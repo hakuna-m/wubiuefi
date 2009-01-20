@@ -395,10 +395,6 @@ class WindowsBackend(Backend):
         paths = [abspath(p) for p in paths]
         return paths
 
-    def verify_signature(self, file, signature, associated_task=None):
-        #TBD
-        return True
-
     def backup_iso(self, associated_task=None):
         if not self.info.backup_iso:
             return

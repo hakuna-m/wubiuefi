@@ -1,5 +1,6 @@
 export SHELL = sh
 PACKAGE = wubi
+REVISION = $(shell bzr revno)
 VERSION = $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g")
 
 
@@ -7,24 +8,31 @@ all: build
 
 build: wubi
 
-wubi: check_wine pylauncher src/main.py src/wubi/*.py cpuid
+wubi: wubi-pre-build
+	PYTHONPATH=src tools/pywine -OO build/pylauncher/pack.py src/main.py build/wubi data build/bin
+	mv build/wubi/application.exe build/wubi.exe
+
+wubizip: wubi-pre-build
+	PYTHONPATH=src tools/pywine build/pylauncher/pack.py src/main.py --nopyc build/wubi data build/bin
+	cp wine/drive_c/Python23/python.exe build/wubi/files #TBD
+	cp wine/drive_c/Python23/pythonw.exe build/wubi/files #TBD
+	cp build/cpuid/cpuid.dll build/bin
+	mv build/wubi/files build/wubi/wubi
+	cd build/wubi; zip -r ../wubi.zip wubi
+	mv build/wubi/wubi build/wubi/files
+
+wubi-pre-build: check_wine pylauncher src/main.py src/wubi/*.py cpuid version.py
 	rm -rf build/wubi
 	rm -rf build/bin
 	cp -a blobs build/bin
 	cp wine/drive_c/windows/system32/python23.dll build/pylauncher #TBD
 	cp build/cpuid/cpuid.dll build/bin
-	PYTHONPATH=src tools/pywine -OO build/pylauncher/pack.py src/main.py build/wubi data build/bin
-	mv build/wubi/application.exe build/wubi.exe
 
-wubizip: check_wine pylauncher src/main.py src/wubi/*.py
-	rm -rf build/wubi
-	cp wine/drive_c/windows/system32/python23.dll build/pylauncher #TBD
-	PYTHONPATH=src tools/pywine build/pylauncher/pack.py src/main.py --nopyc build/wubi data bin
-	cp wine/drive_c/Python23/python.exe build/wubi/files #TBD
-	cp wine/drive_c/Python23/pythonw.exe build/wubi/files #TBD
-	mv build/wubi/files build/wubi/wubi
-	cd build/wubi; zip -r ../wubi.zip wubi
-	mv build/wubi/wubi build/wubi/files
+version.py:
+	mkdir -p build/wubi
+	$(shell echo 'version = "$(VERSION)"' > build/wubi/version.py)
+	$(shell echo 'revision = $(REVISION)' >> build/wubi/version.py)
+	$(shell echo 'application_name = "$(PACKAGE)"' >> build/wubi/version.py)
 
 pylauncher: 7z src/pylauncher/*.c src/pylauncher/*.py
 	cp -rf src/pylauncher build

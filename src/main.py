@@ -22,5 +22,12 @@
 
 from wubi.application import Wubi
 
-application = Wubi()
+try:
+    from version import application_name, version, revision
+except:
+    application_name = "wubi"
+    version = "0.0"
+    revision = "0"
+
+application = Wubi(application_name, version, revision)
 application.run()
