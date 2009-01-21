@@ -184,6 +184,7 @@ class Wubi(object):
         parser.add_option("--cdboot", action="store_const", const="cd_boot", dest="run_task", help="install a CD boot helper program")
         parser.add_option("--showinfo", action="store_const", const="show_info", dest="run_task", help="install a CD boot helper program")
         parser.add_option("--nobittorrent", action="store_true", dest="no_bittorrent", help="Do not use the bittorrent downloader")
+        parser.add_option("--32bit", action="store_true", dest="force_i386", help="Force installation of 32 bit version")
         parser.add_option("--skipmd5check", action="store_true", dest="skip_md5_check", help="Skip md5 checks")
         parser.add_option("--skipsizecheck", action="store_true", dest="skip_size_check", help="Skip disk size checks")
         parser.add_option("--skipmemorycheck", action="store_true", dest="skip_memory_check", help="Skip memory size checks")
@@ -241,6 +242,7 @@ class Wubi(object):
                 handler.setLevel(logging.INFO)
             log.addHandler(handler)
         log.setLevel(logging.DEBUG)
+        log.debug("sys.argv = %s" % sys.argv)
 
 class Info(object):
 

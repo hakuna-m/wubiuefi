@@ -52,8 +52,9 @@ class Distro(object):
         self.min_memory_mb = int(min_memory_mb)
         self.metalink_md5sums = metalink_md5sums
         self.metalink_md5sums_signature = metalink_md5sums_signature
-        self.metalink = metalink
-        self.metalink2 = metalink2
+        self.metalink_url = metalink
+        self.metalink_url2 = metalink2
+        self.metalink = None
         self.packages = packages
         self.backend = backend
         self.ordering = ordering
@@ -65,7 +66,7 @@ class Distro(object):
                 for f in files_to_check.split(',')]
         self.files_to_check = files_to_check
 
-    def is_valid_cd(self, cd_path):
+    def is_valid_cd(self, cd_path, check_arch):
         cd_path = os.path.abspath(cd_path)
         log.debug('  checking whether %s is a valid %s CD' % (cd_path, self.name))
         if not os.path.isdir(cd_path):
@@ -78,13 +79,13 @@ class Distro(object):
                 log.debug('    does not contain %s' % file)
                 return False
         info = self.get_info(cd_path)
-        if self.check_info(info):
+        if self.check_info(info, check_arch):
             log.info('Found a valid CD for %s: %s' % (self.name, cd_path))
             return True
         else:
             return False
 
-    def is_valid_iso(self, iso_path):
+    def is_valid_iso(self, iso_path, check_arch):
         iso_path = os.path.abspath(iso_path)
         log.debug('  checking %s ISO %s' % (self.name, iso_path))
         if not os.path.isfile(iso_path):
@@ -108,7 +109,7 @@ class Distro(object):
                 log.debug('    does not contain %s' % file)
                 return False
         info = self.get_info(iso_path)
-        if self.check_info(info):
+        if self.check_info(info, check_arch):
             log.info('Found a valid iso for %s: %s' % (self.name, iso_path))
             return True
         else:
@@ -147,18 +148,18 @@ class Distro(object):
             self.md5sums,]
         return required_files
 
-    def check_info(self, info):
+    def check_info(self, info, check_arch):
         if not info:
             log.debug('could not get info %s' % info)
             return False
-        name, version, arch = info
+        name, version, arch = info # used in backend as well
         if self.name and name != self.name:
             log.debug('wrong name: %s != %s' % (name, self.name))
             return False
         if self.version and not (version == self.version or version.startswith(self.version + '.')):
             log.debug('wrong version: %s != %s' % (version, self.version))
             return False
-        if self.arch and arch != self.arch:
+        if check_arch and self.arch and arch != self.arch:
             log.debug('wrong arch: %s != %s' % (arch, self.arch))
             return False
         return True

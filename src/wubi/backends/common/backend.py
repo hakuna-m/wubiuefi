@@ -71,10 +71,9 @@ class Backend(object):
             Task(self.select_target_dir, description="Selecting target directory"),
             Task(self.create_dir_structure, description="Creating the installation directories"),
             Task(self.create_uninstaller, description="Creating the uninstaller"),
-            Task(self.copy_installation_files, description="Copying files", weight=5),
-            Task(self.get_metalink, description="Retrieving the Metalink", weight=10),
-            Task(self.get_iso, description="Retrieving the ISO", weight=10),
-            Task(self.extract_kernel, description="Extracting the kernel", weight=5),
+            Task(self.copy_installation_files, description="Copying files"),
+            Task(self.get_iso, description="Retrieving the ISO"),
+            Task(self.extract_kernel, description="Extracting the kernel"),
             Task(self.uncompress_files, description="Uncompressing files"),
             Task(self.choose_disk_sizes, description="Choosing disk sizes"),
             Task(self.create_preseed, description="Creating a preseed file"),
@@ -125,6 +124,10 @@ class Backend(object):
         self.info.language, self.info.encoding = self.get_language_encoding()
         self.info.environment_variables = os.environ
         self.info.arch = self.get_arch()
+        if self.info.force_i386:
+            log.debug("Forcing 32 bit arch")
+            self.info.arch = "i386"
+        self.info.check_arch = (self.info.arch == "i386")
         self.info.languages = self.get_languages()
         self.info.distro = None
         self.info.distros = self.get_distros()
@@ -245,6 +248,7 @@ class Backend(object):
 
     def check_cd(self, cd_path, associated_task=None):
         associated_task.description = "Checking CD %s" % cd_path
+        self.set_distro_from_arch(cd_path)
         if self.info.skip_md5_check:
             return True
         md5sums_file = join_path(cd_path, self.info.distro.md5sums)
@@ -257,13 +261,18 @@ class Backend(object):
         return True
 
     def check_iso(self, iso_path, associated_task=None):
+        self.set_distro_from_arch(iso_path)
         if self.info.skip_md5_check:
             return True
         md5sum = None
-        if not self.info.metalink:
-            log.error("ERROR: the metalink file is not available, cannot check the md5 for %s, ignoring" % iso_path)
-            return True
-        for hash in self.info.metalink.files[0].hashes:
+        if not self.info.distro.metalink:
+            get_metalink = associated_task.add_subtask(
+                self.get_metalink, description="Retrieving the Metalink")
+            get_metalink()
+            if not self.info.distro.metalink:
+                log.error("ERROR: the metalink file is not available, cannot check the md5 for %s, ignoring" % iso_path)
+                return True
+        for hash in self.info.distro.metalink.files[0].hashes:
             if hash.type == 'md5':
                 md5sum = hash.hash
         if not md5sum:
@@ -297,9 +306,13 @@ class Backend(object):
         # Download the ISO
         log.debug("Could not find any ISO or CD, downloading one now")
         self.info.cd_path = None
-        if not self.info.metalink:
-            raise Exception("Cannot download the metalink and therefore the ISO")
-        file = self.info.metalink.files[0]
+        if not self.info.distro.metalink:
+            get_metalink = associated_task.add_subtask(
+                self.get_metalink, description="Retrieving the Metalink")
+            get_metalink()
+            if not self.info.distro.metalink:
+                raise Exception("Cannot download the metalink and therefore the ISO")
+        file = self.info.distro.metalink.files[0]
         save_as = join_path(self.info.install_dir, file.name)
         urls = self.select_mirrors(file.urls)
         iso =None
@@ -327,21 +340,22 @@ class Backend(object):
 
     def get_metalink(self, associated_task=None):
         associated_task.description = "Retrieving metalink file..."
-        self.info.metalink = None
         try:
-            metalink = downloader.download(self.info.distro.metalink, self.info.install_dir, web_proxy=self.info.web_proxy)
-            base_url = os.path.dirname(self.info.distro.metalink)
+            url = self.info.distro.metalink_url
+            metalink = downloader.download(url, self.info.install_dir, web_proxy=self.info.web_proxy)
+            base_url = os.path.dirname(url)
         except Exception, err:
-            log.error("Cannot download metalink file %s err=%s" % (self.info.distro.metalink, err))
+            log.error("Cannot download metalink file %s err=%s" % (url, err))
             try:
-                metalink = downloader.download(self.info.distro.metalink2, self.info.install_dir, web_proxy=self.info.web_proxy)
-                base_url = os.path.dirname(self.info.distro.metalink2)
+                url = self.info.distro.metalink_url2
+                metalink = downloader.download(url, self.info.install_dir, web_proxy=self.info.web_proxy)
+                base_url = os.path.dirname(url)
             except Exception, err:
-                log.error("Cannot download metalink file2 %s err=%s" % (self.info.distro.metalink2, err))
+                log.error("Cannot download metalink file2 %s err=%s" % (url, err))
                 return
         if not self.check_metalink(metalink, base_url):
             log.exception("Cannot authenticate the metalink file, it might be corrupt")
-        self.info.metalink = parse_metalink(metalink)
+        self.info.distro.metalink = parse_metalink(metalink)
 
     def get_prespecified_iso(self, associated_task):
         if self.info.iso_path \
@@ -352,9 +366,26 @@ class Backend(object):
             is_valid_iso = associated_task.add_subtask(
                 self.info.distro.is_valid_iso,
                 description = "Validating %s" % self.info.iso_path)
-            if is_valid_iso(self.info.iso_path):
+            if is_valid_iso(self.info.iso_path, self.info.check_arch):
                 self.info.cd_path = None
             return self.copy_iso(self.info.iso_path, associated_task)
+
+    def set_distro_from_arch(self, cd_or_iso_path):
+        '''
+        Make sure that the distro is in line with the arch
+        This is to make sure that a 32 bit local CD or ISO
+        is used even though the arch is 64 bits
+        '''
+        if self.info.check_arch:
+            return
+        arch = self.info.distro.get_info(cd_or_iso_path)[2]
+        if self.info.distro.arch == arch:
+            return
+        name = self.info.distro.name
+        log.debug("Using distro %s %s instead of %s %s" % \
+            (name, arch, name, self.info.distro.arch))
+        distro = self.info.distros_dict.get((name.lower(), arch))
+        self.info.distro = distro
 
     def copy_iso(self, iso_path, associated_task):
         if not iso_path:
@@ -552,7 +583,7 @@ class Backend(object):
             path = join_path(path, '*.iso')
             isos = glob.glob(path)
             for iso in isos:
-                if self.info.distro.is_valid_iso(iso):
+                if self.info.distro.is_valid_iso(iso, self.info.check_arch):
                     return iso
 
     def find_any_iso(self):
@@ -564,7 +595,7 @@ class Backend(object):
         and os.path.exists(self.info.iso_path):
             log.debug("Checking pre-specified ISO %s" % self.info.iso_path)
             for distro in self.info.distros:
-                if distro.is_valid_iso(self.info.iso_path):
+                if distro.is_valid_iso(self.info.iso_path, self.info.check_arch):
                     self.info.cd_path = None
                     return self.info.iso_path, distro
         #Search USB devices
@@ -574,7 +605,7 @@ class Backend(object):
             isos = glob.glob(path)
             for iso in isos:
                 for distro in self.info.distros:
-                    if distro.is_valid_iso(iso):
+                    if distro.is_valid_iso(iso, self.info.check_arch):
                         return iso, distro
         return None, None
 
@@ -583,7 +614,7 @@ class Backend(object):
         for path in self.get_cd_search_paths():
             path = abspath(path)
             for distro in self.info.distros:
-                if distro.is_valid_cd(path):
+                if distro.is_valid_cd(path, self.info.check_arch):
                     return path, distro
         return None, None
 
@@ -591,7 +622,7 @@ class Backend(object):
         log.debug("Searching for local CD")
         for path in self.get_cd_search_paths():
             path = abspath(path)
-            if self.info.distro.is_valid_cd(path):
+            if self.info.distro.is_valid_cd(path, self.info.check_arch):
                 return path
 
     def get_previous_target_dir(self):

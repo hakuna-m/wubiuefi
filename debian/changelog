@@ -106,5 +106,7 @@ wubi (9.04) UNRELEASED; urgency=low
   * Verify metalink md5 signature using openpgp and python-crypto
   * Check md5 of blobs installed within wine during compilation
   * Skip console logging when running as a packaged executable (pythonw)
+  * Use a local 32 bit CD/ISO even if the CPU arch is 64 bit
+  * Added license to source files
 
- -- Agostino Russo <agostino.russo@gmail.com>  Tue, 20 Jan 2009 22:10:29 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Wed, 21 Jan 2009 00:40:53 +0000
