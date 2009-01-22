@@ -24,6 +24,15 @@ script dependencies are first analyzed and the modules copied into the working
 directory, the python.dll is also added to the directory. The directory is then
 compressed with lzma and the pylauncher header is added to it, which in turn
 extracts the content and launches the script when the executable is run.
+
+Usage:
+
+python pack.py [options] main_script [extra [extra [extra..]]]
+
+Where extras are additional directories or python scripts to be added.
+If an extra is a python script, it will be byte compiled and added within lib.
+Other extras will simply be copied to the same directory containing
+main_script.
 '''
 
 import sys
@@ -110,8 +119,8 @@ def add_python_dll(target_dir):
     shutil.copy(pythondll, target_dir)
 
 def pack(script, target_dir, extras, nopyc):
-    target_dir = join(target_dir, 'files')
-    target_lib = join(target_dir, 'lib')
+    target_dir = ajoin(target_dir, 'files')
+    target_lib = ajoin(target_dir, 'lib')
 
     if exists(target_lib):
         raise Exception("Target directory %s already exists" % target_lib)
@@ -120,27 +129,33 @@ def pack(script, target_dir, extras, nopyc):
 
     #Add other dirs
     for extra in extras:
-        target_path = ajoin(target_dir,basename(extra))
-        print "copying %s -> %s" % (extra, target_path)
-        shutil.copytree(extra, target_path)
+        if os.path.isfile(extra) and extra.endswith('.py'):
+            target_path = ajoin(target_lib, os.path.basename(extra))
+            compile(extra, target_path, nopyc)
+        else:
+            target_path = ajoin(target_dir,basename(extra))
+            print "copying %s -> %s" % (extra, target_path)
+            shutil.copytree(extra, target_path)
 
     add_python_dll(target_dir)
     compress(target_dir)
     make_self_extracting_exe(target_dir)
 
 def parse_arguments():
-    usage = "python pack.py [options] main_script target_dir [extra [extra [extra..]]]"
+    usage = "python pack.py [options] main_script [extra [extra [extra..]]]"
     parser = OptionParser(usage=usage)
+    parser.add_option("--dir", dest="target_dir", default=".", help="Directory where the files will be built, if non existent, it will be created")
     parser.add_option("--nopyc", action="store_const", const=True, dest="nopyc", help="Do not bytecompile the python files")
     options, args = parser.parse_args()
-    args = [args[0], args[1], args[2:]]
-    return  options, args
+    script = args[0]
+    extras = args[1:]
+    nopyc=options.nopyc
+    target_dir = options.target_dir
+    return  script, target_dir, extras, nopyc
 
 def main():
-    options, args = parse_arguments()
-    nopyc=options.nopyc
-    args.append(nopyc)
-    pack(*args)
+    script, target_dir, extras, nopyc = parse_arguments()
+    pack(script, target_dir, extras, nopyc)
 
 if __name__ == "__main__":
     main()

@@ -9,11 +9,11 @@ all: build
 build: wubi
 
 wubi: wubi-pre-build
-	PYTHONPATH=src tools/pywine -OO build/pylauncher/pack.py src/main.py build/wubi data build/bin
+	PYTHONPATH=src tools/pywine -OO build/pylauncher/pack.py --dir=build/wubi src/main.py data build/bin build/version.py
 	mv build/wubi/application.exe build/wubi.exe
 
 wubizip: wubi-pre-build
-	PYTHONPATH=src tools/pywine build/pylauncher/pack.py src/main.py --nopyc build/wubi data build/bin
+	PYTHONPATH=src tools/pywine build/pylauncher/pack.py --dir=build/wubi --nopyc src/main.py data build/bin build/version.py
 	cp wine/drive_c/Python23/python.exe build/wubi/files #TBD
 	cp wine/drive_c/Python23/pythonw.exe build/wubi/files #TBD
 	cp build/cpuid/cpuid.dll build/bin
@@ -29,10 +29,9 @@ wubi-pre-build: check_wine pylauncher src/main.py src/wubi/*.py cpuid version.py
 	cp build/cpuid/cpuid.dll build/bin
 
 version.py:
-	mkdir -p build/wubi
-	$(shell echo 'version = "$(VERSION)"' > build/wubi/version.py)
-	$(shell echo 'revision = $(REVISION)' >> build/wubi/version.py)
-	$(shell echo 'application_name = "$(PACKAGE)"' >> build/wubi/version.py)
+	$(shell echo 'version = "$(VERSION)"' > build/version.py)
+	$(shell echo 'revision = $(REVISION)' >> build/version.py)
+	$(shell echo 'application_name = "$(PACKAGE)"' >> build/version.py)
 
 pylauncher: 7z src/pylauncher/*.c src/pylauncher/*.py
 	cp -rf src/pylauncher build

@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# NOT USED AT THE MOMENT
+# JUST RUN MAKE, SEE README
 
 import os
 import re

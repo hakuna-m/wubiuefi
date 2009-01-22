@@ -50,7 +50,7 @@ class ProgressPage(Page):
     def on_progress(self, task, message=None):
         tasklist = task.get_root()
         self.header.title.set_text(tasklist.description)
-        self.main.progressbar.set_position(int(100*tasklist.get_percent_completed()))
+        self.main.progressbar.set_position(int(100*tasklist.get_percent_of_tasks_completed()))
         self.main.task_label.set_text(task.description)
         self.main.subprogressbar.set_position(int(100*task.get_percent_completed()))
         self.main.subtask_label.set_text("%s (%s)" % (message.strip(), task.get_progress_info()))

@@ -50,6 +50,7 @@ d-i passwd/root-login boolean false
 d-i passwd/user-fullname string $(user_full_name)
 d-i passwd/username string $(username)
 d-i passwd/user-password-crypted password $(password)
+d-i user-setup/encrypt-home boolean false
 
 ## BOOT LOADER
 d-i lilo-installer/skip boolean true

@@ -18,10 +18,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-_version_ = "9.04"
-_revision_ = 0
-_application_name_ = "wubi"
-
 import os
 import sys
 import tempfile

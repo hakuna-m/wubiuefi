@@ -284,6 +284,21 @@ class Task(object):
         message = message.strip()
         return message
 
+    def get_percent_of_tasks_completed(self):
+        n_subtasks = self.count_subtasks()
+        if n_subtasks:
+            return self.count_completed_subtasks()/n_subtasks
+        else:
+            return 0.0
+
+    def count_subtasks(self):
+        subtasks = [s.count_subtasks() for s in self.subtasks]
+        return 1.0 + sum(subtasks)
+
+    def count_completed_subtasks(self):
+        subtasks = [s.count_completed_subtasks() for s in self.subtasks]
+        return float(self.completed/self.size) + sum(subtasks)
+
     def get_percent_completed(self):
         weight = self._get_weight()
         if weight:
@@ -309,14 +324,14 @@ class Task(object):
         get weighted sum of percent completed for this task and all the subtasks
         '''
         completed_subtasks = [s._get_completed() for s in self.subtasks]
-        return 1.0*self.completed/self.size*self.weight + sum(completed_subtasks)
+        return float(self.completed*self.weight) + sum(completed_subtasks)
 
     def _get_weight(self):
         '''
         get total weight for this task and all the subtasks
         '''
         subtasks_weight = [s._get_weight() for s in self.subtasks]
-        return self.weight + sum(subtasks_weight)
+        return float(self.size*self.weight) + sum(subtasks_weight)
 
     def _get_decription(self):
         if self._description:

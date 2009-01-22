@@ -108,5 +108,8 @@ wubi (9.04) UNRELEASED; urgency=low
   * Skip console logging when running as a packaged executable (pythonw)
   * Use a local 32 bit CD/ISO even if the CPU arch is 64 bit
   * Added license to source files
+  * More precise progress reporting
+  * Fixed automatic version string generation
+  * Preseed user-setup/encrypt-home (thanks Evan Dandrea)
 
- -- Agostino Russo <agostino.russo@gmail.com>  Wed, 21 Jan 2009 00:40:53 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Wed, 21 Jan 2009 23:59:28 +0000
