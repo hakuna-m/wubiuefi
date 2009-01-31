@@ -46,14 +46,25 @@ class ProgressPage(Page):
         self.main.progressbar = ui.ProgressBar(self.main, 20, 50, self.width - 40, 20)
         self.main.subtask_label = ui.Label(self.main, 20, 80, self.width - 40, 20)
         self.main.subprogressbar = ui.ProgressBar(self.main, 20, 110, self.width - 40, 20)
+        self.main.localiso_button = ui.Button(self.main, 20, 150, 200, 20, "Do not download, use a local file")
+
+        self.main.localiso_button.hide()
+        self.main.subtask_label.hide()
+        self.main.subprogressbar.hide()
 
     def on_progress(self, task, message=None):
         tasklist = task.get_root()
         self.header.title.set_text(tasklist.description)
         self.main.progressbar.set_position(int(100*tasklist.get_percent_of_tasks_completed()))
         self.main.task_label.set_text(task.description)
-        self.main.subprogressbar.set_position(int(100*task.get_percent_completed()))
-        self.main.subtask_label.set_text("%s (%s)" % (message.strip(), task.get_progress_info()))
+        if task.get_percent_completed() > 0:
+            self.main.subprogressbar.set_position(int(100*task.get_percent_completed()))
+            self.main.subtask_label.set_text("%s (%s)" % (message.strip(), task.get_progress_info()))
+            self.main.subtask_label.show()
+            self.main.subprogressbar.show()
+        else:
+            self.main.subtask_label.hide()
+            self.main.subprogressbar.hide()
         if tasklist.status is not tasklist.ACTIVE:
             self.main.progressbar.set_position(100)
             self.frontend.stop()

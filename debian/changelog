@@ -116,5 +116,9 @@ wubi (9.04) UNRELEASED; urgency=low
     special flag
   * Modified uninstaller behaviour, it now uninstalls the directory
     specified in the registry
+  * Make sure that the uninstallers of previous versions can be launched
+  * Only show the subtask progressbar when the progress is non-zero
+  * ConfigParser is not adequate for editing boot.ini, replaced with ad
+    hoc implementation
 
- -- Agostino Russo <agostino.russo@gmail.com>  Sat, 31 Jan 2009 18:47:28 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Sat, 31 Jan 2009 20:31:36 +0000

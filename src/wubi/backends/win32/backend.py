@@ -482,6 +482,7 @@ class WindowsBackend(Backend):
         log.debug("modify_bootini %s" % drive.path)
         bootini = join_path(drive.path, 'boot.ini')
         if not os.path.isfile(bootini):
+            log.debug("Could not find boot.ini %s" % bootini)
             return
         src = join_path(self.info.datadir, 'winboot', 'wubildr')
         dest = join_path(drive.path, 'wubildr')
@@ -490,13 +491,27 @@ class WindowsBackend(Backend):
         dest = join_path(drive.path, 'wubildr.mbr')
         shutil.copyfile(src,  dest)
         run_command(['attrib', '-R', '-S', '-H', bootini])
-        ini = ConfigParser.ConfigParser()
-        ini.read(bootini)
-        ini.set('boot loader', 'timeout', 10)
-        ini.set('operating systems', 'c:\wubildr.mbr', '"%s"' % self.info.distro.name)
-        f = open(bootini, 'w')
-        ini.write(f)
-        f.close()
+        boot_line = 'C:\wubildr.mbr = "%s"' % self.info.distro.name
+        old_line = boot_line[:boot_line.index("=")].strip().lower()
+        # ConfigParser gets confused by the ':' and changes the options order
+        content = read_file(bootini)
+        if content[-1] != '\n':
+            content += '\n'
+        lines = content.split('\n')
+        is_section = False
+        for i,line in enumerate(lines):
+            if line.strip().lower() == "[operating systems]":
+                is_section = True
+            elif line.strip().startswith("["):
+                is_section = False
+            if is_section and line.strip().lower().startswith(old_line):
+                lines[i] = boot_line
+                break
+            if is_section and not line.strip():
+                lines.insert(i, boot_line)
+                break
+        content = '\n'.join(lines)
+        write_file(bootini, content)
         run_command(['attrib', '+R', '+S', '+H', bootini])
 
     def undo_bootini(self, drive, associated_task):

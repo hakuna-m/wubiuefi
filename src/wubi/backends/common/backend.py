@@ -649,9 +649,6 @@ class Backend(object):
         Returns True if the previous uninstaller was run
         Otherwiser returns None/False
         '''
-        if not self.info.previous_target_dir:
-            log.debug("No previous_target_dir")
-            return
         if not self.info.previous_uninstaller_path:
             log.debug("No previous_uninstaller_path %s" % self.info.previous_uninstaller_path)
             return
