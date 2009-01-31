@@ -69,6 +69,10 @@ class InstallationPage(Page):
             max_space_mb = max(max_space_mb, drive.free_space_mb)
             if int(drive.free_space_mb/1024) * 1000 > min_space_mb:
                 max_space_mb2 = max(max_space_mb2, drive.free_space_mb)
+        if max_space_mb < 1024:
+            message = "Only %sMB of disk space are available.\nAt least 1024MB are required as a bare minimum. Quitting"
+            message = message % int(max_space_mb)
+            self.frontend.quit()
         if max_space_mb2 < min_space_mb:
             message = "%sMB of disk size are required for installation.\nOnly %sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?"
             min_space_mb = round(min_space_mb/1000+0.5)*1024

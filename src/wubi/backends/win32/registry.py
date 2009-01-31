@@ -38,10 +38,11 @@ def get_value(key, subkey, attr):
 def set_value(key, subkey, attr, value):
     key = getattr(_winreg, key)
     try:
-        handle = _winreg.OpenKey(key, subkey)
+        handle = _winreg.OpenKey(key, subkey, sam=KEY_SET_VALUE)
     except:
         handle = _winreg.CreateKey(key, subkey)
     try:
+        log.debug("Setting registry key %s %s %s %s" % (key, subkey, attr, value))
         _winreg.SetValueEx(handle, attr, 0, 1, value)
     except Exception, err:
         log.exception("Cannot set registry key %s\\%s = %s\n%s" % (subkey, attr, value, err))

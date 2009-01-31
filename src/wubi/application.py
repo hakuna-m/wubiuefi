@@ -50,9 +50,12 @@ class Wubi(object):
 
     def quit(self):
         '''
-        Sends quit signal to frontend, since quit signals are originated by the frontend anyway
+        Sends quit signal to frontend if possible, since quit signals are originated by the frontend anyway
         '''
-        self.frontend.quit()
+        if self.frontend and callable(self.frontend.quit):
+            self.frontend.quit()
+        else:
+            self.on_quit()
 
     def on_quit(self):
         '''
@@ -109,15 +112,19 @@ class Wubi(object):
         '''
         #TBD add non_interactive mode
         #TBD add cd_boot mode
-        self.frontend = self.get_frontend()
-        if self.info.previous_target_dir or self.info.uninstall_dir:
+        if self.info.previous_target_dir:
             log.info("Already installed, running the uninstaller...")
             self.info.uninstall_before_install = True
             self.run_uninstaller()
             self.backend.fetch_basic_info()
-            if self.info.previous_target_dir or self.info.uninstall_dir:
+            if self.info.previous_target_dir:
+                message = "A previous installation was detected in %s.\nPlease uninstall that before continuing."
+                message = message % self.info.previous_target_dir
+                log.error(message)
+                self.get_frontend().show_error_message(message)
                 self.quit()
         log.info("Running the installer...")
+        self.frontend = self.get_frontend()
         self.frontend.show_installation_settings()
         log.info("Received settings")
         self.frontend.run_tasks(self.backend.get_installation_tasklist())
@@ -132,13 +139,14 @@ class Wubi(object):
         Runs the uninstaller interface
         '''
         log.info("Running the uninstaller...")
-        self.frontend = self.get_frontend()
-        self.frontend.show_uninstallation_settings()
-        log.info("Received settings")
-        self.frontend.run_tasks(self.backend.get_uninstallation_tasklist())
-        log.info("Almost finished uninstalling")
-        if not self.info.uninstall_before_install:
-            self.frontend.show_uninstallation_finish_page()
+        if not self.backend.run_previous_uninstaller():
+            self.frontend = self.get_frontend()
+            self.frontend.show_uninstallation_settings()
+            log.info("Received settings")
+            self.frontend.run_tasks(self.backend.get_uninstallation_tasklist())
+            log.info("Almost finished uninstalling")
+            if not self.info.uninstall_before_install:
+                self.frontend.show_uninstallation_finish_page()
         log.info("Finished uninstallation")
 
     def run_cd_menu(self):
@@ -200,7 +208,6 @@ class Wubi(object):
         parser.add_option("--exefile", dest="original_exe", default=None, help="Used to indicate the original location of the executable in case of self-extracting files")
         parser.add_option("--log-file", dest="log_file", default=None, help="use the specified log file, if omitted a log is created in your temp directory, if the value is set to 'none' no log is created")
         parser.add_option("--interface", dest="use_frontend", default=None, help="use the specified user interface, ['win32']")
-        parser.add_option("--uninstall_dir", dest="uninstall_dir", default=None, help="uninstall the specified directory")
         (options, self.args) = parser.parse_args()
         self.info.__dict__.update(options.__dict__)
         if self.info.test:

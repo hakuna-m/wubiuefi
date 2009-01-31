@@ -111,5 +111,10 @@ wubi (9.04) UNRELEASED; urgency=low
   * More precise progress reporting
   * Fixed automatic version string generation
   * Preseed user-setup/encrypt-home (thanks Evan Dandrea)
+  * Use the old uninstaller, if available, to remove an old installation
+  * Editing an existing registry item requires opening the key with a
+    special flag
+  * Modified uninstaller behaviour, it now uninstalls the directory
+    specified in the registry
 
- -- Agostino Russo <agostino.russo@gmail.com>  Wed, 21 Jan 2009 23:59:28 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Sat, 31 Jan 2009 18:47:28 +0000

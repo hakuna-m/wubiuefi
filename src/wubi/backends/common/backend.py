@@ -24,7 +24,6 @@ import tempfile
 import locale
 import struct
 import logging
-import tempfile
 import time
 import mappings
 import gettext
@@ -134,13 +133,11 @@ class Backend(object):
         distros = [((d.name.lower(), d.arch), d) for d in  self.info.distros]
         self.info.distros_dict = dict(distros)
         self.fetch_host_info()
-        self.info.uninstaller_path = self.get_uninstaller_path()
+        self.info.previous_uninstaller_path = self.get_uninstaller_path()
         self.info.previous_target_dir = self.get_previous_target_dir()
-        self.info.backup_dir = "%s.backup" % self.info.previous_target_dir
-        self.info.previous_backup_dir = self.get_previous_backup_dir()
         self.info.keyboard_layout, self.info.keyboard_variant = self.get_keyboard_layout()
-        self.info.total_memory_mb = self.get_total_memory_mb()
         self.info.locale = self.get_locale(self.info.language)
+        self.info.total_memory_mb = self.get_total_memory_mb()
         self.info.iso_path, self.info.iso_distro = self.find_any_iso()
         if self.info.iso_path:
             self.info.cd_path, self.info.cd_distro = None, None
@@ -195,6 +192,7 @@ class Backend(object):
 
     def create_dir_structure(self, associated_task=None):
         self.info.disks_dir = join_path(self.info.target_dir, "disks")
+        self.info.backup_dir = self.info.target_dir + ".backup"
         self.info.install_dir = join_path(self.info.target_dir, "install")
         self.info.install_boot_dir = join_path(self.info.install_dir, "boot")
         self.info.disks_boot_dir = join_path(self.info.disks_dir, "boot")
@@ -398,7 +396,7 @@ class Backend(object):
         if check_iso(iso_path):
             if os.path.dirname(iso_path) == dest:
                 pass
-            elif os.path.dirname(iso_path) == self.info.previous_backup_dir:
+            elif os.path.dirname(iso_path) == self.info.backup_dir:
                 move_iso = associated_task.add_subtask(
                     shutil.move,
                     description = "Moving %s > %s" % (iso_path, dest))
@@ -625,13 +623,6 @@ class Backend(object):
             if self.info.distro.is_valid_cd(path, self.info.check_arch):
                 return path
 
-    def get_previous_target_dir(self):
-        if not self.info.uninstaller_path: return
-        if not os.path.exists(self.info.uninstaller_path): return
-        previous_target_dir = os.path.dirname(self.info.uninstaller_path)
-        log.debug("Previous_target_dir=%s" % previous_target_dir)
-        return previous_target_dir
-
     def parse_isolist(self, isolist_path):
         log.debug('Parsing isolist=%s' % isolist_path)
         isolist = ConfigParser.ConfigParser()
@@ -653,3 +644,34 @@ class Backend(object):
         distros.sort(compfunc)
         return distros
 
+    def run_previous_uninstaller(self):
+        '''
+        Returns True if the previous uninstaller was run
+        Otherwiser returns None/False
+        '''
+        if not self.info.previous_target_dir:
+            log.debug("No previous_target_dir")
+            return
+        if not self.info.previous_uninstaller_path:
+            log.debug("No previous_uninstaller_path %s" % self.info.previous_uninstaller_path)
+            return
+        if not os.path.isfile(self.info.previous_uninstaller_path):
+            log.debug("Could not find the previous uninstaller %s" % self.info.previous_uninstaller_path)
+            return
+        if self.info.original_exe \
+        and get_file_md5(self.info.previous_uninstaller_path) == get_file_md5(self.info.original_exe):
+            log.debug("This is the previous uninstaller running")
+            # Skip to avoid an infinite loop, returning False forces the application to run the uninstallation code directly
+            return
+        log.info("Running previous uninstaller %s" % self.info.previous_uninstaller_path)
+        uninstaller = tempfile.NamedTemporaryFile()
+        uninstaller.close()
+        copy_file(self.info.previous_uninstaller_path, uninstaller.name)
+        command = [uninstaller.name, "--uninstall"]
+        try:
+            result = run_command(command)
+        except Exception, err:
+            log.exception(err)
+        log.info("Finished uninstallation with result=%s" % result)
+        os.unlink(uninstaller.name)
+        return True

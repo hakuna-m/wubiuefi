@@ -109,9 +109,11 @@ class WindowsBackend(Backend):
         uninstaller_name.replace(' ', '_')
         uninstaller_name.replace('__', '_')
         uninstaller_path = join_path(self.info.target_dir, uninstaller_name)
-        log.debug('Copying uninstaller %s -> %s' % (self.info.original_exe, uninstaller_path))
-        shutil.copyfile(self.info.original_exe, uninstaller_path)
+        if os.path.splitext(self.info.original_exe)[-1] == '.exe':
+            log.debug('Copying uninstaller %s -> %s' % (self.info.original_exe, uninstaller_path))
+            shutil.copyfile(self.info.original_exe, uninstaller_path)
         registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'UninstallString', uninstaller_path)
+        registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'InstallationDir', self.info.target_dir)
 
     def create_virtual_disks(self, associated_task):
         self.info.disks_dir
@@ -277,8 +279,13 @@ class WindowsBackend(Backend):
         log.debug('uninstaller_path=%s' % uninstaller_path)
         return uninstaller_path
 
+    def get_previous_target_dir(self):
+        previous_target_dir = registry.get_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'InstallationDir')
+        log.debug("previous_target_dir=%s" % previous_target_dir)
+        return previous_target_dir
+
     def get_registry_key(self):
-        registry_key = 'Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\'  + self.info.application_name
+        registry_key = 'Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\'  + self.info.application_name.capitalize()
         log.debug('registry_key=%s' % registry_key)
         return registry_key
 
@@ -388,17 +395,16 @@ class WindowsBackend(Backend):
         '''
         paths = []
         paths += [os.path.dirname(self.info.original_exe)]
-        paths += [self.info.previous_backup_dir] #TBD search backup folder
+        paths += [self.info.backup_dir]
         paths += [drive.path for drive in self.info.drives]
         paths += [os.environ.get('Desktop', None)]
-        paths += ['/home/vm/cd'] #TBD quick test
-        paths = [abspath(p) for p in paths]
+        paths = [abspath(p) for p in paths if p and os.path.isdir(p)]
         return paths
 
     def backup_iso(self, associated_task=None):
         if not self.info.backup_iso:
             return
-        backup_dir = self.info.previous_target_dir + '.backup'
+        backup_dir = self.info.previous_target_dir + ".backup"
         install_dir = join_path(self.info.previous_target_dir, "install")
         for f in os.listdir(install_dir):
             f = join_path(install_dir, f)
@@ -408,23 +414,12 @@ class WindowsBackend(Backend):
                 log.debug("Backing up %s -> %s" % (f, backup_dir))
                 if not isdir(backup_dir):
                     if isfile(backup_dir):
+                        log.error("The backup directory %s is a file, skipping ISO backup" % backup_dir)
                         #TBD do something more sensible
                         return
                     os.mkdir(backup_dir)
                 target_path = join_path(backup_dir, os.path.basename(f))
                 shutil.move(f, target_path)
-
-    def get_previous_backup_dir(self):
-        if self.info.previous_target_dir:
-            drives = [self.info.previous_target_dir[:2]]
-        else:
-            drives = []
-        drives += [d.path[:2] for d in self.info.drives]
-        for drive in drives:
-            backup_dir = join_path(drive, self.info.backup_dir)
-            if os.path.isdir(backup_dir):
-                log.debug("Previous_backup_dir=%s" % backup_dir)
-                return backup_dir
 
     def get_cd_search_paths(self):
         return [drive.path for drive in self.info.drives] # if drive.type == 'cd']
