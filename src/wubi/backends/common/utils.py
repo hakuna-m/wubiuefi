@@ -170,7 +170,7 @@ def find_line_in_file(file_path, text, endswith=False):
         or (not endswith and line.startswith(text)):
             return line[:-1]
 
-def unixpath(path):
+def unix_path(path):
     #TBD not a proper conversion but will do for now
     path = path.replace('\\', '/')
     if len(path)>1 and path[1] == ':':
@@ -179,7 +179,7 @@ def unixpath(path):
         path = path[:-1]
     return path
 
-def copytree(source, dest):
+def copy_tree(source, dest):
     '''
     Copies a tree, replacing any pre-existing destination file/directory
     '''

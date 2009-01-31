@@ -36,6 +36,7 @@ class Wubi(object):
         self.info.version = version
         self.info.revision = revision
         self.info.application_name = application_name
+        self.info.version_revision = "%s-rev%s" % (self.info.version, self.info.revision)
         self.info.full_application_name = "%s-%s-rev%s" % (self.info.application_name, self.info.version, self.info.revision)
         self.info.full_version = "%s %s rev%s" % (self.info.application_name, self.info.version, self.info.revision)
 

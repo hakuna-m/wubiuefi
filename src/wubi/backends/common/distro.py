@@ -37,7 +37,7 @@ class Distro(object):
             info_file, arch, metalink, metalink2,
             packages, size, md5sums, files_to_check,
             metalink_md5sums, metalink_md5sums_signature,
-            backend, ordering, website, min_disk_space_mb, min_memory_mb, min_iso_size=0, max_iso_size=0):
+            backend, ordering, website, support, min_disk_space_mb, min_memory_mb, min_iso_size=0, max_iso_size=0):
         self.name = name
         self.version = version
         self.arch = arch
@@ -59,6 +59,7 @@ class Distro(object):
         self.backend = backend
         self.ordering = ordering
         self.website = website
+        self.support = support
 
         if isinstance(files_to_check, basestring):
             files_to_check = [
@@ -124,7 +125,7 @@ class Distro(object):
                 info_file = self.backend.extract_file_from_iso(
                     cd_or_iso_path,
                     self.info_file,
-                    output_dir=self.backend.info.tempdir,
+                    output_dir=self.backend.info.temp_dir,
                     overwrite=True)
             elif os.path.isdir(cd_or_iso_path):
                 info_file = os.path.join(cd_or_iso_path, self.info_file)

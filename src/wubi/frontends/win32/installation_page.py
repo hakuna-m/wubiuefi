@@ -42,7 +42,7 @@ class InstallationPage(Page):
             parent,
             left, top + 6, 32, 32)
         picture.set_image(
-            os.path.join(self.info.imagedir, bmp))
+            os.path.join(self.info.image_dir, bmp))
         label = ui.Label(
             parent,
             left + 32 + 10, top, 150, 12,

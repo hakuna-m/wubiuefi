@@ -37,7 +37,7 @@ from metalink import parse_metalink
 from tasklist import ThreadedTaskList, Task
 from distro import Distro
 from mappings import lang_country2linux_locale
-from utils import copytree, join_path, run_command, copy_file, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unixpath
+from utils import copy_tree, join_path, run_command, copy_file, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unix_path
 from signature import verify_gpg_signature
 from os.path import abspath, dirname, isfile, isdir, exists
 
@@ -52,18 +52,18 @@ class Backend(object):
         self.application = application
         self.info = application.info
         if hasattr(sys,'frozen') and sys.frozen:
-            rootdir = dirname(abspath(sys.executable))
-            tempdir = tempfile.mkdtemp(dir=rootdir)
+            root_dir = dirname(abspath(sys.executable))
+            temp_dir = tempfile.mkdtemp(dir=root_dir)
         else:
-            rootdir = ''
-            tempdir = tempfile.mkdtemp()
-        self.info.rootdir = abspath(rootdir)
-        self.info.tempdir = abspath(tempdir)
-        self.info.datadir = join_path(self.info.rootdir, 'data')
-        self.info.bindir = join_path(self.info.rootdir, 'bin')
-        self.info.imagedir = join_path(self.info.datadir, 'images')
-        self.info.trustedkeys = join_path(self.info.datadir, 'trustedkeys.gpg')
-        log.debug('datadir=%s' % self.info.datadir)
+            root_dir = ''
+            temp_dir = tempfile.mkdtemp()
+        self.info.root_dir = abspath(root_dir)
+        self.info.temp_dir = abspath(temp_dir)
+        self.info.data_dir = join_path(self.info.root_dir, 'data')
+        self.info.bin_dir = join_path(self.info.root_dir, 'bin')
+        self.info.image_dir = join_path(self.info.data_dir, 'images')
+        self.info.trusted_keys = join_path(self.info.data_dir, 'trustedkeys.gpg')
+        log.debug('data_dir=%s' % self.info.data_dir)
 
     def get_installation_tasklist(self):
         tasks = [
@@ -107,7 +107,7 @@ class Backend(object):
 
     def change_language(self, codeset):
         domain = self.info.application_name #not sure what it is
-        localedir = join_path(self.info.datadir, 'locale')
+        localedir = join_path(self.info.data_dir, 'locale')
         self.info.codeset = codeset # set the language
         gettext.install(domain, codeset=codeset)
 
@@ -145,7 +145,7 @@ class Backend(object):
             self.info.cd_path, self.info.cd_distro = self.find_any_cd()
 
     def get_distros(self):
-        isolist_path = join_path(self.info.datadir, 'isolist.ini')
+        isolist_path = join_path(self.info.data_dir, 'isolist.ini')
         distros = self.parse_isolist(isolist_path)
         return distros
 
@@ -221,7 +221,7 @@ class Backend(object):
         if os.path.isdir(cd_path):
             return
         self.info.cddir = join_path(self.info.install_dir, "cd")
-        copytree(self.info.cd_path, self.info.cddir)
+        copy_tree(self.info.cd_path, self.info.cddir)
         return dest
 
     def check_metalink(self, metalink, base_url, associated_task=None):
@@ -231,7 +231,7 @@ class Backend(object):
         metalink_md5sums = downloader.download(url, self.info.install_dir, web_proxy=self.info.web_proxy)
         url = base_url +"/" + self.info.distro.metalink_md5sums_signature
         metalink_md5sums_signature = downloader.download(url, self.info.install_dir, web_proxy=self.info.web_proxy)
-        if not verify_gpg_signature(metalink_md5sums, metalink_md5sums_signature, self.info.trustedkeys):
+        if not verify_gpg_signature(metalink_md5sums, metalink_md5sums_signature, self.info.trusted_keys):
             log.error("Could not verify signature for metalink md5sums")
             return False
         md5sums = read_file(metalink_md5sums)
@@ -493,14 +493,14 @@ class Backend(object):
         return md5 == reference_md5
 
     def create_preseed(self):
-        template_file = join_path(self.info.datadir, 'preseed.lupin')
+        template_file = join_path(self.info.data_dir, 'preseed.lupin')
         template = read_file(template_file)
         partitioning = ""
         partitioning += "d-i partman-auto/disk string LIDISK\n"
         partitioning += "d-i partman-auto/method string loop\n"
         partitioning += "d-i partman-auto-loop/partition string LIPARTITION\n"
         partitioning += "d-i partman-auto-loop/recipe string \\\n"
-        disks_dir = unixpath(self.info.disks_dir) + '/'
+        disks_dir = unix_path(self.info.disks_dir) + '/'
         if self.info.root_size_mb:
             partitioning += '  %s 3000 %s %s ext3 method{ format } format{ } use_filesystem{ } filesystem{ ext3 } mountpoint{ / } . \\\n' \
             %(disks_dir + 'root.disk', self.info.root_size_mb, self.info.root_size_mb)
@@ -540,21 +540,21 @@ class Backend(object):
         pass
 
     def modify_grub_configuration(self):
-        template_file = join_path(self.info.datadir, 'menu.install')
+        template_file = join_path(self.info.data_dir, 'menu.install')
         template = read_file(template_file)
         if self.info.cd_path:
-            isopath = unixpath(self.info.cd_path)
+            isopath = unix_path(self.info.cd_path)
         elif self.info.iso_path:
-            isopath = unixpath(self.info.iso_path)
+            isopath = unix_path(self.info.iso_path)
         dic = dict(
-            custom_installation_dir = unixpath(self.info.custominstall),
+            custom_installation_dir = unix_path(self.info.custominstall),
             iso_path = isopath,
             keyboard_variant = self.info.keyboard_variant,
             keyboard_layout = self.info.keyboard_layout,
             locale = self.info.locale,
             accessibility = self.info.accessibility,
-            kernel = unixpath(self.info.kernel),
-            initrd = unixpath(self.info.initrd),
+            kernel = unix_path(self.info.kernel),
+            initrd = unix_path(self.info.initrd),
             normal_mode_title = "Normal mode",
             safe_graphic_mode_title = "Safe graphic mode",
             acpi_workarounds_title = "ACPI workarounds",

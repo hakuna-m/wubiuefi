@@ -120,5 +120,8 @@ wubi (9.04) UNRELEASED; urgency=low
   * Only show the subtask progressbar when the progress is non-zero
   * ConfigParser is not adequate for editing boot.ini, replaced with ad
     hoc implementation
+  * Added more registry information, to be displayed in the Control
+    Panel
+  * Renamed a few variables for code style consistency
 
- -- Agostino Russo <agostino.russo@gmail.com>  Sat, 31 Jan 2009 20:31:36 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Sat, 31 Jan 2009 23:32:17 +0000

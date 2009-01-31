@@ -31,7 +31,7 @@ from eject import eject_cd
 import registry
 from memory import get_total_memory_mb
 from wubi.backends.common.backend import Backend
-from wubi.backends.common.utils import run_command, replace_line_in_file, read_file, write_file, join_path, copytree, remove_line_in_file
+from wubi.backends.common.utils import run_command, replace_line_in_file, read_file, write_file, join_path, copy_tree, remove_line_in_file
 from wubi.backends.common.mappings import country2tz, name2country, gmt2country, country_gmt2tz, gmt2tz
 from os.path import abspath, dirname, isfile, isdir, exists
 import mappings
@@ -47,8 +47,8 @@ class WindowsBackend(Backend):
 
     def __init__(self, *args, **kargs):
         Backend.__init__(self, *args, **kargs)
-        self.info.iso_extractor = join_path(self.info.bindir, '7z.exe')
-        self.info.cpuid = join_path(self.info.bindir, 'cpuid.dll')
+        self.info.iso_extractor = join_path(self.info.bin_dir, '7z.exe')
+        self.info.cpuid = join_path(self.info.bin_dir, 'cpuid.dll')
         log.debug('7z=%s' % self.info.iso_extractor)
         self.cache = {}
 
@@ -93,6 +93,7 @@ class WindowsBackend(Backend):
         and os.path.isdir(self.info.previous_target_dir):
             os.rename(self.info.previous_target_dir, self.info.target_dir)
         log.info('Installing into %s' % target_dir)
+        self.info.icon = join_path(self.info.target_dir, self.info.distro.name + '.ico')
 
     def uncompress_files(self, associated_task):
         command1 = ['compact', join_path(self.info.target_dir), '/U', '/S', '/A', '/F']
@@ -114,6 +115,12 @@ class WindowsBackend(Backend):
             shutil.copyfile(self.info.original_exe, uninstaller_path)
         registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'UninstallString', uninstaller_path)
         registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'InstallationDir', self.info.target_dir)
+        registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'DisplayName', self.info.distro.name)
+        registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'DisplayIcon', self.info.icon)
+        registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'DisplayVersion', self.info.version_revision)
+        registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'Publisher', self.info.distro.name)
+        registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'URLInfoAbout', self.info.distro.website)
+        registry.set_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'HelpLink', self.info.distro.support)
 
     def create_virtual_disks(self, associated_task):
         self.info.disks_dir
@@ -129,20 +136,24 @@ class WindowsBackend(Backend):
 
     def copy_installation_files(self, associated_task):
         self.info.custominstall = join_path(self.info.install_dir, 'custom-installation')
-        src = join_path(self.info.datadir, 'custom-installation')
+        src = join_path(self.info.data_dir, 'custom-installation')
         dest = self.info.custominstall
         log.debug('Copying %s -> %s' % (src, dest))
-        copytree(src, dest)
-        src = join_path(self.info.datadir, 'winboot')
+        copy_tree(src, dest)
+        src = join_path(self.info.data_dir, 'winboot')
         dest = join_path(self.info.target_dir, 'winboot')
         log.debug('Copying %s -> %s' % (src, dest))
-        copytree(src, dest)
+        copy_tree(src, dest)
         dest = join_path(self.info.custominstall, 'hooks', 'failure-command.sh')
         msg='The installation failed. Logs have been saved in: %s.' \
             '\n\nNote that in verbose mode, the logs may include the password.' \
             '\n\nThe system will now reboot.'
         msg = msg % join_path(self.info.install_dir, 'installation-logs.zip')
         replace_line_in_file(dest, 'msg=', "msg='%s'" % msg)
+        src = join_path(self.info.image_dir, self.info.distro.name + '.ico')
+        dest = self.info.icon
+        log.debug('Copying %s -> %s' % (src, dest))
+        shutil.copyfile(src, dest)
 
     def get_windows_version2(self):
         windows_version2 = registry.get_value(
@@ -484,10 +495,10 @@ class WindowsBackend(Backend):
         if not os.path.isfile(bootini):
             log.debug("Could not find boot.ini %s" % bootini)
             return
-        src = join_path(self.info.datadir, 'winboot', 'wubildr')
+        src = join_path(self.info.data_dir, 'winboot', 'wubildr')
         dest = join_path(drive.path, 'wubildr')
         shutil.copyfile(src,  dest)
-        src = join_path(self.info.datadir, 'winboot', 'wubildr.mbr')
+        src = join_path(self.info.data_dir, 'winboot', 'wubildr.mbr')
         dest = join_path(drive.path, 'wubildr.mbr')
         shutil.copyfile(src,  dest)
         run_command(['attrib', '-R', '-S', '-H', bootini])
@@ -528,7 +539,7 @@ class WindowsBackend(Backend):
         configsys = join_path(drive.path, 'config.sys')
         if not os.path.isfile(configsys):
             return
-        src = join_path(self.info.datadir, 'winboot', 'wubildr.exe')
+        src = join_path(self.info.data_dir, 'winboot', 'wubildr.exe')
         dest = join_path(drive.path, 'wubildr.exe')
         shutil.copyfile(src,  dest)
         run_command(['attrib', '-R', '-S', '-H', configsys])
@@ -574,10 +585,10 @@ class WindowsBackend(Backend):
         if drive is self.info.system_drive \
         or drive.path == "C:" \
         or drive.path == os.environ('systemroot')[:2]:
-            src = join_path(self.info.datadir, 'winboot', 'wubildr')
+            src = join_path(self.info.data_dir, 'winboot', 'wubildr')
             dest = join_path(drive.path, 'wubildr')
             shutil.copyfile(src,  dest)
-            src = join_path(self.info.datadir, 'winboot', 'wubildr.mbr')
+            src = join_path(self.info.data_dir, 'winboot', 'wubildr.mbr')
             dest = join_path(drive.path, 'wubildr.mbr')
             shutil.copyfile(src,  dest)
         bcdedit = join_path(os.getenv('SystemDrive'), 'bcdedit.exe')

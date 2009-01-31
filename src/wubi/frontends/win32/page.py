@@ -42,7 +42,7 @@ class Page(ui.Page):
             self,
             0, 0, 164, 314)
         self.vertical_image.set_image(
-            os.path.join(self.info.imagedir, bmp_file))
+            os.path.join(self.info.image_dir, bmp_file))
         self.vertical_image.width = 164
 
     def insert_header(self, title, subtitle, bmp_file):
@@ -59,7 +59,7 @@ class Page(ui.Page):
                 self.header,
                 0, 0, hbw, hbh)
             self.header.image.set_image(
-                os.path.join(self.info.imagedir, bmp_file))
+                os.path.join(self.info.image_dir, bmp_file))
         if title:
             self.header.title = ui.Label(
                 self.header,
