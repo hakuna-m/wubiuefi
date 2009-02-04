@@ -2,8 +2,8 @@
 
 Wubi is the Windows Ubuntu Installer. Wubi installs Ubuntu inside a file
 within a windows partition, and thus it does not require CD burning or
-dedicated partitions. Jet the installation is a dual boot setup identical to
-a normal installation.
+dedicated partitions, yet the installation is a dual boot setup identical
+to a normal installation.
 
 For more information see:
 
