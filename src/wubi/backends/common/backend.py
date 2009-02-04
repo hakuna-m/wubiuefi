@@ -37,7 +37,7 @@ from metalink import parse_metalink
 from tasklist import ThreadedTaskList, Task
 from distro import Distro
 from mappings import lang_country2linux_locale
-from utils import copy_tree, join_path, run_command, copy_file, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unix_path
+from utils import copy_tree, join_path, run_command, md5_password, copy_file, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unix_path
 from signature import verify_gpg_signature
 from os.path import abspath, dirname, isfile, isdir, exists
 
@@ -517,9 +517,10 @@ class Backend(object):
         safe_host_username = self.info.host_username.replace(" ", "+")
         user_directory = self.info.user_directory.replace("\\", "/")[2:]
         host_os_name = "Windows XP Professional" #TBD
+        password = md5_password(self.info.password)
         dic = dict(
             timezone = self.info.timezone,
-            password = self.info.password,
+            password = password,
             user_full_name = self.info.user_full_name,
             distro_packages = self.info.distro.packages,
             host_username = self.info.host_username,
@@ -666,7 +667,7 @@ class Backend(object):
         copy_file(self.info.previous_uninstaller_path, uninstaller.name)
         command = [uninstaller.name, "--uninstall"]
         try:
-            result = run_command(command)
+            result = run_command(command, show_window=True)
         except Exception, err:
             log.exception(err)
         log.info("Finished uninstallation with result=%s" % result)

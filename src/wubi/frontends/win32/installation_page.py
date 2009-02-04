@@ -317,10 +317,6 @@ class InstallationPage(Page):
         info.installation_size_mb = installation_size_mb
         info.language = language
         info.username = username
-        info.password = get_md5(password1)
+        info.password = password1
         self.frontend.stop()
 
-def get_md5(str):
-    m = md5.new(str)
-    hash = m.hexdigest()
-    return hash

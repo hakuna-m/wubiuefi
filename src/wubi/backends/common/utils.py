@@ -24,6 +24,7 @@ import md5
 import subprocess
 import shutil
 import sys
+import random
 
 def join_path(*args):
     if args and args[0][-1] == ":":
@@ -31,12 +32,23 @@ def join_path(*args):
         args[0] = args[0] + os.path.sep
     return os.path.abspath(os.path.join(*args))
 
-def run_command(command):
+def run_command(command, show_window=False):
     '''
     return stdout on success or raise error
     '''
+    STARTF_USESHOWWINDOW = 1
+    SW_HIDE = 0
+    if show_window:
+        startupinfo = None
+    else:
+        startupinfo = subprocess.STARTUPINFO()
+        startupinfo.dwFlags |= STARTF_USESHOWWINDOW
+        startupinfo.wShowWindow = SW_HIDE
     process = subprocess.Popen(
-        command, stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=False)
+        command,
+        stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+        startupinfo=startupinfo,
+        shell=False)
     process.stdin.close()
     output = process.stdout.read()
     errormsg = process.stderr.read()
@@ -55,6 +67,76 @@ def run_async_command(command):
     process = subprocess.Popen(
         command, stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=False)
     process.communicate()
+
+def md5_password(password):
+    # From http://mail.python.org/pipermail/python-list/2003-March/195202.html
+    salt_chars = './abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    salt = ''.join([random.choice(salt_chars) for i in range(5)])
+
+    hash = md5.new()
+    hash.update(password)
+    hash.update('$1$')
+    hash.update(salt)
+
+    second_hash = md5.new()
+    second_hash.update(password)
+    second_hash.update(salt)
+    second_hash.update(password)
+    second_hash = second_hash.digest()
+    q, r = divmod(len(password), len(second_hash))
+    second_hash = second_hash*q + second_hash[:r]
+    assert len(second_hash) == len(password)
+    hash.update(second_hash)
+    del second_hash, q, r
+
+    i = len(password)
+    while i > 0:
+        if i & 1:
+            hash.update('\0')
+        else:
+            hash.update(password[0])
+        i >>= 1
+
+    hash = hash.digest()
+
+    for i in xrange(1000):
+        nth_hash = md5.new()
+        if i % 2:
+            nth_hash.update(password)
+        else:
+            nth_hash.update(hash)
+        if i % 3:
+            nth_hash.update(salt)
+        if i % 7:
+            nth_hash.update(password)
+        if i % 2:
+            nth_hash.update(hash)
+        else:
+            nth_hash.update(password)
+        hash = nth_hash.digest()
+
+    # a different base64 than the MIME one
+    base64 = './0123456789' \
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ' \
+        'abcdefghijklmnopqrstuvwxyz'
+    def b64_three_char(char2, char1, char0, n):
+        byte2, byte1, byte0 = map(ord, [char2, char1, char0])
+        w = (byte2 << 16) | (byte1 << 8) | byte0
+        s = []
+        for _ in range(n):
+            s.append(base64[w & 0x3f])
+            w >>= 6
+        return s
+
+    result = ['$1$', salt, '$']
+    result.extend(b64_three_char(hash[0], hash[6], hash[12], 4))
+    result.extend(b64_three_char(hash[1], hash[7], hash[13], 4))
+    result.extend(b64_three_char(hash[2], hash[8], hash[14], 4))
+    result.extend(b64_three_char(hash[3], hash[9], hash[15], 4))
+    result.extend(b64_three_char(hash[4], hash[10], hash[5], 4))
+    result.extend(b64_three_char('\0', '\0', hash[11], 2))
+
+    return ''.join(result)
 
 def get_file_md5(file_path, associated_task=None):
     file_size = os.path.getsize(file_path)/(1024**2)

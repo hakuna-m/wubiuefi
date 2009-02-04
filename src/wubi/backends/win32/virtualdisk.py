@@ -138,9 +138,8 @@ def call_SetFileValidData(file_handle, size_bytes):
     result = SetFileValidData(file_handle, size_bytes)
 
 def zero_file(file_handle, clear_bytes):
-   bytes_cleared = c_long(0)
+   bytes_cleared = 0
    buf_size = 1000
-
    n_bytes_written = c_long(0)
    write_buf = "0"*buf_size
 
@@ -154,6 +153,6 @@ def zero_file(file_handle, clear_bytes):
                    bytes_to_write,
                    byref(n_bytes_written),
                    NULL)
-       if not result or not n_bytes_written:
+       if not result or not n_bytes_written.value:
            log.exception("WriteFile() failed!")
-       bytes_cleared += n_bytes_written
+       bytes_cleared += n_bytes_written.value

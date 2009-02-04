@@ -123,5 +123,9 @@ wubi (9.04) UNRELEASED; urgency=low
   * Added more registry information, to be displayed in the Control
     Panel
   * Renamed a few variables for code style consistency
+  * Fixed typo preventing partial zeroing in virtual disk space
+    allocation
+  * Stopped console windows from popping up when running commands
+  * Added salt to the password hashing algorithm
 
- -- Agostino Russo <agostino.russo@gmail.com>  Sat, 31 Jan 2009 23:32:17 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Mon, 02 Feb 2009 03:36:29 +0000
