@@ -1,6 +1,5 @@
 export SHELL = sh
 PROGRAM = pylauncher
-#DEBUG = yes
 #LDFLAGS = -shared -dll
 LDFLAGS = -mwindows
 #LIB = -lm -static
@@ -30,9 +29,10 @@ CFLAGS = \
 # -march=i386
 
 ifdef DEBUG
-	CFLAGS = -g $(CFLAGS)
+	DEBUGFLAG = -g $(CFLAGS)
 	STRIP = @echo
 else
+	DEBUGFLAG =
 	STRIP = i586-mingw32msvc-strip
 endif
 
@@ -61,18 +61,24 @@ endif
 
 all: $(PROGRAM).exe
 
-$(PROGRAM).exe: $(7Z_OBJS) unpack.o pylauncher.o
+$(PROGRAM).exe: $(7Z_OBJS) unpack.o deletedir.o pylauncher.o str.o
 	$(CC) -o $@ $(LDFLAGS) $(LIBS) $^
 	$(STRIP) $@
 
 $(7Z_OBJS): $(7Z_OBJS_SRC)
-	$(CC) $(CFLAGS) $^
+	$(CC) $(DEBUGFLAG) $(CFLAGS) $^
 
 pylauncher.o: pylauncher.c
-	$(CC) $(CFLAGS) $^
+	$(CC) $(DEBUGFLAG) $(CFLAGS) $^
+
+deletedir.o: deletedir.c
+	$(CC) $(DEBUGFLAG) $(CFLAGS) $^
 
 unpack.o: unpack.c
-	$(CC) $(CFLAGS) $^
+	$(CC) $(DEBUGFLAG) $(CFLAGS) $^
+
+str.o: str.c
+	$(CC) $(DEBUGFLAG) $(CFLAGS) $^
 
 clean:
 	rm -f unpack.exe pylauncher.exe $(7Z_OBJS) *.d *.o

@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2007, 2008 Agostino Russo
+ * Using http://www.codeguru.com/forum/showthread.php?t=239271
  *
  *  Written by Agostino Russo <agostino.russo@gmail.com>
  *  Heavily inspired by exemaker from Fredrik Lundh
@@ -18,21 +19,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * DESCRIPTION:
- * Unpacks an lzma archive
+ * Recursively deletes a directory
  */
 
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <io.h>
-
-#include "../7z/C/Archive/7z/7zIn.h"
-#include "../7z/C/Archive/7z/7zExtract.h"
-#include "../7z/C/7zCrc.h"
-
-#ifdef USE_WINDOWS_FUNCTIONS
 #include <windows.h>
-#endif
+#include <conio.h>
 
-int unpack(char *archive);
+int delete_directory(char* root_directory);

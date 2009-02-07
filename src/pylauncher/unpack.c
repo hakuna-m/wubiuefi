@@ -22,6 +22,15 @@
  */
 
 #include "unpack.h"
+#include "str.h"
+#include <string.h>
+
+#define true 1
+#define false 0
+
+#ifndef DEBUG
+#define DEBUG
+#endif
 
 #ifdef USE_WINDOWS_FUNCTIONS
 typedef HANDLE MY_FILE_HANDLE;
@@ -200,19 +209,21 @@ MY_FILE_HANDLE open_file_w(char *file_name)
 int create_directory(char *directory_name)
 {
     int result;
-    result=
     #ifdef USE_WINDOWS_FUNCTIONS
     CreateDirectory(directory_name,NULL);
     #else
-    mkdir(directory_name, S_IRUSR | S_IWUSR);
+    result = mkdir(directory_name); //, S_IRUSR | S_IWUSR); //second argument not supported by mingw version
     #endif
     return result;
 }
 
-void print_error(char *sz)
+void print_error(char *message)
 {
     #ifdef DEBUG
-    printf("\nERROR: %s\n", sz);
+    printf("\nERROR: %s\n", message);
+    #ifdef USE_WINDOWS_FUNCTIONS
+    MessageBox(NULL, message, "Unpack Error", MB_ICONERROR | MB_OK);
+    #endif
     #endif
 }
 
@@ -246,35 +257,38 @@ int unpack(char archive[512])
     CrcGenerateTable();
 
     //LOOK FOR OFFSET IN ARCHIVE
-    CFileSize offset = 0;
-    Byte b[k7zSignatureSize];
     UInt32 i;
     int is_found;
-    int j;
+    CFileSize offset = 0;
+    char* pylauncher = "@@@pylauncher@@@";
+    char* signature = concatn(pylauncher, (char*)k7zSignature, k7zSignatureSize, false);
+    if(!signature) return 1;
+    int signature_size = strlen(signature);
+    Byte b[signature_size];
+    printf("signature: '%s'\n", signature);
+    
     //TBD make the signature search more robust
     //by adding some random bits
     //TBD search up to the end of file
-    for (i=20000; i<100000; i++){
+    //TBD check number of read bytes, returned by read_file
+    is_found = false;
+    for (i=0; i<100000; i++){
         seek_file_imp(&archive_stream, i);
-        read_file(archive_stream.File, &b, k7zSignatureSize);
-        is_found = 1;
-        for (j=0; j<k7zSignatureSize; j++){
-            if (b[j] != k7zSignature[j]){
-                is_found = 0;
-                break;
-            }
-        }
-        if (is_found == 1){
+        read_file(archive_stream.File, &b, signature_size);
+        if(memcmp(signature, b, signature_size) == 0) {
+            print_error("FOUND");
+            is_found = true;
             break;
         }
     }
-    #ifdef DEBUG
-    printf("signature=%s, offset=%i, found=%i\n", b, i, is_found);
-    #endif
+    //#ifdef DEBUG
+    printf("signature=%s, offset=%d, found=%i\n", b, i, is_found);
+    //#endif
+    free(signature);
     SzArDbExInit(&db);
 
     //SET THE OFFSET
-    g_offset = i;
+    g_offset = i + strlen(pylauncher);
     seek_file_imp(&archive_stream.InStream, 0); //seek to beginning of file including offset
 
     res = SzArchiveOpen(&archive_stream.InStream, &db, &alloc_imp, &alloc_temp_imp);

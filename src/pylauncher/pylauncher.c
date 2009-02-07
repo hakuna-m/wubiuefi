@@ -37,7 +37,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "windows.h"
+#include "deletedir.h"
 #include "unpack.h"
+
 
 int __cdecl
 main(int ac, char **av)
@@ -54,20 +56,23 @@ main(int ac, char **av)
     char pythonhome[256] = ".";
     char scriptfile[256] = "main.pyo";
     char message[512];
-    char debug[3] = "Off";
+    char debug[4] = "Off";
     char verbose[2] = "0";
     char tmpdir[MAX_PATH];
+    char currentdir[MAX_PATH];
 
     //Get path of this executable
     GetModuleFileName(NULL, exefile, sizeof(exefile));
 
     //Create tmpdir
-    GetTempPath(MAX_PATH, &tmpdir);
-    GetTempFileName(&tmpdir, "pyl", 0, &tmpdir);
+    GetTempPath(MAX_PATH, tmpdir);
+    GetTempFileName(tmpdir, "pyl", 0, tmpdir);
     DeleteFile(tmpdir);
     //~ mkdtemp(tmpdir);
+    getcwd(currentdir, MAX_PATH);
     CreateDirectory(tmpdir, NULL);
     chdir(tmpdir);
+    printf("tmpdir = %s\n", tmpdir);
 
     //Extract LZMA bundled archive
     if (unpack(exefile)) {
@@ -84,12 +89,12 @@ main(int ac, char **av)
     GetModuleFileName(dll, dllfile, sizeof(dllfile));
 
     //Get entry point for Py_main
-    Py_Main = (void*) GetProcAddress(dll, "Py_Main");
+    Py_Main = (int (*)(int, char**)) GetProcAddress(dll, "Py_Main");
     if (!Py_Main)
         ExitProcess(1);
 
     //Set python path
-    Py_SetPythonHome = (void*) GetProcAddress(dll, "Py_SetPythonHome");
+    Py_SetPythonHome = (void (*)(char*)) GetProcAddress(dll, "Py_SetPythonHome");
     if (Py_SetPythonHome) {
         Py_SetPythonHome(pythonhome); // SetPythonHome keeps a reference!
     }
@@ -111,12 +116,19 @@ main(int ac, char **av)
     argv[4] = exefilearg;
     for (i = 1; i < (DWORD) ac; i++)
         argv[4+i] = av[i];
-    return Py_Main(4+i, argv);
 
-    //TBD delete tempdir
+    //Delete directory
+    chdir(currentdir);
+    delete_directory(tmpdir);
+
+    //Finish
+    return Py_Main(4+i, argv);
 
 error:
     MessageBox(NULL, message, "Internal error", MB_ICONERROR | MB_OK);
+    //Delete directory
+    chdir(currentdir);
+    delete_directory(tmpdir);
     return 1;
 }
 

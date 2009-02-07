@@ -43,7 +43,7 @@ from modulegraph.modulegraph import SourceModule, Package, Script
 from os.path import abspath, join, basename, dirname, exists
 import py_compile
 from optparse import OptionParser
-
+SIGNATURE="@@@pylauncher@@@"
 def ajoin(*args):
     return abspath(join(*args))
 
@@ -110,8 +110,12 @@ def make_self_extracting_exe(target_dir):
     pylauncher = ajoin(dirname(__file__), 'pylauncher.exe')
     archive = ajoin(dirname(target_dir),'archive.7z')
     target = ajoin(dirname(target_dir), 'application.exe')
+    signature = ajoin(dirname(target_dir), 'signature')
+    f = open(signature, 'wb')
+    f.write(SIGNATURE)
+    f.close()
     print "Creating self extracting file %s" % target
-    cat(target, pylauncher, archive)
+    cat(target, pylauncher, signature, archive)
 
 def add_python_dll(target_dir):
     #TBD detect the dll/lib of the current python instance

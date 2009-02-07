@@ -128,4 +128,8 @@ wubi (9.04) UNRELEASED; urgency=low
   * Stopped console windows from popping up when running commands
   * Added salt to the password hashing algorithm
 
- -- Agostino Russo <agostino.russo@gmail.com>  Mon, 02 Feb 2009 03:36:29 +0000
+  [ Hampus Wessman ]
+  * Added deletion of temporary directory
+  * Fixed archive signature search in unpack.c
+
+ -- Hampus Wessman <hampus@debian.home>  Sat, 07 Feb 2009 22:54:42 +0100
