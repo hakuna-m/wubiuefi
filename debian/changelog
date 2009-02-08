@@ -131,5 +131,6 @@ wubi (9.04) UNRELEASED; urgency=low
   [ Hampus Wessman ]
   * Added deletion of temporary directory
   * Fixed archive signature search in unpack.c
+  * Removed some debugging code
 
- -- Hampus Wessman <hampus@debian.home>  Sat, 07 Feb 2009 22:54:42 +0100
+ -- Hampus Wessman <hampus@debian.home>  Sun, 08 Feb 2009 10:17:38 +0100

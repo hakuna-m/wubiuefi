@@ -28,10 +28,6 @@
 #define true 1
 #define false 0
 
-#ifndef DEBUG
-#define DEBUG
-#endif
-
 #ifdef USE_WINDOWS_FUNCTIONS
 typedef HANDLE MY_FILE_HANDLE;
 #else
