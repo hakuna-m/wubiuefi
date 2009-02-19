@@ -47,6 +47,7 @@ main(int ac, char **av)
     HINSTANCE dll;
     char* argv[100];
     int (__cdecl * Py_Main)(int argc, char *argv[]);
+    int result;
     void (__cdecl * Py_SetPythonHome)(char* home);
     char exefile[256];
     char exefilearg[256];
@@ -90,8 +91,9 @@ main(int ac, char **av)
 
     //Get entry point for Py_main
     Py_Main = (int (*)(int, char**)) GetProcAddress(dll, "Py_Main");
-    if (!Py_Main)
+    if (!Py_Main){
         ExitProcess(1);
+    }
 
     //Set python path
     Py_SetPythonHome = (void (*)(char*)) GetProcAddress(dll, "Py_SetPythonHome");
@@ -116,13 +118,13 @@ main(int ac, char **av)
     argv[4] = exefilearg;
     for (i = 1; i < (DWORD) ac; i++)
         argv[4+i] = av[i];
+    result = Py_Main(4+i, argv);
 
     //Delete directory
     chdir(currentdir);
     delete_directory(tmpdir);
 
-    //Finish
-    return Py_Main(4+i, argv);
+    return result;
 
 error:
     MessageBox(NULL, message, "Internal error", MB_ICONERROR | MB_OK);

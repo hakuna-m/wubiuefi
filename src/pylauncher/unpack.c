@@ -223,13 +223,55 @@ void print_error(char *message)
     #endif
 }
 
-CFileSize seek_beginning_of_archive(CFileInStream archive_stream)
+CFileSize seek_beginning_of_archive(CFileInStream *archive_stream)
 {
-    return (CFileSize) 0;
+    UInt32 i;
+    int is_found;
+    char* pylauncher = "@@@pylauncher@@@";
+    char* signature = concatn(pylauncher, (char*)k7zSignature, k7zSignatureSize, false);
+    if(!signature) return 1;
+    int signature_size = strlen(signature);
+    int result;
+    size_t archive_size = 0;
+    #ifdef DEBUG
+    printf("signature: '%s'\n", signature);
+    #endif
+    #ifdef USE_WINDOWS_FUNCTIONS
+        archive_size = 1000000 //TBD
+    #else
+        struct stat filestat;
+        fstat(fileno(archive_stream->File), &filestat);
+        archive_size = filestat.st_size;
+    #endif
+    is_found = false;
+    Byte b[signature_size];
+    #ifdef DEBUG
+    printf("archive_size=%d", archive_size);
+    #endif
+    for (i=0; i < archive_size; i++){
+        result = seek_file_imp(archive_stream, i);
+        result = read_file(archive_stream->File, &b, signature_size);
+        if (result == 0){
+            break;
+        }
+        if(memcmp(signature, b, signature_size) == 0) {
+            is_found = true;
+            break;
+        }
+    }
+    #ifdef DEBUG
+    printf("signature=%s, offset=%d, found=%i\n", b, i, is_found);
+    #endif
+    if (! is_found){
+        print_error("Could not find the beginning of the archive");
+    }
+    free(signature);
+    return (CFileSize)(i + strlen(pylauncher));
 }
 
 int unpack(char archive[512])
 {
+    UInt32 i;
     CFileInStream archive_stream;
     CArchiveDatabaseEx db;
     SZ_RESULT res;
@@ -252,39 +294,15 @@ int unpack(char archive[512])
     alloc_temp_imp.Free = SzFreeTemp;
     CrcGenerateTable();
 
-    //LOOK FOR OFFSET IN ARCHIVE
-    UInt32 i;
-    int is_found;
-    CFileSize offset = 0;
-    char* pylauncher = "@@@pylauncher@@@";
-    char* signature = concatn(pylauncher, (char*)k7zSignature, k7zSignatureSize, false);
-    if(!signature) return 1;
-    int signature_size = strlen(signature);
-    Byte b[signature_size];
-    printf("signature: '%s'\n", signature);
-    
-    //TBD make the signature search more robust
-    //by adding some random bits
-    //TBD search up to the end of file
-    //TBD check number of read bytes, returned by read_file
-    is_found = false;
-    for (i=0; i<100000; i++){
-        seek_file_imp(&archive_stream, i);
-        read_file(archive_stream.File, &b, signature_size);
-        if(memcmp(signature, b, signature_size) == 0) {
-            print_error("FOUND");
-            is_found = true;
-            break;
-        }
-    }
-    //#ifdef DEBUG
-    printf("signature=%s, offset=%d, found=%i\n", b, i, is_found);
-    //#endif
-    free(signature);
+    //SEEK OFFSET
+    size_t offset;
+    offset = seek_beginning_of_archive(&archive_stream);
+
+    //INIT DB
     SzArDbExInit(&db);
 
     //SET THE OFFSET
-    g_offset = i + strlen(pylauncher);
+    g_offset = offset;
     seek_file_imp(&archive_stream.InStream, 0); //seek to beginning of file including offset
 
     res = SzArchiveOpen(&archive_stream.InStream, &db, &alloc_imp, &alloc_temp_imp);
@@ -330,12 +348,15 @@ int unpack(char archive[512])
         for (i = 0; i < db.Database.NumFiles; i++)
         {
             CFileItem *f = db.Database.Files + i;
+            #ifdef DEBUG
+            printf("Extracting %s\n %d %s", f->Name, i, f->IsDirectory);
+            #endif
             if (f->IsDirectory){
                 continue;
             }
             size_t out_size_processed;
             #ifdef DEBUG
-            printf("Extracting %s", f->Name);
+            printf("Extracting %s\n", f->Name);
             #endif
             res = SzExtract(&archive_stream.InStream, &db, i,
                     &block_index, &out_buffer, &out_buffer_size,

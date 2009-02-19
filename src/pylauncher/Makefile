@@ -29,7 +29,7 @@ CFLAGS = \
 # -march=i386
 
 ifdef DEBUG
-	DEBUGFLAG = -g $(CFLAGS)
+	DEBUGFLAG = -g
 	STRIP = @echo
 else
 	DEBUGFLAG =

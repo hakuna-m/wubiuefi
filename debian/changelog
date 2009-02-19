@@ -133,4 +133,9 @@ wubi (9.04) UNRELEASED; urgency=low
   * Fixed archive signature search in unpack.c
   * Removed some debugging code
 
- -- Hampus Wessman <hampus@debian.home>  Sun, 08 Feb 2009 10:17:38 +0100
+  [ Agostino Russo ]
+  * Fixed regression, a premature deletion of the temporary folder was
+    preventing a correct startup
+  * Factored out code that looks for archive start
+
+ -- Agostino Russo <agostino.russo@gmail.com>  Thu, 19 Feb 2009 23:13:36 +0000
