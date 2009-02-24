@@ -4,3 +4,5 @@
 ## KEYBOARD
 # set using kernel boot argumens
 
+d-i partman/filter_mounted boolean false
+d-i ubiquity/partman-skip-unmount boolean true

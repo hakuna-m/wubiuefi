@@ -140,5 +140,6 @@ wubi (9.04) UNRELEASED; urgency=low
   * Compile grub4dos from source as opposed to using precompiled
     binaries
   * Added source files for grub4dos and grubutil
+  * Updated mythbuntu and cdmenu preseed templates
 
- -- Agostino Russo <agostino.russo@gmail.com>  Tue, 24 Feb 2009 22:02:11 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Tue, 24 Feb 2009 22:38:43 +0000

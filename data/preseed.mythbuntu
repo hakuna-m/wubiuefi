@@ -37,6 +37,9 @@ d-i partman/confirm_write_new_label boolean true
 d-i partman/choose_partition \
        select Finish partitioning and write changes to disk
 d-i partman/confirm boolean true
+d-i partman/filter_mounted boolean false
+d-i ubiquity/partman-skip-unmount boolean true
+
 
 ## CLOCK AND TIME ZONE
 d-i clock-setup/utc boolean false
@@ -47,6 +50,7 @@ d-i passwd/root-login boolean false
 d-i passwd/user-fullname string $(user_full_name)
 d-i passwd/username string $(username)
 d-i passwd/user-password-crypted password $(password)
+d-i user-setup/encrypt-home boolean false
 
 ## BOOT LOADER
 d-i lilo-installer/skip boolean true
