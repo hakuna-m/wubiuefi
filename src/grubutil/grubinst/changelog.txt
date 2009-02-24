@@ -1,0 +1,64 @@
+2007-08-29 version 1.1 (revision 19)
+	* Run mbr test to detect chs problem
+	* New option --no-copy-bpb and --skip-mbr-test
+	* NTFS boot sector update: get number of heads and sectors per track at runtime
+	* Support 8.3 boot file name (max length 7 in previous versions)
+
+2007-07-16 version 1.1 (revision 17)
+	* Display timeout counter
+	* New NTFS boot code (4 sector)
+	* NTFS driver update: support non-resident $BITMAP
+	* New option -k, -r for grubmenu
+	* New option -e for grubinst
+	* Copy FAT16/FAT32 BPB to MBR
+
+2007-05-10 version 1.1 (revision 13)
+	* Display hot key name, change --force-backup-mbr handling
+	* F11/F12 hotkey handling
+
+2007-04-22 version 1.1 (revision 10)
+	* Convert menu file in grubmenu
+	* Check if there is enough space to install GRLDR.MBR
+
+2007-04-07 version 1.1 (revision 9)
+	* Fix bugs in the NTFS boot sector
+	* Add tool grubmenu
+
+2007-02-23 version 1.1 beta7
+	* Support compressed and sparse file in NTFS partition
+
+2007-02-22 version 1.1 beta6
+	* Move language specific text to external file
+	* Add --load-seg and --boot-file option
+	* Add --output option which is used to extract the embeded grldr.mbr
+	* Support loading Grub2 kernel as well as grldr
+	* Fix bugs in the NTFS boot sector
+
+2007-02-05 version 1.1 beta5
+	* Add native NTFS support
+
+2007-01-22 version 1.1 beta4
+	* Fix a bug that cause --time-out option to have no effect
+	* Make "Restore from file" and "Restore from PrevMBR" exclusive
+
+2007-01-20 version 1.1 beta3
+	* Fix a bug when installing GRLDR to floppy image
+
+2007-01-19 version 1.1 beta2
+	* Fix a bug in the partition enumerator xd_enum
+	* Fix Linux 64-bit off_t bug
+
+2007-01-18 version 1.1 beta1
+	* Merge platform specific makefiles
+	* Support key code translation in grubinst
+	* Add --list-part option to grubinst
+	* Add floppy support to grubinst
+	* Add partition support to grubinst
+	* Major change in the layout of grubinst_gui
+	* Support Chinese language in grubinst_gui
+
+2006-12-30 version 1.0.1
+	* Minor change
+
+2006-12-28 version 1.0.0
+	* First release

@@ -1,0 +1,1298 @@
+/*
+ *  GRUB Utilities --  Utilities for GRUB Legacy, GRUB2 and GRUB for DOS
+ *  Copyright (C) 2007 Bean (bean123@126.com)
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+/* NTFS boot sector for loading GRLDR , written by bean
+ *
+ * This file can be compiled as standaolne boot sector, or it can be embeded in
+ * GRLDR.MBR at 0xA00 , right after the ext2 boot sector
+ *
+ * To compile the standalone ntfsbs.bin:
+ *     gcc -c -o ntfsbs.o ntfsbs.S
+ *     gcc -nostdlib -Wl,-N -Wl,-Ttext -Wl,7C00 -o ntfsbs_exec ntfsbs.o
+ *     objcopy -O binary ntfsbs_exec ntfsbs.bin
+ *
+ * To install the standalone ntfsbs.bin:
+ *     grubinst --restore=ntfsbs.bin DEVICE_OR_FILE
+ *
+ * Where DEVICE_OR_FILE specify a NTFS partition
+ *
+ * Limitations:
+ *  1. Don't support >1K MFT record size, >16K INDEX record size
+ *  2. Don't support encrypted file
+ *  3. Don't support attribute list, which means root directory can't be too
+ *     large or fragment.
+ *
+ */
+
+#ifndef INSIDE_GRLDR
+
+	.text
+
+	.code16
+#endif
+
+#define MAX_MFT_RECORD_SIZE	1	// 1<<(1+9) = 1024
+#define MAX_IDX_RECORD_SIZE	5	// 1<<(5+9) = 16384
+
+#define LOADSEG_NT	0x2000		// IDX loaded at 2000:0
+
+#define MFT_OFFSET	0x2000		// MFT loaded at 0:2000
+#define MFT_FILE	0x2400		// MFT file at 0:2400
+
+#define nt_boot_drive	-2(%bp)
+#define nt_blocksize	-4(%bp)
+#define nt_spc		-5(%bp)
+#define nt_MFT_size	-6(%bp)
+#define nt_ATTR_flag	-7(%bp)
+#define nt_IDX_size	-8(%bp)
+#define nt_MFT_run	-12(%bp)
+
+#define nt_curr_VCN	-16(%bp)
+#define nt_curr_LCN	-20(%bp)
+#define nt_target_VCN	-24(%bp)
+#define nt_read_count	-28(%bp)
+#define nt_remain_leng	-32(%bp)
+
+//nt_blocksize:
+//	.word	0
+//nt_spc:
+//	.byte	0
+//nt_MFT_size:
+//	.byte	0
+//nt_ATTR_flag:
+//	.byte	0
+//nt_IDX_size:
+//	.byte	0
+//nt_MFT_start:
+//	.long	0
+//nt_curr_VCN:
+//	.long	0
+//nt_curr_LCN:
+//	.long	0
+//nt_target_VCN:
+//	.long	0
+//nt_read_count:
+//	.long	0
+//nt_remain_leng:
+//	.long	0
+
+#define NTFS_Large_Structure_Error_Code	1
+#define NTFS_Corrupt_Error_Code		2
+#define NTFS_Run_Overflow_Error_Code	3
+#define NTFS_No_Data_Error_Code		4
+#define NTFS_Decompress_Error_Code	5
+
+//msg_NTFS_Large_Structure_Error:
+//	.ascii "Large structure\0"
+//msg_NTFS_Corrupt_Error:
+//	.ascii "NTFS corrupted\0"
+//msg_NTFS_Run_Overflow_Error:
+//	.ascii "Run list overflow\0"
+//msg_NTFS_No_Data_Error:
+//	.ascii "GRLDR have no data\0"
+//msg_NTFS_Decompress_Error:
+//	.ascii "Decomp error\0"
+
+	.arch	i586
+
+Entry_nt:
+	jmp	1f
+
+	. = Entry_nt + 0x02
+
+	.byte	0x90	/* for CHS. Another possible value is 0x0e for LBA */
+
+	.ascii	"NTFS    "
+
+	.word	0	/* 0B - Bytes per sector */
+	.byte	0	/* 0D - Sectors per cluster */
+	.word	0	/* 0E - reserved sectors, unused */
+	.byte	0	/* 10 - number of FATs, unused */
+	.word	0	/* 11 - Max dir entries for FAT12/FAT16, unused */
+	.word	0	/* 13 - total sectors for FAT12/FAT16, unused */
+	.byte	0xF8	/* 15 - Media descriptor */
+	.word	0	/* 16 - sectors per FAT for FAT12/FAT16, unused */
+	.word	255	/* 18 - Sectors per track */
+	.word	63	/* 1A - Number of heads */
+nt_part_ofs:
+	.long	0	/* 1C - hidden sectors */
+	.long	0	/* 20 - total sectors for FAT32, unused */
+	.long	0x800080
+			/* 24 - Usually 80 00 80 00, A value of 80 00 00 00 has
+			 * been seen on a USB thumb drive which is formatted
+			 * with NTFS under Windows XP. Note this is removable
+			 * media and is not partitioned, the drive as a whole
+			 * is NTFS formatted.
+		 	 */
+	.long	0,0	/* 28 - Number of sectors in the volume */
+	.long	0,0	/* 30 - LCN of VCN 0 of the $MFT */
+	.long	0,0	/* 38 - LCN of VCN 0 of the $MFTMirr */
+	.long	0	/* 40 - Clusters per MFT Record */
+	.long	4	/* 44 - Clusters per Index Record */
+	.long	0,0	/* 48 - Volume serial number */
+	.long	0	/* 50 - Checksum, usually 0 */
+
+1:
+
+	. = Entry_nt + 0x54
+
+	cli
+	cld
+
+	. = Entry_nt + 0x56
+
+	/* the byte at offset 0x57 stores the real partition number for read.
+	 * the format program or the caller should set it to a correct value.
+	 * For floppies, it should be 0xff, which stands for whole drive.
+	 */
+
+	movb	$0xff, %dh	/* boot partition number */
+
+	xorw	%ax, %ax
+	movw	%ax, %ds
+	movw	$0x7c00, %bp
+	movw	%ax, %es
+
+	movw	%ax, %ss	/* stack and BP-relative moves up, too */
+	leaw	-0x20(%bp), %sp
+	sti
+
+	movw	%dx, nt_boot_drive
+
+	/* Test if your BIOS support LBA mode */
+	movb	$0x41, %ah
+	movw	$0x55AA, %bx
+	int	$0x13
+	jc	1f		/* No EBIOS */
+	cmpw	$0xAA55, %bx
+	jne	1f		/* No EBIOS */
+	testb	$1, %cl
+	jz	1f		/* No EBIOS */
+	/* EBIOS supported */
+	movb	$0x42, (ebios_nt - 1 - Entry_nt)(%bp)
+1:
+
+	cmpl	$0x42555247, (nt_sector_mark - Entry_nt)(%bp)
+	jz	1f			// Must be called from GRLDR.MBR
+
+	movw	$0x7E00, %bx
+	movl	(nt_part_ofs - Entry_nt)(%bp), %eax
+	incl	%eax
+	call	readDisk_nt		// Load the second sector from disk
+	call	readDisk_nt		// Load the third sector from disk
+1:
+
+	xorl	%eax, %eax
+	movw	0xb(%bp), %ax		// Bytes per sector (blocksize)
+	movw	%ax, nt_blocksize
+
+	call	convert_to_power_2
+	movb	%cl, %bl
+	movb	0xd(%bp), %al		// Sectors per cluster
+	call	convert_to_power_2
+	movb	%cl, %ch
+	addb	%bl, %ch
+	subb	$9, %ch			// 1<<ch = sectors per cluster
+	movb	%ch, nt_spc
+	movb	0x44(%bp), %al 		// Index record size (high bits of eax is 0)
+	call	convert_size
+
+	cmpb	$MAX_IDX_RECORD_SIZE, %cl
+	jbe	1f
+
+NTFS_Large_Structure_Error:
+	movb	$NTFS_Large_Structure_Error_Code, %al
+	jmp	NTFS_Error
+
+1:
+	movb	%cl, nt_IDX_size
+
+	movb	0x40(%bp), %al 		// MFT record size
+	call	convert_size
+
+	cmpb	$MAX_MFT_RECORD_SIZE, %cl
+	ja	NTFS_Large_Structure_Error
+
+	movb	%cl, nt_MFT_size
+
+	movl	0x30(%bp), %eax
+	movl	0x34(%bp), %edx
+
+	movb	%ch, %cl		// ch still contains nt_spc
+
+	shldl	%cl, %eax, %edx
+	orl	%edx, %edx
+	jnz	NTFS_Large_Structure_Error
+
+	shll	%cl, %eax
+	addl	(nt_part_ofs - Entry_nt)(%bp), %eax
+
+	movw	$1, %dx
+	movb	nt_MFT_size, %cl
+	shlw	%cl, %dx
+	movw	%dx, %cx
+
+	movw	$MFT_FILE, %bx
+	pushw	%bx
+
+1:
+	call	readDisk_nt
+	loop	1b
+
+	popw	%bx
+	//cmpl	$0x454C4946, (%bx)	// Check for the "FILE" label
+	cmpw	$0x4946, (%bx)		// to save space, only test FI
+	jnz	NTFS_Corrupt_Error
+
+	// dx should still contain the number of sectors in the MFT record
+	movw	%dx, %cx
+	call	ntfs_fixup
+
+	addw	0x14(%bx), %bx		// Jump to the first attribute
+	movb	$0x80, %al		// find $DATA
+
+	call	find_attr
+	jc	NTFS_Corrupt_Error
+	addw	0x20(%si), %si
+	movw	%si, nt_MFT_run
+
+	movb	$0, nt_ATTR_flag
+
+	// Sector one is almost full, jmp to the second sector
+
+	jmp	ntfs_search
+
+// Convert the size of MFT and IDX block
+// Input:
+//     eax: size
+//     ch: spc
+// Output:
+//     cl: convert value
+convert_size:
+	orb	%al, %al
+	js	1f
+	movb	%ch, %cl
+	jmp	2f			// Jump to 2 in convert_to_power_2
+1:
+	negb	%al
+	subb	$9, %al
+	movb	%al, %cl
+	ret
+
+// Convert number to a power of 2
+// Input:
+//     eax
+// Output:
+//     cl: 1<<cl = eax
+//     eax: 0
+
+convert_to_power_2:
+	xorb	%cl, %cl
+2:
+	incb	%cl
+	shrl	$1, %eax
+	jnc	2b
+	decb	%cl
+	ret
+
+/*
+// Read MFT record
+// Input:
+//   BX: Data Offset
+//   EAX: MFT number
+
+ntfs_read_MFT:
+
+	pushw	%bx
+
+	movb	nt_MFT_size, %cl
+	shll	%cl, %eax
+	addl	nt_MFT_start, %eax
+
+	movw	$1, %dx
+	movb	nt_MFT_size, %cl
+	shlw	%cl, %dx
+	movw	%dx, %cx
+
+	pushw	%ds
+	popw	%es
+
+1:
+	call	readDisk_nt
+	loop	1b
+
+	popw	%bx
+	cmpl	$0x454C4946, (%bx)	// Check for the "FILE" label
+	jnz	NTFS_Corrupt_Error
+
+	// dx should still contain the number of sectors in the MFT record
+	movw	%dx, %cx
+	//call	ntfs_fixup
+
+	//ret				// Continue at ntfs_fixup
+*/
+
+// Fixup the "FILE" and "INDX" record
+// Input:
+//     ES:BX - data buffer
+//     CX - buffer length in sectors
+//
+
+ntfs_fixup:
+	push	%bx
+	push	%di
+	movw	%bx, %di
+
+	movw	%es:6(%bx), %ax		// Size of Update Sequence
+	decw	%ax
+	movw	%ax, %bx
+
+	mulw	nt_blocksize
+	shlw	$9, %cx
+	cmpw	%ax, %cx
+	jnz	NTFS_Corrupt_Error	// blocksize * count != size
+
+	movw	%bx, %cx		// cx = count
+
+	movw	%di, %bx
+	addw	%es:4(%bx), %bx		// Offset to the update sequence
+	movw	%es:(%bx), %ax		// Update Sequence Number
+	subw	$2, %di
+
+1:
+	addw	nt_blocksize, %di
+	addw	$2, %bx
+	cmpw	%es:(%di), %ax
+	jnz	NTFS_Corrupt_Error
+	movw	%es:(%bx), %dx
+	movw	%dx, %es:(%di)
+	loop	1b
+
+	popw	%di
+	popw	%bx
+	ret
+
+NTFS_Corrupt_Error:
+	movb	$NTFS_Corrupt_Error_Code, %al
+	jmp	NTFS_Error
+
+/* Read a sector from disk, using LBA or CHS
+ * input:	EAX - 32-bit DOS sector number
+ *		ES:BX - destination buffer
+ *		(will be filled with 1 sector of data)
+ * output:	ES:BX points one byte after the last byte read.
+ *		EAX - next sector
+ */
+
+readDisk_nt:
+
+	pushal
+	xorl	%edx, %edx	/* EDX:EAX = LBA */
+	pushl	%edx		/* hi 32bit of sector number */
+	pushl	%eax		/* lo 32bit of sector number */
+	pushw	%es		/* buffer segment */
+	pushw	%bx		/* buffer offset */
+	pushw	$1		/* 1 sector to read */
+	pushw	$16		/* size of this parameter block */
+
+	xorl	%ecx, %ecx
+	pushl	0x18(%bp)	/* lo:sectors per track, hi:number of heads */
+	popw	%cx		/* ECX = sectors per track */
+	divl	%ecx		/* residue is in EDX */
+				/* quotient is in EAX */
+	incw	%dx		/* sector number in DL */
+	popw	%cx		/* ECX = number of heads */
+	pushw	%dx		/* push sector number into stack */
+	xorw	%dx, %dx	/* EDX:EAX = cylinder * TotalHeads + head */
+	divl	%ecx		/* residue is in EDX, head number */
+				/* quotient is in EAX, cylinder number */
+	xchgb	%dl, %dh	/* head number should be in DH */
+				/* DL = 0 */
+	popw	%cx		/* pop sector number from stack */
+	xchgb	%al, %ch	/* lo 8bit cylinder should be in CH */
+				/* AL = 0 */
+	shlb	$6, %ah		/* hi 2bit cylinder ... */
+	orb	%ah, %cl	/* ... should be in CL */
+
+	movw	$0x201, %ax	/* read 1 sector */
+ebios_nt: /* ebios_nt - 1 points to 0x02 that can be changed to 0x42 */
+
+//	cmpb	$0x0e, 2(%bp)	/* force LBA? */
+//	jnz	1f		/* no, continue */
+//	movb	$0x42, %ah	/* yes, use extended disk read */
+//1:
+	movw	%sp, %si	/* DS:SI points to disk address packet */
+	movb	nt_boot_drive, %dl	/* hard disk drive number */
+
+	int	$0x13
+
+	popaw			/* remove parameter block from stack */
+	popal
+	jc	disk_error_nt	/* disk read error, jc 1f if caller handles */
+	incl 	%eax		/* next sector */
+	addw	0x0b(%bp), %bx	/* bytes per sector */
+	jnc	1f		/* 64K bound check */
+	pushw	%dx
+	movw	%es, %dx
+	addb	$0x10, %dh	/* add 1000h to ES */
+				/* here, carry is cleared */
+	movw	%dx, %es
+	popw	%dx
+1:
+	/* carry stored on disk read error */
+	ret
+
+msg_DiskReadError_nt:
+
+	.ascii	"0\0"
+
+msg_NTFS_Not_Found_Error:
+	.ascii "No "
+
+nt_boot_image:
+	.ascii "grldr\0"
+
+	. = nt_boot_image + 8
+
+nt_boot_image_end:
+
+NTFS_Error:
+	addb	%al, (msg_DiskReadError_nt - Entry_nt)(%bp)
+	jmp	disk_error_nt
+
+// Kernel load address, located at 0x1E8
+	. = Entry_nt + 0x1e8
+
+nt_loadseg_off:
+	.word	0
+	.word	LOADSEG_NT
+
+// Boot image offset and length, located at 0x1EE
+// Lower 11 bit is offset, higher 5 bit is length
+	. = Entry_nt + 0x1ec
+
+nt_boot_image_ofs:
+	.word (nt_boot_image - Entry_nt)+(nt_boot_image_end - nt_boot_image-1)*2048
+
+	. = Entry_nt + 0x1ee
+
+disk_error_nt:
+
+	movw	$(msg_DiskReadError_nt - Entry_nt + 0x7c00), %si
+
+boot_error_nt:
+
+/* prints string DS:SI (modifies AX BX SI) */
+
+//print_32:
+1:
+	lodsb	(%si), %al	/* get token */
+	//xorw	%bx, %bx	/* video page 0 */
+	movb	$0x0e, %ah	/* print it */
+	int	$0x10		/* via TTY mode */
+	cmpb	$0, %al		/* end of string? */
+	jne	1b		/* until done */
+
+	/* The caller will change this to
+	 *	ljmp	$0x9400, $(try_next_partition - _start1)
+	 */
+
+1:	jmp	1b
+
+	. = Entry_nt + 0x1fc
+
+	.word	0, 0xAA55
+
+// Here starts sector #2
+
+ntfs_search:
+	// %eax = nt_MFT_start
+
+	xorl	%eax, %eax
+	movb	$5, %al			// MFT record for root directory
+	call	ntfs_read_MFT
+
+	addw	0x14(%bx), %bx		// Jump to the first attribute
+	movb	$0x90, %al		// find $INDEX_ROOT
+
+1:
+
+	call	find_attr
+
+	jc	NTFS_Not_Found_Error
+
+	cmpl	$0x180400,  8(%si)	// resident
+					// namelen = 4
+					// name offset = 0x18
+	jnz	1b
+	//testw	$0xC001, 12(%si)	// not compressed, encrypted or sparse
+	//jnz	1b
+	cmpl	$0x490024, 0x18(%si)	// to save space, only test $ and I
+	jnz	1b
+	//cmpl	$0x300033, 0x1C(%si)
+	//jnz	1b			// name = "$I30"
+
+	movw	%si, %di
+	addw	0x14(%di), %di		// di points to index header
+	cmpb	$0x30, (%di)
+	jnz	1b			// test if it index filenames
+
+	addw	$0x10, %di		// skip the index root
+
+	cmpb	$0, 0xC(%di)
+	jnz	3f
+
+2:
+	xorw	%si, %si		// Small index
+	jmp	2f
+
+3:
+
+	movb	$0xA0, %al		// find $INDEX_ALLOCATION
+1:
+	call	find_attr
+	jc	2b
+
+	cmpl	$0x400401, 8(%si)	// non-resident
+					// namelen = 4
+					// name offset = 0x40
+	jnz	1b
+	//testw	$0xC001, 12(%si)	// not compressed, encrypted or sparse
+	//jnz	1b
+	cmpl	$0x490024, 0x40(%si)	// to save space, only test $ and I
+	jnz	1b
+	//cmpl	$0x300033, 0x44(%si)
+	//jnz	1b			// name = "$I30"
+
+	addw	0x20(%si), %si		// bx points to data runs
+
+2:
+	xchgw	%si, %di
+	addw	(%si), %si		// skip the index header
+
+	pushl	$0xFFFFFFFF		// end mark
+
+3:
+
+	call	ntfs_find_grldr
+
+	jnc	ntfs_final
+	popl	%eax
+
+	cmpl	$0xFFFFFFFF, %eax
+	jz	NTFS_Not_Found_Error
+
+	lesw	(nt_loadseg_off - Entry_nt)(%bp), %bx
+
+	xorl	%ecx, %ecx
+
+	movw	$1, %dx
+	movb	nt_IDX_size, %cl
+	shlw	%cl, %dx
+	movw	%dx, %cx
+
+	pushw	%cx
+	call	ntfs_load_vcn
+	popw	%cx
+
+	lesw	(nt_loadseg_off - Entry_nt)(%bp), %bx
+	//cmpl	$0x58444E49, %es:(%bx)	// "INDX"
+	cmpw	$0x4E49, %es:(%bx)	// to save space, only test IN
+	jnz	NTFS_Corrupt_Error
+
+	call	ntfs_fixup
+	addw	$0x18, %bx
+	addw	%es:(%bx), %bx
+	movw	%bx, %si
+	jmp	3b
+
+//test_run:
+//	.byte 0x21,0x14,0x00,0x01,0x11,0x10,0x18,0x11,0x05,0x15,0x01,0x27,0x11,0x20,0x05
+//	.byte 0x42,0x10,0
+//	.long 0x11220000
+
+NTFS_Not_Found_Error:
+	leaw	(msg_NTFS_Not_Found_Error - Entry_nt)(%bp), %si
+	jmp	boot_error_nt
+
+// Find a attribute
+// Input:
+//     SI - current item
+//     BX - next item
+//     AL - attribute
+// Output:
+//   Found:
+//     CF - clear
+//   Not found:
+//     CF - set
+find_attr:
+1:
+	movw	%bx, %si
+	addw	4(%bx), %bx
+	cmpb	(%si), %al
+	ja	1b
+	ret
+
+// Try to find GRLDR in the index
+// Input:
+//     ES:SI - points to index entry
+//  Output:
+//     Found:
+//         CF is clear
+//     Not found:
+//         CF is set
+
+ntfs_find_grldr:
+	movw	%si, %bx
+	testb	$1, %es: 0xC(%bx)
+	jz	1f
+	addw	%es: 8(%bx), %bx
+	cmpl	$0, %es: -4(%bx)
+	jnz	NTFS_Large_Structure_Error
+	popw	%ax			// Return address
+	pushl	%es: -8(%bx)		// VCN of subnode
+	pushw	%ax
+	movw	%si, %bx
+1:
+	testb	$2, %es: 0xC(%bx)
+	jz	1f
+	stc
+	ret
+1:
+	xorb	%ch, %ch
+
+	pushw	%si
+	leaw	(nt_boot_image - Entry_nt)(%bp), %si
+	//addw	%es:0xA(%bx), %bx
+	addw	$0x52, %bx		// The value at %es:0xA(%bx) is wrong sometimes (0x4C)
+	movb	%es:-2(%bx), %cl
+1:
+	lodsb	(%si), %al
+	movb	%es:(%bx), %ah
+	cmpb	$'A', %ah
+	jb	2f
+	cmpb	$'Z', %ah
+	ja	2f
+	addb	$('a'-'A'), %ah		// Convert to lowercase
+2:
+
+	cmpb	%ah, %al
+	jnz	3f			// Not match
+
+	incw	%bx
+	incw	%bx
+	loop	1b
+
+	cmpb	$0,(%si)
+	jnz	3f
+
+	popw	%si
+	clc
+	ret				// Match found
+
+3:
+
+	popw	%si
+	addw	%es:8(%si), %si
+
+	jmp	ntfs_find_grldr
+
+// Read MFT record
+// Input:
+//   EAX: MFT number
+
+ntfs_read_MFT:
+	pushw	%di
+
+	movb	nt_MFT_size, %cl
+	movw	$1, %si
+	movw	%si, %bx
+	shll	%cl, %eax
+	shlw	%cl, %si
+
+	movb	nt_spc, %cl
+	shlw	%cl, %bx
+	decw	%bx
+	andw	%ax, %bx
+
+	shrl	%cl, %eax
+
+	xorl	%ecx, %ecx
+	leaw	(%bx,%si), %cx
+
+	pushw	%bx
+	pushw	%si
+
+	lesw	(nt_loadseg_off - Entry_nt)(%bp), %bx
+	movw	nt_MFT_run, %di
+
+	call	ntfs_load_vcn
+
+	popw	%cx
+	popw	%si
+
+	pushw	%cx
+
+	shlw	$8, %cx
+	shlw	$9, %si
+
+	movw	$MFT_OFFSET, %di
+	movw	%di, %bx
+	pushw	%ds
+	pushw	%es
+	popw	%ds
+	popw	%es
+
+	rep	movsw
+
+	pushw	%es
+	popw	%ds
+
+	popw	%cx
+
+	cmpw	$0x4946, (%bx)		// to save space, only test FI
+	jnz	NTFS_Corrupt_Error
+
+	call	ntfs_fixup
+
+	popw	%di
+	ret
+
+// Load data from disk
+// Input:
+//     DI: start of the run list
+//     SI: current run list item
+//     EAX: start VCN
+//     ES:BX: points to buffer
+//     ECX: number of sectors to read
+
+ntfs_load_vcn:
+	movl	%ecx, nt_read_count
+	movw	%di, %si
+
+	movl	%eax, nt_target_VCN
+	xorl	%edx, %edx		// edx - next VCN
+	movl	%edx, nt_curr_LCN
+
+1:
+	call	ntfs_runlist_read_block
+
+	cmpl	nt_target_VCN, %edx
+	jbe	1b
+
+1:
+
+	movb	nt_spc, %cl
+
+	orl	%eax, %eax		// sparse
+	jz	2f
+
+	movl	nt_target_VCN, %eax
+	subl	nt_curr_VCN, %eax
+	addl	nt_curr_LCN, %eax
+
+	shll	%cl, %eax
+	addl	(nt_part_ofs - Entry_nt)(%bp), %eax
+
+2:
+
+	pushl	%ebx
+	movl	%edx, %ebx
+	subl	nt_target_VCN, %ebx
+	shll	%cl, %ebx
+	movl	%ebx, %ecx
+	popl	%ebx
+
+	cmpl	nt_read_count, %ecx
+	jbe	2f
+	movl	nt_read_count, %ecx
+2:
+
+	pushl	%ecx
+
+	orl	%eax, %eax
+	jnz	3f
+	call	SparseBlock
+	jmp	4f
+
+3:
+
+	call	readDisk_nt
+	loop	3b
+
+4:
+	popl	%ecx
+	subl	%ecx, nt_read_count
+	jbe	1f
+
+	movl	%edx, nt_target_VCN
+	call	ntfs_runlist_read_block
+	jmp	1b
+
+1:
+	ret
+
+// Read run list data
+// Input:
+//     CL = number of bytes
+// Output:
+//     EAX = read bytes
+//     SI points to the next unhandled byte
+
+ntfs_runlist_read_data:
+	pushw	%cx
+	orb	%cl, %cl
+	jnz	1f
+	popw	%cx
+	xorl	%eax, %eax
+	ret
+1:
+	lodsb	(%si), %al
+	rorl	$8, %eax
+	decb	%cl
+	jnz	1b
+
+	popw	%cx
+	negb	%cl
+	add	$4, %cl
+	jz	1f
+	shlb	$3, %cl
+	sarl	%cl, %eax		// Don't use shr !
+1:
+	ret
+
+NTFS_Run_Overflow_Error:
+	movb	$NTFS_Run_Overflow_Error_Code, %al
+	jmp	NTFS_Error
+
+	. = Entry_nt + 0x3fc
+
+	.word	0, 0xAA55
+
+nt_sector_mark:
+	.long	0x42555247		// "GRUB"
+
+// Here starts sector #3
+
+// Read run list block
+// Output:
+//     EDX = Next VCN
+//     SI points to the next unhandled byte
+
+ntfs_runlist_read_block:
+	lodsb	(%si), %al
+	movb	%al, %cl
+	movb	%cl, %ch
+	andb	$0xF, %cl		// cl - Size of length field
+	jz	NTFS_Run_Overflow_Error
+	shrb	$0x4, %ch		// ch - Size of offset field
+
+	call	ntfs_runlist_read_data
+
+	movl	%edx, nt_curr_VCN
+	addl	%eax, %edx
+
+	movb	%ch, %cl
+	call	ntfs_runlist_read_data
+	addl	%eax, nt_curr_LCN
+
+	ret
+
+ntfs_final:
+
+1:
+	//popl	%eax			// Clear the stack
+	//cmpl	$0xFFFFFFFF, %eax
+	//jnz	1b
+
+	cmpw	$0, %es:4(%si)
+	jnz	NTFS_Large_Structure_Error
+
+	//movl	%es: 0x40(%si), %eax	// Real size of file
+	//addl	$0x1FF, %eax
+	//shrl	$9, %eax		// Convert to sector
+
+	movl	%es: (%si), %eax
+	call	ntfs_read_MFT
+
+	addw	0x14(%bx), %bx		// Jump to the first attribute
+	movb	$0x80, %al		// find $DATA
+
+1:
+	call	find_attr
+	jc	NTFS_No_Data_Error
+
+	cmpw	$0x1, 8(%si)		// non-resident / resident
+					// namelen = 0
+	ja	1b
+	jz	3f
+
+	movw	0x10(%si), %cx		// Resident
+	lesw	(nt_loadseg_off - Entry_nt)(%bp), %di
+	addw	0x14(%si), %si
+	rep	movsb	(%si), %es:(%di)
+	jmp	2f
+
+3:					// Non-resident
+	movb	12(%si), %al
+	movb	%al, nt_ATTR_flag
+	//testw	$0xC001, 12(%si)	// not compressed, encrypted or sparse
+	//jnz	1b
+
+	movw	%si, %di
+	addw	0x20(%si), %di		// jump to run list
+
+	lesw	(nt_loadseg_off - Entry_nt)(%bp), %bx
+
+	movl	0x28(%si), %ecx		// Use allocate size instead of real size
+	shrl	$9, %ecx
+	xorl	%eax, %eax
+
+	call	ntfs_load_vcn
+
+2:
+
+	//movb	$1, (do_pause - Entry_nt)(%bp)
+	//call	pause
+
+	movw	nt_boot_drive, %dx
+	ljmp	*(nt_loadseg_off - Entry_nt)(%bp)
+
+NTFS_No_Data_Error:
+	movb	$NTFS_No_Data_Error_Code, %al
+	jmp	NTFS_Error
+
+// Convert seg:ofs to linear address
+// Input:
+//     On stack: seg:ofs
+// Output:
+//     eax:
+seg_to_lin:
+	pushw	%bp
+	movw	%sp, %bp
+	xorl	%eax, %eax
+	xchgw	6(%bp), %ax
+	shll	$4, %eax
+	addl	4(%bp), %eax
+	popw	%bp
+	ret	$4
+
+// Convert linear address to seg:ofs
+// Input:
+//     on stack: linear address
+// Output:
+//     On stack: seg:ofs
+lin_to_seg:
+	pushw	%bp
+	movw	%sp, %bp
+	shll	$12, 4(%bp)
+	shrw	$12, 4(%bp)
+	popw	%bp
+	ret
+
+fix_segs:
+	pushw	%ds
+	pushw	%si
+	call	seg_to_lin
+	pushl	%eax
+	call	lin_to_seg
+	popw	%si
+	popw	%ds
+
+fix_es_di:
+	pushw	%es
+	pushw	%di
+	call	seg_to_lin
+	pushl	%eax
+	call	lin_to_seg
+	popw	%di
+	popw	%es
+	ret
+
+// Handle sparse block
+//     DI: points to run list
+//     SI: current run list item
+//     ES:BX: points to buffer
+//     ECX: number of sectors
+//     EDX: next VCN
+
+SparseBlock:
+	pushw	%di
+	pushl	%edx
+
+	shll	$9, %ecx		// ecx - totel number of bytes
+	movw	%bx, %di
+
+	testb	$1, nt_ATTR_flag	// Not compressed
+	jz	2f
+
+	xorl	%edx, %edx
+	movb	nt_target_VCN, %dl
+	andb	$0xF, %dl
+	jz	2f
+
+	pushw	%cx
+
+	movb	nt_spc, %cl
+	addb	$9, %cl
+	shll	%cl, %edx		// edx: offset from the start of cluster
+
+	push	%es
+	push	%di
+	call	seg_to_lin
+	subl	%edx, %eax		// eax: linear address
+
+	movl	$16, nt_remain_leng
+	shll	%cl, nt_remain_leng
+
+	popw	%cx
+
+	addl	%edx, %ecx
+	subl	nt_remain_leng, %ecx
+
+	pushl	%ecx
+	call	DecompressBlock
+	popl	%ecx
+
+	addl	nt_remain_leng, %ecx
+
+	jecxz	1f
+
+2:
+	movl	%ecx, %edx
+	xorl	%eax, %eax
+	movl	%eax, %ecx
+	call	fix_es_di
+
+3:
+	movw	$0x8000, %cx
+	cmpl	%edx, %ecx
+	jbe	4f
+	movw	%dx, %cx
+4:
+	pushw	%cx
+	shrw	$2, %cx
+
+	rep	stosl	%eax, %es:(%di)
+	call	fix_es_di
+	popw	%cx
+	subl	%ecx, %edx
+	jnz	3b
+
+1:
+	movw	%di, %bx
+
+	popl	%edx
+	popw	%di
+
+	ret
+
+// Decompress block
+// Input:
+//     eax: linear address at the beginning of the compressed block
+// Output:
+//     ES:DI: points to the end of the block
+DecompressBlock:
+	pushw	%ds
+	pushw	%si
+
+	pushl	%eax
+	call	lin_to_seg
+	popw	%si
+	popw	%ds
+	movl	nt_remain_leng, %edx
+	addl	%edx, %eax
+	pushl	%eax
+	call	lin_to_seg
+	popw	%di
+	popw	%es
+
+	pushw	%es
+	pushw	%di
+	pushw	%ds
+	pushw	%si
+
+	xorl	%ecx, %ecx
+
+1:
+	movw	$0x8000, %cx
+	cmpl	%edx, %ecx
+	jbe	2f
+	movw	%dx, %cx
+2:
+	pushw	%cx
+	shrw	$2, %cx
+	rep	movsl	(%si), %es:(%di)
+	call	fix_segs
+	popw	%cx
+	subl	%ecx, %edx
+	jnz	1b
+
+	popw	%di
+	popw	%es
+	popw	%si
+	popw	%ds
+
+1:
+	xorl	%edx, %edx			// edx - copied bytes
+
+	lodsw	(%si), %ax
+	testb	$0x80, %ah
+	jnz	2f
+	movw	$0x800, %cx
+	rep	movsw	(%si), %es:(%di)
+	movw	$0x1000, %dx
+	jmp	7f				// The block is not compressed
+
+2:
+	movw	%ax, %cx
+	andw	$0xFFF, %cx
+	incw	%cx				// ecx = block length
+	addw	%si, %cx			// cx: end marker
+	xorb	%bh, %bh
+
+3:
+	cmpw	$0x1000, %dx
+	ja	NTFS_Decompress_Error
+
+	orb	%bh, %bh
+	jnz	4f
+	lodsb	(%si), %al
+	movb	%al, %bl			// bl: tag, bh: count
+	movb	$8, %bh
+4:
+
+	testb	$1, %bl
+	jz	5f
+
+	movw	%dx, %ax
+	decw	%ax
+
+	pushw	%cx
+	pushw	%bx
+
+	movb	$12, %cl
+6:
+	cmpw	$0x10, %ax
+	jb	6f
+	shrw	$1, %ax
+	decb	%cl
+	jmp	6b
+6:
+
+	lodsw	(%si), %ax
+	movw	%ax, %bx
+	shrw	%cl, %bx			// bx: delta
+
+	pushw	%dx
+	movw	$1, %dx
+	shlw	%cl, %dx
+	decw	%dx
+	andw	%dx, %ax
+	popw	%dx
+
+	addw	$3, %ax
+	movw	%ax, %cx			// cx: length
+	negw	%bx
+	decw	%bx
+
+6:
+	movb	%es:(%bx, %di), %al
+	stosb	%al, %es:(%di)
+	incw	%dx
+	loop	6b
+
+	popw	%bx
+	popw	%cx
+	jmp	4f
+
+5:
+	movsb	(%si), %es:(%di)
+	incw	%dx
+4:
+	shrb	$1, %bl
+	decb	%bh
+
+	cmpw	%cx, %si
+	jb	3b
+
+7:
+	call	fix_segs
+
+	subl	%edx, nt_remain_leng	// End of block
+	jz	1f
+
+	cmpw	$0x1000, %dx
+	je	1b
+
+1:
+
+	popw	%si
+	popw	%ds
+	ret
+
+NTFS_Decompress_Error:
+	pushw	%ss
+	popw	%ds
+	movb	$NTFS_Decompress_Error_Code, %al
+	jmp	NTFS_Error
+/*
+do_pause:
+	.byte	0
+
+pause:
+	cmpb	$0, (do_pause - Entry_nt)(%bp)
+	jnz	1f
+	ret
+1:
+	xorw	%bp, %bp
+1:
+	jmp	1b
+*/
+
+/*
+hex_out:
+	pushw	%bp
+	movw	%sp, %bp
+	pushaw
+	movb	$0xE, %ah
+ 	movw	$7, %bx
+	movw	$4, %cx
+	movw	4(%bp), %dx
+1:
+	rol	$4, %dx
+	movb	%dl, %al
+	andb	$0xF, %al
+	cmpb	$10, %al
+	jb	2f
+	subb	$('0'-'A'+10), %al
+2:
+	addb	$'0', %al
+	int	$0x10
+	loop	1b
+	movb	$' ', %al
+	int	$0x10
+	popaw
+	popw	%bp
+	ret	$2
+*/
+
+	. = Entry_nt + 0x5fc
+
+	.word	0, 0xAA55

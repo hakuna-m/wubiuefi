@@ -1,0 +1,181 @@
+/* cs89x0: A Crystal Semiconductor CS89[02]0 driver for grub4dos.
+ *
+ *  Copyright (C) 2007 Tinybit <tinybit@tom.com>
+ *  Copyright (C) 1997-2007 Ken Yap <ken.yap@acm.org>
+ *  Copyright (C) 1996-2007 Markus Gutschke <gutschk@math.uni-muenster.de>
+ *  Copyright (C) 1988-2007 Russell Nelson, Crynwr Software
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 1 or
+ *  version 2 as published by the Free Software Foundation.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+/*
+
+In August 2, 2007, Sascha Sommer <ssommer@suse.de> posted a message to
+the grub4dos-devel@gna.org mailing list as follows:
+
+-------------------------------------------------------------------------------
+	Subject： 	[Grub4dos-devel] cs89x0.c driver
+
+	Hi,
+
+	the file netboot/cs98x0.txt contains the following statement:
+
+	"Permission is granted to distribute the enclosed cs89x0.[ch] driver
+	only in conjunction with the Etherboot package.  The code is
+	ordinarily distributed under the GPL.
+
+			Russ Nelson, January 2000"
+
+	So it looks like these files cannot be distributed with grub4dos. 
+	As the Makefile in the netboot dir contains following statements
+		"# Don't build the netboot support by default."
+	I wonder if the cs89x0 driver cannot be removed from the grub4dos
+	distribution.
+
+		Regards
+
+		Sascha
+-------------------------------------------------------------------------------
+
+In reply to the doubts above, I make the following note on the license issue,
+and claim we are distributing the code under GPL at the very beginning of the
+file.
+
+In etherboot-4.2 which was released in June 5, 1999, the files cs89x0.[ch]
+have this copyright notice by Markus Gutschke(gutschk@math.uni-muenster.de):
+
+===============================================================================
+  This code is heavily based on the linux driver as written by
+  Russell Nelson <nelson@crynwr.com> and Donald Becker
+  <becker@cesdis.gsfc.nasa.gov> and modified by Mike Cruse
+  <mcruse@cti-ltd.com>. That driver has been released under the
+  conditions of the GNU Public License, thus this one is probably to
+  be considered "derived work". Therefore, there are some legal
+  obstacles in combining this file with etherboot's code, which is
+  released under a BSD style license.
+
+  So, if you want to actually use this code, you should make sure that
+  you are aware of the legal implications. I release *my* work into
+  the PUBLIC DOMAIN which implies that you can use it either under a
+  BSD style license, or under the conditions of the GPL, or under any
+  other conditions that you like. N.B. this does not apply to the
+  parts that originate from other authors. So, you should probably
+  contact them first and verify if they agree with your intended use.
+
+  If you contacted all of the above authors and they agreed to give
+  special permission for using this code under the conditions of a BSD
+  style license, then please do let me know.
+===============================================================================
+
+In a later etherboot release, the copyright notice changed to this:
+
+**********************************************************************
+  Permission is granted to distribute the enclosed cs89x0.[ch] driver
+  only in conjunction with the Etherboot package.  The code is
+  ordinarily distributed under the GPL.
+
+  Russ Nelson, January 2000
+**********************************************************************
+
+Don't be confused by the statements. Look at the first statement:
+
+  Permission is granted to distribute the enclosed cs89x0.[ch] driver
+  only in conjunction with the Etherboot package.
+
+It should be understood as:
+
+  ----------------------------------------------------------------------------
+                                (1)
+  Permission is granted **(to distribute the enclosed cs89x0.[ch] driver
+  only in conjunction with the Etherboot package)**.
+  ----------------------------------------------------------------------------
+
+which means if the driver is distributed only in conjunction with the
+Etherboot package, then Permission is granted for it.
+
+It should not be understood as this:
+
+  ----------------------------------------------------------------------------
+                                (2)
+  **(Permission is granted to distribute the enclosed cs89x0.[ch] driver)**
+  only in conjunction with the Etherboot package.
+  ----------------------------------------------------------------------------
+
+which means Permission is **only** granted to distribute the driver
+in conjunction with the Etherboot package, and if it is not distributed in
+conjunction with Etherboot, then Permission is not granted.
+
+The latter understanding of (2) is obviously wrong because it directly
+conflicts with GPL claimed above in the second statement by Russ Nelson.
+
+But if you consider Russ Nelson's announcements as dual license: one license
+is for how to use this driver in Etherboot:
+
+  ----------------------------------------------------------------------------
+  Permission is granted to distribute the enclosed cs89x0.[ch] driver
+  only in conjunction with the Etherboot package.
+  ----------------------------------------------------------------------------
+
+and the other license is for how to use this driver in other packages:
+
+  --------------------------------------------------------
+  The code is ordinarily distributed under the GPL.
+  --------------------------------------------------------
+
+then the different understandings between (1) and (2) are not important.
+This is because, for the dual license, either of the included licenses
+can be chosen by the recipient. You don't have to accept both licenses
+simultaneously.
+
+We are introducing the driver from Etherboot, so we can legally inherit
+the GPL from Etherboot. In any case, we can distribute the cs89x0.[ch]
+driver under GPL. There are no problems. Don't worry.
+
+             ---- Tinybit <tinybit@tom.com> August 20, 2007
+*/
+
+/***************************************************************************/
+/*                                                                         */
+/*                 The original copyright notice follows                   */
+/*                                                                         */
+/***************************************************************************/
+
+
+Permission is granted to distribute the enclosed cs89x0.[ch] driver
+only in conjunction with the Etherboot package.  The code is
+ordinarily distributed under the GPL.
+
+Russ Nelson, January 2000
+
+CREDITS
+
+I want to thank
+
+  Mike Cruse <mcruse@cti-ltd.com>
+     for providing an evaluation NIC and for sponsoring the
+     development of this driver.
+
+  Randall Sears <sears@crystal.cirrus.com>
+  Deva Bodas <bodas@crystal.cirrus.com>
+  Andreas Kraemer <akraemer@crystal.cirrus.com>
+  Wolfgang Krause <100303.2673@compuserve.com>
+     for excellent technical support and for providing the required
+     programming information. I appreciate Crystal Semiconductor's
+     commitment towards free software.
+
+  Russell Nelson <nelson@crynwr.com>
+     for writing the Linux device driver for the CS89x0
+     chipset. Russel's code is very well designed and simplified my
+     job a lot.

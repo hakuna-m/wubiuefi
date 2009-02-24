@@ -1,0 +1,63 @@
+#
+#  GRUB Utilities --  Utilities for GRUB Legacy, GRUB2 and GRUB for DOS
+#  Copyright (C) 2007 Bean (bean123@126.com)
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
+CC=cl
+CFLAGS=-DWIN32
+
+all: grubinst.exe grubinst_gui.exe
+
+grubinst.exe: grubinst.c grub_mbr.h utils.obj utils.h key_tab.h version.h
+	$(CC) $(CFLAGS) grubinst.c utils.obj
+
+utils.obj: utils.c
+	$(CC) $(CFLAGS) -c utils.c
+
+grub_mbr.h: grldr.mbr bin2h.exe
+	bin2h grldr.mbr grub_mbr.h grub_mbr
+
+version.h: version ver2h.exe
+	ver2h version version.h
+
+bin2h.exe: bin2h.c
+	$(CC) $(CFLAGS) bin2h.c
+
+ver2h.exe: ver2h.c
+	$(CC) $(CFLAGS) ver2h.c
+
+grubinst_gui.exe: grubinst_gui.c resource.h grubinst_gui.res utils.obj
+	$(CC) $(CFLAGS) grubinst_gui.c utils.obj grubinst_gui.res user32.lib comdlg32.lib
+
+grubinst_gui.res: grubinst_gui.rc resource.h grubinst.ico
+	rc -fo grubinst_gui.res grubinst_gui.rc
+
+clean:
+	del grubinst.exe
+	del grubinst.obj
+	del grubinst_gui.exe
+	del grubinst_gui.obj
+	del grubinst_gui.res
+	del utils.obj
+	del bin2h.exe
+	del bin2h.obj
+	del ver2h.exe
+	del ver2h.obj
+
+dist-clean: clean
+	del grub_mbr.h
+	del version.h

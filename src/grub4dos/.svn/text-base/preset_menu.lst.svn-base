@@ -1,0 +1,29 @@
+pxe detect
+configfile
+default 0
+timeout 1
+fallback 1
+
+title find /menu.lst
+	find --set-root --ignore-floppies --ignore-cd /menu.lst
+	configfile /menu.lst
+
+title find /boot/grub/menu.lst
+	fallback 2
+	find --set-root --ignore-floppies --ignore-cd /boot/grub/menu.lst
+	configfile /boot/grub/menu.lst
+
+title find /grub/menu.lst
+	fallback 3
+	find --set-root --ignore-floppies --ignore-cd /grub/menu.lst
+	configfile /grub/menu.lst
+
+title commandline
+	commandline
+
+title reboot
+	reboot
+
+title halt
+	halt
+

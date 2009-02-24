@@ -140,7 +140,7 @@ class WindowsBackend(Backend):
         dest = self.info.custominstall
         log.debug('Copying %s -> %s' % (src, dest))
         copy_tree(src, dest)
-        src = join_path(self.info.data_dir, 'winboot')
+        src = join_path(self.info.root_dir, 'winboot')
         dest = join_path(self.info.target_dir, 'winboot')
         log.debug('Copying %s -> %s' % (src, dest))
         copy_tree(src, dest)
@@ -495,10 +495,10 @@ class WindowsBackend(Backend):
         if not os.path.isfile(bootini):
             log.debug("Could not find boot.ini %s" % bootini)
             return
-        src = join_path(self.info.data_dir, 'winboot', 'wubildr')
+        src = join_path(self.info.root_dir, 'winboot', 'wubildr')
         dest = join_path(drive.path, 'wubildr')
         shutil.copyfile(src,  dest)
-        src = join_path(self.info.data_dir, 'winboot', 'wubildr.mbr')
+        src = join_path(self.info.root_dir, 'winboot', 'wubildr.mbr')
         dest = join_path(drive.path, 'wubildr.mbr')
         shutil.copyfile(src,  dest)
         run_command(['attrib', '-R', '-S', '-H', bootini])
@@ -539,7 +539,7 @@ class WindowsBackend(Backend):
         configsys = join_path(drive.path, 'config.sys')
         if not os.path.isfile(configsys):
             return
-        src = join_path(self.info.data_dir, 'winboot', 'wubildr.exe')
+        src = join_path(self.info.root_dir, 'winboot', 'wubildr.exe')
         dest = join_path(drive.path, 'wubildr.exe')
         shutil.copyfile(src,  dest)
         run_command(['attrib', '-R', '-S', '-H', configsys])
@@ -581,14 +581,13 @@ class WindowsBackend(Backend):
 
     def modify_bcd(self, drive, associated_task):
         log.debug("modify_bcd %s" % drive)
-
         if drive is self.info.system_drive \
         or drive.path == "C:" \
         or drive.path == os.environ('systemroot')[:2]:
-            src = join_path(self.info.data_dir, 'winboot', 'wubildr')
+            src = join_path(self.info.root_dir, 'winboot', 'wubildr')
             dest = join_path(drive.path, 'wubildr')
             shutil.copyfile(src,  dest)
-            src = join_path(self.info.data_dir, 'winboot', 'wubildr.mbr')
+            src = join_path(self.info.root_dir, 'winboot', 'wubildr.mbr')
             dest = join_path(drive.path, 'wubildr.mbr')
             shutil.copyfile(src,  dest)
         bcdedit = join_path(os.getenv('SystemDrive'), 'bcdedit.exe')

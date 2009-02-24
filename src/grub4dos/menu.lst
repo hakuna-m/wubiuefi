@@ -1,0 +1,83 @@
+# This is a sample menu.lst file. You should make some changes to it.
+# The old install method of booting via the stage-files has been removed.
+# Please install GRLDR boot strap code to MBR with the bootlace.com
+# utility under DOS/Win9x or Linux.
+
+color black/cyan yellow/cyan
+timeout 30
+default /default
+
+title find and load NTLDR of Windows NT/2K/XP
+fallback 1
+find --set-root /ntldr
+chainloader /ntldr
+savedefault --wait=2
+
+title find and load CMLDR, the Recovery Console of Windows NT/2K/XP
+fallback 2
+find --set-root /cmldr
+chainloader /cmldr
+#####################################################################
+# write string "cmdcons" to memory 0000:7C03 in 2 steps:
+#####################################################################
+# step 1. Write 4 chars "cmdc" at 0000:7C03
+write 0x7C03 0x63646D63
+# step 2. Write 3 chars "ons" and an ending null at 0000:7C07
+write 0x7C07 0x00736E6F
+savedefault --wait=2
+
+title find and load IO.SYS of Windows 9x/Me
+fallback 3
+find --set-root /io.sys
+chainloader /io.sys
+savedefault --wait=2
+
+title find and boot Mandriva with menu.lst already installed
+fallback 4
+find --set-root /etc/mandriva-release
+savedefault --wait=2
+configfile /boot/grub/menu.lst
+
+title find and boot Linux with menu.lst already installed
+fallback 5
+find --set-root /sbin/init
+savedefault --wait=2
+configfile /boot/grub/menu.lst
+
+title commandline
+savedefault --wait=2
+commandline
+
+title floppy (fd0)
+chainloader (fd0)+1
+rootnoverify (fd0)
+savedefault --wait=2
+
+title back to dos
+savedefault --wait=2
+quit
+
+title reboot
+savedefault --wait=2
+reboot
+
+title halt
+savedefault --wait=2
+halt
+
+title memdrive duplicated from floppy image file (hd0,0)/sbm.bin
+map --mem (hd0,0)/sbm.bin (fd0)
+map --hook
+chainloader (fd0)+1
+rootnoverify (fd0)
+savedefault --wait=2
+
+title memdrive based on win98 partition (hd0,6)
+map --mem (hd0,6)+1 (hd0)
+# map --mem (hd0,0)/win98.gz (hd0)
+map --hook
+chainloader (hd0)+1
+rootnoverify (hd0)
+savedefault --wait=2
+
+

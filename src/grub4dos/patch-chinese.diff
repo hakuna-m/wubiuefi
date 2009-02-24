@@ -1,0 +1,1639 @@
+diff -Naur grub-0.97_splash/stage2/builtins.c grub-0.97_chinese/stage2/builtins.c
+--- grub-0.97_splash/stage2/builtins.c	Tue Jan 13 21:44:56 2009
++++ grub-0.97_chinese/stage2/builtins.c	Tue Jan 13 22:20:46 2009
+@@ -447,7 +447,10 @@
+   blocklist_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "blocklist FILE",
+-  "Print the blocklist notation of the file FILE."
++  "Print the blocklist notation of the file FILE.",
++  "blocklist FILE",
++  "\t打印出文件 FILE 的“块清单”表达法（该表达法也是合法的 GRUB 文件名，"
++  "\n\t并且完全等价于 FILE。）。"
+ };
+ 
+ #if ! defined(GRUB_UTIL) && ! defined (STAGE1_5)
+@@ -1076,7 +1079,9 @@
+   boot_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST | BUILTIN_BOOTING,
+   "boot",
+-  "Boot the OS/chain-loader which has been loaded."
++  "Boot the OS/chain-loader which has been loaded.",
++  "boot",
++  "\t引导已加载的操作系统或扇区链式加载器。"  
+ };
+ #endif /* ! GRUB_UTIL */
+ 
+@@ -1123,7 +1128,10 @@
+   "bootp [--with-configfile]",
+   "Initialize a network device via BOOTP. If the option `--with-configfile'"
+   " is given, try to load a configuration file specified by the 150 vendor"
+-  " tag."
++  " tag.",
++  "bootp [--with-configfile]",
++  "\t通过 BOOTP 初试化网络设备。如果使用了 --with-configfile 参数，此命令"
++  "\n\t将会试图去加载一个特定的配置文件。"  
+ };
+ #endif /* ! GRUB_UTIL */
+ #endif /* SUPPORT_NETBOOT */
+@@ -1278,6 +1286,13 @@
+       if (grub_isspace (c) || (c >= ' ' && c <= '~'))
+ 	grub_putchar (c);
+       else
++/* cat Chinese support begin */
++#ifdef SUPPORT_GRAPHICS
++      if (graphics_inited && ushFontReaded)
++        grub_putchar (c);
++      else
++#endif
++/* cat Chinese support end here */
+ 	grub_putchar ('?');
+ #endif
+       if (quit_print)
+@@ -1295,7 +1310,9 @@
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "cat [--hex] [--skip=S] [--length=L] [--locate=STRING] FILE",
+   "Print the contents of the file FILE, or print the locations "
+-  "of the string STRING in FILE."
++  "of the string STRING in FILE.",
++  "cat [--hex] [--skip=S] [--length=L] [--locate=STRING] FILE",
++  "\t显示指定文件的内容，或者显示文件中指定字符串的位置。"
+ };
+ 
+ 
+@@ -1352,7 +1369,11 @@
+   "cdrom --add-io-ports=P | --init | --stop",
+   "Initialise/stop atapi cdroms or set additional I/O ports for a possible atapi cdrom device."
+   " The high word of P specifies the base register of the control block registers, and"
+-  " the low word of P specifies the base register of the command block registers."
++  " the low word of P specifies the base register of the command block registers.",
++  "cdrom --add-io-ports=P | --init | --stop",
++  "\t初始化或者停止所有的 ATAPI CDROM 设备, 或者为一个可能的 ATAPI CDROM"
++  "\n\t设备设置附加的 IO 端口。P 的高字指定设备控制寄存器组的端口基址，P 的"
++  "\n\t低字指定设备命令寄存器组的端口基址。"
+ };
+ #endif /* ! defined(GRUB_UTIL) && ! defined (STAGE1_5) */
+ 
+@@ -2355,7 +2376,19 @@
+   " RAM boot file format. Use --disable-a20 if you wish to turn off"
+   " A20 when transferring control to the boot image."
+   " SL specifies length in bytes at the beginning of the image to be"
+-  " skipped when loading."
++  " skipped when loading.",
++  "chainloader [--force] [--load-segment=LS] [--load-offset=LO]"
++  " [--load-length=LL] [--skip-length=SL] [--boot-cs=CS] [--boot-ip=IP]"
++  " [--ebx=EBX] [--edx=EDX] [--sdi] [--enable-a20] FILE",
++  "\t加载链式加载器 FILE。若指定了 --force, 则强制加载而不检查第一扇区"
++  "\n\t尾部的合法引导标签(55 AA)是否存在。LS:LO 用于指定有别于 0000:7C00"
++  "\n\t的启动映像加载地址。LL 用于指定启动映像的长度（在 512 字节至 640K"
++  "\n\t之间）。SL 用于指定装入启动映像之前需要从映像开头跳过的长度（以字节"
++  "\n\t计数）。CS:IP 用于指定让启动映像获得控制需要跳转到的地址。EBX/EDX"
++  "\n\t分别用于指定在启动映像获得控制的那一刻 EBX/EDX 寄存器应有的值。用"
++  "\n\t--sdi 可以强制把 FILE 当作 Windows XP 的一个内存启动文件格式(System"
++  "\n\tDeployment Image)来对待(请参考微软相应文档)。如果你希望在控制传递给"
++  "\n\t启动映像时切断 CPU 的地址线 A20，可以用 --disable-a20 参数做到。"
+ };
+ 
+ 
+@@ -2446,7 +2479,9 @@
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "cmp FILE1 FILE2",
+   "Compare the file FILE1 with the FILE2 and inform the different values"
+-  " if any."
++  " if any.",
++  "cmp FILE1 FILE2",
++  "\t比较两个文件, 并且报告两者之间的不同的信息。"
+ };
+ 
+ 
+@@ -2580,7 +2615,17 @@
+   " cyan, red, magenta, brown, light-gray, dark-gray, light-blue,"
+   " light-green, light-cyan, light-red, light-magenta, yellow and white."
+   " But only the first eight names can be used for BG. You can prefix"
+-  " \"blink-\" to FG if you want a blinking foreground color."
++  " \"blink-\" to FG if you want a blinking foreground color.",
++  "color NORMAL [HIGHLIGHT]",
++  "\t改变菜单的颜色。Normal 用于指定菜单项的未选中时的颜色，HIGHLIGHT 则"
++  "\n\t用于指定菜单项的被选中时的颜色。如果你未指定 HIGHLIGHT 色，那么我们"
++  "\n\t将使用 NORMAL 的反色值。颜色值的格式是 FG/BG。FG 和 BG 是颜色的"
++  "\n\t名称，如下：black(黑), blue(蓝), green(绿), cyan(青), red(红),"
++  "\n\tmagenta(粉红), brown(棕), light-gray(亮灰),dark-gray(暗灰),"
++  "\n\tlight-blue(浅蓝), light-green(淡绿), light-cyan(淡青),"
++  "\n\tlight-red(明红), light-magenta(浅红), yellow(黄) 和 white(白)。"
++  "\n\t注意，BG 的值只能是前八个。另外，若想使用闪烁的前景色，你在 FG 前"
++  "\n\t使用前缀 blink- 即可。"
+ };
+ 
+ 
+@@ -2718,7 +2763,9 @@
+   configfile_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST | BUILTIN_BOOTING,
+   "configfile FILE",
+-  "Load FILE as the configuration file."
++  "Load FILE as the configuration file.",
++  "configfile FILE",
++  "\t把文件 FILE 作为配置文件立即加载执行（只有当加载失败时才返回）。"
+ };
+ 
+ 
+@@ -3145,7 +3192,15 @@
+   " of IF will be discarded. OF cannot be a gzipped file. If IF is a gzipped"
+   " file, it will be decompressed automatically when copying. dd is dangerous,"
+   " use at your own risk. To be on the safe side, you should only use dd to"
+-  " write a file in memory."
++  " write a file in memory.",
++  "dd if=IF of=OF [bs=BS] [count=C] [skip=IN] [seek=OUT]",
++  "\t复制文件 IF 到 OF。BS 是块大小，默认值 512。C 是要复制的块数，"
++  "\n\t默认值是 IF 所包含的块数。IN 是读 IF 时要跳过的块数，默认值 0。"
++  "\n\tOUT 是写 OF 时要跳过的块数，默认值 0。被跳过的块的内容保持"
++  "\n\t不变。IF 和 OF 必须都存在。复制不会导致 OF 的长度增减，IF"
++  "\n\t中剩余的尾巴将丢弃。OF 不能是 gzip 压缩格式。如果 IF 是 gzip"
++  "\n\t压缩格式，复制时将自动对它解压。dd 是一条危险命令，使用时"
++  "\n\t你自己要承担风险。保险起见，你应该只用它写入内存中的文件。"
+ };
+ 
+ 
+@@ -3186,7 +3241,9 @@
+   debug_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "debug [on | off | normal | status | INTEGER]",
+-  "Turn on/off or display/set the debug level."
++  "Turn on/off or display/set the debug level.",
++  "debug [on | off | normal | status | INTEGER]",
++  "\t打开、关闭 或者 显示、设置 DEBUG（调试、除错）级别。"
+ };
+ 
+ 
+@@ -3274,7 +3331,12 @@
+   " the key word `saved\' is specified, or to the entry number previously"
+   " saved in the specified file FILE. When FILE is specified, all subsequent"
+   " `savedefault\' commands will save default entry numbers into"
+-  " FILE."
++  " FILE.",
++  "default [NUM | `saved' | FILE]",
++  "\t设置默认启动的菜单入口项为 NUM (0 代表第一项)，或者由 savedefault"
++  "\n\t所保存的入口项（如果指定了关键字 saved），或者先前保存在文件 FILE"
++  "\n\t中的入口项。当指定了 FILE 时，后续的 savedefault 命令都将把入口项"
++  "\n\t保存到 FILE 中。"
+ #if 0
+   "default [NUM | `saved']",
+   "Set the default entry to entry number NUM (if not specified, it is"
+@@ -3319,7 +3381,10 @@
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "device DRIVE DEVICE",
+   "Specify DEVICE as the actual drive for a BIOS drive DRIVE. This command"
+-  " can be used only in the grub shell."
++  " can be used only in the grub shell.",
++  "device DRIVE DEVICE",
++  "\t指定 DEVICE 作为 BIOS 驱动器 DRIVE 所对应的实际驱动器。这条命令只用于"
++  "\n\t操作系统 Linux 下的启动管理工具 grub 中（它叫做 grub shell）。"
+ };
+ #endif /* GRUB_UTIL */
+ 
+@@ -3339,12 +3404,13 @@
+   dhcp_func,
+   BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_MENU | BUILTIN_HELP_LIST,
+   "dhcp",
+-  "Initialize a network device via DHCP."
++  "Initialize a network device via DHCP.",
++  "dhcp",
++  "\t通过 DHCP 初试化网络设备。"
+ };
+ #endif /* SUPPORT_NETBOOT */
+ 
+-
+-static int terminal_func (char *arg, int flags);
++static int terminal_func (char *arg, int flags);
+ 
+ #ifdef SUPPORT_GRAPHICS
+ extern char splashimage[64];
+@@ -3401,7 +3467,9 @@
+   splashimage_func,
+   BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_MENU | BUILTIN_HELP_LIST,
+   "splashimage FILE",
+-  "Load FILE as the background image when in graphics mode."
++  "Load FILE as the background image when in graphics mode.",
++  "splashimage FILE",
++  "\t图形模式下载入背景图片文件。",
+ };
+ 
+ 
+@@ -3431,7 +3499,10 @@
+   BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_MENU | BUILTIN_HELP_LIST,
+   "foreground RRGGBB",
+   "Sets the foreground color when in graphics mode."
+-  "RR is red, GG is green, and BB blue. Numbers must be in hexadecimal."
++  "RR is red, GG is green, and BB blue. Numbers must be in hexadecimal.",
++  "foreground RRGGBB",
++  "\t设置图形模式下的前景色。RR 代表红色, GG 代表绿色, BB 代表蓝色。"
++  "\n\t这些数值都是用十六进制来表示的。"
+ };
+ 
+ 
+@@ -3460,7 +3531,10 @@
+   BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_MENU | BUILTIN_HELP_LIST,
+   "background RRGGBB",
+   "Sets the background color when in graphics mode."
+-  "RR is red, GG is green, and BB blue. Numbers must be in hexadecimal."
++  "RR is red, GG is green, and BB blue. Numbers must be in hexadecimal.",
++  "background RRGGBB",
++  "\t设置图形模式下的背景色。RR 代表红色, GG 代表绿色, BB 代表蓝色。"
++  "\n\t这些数值都是用十六进制来表示的。"
+ };
+ 
+ #endif /* SUPPORT_GRAPHICS */
+@@ -3539,7 +3613,9 @@
+   checkrange_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "checkrange RANGE COMMAND",
+-  "Return true if the return value of COMMAND is in RANGE and false otherwise."
++  "Return true if the return value of COMMAND is in RANGE and false otherwise.",
++  "checkrange RANGE COMMAND",
++  "\t如果COMMAND的返回值处于RANGE当中，则返回真；否则返回假。"
+ };
+ #ifndef GRUB_UTIL
+ /* checktime */
+@@ -3677,7 +3753,9 @@
+   checktime_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "checktime min hour dom month dow",
+-  "Check time."
++  "Check time.",
++  "checktime min hour dom month dow",
++  "\t检查时间。"
+ };
+ #endif
+ 
+@@ -3697,7 +3775,9 @@
+   clear_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "clear",
+-  "Clear the screen"
++  "Clear the screen",
++  "clear",
++  "\t清屏幕。"
+ };
+ 
+ 
+@@ -3739,7 +3819,9 @@
+   displayapm_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "displayapm",
+-  "Display APM BIOS information."
++  "Display APM BIOS information.",
++  "displayapm",
++  "\t显示 APM BIOS 的相关信息。"
+ };
+ #endif
+ 
+@@ -3749,22 +3831,59 @@
+ displaymem_func (char *arg, int flags)
+ {
+   if (get_eisamemsize () != -1)
+-    grub_printf (" EISA Memory BIOS Interface is present\n");
++  {
++#ifdef SUPPORT_GRAPHICS
++	if (graphics_inited && ushFontReaded)
++		grub_printf (" EISA内存BIOS接口存在\n");
++	else
++		grub_printf (" EISA Memory BIOS Interface is present\n");
++#else
++		grub_printf (" EISA Memory BIOS Interface is present\n");
++#endif
++}
+   if (get_mmap_entry ((void *) SCRATCHADDR, 0) != 0
+       || *((int *) SCRATCHADDR) != 0)
+-    grub_printf (" Address Map BIOS Interface is present\n");
+-
+-  grub_printf (" Lower memory: %uK, "
++      {
++#ifdef SUPPORT_GRAPHICS
++	if (graphics_inited && ushFontReaded)
++	{
++      grub_printf (" 地址变换BIOS接口存在\n");
++      grub_printf (" 低端内存: %uK, "
++	       "上位内存: %uK\n",
++	       saved_mem_lower, saved_mem_upper);
++	}
++	else
++	{
++      grub_printf (" Address Map BIOS Interface is present\n");
++      grub_printf (" Lower memory: %uK, "
+ 	       "Upper memory (to first chipset hole): %uK\n",
+ 	       saved_mem_lower, saved_mem_upper);
++	}
++#else
++      grub_printf (" Address Map BIOS Interface is present\n");
++      grub_printf (" Lower memory: %uK, "
++	       "Upper memory (to first chipset hole): %uK\n",
++	       saved_mem_lower, saved_mem_upper);
++#endif
++}
+ 
+   if (mbi.flags & MB_INFO_MEM_MAP)
+     {
+       struct AddrRangeDesc *map = (struct AddrRangeDesc *) saved_mmap_addr;
+       unsigned long end_addr = saved_mmap_addr + saved_mmap_length;
+ 
++#ifdef SUPPORT_GRAPHICS
++	if (graphics_inited && ushFontReaded)
++      grub_printf (" [地址区域描述符"
++		   "紧随于(值为64位)]\n");
++	else
++      grub_printf (" [Address Range Descriptor entries "
++		   "immediately follow (values are 64-bit)]\n");
++#else
+       grub_printf (" [Address Range Descriptor entries "
+ 		   "immediately follow (values are 64-bit)]\n");
++#endif
++
+       while (end_addr > (unsigned long) map)
+ 	{
+ 	  char *str;
+@@ -3773,6 +3892,16 @@
+ 	    str = "Usable RAM";
+ 	  else
+ 	    str = "Reserved";
++#ifdef SUPPORT_GRAPHICS
++	if (graphics_inited && ushFontReaded)
++	  grub_printf ("   %s:  基址:  0x%x X 4GB + 0x%x,\n"
++		       "      长度:   0x%x X 4GB + 0x%x 字节\n",
++		       str,
++		       (unsigned long) (map->BaseAddr >> 32),
++		       (unsigned long) (map->BaseAddr & 0xFFFFFFFF),
++		       (unsigned long) (map->Length >> 32),
++		       (unsigned long) (map->Length & 0xFFFFFFFF));
++	else
+ 	  grub_printf ("   %s:  Base Address:  0x%x X 4GB + 0x%x,\n"
+ 		       "      Length:   0x%x X 4GB + 0x%x bytes\n",
+ 		       str,
+@@ -3780,7 +3909,15 @@
+ 		       (unsigned long) (map->BaseAddr & 0xFFFFFFFF),
+ 		       (unsigned long) (map->Length >> 32),
+ 		       (unsigned long) (map->Length & 0xFFFFFFFF));
+-
++#else
++	  grub_printf ("   %s:  Base Address:  0x%x X 4GB + 0x%x,\n"
++		       "      Length:   0x%x X 4GB + 0x%x bytes\n",
++		       str,
++		       (unsigned long) (map->BaseAddr >> 32),
++		       (unsigned long) (map->BaseAddr & 0xFFFFFFFF),
++		       (unsigned long) (map->Length >> 32),
++		       (unsigned long) (map->Length & 0xFFFFFFFF));
++#endif
+ 	  map = ((struct AddrRangeDesc *) (((int) map) + 4 + map->size));
+ 	}
+     }
+@@ -3795,7 +3932,9 @@
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "displaymem",
+   "Display what GRUB thinks the system address space map of the"
+-  " machine is, including all regions of physical RAM installed."
++  " machine is, including all regions of physical RAM installed.",
++  "displaymem",
++  "\t显示 GRUB 所判断到的当前系统的内存分布，包括所有物理内存区域。"
+ };
+ 
+ 
+@@ -3854,7 +3993,10 @@
+     BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT,
+     "dump FROM TO",
+     "Dump the contents of the file FROM to the file TO. FROM must be"
+-    " a GRUB file and TO must be an OS file."
++    " a GRUB file and TO must be an OS file.",
++    "dump FROM TO",
++    "\t显示诸多文件的内容。注意，FROM 所指定的必须是一个 GRUB 文件，TO 所"
++    "\n\t指定的必须是一个操作系统文件。这条命令只在 grub shell 中才有。"
+   };
+ #endif /* GRUB_UTIL */
+ 
+@@ -4001,7 +4143,11 @@
+   "embed STAGE1_5 DEVICE",
+   "Embed the Stage 1.5 STAGE1_5 in the sectors after MBR if DEVICE"
+   " is a drive, or in the \"bootloader\" area if DEVICE is a FFS partition."
+-  " Print the number of sectors which STAGE1_5 occupies if successful."
++  " Print the number of sectors which STAGE1_5 occupies if successful.",
++  "embed STAGE1_5 DEVICE",
++  "\t如果设备是个驱动器, 则将 Stage 1.5 嵌入到主引导扇区之后. 如果是 FFS"
++  "\n\t分区, 则可嵌入到该设备的“引导代码”区中。成功时打印出 Stage 1.5 所"
++  "\n\t占的扇区数。"
+ };
+ 
+ 
+@@ -4108,7 +4254,10 @@
+   " errors, instead of waiting for the user to do anything, it"
+   " immediately starts over using the NUM entry (same numbering as the"
+   " `default' command). This obviously won't help if the machine"
+-  " was rebooted by a kernel that GRUB loaded."
++  " was rebooted by a kernel that GRUB loaded.",
++  "fallback NUM...",
++  "\t进入无人干预启动模式：如果默认启动入口项出错失败，立即用入口项 NUM"
++  "\n\t来启动（这里的“入口项”与 default 命令中的“入口项”意义相同）。"
+ #endif
+ };
+ 
+@@ -4132,7 +4281,9 @@
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST | BUILTIN_BOOTING,
+ #if 1
+   "commandline",
+-  "Enter command-line prompt mode."
++  "Enter command-line prompt mode.",
++  "commandline",
++  "\t进入命令行提示符方式。"
+ #endif
+ };
+ 
+@@ -4577,7 +4728,14 @@
+   " If the option --set-root is used and FILENAME is found on a device, then"
+   " stop the find immediately and set the device as new root."
+   " If the option --ignore-floppies is present, the search will bypass all"
+-  " floppies. And --ignore-cd will skip (cd)."
++  " floppies. And --ignore-cd will skip (cd).",
++  "find [--set-root[=DIR]] [--ignore-floppies] [--ignore-cd] [FILENAME] [CONDITION]",
++  "\t在所有分区上查找文件名, 并显示包含该文件并满足给定条件的设备。"
++  "\n\tCONDITION是一个普通的grub命令，返回非零表示真，零表示假。"
++  "\n\t如果使用了 --set-root 选项, 那么当在某个设备上找到 FILENAME 时,"
++  "\n\t立即停止查找, 并将此设备设定为新的 root 设备。如果指定了"
++  "\n\t--ignore-floppies 选项, 那么查找过程将略过所有的软盘。若指定"
++  "\n\t--ignore-cd 则会跳过 (cd)。"
+ };
+ 
+ 
+@@ -4789,7 +4947,14 @@
+   " on all devices(if UUID is not specified). If DEVICE is specified," 
+   " return true or false according to whether or not the DEVICE matches"
+   " the specified UUID(if UUID is specified), or just list the uuid of"
+-  " DEVICE(if UUID is not specified)."
++  " DEVICE(if UUID is not specified).",
++  "uuid [DEVICE] [UUID]",
++  "\t如果 DEVICE 未指定，在所有的分区中搜索带有 UUID 的"
++  "\n\t分区，找到后设置为新的 root 设备（如果指定了 UUID），"
++  "\n\t或者只是列出各个分区的 uuid（如果未指定 UUID）。"
++  "\n\t如果指定了 DEVICE，仅仅返回一个真假值，表示是否与"
++  "\n\t给定的 UUID 相匹配（如果指定了 UUID），或者只是列出"
++  "\n\tDEVICE 的 uuid 值（如果未指定 UUID）。"
+ };
+ 
+ static void
+@@ -4907,7 +5072,9 @@
+   fstest_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "fstest [on | off | status]",
+-  "Turn on/off or display the fstest mode, or toggle it if no argument."
++  "Turn on/off or display the fstest mode, or toggle it if no argument.",
++  "fstest [on | off | status]",
++  "\t切换文件系统的跟踪测试模式。"
+ };
+ 
+ #ifdef SUPPORT_GFX
+@@ -5066,7 +5233,10 @@
+   " the one of the heads, the one of the sectors and the one of the total"
+   " sectors are set to CYLINDER, HEAD, SECTOR and TOTAL_SECTOR,"
+   " respectively. If you omit TOTAL_SECTOR, then it will be calculated based"
+-  " on the C/H/S values automatically."
++  " on the C/H/S values automatically.",
++  "geometry [DRIVE] [CYLINDER HEAD SECTOR [TOTAL_SECTOR]]",
++  "\t输出驱动器的相关信息. 在 grub shell 中, 你可以用这条命令设置驱动器"
++  "\n\t参数为任意值。如果你省略了总扇区数, 它将由 C/H/S 的值自动计算出来。"
+ };
+ 
+ 
+@@ -5090,7 +5260,10 @@
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST | BUILTIN_BOOTING,
+   "halt [--no-apm]",
+   "Halt your system. If APM is avaiable on it, turn off the power using"
+-  " the APM BIOS, unless you specify the option `--no-apm'."
++  " the APM BIOS, unless you specify the option `--no-apm'.",
++  "halt [--no-apm]",
++  "\t关闭系统。如果APM(高级电源管理)功能存在，将使用 APM BIOS 关闭系统，"
++  "\n\t除非指定了 --no-apm 选项。"
+ };
+ 
+ 
+@@ -5175,13 +5348,25 @@
+ 	      if (substring (arg, (*builtin)->name, 0) < 1)
+ 		{
+ 		  char *doc = (*builtin)->long_doc;
+-
++		  
+ 		  /* At first, print the name and the short doc.  */
+-		  grub_printf ("%s: %s\n",
++		  if ((*builtin)->short_doc)
++		      grub_printf ("%s: %s\n",
+ 			       (*builtin)->name, (*builtin)->short_doc);
+ 
++#ifdef SUPPORT_GRAPHICS
++		  if (graphics_inited && ushFontReaded)
++		  {
++			if ((*builtin)->sc_long_doc)
++				grub_putstr ((*builtin)->sc_long_doc);
++			grub_putchar ('\n');
++			continue;
++		  }
++#endif
++
+ 		  /* Print the long doc.  */
+-		  while (*doc)
++		  if (doc)
++		    while (*doc)
+ 		    {
+ 		      int len = grub_strlen (doc);
+ 		      //int i;
+@@ -5218,7 +5403,9 @@
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "help [--all] [PATTERN ...]",
+   "Display helpful information about builtin commands. Not all commands"
+-  " aren't shown without the option `--all'."
++  " aren't shown without the option `--all'.",
++  "help [--all] [PATTERN ...]",
++  "\t显示内部命令的帮助信息。要查看所有命令的帮助，可使用 --all 参数。"
+ };
+ 
+ 
+@@ -5266,7 +5453,10 @@
+   "hide [PARTITION]",
+   "Hide PARTITION by setting the \"hidden\" bit in"
+   " its partition type code. The default partition is the current"
+-  " root device."
++  " root device.",
++  "hide [PARTITION]",
++  "\t通过在分区类型码上设置“隐藏”标志，来隐藏分区 PARTITION。"
++  "\n\t默认的分区是当前的根设备。"
+ };
+ 
+ 
+@@ -5311,6 +5501,10 @@
+   "Hide/unhide PARTITION by setting/clearing the \"hidden\" bit in"
+   " its partition type code, or report the hidden status."
+   " The default partition is the current root device."
++  , "hiddenflag [--set | --clear] [PARTITION]",
++  "\t通过设置（或清除）分区类型码中的“隐藏”标志位来隐藏（或不隐藏）分区"
++  "\n\tPARTITION。当 --set 和 --clear 都未指定时，只报告分区的隐藏状态。"
++  "\n\t当 PARTITION 未指定时，使用当前的根设备。"
+ };
+ 
+ 
+@@ -5323,7 +5517,14 @@
+   
+   if (! eth_probe ())
+     {
+-      grub_printf ("No ethernet card found.\n");
++#ifdef SUPPORT_GRAPHICS
++	if (graphics_inited && ushFontReaded)
++	  grub_printf ("未发现网卡.\n");
++	else
++	  grub_printf ("No ethernet card found.\n");
++#else
++	grub_printf ("No ethernet card found.\n");
++#endif
+       errnum = ERR_DEV_VALUES;
+       return 0;
+     }
+@@ -5364,7 +5565,10 @@
+   BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_MENU | BUILTIN_HELP_LIST,
+   "ifconfig [--address=IP] [--gateway=IP] [--mask=MASK] [--server=IP]",
+   "Configure the IP address, the netmask, the gateway and the server"
+-  " address or print current network configuration."
++  " address or print current network configuration.",
++  "ifconfig [--address=IP] [--gateway=IP] [--mask=MASK] [--server=IP]",
++  "\t指定 IP 地址, 子网掩码, 网关和服务器地址。不带参数时，将显示当前的"
++  "\n\t网络配置。"
+ };
+ #endif /* SUPPORT_NETBOOT */
+ 
+@@ -5398,7 +5602,10 @@
+   "impsprobe",
+   "Probe the Intel Multiprocessor Specification 1.1 or 1.4"
+   " configuration table and boot the various CPUs which are found into"
+-  " a tight loop."
++  " a tight loop.",
++  "impsprobe",
++  "\t探测 Intel 多处理器规范 1.1/1.4 配置表并使所找到的各处理器启动进入"
++  "\n\t闭循环。"
+ };
+ #endif
+ 
+@@ -5430,7 +5637,9 @@
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "initrd FILE [ARG ...]",
+   "Load an initial ramdisk FILE for a Linux format boot image and set the"
+-  " appropriate parameters in the Linux setup area in memory."
++  " appropriate parameters in the Linux setup area in memory.",
++  "initrd FILE [ARG ...]",
++  "\t加载 Linux 格式的初始化虚拟盘, 并设置必要的参数。"
+ };
+ 
+ 
+@@ -6002,7 +6211,15 @@
+   " patched with the configuration filename REAL_CONFIG_FILE."
+   " If the option `--force-lba' is specified, disable some sanity checks"
+   " for LBA mode. If the option `--stage2' is specified, rewrite the Stage"
+-  " 2 via your OS's filesystem instead of the raw device."
++  " 2 via your OS's filesystem instead of the raw device.",
++  "install [--stage2=STAGE2_FILE] [--force-lba] STAGE1 [d] DEVICE STAGE2 [ADDR] [p] [CONFIG_FILE] [REAL_CONFIG_FILE]",
++  "\t安装 STAGE1 到指定设备上, 安装加载 STAGE2 需要的块列表到 STAGE2 上。"
++  "\n\t如果使用了选项'd', STAGE1 总是试图使用安装 STAGE2 的驱动器, 而不是"
++  "\n\t启动盘。STAGE2 将加载在指定地址上, 如果未声明地址, 则自动检测。如果"
++  "\n\t使用了选项 'p' 或给出了配置文件, 将修改 STAGE2 的第一个数据块, 修正"
++  "\n\t实际 Stage2 启动时使用的配置文件位置。对于 Stage 1.5, 该值为 Stage2"
++  "\n\t的路径。如果安装的是 Stage1.5, 且指定了实际配置文件, 则将该配置文件"
++  "\n\t路径写入 Stage2 中。"
+ };
+ 
+ 
+@@ -6112,7 +6329,13 @@
+   " to suggest what type of kernel to be loaded. TYPE must be either of"
+   " \"netbsd\", \"freebsd\", \"openbsd\", \"linux\", \"biglinux\" and"
+   " \"multiboot\". The option --no-mem-option tells GRUB not to pass a"
+-  " Linux's mem option automatically."
++  " Linux's mem option automatically.",
++  "kernel [--no-mem-option] [--type=TYPE] FILE [ARG ...]",
++  "\t尝试载入主引导影像文件。其它项将被作为内核的命令行参数而传递给内核。"
++  "\n\t使用此命令以前，内核所用到的模块应该被重新载入。参数 --type 用于说"
++  "\n\t明内核的类型，包括 netbsd, freebsd, openbsd, linux, biglinux 和"
++  "\n\tmultiboot。参数 --no-mem-option 用于说明不必自动传递 Linux 的内存参"
++  "\n\t数。" 
+ };
+ 
+ 
+@@ -6135,7 +6358,9 @@
+   lock_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "lock",
+-  "Break a command execution unless the user is authenticated."
++  "Break a command execution unless the user is authenticated.",
++  "lock",
++  "\t如果用户未被认证，则终止命令的执行。"
+ };
+   
+ 
+@@ -6159,7 +6384,9 @@
+   ls_func,
+   BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_MENU | BUILTIN_HELP_LIST,
+   "ls [FILE_OR_DIR]",
+-  "List file or directory."
++  "List file or directory.",
++  "ls [FILE_OR_DIR]",
++  "\t列出文件或目录。"
+ };
+ #endif /* STAGE1_5 */
+ 
+@@ -6261,7 +6488,9 @@
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "makeactive [--status] [PART]",
+   "Activate the partition PART. PART defaults to the current root device."
+-  " This command is limited to _primary_ PC partitions on a hard disk."
++  " This command is limited to _primary_ PC partitions on a hard disk.",
++  "makeactive [--status] [PART]",
++  "\t激活 PART 分区(或当前默认分区)。此命令只能用于硬盘的“主”分区。"
+ };
+ 
+ 
+@@ -8312,7 +8541,29 @@
+   " memdrive is (-RESERV) in 512-byte-sectors. if RESERV is used and > 0,"
+   " the memdrive will occupy the mem area starting at absolute physical"
+   " address RESERV in 512-byte-sectors and ending at the end of this mem"
+-  " block(usually the end of physical mem)."
++  " block(usually the end of physical mem).",
++  "map [--status] [--mem[=RESERV]] [--hook] [--unhook] [--rehook] [--floppies=M] [--harddrives=N] [--ram-drive=RD] [--rd-base=ADDR] [--rd-size=SIZE] [[--read-only] [--fake-write] [--unsafe-boot] [--disable-chs-mode] [--disable-lba-mode] [--heads=H] [--sectors-per-track=S] TO_DRIVE FROM_DRIVE]",
++  "\t对设备进行映射。这对于扇区链式引导是很有用的功能，比如 DOS。这里，目"
++  "\n\t的驱动器 TO_DRIVE 可以是一个磁盘文件（注意，当没有指定 --mem 时，这"
++  "\n\t要求磁盘文件是连续存放于介质中的。另外，若使用了 --read-only 参数,"
++  "\n\t该功能将使仿真磁盘处于只读; 若使用了 --fake-write 参数，该功能将使"
++  "\n\t仿真磁盘处于假写，即简单地返回“写入”成功，但实际上不执行写入操作;"
++  "\n\t若使用了 --unsafe-boot 参数，该功能将使仿真磁盘的第一扇区处于可写;"
++  "\n\t（默认时仿真磁盘的第一扇区被保护，不能经由 int13/AH=03h 而写入）。"
++  "\n\t若使用了 --disable-chs-mode 参数，CHS 访问功能将被禁用; 若使用了"
++  "\n\t--disable-lba-mode 参数， LBA 访问功能将被禁用; H 和 S 指定了虚拟磁"
++  "\n\t盘的物理参数。若使用了 --status, --hook, --unhook, --rehook,"
++  "\n\t--floppies, --harddrives, --ram-drive, --rd-base, --rd-size,"
++  "\n\t--memdisk-raw, --a20-keep-on, --safe-mbr-hook, --int13-scheme 诸参数"
++  "\n\t之一，那么其它的命令行参数将被忽略。--floppies 用于修改 BIOS 数据区"
++  "\n\t0x410 处的软盘个数位域。--harddrives 用于修改 BIOS 数据区 0x475 处的"
++  "\n\t硬盘个数字节。--mem 参数指定使用内存来仿真磁盘（此时 TO_DRIVE 可以是"
++  "\n\tgzip 格式的压缩文件）。--ram-drive 用于修改代表内存盘的 BIOS 磁盘号"
++  "\n\t码。--rd-base 指定内存盘的起始地址。--rd-size 指定内存盘的大小（以字"
++  "\n\t节计数）。如果 RESERV <= 0, 那么至少保留 (-RESERV * 512) 字节的内存"
++  "\n\t用来存放该内存盘的扇区数据；如果 RESERV > 0, 该内存盘将起始于绝对物"
++  "\n\t理地址 (RESERV * 512)，而终止于该起始地址所在的连续内存块的结尾（通"
++  "\n\t常等于或接近于物理内存的结尾）。"
+ };
+ #endif	/* ! GRUB_UTIL */
+ 
+@@ -8379,7 +8630,9 @@
+   md5crypt_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "md5crypt",
+-  "Generate a password in MD5 format."
++  "Generate a password in MD5 format.",
++  "md5crypt",
++  "\t产生一个 MD5 格式的密码。"
+ };
+ #endif /* USE_MD5_PASSWORDS */
+ 
+@@ -8428,7 +8681,11 @@
+   " interpretation of the file contents is made, so users of this"
+   " command must know what the kernel in question expects). The"
+   " rest of the line is passed as the \"module command line\", like"
+-  " the `kernel' command."
++  " the `kernel' command.",
++  "module FILE [ARG ...]",
++  "\t为多重启动映像格式的引导映像加载启动模块文件 FILE（对该文件的内容不"
++  "\n\t作任何解释, 因此使用这条命令的用户必须了解所提到的内核映像的要求）。"
++  "\n\t其余参数作为“模块命令行”传递, 就像 kernel 命令那样。"
+ };
+ 
+ 
+@@ -8458,7 +8715,9 @@
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "modulenounzip FILE [ARG ...]",
+   "The same as `module', except that automatic decompression is"
+-  " disabled."
++  " disabled.",
++  "modulenounzip FILE [ARG ...]",
++  "\t与“module”命令相同, 差别是 GRUB 不会对 FILE 进行自动解压缩。"
+ };
+ 
+ #ifdef SUPPORT_GRAPHICS
+@@ -8492,7 +8751,9 @@
+   outline_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "outline [on | off | status]",
+-  "Turn on/off or display the outline mode, or toggle it if no argument."
++  "Turn on/off or display the outline mode, or toggle it if no argument.",
++  "outline [on | off | status]",
++  "\t打开/关闭 或者 显示字符轮廓模式。无参数时，切换字符轮廓模式。"
+ };
+ #endif /* SUPPORT_GRAPHICS */
+ 
+@@ -8526,7 +8787,9 @@
+   pager_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "pager [on | off | status]",
+-  "Turn on/off or display the pager mode, or toggle it if no argument."
++  "Turn on/off or display the pager mode, or toggle it if no argument.",
++  "pager [on | off | status]",
++  "\t打开/关闭 或者 显示分页模式。无参数时，切换分页模式。"
+ };
+ 
+ 
+@@ -8847,7 +9110,13 @@
+   " If --active is used, the new partition will be active. START can be"
+   " a contiguous file that will be used as the content/data of the new"
+   " partition, in which case the LEN parameter is ignored, and TYPE can"
+-  " be either 0x00 for auto or 0x10 for hidden-auto."
++  " be either 0x00 for auto or 0x10 for hidden-auto.",
++  "partnew [--active] PART TYPE START [LEN]",
++  "\t创建一个新的主分区。START 为起始扇区号，LEN 为其包含的扇区数，TYPE"
++  "\n\t为其分区类型。如果用了 --active，那么新建的分区将是“激活”的。"
++  "\n\tSTART 可以是一个连续的文件（没有碎块），该文件将被用作新建分区"
++  "\n\t的内容（即分区的数据），在这种情况下，LEN 参数被忽略，而且 TYPE"
++  "\n\t可以是 0x00 表示“自动”，也可以是 0x10 表示“隐藏-自动”。"
+ };
+ 
+ 
+@@ -8959,7 +9228,10 @@
+   "parttype [PART] [TYPE]",
+   "Change the type of the partition PART to TYPE. If TYPE is omitted, return "
+   "the partition type of the specified device(instead of changing it). PART "
+-  "default to the current root device."
++  "default to the current root device.",
++  "parttype [PART] [TYPE]",
++  "\t把指定分区 PART 的分区类型改为 TYPE。如果省略 TYPE，则只返回指定分区的"
++  "\n\t当前类型而不是修改指定分区的类型。如果省略 PART，则使用当前默认分区。"
+ };
+ 
+ 
+@@ -9037,7 +9309,13 @@
+   " instructions.  You can also use it in the script section, in"
+   " which case it will ask for the password, before continueing."
+   " The option --md5 tells GRUB that PASSWD is encrypted with"
+-  " md5crypt."
++  " md5crypt.",
++  "password [--md5] PASSWD [FILE]",
++  "\t当其处于菜单文件的首项时，将禁用所有的交互式菜单编辑功能，包括编辑"
++  "\n\t菜单项(`e')/进入命令行(`c')。当正确输入密码(由 PASSWD 指定)后, 载入"
++  "\n\t新的菜单文件(由 FILE 指定)。如果你没有指定 FILE 项，那么上述被禁用"
++  "\n\t的功能将被启用了。当然，你也可以将此命令用到某个菜单项里，用以提高"
++  "\n\t系统安全性。参数 --md5 说明密码 PASSWD 是使用 md5crypt 加密的。"
+ };
+ 
+ 
+@@ -9103,7 +9381,10 @@
+   pause_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_NO_ECHO,
+   "pause [--wait=T] [MESSAGE ...]",
+-  "Print MESSAGE, then wait until a key is pressed or T seconds has passed."
++  "Print MESSAGE, then wait until a key is pressed or T seconds has passed.",
++  "pause [--wait=T] [MESSAGE ...]",
++  "\t打印信息 MESSAGE，然后等待，直到按下一键，或者 T 秒过后，命令结束，"
++  "\n\t控制返回到 GRUB，继续执行下一条命令。"
+ };
+ 
+ 
+@@ -9137,7 +9418,9 @@
+   quit_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST | BUILTIN_BOOTING,
+   "quit",
+-  "Exit from the GRUB shell."
++  "Exit from the GRUB shell.",
++  "quit",
++  "\t从 GRUB 命令行中退出。"
+ };
+ #else
+ /* quit */
+@@ -9230,7 +9513,9 @@
+   quit_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST | BUILTIN_BOOTING,
+   "quit [--disable-a20]",
+-  "Go back to DOS if GRUB was previously launched from DOS."
++  "Go back to DOS if GRUB was previously launched from DOS.",
++  "quit [--disable-a20]",
++  "\t如果 GRUB 先前是从 DOS 启动的，就返回到 DOS。"
+ };
+ #endif /* GRUB_UTIL */
+ 
+@@ -9260,7 +9545,9 @@
+   rarp_func,
+   BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_MENU | BUILTIN_HELP_LIST,
+   "rarp",
+-  "Initialize a network device via RARP."
++  "Initialize a network device via RARP.",
++  "rarp",
++  "\t用 RARP 初始化网络设备。"
+ };
+ #endif /* ! GRUB_UTIL */
+ #endif /* SUPPORT_NETBOOT */
+@@ -9288,7 +9575,9 @@
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT,
+   "read ADDR",
+   "Read a 32-bit value from memory at address ADDR and"
+-  " display it in hex format."
++  " display it in hex format.",
++  "read ADDR",
++  "\t从内存的指定位置读取一个 32-bit 的值，并以十六进制形式显示出来。"
+ };
+ 
+ static int
+@@ -9318,7 +9607,9 @@
+   write_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT,
+   "write ADDR VAL",
+-  "Write a 32-bit value VAL to memory at address ADDR."
++  "Write a 32-bit value VAL to memory at address ADDR.",
++  "write ADDR VAL",
++  "\t写一个 32 位的值 VAL 到内存地址 ADDR。"
+ };
+ 
+ 
+@@ -9338,7 +9629,9 @@
+   reboot_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST | BUILTIN_BOOTING,
+   "reboot",
+-  "Reboot your system."
++  "Reboot your system.",
++  "reboot",
++  "\t重启系统。"
+ };
+ #endif /* ! GRUB_UTIL */
+ 
+@@ -9611,6 +9904,78 @@
+   return next ? 1 : (saved_drive & 0x80);
+ }
+ 
++#ifdef SUPPORT_GRAPHICS
++/* Chinese Support by Gandalf
++ *    These codes used for defining a proper fontfile
++ */
++char fontfile[256];
++static int font_func (char *arg, int flags) {
++	//int i;
++
++	if (grub_strlen(arg) <= 0)
++	{
++#ifdef SUPPORT_GRAPHICS
++	if (graphics_inited && ushFontReaded)
++		grub_printf("当前字体文件: %s", fontfile);
++	else
++		grub_printf("Current font file is: %s", fontfile);
++#else
++		grub_printf("Current font file is: %s", fontfile);
++#endif
++		return 1;
++	}
++	
++    while(arg[0]==' '||arg[0]=='\t') arg++;
++
++    if (strlen(arg) > 256)
++	return !(errnum = ERR_WONT_FIT);
++	
++//    if (flags == BUILTIN_CMDLINE) {
++	if (! grub_open(arg))
++	    return 0;
++	grub_close();
++//    }
++
++    strcpy(fontfile, arg);
++
++    /* get rid of TERM_NEED_INIT from the graphics terminal. */
++    for (i = 0; term_table[i].name; i++) {
++	if (grub_strcmp (term_table[i].name, "graphics") == 0) {
++	    term_table[i].flags &= ~TERM_NEED_INIT;
++	    break;
++	}
++    }
++    
++    //graphics_set_splash (splashimage);
++
++    if (/* flags == BUILTIN_CMDLINE && */ graphics_inited) {
++	graphics_end();
++	if (! graphics_init())
++		return !(errnum = ERR_EXEC_FORMAT);
++	graphics_cls();
++    }
++
++    /* FIXME: should we be explicitly switching the terminal as a 
++     * side effect here? */
++    terminal_func("graphics", flags);
++
++    return 1;
++}
++
++static struct builtin builtin_fontfile =
++{
++  "fontfile",
++  font_func,
++  BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_HELP_LIST,
++  "fontfile FILE",
++  "Specify the Chinese Font File. "
++  "If you want display chinese character, please run"
++  "splashimage command later.",
++  "fontfile FILE",
++  "\t指定中文字体文件，并切换到简体中文显示方式。"
++};
++#endif	/* SUPPORT_GRAPHICS */
++
+ static int
+ root_func (char *arg, int flags)
+ {
+@@ -9632,7 +9997,13 @@
+   " optional HDBIAS parameter is a number to tell a BSD kernel"
+   " how many BIOS drive numbers are on controllers before the current"
+   " one. For example, if there is an IDE disk and a SCSI disk, and your"
+-  " FreeBSD root partition is on the SCSI disk, then use a `1' for HDBIAS."
++  " FreeBSD root partition is on the SCSI disk, then use a `1' for HDBIAS.",
++  "root [DEVICE [HDBIAS]]",
++  "\t设置根分区为指定设备(DEVICE), 然后尝试挂接该分区以得到分区大小(用于"
++  "\n\t在ES:ESI中传递, 扇区链式启动方式要求这样)。BSD 驱动类型用于启动 BSD"
++  "\n\t的核心启动), 和确定 BSD 子分区所在的 PC 分区。可选的磁盘偏移参数, 用"
++  "\n\t于 BSD 核心确定有多少个控制器在当前控制器前。比如, 假设同时有一个"
++  "\n\tIDE 和 SCSI 盘, 而 BSD 根分区在 SCSI 盘上, 那么磁盘偏移就为 1。"
+ };
+ 
+ 
+@@ -9653,7 +10024,12 @@
+   " is useful for when an OS is outside of the area of the disk that"
+   " GRUB can read, but setting the correct root device is still"
+   " desired. Note that the items mentioned in `root' which"
+-  " derived from attempting the mount will NOT work correctly."
++  " derived from attempting the mount will NOT work correctly.",
++  "rootnoverify [DEVICE [HDBIAS]]",
++  "\t类似于“root”指令, 但不尝试挂接该分区。这用于有些操作系统安装在"
++  "\n\tGRUB 能访问到的磁盘区域之外，或者其文件系统不能被 GRUB 识别出来，"
++  "\n\t但你仍然想把这个设备强制设置为 root 设备的情况。说明：这样一来，"
++  "\n\t原来在 root 命令中尝试挂接的那些项目，现在将不起作用了。"
+ };
+ 
+ 
+@@ -9990,7 +10366,13 @@
+   " `fallback' is used, next fallback entry is saved."
+   " If T is not 0, prompt the user to confirm the write operation by"
+   " pressing the Y key, and if no key-press detected within T seconds,"
+-  " the write will be discarded."
++  " the write will be discarded.",
++  "savedefault",
++  "\t如果没有指定参数，就把当前菜单项保存为默认的引导项。如果指定了参数"
++  "\n\tNUM，那么保存的就是它。如果指定的是关键字 fallback，那么保存的是"
++  "\n\tfallback 命令所指定的菜单项。如果 T 不是 0，将提示用户按下 Y 键来"
++  "\n\t确认写盘操作，如果在 T 秒之内没有按键，或者按键不是 Y，那么写盘保存"
++  "\n\t的操作将被取消。"
+ };
+ 
+ 
+@@ -10142,7 +10524,13 @@
+   " PARITY is the type of parity, which is one of `no', `odd' and `even'."
+   " STOP is the length of stop bit(s). The option --device can be used only"
+   " in the grub shell, which specifies the file name of a tty device. The"
+-  " default values are COM1, 9600, 8N1."
++  " default values are COM1, 9600, 8N1.",
++  "serial [--unit=UNIT] [--port=PORT] [--speed=SPEED] [--word=WORD] [--parity=PARITY] [--stop=STOP] [--device=DEV]",
++  "\t初始化一个串口设备。UNIT 用于指定要使用的串口设备(如，0 == COM1);"
++  "\n\tPORT 用于指定端口号; SPEED 用于指定通讯的数率; WORD 为字长;"
++  "\n\tPARITY 为奇偶类型(取 `no', `odd' 和 `even' 之一的值。); STOP 是停止"
++  "\n\t位的长度值; 选项 --device 仅用于命令行模式，用以指定 tty 设备的文件"
++  "\n\t名。默认值是这样的，COM1, 9600, 8N1。"
+ };
+ #endif /* SUPPORT_SERIAL */
+ 
+@@ -10394,7 +10782,18 @@
+   " quote, doublequote, backquote, tilde, shift, backslash, bar, comma,"
+   " less, period, greater, slash, question, alt, space, capslock, FX (X"
+   " is a digit), and delete. If no argument is specified, reset key"
+-  " mappings."
++  " mappings.",
++  "setkey [TO_KEY FROM_KEY]",
++  "\t改变键盘映射关系。把FROM_KEY映射为TO_KEY。这里的键必须是字母, 数字,"
++  "\n\t和以下特殊键: escape(转义), exclam(!), at(@), numbersign(#),"
++  "\n\tdollar($), parenright[)], caret(^), ampersand(&), asterisk(*),"
++  "\n\tplus(+), percent(%), minus(-), underscore(_), equal(=),"
++  "\n\tparenleft[(], backspace(退格), tab(制表), bracketleft([),"
++  "\n\tbraceleft({), bracketright(]), braceright(}), enter(回车),"
++  "\n\tcontrol(控制), semicolon(;), colon(:), quote('), doublequote(\"),"
++  "\n\tslash(/), backquote(`), tilde(~), shift(换档), backslash(\\),"
++  "\n\tbar(|), comma(,), less(<), period(.), greater(>), question(?),"
++  "\n\talt(交互), space(空格), capslock(大写), Fx(功能键) 和 delete(删除)。"
+ };
+ 
+ 
+@@ -10725,7 +11124,14 @@
+   " doesn't work in LBA mode, specify the option `--force-lba'."
+   " If you install GRUB under the grub shell and you cannot unmount the"
+   " partition where GRUB images reside, specify the option `--stage2'"
+-  " to tell GRUB the file name under your OS."
++  " to tell GRUB the file name under your OS.",
++  "setup [--prefix=DIR] [--stage2=STAGE2_FILE] [--force-lba] INSTALL_DEVICE [IMAGE_DEVICE]",
++  "\t自动安装 GRUB. 这条命令使用更灵活的 install 命令将 GRUB 安装到指定"
++  "\n\t设备上。如果给出了映象设备, 将在该设备寻找 GRUB, 否则使用缺省的根设"
++  "\n\t备。根设备可用 root 指令指定。如果你确认系统的 BIOS 应该支持 LBA 模"
++  "\n\t式, 但是 GRUB 却没有工作于该模式, 则请指定 --force-lba 参数。如若你"
++  "\n\t在命令行中已安装了一次 GRUB, 可是你却无法卸载 GRUB 程序所在的分区，"
++  "\n\t请指定 `--stage2' 参数。"
+ };
+ 
+ 
+@@ -10924,7 +11330,16 @@
+   " If you specify --no-edit, the BASH-like editing feature will be disabled."
+   " If --timeout is present, this command will wait at most for SECS"
+   " seconds. The option --lines specifies the maximum number of lines."
+-  " The option --silent is used to suppress messages."
++  " The option --silent is used to suppress messages.",
++  "terminal [--dumb] [--no-echo] [--no-edit] [--timeout=SECS] [--lines=LINES] [--silent] [console] [serial] [hercules] [graphics]",
++  "\t选择一个终端。当指定了多个终端以后, 按任意键方可继续操作。如果控制"
++  "\n\t台和串口都被指定了, 那么你首先在其中按下键盘的终端将被首先选中。"
++  "\n\t如果没有指定任何参数, 那么此命令将显示出当前的终端设置; 参数 --dumb"
++  "\n\t用以指定一个哑终端, 否则即为 vt100 兼容型; 若使用了 --no-echo 参数,"
++  "\n\t屏幕上将不会回显输入的字符; 若使用了 --no-edit 参数, the BASH-like"
++  "\n\t的编辑功能将被禁用; 若使用了 --timeout 参数, 该命令将等待数秒钟(由"
++  "\n\tSECS 指定); 可使用 --lines 指定最大的行数; 可使用 --silent 选项关闭"
++  "\n\t消息显示。"
+ };
+ #endif /* SUPPORT_SERIAL || SUPPORT_HERCULES || SUPPORT_GRAPHICS */
+ 
+@@ -11040,7 +11455,13 @@
+   "Define the capabilities of your terminal. Use this command to"
+   " define escape sequences, if it is not vt100-compatible."
+   " You may use \\e for ESC and ^X for a control character."
+-  " If no option is specified, the current settings are printed."
++  " If no option is specified, the current settings are printed.",
++  "terminfo [--name=NAME --cursor-address=SEQ [--clear-screen=SEQ]"
++  " [--enter-standout-mode=SEQ] [--exit-standout-mode=SEQ]]",
++  
++  "\t指定终端的功能。如果此终端为 vt100 兼容型的，则可指定换码顺序(即使"
++  "\n\t用 \\e 代表 ESC, ^X　代表控制码); 在未给任何参数的情况下，将给出"
++  "\n\t当前配置信息。"
+ };
+ #endif /* SUPPORT_SERIAL */
+ 	  
+@@ -11130,7 +11551,13 @@
+   " filepos=Y' reading has X and Y equal, then it is definitely"
+   " consistent, and very likely works correctly subject to a"
+   " consistent offset error. If this test succeeds, then a good next"
+-  " step is to try loading a kernel."
++  " step is to try loading a kernel.",
++  "testload FILE",
++  "\t用几种不同的方式读取文件 FILE 的整个内容并比较它们，以测试文件系统"
++  "\n\t代码的正确性。输出看起来会有点儿混乱，但是，如果没有报告错误，而且"
++  "\n\t最后的“i=X, filepos=Y”中的 X 和 Y 是相等的话，那么代码无疑是可靠"
++  "\n\t的，而且很可能正确无误地工作而不会出现别的差错。如果测试成功，下一"
++  "\n\t步尽可尝试加载一个内核。"
+ };
+ #endif
+ 
+@@ -11255,7 +11682,9 @@
+   testvbe_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "testvbe MODE",
+-  "Test the VBE mode MODE. Hit any key to return."
++  "Test the VBE mode MODE. Hit any key to return.",
++  "testvbe MODE",
++  "\t测试所指定 MODE 的 VBE 模式。"
+ };
+ 
+ static inline unsigned long vbe_far_ptr_to_linear (unsigned long ptr)
+@@ -11405,7 +11834,10 @@
+   "setvbe [MODE_3D]",
+   "Set the VBE mode MODE_3D(which is of the form 1024x768x32) for each subsequent kernel command-line."
+   " If no argument is specified, clear(nullify, invalidate) the video option"
+-  " string setup by the previous setvbe command."
++  " string setup by the previous setvbe command.",
++  "setvbe [MODE_3D]",
++  "\t为后续的每个 kernel 命令行设置 VBE 模式 MODE_3D(例如 1024x768x32)。"
++  "\n\t若不指定参数，则清空由先前的 setvbe 命令所设置的视频选项字符串。"
+ };
+ 
+ 
+@@ -11430,7 +11862,9 @@
+   tftpserver_func,
+   BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_MENU | BUILTIN_HELP_LIST,
+   "tftpserver IPADDR",
+-  "Override the TFTP server address."
++  "Override the TFTP server address.",
++  "tftpserver IPADDR",
++  "\t指定 TFTP 服务器的 IP 地址。"
+ };
+ #endif /* SUPPORT_NETBOOT */
+ 
+@@ -11505,7 +11939,9 @@
+   tpm_func,
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "tpm --init",
+-  "Initialise TPM."
++  "Initialise TPM.",
++  "tpm --init",
++  "\t初始化TPM。"
+ };
+ #endif /* ! defined(GRUB_UTIL) && ! defined (STAGE1_5) */
+ 
+@@ -11534,7 +11970,10 @@
+   "unhide [PARTITION]",
+   "Unhide PARTITION by clearing the \"hidden\" bit in its"
+   " partition type code. The default partition is the current"
+-  " root device."
++  " root device.",
++  "unhide [PARTITION]",
++  "\t通过清除分区类型码上的“隐藏”标志，来解除对分区 PARTITION 的隐藏。"
++  "\n\t默认的分区是当前的根设备。"
+ };
+ 
+ 
+@@ -11557,7 +11996,10 @@
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "uppermem KBYTES",
+   "Force GRUB to assume that only KBYTES kilobytes of upper memory are"
+-  " installed.  Any system address range maps are discarded."
++  " installed.  Any system address range maps are discarded.",
++  "uppermem KBYTES",
++  "\t强制 GRUB 承认系统中只安装了 (KBYTES) KB 的上位内存。略过任何形式的"
++  "\n\t系统内存地址区域查找步骤。"
+ };
+ #endif
+ 
+@@ -11661,7 +12103,9 @@
+   BUILTIN_MENU | BUILTIN_CMDLINE | BUILTIN_SCRIPT | BUILTIN_HELP_LIST,
+   "vbeprobe [MODE]",
+   "Probe VBE information. If the mode number MODE is specified, show only"
+-  " the information about only the mode."
++  " the information about only the mode.",
++  "vbeprobe [MODE]",
++  "\t侦测 VBE 的信息。如果指定了一个模式 MODE，则仅显示这个模式的信息。"
+ };
+   
+ 
+@@ -11712,6 +12156,7 @@
+   &builtin_fallback,
+   &builtin_find,
+ #ifdef SUPPORT_GRAPHICS
++  &builtin_fontfile,			/* Chinese Support Function by Gandalf*/
+   &builtin_foreground,
+ #endif
+   &builtin_fstest,
+diff -Naur grub-0.97_splash/stage2/char_io.c grub-0.97_chinese/stage2/char_io.c
+--- grub-0.97_splash/stage2/char_io.c	Tue Jan 13 22:19:17 2009
++++ grub-0.97_chinese/stage2/char_io.c	Tue Jan 13 22:20:46 2009
+@@ -468,8 +468,17 @@
+ {
+   cls ();
+ 
++#ifdef SUPPORT_GRAPHICS
++if (graphics_inited && ushFontReaded)
++  grub_printf ("GNU GRUB  中文化版［版本 %s］(%dK 低端 / %dK 上位 内存)\n",
++	  version_string, saved_mem_lower, saved_mem_upper);
++else
++  grub_printf ("GNU GRUB  version %s  (%dK lower / %dK upper memory)\n",
++	  version_string, saved_mem_lower, saved_mem_upper);
++#else
+   grub_printf ("GNU GRUB  version %s  (%dK lower / %dK upper memory)\n",
+ 	  version_string, saved_mem_lower, saved_mem_upper);
++#endif
+ }
+ 
+ #endif
+diff -Naur grub-0.97_splash/stage2/cmdline.c grub-0.97_chinese/stage2/cmdline.c
+--- grub-0.97_splash/stage2/cmdline.c	Wed Nov 12 01:04:19 2008
++++ grub-0.97_chinese/stage2/cmdline.c	Tue Jan 13 22:20:46 2009
+@@ -58,10 +58,23 @@
+ void
+ print_cmdline_message (int forever)
+ {
++#ifdef SUPPORT_GRAPHICS
++	if (graphics_inited && ushFontReaded)
++  printf (" ［ 提供类似 BASH 的行编辑功能。对于第一个词, TAB 键列出可能的\n"
++	  "    完整命令。否则即列出可能的设备/文件。%s ］\n",
++	  (forever ? "" : "  按 `ESC` 即可退出当前状态。"));
++	else
+   printf (" [ Minimal BASH-like line editing is supported.  For the first word, TAB\n"
+ 	  "   lists possible command completions.  Anywhere else TAB lists the possible\n"
+ 	  "   completions of a device/filename.%s ]\n",
+ 	  (forever ? "" : "  ESC at any time exits."));
++
++#else
++  printf (" [ Minimal BASH-like line editing is supported.  For the first word, TAB\n"
++	  "   lists possible command completions.  Anywhere else TAB lists the possible\n"
++	  "   completions of a device/filename.%s ]\n",
++	  (forever ? "" : "  ESC at any time exits."));
++#endif
+ }
+ 
+ /* Find the builtin whose command name is COMMAND and return the
+diff -Naur grub-0.97_splash/stage2/graphics.c grub-0.97_chinese/stage2/graphics.c
+--- grub-0.97_splash/stage2/graphics.c	Tue Jan 13 21:44:26 2009
++++ grub-0.97_chinese/stage2/graphics.c	Tue Jan 13 22:20:46 2009
+@@ -1,4 +1,5 @@
+ /* graphics.c - graphics mode support for GRUB */
++/* Chinese double-byte character support by Gandalf <f22_storm@163.com> */
+ /* Implemented as a terminal type by Jeremy Katz <katzj@redhat.com> based
+  * on a patch by Paulo C閟ar Pereira de Andrade <pcpa@conectiva.com.br>
+  */
+@@ -30,6 +31,10 @@
+ #include <shared.h>
+ #include <graphics.h>
+ 
++#define BASE_FONT_ADDR 0x500000;  /* Raw base address for Chinese Font.*/
++
++unsigned short stg2_ptborder = 0; /* Is called from stage2 drawing the menu border? */
++
+ static int saved_videomode = 0;
+ static unsigned char *font8x16 = 0;
+ 
+@@ -62,6 +67,9 @@
+ static int fontx = 0;
+ static int fonty = 0;
+ 
++//static char* chrMsg = "(r)Powered by Gandalf, f22_storm@163.com, 07/15/2004";
++
++unsigned short ushFontReaded = 0;	/* font loaded? */
+ /* global state so that we don't try to recursively scroll or cursor */
+ static int no_scroll = 0;
+ 
+@@ -122,11 +130,41 @@
+         saved_videomode = set_videomode (0x12);
+     }
+ 
++ 	if (! ushFontReaded)
++ 	{
++ 		ushFontReaded = 1;
++ 		
++ /* 		remove them all.    
++ 		grub_open("/boot/grub/fonts") ||
++ 		grub_open("/boot/fonts") ||
++ 		grub_open("/grub/fonts") ||
++ 		grub_open("/fonts") 
++ */		    		
++ 
++ 		if (grub_strlen (fontfile) > 0)
++ 		{
++ 			if (grub_open (fontfile) )
++ 			{
++ 				grub_read ((char *) RAW_ADDR (0x500000), -1, 0xedde0d90);
++ 
++ 				grub_close ();
++ 			}
++ 			else
++ 			{
++ 				ushFontReaded = 0;			
++ 				grub_printf ("load fontfile failed!\n");
++ 			}
++ 		}
++ 	}
++ 
+     if (! read_image (splashimage))
+     {
+-        set_videomode (saved_videomode);
+-        grub_printf("failed to read image\n");
+-        return 0;
++ 		if (! ushFontReaded)
++ 		{
++ 			set_videomode (saved_videomode);
++ 			grub_printf ("failed to read image\n");
++ 			return 0;	/* graphics_init failure! */
++ 		}
+     }
+ 
+     font8x16 = (unsigned char *) graphics_get_font (); /* code in asm.S */
+@@ -137,7 +175,7 @@
+     graphics_highlight_color = ((graphics_normal_color >> 4) | 
+ 				((graphics_normal_color & 0xf) << 4));
+ 
+-    return 1;
++    return 1;	/* graphics_init success */
+ }
+ 
+ /* Leave graphics mode */
+@@ -148,6 +186,7 @@
+     {
+         set_videomode (saved_videomode);
+         graphics_inited = 0;
++        ushFontReaded = 0;
+     }
+ }
+ 
+@@ -519,25 +558,92 @@
+ 
+ static unsigned char chr[16 << 2];
+ static unsigned char mask[16];
++static unsigned char by[32], chsa[16], chsb[16];
+ 
++/* This function was modified by Gandalf for Chinese Support 
++ *
++ * Change Log:
++ *	N/A
++ * TODO:
++ *      There is a empty line of the center of Chinese Character. !!!
++ */
+ static void
+ graphics_cursor (int set)
+ {
+     unsigned char *pat, *mem, *ptr;
+-    int i, ch, offset;
++    int i, ch, offset, n, ch1, ch2;
+     int invert = 0;
+ 
++    int dotpos;
++
++    int fontloaded;
++
+     if (set && no_scroll)
+         return;
+ 
+     offset = cursorY * 80 + fontx;
++    fontloaded = 0;
++
+     ch = text[fonty * 80 + fontx] & 0xff;
+     if (ch != ' ' || ! disable_space_highlight)
+ 	invert = (text[fonty * 80 + fontx] & /*0xff00*/ 0xffff0000) != 0;
++
+     pat = font8x16 + (ch << 4);
++	
++    if (ushFontReaded && ch >= 0xa1 &&
++	   (! stg2_ptborder ||
++		(ch != DISP_VERT &&
++		 ch != DISP_UR &&
++		 ch != DISP_LL &&
++		 ch != DISP_HORIZ &&
++		 ch != DISP_LR &&
++		 ch != DISP_UL
++		)
++	   )
++       )
++    {
++	/* here is one trick, look one line as a string with '\0' ended, so,
++	 * if the last byte is the 1st byte of a Chinese Character,,, ,,, */
++        for (n = 0; n < fontx; n++)
++        {
++            ch1 = text[fonty * 80 + n] & 0xff;
++            ch2 = text[fonty * 80 + n+1] & 0xff;
++
++            if ((ch1>=0xa1 && ch1<=0xfe)&&(ch2>=0xa1 && ch2<=0xfe))
++            {
++                if (n == fontx-1)
++                {
++
++                    fontloaded = 1;
++                    dotpos = (ch1-0xa1)*94 + ch2 - 0xa1;
++                    dotpos<<=5;
++
++                    grub_memmove(by, (unsigned char *) RAW_ADDR (0x500000 + dotpos), 32);
++
++                    for (i = 0; i <32; i ++)
++                    {
++                        if (i%2)
++                            chsb[i/2] = by[i];
++                        else
++                            chsa[i/2] = by[i];	
++                    }
++                }
++		n++;
++            }
++        }
++    }
+ 
+     mem = (unsigned char*)VIDEOMEM + offset;
+ 
++    if (fontloaded)
++    {
++        mem--;//mem = (unsigned char*)VIDEOMEM + offset -1;
++	offset--;
++        pat = chsa;
++    }
++
++write_char:
++
+     if (set)
+     {
+         MapMask(15);
+@@ -626,6 +732,17 @@
+     }
+ 
+     MapMask(15);
++    
++    if (fontloaded)
++    {
++	fontloaded = 0;
++
++	/* reset the mem position */
++	mem++;//mem += 1;//mem = (unsigned char*)VIDEOMEM + offset;
++	offset = cursorY * 80 + fontx;
++	pat = chsb;
++	goto write_char;
++    }
+ }
+ 
+ #endif /* SUPPORT_GRAPHICS */
+diff -Naur grub-0.97_splash/stage2/shared.h grub-0.97_chinese/stage2/shared.h
+--- grub-0.97_splash/stage2/shared.h	Tue Jan 13 21:44:56 2009
++++ grub-0.97_chinese/stage2/shared.h	Tue Jan 13 22:20:46 2009
+@@ -433,6 +433,12 @@
+  *  Below this should be ONLY defines and other constructs for C code.
+  */
+ 
++
++extern char fontfile[256];
++unsigned short stg2_ptborder;
++extern int graphics_inited;
++extern unsigned short ushFontReaded;
++
+ /* multiboot stuff */
+ 
+ #include "mb_header.h"
+@@ -1079,6 +1085,10 @@
+   char *short_doc;
+   /* The long version of the documentation.  */
+   char *long_doc;
++  /* The short-chinese version of the documentation.  */
++  char *sc_short_doc;
++  /* The long version-chinese of the documentation.  */
++  char *sc_long_doc;
+ };
+ 
+ /* All the builtins are registered in this.  */
+diff -Naur grub-0.97_splash/stage2/stage2.c grub-0.97_chinese/stage2/stage2.c
+--- grub-0.97_splash/stage2/stage2.c	Tue Jan 13 22:16:31 2009
++++ grub-0.97_chinese/stage2/stage2.c	Tue Jan 13 22:20:46 2009
+@@ -283,6 +283,8 @@
+   
+   gotoxy (MENU_BOX_X - 2, y);
+ 
++  stg2_ptborder = 1;		/* Chinese Season */
++  
+   grub_putchar (DISP_UL);
+   for (i = 0; i < MENU_BOX_W + 1; i++)
+     grub_putchar (DISP_HORIZ);
+@@ -308,6 +310,8 @@
+     grub_putchar (DISP_HORIZ);
+   grub_putchar (DISP_LR);
+ 
++  stg2_ptborder = 0;
++  
+   if (current_term->setcolorstate)
+     current_term->setcolorstate (COLOR_STATE_STANDARD);
+ }
+@@ -537,8 +541,14 @@
+ 	      grub_timeout--;
+ 	      
+ 	      /* Print a message.  */
+-	      grub_printf ("\rPress `ESC' to enter the menu... %d   ",
+-			   grub_timeout);
++#ifdef SUPPORT_GRAPHICS
++	      if (graphics_inited && ushFontReaded)
++		grub_printf ("\r  按 Esc 键进入菜单…… %d   ",
++				   grub_timeout);
++	      else
++#endif
++		grub_printf ("\rPress ESC to enter the menu... %d   ",
++				   grub_timeout);
+ 	    }
+ 	}
+     }
+@@ -554,6 +564,12 @@
+       else
+ 	print_border (MENU_BOX_Y - 1, MENU_BOX_H);
+ 
++#ifdef SUPPORT_GRAPHICS
++      if (graphics_inited && ushFontReaded)
++	grub_printf ("\n  用 %c 和 %c 两键将一个菜单项置为高亮。",
++ 			DISP_UP, DISP_DOWN);
++      else
++#endif
+       grub_printf ("\nUse the %c and %c keys to highlight an entry.",
+ 		   DISP_UP, DISP_DOWN);
+       
+@@ -567,22 +583,47 @@
+  	in conjunction with the password feature\n" );
+  	    }
+ #endif
++
++#ifdef SUPPORT_GRAPHICS
++	  if (graphics_inited && ushFontReaded)
++	    printf ("按回车或 b 键启动。按 p 键取得\n"
++		    "  特权控制功能。");
++	  else
++#endif
+ 	  printf (" Press ENTER or \'b\' to boot.\n"
+ 		"Press \'p\' to gain privileged control.");
+ 	}
+       else
+ 	{
+ 	  if (config_entries)
+-	    printf (" Press ENTER or \'b\' to boot.\n"
+-		    "Press \'e\' to edit the commands before booting, or \'c\' for a command-line.");
++#ifdef SUPPORT_GRAPHICS
++	    if (graphics_inited && ushFontReaded)
++		printf ("按回车或 b 键启动；按 e 键可在\n"
++			"  启动前逐条编辑菜单中的命令序列；按 c 键进入命令行。");		
++	    else
++#endif
++		printf (" Press ENTER or \'b\' to boot.\n"
++			"Press \'e\' to edit the commands before booting, or \'c\' for a command-line.");
+ 	  else
+-	    printf (" At a selected line, press \'e\' to\n"
+-		"edit, \'d\' to delete, or \'O\'/\'o\' to open a new line before/after. When done,\n"
+-		"press \'b\' to boot, \'c\' for a command-line, or ESC to go back to the main menu.");
++#ifdef SUPPORT_GRAPHICS
++	    if (graphics_inited && ushFontReaded)
++		printf ("  按 e 键编辑当前行；按 d 键删\n"
++			"  除当前行；按 O 键或 o 键分别在当前行之前或之后插入一个新行。编辑结束时，\n"
++			"  按 b 键启动；按 c 键进入命令行；按 Esc 键退回到主菜单。");
++	    else
++#endif
++		printf (" At a selected line, press \'e\' to\n"
++			"edit, \'d\' to delete, or \'O\'/\'o\' to open a new line before/after. When done,\n"
++			"press \'b\' to boot, \'c\' for a command-line, or ESC to go back to the main menu.");
+ 	}
+ 
+       if (current_term->flags & TERM_DUMB)
+-	grub_printf ("\n\nThe selected entry is %d ", entryno);
++#ifdef SUPPORT_GRAPHICS
++	if (graphics_inited && ushFontReaded)
++		grub_printf ("\n\n  当前选中项为：%d ", entryno);
++	else
++#endif
++		grub_printf ("\n\nThe selected entry is %d ", entryno);
+       else
+ 	print_entries (first_entry, entryno, menu_entries);
+     }
+@@ -614,13 +655,25 @@
+ 	  time2 = time1;
+ 
+ 	  if (current_term->flags & TERM_DUMB)
+-	      grub_printf ("\r    Entry %d will be booted automatically in %d seconds.   ", 
+-			   entryno, grub_timeout);
++#ifdef SUPPORT_GRAPHICS
++	    if (graphics_inited && ushFontReaded)
++		grub_printf ("\r    条目 %d 将会自动运行于 %d 秒之后。  ", 
++				entryno, grub_timeout);
++	    else
++#endif
++		grub_printf ("\r    Entry %d will be booted automatically in %d seconds.   ", 
++				entryno, grub_timeout);
+ 	  else
+ 	    {
+ 	      gotoxy (MENU_BOX_X - 2, MENU_BOX_H + 7);
+-	      grub_printf ("The highlighted entry will be booted automatically in %d seconds.    ",
+-			   grub_timeout);
++#ifdef SUPPORT_GRAPHICS
++	      if (graphics_inited && ushFontReaded)
++		grub_printf ("  高亮选中的条目将会自动运行于 %d 秒之后。  ",
++				grub_timeout);
++	      else
++#endif
++		grub_printf ("The highlighted entry will be booted automatically in %d seconds.    ",
++				grub_timeout);
+ 	      gotoxy (MENU_BOX_E, MENU_BOX_Y + entryno);
+ 	    }
+ 	  
+@@ -638,7 +691,14 @@
+ 	     since we're comming in here also on GRUB_TIMEOUT == -1 and
+ 	     hang in GETKEY */
+ 	  if (current_term->flags & TERM_DUMB)
+-	    grub_printf ("\r    Highlighted entry is %d: ", entryno);
++	  {
++#ifdef SUPPORT_GRAPHICS
++	    if (graphics_inited && ushFontReaded)
++		grub_printf ("\r    高亮选中的条目为 %d: ", entryno);
++	    else
++#endif
++		grub_printf ("\r    Highlighted entry is %d: ", entryno);
++	  }
+ 
+ 	  c = /*ASCII_CHAR*/ (getkey ());
+ 

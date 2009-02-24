@@ -1,0 +1,6 @@
+rem load grub.exe before emm386.exe
+device=grub.exe --bypass --time-out=5 --config-file="color black/cyan yellow/cyan;timeout 60;default 0;title find and load NTLDR of Windows NT/2K/XP;find --set-root /ntldr;chainloader /ntldr;title find and load CMLDR, the Recovery Console of Windows NT/2K/XP;find --set-root /cmldr;chainloader /cmldr;write 0x7C03 0x63646D63;write 0x7C07 0x00736E6F;title find and load IO.SYS of Windows 9x/Me;find --set-root /io.sys;chainloader /io.sys;title floppy (fd0);chainloader (fd0)+1;rootnoverify (fd0);title find and boot Linux with menu.lst already installed;find --set-root /sbin/init;configfile /boot/grub/menu.lst;title find and boot Mandriva with menu.lst already installed;find --set-root /etc/mandriva-release;configfile /boot/grub/menu.lst;title back to dos;quit;title commandline;commandline;title reboot;reboot;title halt;halt;"
+
+device=c:\windows\himem.sys
+device=c:\windows\emm386.exe
+

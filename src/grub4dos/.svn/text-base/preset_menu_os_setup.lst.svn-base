@@ -1,0 +1,30 @@
+default 0
+timeout 0
+fallback 1
+
+title /os_setup_stage2.lst
+	find --set-root /os_setup_stage2.lst
+	configfile /os_setup_stage2.lst
+
+title /os_setup.lst
+	fallback 2
+	find --set-root /os_setup.lst
+	configfile /os_setup.lst
+
+title /boot/grub/menu.lst
+	fallback 3
+	find --set-root /boot/grub/menu.lst
+	configfile /boot/grub/menu.lst
+
+title /grub/menu.lst
+	fallback 4
+	find --set-root /grub/menu.lst
+	configfile /grub/menu.lst
+
+title /menu.lst
+	fallback 5
+	find --set-root /menu.lst
+	configfile /menu.lst
+
+title enter commandline mode
+	commandline

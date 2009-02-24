@@ -1,0 +1,127 @@
+#! /bin/sh
+#
+# Script to build binary
+#
+# Usage:
+#	sh build
+# or
+#	./build
+
+VER=`cat grub4dos_version`
+DATE=`date -u +%Y-%m-%d`
+RELEASE=grub4dos-${VER}-${DATE}
+COPY_FILES="COPYING README_GRUB4DOS.txt ChangeLog_GRUB4DOS.txt \
+	config.sys default menu.lst grub.pif \
+	stage2/grldr stage2/grub.exe stage2/badgrub.exe stage2/grldr.mbr stage2/bootlace.com \
+	stage2/hmload.com"
+
+rm -rf *.zip *~ grub4dos-temp || exit $?
+
+if [ -d .svn ]; then
+	svn export . grub4dos-temp || exit $?
+	CURR_REVISION=""
+	line=0
+	while read w1 w2; do
+		line=$(($line+1))
+
+		if [ "$line" == 1 ]; then
+			[ "$w1" == "" -o "$w2" != "" ] && break
+		elif [ "$line" == 2 ]; then
+			[ "$w1" != "" ] && break
+		elif [ "$line" == 3 ]; then
+			[ "$w1" != "dir" -o "$w2" != "" ] && break
+		elif [ "$line" == 4 ]; then
+			[ "$w1" == "" -o "$w2" != "" ] && break
+			CURR_REVISION=$w1
+			break
+		else
+			break
+		fi
+	done < .svn/entries
+
+	if [ "$CURR_REVISION" == "" ]; then
+		export LC_ALL=C
+		svninfo=$(svn info)
+		while read w1 w2 w3; do
+			if [ "$w1" == "Revision:" -a "$w2" != "" -a "$w3" == "" ]; then
+				CURR_REVISION=$w2
+				break
+			fi
+		done << EOF
+$svninfo
+EOF
+
+	fi
+
+	if [ "$CURR_REVISION" != "" ]; then
+
+		# Generate patch file
+
+		export LC_ALL=C
+		svn diff . > grub4dos-temp/grub4dos_r${CURR_REVISION}.diff 2> /dev/null
+		if [ -s grub4dos-temp/grub4dos_r${CURR_REVISION}.diff ]; then
+			echo -n -e "\
+Get the source code of this build by using anonymous svn in this way:\r\n\r\n\
+svn co -r $CURR_REVISION svn://svn.gna.org/svn/grub4dos/trunk grub4dos\r\n\r\n\
+or in this way:\r\n\r\n\
+svn co -r $CURR_REVISION http://svn.gna.org/svn/grub4dos/trunk grub4dos\r\n\r\n\
+and then apply the patch against revision ${CURR_REVISION} you just downloaded:\r\n\r\n\
+cd grub4dos\r\n\r\n\
+patch -p0 < ../grub4dos_r${CURR_REVISION}.diff\r\n\r\n\
+and now you may do a \"make\" to compile.\r\n\r\n\
+			\r\n" > grub4dos-temp/Get_Source_of_This_Build.txt
+		else
+			echo -n -e "\
+Get the source code of this build by using anonymous svn in this way:\r\n\r\n\
+svn co -r $CURR_REVISION svn://svn.gna.org/svn/grub4dos/trunk grub4dos\r\n\r\n\
+or in this way:\r\n\r\n\
+svn co -r $CURR_REVISION http://svn.gna.org/svn/grub4dos/trunk grub4dos\r\n\r\n\
+and now you may \"cd grub4dos\" and do a \"make\" to compile.\r\n\r\n\
+			\r\n" > grub4dos-temp/Get_Source_of_This_Build.txt
+		fi
+	fi
+else
+	files=$(echo *)
+	mkdir grub4dos-temp || exit $?
+	cp -a $files grub4dos-temp || exit $?
+fi
+
+cd grub4dos-temp || exit $?
+
+#############################################
+#	Build english version
+#############################################
+
+./configure --enable-preset-menu=preset_menu.lst || exit $?
+make || exit $?
+mkdir grub4dos-${VER} || exit $?
+cp $COPY_FILES grub4dos-${VER} || exit $?
+if [ -f Get_Source_of_This_Build.txt ]; then
+	cp Get_Source_of_This_Build.txt grub4dos-${VER}
+	if [ -s grub4dos_r${CURR_REVISION}.diff ]; then
+		cp grub4dos_r${CURR_REVISION}.diff grub4dos-${VER}
+	fi
+fi
+
+#############################################
+#	Build chinese version
+#############################################
+
+patch -p1 < patch-chinese.diff || exit $?
+make || exit $?
+
+mkdir grub4dos-${VER}/chinese || exit $?
+cp stage2/grldr stage2/grub.exe stage2/badgrub.exe grub4dos-${VER}/chinese || exit $?
+
+#############################################
+#	Create ZIP ball or TAR ball
+#############################################
+
+rm -f ../${RELEASE}.zip ../${RELEASE}.tar.gz || exit $?
+if ! zip -r -q ../${RELEASE}.zip grub4dos-${VER} ; then
+	tar -czf ../${RELEASE}.tar.gz grub4dos-${VER}
+fi
+
+cd ..
+
+# Do not remove grub4dos-temp as we can check and re-use it later.
