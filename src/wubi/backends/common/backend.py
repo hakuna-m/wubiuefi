@@ -73,7 +73,6 @@ class Backend(object):
             Task(self.copy_installation_files, description="Copying files"),
             Task(self.get_iso, description="Retrieving the ISO"),
             Task(self.extract_kernel, description="Extracting the kernel"),
-            Task(self.uncompress_files, description="Uncompressing files"),
             Task(self.choose_disk_sizes, description="Choosing disk sizes"),
             Task(self.create_preseed, description="Creating a preseed file"),
             Task(self.modify_bootloader, description="Adding a new bootlader entry"),
@@ -84,6 +83,24 @@ class Backend(object):
             ]
         tasklist = ThreadedTaskList(name="installer", description="Installing", tasks=tasks)
         return tasklist
+
+    def get_cdboot_tasklist(self):
+        tasks = [
+            Task(self.select_target_dir, description="Selecting target directory"),
+            Task(self.create_dir_structure, description="Creating the installation directories"),
+            Task(self.create_uninstaller, description="Creating the uninstaller"),
+            Task(self.copy_installation_files, description="Copying files"),
+            Task(self.use_cd, description="Using the CD"),
+            Task(self.extract_kernel, description="Extracting the kernel"),
+            Task(self.create_preseed_cdboot, description="Creating a preseed file"),
+            Task(self.modify_bootloader, description="Adding a new bootlader entry"),
+            Task(self.modify_grub_configuration, description="Setting up installation boot menu"),
+            Task(self.uncompress_files, description="Uncompressing files"),
+            Task(self.eject_cd, description="Ejecting the CD"),
+            ]
+        tasklist = ThreadedTaskList(name="installer", description="Installing", tasks=tasks)
+        return tasklist
+
 
     def get_reboot_tasklist(self):
         tasks = [
@@ -139,10 +156,7 @@ class Backend(object):
         self.info.locale = self.get_locale(self.info.language)
         self.info.total_memory_mb = self.get_total_memory_mb()
         self.info.iso_path, self.info.iso_distro = self.find_any_iso()
-        if self.info.iso_path:
-            self.info.cd_path, self.info.cd_distro = None, None
-        else:
-            self.info.cd_path, self.info.cd_distro = self.find_any_cd()
+        self.info.cd_path, self.info.cd_distro = self.find_any_cd()
 
     def get_distros(self):
         isolist_path = join_path(self.info.data_dir, 'isolist.ini')
@@ -492,6 +506,11 @@ class Backend(object):
         md5  = get_file_md5(file_path, associated_task)
         return md5 == reference_md5
 
+    def create_preseed_cdboot(self):
+        source = join_path(self.info.data_dir, 'preseed.cdboot')
+        target = join_path(self.info.custominstall, "preseed.cfg")
+        copy_file(source, target)
+
     def create_preseed(self):
         template_file = join_path(self.info.data_dir, 'preseed.lupin')
         template = read_file(template_file)
@@ -543,7 +562,9 @@ class Backend(object):
     def modify_grub_configuration(self):
         template_file = join_path(self.info.data_dir, 'menu.install')
         template = read_file(template_file)
-        if self.info.cd_path:
+        if self.info.run_task == "cd_boot":
+            isopath = ""
+        elif self.info.cd_path:
             isopath = unix_path(self.info.cd_path)
         elif self.info.iso_path:
             isopath = unix_path(self.info.iso_path)
@@ -566,6 +587,9 @@ class Backend(object):
         for k,v in dic.items():
             k = "$(%s)" % k
             content = content.replace(k, v)
+        if self.info.run_task == "cd_boot":
+            content.replace(" automatic-ubiquity", "")
+            content.replace(" iso-scan/filename=", "")
         grub_config_file = join_path(self.info.install_boot_dir, "grub", "menu.lst")
         write_file(grub_config_file, content)
 

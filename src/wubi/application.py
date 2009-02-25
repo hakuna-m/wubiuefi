@@ -122,7 +122,7 @@ class Wubi(object):
                 message = "A previous installation was detected in %s.\nPlease uninstall that before continuing."
                 message = message % self.info.previous_target_dir
                 log.error(message)
-                self.get_frontend().show_error_message(message)
+                self.get_frontend().show_error_message(message, "Wubi Installer")
                 self.quit()
         log.info("Running the installer...")
         self.frontend = self.get_frontend()
@@ -164,8 +164,32 @@ class Wubi(object):
         self.select_task()
 
     def run_cd_boot(self):
+        if not self.info.cd_distro:
+            message = "Could not find any valid CD.\nCD boot helper can only be used with a Live CD."
+            log.error(message)
+            self.get_frontend().show_error_message(message, "CD Boot Helper")
+            self.quit()
+        if self.info.previous_target_dir:
+            log.info("Already installed, running the uninstaller...")
+            self.info.uninstall_before_install = True
+            self.run_uninstaller()
+            self.backend.fetch_basic_info()
+            if self.info.previous_target_dir:
+                message = "A previous installation was detected in %s.\nPlease uninstall that before continuing."
+                message = message % self.info.previous_target_dir
+                log.error(message)
+                self.get_frontend().show_error_message(message, "CD Boot Helper")
+                self.quit()
         log.info("Running the CD boot helper...")
-        #TBD
+        self.frontend = self.get_frontend()
+        self.frontend.show_cdboot_page()
+        log.info("CD boot helper confirmed")
+        self.frontend.run_tasks(self.backend.get_cdboot_tasklist())
+        log.info("Almost finished installing")
+        self.frontend.show_installation_finish_page()
+        log.info("Finished installation")
+        if self.info.run_task == "reboot":
+            self.reboot()
 
     def reboot(self):
         log.info("Rebooting")
@@ -187,7 +211,7 @@ class Wubi(object):
         parser.add_option("--uninstall", action="store_const", const="uninstall", dest="run_task", help="run the installer, if an existing installation is detected it will be uninstalled first")
         parser.add_option("--cdmenu", action="store_const", const="cd_menu", dest="run_task", help="run the CD menu selector")
         parser.add_option("--cdboot", action="store_const", const="cd_boot", dest="run_task", help="install a CD boot helper program")
-        parser.add_option("--showinfo", action="store_const", const="show_info", dest="run_task", help="install a CD boot helper program")
+        parser.add_option("--showinfo", action="store_const", const="show_info", dest="run_task", help="open the distribution website for more information")
         parser.add_option("--nobittorrent", action="store_true", dest="no_bittorrent", help="Do not use the bittorrent downloader")
         parser.add_option("--32bit", action="store_true", dest="force_i386", help="Force installation of 32 bit version")
         parser.add_option("--skipmd5check", action="store_true", dest="skip_md5_check", help="Skip md5 checks")

@@ -27,6 +27,7 @@ from accessibility_page import AccessibilityPage
 from progress_page import ProgressPage
 from cd_menu_page import CDMenuPage
 from cd_finish_page import CDFinishPage
+from cdboot_page import CDBootPage
 import logging
 import threading
 log = logging.getLogger("WindowsFrontend")
@@ -81,6 +82,11 @@ class WindowsFrontend(ui.Frontend):
         self.installation_page = InstallationPage(self.main_window)
         self.accessibility_page = AccessibilityPage(self.main_window)
         self.show_page(self.installation_page)
+
+    def show_cdboot_page(self):
+        self.cdboot_page = CDBootPage(self.main_window)
+        self.accessibility_page = AccessibilityPage(self.main_window)
+        self.show_page(self.cdboot_page)
 
     def show_cd_menu_page(self):
         self.cd_menu_page = CDMenuPage(self.main_window)
