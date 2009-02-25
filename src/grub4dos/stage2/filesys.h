@@ -23,7 +23,7 @@
 #ifdef FSYS_FFS
 #define FSYS_FFS_NUM 1
 int ffs_mount (void);
-unsigned long ffs_read (char *buf, unsigned long len, unsigned long write);
+unsigned long ffs_read (char *buf, unsigned long len);
 int ffs_dir (char *dirname);
 unsigned long ffs_embed (unsigned long *start_sector, unsigned long needed_sectors);
 #else
@@ -33,7 +33,7 @@ unsigned long ffs_embed (unsigned long *start_sector, unsigned long needed_secto
 #ifdef FSYS_UFS2
 #define FSYS_UFS2_NUM 1
 int ufs2_mount (void);
-unsigned long ufs2_read (char *buf, unsigned long len, unsigned long write);
+unsigned long ufs2_read (char *buf, unsigned long len);
 int ufs2_dir (char *dirname);
 unsigned long ufs2_embed (unsigned long *start_sector, unsigned long needed_sectors);
 #else
@@ -43,7 +43,7 @@ unsigned long ufs2_embed (unsigned long *start_sector, unsigned long needed_sect
 #ifdef FSYS_FAT
 #define FSYS_FAT_NUM 1
 int fat_mount (void);
-unsigned long fat_read (char *buf, unsigned long len, unsigned long write);
+unsigned long fat_read (char *buf, unsigned long len);
 int fat_dir (char *dirname);
 #else
 #define FSYS_FAT_NUM 0
@@ -52,7 +52,7 @@ int fat_dir (char *dirname);
 #ifdef FSYS_NTFS
 #define FSYS_NTFS_NUM 1
 int ntfs_mount (void);
-unsigned long ntfs_read (char *buf, unsigned long len, unsigned long write);
+unsigned long ntfs_read (char *buf, unsigned long len);
 int ntfs_dir (char *dirname);
 #else
 #define FSYS_NTFS_NUM 0
@@ -61,7 +61,7 @@ int ntfs_dir (char *dirname);
 #ifdef FSYS_EXT2FS
 #define FSYS_EXT2FS_NUM 1
 int ext2fs_mount (void);
-unsigned long ext2fs_read (char *buf, unsigned long len, unsigned long write);
+unsigned long ext2fs_read (char *buf, unsigned long len);
 int ext2fs_dir (char *dirname);
 #else
 #define FSYS_EXT2FS_NUM 0
@@ -70,7 +70,7 @@ int ext2fs_dir (char *dirname);
 #ifdef FSYS_MINIX
 #define FSYS_MINIX_NUM 1
 int minix_mount (void);
-unsigned long minix_read (char *buf, unsigned long len, unsigned long write);
+unsigned long minix_read (char *buf, unsigned long len);
 int minix_dir (char *dirname);
 #else
 #define FSYS_MINIX_NUM 0
@@ -79,7 +79,7 @@ int minix_dir (char *dirname);
 #ifdef FSYS_REISERFS
 #define FSYS_REISERFS_NUM 1
 int reiserfs_mount (void);
-unsigned long reiserfs_read (char *buf, unsigned long len, unsigned long write);
+unsigned long reiserfs_read (char *buf, unsigned long len);
 int reiserfs_dir (char *dirname);
 unsigned long reiserfs_embed (unsigned long *start_sector, unsigned long needed_sectors);
 #else
@@ -89,7 +89,7 @@ unsigned long reiserfs_embed (unsigned long *start_sector, unsigned long needed_
 #ifdef FSYS_VSTAFS
 #define FSYS_VSTAFS_NUM 1
 int vstafs_mount (void);
-unsigned long vstafs_read (char *buf, unsigned long len, unsigned long write);
+unsigned long vstafs_read (char *buf, unsigned long len);
 int vstafs_dir (char *dirname);
 #else
 #define FSYS_VSTAFS_NUM 0
@@ -98,7 +98,7 @@ int vstafs_dir (char *dirname);
 #ifdef FSYS_JFS
 #define FSYS_JFS_NUM 1
 int jfs_mount (void);
-unsigned long jfs_read (char *buf, unsigned long len, unsigned long write);
+unsigned long jfs_read (char *buf, unsigned long len);
 int jfs_dir (char *dirname);
 unsigned long jfs_embed (unsigned long *start_sector, unsigned long needed_sectors);
 #else
@@ -108,7 +108,7 @@ unsigned long jfs_embed (unsigned long *start_sector, unsigned long needed_secto
 #ifdef FSYS_XFS
 #define FSYS_XFS_NUM 1
 int xfs_mount (void);
-unsigned long xfs_read (char *buf, unsigned long len, unsigned long write);
+unsigned long xfs_read (char *buf, unsigned long len);
 int xfs_dir (char *dirname);
 #else
 #define FSYS_XFS_NUM 0
@@ -117,7 +117,7 @@ int xfs_dir (char *dirname);
 #ifdef FSYS_TFTP
 #define FSYS_TFTP_NUM 1
 int tftp_mount (void);
-unsigned long tftp_read (char *buf, unsigned long len, unsigned long write);
+unsigned long tftp_read (char *buf, unsigned long len);
 int tftp_dir (char *dirname);
 void tftp_close (void);
 #else
@@ -127,7 +127,7 @@ void tftp_close (void);
 #ifdef FSYS_ISO9660
 #define FSYS_ISO9660_NUM 1
 int iso9660_mount (void);
-unsigned long iso9660_read (char *buf, unsigned long len, unsigned long write);
+unsigned long iso9660_read (char *buf, unsigned long len);
 int iso9660_dir (char *dirname);
 #else
 #define FSYS_ISO9660_NUM 0
@@ -136,7 +136,7 @@ int iso9660_dir (char *dirname);
 #ifdef FSYS_PXE
 #define FSYS_PXE_NUM 1
 int pxe_mount (void);
-unsigned long pxe_read (char *buf, unsigned long len, unsigned long write);
+unsigned long pxe_read (char *buf, unsigned long len);
 int pxe_dir (char *dirname);
 void pxe_close (void);
 #else
@@ -168,7 +168,7 @@ struct fsys_entry
 {
   char *name;
   int (*mount_func) (void);
-  unsigned long (*read_func) (char *buf, unsigned long len, unsigned long write);
+  unsigned long (*read_func) (char *buf, unsigned long len);
   int (*dir_func) (char *dirname);
   void (*close_func) (void);
   unsigned long (*embed_func) (unsigned long *start_sector, unsigned long needed_sectors);
@@ -180,5 +180,5 @@ struct fsys_entry
 extern int print_possibilities;
 #endif
 
-extern unsigned long long fsmax;
+extern unsigned long fsmax;
 extern struct fsys_entry fsys_table[NUM_FSYS + 1];

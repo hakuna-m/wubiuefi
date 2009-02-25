@@ -75,6 +75,9 @@ class WindowsBackend(Backend):
         self.info.drives_dict = dict(drives)
 
     def select_target_dir(self):
+        if not self.info.target_drive and self.info.run_task == "cd_boot":
+            self.info.target_drive = self.info.drives[0]
+            self.info.distro = self.info.cd_distro
         #TBD do not hardcode the "Ubuntu" name
         target_dir = join_path(self.info.target_drive.path, "ubuntu")
         target_dir.replace(' ', '_')
@@ -415,7 +418,7 @@ class WindowsBackend(Backend):
     def backup_iso(self, associated_task=None):
         if not self.info.backup_iso:
             return
-        backup_dir = self.info.previous_target_dir + ".backup"
+        backup_dir = self.info.previous_target_dir + "-backup"
         install_dir = join_path(self.info.previous_target_dir, "install")
         for f in os.listdir(install_dir):
             f = join_path(install_dir, f)

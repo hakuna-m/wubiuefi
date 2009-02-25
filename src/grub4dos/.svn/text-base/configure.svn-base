@@ -708,7 +708,6 @@ STAGE2_CFLAGS
 GRUB_CFLAGS
 OBJCOPY
 BIN_LDFLAGS
-BUILD_DIRS
 GRUB_LIBS
 CPP
 GREP
@@ -719,8 +718,6 @@ DISKLESS_SUPPORT_TRUE
 DISKLESS_SUPPORT_FALSE
 GRAPHICS_SUPPORT_TRUE
 GRAPHICS_SUPPORT_FALSE
-GFX_SUPPORT_TRUE
-GFX_SUPPORT_FALSE
 HERCULES_SUPPORT_TRUE
 HERCULES_SUPPORT_FALSE
 SERIAL_SUPPORT_TRUE
@@ -1389,7 +1386,6 @@ Optional Features:
   --enable-cs-scan=LIST   probe for CS89x0 base address using LIST
   --enable-diskless       enable diskless support
   --disable-graphics      disable graphics terminal support
-  --disable-gfxmenu       disable gfxmenu support
   --disable-hercules      disable hercules terminal support
   --disable-serial        disable serial terminal support
   --enable-serial-speed-simulation
@@ -4364,14 +4360,11 @@ case "$host_os" in
   mingw32 | cygwin)
     BIN_LDFLAGS="-Wl,-T"'$(top_srcdir)'"/ldscript"
     LDFLAGS="${LDFLAGS} -Wl,-T${srcdir}/ldscript"
-    BUILD_DIRS="netboot stage2 stage1"
     ;;
   *)
     BIN_LDFLAGS="-Wl,-N"
-    BUILD_DIRS="netboot stage2 stage1 lib grub util"
     ;;
 esac
-
 
 
 # Defined in acinclude.m4.
@@ -6674,22 +6667,6 @@ else
 fi
 
 
-# Check whether --enable-gfxmenu was given.
-if test "${enable_gfxmenu+set}" = set; then
-  enableval=$enable_gfxmenu;
-fi
-
-
-
-if test "x$enable_gfxmenu" != xno; then
-  GFX_SUPPORT_TRUE=
-  GFX_SUPPORT_FALSE='#'
-else
-  GFX_SUPPORT_TRUE='#'
-  GFX_SUPPORT_FALSE=
-fi
-
-
 # Check whether --enable-hercules was given.
 if test "${enable_hercules+set}" = set; then
   enableval=$enable_hercules;
@@ -7015,13 +6992,6 @@ if test -z "${GRAPHICS_SUPPORT_TRUE}" && test -z "${GRAPHICS_SUPPORT_FALSE}"; th
   { { echo "$as_me:$LINENO: error: conditional \"GRAPHICS_SUPPORT\" was never defined.
 Usually this means the macro was only invoked conditionally." >&5
 echo "$as_me: error: conditional \"GRAPHICS_SUPPORT\" was never defined.
-Usually this means the macro was only invoked conditionally." >&2;}
-   { (exit 1); exit 1; }; }
-fi
-if test -z "${GFX_SUPPORT_TRUE}" && test -z "${GFX_SUPPORT_FALSE}"; then
-  { { echo "$as_me:$LINENO: error: conditional \"GFX_SUPPORT\" was never defined.
-Usually this means the macro was only invoked conditionally." >&5
-echo "$as_me: error: conditional \"GFX_SUPPORT\" was never defined.
 Usually this means the macro was only invoked conditionally." >&2;}
    { (exit 1); exit 1; }; }
 fi
@@ -7689,10 +7659,10 @@ STAGE2_CFLAGS!$STAGE2_CFLAGS$ac_delim
 GRUB_CFLAGS!$GRUB_CFLAGS$ac_delim
 OBJCOPY!$OBJCOPY$ac_delim
 BIN_LDFLAGS!$BIN_LDFLAGS$ac_delim
-BUILD_DIRS!$BUILD_DIRS$ac_delim
 GRUB_LIBS!$GRUB_LIBS$ac_delim
 CPP!$CPP$ac_delim
 GREP!$GREP$ac_delim
+EGREP!$EGREP$ac_delim
 _ACEOF
 
   if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 97; then
@@ -7734,15 +7704,12 @@ _ACEOF
 ac_delim='%!_!# '
 for ac_last_try in false false false false false :; do
   cat >conf$$subs.sed <<_ACEOF
-EGREP!$EGREP$ac_delim
 NETBOOT_SUPPORT_TRUE!$NETBOOT_SUPPORT_TRUE$ac_delim
 NETBOOT_SUPPORT_FALSE!$NETBOOT_SUPPORT_FALSE$ac_delim
 DISKLESS_SUPPORT_TRUE!$DISKLESS_SUPPORT_TRUE$ac_delim
 DISKLESS_SUPPORT_FALSE!$DISKLESS_SUPPORT_FALSE$ac_delim
 GRAPHICS_SUPPORT_TRUE!$GRAPHICS_SUPPORT_TRUE$ac_delim
 GRAPHICS_SUPPORT_FALSE!$GRAPHICS_SUPPORT_FALSE$ac_delim
-GFX_SUPPORT_TRUE!$GFX_SUPPORT_TRUE$ac_delim
-GFX_SUPPORT_FALSE!$GFX_SUPPORT_FALSE$ac_delim
 HERCULES_SUPPORT_TRUE!$HERCULES_SUPPORT_TRUE$ac_delim
 HERCULES_SUPPORT_FALSE!$HERCULES_SUPPORT_FALSE$ac_delim
 SERIAL_SUPPORT_TRUE!$SERIAL_SUPPORT_TRUE$ac_delim
@@ -7760,7 +7727,7 @@ LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 24; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 21; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5

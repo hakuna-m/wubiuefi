@@ -136,9 +136,6 @@ char *err_list[] =
   [ERR_DEFAULT_FILE] = "Invalid DEFAULT file format. Please copy a valid DEFAULT file from the grub4dos release and try again. Also note that the DEFAULT file must be uncompressed.",
   [ERR_PARTITION_TABLE_FULL] = "Cannot use --in-situ because the partition table is full(i.e., all the 4 entries are in use).",
   [ERR_MD5_FORMAT] = "Unrecognized md5 string. You must create it using the MD5CRYPT command.",
-  [ERR_WRITE_GZIP_FILE] = "Attempt to write a gzip file",
-  [ERR_FUNC_CALL] = "Invalid function call",
-  [ERR_DD_TO_NON_MEM_DRIVE] = "Only RAM drives can be written with dd when running in a script",
 
 };
 
@@ -338,21 +335,9 @@ init_bios_info (void)
       else
 	extended_memory = memtmp;
       
-      saved_mem_upper = memtmp;
-
       if (!cont || (memtmp == 0x3c00))
-	{
-	  saved_mem_upper += (cont >> 10);
-
-//	  /* XXX should I do this at all ??? */
-//
-//	  saved_mmap_addr = (unsigned long) fakemap;
-//	  saved_mmap_length = sizeof (struct AddrRangeDesc) * 2;
-//	  fakemap[0].Length = (saved_mem_lower << 10);
-//	  fakemap[1].Length = (saved_mem_upper << 10);
-//	  fakemap[2].Length = 0;
-	}
-      //else
+	memtmp += (cont >> 10);
+      else
 	{
 	  /* XXX should I do this at all ??? */
 
@@ -362,6 +347,8 @@ init_bios_info (void)
 	  fakemap[1].Length = (memtmp << 10);
 	  fakemap[2].Length = cont;
 	}
+
+      saved_mem_upper = memtmp;
     }
 
   printf("\r                        \r");	/* wipe out the messages */

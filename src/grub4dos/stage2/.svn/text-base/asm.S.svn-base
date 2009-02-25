@@ -22,7 +22,7 @@
  * Note: These functions defined in this file may be called from C.
  *       Be careful of that you must not modify some registers. Quote
  *       from gcc-2.95.2/gcc/config/i386/i386.h:
-
+	
    1 for registers not available across function calls.
    These must include the FIXED_REGISTERS and also any
    registers that can be used without being saved.
@@ -43,7 +43,7 @@
 #else
 # define	ABS(x)	((x) - EXT_C(main) + 0x8200)
 #endif
-
+	
 	.file	"asm.S"
 
 	.text
@@ -53,7 +53,7 @@
 	.code16
 
 #ifndef STAGE1_5
-	/*
+	/* 
 	 * In stage2, do not link start.S with the rest of the source
 	 * files directly, so define the start symbols here just to
 	 * force ld quiet. These are not referred anyway.
@@ -62,7 +62,7 @@
 start:
 _start:
 #endif /* ! STAGE1_5 */
-
+	
 ENTRY(main)
 	/*
 	 *  Guarantee that "main" is loaded at 0x0:0x8200 in stage2 and
@@ -114,7 +114,7 @@ VARIABLE(saved_entryno)
  *
  * Do NOT change this variable to other value than 0.
  */
-
+ 
 	.long	EXT_C(preset_menu)
 #endif
 VARIABLE(stage2_id)
@@ -263,7 +263,7 @@ codestart:
 //	 */
 //	ADDR32	movl	%ebp, EXT_C(install_second_sector)
 //#endif
-
+	
 
 	/* the active mouse will hang the machine */
 
@@ -359,7 +359,7 @@ codestart:
 	addw	%ax, %bx
 	cmpw	$0xF000, %bx
 	jb	2b
-
+	
 #endif
 
 	xorw	%ax, %ax
@@ -539,7 +539,7 @@ codestart:
 #else
 #error no bss starting address
 #endif
-	jnz	1f		/* use old bootp for diskless */
+	jnz	1f		/* use old bootp for diskless */		
 
 	xorl	%eax, %eax
 	cmpb	%al, EXT_C(config_file)	/* AL == 0 */
@@ -551,7 +551,7 @@ codestart:
 	/* use builtin preset_menu */
 
 	/* set the starting address of the preset_menu */
-
+	
 #if defined(HAVE_USCORE_USCORE_BSS_START_SYMBOL)
 	movl	$__bss_start, %esi
 #elif defined(HAVE_USCORE_EDATA_SYMBOL)
@@ -561,7 +561,7 @@ codestart:
 #else
 #error no bss starting address
 #endif
-
+	
 	cld
 	addl	$16, %esi	/* skip 4 bytes of B0 02 1A CE */
 				/* skip 4 bytes of reserved */
@@ -594,7 +594,7 @@ codestart:
 #error no bss starting address
 #endif
 
-	/* set %ecx to the bss end */
+	/* set %ecx to the bss end */	
 #if defined(HAVE_END_SYMBOL)
 	movl	$end, %ecx
 #elif defined(HAVE_USCORE_END_SYMBOL)
@@ -605,18 +605,18 @@ codestart:
 
 	/* compute the bss length */
 	subl	%edi, %ecx
-
+	
 	/* zero %al */
 	xorb	%al, %al
 
 	/* set the direction */
 	cld
-
+	
 	/* clean out */
 	rep
 	stosb
-
-1:
+	
+1:	
 	/*
 	 *  Call the start of main body of C code, which does some
 	 *  of it's own initialization before transferring to "cmain".
@@ -795,7 +795,7 @@ ENTRY(pxe_call)
 
 	call	EXT_C(prot_to_real)
 	.code16
-
+	
 	sti		/* for hardware interrupt or watchdog */
 	pushl	%ebx
 	pushl	%edx
@@ -810,7 +810,7 @@ ENTRY(pxe_call)
 	.code32
 
 	movzwl	%cx, %eax
-
+	
 	popl	%ebx
 	popl	%edi
 	popl	%esi
@@ -864,7 +864,7 @@ ENTRY(pxe_fast_read)
 	popw	%di		/* block size */
 	popw	%cx		/* blocks to read */
 	cld
-
+	
 	cmpw	$0, %es:(%si)
 	jnz	2f
 	movw	%es:4(%si), %bp
@@ -940,7 +940,7 @@ ENTRY(grub_reboot)
 	ljmp	$0xFFFF, $0x0000
 
 	.code32
-
+	
 /*
  * grub_halt(int no_apm)
  *
@@ -950,7 +950,7 @@ ENTRY(grub_reboot)
 ENTRY(grub_halt)
 	/* get the argument */
 	movl	4(%esp), %eax
-
+	
 	/* see if zero */
 	testl	%eax, %eax
 	jnz	EXT_C(stop)
@@ -958,7 +958,7 @@ ENTRY(grub_halt)
 	call	EXT_C(prot_to_real)
 
 	.code16
-
+	
 	//sti		/* this is not needed here, so comment it out. */
 	sti	#; added 2006-11-30
 
@@ -989,7 +989,7 @@ ENTRY(grub_halt)
 	int	$0x15
 	//jc	EXT_C(hard_stop)
 	jc	hard_stop
-
+	
 	/* set the power state to off */
 	movw	$0x5307, %ax
 	movw	$1, %bx
@@ -1080,7 +1080,7 @@ ENTRY(tpm_init)
 	pushl	%ebx
 	pushl	%esi
 	pushl	%edi
-
+	
 	call	EXT_C(prot_to_real)	/* enter real mode */
 
 	.code16
@@ -1102,7 +1102,7 @@ ENTRY(tpm_init)
 	xorl	%esi, %esi		/* place 0 into the event field */
 	movl	$0x00007C00, %edi	/* ES:DI point to data buffer to hash */
 	int	$0x1A
-
+	
 	testl	%eax, %eax
 1:
 	setz	%dl
@@ -1295,7 +1295,7 @@ ENTRY(set_int15_handler)
 	.code32
 
 	pushl	%edi
-
+	
 	/* save the original int15 handler */
 	movl	$0x54, %edi
 #if 0
@@ -1332,7 +1332,7 @@ ENTRY(unset_int15_handler)
 	.code32
 
 	pushl	%edi
-
+	
 	/* check if int15_handler is set */
 	movl	$0x54, %edi
 #if 0
@@ -1382,12 +1382,12 @@ int15_handler:
 	je	4f
 	cmpb	$0xE0, %al
 	/* this flag is actually the machine code (je or jmp) */
-int15_skip_flag:
+int15_skip_flag:	
 	je	4f
-
+	
 	pushw	%bp
 	movw	%sp, %bp
-
+	
 	pushw	%bx
 	pushw	%dx
 	pushw	%ds
@@ -1429,7 +1429,7 @@ int15_skip_flag:
 	popw	%bx
 	popw	%bp
 	iret
-
+	
 4:
 	/* tricky: jmp (0x74) <-> je (0xeb) */
 	xorb	$(0x74 ^ 0xeb), ABS(int15_skip_flag)
@@ -1442,11 +1442,11 @@ int15_segment:	.word	0
 
 	.code32
 
-	.align	4
+	.align	4	
 ENTRY(bios_key_map)
 	.space	(KEY_MAP_SIZE + 1) * 2
-
-
+	
+	
 /*
  * set_int13_handler(map)
  *
@@ -1475,7 +1475,7 @@ ENTRY(set_int13_handler)
 //	movl	$0x4c, %edi
 //	movl	(%edi), %eax
 //	movl	%eax, ABS(ROM_int13)
-
+	
 	/* decrease the lower memory size and set it to the BIOS memory */
 	movl	$0x413, %edi
 	movl	%edi, %esi
@@ -1484,7 +1484,7 @@ ENTRY(set_int13_handler)
 	/* KBytes that int13 handler occupies */
 	subb	ABS(int13_handler), %al
 	stosw
-
+	
 	/* compute the segment(high word) */
 	shll	$(16 + 6), %eax
 
@@ -1545,7 +1545,7 @@ ENTRY(unset_int13_handler)
 	movl	%esp, %ebp
 
 	pushl	%edi
-
+	
 	/* check if int13_handler is set */
 	movl	$0x413, %edi
 	movw	(%edi), %ax
@@ -1615,12 +1615,12 @@ ENTRY(unset_int13_handler)
 	ret
 
 
-/*
+/* 
  * Map a drive to another drive or a disk image file.
  */
-
+	
 	.code16
-
+	
 	.align	4
 
 ENTRY(bios_drive_map)
@@ -1643,14 +1643,14 @@ int13_handler:
 
 ENTRY(atapi_dev_count)	.byte	0
 ENTRY(min_cdrom_id)	.byte	0xE0
-
+	
 	. = int13_handler + 0x4
 
 	/* Signature */
 	.ascii	"G4DS"		# Please don't use this signature any longer.
 				# This field might be used for other purposes.
 				# Use signature at offset 0x103 instead.
-
+	
 	. = int13_handler + 0x08
 
 	/* Version number */
@@ -1728,18 +1728,6 @@ VARIABLE(int13_scheme)
 	 * bit0=1: use the `int $0x13' instruction.
 	 */
 	.long	0x00000001
-	
-	. = int13_handler + 0x120
-
-VARIABLE(saved_pxe_ip)
-
-	.long	0
-
-	. = int13_handler + 0x124
-
-VARIABLE(saved_pxe_mac)
-	
-	.byte	0, 0, 0, 0, 0, 0
 
 	/* space reserved. */
 
@@ -1783,7 +1771,7 @@ int13_old_sp:		.word	0
 int13_old_ss:		.word	0
 int13_new_sp:		.word	0
 int13_new_ss:		.word	0
-
+		
 #endif
 
 1:
@@ -1835,7 +1823,7 @@ int13_new_ss:		.word	0
 /****************************************************************************/
 	/* find the drive number from the drive map */
 	movw	$(EXT_C(hooked_drive_map) - int13_handler - DRIVE_MAP_SLOT_SIZE), %bp
-1:
+1:	
 	addw	$DRIVE_MAP_SLOT_SIZE, %bp
 	movw	%bp, %cs:(int13_new_bp - int13_handler)
 	movl	%cs:(%bp), %eax		/* FROM, TO, Hmax, Smax */
@@ -1903,7 +1891,7 @@ int13_new_ss:		.word	0
 	jnz	drive_emulation	/* -- also leads to drive emulation */
 
 	/* ignore geom and directly map a whole drive */
-
+	
 1:
 	/* bit 7 of the TO_S is for in-situ primary partition(alter MBR) */
 
@@ -1958,7 +1946,7 @@ int13_new_ss:		.word	0
 	movb	%cs:1(%bp), %dl	/* Let DL access TO instead of FROM */
 2:
 	/* might map to itself, i.e., actually not mapped */
-
+	
 	movl	%cs:(int13_old_eax - int13_handler), %eax
 	movl	%cs:(int13_old_ebp - int13_handler), %ebp  /* BP changed!! */
 
@@ -2521,7 +2509,7 @@ disk_address_packet_ready:
 	/* start-sector-number(LBA) in DAP is still for FROM_DRIVE */
 
 /****************************************************************************/
-	/*
+	/* 
 	 * check if the request exceeds the boundary of the emulated disk.
 	 *
 	 * input:	DS:SI
@@ -2580,10 +2568,6 @@ disk_address_packet_ready:
 	movw	$(EBIOS_disk_address_packet - int13_handler), %si
 	pushw	%cs
 	popw	%ds
-	/* restore original start-sector-number(in the DAP) */
-	movl	%cs:8(%bp), %eax	/* StartLBA_Lo */
-	subl	%eax, 8(%si)
-	sbbl	$0, 12(%si)
 	call	modify_boot_sectors
 4:
 	movb	%cs:(int13_old_eax - int13_handler), %al
@@ -2629,13 +2613,13 @@ disk_address_packet_ready:
 	cmpb	$0x43, %ah	/* EBIOS write sectors */
 	jnz	1f
 
-//	testw	$0x2000, %cs:4(%bp)	/* TO_C bit 13=FROM has 2048-byte cdrom sector */
-//	jz	2f
-//
-//	/* CDROM */
-//	movb	$0x03, %ah	/* write protection */
-//	stc			/* error */
-//	jmp	int13_return
+	testw	$0x2000, %cs:4(%bp)	/* TO_C bit 13=FROM has 2048-byte cdrom sector */
+	jz	2f
+
+	/* CDROM */
+	movb	$0x03, %ah	/* write protection */
+	stc			/* error */
+	jmp	int13_return
 2:
 	/* get old SI, disk address packet */
 	movw	%cs:(int13_old_esi - int13_handler), %si
@@ -2650,7 +2634,7 @@ disk_address_packet_ready:
 	testb	%al, %al
 	jz	error_01_invalid
 
-	/* copy disk address packet to EBIOS_disk_address_packet */
+	/* copy disk address packet to EBIOS_disk_address_packet */ 
 
 	pushw	%es
 	pushw	%cx
@@ -2895,7 +2879,7 @@ real_int13_service:
 
 	/* switch to protected mode myself */
 	/* ebx destroy */
-
+	
 	//pushw	%ds
 	//pushw	%es
 	//pushl	%eax
@@ -3003,7 +2987,7 @@ a20_failure:
 
 	andb	$0xFE, %al
 	movl	%eax, %cr0	/* Back to real mode */
-
+	
 //	jmp	1f
 //1:
 //	jmp	1f
@@ -3064,7 +3048,7 @@ a20_failure:
 	/* real mode */
 	pushfw
 	lcall	%cs:*(EXT_C(ROM_int15) - int13_handler)
-
+	
 	jmp	6f
 4:
 	/* protected mode */
@@ -3095,7 +3079,7 @@ normal_disk_drive:
 	/* find the drive number from the drive map */
 	cld
 	subw	$DRIVE_MAP_SLOT_SIZE - 4, %si
-2:
+2:	
 	addw	$DRIVE_MAP_SLOT_SIZE - 4, %si
 	lodsl	%cs:(%si), %eax
 	testl	%eax, %eax	/* end of map table? */
@@ -3377,7 +3361,7 @@ int13_cdrom_es:
 	movw	%bx, 4(%si)		/* restore its original value */
 	movw	%es, 6(%si)		/* restore its original value */
 	jmp	*%cs:(int13_ret_IP - int13_handler)	//ret
-
+	
 2:
 	movw	4(%si), %bx
 	movw	6(%si), %es
@@ -4037,9 +4021,6 @@ modify_floppy:
 	cmpb	$0x00, %dh	/* read from head 0? */
 	jne	4b
 
-	testw	$0x0800, %cs:4(%bp)	/* TO_C bit 11=bootsector has known filesystem */
-	jz	4b		/* unknown boot sector */
-
 	pushl	%ecx
 	pushw	%si
 
@@ -4090,15 +4071,11 @@ modify_HD_DOS:
 	cmpl	%eax, %es:0x1c(%bx)	/* Number of hidden sectors */
 	jbe	4b
 	subl	%eax, %es:0x1c(%bx)
-	xorl	%eax, %eax
-	cmpl	%eax, %es:0x1c(%bx)
-	jne	4b
-	movb	%cs:3(%bp), %al		/* AL=Smax */
+	movzbl	%cs:3(%bp), %eax		/* AL=Smax */
 	andb	$63, %al
-	movb	%al, %es:0x1c(%bx)
-	//cmpl	%eax, %es:0x1c(%bx)	/* Number of hidden sectors */
-	//jnb	4b
-	//movl	%eax, %es:0x1c(%bx)
+	cmpl	%eax, %es:0x1c(%bx)	/* Number of hidden sectors */
+	jnb	4b
+	movl	%eax, %es:0x1c(%bx)
 	jmp	4b
 
 /****************************************************************************/
@@ -4143,7 +4120,7 @@ modify_in_situ:
 	movw	%di, %dx
 
 	/* get current head number */
-
+ 
 	movb	%cs:7(%bp), %al	/* TO_S */
 	andb	$63, %al
 	mulb	%dh		/* AX=sectors */
@@ -4160,7 +4137,7 @@ modify_in_situ:
 	addl	%ecx, %eax	/* EAX=start sector number */
 	movzbl	%cs:(int13_in_situ_sectors - int13_handler), %ecx
 	jmp	6f
-
+	
 3:
 	cmpb	$0x42, %ah	/* is it LBA read? */
 	jne	4f
@@ -4229,13 +4206,13 @@ modify_in_situ:
 
 	cmpb	$0, %es:4(%si)	/* consider partition type 00 as empty */
 	jz	5f
-	testb	$63, %es:2(%si)	/* invalid start sector number of 0 */
+	testb	$63, %es:2(%si)	/* invalid start sector number of 0 */ 
 	jz	5f
-	testb	$63, %es:6(%si)	/* invalid end sector number of 0 */
+	testb	$63, %es:6(%si)	/* invalid end sector number of 0 */ 
 	jz	5f
-	cmpl	$0, %es:8(%si)	/* invalid start LBA of 0 */
+	cmpl	$0, %es:8(%si)	/* invalid start LBA of 0 */ 
 	jz	5f
-	cmpl	$0, %es:12(%si)	/* invalid sector count of 0 */
+	cmpl	$0, %es:12(%si)	/* invalid sector count of 0 */ 
 	jz	5f
 
 	/* Now that the first entry is not empty, we should find an empty one
@@ -4246,13 +4223,13 @@ modify_in_situ:
 
 	cmpb	$0, %es:4(%si)	/* consider partition type 00 as empty */
 	jz	7f
-	testb	$63, %es:2(%si)	/* invalid start sector number of 0 */
+	testb	$63, %es:2(%si)	/* invalid start sector number of 0 */ 
 	jz	7f
-	testb	$63, %es:6(%si)	/* invalid end sector number of 0 */
+	testb	$63, %es:6(%si)	/* invalid end sector number of 0 */ 
 	jz	7f
-	cmpl	$0, %es:8(%si)	/* invalid start LBA of 0 */
+	cmpl	$0, %es:8(%si)	/* invalid start LBA of 0 */ 
 	jz	7f
-	cmpl	$0, %es:12(%si)	/* invalid sector count of 0 */
+	cmpl	$0, %es:12(%si)	/* invalid sector count of 0 */ 
 	jz	7f
 
 	leaw	0x1ee(%bx), %bx
@@ -4292,7 +4269,7 @@ modify_in_situ:
 	movl	%cs:16(%bp), %eax
 	addl	%cs:8(%bp), %eax
 	decl	%eax		/* endLBA */
-
+	
 	call	lba_to_chs
 
 	/* if in situ, TO_C holds the partition type:
@@ -4313,10 +4290,10 @@ modify_in_situ:
 
 	movb	$0, %al		/* DI=BX+0x1ce */
 	stosb			/* DI=BX+0x1cf */
-
+	
 	leaw	0x1de(%bx), %di	/* DI=BX+0x1de */
 	stosb			/* DI=BX+0x1df */
-
+	
 	leaw	0x1ee(%bx), %di	/* DI=BX+0x1ee */
 	stosb			/* DI=BX+0x1ef */
 #endif
@@ -4325,7 +4302,7 @@ modify_in_situ:
 //	/* hide entry 3 (test only) */
 //	orb	$0x10, %es:0x1f2(%bx)
 //#endif
-
+	
 #if 0
 	/* move extended partition entries to last */
 
@@ -4363,7 +4340,7 @@ modify_in_situ:
 	xchgl	%eax, %es:0x1d6(%bx)
 	xchgl	%eax, %es:0x1f6(%bx)
 	xchgl	%eax, %es:0x1d6(%bx)
-
+	
 	xchgl	%eax, %es:0x1da(%bx)
 	xchgl	%eax, %es:0x1fa(%bx)
 	xchgl	%eax, %es:0x1da(%bx)
@@ -4393,7 +4370,7 @@ modify_in_situ:
 	xchgl	%eax, %es:0x1e6(%bx)
 	xchgl	%eax, %es:0x1f6(%bx)
 	xchgl	%eax, %es:0x1e6(%bx)
-
+	
 	xchgl	%eax, %es:0x1ea(%bx)
 	xchgl	%eax, %es:0x1fa(%bx)
 	xchgl	%eax, %es:0x1ea(%bx)
@@ -4705,7 +4682,7 @@ int15_e820_handler:
 	 * function is not used by MS-DOS 6.0 HIMEM.SYS when an EISA machine
 	 * (for example with parameter /EISA) (see also MEM F000h:FFD9h), or
 	 * no Compaq machine was detected, or parameter /NOABOVE16 was given.
-	 */
+	 */ 
 
 	//movw	$0x3c00, %ax	/* 1-16M mem in K (0x3c00KB = 15MB) */
 	//movw	$0x0300, %bx	/* mem above 16M in 64K blocks */
@@ -4862,7 +4839,7 @@ int15_e820_handler:
 	 */
 
 //Format of memory-map table structure:
-//
+//	
 //Offset Size	Description
 //------ -----	--------------------------------------------------------------
 //  00h  WORD	length of table (excluding this word)
@@ -4932,7 +4909,7 @@ int15_e820_handler:
 	//AH = 8Ah
 
 	//Return:
-	//DX:AX = extended memory size in K
+	//DX:AX = extended memory size in K 
 	//movw	$0xfc00, %ax
 
 #;	pushfw
@@ -5024,7 +5001,7 @@ int15_e820_handler:
 #; asmsyntax=nasm
 #;
 #; CD-ROM Boot Extension v 1.1 for Smart Boot Manager
-#;
+#; 
 #; Copyright (C) 2000, Christopher Li <chrisl@gnuchina.org>.
 #; Copyright (C) 2000, James Su <suzhe@gnuchina.org>
 #;
@@ -5435,7 +5412,7 @@ reg_reset:
 	je	1f
 
 	call	check_timeout
-	jna	2b
+	jna	2b 
 1:
 	popaw
 	ret
@@ -5566,7 +5543,7 @@ start_stop_unit:
 	#; -----+-----------------------------------------------+-------+------
 	#;   4  |                Reserved                       | LoEj  | Start
 	#; -----+-----------------------------------------------+-------+------
-	#;   5  |
+	#;   5  |                        
 	#; -----+--------------------------------------------------------------
 	#;   6  |                        Reserved
 	#; -----+--------------------------------------------------------------
@@ -5723,7 +5700,7 @@ clear_atapi_buffer:
 	ret
 
 
-reg_packet:
+reg_packet:	
 #;proc	reg_packet,withlocal,dir,packet_seg,packet_off,packet_len
 #; input:
 #; return ax = 0 noerror, ah = error code al= error bit
@@ -5734,7 +5711,7 @@ reg_packet:
 
 	call	set_timeout
 	movb	$0, _pre_fail_bit7_  - int13_handler
-
+	
 #;	outbytes CB_DC,cmd_DC_ni,CB_FR,0,CB_SC,0,CB_SN,0,
 	# outbytes CB_DC,cmd_DC,CB_FR,0,CB_SC,0,CB_SN,0,
 	movb	$cmd_DC, %al
@@ -5797,7 +5774,7 @@ reg_packet:
 	jna	3b
 3:
 	# endwhile
-
+	
 	# while {inbyte CB_ASTAT},{test al, CB_STAT_BSY}, nz
 3:
 	# inbyte CB_ASTAT
@@ -5813,10 +5790,10 @@ reg_packet:
 	movb	$51, %bh		#; error
 3:
 	# endwhile
-
+	
 	cmpb	$0, %bh
 	jnz	2f			#; error
-
+	
 	# inbyte CB_STAT,[.status]
 	movw	reg_addr - int13_handler + (7 * 2), %dx		#; CB_STAT
 	inb	%dx, %al
@@ -5846,7 +5823,7 @@ reg_packet:
 	jmp	2f
 3:
 
-#ifdef sane_check
+#ifdef sane_check	
 	movb	_reason_ - int13_handler, %al
 	testb	$(CB_SC_P_TAG | CB_SC_P_REL | CB_SC_P_IO), %al
 	jnz	3f
@@ -5874,7 +5851,7 @@ reg_packet:
 	movw	reg_addr - int13_handler + (0 * 2), %dx		#; CB_DATA = 16-bit data port
 	cld
 	repz outsw
-
+	
 	call	delay400ns
 
 	subw	%cx, %cx
@@ -5882,7 +5859,7 @@ reg_packet:
 	# while
 
 	call	sub_atapi_delay
-4:
+4:	    
 	# while {inbyte CB_ASTAT},{test al,CB_STAT_BSY},nz
 	# inbyte CB_ASTAT
 	movw	reg_addr - int13_handler + (8 * 2), %dx		#; CB_ASTAT=8, CB_STAT=7
@@ -5958,7 +5935,7 @@ reg_packet:
 	jmp	2f
 4:
 
-#ifdef sane_check
+#ifdef sane_check 
 	cmpw	$0x8000, %ax		#; REG_ATAPI_MAX_BYTES
 	jna	4f
 	orb	$FAILBIT6, %bl		#; error
@@ -5969,10 +5946,10 @@ reg_packet:
 	testb	$1, %al
 	setnz	_pre_fail_bit7_ - int13_handler
 
-	movw	%cx, %dx
+	movw	%cx, %dx 
 	addw	%ax, %dx
 	cmpw	24(%bp), %dx
-	jna	4f
+	jna	4f 
 	movb	$59, %bh		#; error
 	orb	$0x80, 18(%bp)		#; NON_DATA
 	jmp	2f
@@ -6004,7 +5981,7 @@ reg_packet:
 	addw	%ax, 22(%bp)		#; packet_off
 	call	delay400ns
 	jmp	3b
-	# endwhile
+	# endwhile	
 3:
 	testb	$0x80, 18(%bp)		#; NON_DATA
 	jnz	3f
@@ -6126,7 +6103,7 @@ reg_poll_busy:
 
 get_atapi_sense:
 #; return: cf =0 success, al = sense key, bl = asc, bh = ascq
-#;	  cf =1 failed
+#;	  cf =1 failed 
 
 	call	clear_atapi_buffer
 
@@ -6166,7 +6143,7 @@ get_atapi_sense:
 	movb	atapi_tmp_buffer - int13_handler, %al
 	/* bit 7 is `Valid' bit, and should be 1
 	 * bit 0-6 is the error code and can be 70h or 71h
-	 */
+	 */ 
 	andb	$0x7f, %al
 	cmpb	$0x70, %al
 	je	2f
@@ -6433,9 +6410,9 @@ ENTRY(slow_atapi_device)
 /* void realmode_printf(const char *format, ...)
  *
  * input:	format is offset in CS segment
- *
+ * 
  * Usage example:
- *
+ * 
  * 		pushw	IntegerN
  *		 ... ... ... ...
  * 		pushw	Integer2
@@ -6443,7 +6420,7 @@ ENTRY(slow_atapi_device)
  * 		pushw	$format_string - int13_handler
  *		call	realmode_printf
  * 		addw	$(2*(N+1)), %sp
- *
+ * 
  * where int13_handle should be the base of the CS segment,
  * and format_string like this:
  *
@@ -6594,9 +6571,9 @@ MyGDTEnd:
 	#; ------------------------------------------------------------------
 	#; A N 1 1 0	ATAPI Drive Select(R/W) / ATA Drive/Head Select(R/W)
 	#; ------------------------------------------------------------------
-	#; A N 1 1 1	ATAPI/ATA Status(Read)	ATA Command(Write)
+	#; A N 1 1 1	ATAPI/ATA Status(Read)	ATA Command(Write) 
 	#; ------------------------------------------------------------------
-	#; N A 1 1 0	Alternate Status(Read)	Device Control(Write)
+	#; N A 1 1 0	Alternate Status(Read)	Device Control(Write) 
 	#; ------------------------------------------------------------------
 
 reg_base_addr:
@@ -6631,7 +6608,7 @@ EBIOS_disk_address_packet:
 //	.space	0x1000	/* 4KB stack */
 
 int13_handler_end:
-
+	
 #;============================================================================
 
 #define CDROM_INIT
@@ -6842,7 +6819,7 @@ cdrom_reg_dev:
 #ifdef CDROM_INIT
 
 /* Called by init_atapi_cdroms
- * Calls reg_setup_base_addr, reg_reset
+ * Calls reg_setup_base_addr, reg_reset 
  */
 reg_probe:
 
@@ -6936,7 +6913,7 @@ reg_probe:
 5:
 	movw	$3, %ax			# REG_CONFIG_TYPE_ATAPI
 4:
-
+	
 	#; end reg_check_dev_type
 
 
@@ -7026,7 +7003,7 @@ inquiry_atapi:
 	.code16
 
 #;input: es:di -> atapi_devinfo
-#;return: cf =0 success, al = device type,
+#;return: cf =0 success, al = device type, 
 #;        cf =1 fail
 #;	save si, di, cx
 	call	clear_atapi_buffer
@@ -7120,8 +7097,8 @@ reg_probe_dev_exist:
 #endif	/* CDROM_INIT */
 
 	.code32
-
-
+	
+	
 /*
  * chain_stage1(segment, offset, part_table_addr)
  *
@@ -7213,7 +7190,7 @@ ENTRY(chain_stage2)
 
 	.code32
 #endif /* STAGE1_5 */
-
+	
 /*
  *  These next two routines, "real_to_prot" and "prot_to_real" are structured
  *  in a very specific way.  Be very careful when changing them.
@@ -7384,7 +7361,7 @@ ENTRY(biosdisk_int13_extensions)
 	movw	0x8(%ebp), %bx
 	/* enter real mode */
 	call	EXT_C(prot_to_real)
-
+	
 	.code16
 
 	sti	#; cli should also work for biosdisk_int13_extensions
@@ -7458,7 +7435,7 @@ ENTRY(biosdisk_int13_extensions)
 	popl	%ebp
 
 	ret
-
+	
 /*
  *   int biosdisk_standard (int ah, int drive, int coff, int hoff, int soff,
  *                          int nsec, int segment)
@@ -7503,7 +7480,7 @@ ENTRY(biosdisk_standard)
 	movw	%bx, %es
 	movw	$5, %si		/* attempt at least 5 times */
 
-1:
+1:	
 	pushw	%si
 	pushw	%di
 	pushw	%cx
@@ -7551,12 +7528,12 @@ ENTRY(biosdisk_standard)
 	popw	%cx
 	popw	%di
 	popw	%si
-
+	
 	decw	%si
 	jnz	1b		/* retry */
 4:
 	movb	$1, %bl		/* set error */
-2:
+2:	
 #ifndef STAGE1_5
 	/* ensure A20 is on when we come back to protected mode. */
 
@@ -7578,7 +7555,7 @@ ENTRY(biosdisk_standard)
 	.code32
 
 	movzbl	%bl, %eax	/* return value in %eax */
-
+	
 	popl	%esi
 	popl	%edi
 	popl	%ebx
@@ -7620,7 +7597,7 @@ ENTRY(check_int13_extensions)
 #else
 	call	safe_int13
 #endif
-
+	
 	/* check the result */
 	jc	1f
 	cmpw	$0xaa55, %bx
@@ -7640,7 +7617,7 @@ ENTRY(check_int13_extensions)
 	orb	%al, %cl
 	jmp	2f
 #endif
-
+	
 1:
 	xorw	%bx, %bx
 	xorw	%cx, %cx
@@ -7665,7 +7642,7 @@ ENTRY(check_int13_extensions)
 	.code32
 
 /*
- *   int get_diskinfo_standard (int drive, unsigned long *cylinders,
+ *   int get_diskinfo_standard (int drive, unsigned long *cylinders, 
  *                              unsigned long *heads, unsigned long *sectors)
  *
  *   if bit 8-15 of drive(dh) != 0 on call, then geometry_tune will be used.
@@ -7742,7 +7719,7 @@ ENTRY(get_diskinfo_standard)
 
 	/* restore %ebp */
 	leal	0x8(%esp), %ebp
-
+	
 	/* heads */
 	xorl	%eax, %eax
 	movb	%dh, %al
@@ -8305,10 +8282,8 @@ ENTRY(get_eisamemsize)
 	//sti		/* it is not bad keeping interrupt off */
 	sti		/* for hardware interrupt or watchdog */
 
-	movl	$0xe801, %eax
+	movw	$0xe801, %ax
 	//int	$0x15
-2:
-	pushl	%eax
 	pushfw
 	lcall	*ABS(EXT_C(ROM_int15))
 	jc	1f
@@ -8324,19 +8299,9 @@ ENTRY(get_eisamemsize)
 	shll	$16, %ebx
 	movw	%ax, %bx
 3:
-	popl	%eax
 	jmp	2f
 1:
-	popl	%eax
-	cmpw	$0xE881, %ax
-	movw	$0xE881, %ax
-	jne	2b
-	//movl	$0xFFFFFFFF, %ebx
-	/* call the old function 88h */
-	movw	$0x8800, %ax
-	pushfw
-	lcall	*ABS(EXT_C(ROM_int15))
-	movzwl	%ax, %ebx
+	movl	$0xFFFFFFFF, %ebx
 2:
 	xorw	%ax, %ax
 	movw	%ax, %ds
@@ -8464,7 +8429,7 @@ ENTRY(get_mmap_entry)
  * Get the linear address of a ROM configuration table. Return zero,
  * if fails.
  */
-
+	
 ENTRY(get_rom_config_table)
 	pushl	%ebp
 	pushl	%ebx
@@ -8472,7 +8437,7 @@ ENTRY(get_rom_config_table)
 
 	/* zero %ebx for simplicity */
 	xorl	%ebx, %ebx
-
+	
 	call	EXT_C(prot_to_real)
 
 	.code16
@@ -8486,14 +8451,14 @@ ENTRY(get_rom_config_table)
 	jc	no_rom_table
 	testb	%ah, %ah
 	jnz	no_rom_table
-
+	
 	movw	%es, %dx
 	jmp	found_rom_table
-
+	
 no_rom_table:
 	xorw	%dx, %dx
 	xorw	%bx, %bx
-
+	
 found_rom_table:
 
 	xorw	%ax, %ax
@@ -8524,7 +8489,7 @@ found_rom_table:
 ENTRY(get_vbe_controller_info)
 	pushl	%ebp
 	movl	%esp, %ebp
-
+	
 	pushl	%edi
 	pushl	%ebx
 	pushl	%esi
@@ -8569,7 +8534,7 @@ ENTRY(get_vbe_controller_info)
 	popl	%ebp
 	ret
 
-
+	
 /*
  * int get_vbe_mode_info (int mode_number, struct vbe_mode *mode_ptr)
  *
@@ -8579,7 +8544,7 @@ ENTRY(get_vbe_controller_info)
 ENTRY(get_vbe_mode_info)
 	pushl	%ebp
 	movl	%esp, %ebp
-
+	
 	pushl	%edi
 	pushl	%ebx
 
@@ -8592,7 +8557,7 @@ ENTRY(get_vbe_mode_info)
 
 	/* Save the mode number in %cx */
 	movl	0x8(%ebp), %ecx
-
+	
 	call	EXT_C(prot_to_real)
 
 	.code16
@@ -8615,7 +8580,7 @@ ENTRY(get_vbe_mode_info)
 	popl	%ebp
 	ret
 
-
+	
 /*
  * int set_vbe_mode (int mode_number)
  *
@@ -8625,14 +8590,14 @@ ENTRY(get_vbe_mode_info)
 ENTRY(set_vbe_mode)
 	pushl	%ebp
 	movl	%esp, %ebp
-
+	
 	pushl	%ebx
 
 	/* Save the mode number in %bx */
 	movl	0x8(%ebp), %ebx
 	/* Clear bit D11 */
 	andl	$0xF7FF, %ebx
-
+	
 	call	EXT_C(prot_to_real)
 
 	.code16
@@ -8653,570 +8618,7 @@ ENTRY(set_vbe_mode)
 	popl	%ebp
 	ret
 
-
-#ifdef SUPPORT_GFX
-
-/*
- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- *
- * graphical menu functions
- *
- */
-
-/*
- * int gfx_init_v1 (gfx_data_v1_t *gfx_data)
- *
- * init gfx things
- *
- * return vales:
- *   0: ok
- *   1: failed
- *   sets gfx_data->ok
- */
-
-ENTRY(gfx_init_v1)
-	pushl	%ebp
-	movl	%esp, %ebp
-
-	pushl	%edi
-	pushl	%esi
-	pushl	%ebx
-
-	movl	8(%ebp),%edx
-	movl	%edx,%edi
-	andl	$0xf,%edi
-	shrl	$4,%edx
-
-	pushl	%ebp
-
-	call	EXT_C(prot_to_real)
-	.code16
-
-	pushw	%ds
-
-	movw	%dx,%ds
-	leal	gfx_ofs_v1_sys_cfg(%di),%esi
-	movl	gfx_ofs_v1_mem_file(%di),%eax
-	movl	gfx_ofs_v1_mem_cur(%di),%ebx
-	movl	gfx_ofs_v1_mem_max(%di),%ecx
-	movw	%ds,%dx
-
-	/* basically just a lcall, but we need %edi */
-	pushw	%cs
-	pushw	$gfx_init_50_v1
-	pushl	gfx_ofs_v1_jmp_table + 4 * 0 (%di)
-
-	movl	gfx_ofs_v1_mem_align(%di),%edi
-
-	lret
-
-gfx_init_50_v1:
-	movl	$0,%ebx
-	adcl	$0,%ebx
-
-	popw	%ds
-
-	DATA32	call	EXT_C(real_to_prot)
-	.code32
-
-	popl	%ebp
-
-	movl	%ebx,%eax
-	negl	%ebx
-	incl	%ebx
-	movl	8(%ebp),%edx
-	movl	%ebx,gfx_ofs_v1_ok(%edx)
-
-	popl	%ebx
-	popl	%esi
-	popl	%edi
-
-	popl	%ebp
-	ret
-
-
-/*
- * int gfx_done_v1 (gfx_data_v1_t *gfx_data)
- *
- * shut down gfx things
- *
- * return vales:
- *   always 0
- *   sets gfx_data->ok
- */
-
-ENTRY(gfx_done_v1)
-	pushl	%ebp
-	movl	%esp, %ebp
-
-	pushl	%edi
-	pushl	%esi
-	pushl	%ebx
-
-	movl	8(%ebp),%edx
-	movl	%edx,%ebx
-	andl	$0xf,%ebx
-	shrl	$4,%edx
-
-	pushl	%ebp
-
-	call	EXT_C(prot_to_real)
-	.code16
-
-	pushw	%ds
-
-	movw	%dx,%ds
-
-	lcall	*gfx_ofs_v1_jmp_table + 4 * 1 (%bx)
-
-	popw	%ds
-
-	DATA32	call	EXT_C(real_to_prot)
-	.code32
-
-	popl	%ebp
-
-	xorl	%eax,%eax
-	movl	8(%ebp),%edx
-	movl	%eax,gfx_ofs_v1_ok(%edx)
-
-	popl	%ebx
-	popl	%esi
-	popl	%edi
-
-	popl	%ebp
-	ret
-
-
-/*
- * int gfx_input_v1 (gfx_data_v1_t *gfx_data, int *menu_entry)
- *
- * let user enter a command line
- *
- * uses gfx_data->cmdline as buffer
- *
- * return values:
- *   1: abort
- *   2: boot
- *   menu_entry: selected entry
- */
-
-ENTRY(gfx_input_v1)
-	pushl	%ebp
-	movl	%esp, %ebp
-
-	pushl	%edi
-	pushl	%esi
-	pushl	%ebx
-
-	movl	8(%ebp),%edx
-	movl	%edx,%ebx
-	andl	$0xf,%ebx
-	shrl	$4,%edx
-
-	pushl	%ebp
-
-	call	EXT_C(prot_to_real)
-	.code16
-
-	pushw	%ds
-
-	movw	%dx,%ds
-	shll	$4,%edx
-	movl	gfx_ofs_v1_cmdline(%bx),%edi
-	subl	%edx,%edi
-	movw	gfx_ofs_v1_cmdline_len(%bx),%cx
-	movw	gfx_ofs_v1_timeout(%bx),%ax
-	imulw	$18,%ax
-
-	pushl	%ebp
-	lcall	*gfx_ofs_v1_jmp_table + 4 * 2 (%bx)
-	popl	%ebp
-	movl	%eax,%ecx
-
-	popw	%ds
-
-	DATA32	call	EXT_C(real_to_prot)
-	.code32
-
-	popl	%ebp
-
-	movl	12(%ebp),%edx
-	movl	%ebx,(%edx)
-
-	movl	%ecx,%eax
-
-	popl	%ebx
-	popl	%esi
-	popl	%edi
-
-	popl	%ebp
-	ret
-
-
-/*
- * int gfx_setup_menu_v1 (gfx_data_v1_t *gfx_data)
- *
- * draw boot menu
- *
- * return values:
- *   always 0
- */
-
-/* menu entry descriptor */
-#define menu_v1_entries		0
-#define menu_v1_default		2	/* seg:ofs */
-#define menu_v1_ent_list	6	/* seg:ofs */
-#define menu_v1_ent_size	10
-#define menu_v1_arg_list	12	/* seg:ofs */
-#define menu_v1_arg_size	16
-#define sizeof_menu_v1_desc	18
-
-ENTRY(gfx_setup_menu_v1)
-	pushl	%ebp
-	movl	%esp, %ebp
-
-	pushl	%edi
-	pushl	%esi
-	pushl	%ebx
-
-	movl	8(%ebp),%edx
-	movl	%edx,%ebx
-	andl	$0xf,%ebx
-	shrl	$4,%edx
-
-	call	EXT_C(prot_to_real)
-	.code16
-
-	pushw	%ds
-
-	movw	%dx,%ds
-	shll	$4,%edx
-
-	subw	$sizeof_menu_v1_desc,%sp
-	movw	%sp,%bp
-
-	movl	gfx_ofs_v1_menu_entries(%bx),%eax
-	movw	%ax,menu_v1_entries(%bp)
-
-	movl	gfx_ofs_v1_menu_default_entry(%bx),%eax
-	subl	%edx,%eax
-	movw	%ax,menu_v1_default(%bp)
-	movw	%ds,menu_v1_default+2(%bp)
-
-	movl	gfx_ofs_v1_menu_list(%bx),%eax
-	subl	%edx,%eax
-	movw	%ax,menu_v1_ent_list(%bp)
-	movw	%ds,menu_v1_ent_list+2(%bp)
-
-	movl	gfx_ofs_v1_menu_entry_len(%bx),%eax
-	movw	%ax,menu_v1_ent_size(%bp)
-
-	movl	gfx_ofs_v1_args_list(%bx),%eax
-	subl	%edx,%eax
-	movw	%ax,menu_v1_arg_list(%bp)
-	movw	%ds,menu_v1_arg_list+2(%bp)
-
-	movl	gfx_ofs_v1_args_entry_len(%bx),%eax
-	movw	%ax,menu_v1_arg_size(%bp)
-
-	movw	%bp,%si
-	pushw	%ss
-	popw	%es
-
-	lcall	%ds: *gfx_ofs_v1_jmp_table + 4 * 3 (%bx)
-
-	addw	$sizeof_menu_v1_desc,%sp
-
-	popw	%ds
-
-	DATA32	call	EXT_C(real_to_prot)
-	.code32
-
-	xorl	%eax,%eax
-
-	popl	%ebx
-	popl	%esi
-	popl	%edi
-
-	popl	%ebp
-	ret
-
-
-/*
- * int gfx_init_v2 (gfx_data_v2_t *gfx_data)
- *
- * init gfx things
- *
- * return vales:
- *   0: ok
- *   1: failed
- *   sets gfx_data->ok
- */
-
-ENTRY(gfx_init_v2)
-	pushl	%ebp
-	movl	%esp, %ebp
-
-	pushl	%edi
-	pushl	%esi
-	pushl	%ebx
-
-	movl	8(%ebp),%edx
-	movl	%edx,%edi
-	leal	gfx_ofs_v2_sys_cfg(%edx),%esi
-	andl	$0xf,%edi
-	shrl	$4,%edx
-
-	pushl	%ebp
-
-	call	EXT_C(prot_to_real)
-	.code16
-
-	pushw	%ds
-	movw	%dx,%ds
-
-	lcall	*gfx_ofs_v2_jmp_table + 4 * 0 (%di)
-
-	sbbl	%ebx,%ebx
-	negl	%ebx
-
-	popw	%ds
-
-	DATA32	call	EXT_C(real_to_prot)
-	.code32
-
-	popl	%ebp
-
-	movl	%ebx,%eax
-	xorl	$1,%ebx
-	movl	8(%ebp),%edx
-	movl	%ebx,gfx_ofs_v2_ok(%edx)
-
-	popl	%ebx
-	popl	%esi
-	popl	%edi
-
-	popl	%ebp
-	ret
-
-
-/*
- * int gfx_done_v2 (gfx_data_v2_t *gfx_data)
- *
- * shut down gfx things
- *
- * return vales:
- *   always 0
- *   sets gfx_data->ok
- */
-
-ENTRY(gfx_done_v2)
-	pushl	%ebp
-	movl	%esp, %ebp
-
-	pushl	%edi
-	pushl	%esi
-	pushl	%ebx
-
-	movl	8(%ebp),%edx
-	movl	%edx,%ebx
-	andl	$0xf,%ebx
-	shrl	$4,%edx
-
-	pushl	%ebp
-
-	call	EXT_C(prot_to_real)
-	.code16
-
-	pushw	%ds
-
-	movw	%dx,%ds
-
-	lcall	*gfx_ofs_v2_jmp_table + 4 * 1 (%bx)
-
-	popw	%ds
-
-	DATA32	call	EXT_C(real_to_prot)
-	.code32
-
-	popl	%ebp
-
-	xorl	%eax,%eax
-	movl	8(%ebp),%edx
-	movl	%eax,gfx_ofs_v2_ok(%edx)
-
-	popl	%ebx
-	popl	%esi
-	popl	%edi
-
-	popl	%ebp
-	ret
-
-
-/*
- * int gfx_input_v2 (gfx_data_v2_t *gfx_data, int *menu_entry)
- *
- * let user enter a command line
- *
- * uses gfx_data->cmdline as buffer
- *
- * return values:
- *   1: abort
- *   2: boot
- *   menu_entry: selected entry
- */
-
-ENTRY(gfx_input_v2)
-	pushl	%ebp
-	movl	%esp, %ebp
-
-	pushl	%edi
-	pushl	%esi
-	pushl	%ebx
-
-	movl	8(%ebp),%edx
-	movl	%edx,%ebx
-	leal	gfx_ofs_v2_sys_cfg(%edx),%esi
-	andl	$0xf,%ebx
-	shrl	$4,%edx
-
-	pushl	%ebp
-
-	call	EXT_C(prot_to_real)
-	.code16
-
-	pushw	%ds
-
-	movw	%dx,%ds
-
-	movl	gfx_ofs_v2_cmdline(%bx),%edi
-	movl	gfx_ofs_v2_cmdline_len(%bx),%ecx
-	movl	gfx_ofs_v2_timeout(%bx),%eax
-	imull	$18,%eax
-
-	lcall	*gfx_ofs_v2_jmp_table + 4 * 2 (%bx)
-
-	movl	%eax,%ecx
-
-	popw	%ds
-
-	DATA32	call	EXT_C(real_to_prot)
-	.code32
-
-	popl	%ebp
-
-	movl	12(%ebp),%edx
-	movl	%ebx,(%edx)
-
-	movl	%ecx,%eax
-
-	popl	%ebx
-	popl	%esi
-	popl	%edi
-
-	popl	%ebp
-	ret
-
-
-/*
- * int gfx_setup_menu (gfx_data_t *gfx_data)
- *
- * draw boot menu
- *
- * return values:
- *   always 0
- */
-
-/* menu entry descriptor */
-#define menu_v2_entries		0
-#define menu_v2_default		2	/* seg:ofs */
-#define menu_v2_ent_list		6	/* seg:ofs */
-#define menu_v2_ent_size		10
-#define menu_v2_arg_list		12	/* seg:ofs */
-#define menu_v2_arg_size		16
-#define sizeof_menu_v2_desc	18
-
-ENTRY(gfx_setup_menu_v2)
-	pushl	%ebp
-	movl	%esp, %ebp
-
-	pushl	%edi
-	pushl	%esi
-	pushl	%ebx
-
-	movl	8(%ebp),%edx
-	movl	%edx,%ebx
-	andl	$0xf,%ebx
-	shrl	$4,%edx
-
-	call	EXT_C(prot_to_real)
-	.code16
-
-	pushw	%ds
-
-	movw	%dx,%ds
-	shll	$4,%edx
-
-	subw	$sizeof_menu_v2_desc,%sp
-	movw	%sp,%bp
-
-	movl	gfx_ofs_v2_menu_entries(%bx),%eax
-	movw	%ax,menu_v2_entries(%bp)
-
-	movl	gfx_ofs_v2_menu_default_entry(%bx),%eax
-	subl	%edx,%eax
-	movw	%ax,menu_v2_default(%bp)
-	movw	%ds,menu_v2_default+2(%bp)
-
-	movl	gfx_ofs_v2_menu_list(%bx),%eax
-	subl	%edx,%eax
-	movw	%ax,menu_v2_ent_list(%bp)
-	movw	%ds,menu_v2_ent_list+2(%bp)
-
-	movl	gfx_ofs_v2_menu_entry_len(%bx),%eax
-	movw	%ax,menu_v2_ent_size(%bp)
-
-	movl	gfx_ofs_v2_args_list(%bx),%eax
-	subl	%edx,%eax
-	movw	%ax,menu_v2_arg_list(%bp)
-	movw	%ds,menu_v2_arg_list+2(%bp)
-
-	movl	gfx_ofs_v2_args_entry_len(%bx),%eax
-	movw	%ax,menu_v2_arg_size(%bp)
-
-	movl	%ss,%esi
-	shll	$4,%esi
-	addl	%ebp,%esi
-
-	lcall	%ds: *gfx_ofs_v2_jmp_table + 4 * 3 (%bx)
-
-	addw	$sizeof_menu_v2_desc,%sp
-
-	popw	%ds
-
-	DATA32	call	EXT_C(real_to_prot)
-	.code32
-
-	xorl	%eax,%eax
-
-	popl	%ebx
-	popl	%esi
-	popl	%edi
-
-	popl	%ebp
-	ret
-
-
-/*
- *
- * end graphics stuff
- *
- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- */
-#endif /* SUPPORT_GFX */
-
-
+		
 /*
  * grub2_gate_a20(int on)
  *
@@ -9234,7 +8636,7 @@ ENTRY(grub2_gate_a20)
 	//movl	%eax, %edx
 	movl	4(%esp), %edx		/* the value of `on' */
 
-gate_a20_test_current_state:
+gate_a20_test_current_state:	
 	/* first of all, test if already in a good state */
 	call	gate_a20_check_state
 	cmpb	%al, %dl
@@ -9262,12 +8664,12 @@ gate_a20_try_bios:
 	cmpb	%al, %dl
 	jnz	gate_a20_try_keyboard_controller
 	ret
-
+	
 gate_a20_flush_keyboard_buffer:
 	inb	$0x64
 	andb	$0x02, %al
 	jnz	gate_a20_flush_keyboard_buffer
-2:
+2:	
 	inb	$0x64
 	andb	$0x01, %al
 	jz	3f
@@ -9275,14 +8677,14 @@ gate_a20_flush_keyboard_buffer:
 	jmp	2b
 3:
 	ret
-
-gate_a20_try_keyboard_controller:
+	
+gate_a20_try_keyboard_controller:	
 	/* third, try the keyboard controller */
 	call    gate_a20_flush_keyboard_buffer
 
 	movb	$0xd1, %al
 	outb	$0x64
-4:
+4:	
 	inb	$0x64
 	andb	$0x02, %al
 	jnz	4b
@@ -9317,24 +8719,24 @@ gate_a20_try_system_control_port_a:
 	   because a failure is not fatal usually, and Gate A20 is always
 	   on some modern machines.  */
 	testb	%dl, %dl
-	jz	7f
+	jz	7f	
 	call	gate_a20_check_state
 	cmpb	%al, %dl
 	/* everything failed, so restart from the beginning */
 	jnz	gate_a20_try_bios
 7:	ret
-
+	
 gate_a20_check_state:
 	/* iterate the checking for a while */
 	movl	$100, %ecx
-1:
+1:	
 	call	3f
 	cmpb	%al, %dl
 	jz	2f
 	loop	1b
 2:
 	ret
-3:
+3:	
 	pushl	%ebx
 	pushl	%ecx
 	xorl	%eax, %eax
@@ -9379,7 +8781,7 @@ gate_a20_check_state:
  *
  *	on call:	linear=0 for a20 off and 1 for on
  *
- *	return value:	0 for failure and 1 for success
+ *	return value:	0 for failure and 1 for success	
  *
  */
 
@@ -9424,7 +8826,7 @@ ENTRY(gateA20)
 	cmpb	%al, %ah
 
 	/* ZF=1(means equal) for desired and we needn't do anything. */
-
+	
 	popl	%eax			/* restore int0 vector */
 	movl	%eax, 0x00000000
 	popl	%eax			/* restore cr0 */
@@ -9438,7 +8840,7 @@ ENTRY(gateA20)
 	/* failure, then call a real-mode function enable_disable_a20 */
 
 	call	EXT_C(prot_to_real)
-
+	
 	.code16
 
 	sti		/* for hardware interrupt or watchdog */
@@ -9495,13 +8897,13 @@ ENTRY(gateA20)
 
 VARIABLE(linux_text_len)
 	.long	0
-
+	
 VARIABLE(linux_data_tmp_addr)
 	.long	0
-
+	
 VARIABLE(linux_data_real_addr)
 	.long	0
-
+	
 ENTRY(linux_boot)
 	/* don't worry about saving anything, we're committed at this point */
 	cld	/* forward copying */
@@ -9517,7 +8919,7 @@ ENTRY(linux_boot)
 
 ENTRY(big_linux_boot)
 	movl	EXT_C(linux_data_real_addr), %ebx
-
+	
 	/* copy the real mode part */
 	movl	EXT_C(linux_data_tmp_addr), %esi
 	movl	%ebx, %edi
@@ -9530,7 +8932,7 @@ ENTRY(big_linux_boot)
 	movl	%ebx, %eax
 	addl	$0x20, %eax	#; one sector
 	movw	%ax, 1f		// linux_setup_seg
-
+			
 #;	/* XXX new stack pointer in safe area for calling functions */
 #;	movl	$0x4000, %esp
 #;	call	EXT_C(stop_floppy)
@@ -9545,7 +8947,7 @@ ENTRY(big_linux_boot)
 	cli
 	movw	%bx, %ss
 	movw	$LINUX_SETUP_STACK, %sp		# 0x9000
-
+	
 	movw	%bx, %ds
 	movw	%bx, %es
 	movw	%bx, %fs
@@ -9560,7 +8962,7 @@ ENTRY(big_linux_boot)
 	/* ljmp */
 	.byte	0xea
 	.word	0
-1:				//linux_setup_seg:
+1:				//linux_setup_seg:	
 	.word	0
 
 
@@ -9587,7 +8989,7 @@ ENTRY(multi_boot)
 	call	EXT_C(stop)
 
 #endif /* ! STAGE1_5 */
-
+	
 /*
  * void console_putchar (int c)
  *
@@ -9610,7 +9012,7 @@ ENTRY(console_putchar)
 #else
 	movl	EXT_C(console_current_color), %ebx
 #endif
-
+	
 	call	EXT_C(prot_to_real)
 	.code16
 
@@ -9634,7 +9036,7 @@ ENTRY(console_putchar)
 	/* save the character and the attribute on the stack */
 	pushw	%ax
 	pushw	%bx
-
+	
 	/* get the current position */
 	movb	$0x3, %ah
 	int	$0x10
@@ -9642,22 +9044,22 @@ ENTRY(console_putchar)
 	/* check the column with the width */
 	cmpb	$79, %dl
 	jl	2f
-
-	/* print CR and LF, if next write will exceed the width */
+	
+	/* print CR and LF, if next write will exceed the width */	
 	movw	$0x0e0d, %ax
 	int	$0x10
 	movb	$0x0a, %al
 	int	$0x10
-
+	
 	/* get the current position */
 	movb	$0x3, %ah
 	int	$0x10
 
-2:
+2:	
 	/* restore the character and the attribute */
 	popw	%bx
 	popw	%ax
-
+	
 	/* write the character with the attribute */
 	movb	$0x9, %ah
 	movw	$1, %cx
@@ -9670,13 +9072,13 @@ ENTRY(console_putchar)
 
 	jmp	3f
 #endif /* ! STAGE1_5 */
-
+	
 1:	movb	$0xe, %ah
 	int	$0x10
-
+	
 3:	DATA32	call	EXT_C(real_to_prot)
 	.code32
-
+	
 	popa
 	ret
 
@@ -9697,7 +9099,7 @@ translation_table:
 	.word	KEY_PPAGE, 7
 	.word	KEY_NPAGE, 3
 	.word	0
-
+	
 /*
  * translate_keycode translates the key code %dx to an ascii code.
  */
@@ -9706,9 +9108,9 @@ translation_table:
 translate_keycode:
 	pushw	%bx
 	pushw	%si
-
+	
 	movw	$ABS(translation_table), %si
-
+	
 1:	lodsw
 	/* check if this is the end */
 	testw	%ax, %ax
@@ -9728,17 +9130,17 @@ translate_keycode:
 #endif
 
 	.code32
-
+	
 
 /*
  * remap_ascii_char remaps the ascii code %dl to another if the code is
  * contained in ASCII_KEY_MAP.
  */
 	.code16
-
+	
 remap_ascii_char:
 	pushw	%si
-
+	
 	movw	$ABS(EXT_C(ascii_key_map)), %si
 1:
 	lodsw
@@ -9761,7 +9163,7 @@ remap_ascii_char:
 	.align	4
 ENTRY(ascii_key_map)
 	.space	(KEY_MAP_SIZE + 1) * 2
-
+	
 
 /*
  * int console_getkey (void)
@@ -9793,7 +9195,7 @@ ENTRY(console_getkey)
 	movw	%ax, %dx		/* real_to_prot uses %eax */
 	//call	translate_keycode
 	call	remap_ascii_char
-
+	
 	DATA32	call	EXT_C(real_to_prot)
 	.code32
 
@@ -9819,7 +9221,7 @@ ENTRY(console_getkey)
 ENTRY(console_checkkey)
 	push	%ebp
 	xorl	%edx, %edx
-
+	
 	call	EXT_C(prot_to_real)	/* enter real mode */
 
 	.code16
@@ -9830,7 +9232,7 @@ ENTRY(console_checkkey)
 	int	$0x16
 
 	DATA32	jz	notpending
-
+	
 	movw	%ax, %dx
 	//call	translate_keycode
 	call	remap_ascii_char
@@ -9848,7 +9250,7 @@ pending:
 	pop	%ebp
 	ret
 
-
+	
 /*
  * int console_getxy (void)
  * BIOS call "INT 10H Function 03h" to get cursor position
@@ -9922,7 +9324,7 @@ ENTRY(console_gotoxy)
 	pop	%ebp
 	ret
 
-
+	
 /*
  * void console_cls (void)
  * BIOS call "INT 10H Function 09h" to write character and attribute
@@ -9968,7 +9370,7 @@ ENTRY(console_cls)
 	pop	%ebp
 	ret
 
-
+	
 /*
  * int console_setcursor (int on)
  * BIOS call "INT 10H Function 01h" to set cursor type
@@ -9981,7 +9383,7 @@ console_cursor_state:
 	.byte	1
 console_cursor_shape:
 	.word	0
-
+	
 ENTRY(console_setcursor)
 	push	%ebp
 	push	%ebx
@@ -10013,7 +9415,7 @@ ENTRY(console_setcursor)
 	testl	%ebx, %ebx
 	jz	2f
 	movw	console_cursor_shape, %cx
-2:
+2:	
 	call	EXT_C(prot_to_real)
 
 	.code16
@@ -10022,14 +9424,14 @@ ENTRY(console_setcursor)
 	sti		/* for hardware interrupt or watchdog */
 
 	movb    $0x1, %ah
-	int     $0x10
+	int     $0x10 
 
 	DATA32	call	EXT_C(real_to_prot)
 	.code32
 
 	movzbl	console_cursor_state, %eax
 	movb	%bl, console_cursor_state
-
+	
 	pop	%ebx
 	pop	%ebp
 	ret
@@ -10045,7 +9447,7 @@ VARIABLE(cursorCount)
 VARIABLE(cursorBuf)
 	.byte	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
-
+	
 /*
  * int set_videomode(mode)
  * BIOS call "INT 10H Function 0h" to set video mode
@@ -10124,9 +9526,9 @@ ENTRY(graphics_get_font)
 	pop	%ebx
 	pop	%ebp
 	ret
+	
 
-
-
+	
 /*
  * graphics_set_palette(index, red, green, blue)
  * BIOS call "INT 10H Function 10h" to set individual dac register
@@ -10185,7 +9587,7 @@ l2b:	inb	%dx, %al	/* wait vertical retrace */
 	int	$0x10
 
 	DATA32	call	EXT_C(real_to_prot)
-	.code32
+	.code32	
 
 	pop	%edx
 	pop	%ecx
@@ -10195,7 +9597,7 @@ l2b:	inb	%dx, %al	/* wait vertical retrace */
 	ret
 
 #endif /* SUPPORT_GRAPHICS */
-
+		
 /*
  * getrtsecs()
  *	if a seconds value can be read, read it and return it (BCD),
@@ -10257,7 +9659,7 @@ gottime:
 	divl	%ecx		/* EDX=seconds (0 .. 59) */
 	movb	%dl, %dh
 	popl	%ecx
-
+	
 #endif
 	DATA32	call	EXT_C(real_to_prot)
 	.code32
@@ -10267,7 +9669,7 @@ gottime:
 	pop	%ebp
 	ret
 
-
+	
 /*
  *  void get_datetime(unsigned long *date, unsigned long *time);
  */
@@ -10369,7 +9771,7 @@ VARIABLE(boot_drive)
 
 //VARIABLE(install_second_sector)
 //	.long	0
-
+	
 	/* an address can only be long-jumped to if it is in memory, this
 	   is used by multiple routines */
 offset:
@@ -10388,7 +9790,7 @@ VARIABLE(apm_bios_info)
 	.word	0	/* cseg_16_len */
 	.word	0	/* dseg_16_len */
 #endif
-
+	
 /*
  * This is the Global Descriptor Table
  *

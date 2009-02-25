@@ -41,7 +41,7 @@ cmain (void)
       unsigned long ret;
 
       disk_read_hook = disk_read_savesect_func;
-      grub_read ((char *) 0x8000, SECTOR_SIZE * 2, 0xedde0d90);
+      grub_read ((char *) 0x8000, SECTOR_SIZE * 2);
       disk_read_hook = NULL;
 
       /* Sanity check: catch an internal error.  */
@@ -51,7 +51,7 @@ cmain (void)
 	  stop ();
 	}
       
-      ret = grub_read ((char *) 0x8000 + SECTOR_SIZE * 2, -1, 0xedde0d90);
+      ret = grub_read ((char *) 0x8000 + SECTOR_SIZE * 2, -1);
       
       grub_close ();
 

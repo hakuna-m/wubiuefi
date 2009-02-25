@@ -43,7 +43,7 @@ class CDBootPage(Page):
         self.main.title = ui.Label(self.main, 40, 20, self.main.width - 80, 60, "Install CD booter")
         self.main.title.set_font(size=20, bold=True, family="Arial")
         txt = "If your machine cannot boot off the CD, this program will install a new boot menu entry to help you boot from CD. In most cases this program is not needed, and it is sufficient to reboot with the CD-Rom in the tray.\n\nDo you want to proceed and install the CD booter?"
-        self.main.label = ui.Label(self.main, 40, 90, self.main.width - 80, 40, txt)
+        self.main.label = ui.Label(self.main, 40, 90, self.main.width - 80, 80, txt)
 
     def on_cancel(self):
         self.frontend.cancel()

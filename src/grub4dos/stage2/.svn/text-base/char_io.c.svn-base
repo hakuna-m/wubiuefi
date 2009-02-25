@@ -177,7 +177,7 @@ grub_putstr (const char *str)
     grub_putchar (*str++);
 }
 
-#if 0
+#if 1
 void
 grub_printf (const char *format,...)
 {
@@ -281,40 +281,11 @@ find_specifier:
     }
 }
 #else
-static int grub_printf_return_address;
-void
-grub_printf (const char *format, ...)
+int
+grub_printf (const char *format,...)
 {
 	/* sorry! this does not work :-( */
-	//return grub_sprintf (NULL, format,...);
-#if 1
-  asm volatile ("popl %ebp");	/* restore EBP */
-  //asm volatile ("ret");
-  asm volatile ("popl %0" : "=m"(grub_printf_return_address));
-  asm volatile ("pushl $0");	/* buffer = 0 for grub_sprintf */
-#ifdef HAVE_ASM_USCORE
-  asm volatile ("call _grub_sprintf");
-#else
-  asm volatile ("call grub_sprintf");
-#endif
-  asm volatile ("popl %eax");
-  asm volatile ("pushl %0" : : "m"(grub_printf_return_address));
-  asm volatile ("ret");
-#else
-  int *dataptr = (int *)(void *) &format;
-
-  dataptr--;	/* (*dataptr) is return address */
-  grub_printf_return_address = (*dataptr);	/* save return address */
-
-  asm volatile ("leave");	/* restore ESP and EBP */
-  //asm volatile ("ret");
-  asm volatile ("popl %eax");	/* discard return address */
-  asm volatile ("pushl $0");	/* buffer = 0 for grub_sprintf */
-  asm volatile ("call grub_sprintf");
-  asm volatile ("popl %eax");
-  asm volatile ("pushl %0" : : "m"(grub_printf_return_address));
-  asm volatile ("ret");
-#endif
+	return grub_sprintf (NULL, format,...);
 }
 #endif
 
@@ -329,8 +300,6 @@ grub_sprintf (char *buffer, const char *format, ...)
   int *dataptr = (int *)(void *) &format;
   char c, *ptr, str[16];
   char *bp = buffer;
-  char pad;
-  int width;
 
   dataptr++;
 
@@ -347,28 +316,11 @@ grub_sprintf (char *buffer, const char *format, ...)
 	}
       }
       else
-      {
-	pad = ' ';
-	width = 0;
-	c = *(format++);
-
-find_specifier:
-	switch (c)
+	switch (c = *(format++))
 	  {
 	  case 'd': case 'x':	case 'X':  case 'u':
 	    *convert_to_ascii (str, c, *((unsigned long *) dataptr++)) = 0;
-	    width -= grub_strlen (str);
-	    if (width > 0)
-	      {
-		while(width--)
-		    if (buffer)
-			*bp++ = pad; /* putchar(pad); */
-		    else
-		    {
-			grub_putchar (pad);
-			bp++;
-		    }
-	      }
+
 	    ptr = str;
 	    if (buffer)
 	    {
@@ -384,17 +336,6 @@ find_specifier:
 	    break;
 
 	  case 'c':
-	    if (width > 0)
-	      {
-		while(--width)
-		    if (buffer)
-			*bp++ = pad; /* putchar(pad); */
-		    else
-		    {
-			grub_putchar (pad);
-			bp++;
-		    }
-	      }
 	    if (buffer)
 	    {
 		*bp++ = (*(dataptr++)) & 0xff;
@@ -405,19 +346,8 @@ find_specifier:
 	    break;
 
 	  case 's':
-	    width -= grub_strlen ((char *) *(dataptr));
-	    if (width > 0)
-	      {
-		while(width--)
-		    if (buffer)
-			*bp++ = pad; /* putchar(pad); */
-		    else
-		    {
-			grub_putchar (pad);
-			bp++;
-		    }
-	      }
 	    ptr = (char *) (*(dataptr++));
+
 	    if (buffer)
 	    {
 		while ((c = *(ptr++)) != 0)
@@ -430,15 +360,7 @@ find_specifier:
 		}
 	    }
 	    break;
-	  case '0':
-	    pad = '0';
-	  case '1' ... '9':
-	    width = c - '0';
-	    while ((c = *(format++)) >= '0' && c <= '9')
-		width = width * 10 + c - '0';
-	    goto find_specifier;
 	  }
-       }
     }
 
   if (buffer)
@@ -482,45 +404,22 @@ static int num_history = 0;
 static char *
 get_history (int no)
 {
-  int j;
-  char *p = (char *) HISTORY_BUF;
   if (no < 0 || no >= num_history)
-	return 0;
-  /* get history NO */
-  for (j = 0; j < no; j++)
-  {
-	p += *(unsigned short *)p;
-	if (p > (char *) HISTORY_BUF + MAX_CMDLINE * HISTORY_SIZE)
-	{
-		num_history = j;
-		return 0;
-	}
-  }
+    return 0;
 
-  return p + 2;
+  return (char *) HISTORY_BUF + MAX_CMDLINE * no;
 }
 
 /* Add CMDLINE to the history buffer.  */
 static void
 add_history (const char *cmdline, int no)
 {
-  int j, len;
-  char *p = (char *) HISTORY_BUF;
-  /* get history NO */
-  for (j = 0; j < no; j++)
-  {
-	p += *(unsigned short *)p;
-	if (p > (char *) HISTORY_BUF + MAX_CMDLINE * HISTORY_SIZE)
-		return;
-  }
-  /* get cmdline length */
-  len = grub_strlen (cmdline) + 3;
-  if (((char *) HISTORY_BUF + MAX_CMDLINE * HISTORY_SIZE) > (p + len))
-	grub_memmove (p + len, p, ((char *) HISTORY_BUF + MAX_CMDLINE * HISTORY_SIZE) - (p + len));
-  *(unsigned short *)p = len;
-  grub_strcpy (p + 2, cmdline);
-  if (num_history < 0x7FFFFFFF)
-	num_history++;
+  grub_memmove ((char *) HISTORY_BUF + MAX_CMDLINE * (no + 1),
+		(char *) HISTORY_BUF + MAX_CMDLINE * no,
+		MAX_CMDLINE * (num_history - no));
+  grub_strcpy ((char *) HISTORY_BUF + MAX_CMDLINE * no, cmdline);
+  if (num_history < HISTORY_SIZE)
+    num_history++;
 }
 
 /* XXX: These should be defined in shared.h, but I leave these here,
@@ -850,7 +749,7 @@ real_get_cmdline (char *cmdline)
 		/* Find the position of the first character in this word.  */
 		for (i = lpos; i > 0; i--)
 		{
-		    if (buf[i - 1] == ' ' || buf[i - 1] == '=')
+		    if (buf[i - 1] == ' ')
 		    {
 			/* find backslashes immediately before the space */
 			for (ret = i - 2; ret >= 0; ret--)
@@ -1434,6 +1333,7 @@ substring (const char *s1, const char *s2, int case_insensitive)
     }
 }
 
+#ifndef STAGE1_5
 /* Terminate the string STR with NUL.  */
 int
 nul_terminate (char *str)
@@ -1459,7 +1359,6 @@ nul_terminate (char *str)
   return ch;
 }
 
-#ifndef STAGE1_5
 char *
 grub_strstr (const char *s1, const char *s2)
 {

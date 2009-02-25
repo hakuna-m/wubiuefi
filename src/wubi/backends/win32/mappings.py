@@ -363,7 +363,7 @@ keymaps = {
     0x0426 : "lv", # Latvian
     0x0411 : "jp", # Japanese (106 Key)
     0x042f : "mk", # Macedonian
-    0x0414 : "no", # Norwegian / Bokmål
+    0x0414 : "no", # Norwegian / Bokmal
     0x0814 : "no", # Norwegian / Nynorsk", #0x0c3b : "fi_smi #TBD add variant to variants.ini
     0x0c3b : "fi", # Northern Sami / Finland", #0x043b : "no_smi #TBD add variant to variants.ini
     0x043b : "no", # Northern Sami / Norway", #0x083b : "se_smi #TBD add variant to variants.ini

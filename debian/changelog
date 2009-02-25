@@ -142,5 +142,9 @@ wubi (9.04) UNRELEASED; urgency=low
   * Added source files for grub4dos and grubutil
   * Updated mythbuntu and cdmenu preseed templates
   * Added CD-boot-helper functionality
+  * Reverted grub4dos to revision 63, since revision 64 had issues when
+    displaying the menu
+  * Trap unhandled exceptions and log/notify the user
+  * Fixed CD-boot helper which was failing when extracting CD content
 
- -- Agostino Russo <agostino.russo@gmail.com>  Tue, 24 Feb 2009 23:35:26 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Wed, 25 Feb 2009 03:42:06 +0000

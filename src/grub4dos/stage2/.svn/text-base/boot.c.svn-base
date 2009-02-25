@@ -69,7 +69,7 @@ load_image (char *kernel, char *arg, kernel_t suggested_type,
   if (!grub_open (kernel))
     return KERNEL_TYPE_NONE;
 
-  if (!(len = grub_read ((char *)buffer, MULTIBOOT_SEARCH, 0xedde0d90)) || len < 32)
+  if (!(len = grub_read ((char *)buffer, MULTIBOOT_SEARCH)) || len < 32)
     {
       grub_close ();
       
@@ -397,7 +397,7 @@ load_image (char *kernel, char *arg, kernel_t suggested_type,
 	    {
 	      grub_memmove (linux_data_tmp_addr, buffer, MULTIBOOT_SEARCH);
 	      grub_read (linux_data_tmp_addr + MULTIBOOT_SEARCH,
-			 data_len + SECTOR_SIZE - MULTIBOOT_SEARCH, 0xedde0d90);
+			 data_len + SECTOR_SIZE - MULTIBOOT_SEARCH);
 	    }
 	  
 	  if (lh->header != LINUX_MAGIC_SIGNATURE ||
@@ -459,7 +459,7 @@ load_image (char *kernel, char *arg, kernel_t suggested_type,
 	  filepos = data_len + SECTOR_SIZE;
       
 	  cur_addr = (int) linux_data_tmp_addr + LINUX_SETUP_MOVE_SIZE;
-	  grub_read ((char *) LINUX_BZIMAGE_ADDR, text_len, 0xedde0d90);
+	  grub_read ((char *) LINUX_BZIMAGE_ADDR, text_len);
       
 	  if (errnum == ERR_NONE)
 	    {
@@ -516,7 +516,7 @@ load_image (char *kernel, char *arg, kernel_t suggested_type,
           printf (", loadaddr=0x%x, text%s=0x%x", cur_addr, str, text_len);
 
       /* read text, then read data */
-      if (grub_read ((char *) RAW_ADDR (cur_addr), text_len, 0xedde0d90) == text_len)
+      if (grub_read ((char *) RAW_ADDR (cur_addr), text_len) == text_len)
 	{
 	  cur_addr += text_len;
 
@@ -532,7 +532,7 @@ load_image (char *kernel, char *arg, kernel_t suggested_type,
 	      if (debug > 0)
 		  printf (", data=0x%x", data_len);
 
-	      if ((grub_read ((char *) RAW_ADDR (cur_addr), data_len, 0xedde0d90)
+	      if ((grub_read ((char *) RAW_ADDR (cur_addr), data_len)
 		   != data_len)
 		  && !errnum)
 		errnum = ERR_EXEC_FORMAT;
@@ -568,13 +568,13 @@ load_image (char *kernel, char *arg, kernel_t suggested_type,
 	  if (debug > 0)
 	      printf (", symtab=0x%x", pu.aout->a_syms);
 
-	  if (grub_read ((char *) RAW_ADDR (cur_addr), pu.aout->a_syms, 0xedde0d90)
+	  if (grub_read ((char *) RAW_ADDR (cur_addr), pu.aout->a_syms)
 	      == pu.aout->a_syms)
 	    {
 	      cur_addr += pu.aout->a_syms;
 	      mbi.syms.a.tabsize = pu.aout->a_syms;
 
-	      if (grub_read ((char *) &i, sizeof (int), 0xedde0d90) == sizeof (int))
+	      if (grub_read ((char *) &i, sizeof (int)) == sizeof (int))
 		{
 		  *((int *) RAW_ADDR (cur_addr)) = i;
 		  cur_addr += sizeof (int);
@@ -586,7 +586,7 @@ load_image (char *kernel, char *arg, kernel_t suggested_type,
 		  if (debug > 0)
 		      printf (", strtab=0x%x", i);
 
-		  symtab_err = (grub_read ((char *) RAW_ADDR (cur_addr), i, 0xedde0d90)
+		  symtab_err = (grub_read ((char *) RAW_ADDR (cur_addr), i)
 				!= i);
 		  cur_addr += i;
 		}
@@ -661,7 +661,7 @@ load_image (char *kernel, char *arg, kernel_t suggested_type,
 
 	      /* load the segment */
 	      if (memcheck (memaddr, memsiz)
-		  && grub_read ((char *) memaddr, filesiz, 0xedde0d90) == filesiz)
+		  && grub_read ((char *) memaddr, filesiz) == filesiz)
 		{
 		  if (memsiz > filesiz)
 		    memset ((char *) (memaddr + filesiz), 0, memsiz - filesiz);
@@ -693,7 +693,7 @@ load_image (char *kernel, char *arg, kernel_t suggested_type,
 	      tab_size = pu.elf->e_shentsize * pu.elf->e_shnum;
 	      
 	      filepos = pu.elf->e_shoff;
-	      if (grub_read ((char *) RAW_ADDR (cur_addr), tab_size, 0xedde0d90)
+	      if (grub_read ((char *) RAW_ADDR (cur_addr), tab_size)
 		  == tab_size)
 		{
 		  mbi.syms.e.addr = cur_addr;
@@ -724,7 +724,7 @@ load_image (char *kernel, char *arg, kernel_t suggested_type,
 
 		      if (! (memcheck (cur_addr, sec_size)
 			     && (grub_read ((char *) RAW_ADDR (cur_addr),
-					    sec_size, 0xedde0d90)
+					    sec_size)
 				 == sec_size)))
 			{
 			  symtab_err = 1;
@@ -796,7 +796,7 @@ load_module (char *module, char *arg)
   if (!grub_open (module))
     return 0;
 
-  len = grub_read ((char *) cur_addr, -1, 0xedde0d90);
+  len = grub_read ((char *) cur_addr, -1);
   if (! len)
     {
       grub_close ();
@@ -864,7 +864,7 @@ load_initrd (char *initrd)
      worse than that of Linux 2.3.xx, so avoid the last 64kb. *sigh*  */
   moveto -= 0x10000;
   //memmove ((void *) RAW_ADDR (moveto), (void *) cur_addr, len);
-  len = grub_read ((char *) RAW_ADDR (moveto), -1, 0xedde0d90);
+  len = grub_read ((char *) RAW_ADDR (moveto), -1);
   if (! len)
     {
       grub_close ();

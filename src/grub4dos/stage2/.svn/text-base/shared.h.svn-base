@@ -394,40 +394,6 @@ extern char *grub_scratch_mem;
 #define PXE_TFTP_MODE	1
 #define PXE_FAST_READ	1
 
-/* see typedef gfx_data_t below */
-#define gfx_ofs_v1_ok			0x00
-#define gfx_ofs_v1_mem_start		0x04
-#define gfx_ofs_v1_mem_cur		0x08
-#define gfx_ofs_v1_mem_max		0x0c
-#define gfx_ofs_v1_code_seg		0x10
-#define gfx_ofs_v1_jmp_table		0x14
-#define gfx_ofs_v1_sys_cfg		0x44
-#define gfx_ofs_v1_cmdline		0x64
-#define gfx_ofs_v1_cmdline_len		0x68
-#define gfx_ofs_v1_menu_list		0x6c
-#define gfx_ofs_v1_menu_default_entry	0x70
-#define gfx_ofs_v1_menu_entries		0x74
-#define gfx_ofs_v1_menu_entry_len	0x78
-#define gfx_ofs_v1_args_list		0x7c
-#define gfx_ofs_v1_args_entry_len	0x80
-#define gfx_ofs_v1_timeout		0x84
-#define gfx_ofs_v1_mem_file		0x88
-#define gfx_ofs_v1_mem_align		0x8c
-
-#define gfx_ofs_v2_ok			0x00
-#define gfx_ofs_v2_code_seg		0x04
-#define gfx_ofs_v2_jmp_table		0x08
-#define gfx_ofs_v2_sys_cfg		0x38
-#define gfx_ofs_v2_cmdline		0x6c
-#define gfx_ofs_v2_cmdline_len		0x70
-#define gfx_ofs_v2_menu_list		0x74
-#define gfx_ofs_v2_menu_default_entry	0x78
-#define gfx_ofs_v2_menu_entries		0x7c
-#define gfx_ofs_v2_menu_entry_len	0x80
-#define gfx_ofs_v2_args_list		0x84
-#define gfx_ofs_v2_args_entry_len	0x88
-#define gfx_ofs_v2_timeout		0x8c
-
 #ifndef ASM_FILE
 /*
  *  Below this should be ONLY defines and other constructs for C code.
@@ -636,9 +602,6 @@ typedef enum
 //  ERR_INVALID_RD_BASE,
 //  ERR_INVALID_RD_SIZE,
   ERR_MD5_FORMAT,
-  ERR_WRITE_GZIP_FILE,
-  ERR_FUNC_CALL,
-  ERR_DD_TO_NON_MEM_DRIVE,
 
   MAX_ERR_NUM
 } grub_error_t;
@@ -699,65 +662,6 @@ extern int fallback_entryno;
 extern int default_entry;
 extern int current_entryno;
 extern const char *preset_menu;
-
-
-/*
- * graphics menu stuff
- *
- * Note: gfx_data and all data referred to in it must lie within a 64k area.
- */
-typedef struct
-{
-  unsigned ok;			/* set while we're in graphics mode */
-  unsigned mem_start, mem_cur, mem_max;
-  unsigned code_seg;		/* code segment of binary graphics code */
-  unsigned jmp_table[12];	/* link to graphics functions */
-  unsigned char sys_cfg[32];	/* sys_cfg[0]: identifies boot loader (grub == 2) */
-  char *cmdline;		/* command line returned by gfx_input() */
-  unsigned cmdline_len;		/* length of the above */
-  char *menu_list;		/* list of menu entries, each of fixed length (menu_entry_len) */
-  char *menu_default_entry;	/* the default entry */
-  unsigned menu_entries;	/* number of entries in menu_list */
-  unsigned menu_entry_len;	/* one entry */
-  char *args_list;		/* same structure as menu_list, menu_entries entries */
-  unsigned args_entry_len;	/* one entry */
-  unsigned timeout;		/* in seconds (0: no timeout) */
-  unsigned mem_file;		/* aligned gfx file start */
-  unsigned mem_align;		/* aligned cpio file start */
-} __attribute__ ((packed)) gfx_data_v1_t;
-
-typedef struct
-{
-  unsigned ok;			/* set while we're in graphics mode */
-  unsigned code_seg;		/* code segment of binary graphics code */
-  unsigned jmp_table[12];	/* link to graphics functions */
-  unsigned char sys_cfg[52];	/* sys_cfg[0]: identifies boot loader (grub == 2) */
-  char *cmdline;		/* command line returned by gfx_input() */
-  unsigned cmdline_len;		/* length of the above */
-  char *menu_list;		/* list of menu entries, each of fixed length (menu_entry_len) */
-  char *menu_default_entry;	/* the default entry */
-  unsigned menu_entries;	/* number of entries in menu_list */
-  unsigned menu_entry_len;	/* one entry */
-  char *args_list;		/* same structure as menu_list, menu_entries entries */
-  unsigned args_entry_len;	/* one entry */
-  unsigned timeout;		/* in seconds (0: no timeout) */
-} __attribute__ ((packed)) gfx_data_v2_t;
-
-#ifdef SUPPORT_GFX
-/* pointer to graphics image data */
-extern char graphics_file[64];
-extern unsigned long gfx_drive, gfx_partition;
-
-int gfx_init_v1(gfx_data_v1_t *gfx_data);
-int gfx_done_v1(gfx_data_v1_t *gfx_data);
-int gfx_input_v1(gfx_data_v1_t *gfx_data, int *menu_entry);
-int gfx_setup_menu_v1(gfx_data_v1_t *gfx_data);
-
-int gfx_init_v2(gfx_data_v2_t *gfx_data);
-int gfx_done_v2(gfx_data_v2_t *gfx_data);
-int gfx_input_v2(gfx_data_v2_t *gfx_data, int *menu_entry);
-int gfx_setup_menu_v2(gfx_data_v2_t *gfx_data);
-#endif
 
 /* The constants for password types.  */
 typedef enum
@@ -820,8 +724,8 @@ struct geometry
   unsigned long flags;
 };
 
-extern unsigned long long part_start;
-extern unsigned long long part_length;
+extern unsigned long part_start;
+extern unsigned long part_length;
 
 extern unsigned long current_slice;
 
@@ -833,8 +737,8 @@ extern struct geometry fd_geom[4];
 extern struct geometry hd_geom[4];
 
 /* these are the current file position and maximum file position */
-extern unsigned long long filepos;
-extern unsigned long long filemax;
+extern unsigned long filepos;
+extern unsigned long filemax;
 
 extern unsigned long emu_iso_sector_size_2048;
 
@@ -1171,8 +1075,8 @@ int gunzip_test_header (void);
 unsigned long gunzip_read (char *buf, unsigned long len);
 #endif /* NO_DECOMPRESSION */
 
-int rawread (unsigned long drive, unsigned long sector, unsigned long byte_offset, unsigned long byte_len, char *buf, unsigned long write);
-int devread (unsigned long sector, unsigned long byte_offset, unsigned long byte_len, char *buf, unsigned long write);
+int rawread (unsigned long drive, unsigned long sector, unsigned long byte_offset, unsigned long byte_len, char *buf);
+int devread (unsigned long sector, unsigned long byte_offset, unsigned long byte_len, char *buf);
 int rawwrite (unsigned long drive, unsigned long sector, char *buf);
 int devwrite (unsigned long sector, unsigned long sector_len, char *buf);
 
@@ -1201,7 +1105,7 @@ int grub_open (char *filename);
 
 /* Read LEN bytes into BUF from the file that was opened with
    GRUB_OPEN.  If LEN is -1, read all the remaining data in the file.  */
-unsigned long grub_read (char *buf, unsigned long len, unsigned long write);
+unsigned long grub_read (char *buf, unsigned long len);
 
 /* Reposition a file offset.  */
 unsigned long grub_seek (unsigned long offset);
@@ -1350,9 +1254,6 @@ int check_64bit (void);
 extern int is64bit;
 extern int errorcheck;
 extern unsigned long pxe_restart_config;
-
-extern unsigned long saved_pxe_ip;
-extern unsigned char saved_pxe_mac[6];
 
 #ifdef FSYS_PXE
 

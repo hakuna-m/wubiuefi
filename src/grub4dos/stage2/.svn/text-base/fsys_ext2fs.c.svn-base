@@ -332,10 +332,10 @@ ext2fs_mount (void)
 //       && (! IS_PC_SLICE_TYPE_BSD_WITH_FS (current_slice, FS_OTHER)))
 //      return 0;
       
-  if ((unsigned long)part_length < (SBLOCK + (sizeof(struct ext2_super_block) / DEV_BSIZE)))
+  if (part_length < (SBLOCK + (sizeof(struct ext2_super_block) / DEV_BSIZE)))
       return 0;
 
-  if (!devread(SBLOCK, 0, sizeof(struct ext2_super_block), (char *)SUPERBLOCK, 0xedde0d90))
+  if (!devread(SBLOCK, 0, sizeof(struct ext2_super_block), (char *)SUPERBLOCK))
       return 0;
 
   if (SUPERBLOCK->s_magic != EXT2_SUPER_MAGIC)
@@ -387,7 +387,7 @@ ext2_rdfsb (int fsblock, int buffer)
   printf ("fsblock %d buffer %d\n", fsblock, buffer);
 #endif /* E2DEBUG */
   return devread (fsblock * (EXT2_BLOCK_SIZE (SUPERBLOCK) / DEV_BSIZE), 0,
-		  EXT2_BLOCK_SIZE (SUPERBLOCK), (char *) buffer, 0xedde0d90);
+		  EXT2_BLOCK_SIZE (SUPERBLOCK), (char *) buffer);
 }
 
 /* from
@@ -503,7 +503,7 @@ ext2fs_block_map (unsigned long logical_block)
 
 /* preconditions: all preconds of ext2fs_block_map */
 unsigned long
-ext2fs_read (char *buf, unsigned long len, unsigned long write)
+ext2fs_read (char *buf, unsigned long len)
 {
   unsigned long logical_block;
   unsigned long offset;
@@ -555,19 +555,17 @@ ext2fs_read (char *buf, unsigned long len, unsigned long write)
 
       if (map == 0)
       {
-	  if (buf)
-		memset ((char *) buf, 0, size);
+          memset ((char *) buf, 0, size);
       } else {
           disk_read_func = disk_read_hook;
 
           devread (map * (EXT2_BLOCK_SIZE (SUPERBLOCK) / DEV_BSIZE),
-		 offset, size, buf, write);
+		 offset, size, buf);
 
           disk_read_func = NULL;
       }
 
-      if (buf)
-	buf += size;
+      buf += size;
       len -= size;	/* len always >= 0 */
       filepos += size;
       ret += size;
@@ -765,7 +763,7 @@ ext2fs_dir (char *dirname)
 	  if (! ext2_is_fast_symlink ())
 	    {
 	      /* Read the necessary blocks, and reset the file pointer. */
-	      len = grub_read (linkbuf, filemax, 0xedde0d90);
+	      len = grub_read (linkbuf, filemax);
 	      filepos = 0;
 	      if (!len)
 		return 0;

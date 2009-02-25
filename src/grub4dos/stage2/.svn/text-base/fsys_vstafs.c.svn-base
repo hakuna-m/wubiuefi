@@ -49,7 +49,7 @@ vstafs_mount (void)
   
   if( /*(((current_drive & 0x80) || (current_slice != 0))
        && current_slice != PC_SLICE_TYPE_VSTAFS)
-      ||*/  ! devread (0, 0, BLOCK_SIZE, (char *) FSYS_BUF, 0xedde0d90)
+      ||*/  ! devread (0, 0, BLOCK_SIZE, (char *) FSYS_BUF)
       ||  FIRST_SECTOR->fs_magic != 0xDEADFACE)
     retval = 0;
   
@@ -59,7 +59,7 @@ vstafs_mount (void)
 static void 
 get_file_info (int sector)
 {
-  devread (sector, 0, BLOCK_SIZE, (char *) FILE_INFO, 0xedde0d90);
+  devread (sector, 0, BLOCK_SIZE, (char *) FILE_INFO);
 }
 
 static int curr_ext, current_direntry, current_blockpos;
@@ -80,7 +80,7 @@ vstafs_readdir (long sector)
   
   blocks = FILE_INFO->blocks;
   curr_ext = 0;
-  devread (blocks[curr_ext].a_start, 0, 512, (char *) DIRECTORY_BUF, 0xedde0d90);
+  devread (blocks[curr_ext].a_start, 0, 512, (char *) DIRECTORY_BUF);
   current_direntry = 11;
   current_blockpos = 0;
   
@@ -102,7 +102,7 @@ vstafs_nextdir (void)
       if (curr_ext < FILE_INFO->extents)
 	{
 	  devread (blocks[curr_ext].a_start + current_blockpos, 0,
-		   512, (char *) DIRECTORY_BUF, 0xedde0d90);
+		   512, (char *) DIRECTORY_BUF);
 	}
       else
 	{
@@ -214,14 +214,14 @@ vstafs_dir (char *dirname)
 }
 
 unsigned long 
-vstafs_read (char *buf, unsigned long len, unsigned long write)
+vstafs_read (char *addr, unsigned long len)
 {
   //struct alloc *blocks;
   unsigned long size, ret = 0, offset, curr_len = 0;
   //int curr_ext;
   char extent;
   unsigned long ext_size;
-  //char *curr_pos;
+  char *curr_pos;
   
   get_file_info (f_sector);
   size = FILE_INFO->len-VSTAFS_START_DATA;
@@ -256,12 +256,13 @@ vstafs_read (char *buf, unsigned long len, unsigned long write)
       curr_len = blocks[0].a_len * 512 - offset;
     }
   
-  //curr_pos = buf;
+  curr_pos = addr;
   if (curr_len > len)
     curr_len = len;
   
-  curr_ext = extent;
-  while (curr_ext < FILE_INFO->extents) 
+  for (curr_ext=extent;
+       curr_ext < FILE_INFO->extents; 
+       curr_len = blocks[curr_ext].a_len * 512, curr_pos += curr_len, curr_ext++)
     {
       ret += curr_len;
       size -= curr_len;
@@ -271,14 +272,8 @@ vstafs_read (char *buf, unsigned long len, unsigned long write)
 	  curr_len += size;
 	}
       
-      disk_read_func = disk_read_hook;
-      devread (blocks[curr_ext].a_start, offset, curr_len, buf, write);
-      disk_read_func = NULL;
+      devread (blocks[curr_ext].a_start,offset, curr_len, curr_pos);
       offset = 0;
-      curr_len = blocks[curr_ext].a_len * 512;
-      if (buf)
-	buf += curr_len;
-      curr_ext++;
     }
   
   return ret;

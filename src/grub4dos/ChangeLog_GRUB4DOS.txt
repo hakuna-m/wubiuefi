@@ -1,6 +1,3 @@
-2009-01-13 Added gfxmenu support
-2009-01-09 New commands dd and uuid. fixed a bug in disk emulation.
-2008-12-30 Work around for BIOSes lacking INT15/E820 support.
 2008-12-29(r63) Now the preset menu holds the highest priority. MSYS/MinGW support.
 2008-12-24 Added "detect" sub-command for the "pxe" command.
 2008-12-21 Fixed several bootlace bugs when running under DOS.

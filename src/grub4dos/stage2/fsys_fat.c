@@ -76,7 +76,7 @@ fat_mount (void)
 //    return 0;
   
   /* Read bpb */
-  if (! devread (0, 0, sizeof (bpb), (char *) &bpb, 0xedde0d90))
+  if (! devread (0, 0, sizeof (bpb), (char *) &bpb))
     return 0;
 
   /* Check if the number of sectors per cluster is zero here, to avoid
@@ -201,7 +201,7 @@ fat_mount (void)
   /* kbs: Media check on first FAT entry [ported from PUPA] */
 
   if (!devread(FAT_SUPER->fat_offset, 0,
-               sizeof(first_fat), (char *)&first_fat, 0xedde0d90))
+               sizeof(first_fat), (char *)&first_fat))
     return 0;
 
   if (FAT_SUPER->fat_size == 8)
@@ -240,7 +240,7 @@ fat_mount (void)
 }
 
 unsigned long
-fat_read (char *buf, unsigned long len, unsigned long write)
+fat_read (char *buf, unsigned long len)
 {
   unsigned long logical_clust;
   unsigned long offset;
@@ -253,7 +253,7 @@ fat_read (char *buf, unsigned long len, unsigned long write)
       size = FAT_SUPER->root_max - filepos;
       if (size > len)
  	size = len;
-      if (!devread(FAT_SUPER->root_offset, filepos, size, buf, 0xedde0d90))
+      if (!devread(FAT_SUPER->root_offset, filepos, size, buf))
  	return 0;
       filepos += size;
       return size;
@@ -285,7 +285,7 @@ fat_read (char *buf, unsigned long len, unsigned long write)
 	      cached_pos = (fat_entry - FAT_SUPER->cached_fat);
 	      sector = FAT_SUPER->fat_offset
 		+ FAT_SUPER->cached_fat / (2*SECTOR_SIZE);
-	      if (!devread (sector, 0, FAT_CACHE_SIZE, (char*) FAT_BUF, 0xedde0d90))
+	      if (!devread (sector, 0, FAT_CACHE_SIZE, (char*) FAT_BUF))
 		return 0;
 	    }
 	  next_cluster = * (unsigned long *) (FAT_BUF + (cached_pos >> 1));
@@ -320,13 +320,12 @@ fat_read (char *buf, unsigned long len, unsigned long write)
       
       disk_read_func = disk_read_hook;
       
-      devread(sector, offset, size, buf, write);
+      devread(sector, offset, size, buf);
       
       disk_read_func = NULL;
       
       len -= size;	/* len always >= 0 */
-      if (buf)
-	buf += size;
+      buf += size;
       ret += size;
       filepos += size;
       logical_clust++;
@@ -411,7 +410,7 @@ fat_dir (char *dirname)
   while (1)
     {
       /* read the dir entry */
-      if (fat_read (dir_buf, FAT_DIRENTRY_LENGTH, 0xedde0d90) != FAT_DIRENTRY_LENGTH
+      if (fat_read (dir_buf, FAT_DIRENTRY_LENGTH) != FAT_DIRENTRY_LENGTH
 		/* read failure */
 	  || dir_buf[0] == 0 /* end of dir entry */)
 	{

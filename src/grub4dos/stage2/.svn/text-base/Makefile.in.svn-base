@@ -381,7 +381,6 @@ AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
 BIN_LDFLAGS = @BIN_LDFLAGS@
-BUILD_DIRS = @BUILD_DIRS@
 BUILD_EXAMPLE_KERNEL_FALSE = @BUILD_EXAMPLE_KERNEL_FALSE@
 BUILD_EXAMPLE_KERNEL_TRUE = @BUILD_EXAMPLE_KERNEL_TRUE@
 CC = @CC@
@@ -402,11 +401,8 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FSYS_CFLAGS = @FSYS_CFLAGS@
-GFX_SUPPORT_FALSE = @GFX_SUPPORT_FALSE@
-GFX_SUPPORT_TRUE = @GFX_SUPPORT_TRUE@
 GRAPHICS_SUPPORT_FALSE = @GRAPHICS_SUPPORT_FALSE@
 GRAPHICS_SUPPORT_TRUE = @GRAPHICS_SUPPORT_TRUE@
-GREP = @GREP@
 GRUB_CFLAGS = @GRUB_CFLAGS@
 GRUB_LIBS = @GRUB_LIBS@
 HERCULES_SUPPORT_FALSE = @HERCULES_SUPPORT_FALSE@
@@ -450,6 +446,9 @@ STAGE2_CFLAGS = @STAGE2_CFLAGS@
 STRIP = @STRIP@
 VERSION = @VERSION@
 ac_ct_CC = @ac_ct_CC@
+ac_ct_OBJCOPY = @ac_ct_OBJCOPY@
+ac_ct_RANLIB = @ac_ct_RANLIB@
+ac_ct_STRIP = @ac_ct_STRIP@
 am__fastdepCC_FALSE = @am__fastdepCC_FALSE@
 am__fastdepCC_TRUE = @am__fastdepCC_TRUE@
 am__include = @am__include@
@@ -464,30 +463,23 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 datadir = @datadir@
-datarootdir = @datarootdir@
-docdir = @docdir@
-dvidir = @dvidir@
 exec_prefix = @exec_prefix@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
 host_os = @host_os@
 host_vendor = @host_vendor@
-htmldir = @htmldir@
 includedir = @includedir@
 infodir = @infodir@
 install_sh = @install_sh@
 libdir = @libdir@
 libexecdir = @libexecdir@
-localedir = @localedir@
 localstatedir = @localstatedir@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
-pdfdir = @pdfdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
-psdir = @psdir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
@@ -548,11 +540,8 @@ START_ELTORITO_LINK = -nostdlib -Wl,-N -Wl,-Ttext -Wl,7C00 $(BIN_LDFLAGS)
 @HERCULES_SUPPORT_TRUE@HERCULES_FLAGS = -DSUPPORT_HERCULES=1
 @GRAPHICS_SUPPORT_FALSE@GRAPHICS_FLAGS = 
 @GRAPHICS_SUPPORT_TRUE@GRAPHICS_FLAGS = -DSUPPORT_GRAPHICS=1
-@GFX_SUPPORT_FALSE@GFX_FLAGS = 
-@GFX_SUPPORT_TRUE@GFX_FLAGS = -DSUPPORT_GFX=1
 STAGE2_COMPILE = $(STAGE2_CFLAGS) -fno-builtin -nostdinc \
-	$(NETBOOT_FLAGS) $(SERIAL_FLAGS) $(HERCULES_FLAGS) $(GRAPHICS_FLAGS) \
-	$(GFX_FLAGS)
+	$(NETBOOT_FLAGS) $(SERIAL_FLAGS) $(HERCULES_FLAGS) $(GRAPHICS_FLAGS)
 
 STAGE1_5_LINK = -nostdlib -Wl,-N -Wl,-Ttext -Wl,2000 $(BIN_LDFLAGS)
 STAGE1_5_COMPILE = $(STAGE2_COMPILE) -DNO_DECOMPRESSION=1 -DSTAGE1_5=1

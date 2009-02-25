@@ -93,8 +93,8 @@ ufs2_mount (void)
     {
       for (i = 0; sblock_try[i] != -1; ++i)
 	{
-	  if (! ((unsigned long)part_length < (sblock_try[i] + (SBLOCKSIZE / DEV_BSIZE))
-		 || ! devread (0, sblock_try[i], SBLOCKSIZE, (char *) SUPERBLOCK, 0xedde0d90)))
+	  if (! (part_length < (sblock_try[i] + (SBLOCKSIZE / DEV_BSIZE))
+		 || ! devread (0, sblock_try[i], SBLOCKSIZE, (char *) SUPERBLOCK)))
 	    {
 	      if (SUPERBLOCK->fs_magic == FS_UFS2_MAGIC /* &&
 							   (SUPERBLOCK->fs_sblockloc == sblockloc ||
@@ -148,7 +148,7 @@ block_map (int file_block)
 	  offset = 0;
 	}
       
-      if (! devread (bnum, offset * sizeof (int), bsize, (char *) MAPBUF, 0xedde0d90))
+      if (! devread (bnum, offset * sizeof (int), bsize, (char *) MAPBUF))
 	{
 	  mapblock = -1;
 	  mapblock_bsize = -1;
@@ -167,7 +167,7 @@ block_map (int file_block)
 }
 
 unsigned long
-ufs2_read (char *buf, unsigned long len, unsigned long write)
+ufs2_read (char *buf, unsigned long len)
 {
   unsigned long logno, off, size, ret = 0;
   grub_int64_t map;
@@ -188,12 +188,11 @@ ufs2_read (char *buf, unsigned long len, unsigned long write)
 
       disk_read_func = disk_read_hook;
 
-      devread (fsbtodb (SUPERBLOCK, map), off, size, buf, write);
+      devread (fsbtodb (SUPERBLOCK, map), off, size, buf);
 
       disk_read_func = NULL;
 
-      if (buf)
-	buf += size;
+      buf += size;
       len -= size;	/* len always >= 0 */
       filepos += size;
       ret += size;
@@ -227,7 +226,7 @@ loop:
 
     if (!devread (fsbtodb (SUPERBLOCK, ino_to_fsba (SUPERBLOCK, ino)),
 	    ino % (SUPERBLOCK->fs_inopb) * sizeof (struct ufs2_dinode),
-	    sizeof (struct ufs2_dinode), (char *) INODE_UFS2, 0xedde0d90))
+	    sizeof (struct ufs2_dinode), (char *) INODE_UFS2))
 		    return 0;			/* XXX what return value? */
 
   /* if we have a real file (and we're not just printing possibilities),
@@ -294,7 +293,7 @@ loop:
 	  if ((map = block_map (block)) < 0
 	      || !devread (fsbtodb (SUPERBLOCK, map), 0,
 			   blksize (SUPERBLOCK, INODE_UFS2, block),
-			   (char *) FSYS_BUF, 0xedde0d90))
+			   (char *) FSYS_BUF))
 	    {
 	      errnum = ERR_FSYS_CORRUPT;
 	      *rest = ch;

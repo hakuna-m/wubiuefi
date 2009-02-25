@@ -214,7 +214,7 @@ di_read (xfs_ino_t ino)
 	offset = ino2offset (ino);
 	daddr = agb2daddr (agno, agbno);
 
-	devread (daddr, offset*xfs.isize, xfs.isize, (char *)inode, 0xedde0d90);
+	devread (daddr, offset*xfs.isize, xfs.isize, (char *)inode);
 
 	xfs.ptr0 = *(xfs_bmbt_ptr_t *)
 		    (inode->di_u.di_c + sizeof(xfs_bmdr_block_t)
@@ -239,7 +239,7 @@ init_extents (void)
 		for (;;) {
 			xfs.daddr = fsb2daddr (le64(ptr0));
 			devread (xfs.daddr, 0,
-				 sizeof(xfs_btree_lblock_t), (char *)&h, 0xedde0d90);
+				 sizeof(xfs_btree_lblock_t), (char *)&h);
 			if (!h.bb_level) {
 				xfs.nextents = le16(h.bb_numrecs);
 				xfs.next = fsb2daddr (le64(h.bb_rightsib));
@@ -247,7 +247,7 @@ init_extents (void)
 				return;
 			}
 			devread (xfs.daddr, xfs.btnode_ptr0_off,
-				 sizeof(xfs_bmbt_ptr_t), (char *)&ptr0, 0xedde0d90);
+				 sizeof(xfs_bmbt_ptr_t), (char *)&ptr0);
 		}
 	}
 }
@@ -268,13 +268,13 @@ next_extent (void)
 			if (xfs.next == 0)
 				return NULL;
 			xfs.daddr = xfs.next;
-			devread (xfs.daddr, 0, sizeof(xfs_btree_lblock_t), (char *)&h, 0xedde0d90);
+			devread (xfs.daddr, 0, sizeof(xfs_btree_lblock_t), (char *)&h);
 			xfs.nextents = le16(h.bb_numrecs);
 			xfs.next = fsb2daddr (le64(h.bb_rightsib));
 			xfs.fpos = sizeof(xfs_btree_block_t);
 		}
 		/* Yeah, I know that's slow, but I really don't care */
-		devread (xfs.daddr, xfs.fpos, sizeof(xfs_bmbt_rec_t), filebuf, 0xedde0d90);
+		devread (xfs.daddr, xfs.fpos, sizeof(xfs_bmbt_rec_t), filebuf);
 		xfs.xt = (xfs_bmbt_rec_32_t *)filebuf;
 		xfs.fpos += sizeof(xfs_bmbt_rec_32_t);
 	}
@@ -301,7 +301,7 @@ xfs_dabread (void)
 		offset = xad->offset;
 		if (isinxt (xfs.dablk, offset, xad->len)) {
 			devread (fsb2daddr (xad->start + xfs.dablk - offset),
-				 0, 100, dirbuf, 0xedde0d90);
+				 0, 100, dirbuf);
 			break;
 		}
 	}
@@ -390,7 +390,7 @@ next_dentry (xfs_ino_t *ino)
 				filepos &= ~(xfs.dirbsize - 1);
 				filepos |= xfs.blkoff;
 			}
-			xfs_read (dirbuf, 4, 0xedde0d90);
+			xfs_read (dirbuf, 4);
 			xfs.blkoff += 4;
 			if (dau->unused.freetag == XFS_DIR2_DATA_FREE_TAG) {
 				toread = roundup8 (le16(dau->unused.length)) - 4;
@@ -400,12 +400,12 @@ next_dentry (xfs_ino_t *ino)
 			}
 			break;
 		}
-		xfs_read ((char *)dirbuf + 4, 5, 0xedde0d90);
+		xfs_read ((char *)dirbuf + 4, 5);
 		*ino = le64 (dau->entry.inumber);
 		namelen = dau->entry.namelen;
 #undef dau
 		toread = roundup8 (namelen + 11) - 9;
-		xfs_read (dirbuf, toread, 0xedde0d90);
+		xfs_read (dirbuf, toread);
 		name = (char *)dirbuf;
 		xfs.blkoff += toread + 5;
 	}
@@ -438,11 +438,11 @@ first_dentry (xfs_ino_t *ino)
 	case XFS_DINODE_FMT_EXTENTS:
 	case XFS_DINODE_FMT_BTREE:
 		filepos = 0;
-		xfs_read (dirbuf, sizeof(xfs_dir2_data_hdr_t), 0xedde0d90);
+		xfs_read (dirbuf, sizeof(xfs_dir2_data_hdr_t));
 		if (((xfs_dir2_data_hdr_t *)dirbuf)->magic == le32(XFS_DIR2_BLOCK_MAGIC)) {
 #define tail		((xfs_dir2_block_tail_t *)dirbuf)
 			filepos = xfs.dirbsize - sizeof(*tail);
-			xfs_read (dirbuf, sizeof(*tail), 0xedde0d90);
+			xfs_read (dirbuf, sizeof(*tail));
 			xfs.dirmax = le32 (tail->count) - le32 (tail->stale);
 #undef tail
 		} else {
@@ -479,7 +479,7 @@ xfs_mount (void)
 	xfs_sb_t *super = (xfs_sb_t *)0x600;
 #endif
 
-	if (!devread (0, 0, sizeof(xfs_sb_t), (char *)super, 0xedde0d90)
+	if (!devread (0, 0, sizeof(xfs_sb_t), (char *)super)
 	    || (le32(super->sb_magicnum) != XFS_SB_MAGIC)
 	    || ((le16(super->sb_versionnum) 
 		& XFS_SB_VERSION_NUMBITS) != XFS_SB_VERSION_4) ) {
@@ -507,7 +507,7 @@ xfs_mount (void)
 }
 
 unsigned long
-xfs_read (char *buf, unsigned long len, unsigned long write)
+xfs_read (char *buf, unsigned long len)
 {
 	xad_t *xad;
 	xfs_fileoff_t endofprev, endofcur, offset;
@@ -515,8 +515,7 @@ xfs_read (char *buf, unsigned long len, unsigned long write)
 	unsigned long toread, startpos, endpos;
 
 	if (icore.di_format == XFS_DINODE_FMT_LOCAL) {
-		if (buf)
-			grub_memmove (buf, inode->di_u.di_c + filepos, len);
+		grub_memmove (buf, inode->di_u.di_c + filepos, len);
 		filepos += len;
 		return len;
 	}
@@ -536,26 +535,19 @@ xfs_read (char *buf, unsigned long len, unsigned long write)
 
 			disk_read_func = disk_read_hook;
 			devread (fsb2daddr (xad->start),
-				 filepos - (offset << xfs.blklog), toread, buf, write);
+				 filepos - (offset << xfs.blklog), toread, buf);
 			disk_read_func = NULL;
 
-			if (buf)
-				buf += toread;
+			buf += toread;
 			len -= toread;	/* len always >= 0 */
 			filepos += toread;
 		} else if (offset > endofprev) {
-			if (write == 0x900ddeed)
-			{
-				grub_printf ("Fatal: Cannot write NULL blocks to file!\n");
-				return !(errnum = ERR_WRITE);
-			}
 			toread = ((offset << xfs.blklog) >= endpos)
 				  ? len : ((offset - endofprev) << xfs.blklog);
 			len -= toread;
 			filepos += toread;
 			for (; toread; toread--) {
-				if (buf)
-					*buf++ = 0;
+				*buf++ = 0;
 			}
 			if (len + toread < toread)
 				break;
@@ -598,7 +590,7 @@ xfs_dir (char *dirname)
 			if (di_size < xfs.bsize - 1) {
 				filepos = 0;
 				filemax = di_size;
-				n = xfs_read (linkbuf, filemax, 0xedde0d90);
+				n = xfs_read (linkbuf, filemax);
 			} else {
 				errnum = ERR_FILELENGTH;
 				return 0;

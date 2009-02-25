@@ -28,7 +28,7 @@
 #ifdef GRUB_UTIL
 
 int pxe_mount (void) { return 0; }
-unsigned long pxe_read (char *buf, unsigned long len, unsigned long write) { return -1; }
+unsigned long pxe_read (char *buf, unsigned long len) { return -1; }
 int pxe_dir (char *dirname) { return 0; }
 void pxe_close (void) {}
 
@@ -98,7 +98,7 @@ static int try_blksize (int tmp)
 	{
 	    if (filemax <= pxe_blksize)
 	    {
-		grub_printf ("\nFailure: Size %d too small.\n", (unsigned long)filemax);
+		grub_printf ("\nFailure: Size %d too small.\n", filemax);
 	        pxe_close ();
 		return 1;
 	    }
@@ -189,9 +189,6 @@ int pxe_detect (int blksize, char *config)	//void pxe_detect (void)
 	}
 	return 1;
   }
-
-  grub_memcpy ((char *) saved_pxe_mac, (char *) pxe_mac, 6);
-  saved_pxe_ip = pxe_yip;
 
   grub_strcpy (pxe_tftp_name, "/menu.lst/");
 
@@ -347,10 +344,7 @@ static int pxe_open (char* name)
 
   filemax = tftp_get_fsize->FileSize;
 
-  /* we have to replace pxe_tftp_open.TFTPPort with tftp_get_fsize->FileSize
-   * to avoid compiler optimization issue.  */
-  //pxe_tftp_open.TFTPPort = htons (TFTP_PORT);
-  tftp_get_fsize->FileSize = htons (TFTP_PORT);
+  pxe_tftp_open.TFTPPort = htons (TFTP_PORT);
   pxe_tftp_open.PacketSize = pxe_blksize;
 
   return pxe_reopen ();
@@ -527,12 +521,9 @@ int pxe_mount (void)
 }
 
 /* Read up to SIZE bytes, returned in ADDR.  */
-unsigned long pxe_read (char *buf, unsigned long len, unsigned long write)
+unsigned long pxe_read (char *buf, unsigned long len)
 {
   unsigned long nr;
-
-  if (write == 0x900ddeed)
-    return !(errnum = ERR_WRITE);
 
   if (! pxe_tftp_opened)
     return PXE_ERR_LEN;

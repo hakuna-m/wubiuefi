@@ -259,7 +259,7 @@ class Task(object):
             message += "%ih" % hours
         if mins:
             message += "%imin" % mins
-        if secs:
+        if secs and not hours and not mins:
             message += "%is" % secs
         return message
 
@@ -297,7 +297,10 @@ class Task(object):
 
     def count_completed_subtasks(self):
         subtasks = [s.count_completed_subtasks() for s in self.subtasks]
-        return float(self.completed/self.size) + sum(subtasks)
+        if self.size:
+            return float(self.completed/self.size) + sum(subtasks)
+        else:
+            return float(self.completed) + sum(subtasks)
 
     def get_percent_completed(self):
         weight = self._get_weight()

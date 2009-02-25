@@ -90,7 +90,7 @@ class Backend(object):
             Task(self.create_dir_structure, description="Creating the installation directories"),
             Task(self.create_uninstaller, description="Creating the uninstaller"),
             Task(self.copy_installation_files, description="Copying files"),
-            Task(self.use_cd, description="Using the CD"),
+            Task(self.use_cd, description="Extracting CD content"),
             Task(self.extract_kernel, description="Extracting the kernel"),
             Task(self.create_preseed_cdboot, description="Creating a preseed file"),
             Task(self.modify_bootloader, description="Adding a new bootlader entry"),
@@ -206,7 +206,7 @@ class Backend(object):
 
     def create_dir_structure(self, associated_task=None):
         self.info.disks_dir = join_path(self.info.target_dir, "disks")
-        self.info.backup_dir = self.info.target_dir + ".backup"
+        self.info.backup_dir = self.info.target_dir + "-backup"
         self.info.install_dir = join_path(self.info.target_dir, "install")
         self.info.install_boot_dir = join_path(self.info.install_dir, "boot")
         self.info.disks_boot_dir = join_path(self.info.disks_dir, "boot")
@@ -232,11 +232,8 @@ class Backend(object):
         time.sleep(1)
 
     def extract_cd_content(self, cd_path):
-        if os.path.isdir(cd_path):
-            return
-        self.info.cddir = join_path(self.info.install_dir, "cd")
-        copy_tree(self.info.cd_path, self.info.cddir)
-        return dest
+        self.info.cd_dir = join_path(self.info.install_dir, "cd")
+        copy_tree(self.info.cd_path, self.info.cd_dir)
 
     def check_metalink(self, metalink, base_url, associated_task=None):
         if self.info.skip_md5_check:
@@ -264,11 +261,12 @@ class Backend(object):
         if self.info.skip_md5_check:
             return True
         md5sums_file = join_path(cd_path, self.info.distro.md5sums)
-        subtasks = [
-            associated_task.add_subtask(self.check_file)
-            for f in self.info.distro.get_required_files()]
-        for subtask in subtasks:
-            if not subtask(file_path, file_path, md5sums_file):
+        for rel_path in self.info.distro.get_required_files():
+            if rel_path == self.info.distro.md5sums:
+                continue
+            check_file = associated_task.add_subtask(self.check_file)
+            file_path = join_path(cd_path, rel_path)
+            if not check_file(file_path, rel_path, md5sums_file):
                 return False
         return True
 
@@ -437,12 +435,12 @@ class Backend(object):
             check_cd = associated_task.add_subtask(
                 self.check_cd,
                 description = "Checking %s" % cd_path, )
-            extract_cd_content = associated_task.add_subtask(
-                self.extract_cd_content,
-                description = "Extracting files from %s" % cd_path)
             if check_cd(cd_path):
-                cd_path = extract_cd_content(cd_path)
-                self.info.cd_path = cd_path
+                extract_cd_content = associated_task.add_subtask(
+                    self.extract_cd_content,
+                    description = "Extracting files from %s" % cd_path)
+                extract_cd_content(cd_path)
+                self.info.cd_path = self.info.cd_dir
                 self.info.iso_path = None
                 return True
 
@@ -472,9 +470,9 @@ class Backend(object):
         if self.info.cd_path:
             log.debug("Copying files from mounted CD %s" % self.info.cd_path)
             for src in [
-            join_path(self.info.cddir, self.info.distro.md5sums),
-            join_path(self.info.cddir, self.info.distro.kenel),
-            join_path(self.info.cddir, self.info.distro.initrd),]:
+            join_path(self.info.cd_path, self.info.distro.md5sums),
+            join_path(self.info.cd_path, self.info.distro.kernel),
+            join_path(self.info.cd_path, self.info.distro.initrd),]:
                 shutil.copyfile(src, bootdir)
         else:
             log.debug("Extracting files from ISO %s" % self.info.iso_path)
@@ -504,6 +502,7 @@ class Backend(object):
             raise Exception("Cannot find md5 for %s" % relpath)
         reference_md5 = md5line.split()[0]
         md5  = get_file_md5(file_path, associated_task)
+        log.debug("  %s md5 = %s %s %s" % (file_path, md5, md5 == reference_md5 and "==" or "!=", reference_md5))
         return md5 == reference_md5
 
     def create_preseed_cdboot(self):

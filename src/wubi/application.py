@@ -41,13 +41,19 @@ class Wubi(object):
         self.info.full_version = "%s %s rev%s" % (self.info.application_name, self.info.version, self.info.revision)
 
     def run(self):
-        self.parse_commandline_arguments()
-        self.set_logger()
-        log.info("=== " + self.info.full_version + " ===")
-        log.debug("Logfile is %s" % self.info.log_file)
-        self.backend = self.get_backend()
-        self.backend.fetch_basic_info()
-        self.select_task()
+        try:
+            self.parse_commandline_arguments()
+            self.set_logger()
+            log.info("=== " + self.info.full_version + " ===")
+            log.debug("Logfile is %s" % self.info.log_file)
+            self.backend = self.get_backend()
+            self.backend.fetch_basic_info()
+            self.select_task()
+        except Exception, err:
+            log.exception(err)
+            if self.frontend:
+                self.frontend.show_error_message("An error occurred.\nFor more information, please see the log file %s" % self.info.log_file, "Wubi Error")
+            self.quit()
 
     def quit(self):
         '''

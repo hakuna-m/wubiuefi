@@ -98,7 +98,7 @@ static unsigned long ext_offset;
 static unsigned long bsd_part_no;
 static unsigned long pc_slice_no;
 
-unsigned long long fsmax;
+unsigned long fsmax;
 struct fsys_entry fsys_table[NUM_FSYS + 1] =
 {
   /* TFTP should come first because others don't handle net device.  */
@@ -170,8 +170,8 @@ int bsd_evil_hack;
 int fsys_type = NUM_FSYS;
 
 /* these are the translated numbers for the open partition */
-unsigned long long part_start;
-unsigned long long part_length;
+unsigned long part_start;
+unsigned long part_length;
 
 unsigned long current_slice;
 
@@ -188,8 +188,8 @@ struct geometry hd_geom[4];
 int rawread_ignore_memmove_overflow = 0;/* blocklist_func() set this to 1 */
 
 /* filesystem common variables */
-unsigned long long filepos;
-unsigned long long filemax;
+unsigned long filepos;
+unsigned long filemax;
 
 unsigned long emu_iso_sector_size_2048 = 0;
 
@@ -240,47 +240,61 @@ unicode_to_utf8 (unsigned short *filename, unsigned char *utf8, unsigned long n)
 	utf8[k] = 0;
 }
 
-/* Read bytes from DRIVE to BUF. The bytes start at BYTE_OFFSET in absolute
- * sector number SECTOR and with BYTE_LEN bytes long.
+/* Read bytes from DRIVE to BUF.
+ *
+ * The bytes start at BYTE_OFFSET in absolute sector number SECTOR and with
+ * BYTE_LEN bytes long.
+ *
  */
 int
-rawread (unsigned long drive, unsigned long sector, unsigned long byte_offset, unsigned long byte_len, char *buf, unsigned long write)
+rawread (unsigned long drive, unsigned long sector, unsigned long byte_offset, unsigned long byte_len, char *buf)
 {
   unsigned long slen, sectors_per_vtrack;
   unsigned long sector_size_bits = log2_tmp (buf_geom.sector_size);
 
-  if (write != 0x900ddeed && write != 0xedde0d90)
-	return !(errnum = ERR_FUNC_CALL);
+//  if (byte_len == 0)
+//    return 1;
 
   errnum = 0;
 
-  if (write == 0x900ddeed && ! buf)
-    return 1;
-
   while (byte_len > 0)
-  {
+    {
       unsigned long soff, num_sect, track, size = byte_len;
       char *bufaddr;
-      int bufseg;
 
-      /* Reset geometry and invalidate track buffer if the disk is wrong. */
+      /*
+       *  Check track buffer.  If it isn't valid or it is from the
+       *  wrong disk, then reset the disk geometry.
+       */
       if (buf_drive != drive)
-      {
+	{
 	  if (get_diskinfo (drive, &buf_geom))
-	      return !(errnum = ERR_NO_DISK);
+	    {
+	      errnum = ERR_NO_DISK;
+	      return 0;
+	    }
 	  buf_drive = drive;
 	  buf_track = -1;
 	  sector_size_bits = log2_tmp (buf_geom.sector_size);
-      }
+	}
 
-      /* Sectors that need to read. */
+#if 0
+      /* Make sure that SECTOR is valid.  */
+      if (/* sector < 0 || */ sector >= buf_geom.total_sectors)
+	{
+	  errnum = ERR_GEOM;	/* Selected cylinder exceeds maximum supported by BIOS. This message is not proper. */
+	  return 0;
+	}
+#endif
+
+      /* Sectors that need to read */
       slen = ((byte_offset + byte_len + buf_geom.sector_size - 1) >> sector_size_bits);
 
       /* Eliminate a buffer overflow.  */
       if ((buf_geom.sectors << sector_size_bits) > BUFFERLEN)
-	  sectors_per_vtrack = (BUFFERLEN >> sector_size_bits);
+	sectors_per_vtrack = (BUFFERLEN >> sector_size_bits);
       else
-	  sectors_per_vtrack = buf_geom.sectors;
+	sectors_per_vtrack = buf_geom.sectors;
 
       /* Get the first sector number in the track.  */
       soff = sector % sectors_per_vtrack;
@@ -293,99 +307,111 @@ rawread (unsigned long drive, unsigned long sector, unsigned long byte_offset, u
 
       /* Read data into the track buffer; Not all sectors in the track would be filled in. */
       bufaddr = ((char *) BUFFERADDR + (soff << sector_size_bits) + byte_offset);
-      bufseg = BUFFERSEG;
 
       if (track != buf_track)
-      {
-	  unsigned long read_start = track;	/* = sector - soff <= sector */
-	  unsigned long read_len = sectors_per_vtrack;	/* >= num_sect */
+	{
+	  unsigned long bios_err;
+	  unsigned long read_start = track;
+	  unsigned long read_len = sectors_per_vtrack;
 
 	  buf_track = track;
 
-	  /* If more than one track need to read, only read the portion needed
-	   * rather than the whole track with data that won't be used.  */
+	  /*
+	   *  If there's more than one read in this entire loop, then
+	   *  only make the earlier reads for the portion needed.  This
+	   *  saves filling the buffer with data that won't be used!
+	   */
 	  if (slen > num_sect)
-	  {
-	      buf_track = -1;		/* invalidate the buffer */
-	      read_start = sector;	/* read the portion from this sector */
-	      read_len = num_sect;	/* to the end of the track */
-	      //bufaddr = (char *) BUFFERADDR + byte_offset;
-	      bufseg = BUFFERSEG + (soff << (sector_size_bits - 4));
-	  }
+	    {
+	      buf_track = -1;	/* invalidate the buffer */
+	      read_start = sector;
+	      read_len = num_sect;
+	      bufaddr = (char *) BUFFERADDR + byte_offset;
+	    }
 
-	  if (biosdisk (BIOSDISK_READ, drive, &buf_geom, read_start, read_len, bufseg))
-	  {
-	      buf_track = -1;		/* invalidate the buffer */
-	      /* On error try again to load only the required sectors. */
-	      if (slen > num_sect || slen == read_len)
-		    return !(errnum = ERR_READ);
-	      bufseg = BUFFERSEG + (soff << (sector_size_bits - 4));
-	      if (biosdisk (BIOSDISK_READ, drive, &buf_geom, sector, slen, bufseg))
-		    return !(errnum = ERR_READ);
-	      //bufaddr = (char *) BUFFERADDR + byte_offset;
-	      /* slen <= num_sect && slen < sectors_per_vtrack */
-	      num_sect = slen;
-	  }
-      } /* if (track != buf_track) */
+	  bios_err = biosdisk (BIOSDISK_READ, drive, &buf_geom, read_start, read_len, BUFFERSEG);
+	  if (bios_err)
+	    {
+	      buf_track = -1;	/* invalidate the buffer */
 
-      /* num_sect is sectors that has been read at BUFADDR and will be used. */
+//	      if (bios_err == BIOSDISK_ERROR_GEOMETRY)
+//	      {
+//		errnum = ERR_GEOM;
+//		return 0;
+//	      }
+//	      else
+		{
+		  /* Do not try again to read sectors near a bad track.
+		   * Reading these sectors may slow down the system.
+		   * This can also remind us potential problems with the disk.
+		   */
+#if 1
+		  /*
+		   *  If there was an error, try to load only the
+		   *  required sector(s) rather than failing completely.
+		   */
+		  if (slen > num_sect
+		      || biosdisk (BIOSDISK_READ, drive, &buf_geom,
+				   sector, slen, BUFFERSEG))
+#endif
+		  {
+		    errnum = ERR_READ;
+		    return 0;
+		  }
+
+		  bufaddr = (char *) BUFFERADDR + byte_offset;
+		}
+	    }
+	} /* if (track != buf_track) */
+
       if (size > (num_sect << sector_size_bits) - byte_offset)
 	  size = (num_sect << sector_size_bits) - byte_offset;
 
-      if (write == 0x900ddeed)
-      {
-	  if (grub_memcmp (buf, bufaddr, size) == 0)
-		goto next;		/* no need to write */
-	  buf_track = -1;		/* invalidate the buffer */
-	  grub_memmove (bufaddr, buf, size);	/* update data at bufaddr */
-	  /* write it! */
-	  bufseg = BUFFERSEG + (soff << (sector_size_bits - 4));
-	  if (biosdisk (BIOSDISK_WRITE, drive, &buf_geom, sector, num_sect, bufseg))
-		return !(errnum = ERR_WRITE);
-	  goto next;
-      }
-      /* Use this interface to tell which sectors were read and used. */
+      /*
+       *  Instrumentation to tell which sectors were read and used.
+       */
       if (disk_read_func)
-      {
+	{
 	  unsigned long sector_num = sector;
 	  unsigned long length = buf_geom.sector_size - byte_offset;
 	  if (length > size)
-	      length = size;
+	    length = size;
 	  (*disk_read_func) (sector_num++, byte_offset, length);
 	  length = size - length;
 	  if (length > 0)
-	  {
+	    {
 	      while (length > buf_geom.sector_size)
-	      {
+		{
 		  (*disk_read_func) (sector_num++, 0, buf_geom.sector_size);
 		  length -= buf_geom.sector_size;
-	      }
+		}
 	      (*disk_read_func) (sector_num, 0, length);
-	  }
-      }
+	    }
+	}
 
       grub_memmove (buf, bufaddr, size);
+
       if (errnum == ERR_WONT_FIT)
-      {
-	  if (! rawread_ignore_memmove_overflow && buf)
-		return 0;
+        {
+	  if (! rawread_ignore_memmove_overflow)
+	      return 0;
+
 	  errnum = 0;
 	  buf = NULL; /* so that further memcheck() always fail */
-      }
+        }
       else
-next:
-	  buf += size;
+        buf += size;
       byte_len -= size;		/* byte_len always >= size */
       sector += num_sect;
       byte_offset = 0;
-  } /* while (byte_len > 0) */
+    } /* while (byte_len > 0 && !errnum) */
 
   return 1;//(!errnum);
 }
 
 
 int
-devread (unsigned long sector, unsigned long byte_offset, unsigned long byte_len, char *buf, unsigned long write)
+devread (unsigned long sector, unsigned long byte_offset, unsigned long byte_len, char *buf)
 {
   unsigned long sector_size_bits = log2_tmp(buf_geom.sector_size);
 
@@ -398,11 +424,22 @@ devread (unsigned long sector, unsigned long byte_offset, unsigned long byte_len
 		"0"(sector));
     }
 
-  /* Check partition boundaries */
-  if (((unsigned long)(sector + ((byte_offset + byte_len - 1) >> sector_size_bits)) >= (unsigned long)part_length) && part_start)
-      return !(errnum = ERR_OUTSIDE_PART);
+  /*
+   *  Check partition boundaries
+   */
+//grub_printf ("sector=%x, byte_offset=%x, byte_len=%x, buf=%x, part_length=%x\n", sector, byte_offset, byte_len, buf, part_length);
+  if (((unsigned long)(sector + ((byte_offset + byte_len - 1) >> sector_size_bits)) >= part_length) && part_start)
+    {
+      errnum = ERR_OUTSIDE_PART;
+      return 0;
+    }
 
-  /* Get the read to the beginning of a partition. */
+//  if (byte_len <= 0)
+//    return 1;
+
+  /*
+   *  Get the read to the beginning of a partition.
+   */
   sector += byte_offset >> sector_size_bits;
   byte_offset &= buf_geom.sector_size - 1;
 
@@ -411,12 +448,15 @@ devread (unsigned long sector, unsigned long byte_offset, unsigned long byte_len
     printf ("<%d, %d, %d>", sector, byte_offset, byte_len);
 #endif /* !STAGE1_5 */
 
-  /*  Call RAWREAD, which is very similar, but:
-   *  --  It takes an extra parameter, the drive number.
-   *  --  It requires that "sector" is relative to the beginning of the disk.
-   *  --  It doesn't handle offsets across the sector boundary.
+  /*
+   *  Call RAWREAD, which is very similar, but:
+   *
+   *    --  It takes an extra parameter, the drive number.
+   *    --  It requires that "sector" is relative to the beginning
+   *            of the disk.
+   *    --  It doesn't handle offsets across the sector boundary.
    */
-  return rawread (current_drive, (sector += part_start), byte_offset, byte_len, buf, write);
+  return rawread (current_drive, part_start + sector, byte_offset, byte_len, buf);
 }
 
 
@@ -484,7 +524,7 @@ devwrite (unsigned long sector, unsigned long sector_count, char *buf)
 
       for (i = 0; i < sector_count; i++)
 	{
-	  if (! rawwrite (current_drive, (long)(part_start + sector + i), buf + (i << SECTOR_BITS)))
+	  if (! rawwrite (current_drive, part_start + sector + i, buf + (i << SECTOR_BITS)))
 	      return 0;
 	}
       return 1;
@@ -504,7 +544,7 @@ set_bootdev (int hdbias)
   /* Copy the boot partition information to 0x7be-0x7fd for chain-loading.  */
   if ((saved_drive & 0x80) && cur_part_addr)
     {
-      if (rawread (saved_drive, cur_part_offset, 0, SECTOR_SIZE, (char *) SCRATCHADDR, 0xedde0d90))
+      if (rawread (saved_drive, cur_part_offset, 0, SECTOR_SIZE, (char *) SCRATCHADDR))
 	{
 	  char *dst, *src;
 
@@ -600,7 +640,7 @@ next_bsd_partition (/*unsigned long drive, unsigned long *partition, int *type, 
 #endif
 	  /* Read the BSD label.  */
 	  if (! rawread (next_partition_drive, *next_partition_start + BSD_LABEL_SECTOR,
-			 0, SECTOR_SIZE, next_partition_buf, 0xedde0d90))
+			 0, SECTOR_SIZE, next_partition_buf))
 	    return 0;
 
 #ifndef STAGE1_5
@@ -673,7 +713,7 @@ redo:
 //if (debug == -2) grub_printf ("next_pc_slice: 002\n");
 #endif
       /* Read the MBR or the boot sector of the extended partition.  */
-      if (! rawread (next_partition_drive, *next_partition_offset, 0, SECTOR_SIZE, next_partition_buf, 0xedde0d90))
+      if (! rawread (next_partition_drive, *next_partition_offset, 0, SECTOR_SIZE, next_partition_buf))
 	return 0;
 
       /* Check if it is valid.  */
@@ -865,8 +905,8 @@ next_part (void)
 	next_partition_dest		= dest_partition;
 	next_partition_partition	= &current_partition;
 	next_partition_type		= &current_slice;
-	next_partition_start		= (unsigned long *)(void *)&part_start;
-	next_partition_len		= (unsigned long *)(void *)&part_length;
+	next_partition_start		= &part_start;
+	next_partition_len		= &part_length;
 	next_partition_offset		= &part_offset;
 	next_partition_entry		= &entry;
 	next_partition_ext_offset	= &ext_offset;
@@ -1412,15 +1452,8 @@ dir (char *dirname)
     errnum = ERR_FSYS_MOUNT;
 
   if (relative_path)
-  {
     if (grub_strlen(saved_dir) + grub_strlen(dirname) >= sizeof(open_filename))
       errnum = ERR_WONT_FIT;
-  }
-  else
-  {
-    if (grub_strlen(dirname) >= sizeof(open_filename))
-      errnum = ERR_WONT_FIT;
-  }
 
   if (errnum)
     return 0;
@@ -1430,10 +1463,7 @@ dir (char *dirname)
 
   if (relative_path)
     grub_sprintf (open_filename, "%s%s", saved_dir, dirname);
-  else
-    grub_sprintf (open_filename, "%s", dirname);
-  nul_terminate (open_filename);
-  return (*(fsys_table[fsys_type].dir_func)) (open_filename);
+  return (*(fsys_table[fsys_type].dir_func)) (relative_path ? open_filename : dirname);
 }
 #endif /* STAGE1_5 */
 
@@ -1769,7 +1799,7 @@ grub_open (char *filename)
 #endif /* NO_BLOCK_FILES */
 
   /* This accounts for partial filesystem implementations. */
-  fsmax = 0xFFFFFFFFFFFFFFFFLL;//MAXINT;
+  fsmax = MAXINT;
 
   if (*filename != '/')
     {
@@ -1864,23 +1894,14 @@ block_file:
   if (relative_path)
   {
     if (grub_strlen(saved_dir) + grub_strlen(filename) >= sizeof(open_filename))
+    {
       errnum = ERR_WONT_FIT;
-  }
-  else
-  {
-    if (grub_strlen(filename) >= sizeof(open_filename))
-      errnum = ERR_WONT_FIT;
-  }
+      return 0;
+    }
 
-  if (errnum)
-    return 0;
-
-  if (relative_path)
     grub_sprintf (open_filename, "%s%s", saved_dir, filename);
-  else
-    grub_sprintf (open_filename, "%s", filename);
-  nul_terminate (open_filename);
-  if (!errnum && (*(fsys_table[fsys_type].dir_func)) (open_filename))
+  }
+  if (!errnum && (*(fsys_table[fsys_type].dir_func)) (relative_path ? open_filename : filename))
     {
 #ifdef NO_DECOMPRESSION
       return 1;
@@ -1894,30 +1915,28 @@ block_file:
 
 
 unsigned long
-grub_read (char *buf, unsigned long len, unsigned long write)
+grub_read (char *buf, unsigned long len)
 {
-//  if (write != 0x900ddeed && write != 0xedde0d90)
-//	return !(errnum = ERR_FUNC_CALL);
+  /* Make sure "filepos" is a sane value */
+  if (/*filepos < 0 || */filepos > filemax)
+    filepos = filemax;
 
-  if (filepos > filemax)
-      filepos = filemax;
-
-  if (len > filemax - filepos)
-      len = filemax - filepos;
+  /* Make sure "len" is a sane value */
+  if (/*len < 0 || */len > filemax - filepos)
+    len = filemax - filepos;
 
   /* if target file position is past the end of
      the supported/configured filesize, then
      there is an error */
   if (filepos + len > fsmax)
-      return !(errnum = ERR_FILELENGTH);
+    {
+      errnum = ERR_FILELENGTH;
+      return 0;
+    }
 
 #ifndef NO_DECOMPRESSION
   if (compressed_file)
-  {
-    if (write == 0x900ddeed)
-	return !(errnum = ERR_WRITE_GZIP_FILE);
     return gunzip_read (buf, len);
-  }
 #endif /* NO_DECOMPRESSION */
 
 #ifndef NO_BLOCK_FILES
@@ -1958,21 +1977,21 @@ grub_read (char *buf, unsigned long len, unsigned long write)
 	  size = ((*((unsigned long*)((*((unsigned long*)(FSYS_BUF+4))) + 4)) - (*((unsigned long*)(FSYS_BUF+8))))
 		  * buf_geom.sector_size) - off;
 	  if (size > len)
-	      size = len;
+	    size = len;
 
 	  disk_read_func = disk_read_hook;
 
 	  /* read current block and put it in the right place in memory */
 	  devread ((*((unsigned long*)(*((unsigned long*)(FSYS_BUF+4))))) + (*((unsigned long*)(FSYS_BUF+8))),
-		   off, size, buf, write);
+		   off, size, buf);
 
+//printf("devread ok\n");
 	  disk_read_func = NULL;
 
 	  len -= size;
 	  filepos += size;
 	  ret += size;
-	  if (buf)
-		buf += size;
+	  buf += size;
 	}
 
       if (errnum)
@@ -1983,9 +2002,12 @@ grub_read (char *buf, unsigned long len, unsigned long write)
 #endif /* NO_BLOCK_FILES */
 
   if (fsys_type == NUM_FSYS)
-      return !(errnum = ERR_FSYS_MOUNT);
+    {
+      errnum = ERR_FSYS_MOUNT;
+      return 0;
+    }
 
-  return (*(fsys_table[fsys_type].read_func)) (buf, len, write);
+  return (*(fsys_table[fsys_type].read_func)) (buf, len);
 }
 
 void

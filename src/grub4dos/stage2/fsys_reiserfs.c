@@ -392,7 +392,7 @@ static int
 journal_read (int block, int len, char *buffer) 
 {
   return devread ((INFO->journal_block + block) << INFO->blocksize_shift, 
-		  0, len, buffer, 0xedde0d90);
+		  0, len, buffer);
 }
 
 /* Read a block from ReiserFS file system, taking the journal into
@@ -400,7 +400,7 @@ journal_read (int block, int len, char *buffer)
  * journal taken.  
  */
 static int
-block_read (int blockNr, int start, int len, char *buffer, unsigned long write)
+block_read (int blockNr, int start, int len, char *buffer)
 {
   int transactions = INFO->journal_transactions;
   int desc_block = INFO->journal_first_desc;
@@ -469,7 +469,7 @@ block_read (int blockNr, int start, int len, char *buffer, unsigned long write)
     not_found:
       desc_block = (desc_block + 2 + j_len) & journal_mask;
     }
-  return devread (translatedNr << INFO->blocksize_shift, start, len, buffer, write);
+  return devread (translatedNr << INFO->blocksize_shift, start, len, buffer);
 }
 
 /* Init the journal data structure.  We try to cache as much as
@@ -589,9 +589,9 @@ reiserfs_mount (void)
 #endif
   int superblock = REISERFS_DISK_OFFSET_IN_BYTES >> SECTOR_BITS;
 
-  if ((unsigned long)part_length < superblock + (sizeof (struct reiserfs_super_block) >> SECTOR_BITS)
+  if (part_length < superblock + (sizeof (struct reiserfs_super_block) >> SECTOR_BITS)
       || ! devread (superblock, 0, sizeof (struct reiserfs_super_block), 
-		(char *) super, 0xedde0d90)
+		(char *) super)
       || (substring (REISER3FS_SUPER_MAGIC_STRING, super->s_magic, 0) > 0
 	  && substring (REISER2FS_SUPER_MAGIC_STRING, super->s_magic, 0) > 0
 	  && substring (REISERFS_SUPER_MAGIC_STRING, super->s_magic, 0) > 0)
@@ -601,9 +601,9 @@ reiserfs_mount (void)
     {
       /* Try old super block position */
       superblock = REISERFS_OLD_DISK_OFFSET_IN_BYTES >> SECTOR_BITS;
-      if ((unsigned long)part_length < superblock + (sizeof (struct reiserfs_super_block) >> SECTOR_BITS)
+      if (part_length < superblock + (sizeof (struct reiserfs_super_block) >> SECTOR_BITS)
 	  || ! devread (superblock, 0, sizeof (struct reiserfs_super_block), 
-			(char *) super, 0xedde0d90))
+			(char *) super))
 	return 0;
 
       if (substring (REISER3FS_SUPER_MAGIC_STRING, super->s_magic, 0) > 0
@@ -658,10 +658,10 @@ reiserfs_mount (void)
 
       /* Read in super block again, maybe it is in the journal */
       block_read (superblock >> INFO->blocksize_shift, 
-		  0, sizeof (struct reiserfs_super_block), (char *) super, 0xedde0d90);
+		  0, sizeof (struct reiserfs_super_block), (char *) super);
     }
 
-  if (! block_read (super->s_root_block, 0, INFO->blocksize, (char*) ROOT, 0xedde0d90))
+  if (! block_read (super->s_root_block, 0, INFO->blocksize, (char*) ROOT))
     return 0;
   
   INFO->tree_depth = BLOCKHEAD (ROOT)->blk_level;
@@ -726,7 +726,7 @@ read_tree_node (unsigned int blockNr, int depth)
   printf ("  next read_in: block=%d (depth=%d)\n",
 	  blockNr, depth);
 #endif /* REISERDEBUG */
-  if (! block_read (blockNr, 0, INFO->blocksize, cache, 0xedde0d90))
+  if (! block_read (blockNr, 0, INFO->blocksize, cache))
     return 0;
   /* Make sure it has the right node level */
   if (BLOCKHEAD (cache)->blk_level != depth)
@@ -901,16 +901,16 @@ search_stat (__u32 dir_id, __u32 objectid)
 }
 
 unsigned long
-reiserfs_read (char *buf, unsigned long len, unsigned long write)
+reiserfs_read (char *buf, unsigned long len)
 {
   unsigned long blocksize;
   unsigned long offset;
   unsigned long to_read;
-  unsigned long prev_filepos = filepos;
+  char *prev_buf = buf;
   
 #ifdef REISERDEBUG
   printf ("reiserfs_read: filepos=%d len=%d, offset=%x:%x\n",
-	  (unsigned long)filepos, len, (__u64) IH_KEY_OFFSET (INFO->current_ih) - 1);
+	  filepos, len, (__u64) IH_KEY_OFFSET (INFO->current_ih) - 1);
 #endif /* REISERDEBUG */
   
   if (INFO->current_ih->ih_key.k_objectid != INFO->fileinfo.k_objectid
@@ -930,7 +930,7 @@ reiserfs_read (char *buf, unsigned long len, unsigned long write)
       
 #ifdef REISERDEBUG
       printf ("  loop: filepos=%d len=%d, offset=%d blocksize=%d\n",
-	      (unsigned long)filepos, len, offset, blocksize);
+	      filepos, len, offset, blocksize);
 #endif /* REISERDEBUG */
       
       if (IH_KEY_ISTYPE(INFO->current_ih, TYPE_DIRECT)
@@ -949,11 +949,11 @@ reiserfs_read (char *buf, unsigned long len, unsigned long write)
 	      disk_read_func = disk_read_hook;
 	      
 	      block_read (INFO->blocks[DISK_LEAF_NODE_LEVEL],
-			  (INFO->current_item - LEAF + offset), to_read, buf, write);
+			  (INFO->current_item - LEAF + offset), to_read, buf);
 	      
 	      disk_read_func = NULL;
 	    }
-	  else if (buf)
+	  else
 	    memcpy (buf, INFO->current_item + offset, to_read);
 	  goto update_buf_len;
 	}
@@ -981,24 +981,23 @@ reiserfs_read (char *buf, unsigned long len, unsigned long write)
 	       * directly without using block_read
 	       */
 	      devread (blocknr << INFO->blocksize_shift,
-		       blk_offset, to_read, buf, write);
+		       blk_offset, to_read, buf);
 	      
 	      disk_read_func = NULL;
-update_buf_len:
+	    update_buf_len:
 	      len -= to_read;
-	      if (buf)
-		buf += to_read;
+	      buf += to_read;
 	      offset += to_read;
 	      filepos += to_read;
 	      if (len == 0)
 		goto done;
 	    }
 	}
-get_next_key:
+    get_next_key:
       next_key ();
-    } /* while (! errnum) */
-done:
-  return errnum ? 0 : filepos - prev_filepos;
+    }
+ done:
+  return errnum ? 0 : buf - prev_buf;
 }
 
 
@@ -1088,7 +1087,7 @@ reiserfs_dir (char *dirname)
 	  INFO->fileinfo.k_objectid = objectid;
   	  filepos = 0;
 	  if (! next_key ()
-	      || reiserfs_read (linkbuf, filemax, 0xedde0d90) != filemax)
+	      || reiserfs_read (linkbuf, filemax) != filemax)
 	    {
 	      if (! errnum)
 		errnum = ERR_FSYS_CORRUPT;
@@ -1284,7 +1283,7 @@ reiserfs_embed (unsigned long *start_sector, unsigned long needed_sectors)
   unsigned long num_sectors;
   
   if (! devread (REISERFS_DISK_OFFSET_IN_BYTES >> SECTOR_BITS, 0, 
-		 sizeof (struct reiserfs_super_block), (char *) super, 0xedde0d90))
+		 sizeof (struct reiserfs_super_block), (char *) super))
     return 0;
   
   *start_sector = 1; /* reserve first sector for stage1 */
