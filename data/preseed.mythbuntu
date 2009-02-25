@@ -65,46 +65,11 @@ tasksel tasksel/first multiselect $(distro_packages)
 d-i finish-install/reboot_in_progress note
 d-i cdrom-detect/eject boolean false
 
-## X CONFIGURATION
-xserver-xorg xserver-xorg/autodetect_monitor boolean true
-
-## MIGRATION-ASSISTANT
-#UserFolder=$(user_directory)
-d-i anna/choose_modules multiselect migration-assistant
-d-i migration-assistant/partitions multiselect $(host_os_name) (/dev/MADEVICE)
-d-i migration-assistant/MADEVICE/users multiselect $(host_username)
-d-i migration-assistant/MADEVICE/$(safe_host_username)/items multiselect AIM Triton, Internet Explorer, Yahoo, MSN, Opera, Firefox, Wallpaper, User Picture, Outlook Express, Gaim
-d-i migration-assistant/MADEVICE/$(safe_host_username)/user string $(username)
-
 ### Mythbuntu Specific
 
 #Install Type
-#advanced_install accepts 'true', 'false'
-ubiquity mythbuntu/advanced_install string true
 #install_type accepts 'Master Backend/Frontend', 'Slave Backend/Frontend', 'Master Backend', 'Slave Backend', 'Frontend'
 ubiquity mythbuntu/install_type string Frontend
-
-#Plugins
-#all plugins accept 'true', 'false'
-ubiquity mythbuntu/mytharchive string true
-ubiquity mythbuntu/mythbrowser string true
-ubiquity mythbuntu/mythcontrols string true
-ubiquity mythbuntu/mythflix string true
-ubiquity mythbuntu/mythgallery string true
-ubiquity mythbuntu/mythgame string true
-ubiquity mythbuntu/mythmovies string true
-ubiquity mythbuntu/mythmusic string true
-ubiquity mythbuntu/mythnews string true
-ubiquity mythbuntu/mythphone string true
-ubiquity mythbuntu/mythstream string true
-ubiquity mythbuntu/mythvideo string true
-ubiquity mythbuntu/mythweather string true
-ubiquity mythbuntu/mythweb string false
-
-#Themes
-#these both accept a list of themes to /remove/ separated by spaces
-ubiquity mythbuntu/officialthemes string
-ubiquity mythbuntu/communitythemes string
 
 #Services
 # XYZservice accepts 'true', 'false'
@@ -133,15 +98,7 @@ mythweb mythweb/password string
 # These are all strings.  See the OEM chapter in the Mythbuntu manual for possible
 # options
 lirc lirc/remote string None
-lirc lirc/remote_lircd_conf string
-lirc lirc/remote_modules string
-lirc lirc/remote_driver string
-lirc lirc/remote_device string
 lirc lirc/transmitter string None
-lirc lirc/transmitter_lircd_conf string
-lirc lirc/transmitter_modules string
-lirc lirc/transmitter_driver string
-lirc lirc/transmitter_device string
 
 #Drivers
 # possible video drivers are 'fglrx', 'nvidia_legacy', 'nvidia', 'nvidia_new', 'pvr_350', 'None'
@@ -150,9 +107,6 @@ lirc lirc/transmitter_device string
 # possible tv out options are ' ' ' ' ' ', 'Disable TV-Out'
 #ubiquity mythbuntu/tvout string Disable TV-Out
 #ubiquity mythbuntu/tvstandard string Disable TV-Out
-
-# these all accept 'true', 'false'
-#ubiquity mythbuntu/hdhomerun string false
 
 #Summary page
 ubiquity mythbuntu/summary note
