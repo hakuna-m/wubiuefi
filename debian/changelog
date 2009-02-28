@@ -156,5 +156,9 @@ wubi (9.04) UNRELEASED; urgency=low
     directory
   * Updated Wubi Icon
   * Added UI support for Windows themes (LP: #325207)
+  * Fixed uninstaller, that was not being shown when launched by another
+    Wubi instance
+  * Fixed show-info, it was using an incorrect distro instance for the
+    URL
 
- -- Agostino Russo <agostino.russo@gmail.com>  Sat, 28 Feb 2009 12:31:08 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Sat, 28 Feb 2009 22:22:56 +0000

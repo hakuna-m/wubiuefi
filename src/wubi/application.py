@@ -148,13 +148,14 @@ class Wubi(object):
         '''
         log.info("Running the uninstaller...")
         if not self.backend.run_previous_uninstaller():
-            self.frontend = self.get_frontend()
-            self.frontend.show_uninstallation_settings()
-            log.info("Received settings")
-            self.frontend.run_tasks(self.backend.get_uninstallation_tasklist())
-            log.info("Almost finished uninstalling")
-            if not self.info.uninstall_before_install:
-                self.frontend.show_uninstallation_finish_page()
+            if self.info.previous_target_dir:
+                self.frontend = self.get_frontend()
+                self.frontend.show_uninstallation_settings()
+                log.info("Received settings")
+                self.frontend.run_tasks(self.backend.get_uninstallation_tasklist())
+                log.info("Almost finished uninstalling")
+                if not self.info.uninstall_before_install:
+                    self.frontend.show_uninstallation_finish_page()
         log.info("Finished uninstallation")
 
     def run_cd_menu(self):

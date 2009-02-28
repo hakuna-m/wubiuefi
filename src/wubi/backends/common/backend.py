@@ -32,6 +32,7 @@ import shutil
 import ConfigParser
 import btdownloader
 import downloader
+import subprocess
 
 from metalink import parse_metalink
 from tasklist import ThreadedTaskList, Task
@@ -120,7 +121,7 @@ class Backend(object):
 
     def show_info(self):
         log.debug("Showing info")
-        os.startfile(self.info.distro.website)
+        os.startfile(self.info.cd_distro.website)
 
     def change_language(self, codeset):
         domain = self.info.application_name #not sure what it is
@@ -696,7 +697,7 @@ class Backend(object):
         copy_file(self.info.previous_uninstaller_path, uninstaller.name)
         command = [uninstaller.name, "--uninstall"]
         try:
-            result = run_command(command, show_window=True)
+            result = subprocess.call(command)
         except Exception, err:
             log.exception(err)
         log.info("Finished uninstallation with result=%s" % result)
