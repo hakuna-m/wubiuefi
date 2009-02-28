@@ -5,6 +5,7 @@ LDFLAGS = -mwindows
 #LIB = -lm -static
 #LIBS = user32.lib gdi32.lib shell32.lib
 CC = i586-mingw32msvc-gcc
+WINDRES = i586-mingw32msvc-windres
 CFLAGS = \
 	-c \
 	-Os \
@@ -61,12 +62,15 @@ endif
 
 all: $(PROGRAM).exe
 
-$(PROGRAM).exe: $(7Z_OBJS) unpack.o deletedir.o pylauncher.o str.o
+$(PROGRAM).exe: $(7Z_OBJS) unpack.o deletedir.o pylauncher.o str.o resources.o
 	$(CC) -o $@ $(LDFLAGS) $(LIBS) $^
 	$(STRIP) $@
 
 $(7Z_OBJS): $(7Z_OBJS_SRC)
 	$(CC) $(DEBUGFLAG) $(CFLAGS) $^
+
+resources.o: resources.rc
+	$(WINDRES) -o $@ $^
 
 pylauncher.o: pylauncher.c
 	$(CC) $(DEBUGFLAG) $(CFLAGS) $^

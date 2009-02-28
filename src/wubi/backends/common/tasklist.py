@@ -260,7 +260,8 @@ class Task(object):
         secs = secs - hours*3600
         mins = int(secs/60)
         secs = secs - mins*60
-        secs = int(secs/10)*10
+        secs = int(secs/10)*10 + 10
+        secs = min(secs, 59)
         message = []
         if hours:
             message.append("%ih" % hours)

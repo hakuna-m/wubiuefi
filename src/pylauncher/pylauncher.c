@@ -39,7 +39,7 @@
 #include "windows.h"
 #include "deletedir.h"
 #include "unpack.h"
-
+#include "resources.h"
 
 int __cdecl
 main(int ac, char **av)

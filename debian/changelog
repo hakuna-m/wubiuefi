@@ -154,5 +154,7 @@ wubi (9.04) UNRELEASED; urgency=low
     checking available free space
   * Set file attributes to normal before recursively removing a
     directory
+  * Updated Wubi Icon
+  * Added UI support for Windows themes (LP: #325207)
 
- -- Agostino Russo <agostino.russo@gmail.com>  Sat, 28 Feb 2009 10:58:21 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Sat, 28 Feb 2009 12:31:08 +0000

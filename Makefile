@@ -1,5 +1,6 @@
 export SHELL = sh
 PACKAGE = wubi
+ICON = data/images/Wubi.ico
 REVISION = $(shell bzr revno)
 VERSION = $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g")
 
@@ -32,8 +33,10 @@ version.py:
 	$(shell echo 'revision = $(REVISION)' >> build/version.py)
 	$(shell echo 'application_name = "$(PACKAGE)"' >> build/version.py)
 
-pylauncher: 7z src/pylauncher/*.c src/pylauncher/*.py
+pylauncher: 7z src/pylauncher/*
 	cp -rf src/pylauncher build
+	cp "$(ICON)" build/pylauncher/application.ico
+	$(shell sed -i 's/application_name/$(PACKAGE)/' build/pylauncher/pylauncher.exe.manifest)
 	cd build/pylauncher; make
 
 cpuid: src/cpuid/cpuid.c
