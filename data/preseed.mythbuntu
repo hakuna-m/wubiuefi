@@ -80,19 +80,10 @@ ubiquity mythbuntu/nfsservice string true
 ubiquity mythbuntu/mysqlservice string false
 
 # these are all strings
-ubiquity mythbuntu/x11vnc_password string
-#mythtv-database mythtv/mysql_admin_password string
 #mythtv-common mythtv/mysql_mythtv_user string mythtv
 #mythtv-common mythtv/mysql_mythtv_password string mythtv
 #mythtv-common mythtv/mysql_mythtv_dbname string mythconverg
 #mythtv-common mythtv/mysql_host string kingkoopa
-
-# this turns on mythweb auth, 'true', 'false'
-mythweb mythweb/enable string false
-
-# both strings
-mythweb mythweb/username string
-mythweb mythweb/password string
 
 #Remote / IR Transmitter
 # These are all strings.  See the OEM chapter in the Mythbuntu manual for possible
