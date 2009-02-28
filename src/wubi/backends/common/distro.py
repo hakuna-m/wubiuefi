@@ -37,7 +37,8 @@ class Distro(object):
             info_file, arch, metalink, metalink2,
             packages, size, md5sums, files_to_check,
             metalink_md5sums, metalink_md5sums_signature,
-            backend, ordering, website, support, min_disk_space_mb, min_memory_mb, min_iso_size=0, max_iso_size=0):
+            backend, ordering, website, support, min_disk_space_mb,
+            min_memory_mb, installation_dir, min_iso_size=0, max_iso_size=0):
         self.name = name
         self.version = version
         self.arch = arch
@@ -60,6 +61,7 @@ class Distro(object):
         self.ordering = ordering
         self.website = website
         self.support = support
+        self.installation_dir = installation_dir
 
         if isinstance(files_to_check, basestring):
             files_to_check = [

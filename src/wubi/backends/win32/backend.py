@@ -31,7 +31,7 @@ from eject import eject_cd
 import registry
 from memory import get_total_memory_mb
 from wubi.backends.common.backend import Backend
-from wubi.backends.common.utils import run_command, replace_line_in_file, read_file, write_file, join_path, copy_tree, remove_line_in_file
+from wubi.backends.common.utils import run_command, replace_line_in_file, read_file, write_file, join_path, remove_line_in_file, rm_tree
 from wubi.backends.common.mappings import country2tz, name2country, gmt2country, country_gmt2tz, gmt2tz
 from os.path import abspath, dirname, isfile, isdir, exists
 import mappings
@@ -75,26 +75,22 @@ class WindowsBackend(Backend):
         self.info.drives_dict = dict(drives)
 
     def select_target_dir(self):
-        if not self.info.target_drive and self.info.run_task == "cd_boot":
-            self.info.target_drive = self.info.drives[0]
-            self.info.distro = self.info.cd_distro
-        #TBD do not hardcode the "Ubuntu" name
-        target_dir = join_path(self.info.target_drive.path, "ubuntu")
+        target_dir = join_path(self.info.target_drive.path, self.info.distro.installation_dir)
         target_dir.replace(' ', '_')
         target_dir.replace('__', '_')
         gold_target_dir = target_dir
         if os.path.exists(target_dir) \
         and self.info.previous_target_dir \
-        and os.path.isdir(self.info.previous_target_dir) \
-        and self.info.previous_target_dir != target_dir:
-            for i in range(2, 1000):
-                target_dir = gold_target_dir + '.' + str(i)
-                if not os.path.exists(target_dir):
-                    break
-        self.info.target_dir = target_dir
-        if self.info.previous_target_dir \
         and os.path.isdir(self.info.previous_target_dir):
-            os.rename(self.info.previous_target_dir, self.info.target_dir)
+            if self.info.previous_target_dir == target_dir:
+                rm_tree(self.info.previous_target_dir)
+                self.info.previous_target_dir = None
+            else:
+                for i in range(2, 1000):
+                    target_dir = gold_target_dir + '.' + str(i)
+                    if not os.path.exists(target_dir):
+                        break
+        self.info.target_dir = target_dir
         log.info('Installing into %s' % target_dir)
         self.info.icon = join_path(self.info.target_dir, self.info.distro.name + '.ico')
 
@@ -142,11 +138,11 @@ class WindowsBackend(Backend):
         src = join_path(self.info.data_dir, 'custom-installation')
         dest = self.info.custominstall
         log.debug('Copying %s -> %s' % (src, dest))
-        copy_tree(src, dest)
+        shutil.copytree(src, dest)
         src = join_path(self.info.root_dir, 'winboot')
         dest = join_path(self.info.target_dir, 'winboot')
         log.debug('Copying %s -> %s' % (src, dest))
-        copy_tree(src, dest)
+        shutil.copytree(src, dest)
         dest = join_path(self.info.custominstall, 'hooks', 'failure-command.sh')
         msg='The installation failed. Logs have been saved in: %s.' \
             '\n\nNote that in verbose mode, the logs may include the password.' \

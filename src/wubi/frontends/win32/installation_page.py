@@ -72,12 +72,13 @@ class InstallationPage(Page):
         if max_space_mb < 1024:
             message = "Only %sMB of disk space are available.\nAt least 1024MB are required as a bare minimum. Quitting"
             message = message % int(max_space_mb)
+            self.frontend.show_error_message(message, "%s Installer" % distro.name)
             self.frontend.quit()
         if max_space_mb2 < min_space_mb:
             message = "%sMB of disk size are required for installation.\nOnly %sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?"
             min_space_mb = round(min_space_mb/1000+0.5)*1024
             message = message % (int(min_space_mb), int(max_space_mb))
-            if not self.frontend.ask_confirmation(message):
+            if not self.frontend.ask_confirmation(message, "%s Installer" % distro.name):
                 self.frontend.quit()
             else:
                 self.info.skip_size_check = True
@@ -279,7 +280,6 @@ class InstallationPage(Page):
         self.frontend.show_page(self.frontend.accessibility_page)
 
     def on_install(self):
-        info = self.info
         drive = self.get_drive()
         installation_size_mb = self.get_installation_size_mb()
         distro = self.get_distro()
@@ -312,11 +312,11 @@ class InstallationPage(Page):
         log.debug(
             "target_drive=%s\ninstallation_size=%sMB\ndistro_name=%s\nlanguage=%s\nusername=%s" \
             % (drive.path, installation_size_mb, distro.name, language, username))
-        info.target_drive = drive
-        info.distro = distro
-        info.installation_size_mb = installation_size_mb
-        info.language = language
-        info.username = username
-        info.password = password1
+        self.info.target_drive = drive
+        self.info.distro = distro
+        self.info.installation_size_mb = installation_size_mb
+        self.info.language = language
+        self.info.username = username
+        self.info.password = password1
         self.frontend.stop()
 

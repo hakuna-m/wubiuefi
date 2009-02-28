@@ -31,6 +31,16 @@ class CDBootPage(Page):
         self.set_background_color(255,255,255)
         self.insert_vertical_image("Ubuntu-vertical.bmp")
 
+        #sanity checks
+        self.info.distro = self.info.cd_distro
+        self.info.target_drive = None
+        for drive in [self.info.system_drive] + self.info.drives:
+            if drive.free_space_mb > self.info.distro.max_iso_size/1000000:
+                self.info.target_drive = drive
+                break
+        if not self.info.target_drive:
+            self.frontend.show_error_message("Not enough disk space to proceed", "CD Boot Helper Setup")
+
         #navigation
         self.insert_navigation("Accessibility", "Install", "Cancel", default=2)
         self.navigation.button3.on_click = self.on_cancel

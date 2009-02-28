@@ -52,7 +52,8 @@ class Wubi(object):
         except Exception, err:
             log.exception(err)
             if self.frontend:
-                self.frontend.show_error_message("An error occurred.\nFor more information, please see the log file %s" % self.info.log_file, "Wubi Error")
+                error_messages = "\n".join([e for e in err.args if isinstance(e, basestring)])
+                self.frontend.show_error_message("An error occurred:\n\n%s\n\nFor more information, please see the log file: %s" % (error_messages, self.info.log_file), "Wubi Error")
             self.quit()
 
     def quit(self):

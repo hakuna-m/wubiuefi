@@ -146,6 +146,8 @@ class Task(object):
             self._notify_listeners(message)
 
     def finish(self):
+        if self.status == Task.COMPLETED:
+            return
         message = "Finished %s" % self.name
         self.log(message)
         self.completed = self.size
@@ -188,15 +190,19 @@ class Task(object):
                 self.associated_function_kargs = kargs
             if 'associated_task' in self.associated_function.func_code.co_varnames:
                 self.associated_function_kargs['associated_task'] = self
-            if self.is_required:
+            result = None
+            try:
                 result = self.associated_function(*self.associated_function_args, **self.associated_function_kargs)
-            else:
-                result = None
-                try:
-                    result = self.associated_function(*self.associated_function_args, **self.associated_function_kargs)
-                except Exception, err:
-                    self.error = err
-                    self.status = Task.FAILED
+            except Exception, err:
+                self.error = err
+                self.status = Task.FAILED
+                log.exception(err)
+                if self.is_required:
+                    root = self.get_root()
+                    root.error = err
+                    root.cancel()
+                    return
+                else:
                     message = "Non fatal error %s in task %s" % (err, self.name)
                     log.error(message)
                     self._notify_listeners(message)
@@ -254,13 +260,16 @@ class Task(object):
         secs = secs - hours*3600
         mins = int(secs/60)
         secs = secs - mins*60
-        message = ""
+        secs = int(secs/10)*10
+        message = []
         if hours:
-            message += "%ih" % hours
+            message.append("%ih" % hours)
         if mins:
-            message += "%imin" % mins
-        if secs and not hours and not mins:
-            message += "%is" % secs
+            message.append("%imin" % mins)
+        if not hours:
+            if not mins or secs:
+                message.append("%is" % secs)
+        message = " ".join(message)
         return message
 
     def get_level(self):

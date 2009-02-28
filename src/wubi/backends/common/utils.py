@@ -25,6 +25,7 @@ import subprocess
 import shutil
 import sys
 import random
+import ctypes
 
 def join_path(*args):
     if args and args[0][-1] == ":":
@@ -162,11 +163,28 @@ def get_file_md5(file_path, associated_task=None):
         associated_task.finish()
     return md5hash
 
+def get_drive_space(drive_path):
+    #Windows only
+    freeuser = ctypes.c_int64()
+    total = ctypes.c_int64()
+    free = ctypes.c_int64()
+    ctypes.windll.kernel32.GetDiskFreeSpaceExW(
+            unicode(drive_path),
+            ctypes.byref(freeuser),
+            ctypes.byref(total),
+            ctypes.byref(free))
+    return total.value
+
 def copy_file(source, target, associated_task=None):
     '''
     Copy file with progress report
     '''
-    file_size = os.path.getsize(source)
+    if os.path.isfile(source):
+        file_size = os.path.getsize(source)
+    elif os.path.ismount(source):
+        if sys.platform.startswith("win"):
+            file_size = get_drive_space(source)
+            source = "\\\\.\\%s" % source[:2]
     if associated_task:
         associated_task.size = file_size/1024**2
         associated_task.unit = "MB"
@@ -261,13 +279,18 @@ def unix_path(path):
         path = path[:-1]
     return path
 
-def copy_tree(source, dest):
-    '''
-    Copies a tree, replacing any pre-existing destination file/directory
-    '''
-    if os.path.exists(dest):
-        if os.path.isfile(dest):
-            os.unlink(dest)
-        elif os.path.isdir(dest):
-            shutil.rmtree(dest)
-    shutil.copytree(source, dest)
+def rm_tree(target):
+    if not os.path.exists(target):
+        return
+    if os.path.isfile(target):
+            os.unlink(target)
+    elif not os.path.isdir(target):
+        return
+    if sys.platform.startswith("win"):
+        for dir, subdirs, files in os.walk(target):
+            if not files:
+                continue
+            for file in files:
+                file = join_path(dir, file)
+                run_command(['attrib', '-R', '-S', '-H', file])
+    shutil.rmtree(target)

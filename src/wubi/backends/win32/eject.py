@@ -35,7 +35,6 @@ def eject_cd(cd_path):
         0,
         OPEN_EXISTING,
         0, 0)
-    log.debug('Ejecting cd_handle=%s for drive=%s' % (cd_handle, cd_path))
     if cd_handle:
         x = ctypes.c_int()
         result = ctypes.windll.kernel32.DeviceIoControl(

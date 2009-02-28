@@ -37,7 +37,7 @@ from metalink import parse_metalink
 from tasklist import ThreadedTaskList, Task
 from distro import Distro
 from mappings import lang_country2linux_locale
-from utils import copy_tree, join_path, run_command, md5_password, copy_file, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unix_path
+from utils import join_path, run_command, md5_password, copy_file, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unix_path, rm_tree
 from signature import verify_gpg_signature
 from os.path import abspath, dirname, isfile, isdir, exists
 
@@ -136,7 +136,7 @@ class Backend(object):
         self.info.uninstall_before_install = False
         self.info.original_exe = self.get_original_exe()
         self.info.platform = self.get_platform()
-        self.info.osname = self.get_osname
+        self.info.osname = self.get_osname()
         self.info.language, self.info.encoding = self.get_language_encoding()
         self.info.environment_variables = os.environ
         self.info.arch = self.get_arch()
@@ -231,10 +231,6 @@ class Backend(object):
     def dummy_function(self):
         time.sleep(1)
 
-    def extract_cd_content(self, cd_path):
-        self.info.cd_dir = join_path(self.info.install_dir, "cd")
-        copy_tree(self.info.cd_path, self.info.cd_dir)
-
     def check_metalink(self, metalink, base_url, associated_task=None):
         if self.info.skip_md5_check:
             return True
@@ -313,7 +309,6 @@ class Backend(object):
         return urls
 
     def download_iso(self, associated_task=None):
-        # Download the ISO
         log.debug("Could not find any ISO or CD, downloading one now")
         self.info.cd_path = None
         if not self.info.distro.metalink:
@@ -430,19 +425,28 @@ class Backend(object):
             cd_path = self.info.cd_path
         else:
             cd_path = self.find_cd()
+        #~ if cd_path:
+            #~ log.debug("Trying to use CD %s" % cd_path)
+            #~ check_cd = associated_task.add_subtask(
+                #~ self.check_cd,
+                #~ description = "Checking %s" % cd_path, )
+            #~ if not check_cd(cd_path):
         if cd_path:
-            log.debug("Trying to use CD %s" % cd_path)
-            check_cd = associated_task.add_subtask(
-                self.check_cd,
-                description = "Checking %s" % cd_path, )
-            if check_cd(cd_path):
-                extract_cd_content = associated_task.add_subtask(
-                    self.extract_cd_content,
-                    description = "Extracting files from %s" % cd_path)
-                extract_cd_content(cd_path)
-                self.info.cd_path = self.info.cd_dir
+            extract_iso = associated_task.add_subtask(
+                copy_file,
+                description = "Extracting files from %s" % cd_path)
+            self.info.iso_path = join_path(self.info.install_dir, "installation.iso")
+            extract_iso(cd_path, self.info.iso_path)
+            self.info.cd_path = cd_path
+            #This will often fail before release as the CD might not match the latest daily ISO
+            check_iso = associated_task.add_subtask(
+                self.check_iso,
+                description = "Checking installation files")
+            if not check_iso(self.info.iso_path):
+                self.info.cd_path = None
                 self.info.iso_path = None
-                return True
+                return False
+            return True
 
     def use_iso(self, associated_task):
         iso_path = None
@@ -462,7 +466,7 @@ class Backend(object):
         or self.use_iso(associated_task) \
         or self.download_iso(associated_task):
             return associated_task.finish()
-        raise Exception("Could not retrieve the installation ISO")
+        raise Exception("Could not retrieve the required installation files")
 
     def extract_kernel(self):
         bootdir = self.info.install_boot_dir
@@ -473,13 +477,14 @@ class Backend(object):
             join_path(self.info.cd_path, self.info.distro.md5sums),
             join_path(self.info.cd_path, self.info.distro.kernel),
             join_path(self.info.cd_path, self.info.distro.initrd),]:
-                shutil.copyfile(src, bootdir)
-        else:
+                shutil.copy(src, bootdir)
+        elif self.info.iso_path:
             log.debug("Extracting files from ISO %s" % self.info.iso_path)
             self.extract_file_from_iso(self.info.iso_path, self.info.distro.md5sums, output_dir=bootdir)
             self.extract_file_from_iso(self.info.iso_path, self.info.distro.kernel, output_dir=bootdir)
             self.extract_file_from_iso(self.info.iso_path, self.info.distro.initrd, output_dir=bootdir)
-
+        else:
+            raise Exception("Could not retrieve the required installation files")
         # Check the files
         log.debug("Checking files")
         self.info.kernel = join_path(bootdir, os.path.basename(self.info.distro.kernel))
@@ -499,7 +504,7 @@ class Backend(object):
         relpath = relpath.replace("\\", "/")
         md5line = find_line_in_file(md5sums, "./%s" % relpath, endswith=True)
         if not md5line:
-            raise Exception("Cannot find md5 for %s" % relpath)
+            raise Exception("Cannot find md5 in %s for %s" % (md5sums, relpath))
         reference_md5 = md5line.split()[0]
         md5  = get_file_md5(file_path, associated_task)
         log.debug("  %s md5 = %s %s %s" % (file_path, md5, md5 == reference_md5 and "==" or "!=", reference_md5))
@@ -563,8 +568,9 @@ class Backend(object):
         template = read_file(template_file)
         if self.info.run_task == "cd_boot":
             isopath = ""
-        elif self.info.cd_path:
-            isopath = unix_path(self.info.cd_path)
+        ## TBD at the moment we are extracting the ISO, not the CD content
+        #~ elif self.info.cd_path:
+            #~ isopath = unix_path(self.info.cd_path)
         elif self.info.iso_path:
             isopath = unix_path(self.info.iso_path)
         dic = dict(
@@ -597,7 +603,7 @@ class Backend(object):
             log.debug("Cannot find %s" % self.info.previous_target_dir)
             return
         log.debug("Deleting %s" % self.info.previous_target_dir)
-        shutil.rmtree(self.info.previous_target_dir)
+        rm_tree(self.info.previous_target_dir)
 
     def find_iso(self, associated_task=None):
         log.debug("Searching for local ISO")

@@ -120,3 +120,5 @@ class WindowsFrontend(ui.Frontend):
         self.tasklist = tasklist
         tasklist.start()
         self.show_page(self.progress_page)
+        if isinstance(tasklist.error, Exception):
+            raise tasklist.error

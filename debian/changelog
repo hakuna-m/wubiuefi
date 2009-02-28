@@ -146,5 +146,13 @@ wubi (9.04) UNRELEASED; urgency=low
     displaying the menu
   * Trap unhandled exceptions and log/notify the user
   * Fixed CD-boot helper which was failing when extracting CD content
+  * Added installation directory as one of the isolist.ini settings
+  * Fixed unhandled exception message, which wasn't showing properly
+  * Extract ISO from CD instead of copying the files (the latter
+    approach is blocked by #243105)
+  * Fixed target drive selection in CD-boot helper mode, which wasn't
+    checking available free space
+  * Set file attributes to normal before recursively removing a
+    directory
 
- -- Agostino Russo <agostino.russo@gmail.com>  Wed, 25 Feb 2009 03:42:06 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Sat, 28 Feb 2009 10:58:21 +0000
