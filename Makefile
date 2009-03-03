@@ -28,6 +28,13 @@ wubi-pre-build: check_wine winboot pylauncher src/main.py src/wubi/*.py cpuid ve
 	cp wine/drive_c/windows/system32/python23.dll build/pylauncher #TBD
 	cp build/cpuid/cpuid.dll build/bin
 
+translations: po/*.po po/*.pot
+	mkdir -p build/translations/
+	pygettext src/wubi --all --escape --default-domain="$(PACKAGE)" --output="$(PACKAGE).pot" --output-dir="po" src/wubi/main.py
+	sed -i 's/CHARSET/UTF-8/' po/$(PACKAGE).pot
+	sed -i 's/ENCODING/8bit/' po/$(PACKAGE).pot
+	cd po; msgfmt *
+
 version.py:
 	$(shell echo 'version = "$(VERSION)"' > build/version.py)
 	$(shell echo 'revision = $(REVISION)' >> build/version.py)

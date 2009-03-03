@@ -61,71 +61,67 @@ class Backend(object):
         self.info.data_dir = join_path(self.info.root_dir, 'data')
         self.info.bin_dir = join_path(self.info.root_dir, 'bin')
         self.info.image_dir = join_path(self.info.data_dir, 'images')
+        self.info.translations_dir = join_path(self.info.root_dir, 'translations')
         self.info.trusted_keys = join_path(self.info.data_dir, 'trustedkeys.gpg')
+        gettext.install(self.info.application_name, localedir=self.info.translations_dir)
         log.debug('data_dir=%s' % self.info.data_dir)
 
     def get_installation_tasklist(self):
         tasks = [
-            Task(self.select_target_dir, description="Selecting target directory"),
-            Task(self.create_dir_structure, description="Creating the installation directories"),
-            Task(self.create_uninstaller, description="Creating the uninstaller"),
-            Task(self.copy_installation_files, description="Copying files"),
-            Task(self.get_iso, description="Retrieving the ISO"),
-            Task(self.extract_kernel, description="Extracting the kernel"),
-            Task(self.choose_disk_sizes, description="Choosing disk sizes"),
-            Task(self.create_preseed, description="Creating a preseed file"),
-            Task(self.modify_bootloader, description="Adding a new bootlader entry"),
-            Task(self.modify_grub_configuration, description="Setting up installation boot menu"),
-            Task(self.create_virtual_disks, description="Creating the virtual disks"),
-            Task(self.uncompress_files, description="Uncompressing files"),
-            Task(self.eject_cd, description="Ejecting the CD"),
+            Task(self.select_target_dir, description=_("Selecting target directory")),
+            Task(self.create_dir_structure, description=_("Creating the installation directories")),
+            Task(self.create_uninstaller, description=_("Creating the uninstaller")),
+            Task(self.copy_installation_files, description=_("Copying files")),
+            Task(self.get_iso, description=_("Retrieving the ISO")),
+            Task(self.extract_kernel, description=_("Extracting the kernel")),
+            Task(self.choose_disk_sizes, description=_("Choosing disk sizes")),
+            Task(self.create_preseed, description=_("Creating a preseed file")),
+            Task(self.modify_bootloader, description=_("Adding a new bootlader entry")),
+            Task(self.modify_grub_configuration, description=_("Setting up installation boot menu")),
+            Task(self.create_virtual_disks, description=_("Creating the virtual disks")),
+            Task(self.uncompress_files, description=_("Uncompressing files")),
+            Task(self.eject_cd, description=_("Ejecting the CD")),
             ]
-        tasklist = ThreadedTaskList(name="installer", description="Installing", tasks=tasks)
+        tasklist = ThreadedTaskList(name=_("Installer"), description=_("Installing"), tasks=tasks)
         return tasklist
 
     def get_cdboot_tasklist(self):
         tasks = [
-            Task(self.select_target_dir, description="Selecting target directory"),
-            Task(self.create_dir_structure, description="Creating the installation directories"),
-            Task(self.create_uninstaller, description="Creating the uninstaller"),
-            Task(self.copy_installation_files, description="Copying files"),
-            Task(self.use_cd, description="Extracting CD content"),
-            Task(self.extract_kernel, description="Extracting the kernel"),
-            Task(self.create_preseed_cdboot, description="Creating a preseed file"),
-            Task(self.modify_bootloader, description="Adding a new bootlader entry"),
-            Task(self.modify_grub_configuration, description="Setting up installation boot menu"),
-            Task(self.uncompress_files, description="Uncompressing files"),
-            Task(self.eject_cd, description="Ejecting the CD"),
+            Task(self.select_target_dir, description=_("Selecting target directory")),
+            Task(self.create_dir_structure, description=_("Creating the installation directories")),
+            Task(self.create_uninstaller, description=_("Creating the uninstaller")),
+            Task(self.copy_installation_files, description=_("Copying files")),
+            Task(self.use_cd, description=_("Extracting CD content")),
+            Task(self.extract_kernel, description=_("Extracting the kernel")),
+            Task(self.create_preseed_cdboot, description=_("Creating a preseed file")),
+            Task(self.modify_bootloader, description=_("Adding a new bootlader entry")),
+            Task(self.modify_grub_configuration, description=_("Setting up installation boot menu")),
+            Task(self.uncompress_files, description=_("Uncompressing files")),
+            Task(self.eject_cd, description=_("Ejecting the CD")),
             ]
-        tasklist = ThreadedTaskList(name="installer", description="Installing", tasks=tasks)
+        tasklist = ThreadedTaskList(name=_("Installer"), description=_("CD boot helper"), tasks=tasks)
         return tasklist
 
 
     def get_reboot_tasklist(self):
         tasks = [
-            Task(self.reboot, description="Rebooting"),
+            Task(self.reboot, description=_("Rebooting")),
             ]
-        tasklist = ThreadedTaskList(name="Reboot", description="Rebooting", tasks=tasks)
+        tasklist = ThreadedTaskList(name=_("Reboot"), description=_("Rebooting"), tasks=tasks)
         return tasklist
 
     def get_uninstallation_tasklist(self):
         tasks = [
-            Task(self.backup_iso, "Backup ISO"),
-            Task(self.undo_bootloader, "Remove bootloader entry"),
-            Task(self.remove_target_dir, "Remove target dir"),
-            Task(self.remove_registry_key, "Remove registry key"),]
-        tasklist = ThreadedTaskList(name="Uninstaller", description="Uninstalling", tasks=tasks)
+            Task(self.backup_iso, _("Backup ISO")),
+            Task(self.undo_bootloader, _("Remove bootloader entry")),
+            Task(self.remove_target_dir, _("Remove target dir")),
+            Task(self.remove_registry_key, _("Remove registry key")),]
+        tasklist = ThreadedTaskList(name=_("Uninstaller"), description=_("Uninstalling"), tasks=tasks)
         return tasklist
 
     def show_info(self):
         log.debug("Showing info")
         os.startfile(self.info.cd_distro.website)
-
-    def change_language(self, codeset):
-        domain = self.info.application_name #not sure what it is
-        localedir = join_path(self.info.data_dir, 'locale')
-        self.info.codeset = codeset # set the language
-        gettext.install(domain, codeset=codeset)
 
     def fetch_basic_info(self):
         '''
@@ -251,7 +247,7 @@ class Backend(object):
         return True
 
     def check_cd(self, cd_path, associated_task=None):
-        associated_task.description = "Checking CD %s" % cd_path
+        associated_task.description = _("Checking CD %s") % cd_path
         self.set_distro_from_arch(cd_path)
         if self.info.skip_md5_check:
             return True
@@ -272,7 +268,7 @@ class Backend(object):
         md5sum = None
         if not self.info.distro.metalink:
             get_metalink = associated_task.add_subtask(
-                self.get_metalink, description="Retrieving the Metalink")
+                self.get_metalink, description=_("Retrieving the Metalink"))
             get_metalink()
             if not self.info.distro.metalink:
                 log.error("ERROR: the metalink file is not available, cannot check the md5 for %s, ignoring" % iso_path)
@@ -285,7 +281,7 @@ class Backend(object):
             return True
         get_md5 = associated_task.add_subtask(
             get_file_md5,
-            description = "Calculating md5 for %s" % iso_path)
+            description = _("Calculating md5 for %s") % iso_path)
         md5sum2 = get_md5(iso_path)
         if md5sum != md5sum2:
             log.exception("Invalid md5 for ISO %s (%s != %s)" % (iso_path, md5sum, md5sum2))
@@ -433,14 +429,14 @@ class Backend(object):
         if cd_path:
             extract_iso = associated_task.add_subtask(
                 copy_file,
-                description = "Extracting files from %s" % cd_path)
+                description = _("Extracting files from %s") % cd_path)
             self.info.iso_path = join_path(self.info.install_dir, "installation.iso")
             extract_iso(cd_path, self.info.iso_path)
             self.info.cd_path = cd_path
             #This will often fail before release as the CD might not match the latest daily ISO
             check_iso = associated_task.add_subtask(
                 self.check_iso,
-                description = "Checking installation files")
+                description = _("Checking installation files"))
             if not check_iso(self.info.iso_path):
                 self.info.cd_path = None
                 self.info.iso_path = None
@@ -499,7 +495,7 @@ class Backend(object):
     def check_file(self, file_path, relpath, md5sums, associated_task=None):
         log.debug("  checking %s" % file_path)
         if associated_task:
-            associated_task.description = "Checking %s" % file_path
+            associated_task.description = _("Checking %s") % file_path
         relpath = relpath.replace("\\", "/")
         md5line = find_line_in_file(md5sums, "./%s" % relpath, endswith=True)
         if not md5line:

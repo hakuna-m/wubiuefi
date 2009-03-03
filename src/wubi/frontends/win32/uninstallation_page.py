@@ -32,9 +32,9 @@ class UninstallationPage(Page):
 
         #header
         if self.info.uninstall_before_install:
-            msg = "Uninstallation required"
+            msg = _("Uninstallation required")
         else:
-            msg = "You are about to uninstall Ubuntu"
+            msg = _("You are about to uninstall Ubuntu")
         self.insert_header(
             #TBD change it to something more dynamic
             msg,
@@ -42,16 +42,16 @@ class UninstallationPage(Page):
             "Ubuntu-header.bmp")
 
         #navigation
-        self.insert_navigation("Uninstall", "Cancel", default=2)
+        self.insert_navigation(_("Uninstall"), _("Cancel"), default=2)
         self.navigation.button2.on_click = self.on_cancel
         self.navigation.button1.on_click = self.on_uninstall
 
         #Main control container
         self.insert_main()
         if self.info.uninstall_before_install:
-            msg = "A previous installation was detected, it needs to be uninstalled before continuing\n"
+            msg = _("A previous installation was detected, it needs to be uninstalled before continuing\n")
         else:
-            msg = "Are you sure you want to uninstall?"
+            msg = _("Are you sure you want to uninstall?")
 
         self.uninstall_label = ui.Label(
             self.main,
@@ -59,7 +59,7 @@ class UninstallationPage(Page):
             msg)
         self.backup_iso = ui.CheckButton(
             self.main, 80, 70, self.main.width - 120, 12,
-            "Backup the downloaded files (ISO)")
+            _("Backup the downloaded files (ISO)"))
         self.backup_iso.set_check(False)
         self.backup_iso.hide()
         install_dir = os.path.join(self.info.previous_target_dir, 'install')

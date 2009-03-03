@@ -32,12 +32,12 @@ class ProgressPage(Page):
         #header
         self.insert_header(
             #TBD change it to something more dynamic
-            "Installing Ubuntu",
-            "Please wait",
-            "Ubuntu-header.bmp")
+            _("Installing Ubuntu"),
+            _("Please wait"),
+            _("Ubuntu-header.bmp"))
 
         #navigation
-        self.insert_navigation("Cancel")
+        self.insert_navigation(_("Cancel"))
         self.navigation.button1.on_click = self.on_cancel
 
         #main container
@@ -46,7 +46,7 @@ class ProgressPage(Page):
         self.main.progressbar = ui.ProgressBar(self.main, 20, 50, self.width - 40, 20)
         self.main.subtask_label = ui.Label(self.main, 20, 80, self.width - 40, 20)
         self.main.subprogressbar = ui.ProgressBar(self.main, 20, 110, self.width - 40, 20)
-        self.main.localiso_button = ui.Button(self.main, 20, 150, 200, 20, "Do not download, use a local file")
+        self.main.localiso_button = ui.Button(self.main, 20, 150, 200, 20, _("Do not download, use a local file"))
 
         self.main.localiso_button.hide()
         self.main.subtask_label.hide()
@@ -59,7 +59,7 @@ class ProgressPage(Page):
         self.main.task_label.set_text(task.description)
         if task.get_percent_completed() > 0:
             self.main.subprogressbar.set_position(int(100*task.get_percent_completed()))
-            self.main.subtask_label.set_text("Remaining time approximately %s" % task.estimate_remaining_time())
+            self.main.subtask_label.set_text(_("Remaining time approximately %s") % task.estimate_remaining_time())
             self.main.subtask_label.show()
             self.main.subprogressbar.show()
         else:

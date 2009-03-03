@@ -145,9 +145,9 @@ class WindowsBackend(Backend):
             log.debug('Copying %s -> %s' % (src, dest))
             shutil.copytree(src, dest)
         dest = join_path(self.info.custominstall, 'hooks', 'failure-command.sh')
-        msg='The installation failed. Logs have been saved in: %s.' \
+        msg=_('The installation failed. Logs have been saved in: %s.' \
             '\n\nNote that in verbose mode, the logs may include the password.' \
-            '\n\nThe system will now reboot.'
+            '\n\nThe system will now reboot.')
         msg = msg % join_path(self.info.install_dir, 'installation-logs.zip')
         replace_line_in_file(dest, 'msg=', "msg='%s'" % msg)
         src = join_path(self.info.image_dir, self.info.distro.name + '.ico')

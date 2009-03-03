@@ -20,12 +20,13 @@
 
 from winui import ui
 from page import Page
-from wubi.backends.common.mappings import reserved_usernames
+from wubi.backends.common.mappings import reserved_usernames, lang_country2linux_locale
 import os
 import logging
 import sys
 import re
 import md5
+import gettext
 
 log = logging.getLogger("WinuiInstallationPage")
 if sys.version.startswith('2.3'):
@@ -70,15 +71,15 @@ class InstallationPage(Page):
             if int(drive.free_space_mb/1024) * 1000 > min_space_mb:
                 max_space_mb2 = max(max_space_mb2, drive.free_space_mb)
         if max_space_mb < 1024:
-            message = "Only %sMB of disk space are available.\nAt least 1024MB are required as a bare minimum. Quitting"
+            message = _("Only %sMB of disk space are available.\nAt least 1024MB are required as a bare minimum. Quitting")
             message = message % int(max_space_mb)
-            self.frontend.show_error_message(message, "%s Installer" % distro.name)
+            self.frontend.show_error_message(message, _("%s Installer") % distro.name)
             self.frontend.quit()
         if max_space_mb2 < min_space_mb:
-            message = "%sMB of disk size are required for installation.\nOnly %sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?"
+            message = _("%sMB of disk size are required for installation.\nOnly %sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?")
             min_space_mb = round(min_space_mb/1000+0.5)*1024
             message = message % (int(min_space_mb), int(max_space_mb))
-            if not self.frontend.ask_confirmation(message, "%s Installer" % distro.name):
+            if not self.frontend.ask_confirmation(message, _("%s Installer") % distro.name):
                 self.frontend.quit()
             else:
                 self.info.skip_size_check = True
@@ -94,7 +95,7 @@ class InstallationPage(Page):
             drive_space_mb = int(drive.free_space_mb/1024) * 1000
             if self.info.skip_size_check \
             or drive_space_mb > min_space_mb:
-                text = "%s (%sGB free)" % (drive.path, drive_space_mb/1000)
+                text = _("%s (%sGB free)") % (drive.path, drive_space_mb/1000)
                 self.drives_gb.append(text)
                 self.target_drive_list.add_item(text)
         self.select_default_drive()
@@ -108,7 +109,7 @@ class InstallationPage(Page):
             else:
                 drive = self.info.drives_dict.get(drive[:2].lower())
         if drive:
-            drive = "%s (%sGB free)" % (drive.path, int(drive.free_space_mb/1024))
+            drive = _("%s (%sGB free)") % (drive.path, int(drive.free_space_mb/1024))
         else:
             drive = self.drives_gb[0]
         self.target_drive_list.set_value(drive)
@@ -169,12 +170,12 @@ class InstallationPage(Page):
         #header
         self.insert_header(
             #TBD change it to something more dynamic
-            "You are about to install Ubuntu",
-            "Please select username and password for the new account",
-            "Ubuntu-header.bmp")
+            _("You are about to install Ubuntu"),
+            _("Please select username and password for the new account"),
+            _("Ubuntu-header.bmp"))
 
         #navigation
-        self.insert_navigation("Accessibility", "Install", "Cancel", default=2)
+        self.insert_navigation(_("Accessibility"), _("Install"), _("Cancel"), default=2)
         self.navigation.button3.on_click = self.on_cancel
         self.navigation.button2.on_click = self.on_install
         self.navigation.button1.on_click = self.on_accessibility
@@ -186,33 +187,34 @@ class InstallationPage(Page):
 
         picture, label, self.target_drive_list = self.add_controls_block(
             self.main, h, h,
-            "install.bmp", "Installation drive:", True)
+            "install.bmp", _("Installation drive:"), True)
         # populated by on_distro_change
         self.target_drive_list.on_change = self.on_drive_change
 
         picture, label, self.size_list = self.add_controls_block(
                 self.main, h, h*4,
-                "systemsize.bmp", "Installation size:", True)
+                "systemsize.bmp", _("Installation size:"), True)
         # populated by on_drive_change
         self.size_list.on_change = self.on_size_change
 
         picture, label, self.distro_list = self.add_controls_block(
             self.main, h, h*7,
-            "desktop.bmp", "Desktop environment:", True)
+            "desktop.bmp", _("Desktop environment:"), True)
         self.populate_distro_list()
         self.distro_list.on_change = self.on_distro_change
 
         picture, label, self.language_list = self.add_controls_block(
             self.main, h*4 + w, h,
-            "language.bmp", "Language:", True)
+            "language.bmp", _("Language:"), True)
         self.populate_language_list()
+        self.launguage_list.on_change = self.on_language_change
 
         username = self.info.host_username.lower()
         username = username.replace(' ', '_')
         username = username.replace('_', '__')
         picture, label, combo = self.add_controls_block(
             self.main, h*4 + w, h*4,
-            "user.bmp", "Username:", None)
+            "user.bmp", _("Username:"), None)
         self.username = ui.Edit(
             self.main,
             h*4 + w + 42, h*4+20, 150, 20,
@@ -258,13 +260,20 @@ class InstallationPage(Page):
         distro = self.get_distro()
         if not self.info.skip_memory_check:
             if self.info.total_memory_mb < distro.min_memory_mb:
-                message = "%sMB of memory are required for installation.\nOnly %sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?"
+                message = _("%sMB of memory are required for installation.\nOnly %sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?")
                 message = message % (int(distro.min_memory_mb), int(self.info.total_memory_mb))
                 if not self.frontend.ask_confirmation(message):
                     self.frontend.quit()
                 else:
                     self.info.skip_memory_check = True
         self.populate_drive_list()
+
+    def on_language_change(self):
+        language = self.language_list.get_text()
+        language2 = language[:2]
+        language3 = lang_country2linux_locale.get(self.info.language, None)
+        translation = gettext.translations(self.info.application_name, localedir=self.info.translations_dir, languages=[language, language2, language3])
+        translation.install()
 
     def on_drive_change(self):
         self.info.target_drive = self.get_drive()
@@ -291,26 +300,26 @@ class InstallationPage(Page):
         if not username:
             error_message = _("Please enter a valid username")
         elif username != username.lower():
-            error_message = "Please use all lower cases in the username."
+            error_message = _("Please use all lower cases in the username.")
         elif " " in username:
-            error_message =  "Please do not use spaces in the username."
+            error_message =  _("Please do not use spaces in the username.")
         elif not re_first_char_is_letter.match(username):
-            error_message =  "Your username must start with a letter."
+            error_message =  _("Your username must start with a letter.")
         elif not re_only_alphanum.match(username):
-            error_message =  "Your username must contain only standard letters and numbers."
+            error_message =  _("Your username must contain only standard letters and numbers.")
         elif username in reserved_usernames:
-            error_message = "The selected username is reserved, please selected a different one."
+            error_message = _("The selected username is reserved, please selected a different one.")
         elif not password1:
-            error_message = "Please enter a valid password."
+            error_message = _("Please enter a valid password.")
         elif " " in password1:
-            error_message = "Please do not use spaces in the password."
+            error_message = _("Please do not use spaces in the password.")
         elif password1 != password2:
-            error_message = "Passwords do not match."
+            error_message = _("Passwords do not match.")
         self.error_label.set_text(error_message)
         if error_message:
             return
         log.debug(
-            "target_drive=%s\ninstallation_size=%sMB\ndistro_name=%s\nlanguage=%s\nusername=%s" \
+            _("target_drive=%s\ninstallation_size=%sMB\ndistro_name=%s\nlanguage=%s\nusername=%s") \
             % (drive.path, installation_size_mb, distro.name, language, username))
         self.info.target_drive = drive
         self.info.distro = distro

@@ -32,7 +32,7 @@ class CDFinishPage(Page):
         self.insert_vertical_image("Ubuntu-vertical.bmp")
 
         #navigation
-        self.insert_navigation("< Back", "Finish", "Cancel", default=2)
+        self.insert_navigation(_("< Back"), _("Finish"), _("Cancel"), default=2)
         self.navigation.button1.on_click = self.on_back
         self.navigation.button2.on_click = self.on_finish
         self.navigation.button3.on_click = self.on_cancel
@@ -40,13 +40,13 @@ class CDFinishPage(Page):
         #main container
         self.insert_main()
         self.main.set_background_color(255,255,255)
-        self.main.title = ui.Label(self.main, 40, 20, self.main.width - 80, 60, "Reboot required")
+        self.main.title = ui.Label(self.main, 40, 20, self.main.width - 80, 60, _("Reboot required"))
         self.main.title.set_font(size=20, bold=True, family="Arial")
-        txt = "To start the Live CD you need to reboot your machine leaving the CD in the tray. If your machine cannot boot from the CD, the last option should work in most cases."
+        txt = _("To start the Live CD you need to reboot your machine leaving the CD in the tray. If your machine cannot boot from the CD, the last option should work in most cases.")
         self.main.label = ui.Label(self.main, 40, 90, self.main.width - 80, 40, txt)
-        self.main.reboot_now = ui.RadioButton(self.main, 60, 150, self.main.width - 100, 20, "Reboot now")
-        self.main.reboot_later = ui.RadioButton(self.main, 60, 180, self.main.width - 100, 20, "I want to manually reboot Later")
-        self.main.cd_boot = ui.RadioButton(self.main, 60, 210, self.main.width - 100, 20, "Help me to boot from CD")
+        self.main.reboot_now = ui.RadioButton(self.main, 60, 150, self.main.width - 100, 20, _("Reboot now"))
+        self.main.reboot_later = ui.RadioButton(self.main, 60, 180, self.main.width - 100, 20, _("I want to manually reboot Later"))
+        self.main.cd_boot = ui.RadioButton(self.main, 60, 210, self.main.width - 100, 20, _("Help me to boot from CD"))
         self.main.reboot_later.set_check(True)
 
     def on_finish(self):

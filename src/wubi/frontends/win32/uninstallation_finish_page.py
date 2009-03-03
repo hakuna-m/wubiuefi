@@ -32,15 +32,15 @@ class UninstallationFinishPage(Page):
         self.insert_vertical_image("Ubuntu-vertical.bmp")
 
         #navigation
-        self.insert_navigation("Finish", default=1)
+        self.insert_navigation(_("Finish"), default=1)
         self.navigation.button1.on_click = self.on_finish
 
         #main container
         self.insert_main()
         self.main.set_background_color(255,255,255)
-        self.main.title = ui.Label(self.main, 40, 20, self.main.width - 80, 60, "Uninstallation completed")
+        self.main.title = ui.Label(self.main, 40, 20, self.main.width - 80, 60, _("Uninstallation completed"))
         self.main.title.set_font(size=20, bold=True, family="Arial")
-        self.main.label = ui.Label(self.main, 40, 90, self.main.width - 80, 40, "Ubuntu has bee successfully uninstalled")
+        self.main.label = ui.Label(self.main, 40, 90, self.main.width - 80, 40, _("Ubuntu has bee successfully uninstalled"))
 
     def on_finish(self):
         self.frontend.stop()

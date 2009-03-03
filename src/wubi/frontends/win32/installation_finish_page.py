@@ -32,17 +32,17 @@ class InstallationFinishPage(Page):
         self.insert_vertical_image("Ubuntu-vertical.bmp")
 
         #navigation
-        self.insert_navigation("Finish", default=1)
+        self.insert_navigation(_("Finish"), default=1)
         self.navigation.button1.on_click = self.on_finish
 
         #main container
         self.insert_main()
         self.main.set_background_color(255,255,255)
-        self.main.title = ui.Label(self.main, 40, 20, self.main.width - 80, 60, "Completing the Ubuntu Setup Wizard")
+        self.main.title = ui.Label(self.main, 40, 20, self.main.width - 80, 60, _("Completing the Ubuntu Setup Wizard"))
         self.main.title.set_font(size=20, bold=True, family="Arial")
-        self.main.label = ui.Label(self.main, 40, 90, self.main.width - 80, 40, "You need to reboot to complete the installation")
-        self.main.reboot_now = ui.RadioButton(self.main, 60, 150, self.main.width - 100, 20, "Reboot now")
-        self.main.reboot_later = ui.RadioButton(self.main, 60, 180, self.main.width - 100, 20, "I want to manually reboot later")
+        self.main.label = ui.Label(self.main, 40, 90, self.main.width - 80, 40, _("You need to reboot to complete the installation"))
+        self.main.reboot_now = ui.RadioButton(self.main, 60, 150, self.main.width - 100, 20, _("Reboot now"))
+        self.main.reboot_later = ui.RadioButton(self.main, 60, 180, self.main.width - 100, 20, _("I want to manually reboot later"))
         self.main.reboot_later.set_check(True)
 
     def on_finish(self):

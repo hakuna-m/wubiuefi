@@ -53,7 +53,7 @@ class Wubi(object):
             log.exception(err)
             if self.frontend:
                 error_messages = "\n".join([e for e in err.args if isinstance(e, basestring)])
-                self.frontend.show_error_message("An error occurred:\n\n%s\n\nFor more information, please see the log file: %s" % (error_messages, self.info.log_file), "Wubi Error")
+                self.frontend.show_error_message(_("An error occurred:\n\n%s\n\nFor more information, please see the log file: %s") % (error_messages, self.info.log_file), _("Wubi Error"))
             self.quit()
 
     def quit(self):
@@ -126,10 +126,10 @@ class Wubi(object):
             self.run_uninstaller()
             self.backend.fetch_basic_info()
             if self.info.previous_target_dir:
-                message = "A previous installation was detected in %s.\nPlease uninstall that before continuing."
+                message = _("A previous installation was detected in %s.\nPlease uninstall that before continuing.")
                 message = message % self.info.previous_target_dir
                 log.error(message)
-                self.get_frontend().show_error_message(message, "Wubi Installer")
+                self.get_frontend().show_error_message(message, _("Wubi Installer"))
                 self.quit()
         log.info("Running the installer...")
         self.frontend = self.get_frontend()
@@ -165,7 +165,7 @@ class Wubi(object):
         log.info("Running the CD menu...")
         self.frontend = self.get_frontend()
         if not self.info.cd_distro:
-            self.frontend.show_error_message("No CD detected, cannot run CD menu", "CD menu")
+            self.frontend.show_error_message(_("No CD detected, cannot run CD menu"), _("CD menu"))
             self.quit()
         self.frontend.show_cd_menu_page()
         log.info("CD menu finished")
@@ -173,7 +173,7 @@ class Wubi(object):
 
     def run_cd_boot(self):
         if not self.info.cd_distro:
-            message = "Could not find any valid CD.\nCD boot helper can only be used with a Live CD."
+            message = _("Could not find any valid CD.\nCD boot helper can only be used with a Live CD.")
             log.error(message)
             self.get_frontend().show_error_message(message, "CD Boot Helper")
             self.quit()
@@ -183,10 +183,10 @@ class Wubi(object):
             self.run_uninstaller()
             self.backend.fetch_basic_info()
             if self.info.previous_target_dir:
-                message = "A previous installation was detected in %s.\nPlease uninstall that before continuing."
+                message = _("A previous installation was detected in %s.\nPlease uninstall that before continuing.")
                 message = message % self.info.previous_target_dir
                 log.error(message)
-                self.get_frontend().show_error_message(message, "CD Boot Helper")
+                self.get_frontend().show_error_message(message, _("CD Boot Helper"))
                 self.quit()
         log.info("Running the CD boot helper...")
         self.frontend = self.get_frontend()

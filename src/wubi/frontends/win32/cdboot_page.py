@@ -39,10 +39,10 @@ class CDBootPage(Page):
                 self.info.target_drive = drive
                 break
         if not self.info.target_drive:
-            self.frontend.show_error_message("Not enough disk space to proceed", "CD Boot Helper Setup")
+            self.frontend.show_error_message(_("Not enough disk space to proceed"), _("CD Boot Helper Setup"))
 
         #navigation
-        self.insert_navigation("Accessibility", "Install", "Cancel", default=2)
+        self.insert_navigation(_("Accessibility"), _("Install"), _("Cancel"), default=2)
         self.navigation.button3.on_click = self.on_cancel
         self.navigation.button2.on_click = self.on_install
         self.navigation.button1.on_click = self.on_accessibility
@@ -50,9 +50,9 @@ class CDBootPage(Page):
         #main container
         self.insert_main()
         self.main.set_background_color(255,255,255)
-        self.main.title = ui.Label(self.main, 40, 20, self.main.width - 80, 60, "Install CD booter")
+        self.main.title = ui.Label(self.main, 40, 20, self.main.width - 80, 60, _("Install CD booter"))
         self.main.title.set_font(size=20, bold=True, family="Arial")
-        txt = "If your machine cannot boot off the CD, this program will install a new boot menu entry to help you boot from CD. In most cases this program is not needed, and it is sufficient to reboot with the CD-Rom in the tray.\n\nDo you want to proceed and install the CD booter?"
+        txt = _("If your machine cannot boot off the CD, this program will install a new boot menu entry to help you boot from CD. In most cases this program is not needed, and it is sufficient to reboot with the CD-Rom in the tray.\n\nDo you want to proceed and install the CD booter?")
         self.main.label = ui.Label(self.main, 40, 90, self.main.width - 80, 80, txt)
 
     def on_cancel(self):

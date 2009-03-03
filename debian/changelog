@@ -162,5 +162,6 @@ wubi (9.04) UNRELEASED; urgency=low
     URL
   * No need to use a second temp directory
   * Display controls with transparent background without artifacts
+  * Preliminary gettext support (to be completed)
 
- -- Agostino Russo <agostino.russo@gmail.com>  Tue, 03 Mar 2009 00:13:21 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Tue, 03 Mar 2009 01:38:33 +0000
