@@ -48,7 +48,7 @@ class CDMenuPage(Page):
         lh = 66
 
         #boot from cd
-        self.main.boot_cd_button = ui.Button(self.main, x, y, bw, bh, "Demo and full installation")
+        self.main.boot_cd_button = ui.FlatButton(self.main, x, y, bw, bh, "Demo and full installation")
         y += bh + 2
         txt = "Try %s without installing! Simply reboot your machine with the CD in the tray. You may perform a full installation from within the demo to install %s either alongside Windows or as the only operating system."
         txt = txt % (distro_name, distro_name)
@@ -57,7 +57,7 @@ class CDMenuPage(Page):
 
         #wubi
         y += lh + sep
-        self.main.wubi_button = ui.Button(self.main, x, y, bw, bh, "Install inside Windows")
+        self.main.wubi_button = ui.FlatButton(self.main, x, y, bw, bh, "Install inside Windows")
         y += bh + 2
         txt = "Install and uninstall %s like any other application, without the need for a dedicated partition. You will be able to boot into either Windows or %s. Hibernation is not enabled in this mode and disk performance is slightly reduced."
         txt = txt % (distro_name, distro_name)
@@ -66,7 +66,7 @@ class CDMenuPage(Page):
 
         #info
         y += lh + sep
-        self.main.info_button = ui.Button(self.main, x, y, bw, bh, "Learn more")
+        self.main.info_button = ui.FlatButton(self.main, x, y, bw, bh, "Learn more")
         y += bh + 2
         txt = "%s is a free, community developed, linux-based operating system complete with a web browser, productivity software, instant messaging, and much more."
         txt = txt % (distro_name)

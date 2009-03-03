@@ -140,9 +140,10 @@ class WindowsBackend(Backend):
         log.debug('Copying %s -> %s' % (src, dest))
         shutil.copytree(src, dest)
         src = join_path(self.info.root_dir, 'winboot')
-        dest = join_path(self.info.target_dir, 'winboot')
-        log.debug('Copying %s -> %s' % (src, dest))
-        shutil.copytree(src, dest)
+        if isdir(src): # make runpy will fail otherwise as winboot will not be there
+            dest = join_path(self.info.target_dir, 'winboot')
+            log.debug('Copying %s -> %s' % (src, dest))
+            shutil.copytree(src, dest)
         dest = join_path(self.info.custominstall, 'hooks', 'failure-command.sh')
         msg='The installation failed. Logs have been saved in: %s.' \
             '\n\nNote that in verbose mode, the logs may include the password.' \

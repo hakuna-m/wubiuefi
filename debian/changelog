@@ -160,5 +160,7 @@ wubi (9.04) UNRELEASED; urgency=low
     Wubi instance
   * Fixed show-info, it was using an incorrect distro instance for the
     URL
+  * No need to use a second temp directory
+  * Display controls with transparent background without artifacts
 
- -- Agostino Russo <agostino.russo@gmail.com>  Sat, 28 Feb 2009 22:22:56 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Tue, 03 Mar 2009 00:13:21 +0000

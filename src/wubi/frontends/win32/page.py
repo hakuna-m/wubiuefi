@@ -66,13 +66,11 @@ class Page(ui.Page):
                 hbw + 20, 10, self.width - 200, 20,
                 text = title)
             self.header.title.set_font(bold=True)
-            #~ self.header.title.set_background_color(255,255,255)
         if subtitle:
             self.header.subtitle = ui.Label(
                 self.header,
                 hbw + 20, 30, self.width - 200, 20,
                 text = subtitle)
-            #~ self.header.subtitle.set_background_color(255,255,255)
         self.header.line = ui.EtchedRectangle(self.header,0, hbh,self.width, 2)
         self.header.height = hbh + 2
         self.header.set_background_color(255,255,255)

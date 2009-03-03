@@ -54,12 +54,10 @@ class Backend(object):
         self.info = application.info
         if hasattr(sys,'frozen') and sys.frozen:
             root_dir = dirname(abspath(sys.executable))
-            temp_dir = tempfile.mkdtemp(dir=root_dir)
         else:
             root_dir = ''
-            temp_dir = tempfile.mkdtemp()
         self.info.root_dir = abspath(root_dir)
-        self.info.temp_dir = abspath(temp_dir)
+        self.info.temp_dir = join_path(self.info.root_dir, 'temp')
         self.info.data_dir = join_path(self.info.root_dir, 'data')
         self.info.bin_dir = join_path(self.info.root_dir, 'bin')
         self.info.image_dir = join_path(self.info.data_dir, 'images')
