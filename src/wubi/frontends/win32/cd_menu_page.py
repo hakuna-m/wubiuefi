@@ -56,13 +56,14 @@ class CDMenuPage(Page):
         self.main.boot_cd_button.on_click = self.on_cd_boot
 
         #wubi
-        y += lh + sep
-        self.main.wubi_button = ui.FlatButton(self.main, x, y, bw, bh, _("Install inside Windows"))
-        y += bh + 2
-        txt = _("Install and uninstall %(distro)s like any other application, without the need for a dedicated partition. You will be able to boot into either Windows or %(distro)s. Hibernation is not enabled in this mode and disk performance is slightly reduced.")
-        txt = txt % dict(distro=distro_name)
-        self.main.wubi_label = ui.Label(self.main, x, y, lw, lh, txt)
-        self.main.wubi_button.on_click = self.on_wubi
+        if not self.info.hide_wubi:
+            y += lh + sep
+            self.main.wubi_button = ui.FlatButton(self.main, x, y, bw, bh, _("Install inside Windows"))
+            y += bh + 2
+            txt = _("Install and uninstall %(distro)s like any other application, without the need for a dedicated partition. You will be able to boot into either Windows or %(distro)s. Hibernation is not enabled in this mode and disk performance is slightly reduced.")
+            txt = txt % dict(distro=distro_name)
+            self.main.wubi_label = ui.Label(self.main, x, y, lw, lh, txt)
+            self.main.wubi_button.on_click = self.on_wubi
 
         #info
         y += lh + sep

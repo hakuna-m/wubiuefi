@@ -166,5 +166,6 @@ wubi (9.04) UNRELEASED; urgency=low
   * Completed gettext support
   * Merged old translations
   * Use previous distro name in strings during uninstallation progress
+  * Provide an option to hide wubi installation in CD menu (LP: #338015)
 
- -- Agostino Russo <agostino.russo@gmail.com>  Wed, 04 Mar 2009 02:46:31 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Wed, 04 Mar 2009 23:45:57 +0000
