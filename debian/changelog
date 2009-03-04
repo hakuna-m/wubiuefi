@@ -164,5 +164,6 @@ wubi (9.04) UNRELEASED; urgency=low
   * Display controls with transparent background without artifacts
   * Preliminary gettext support (to be completed)
   * Completed gettext support
+  * Merged old translations
 
- -- Agostino Russo <agostino.russo@gmail.com>  Wed, 04 Mar 2009 00:21:47 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Wed, 04 Mar 2009 02:32:38 +0000

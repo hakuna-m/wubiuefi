@@ -1,0 +1,832 @@
+# Catalan translation for wubi
+# Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
+# This file is distributed under the same license as the wubi package.
+# Josep Sànchez Mesegué [papapep] <josep.sanchez@ubuntu.cat>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: wubi\n"
+"Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
+"POT-Creation-Date: 2009-03-04 02:17+0000\n"
+"PO-Revision-Date: 2008-10-11 13:35+0000\n"
+"Last-Translator: David Planella <Unknown>\n"
+"Language-Team: Catalan <ca@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2008-10-27 06:16+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: src/wubi/application.py:56
+#, python-format
+msgid ""
+"An error occurred:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"For more information, please see the log file: %(log)s"
+msgstr ""
+
+#: src/wubi/application.py:56
+msgid "Wubi Error"
+msgstr ""
+
+#: src/wubi/application.py:131 src/wubi/application.py:189
+#, python-format
+msgid ""
+"A previous installation was detected in %s.\n"
+"Please uninstall that before continuing."
+msgstr ""
+
+#: src/wubi/application.py:134
+msgid "Wubi Installer"
+msgstr ""
+
+#: src/wubi/application.py:171
+msgid "No CD detected, cannot run CD menu"
+msgstr ""
+
+#: src/wubi/application.py:171
+msgid "CD menu"
+msgstr ""
+
+#: src/wubi/application.py:179
+msgid ""
+"Could not find any valid CD.\n"
+"CD boot helper can only be used with a Live CD."
+msgstr ""
+
+#: src/wubi/application.py:192
+msgid "CD Boot Helper"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:71
+#: src/wubi/backends/common/backend.py:91
+msgid "Selecting the target directory"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:72
+#: src/wubi/backends/common/backend.py:92
+#, fuzzy
+msgid "Creating the installation directories"
+msgstr "S'estan obtenint els fitxers d'instal·lació."
+
+#: src/wubi/backends/common/backend.py:73
+#: src/wubi/backends/common/backend.py:93
+#, fuzzy
+msgid "Creating the uninstaller"
+msgstr "S'està configurant el desinstal·lador..."
+
+#: src/wubi/backends/common/backend.py:74
+#: src/wubi/backends/common/backend.py:94
+#, fuzzy
+msgid "Copying installation files"
+msgstr "S'estan copiant els fitxers d'instal·lació..."
+
+#: src/wubi/backends/common/backend.py:75
+#, fuzzy
+msgid "Retrieving installation files"
+msgstr "S'estan obtenint els fitxers d'instal·lació."
+
+#: src/wubi/backends/common/backend.py:76
+#: src/wubi/backends/common/backend.py:96
+msgid "Extracting the kernel"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:77
+msgid "Choosing disk sizes"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:78
+#: src/wubi/backends/common/backend.py:97
+msgid "Creating a preseed file"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:79
+#: src/wubi/backends/common/backend.py:98
+msgid "Adding a new bootlader entry"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:80
+#: src/wubi/backends/common/backend.py:99
+#, fuzzy
+msgid "Setting up installation boot menu"
+msgstr "S'està configurant el desinstal·lador..."
+
+#: src/wubi/backends/common/backend.py:81
+#, fuzzy
+msgid "Creating the virtual disks"
+msgstr "S'estan creant els discs virtuals..."
+
+#: src/wubi/backends/common/backend.py:82
+#: src/wubi/backends/common/backend.py:100
+#, fuzzy
+msgid "Uncompressing files"
+msgstr "S'està descomprimint la carpeta del WUBI..."
+
+#: src/wubi/backends/common/backend.py:83
+#: src/wubi/backends/common/backend.py:101
+msgid "Ejecting the CD"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:86
+#: src/wubi/backends/common/backend.py:103
+#, fuzzy
+msgid "installer"
+msgstr "Instal·la l'arrencador de CD"
+
+#: src/wubi/backends/common/backend.py:95
+msgid "Extracting CD content"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:103
+#, fuzzy
+msgid "Installing CD boot helper"
+msgstr "Instal·la l'arrencador de CD"
+
+#: src/wubi/backends/common/backend.py:109
+#: src/wubi/backends/common/backend.py:111
+msgid "Rebooting"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:111
+msgid "Reboot"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:116
+msgid "Backup ISO"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:117
+msgid "Remove bootloader entry"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:118
+msgid "Remove target dir"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:119
+msgid "Remove registry key"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:120
+msgid "Uninstaller"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:120
+#, python-format
+msgid "Uninstalling %s"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:252
+#, fuzzy, python-format
+msgid "Checking CD %s"
+msgstr "S'està connectant a %s..."
+
+#: src/wubi/backends/common/backend.py:273
+#, fuzzy
+msgid "Retrieving the Metalink"
+msgstr "S'estan obtenint els fitxers d'instal·lació."
+
+#: src/wubi/backends/common/backend.py:286
+#, fuzzy, python-format
+msgid "Calculating md5 for %s"
+msgstr "S'està calculant la suma de verificació..."
+
+#: src/wubi/backends/common/backend.py:434
+#, python-format
+msgid "Extracting files from %s"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:441
+#, fuzzy
+msgid "Checking installation files"
+msgstr "S'estan verificant els fitxers d'instal·lació..."
+
+#: src/wubi/backends/common/backend.py:500
+#, fuzzy, python-format
+msgid "Checking %s"
+msgstr "S'està connectant a %s..."
+
+#: src/wubi/backends/common/tasklist.py:254
+#: src/wubi/backends/common/tasklist.py:258
+msgid "0s"
+msgstr ""
+
+#: src/wubi/backends/common/tasklist.py:267
+#, python-format
+msgid "%ih"
+msgstr ""
+
+#: src/wubi/backends/common/tasklist.py:269
+#, python-format
+msgid "%imin"
+msgstr ""
+
+#: src/wubi/backends/common/tasklist.py:272
+#, python-format
+msgid "%is"
+msgstr ""
+
+#: src/wubi/backends/common/downloader.py:66
+#, python-format
+msgid "Downloading %s"
+msgstr ""
+
+#: src/wubi/backends/win32/backend.py:148
+#, fuzzy, python-format
+msgid ""
+"The installation failed. Logs have been saved in: %s.\n"
+"\n"
+"Note that in verbose mode, the logs may include the password.\n"
+"\n"
+"The system will now reboot."
+msgstr ""
+"Ha fallat la instal·lació. S'ha desat el registre a: $INSTDIR\\installation-"
+"logs.zip.\n"
+"\n"
+"Tingueu en compte que en mode detallat, el registre pot incloure la "
+"contrasenya.\n"
+"\n"
+"Ara es tornarà a engegar l'ordinador."
+
+#: src/wubi/frontends/win32/accessibility_page.py:34
+msgid "Accessibility profile"
+msgstr "Perfil d'accessibilitat"
+
+#: src/wubi/frontends/win32/accessibility_page.py:35
+#, fuzzy
+msgid "Please select the appropriate accessibility prfoile"
+msgstr "Trieu el perfil d'accessibilitat apropiat per a vós"
+
+#: src/wubi/frontends/win32/accessibility_page.py:39
+msgid "Next >>"
+msgstr ""
+
+#: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/progress_page.py:43
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/uninstallation_page.py:44
+#: src/wubi/frontends/win32/cdboot_page.py:45
+#: src/wubi/frontends/win32/cd_menu_page.py:36
+#: src/wubi/frontends/win32/installation_page.py:177
+msgid "Cancel"
+msgstr ""
+
+#: src/wubi/frontends/win32/accessibility_page.py:50
+msgid "Visibility Aids"
+msgstr "Ajudes a la visualització"
+
+#: src/wubi/frontends/win32/accessibility_page.py:51
+#, fuzzy
+msgid "Visibility1"
+msgstr "Ajudes a la visualització"
+
+#: src/wubi/frontends/win32/accessibility_page.py:52
+#, fuzzy
+msgid "Visibility2"
+msgstr "Ajudes a la visualització"
+
+#: src/wubi/frontends/win32/accessibility_page.py:53
+#, fuzzy
+msgid "Visibility3"
+msgstr "Ajudes a la visualització"
+
+#: src/wubi/frontends/win32/accessibility_page.py:54
+#, fuzzy
+msgid "Braille"
+msgstr "Terminal Braille"
+
+#: src/wubi/frontends/win32/accessibility_page.py:57
+msgid "Mobility Aids"
+msgstr "Ajudes de mobilitat"
+
+#: src/wubi/frontends/win32/accessibility_page.py:58
+#, fuzzy
+msgid "Mobility1"
+msgstr "Ajudes de mobilitat"
+
+#: src/wubi/frontends/win32/accessibility_page.py:59
+#, fuzzy
+msgid "Mobility2"
+msgstr "Ajudes de mobilitat"
+
+#: src/wubi/frontends/win32/accessibility_page.py:62
+msgid "None"
+msgstr "Cap"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:35
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "Finish"
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_finish_page.py:41
+#, python-format
+msgid "Completing the %s Setup Wizard"
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_finish_page.py:43
+#, fuzzy
+msgid "You need to reboot to complete the installation"
+msgstr "Cal que torneu a engegar l'ordinador per a completar la instal·lació."
+
+#: src/wubi/frontends/win32/installation_finish_page.py:44
+#: src/wubi/frontends/win32/cd_finish_page.py:47
+msgid "Reboot now"
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_finish_page.py:45
+msgid "I want to manually reboot later"
+msgstr ""
+
+#: src/wubi/frontends/win32/progress_page.py:38
+#, fuzzy, python-format
+msgid "Installing %(distro)s-%(version)s"
+msgstr "S'està instal·lant $Distro-$DistroVersion"
+
+#: src/wubi/frontends/win32/progress_page.py:39
+msgid "Please wait"
+msgstr ""
+
+#: src/wubi/frontends/win32/progress_page.py:52
+msgid "Do not download, use a local file"
+msgstr ""
+
+#: src/wubi/frontends/win32/progress_page.py:65
+#, python-format
+msgid "Remaining time approximately %s"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:41
+#, fuzzy
+msgid "Uninstallation completed"
+msgstr "Idioma de la instal·lació."
+
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:43
+#, python-format
+msgid "%s has bee successfully uninstalled"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:45
+msgid ""
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr ""
+
+#: src/wubi/frontends/win32/frontend.py:48
+#, fuzzy
+msgid "Are you sure you want to quit?"
+msgstr "Voleu desinstal·lar-lo?"
+
+#: src/wubi/frontends/win32/frontend.py:48
+msgid "Quitting"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:35
+#, fuzzy
+msgid "Uninstallation required"
+msgstr "Idioma de la instal·lació."
+
+#: src/wubi/frontends/win32/uninstallation_page.py:37
+#, fuzzy, python-format
+msgid "You are about to uninstall %s"
+msgstr "Esteu a punt d'instal·lar $Distro-$DistroVersion"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:44
+msgid "Uninstall"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:51
+msgid ""
+"A previous installation was detected, it needs to be uninstalled before "
+"continuing"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:53
+#, fuzzy
+msgid "Are you sure you want to uninstall?"
+msgstr "Voleu desinstal·lar-lo?"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:61
+#, fuzzy
+msgid "Backup the downloaded files (ISO)"
+msgstr "Fes una còpia de seguretat dels fitxers baixats (fitxer ISO CD)."
+
+#: src/wubi/frontends/win32/cdboot_page.py:42
+msgid "Not enough disk space to proceed"
+msgstr ""
+
+#: src/wubi/frontends/win32/cdboot_page.py:42
+msgid "CD Boot Helper Setup"
+msgstr ""
+
+#: src/wubi/frontends/win32/cdboot_page.py:45
+#: src/wubi/frontends/win32/installation_page.py:177
+#, fuzzy
+msgid "Accessibility"
+msgstr "&Accessibilitat"
+
+#: src/wubi/frontends/win32/cdboot_page.py:45
+#: src/wubi/frontends/win32/installation_page.py:177
+msgid "Install"
+msgstr ""
+
+#: src/wubi/frontends/win32/cdboot_page.py:53
+#, fuzzy
+msgid "Install CD boot helper"
+msgstr "Instal·la l'arrencador de CD"
+
+#: src/wubi/frontends/win32/cdboot_page.py:55
+msgid ""
+"If your machine cannot boot off the CD, this program will install a new boot "
+"menu entry to help you boot from CD. In most cases this program is not "
+"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
+"\n"
+"Do you want to proceed and install the CD booter?"
+msgstr ""
+"Si el vostre ordinador no pot arrencar des del CD, aquest programa "
+"instal·larà una nova opció al menu perquè ho pogueu fer. En la majoria de "
+"casos no caldrà, i serà suficient el tornar a engegar l'ordinador amb el CD "
+"dins del lector.\n"
+"\n"
+"Voleu continuar i instal·lar l'arrencador de CD?"
+
+#: src/wubi/frontends/win32/cd_menu_page.py:51
+msgid "Demo and full installation"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_menu_page.py:53
+#, python-format
+msgid ""
+"Try %(distro)s without installing! Simply reboot your machine with the CD in "
+"the tray. You may perform a full installation from within the demo to "
+"install %(distro)s either alongside Windows or as the only operating system."
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_menu_page.py:60
+msgid "Install inside Windows"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_menu_page.py:62
+#, python-format
+msgid ""
+"Install and uninstall %(distro)s like any other application, without the "
+"need for a dedicated partition. You will be able to boot into either Windows "
+"or %(distro)s. Hibernation is not enabled in this mode and disk performance "
+"is slightly reduced."
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_menu_page.py:69
+msgid "Learn more"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_menu_page.py:71
+#, python-format
+msgid ""
+"%(distro)s is a free, community developed, linux-based operating system "
+"complete with a web browser, productivity software, instant messaging, and "
+"much more."
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_page.py:73
+#, python-format
+msgid ""
+"Only %sMB of disk space are available.\n"
+"At least 1024MB are required as a bare minimum. Quitting"
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_page.py:75
+#: src/wubi/frontends/win32/installation_page.py:81
+#, fuzzy, python-format
+msgid "%s Installer"
+msgstr "Instal·la l'arrencador de CD"
+
+#: src/wubi/frontends/win32/installation_page.py:78
+#, python-format
+msgid ""
+"%(min_space)sMB of disk size are required for installation.\n"
+"Only %(max_space)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_page.py:97
+#, python-format
+msgid "(%sGB free)"
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_page.py:172
+#, fuzzy, python-format
+msgid "You are about to install %s"
+msgstr "Esteu a punt d'instal·lar $Distro-$DistroVersion"
+
+#: src/wubi/frontends/win32/installation_page.py:173
+msgid "Please select username and password for the new account"
+msgstr "Trieu el nom d'usuari i la clau d'accés per al compte nou"
+
+#: src/wubi/frontends/win32/installation_page.py:189
+#, fuzzy
+msgid "Installation drive:"
+msgstr "Mida de la instal·lació (GB):"
+
+#: src/wubi/frontends/win32/installation_page.py:195
+#, fuzzy
+msgid "Installation size:"
+msgstr "Mida de la instal·lació (GB):"
+
+#: src/wubi/frontends/win32/installation_page.py:201
+#, fuzzy
+msgid "Desktop environment:"
+msgstr "Entorn d'escriptori:"
+
+#: src/wubi/frontends/win32/installation_page.py:207
+msgid "Language:"
+msgstr "Idioma:"
+
+#: src/wubi/frontends/win32/installation_page.py:216
+msgid "Username:"
+msgstr "Nom d'usuari:"
+
+#: src/wubi/frontends/win32/installation_page.py:223
+msgid "Password:"
+msgstr "Contrasenya:"
+
+#: src/wubi/frontends/win32/installation_page.py:261
+#, python-format
+msgid ""
+"%(min_memory)sMB of memory are required for installation.\n"
+"Only %(total_memory)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_page.py:298
+msgid "Please enter a valid username"
+msgstr "Introduïu un nom d'usuari vàlid"
+
+#: src/wubi/frontends/win32/installation_page.py:300
+msgid "Please use all lower cases in the username."
+msgstr "Utilitzeu nomes minúscules en el nom d'usuari."
+
+#: src/wubi/frontends/win32/installation_page.py:302
+msgid "Please do not use spaces in the username."
+msgstr "No utilitzeu espais al nom d'usuari."
+
+#: src/wubi/frontends/win32/installation_page.py:304
+msgid "Your username must start with a letter."
+msgstr "El nom d'usuari ha de començar amb una lletra."
+
+#: src/wubi/frontends/win32/installation_page.py:306
+msgid "Your username must contain only standard letters and numbers."
+msgstr "El nom d'usuari només pot tenir lletres i números estàndard."
+
+#: src/wubi/frontends/win32/installation_page.py:308
+msgid "The selected username is reserved, please selected a different one."
+msgstr ""
+"El nom d'usuari que heu triat és reservat, n'haurieu d'escolliur un altre."
+
+#: src/wubi/frontends/win32/installation_page.py:310
+msgid "Please enter a valid password."
+msgstr "Introduïu una contrasenya vàlida."
+
+#: src/wubi/frontends/win32/installation_page.py:312
+msgid "Please do not use spaces in the password."
+msgstr "No utilitzeu espais a la contrasenya."
+
+#: src/wubi/frontends/win32/installation_page.py:314
+msgid "Passwords do not match."
+msgstr "Les contrasenyes no coincideixen."
+
+#~ msgid "(Use CD)"
+#~ msgstr "(Utilitza el CD)"
+
+#~ msgid "(Read Only)"
+#~ msgstr "(Només de lectura)"
+
+#~ msgid "Installation Drive ($freeSpace GB free):"
+#~ msgstr "Unitat d'instal·lació ($freeSpace GB lliures):"
+
+#~ msgid ""
+#~ "Please select a username for the new account.\n"
+#~ "It must be lower case.\n"
+#~ "It must not contain spaces.\n"
+#~ "It must contain only standard letters and numbers.\n"
+#~ "It cannot start by a number."
+#~ msgstr ""
+#~ "Trieu un nom d'usuari per al compte nou.\n"
+#~ "Ha de ser en minúscules.\n"
+#~ "No pot contenir espais.\n"
+#~ "Només pot tenir lletres i números estàndard.\n"
+#~ "No pot començar amb un número."
+
+#~ msgid ""
+#~ "Please select a password for the new account.\n"
+#~ "It must not contain spaces."
+#~ msgstr ""
+#~ "Trieu una contrasenya per al compte nou.\n"
+#~ "No pot contenir espais."
+
+#~ msgid ""
+#~ "How many GB do you want to allocate?\n"
+#~ "4GB is the bare minimum\n"
+#~ "8GB is comfortable"
+#~ msgstr ""
+#~ "Quants GB voleu utilitzar?\n"
+#~ "4 GB són el mínim\n"
+#~ "8 GB són recomanables"
+
+#~ msgid ""
+#~ "In which drive do you want to perform the installation?\n"
+#~ "This drive should have at least 5 GB free."
+#~ msgstr ""
+#~ "A quina unitat voleu efectuar la instal·lació?\n"
+#~ "La unitat hauria de tenir almenys 5 GB lliures."
+
+#~ msgid "Ubuntu is the default."
+#~ msgstr "L'Ubuntu és el predeterminat."
+
+#~ msgid "Kubuntu-KDE4 uses the KDE4 desktop."
+#~ msgstr "El Kubuntu-KDE4 utilitza l'escriptori KDE 4."
+
+#~ msgid "Xubuntu is good for older systems."
+#~ msgstr "El Xubuntu va bé amb ordinadors antics."
+
+#, fuzzy
+#~ msgid ""
+#~ "What graphical environment do you want to install?\n"
+#~ "* $(Distro1ToolTip)\n"
+#~ "* $(Distro3ToolTip)\n"
+#~ "* $(Distro4ToolTip)\n"
+#~ "* $(Distro2ToolTip)"
+#~ msgstr ""
+#~ "Quin entorn gràfic voleu instal·lar?\n"
+#~ "* $(Distro1ToolTip)\n"
+#~ "* $(Distro2ToolTip)\n"
+#~ "* $(Distro3ToolTip)\n"
+#~ "* $(Distro4ToolTip)"
+
+#~ msgid ""
+#~ "You have $freeSpace MB free, the installer requires ${MinSizeMB} MB "
+#~ "free.\n"
+#~ "Do you want to continue anyway? The installation may fail in such "
+#~ "conditions."
+#~ msgstr ""
+#~ "Hi ha $freeSpaceMB lliures, l'instal·lador necessita ${MinSizeMB} MB "
+#~ "lliures.\n"
+#~ "Voleu continuar? La instal·lació pot fallar en aquestes condicions."
+
+#~ msgid "Could not retrieve some essential files"
+#~ msgstr "No s'han pogut obtenir alguns fitxers imprescindibles"
+
+#~ msgid "Error while trying to execute bcdedit:"
+#~ msgstr "S'ha produït un error en executar l'ordre bcdedit:"
+
+#~ msgid "Error while trying to execute wubibcd:"
+#~ msgstr "S'ha produït un error en executar l'ordre wubibcd:"
+
+#~ msgid ""
+#~ "Could not access the CD, please make sure other applications are not "
+#~ "using it and try again"
+#~ msgstr ""
+#~ "No s'ha pogut accedir a la unitat de CD, comproveu que no hi hagi cap "
+#~ "altre programa accedint-hi i torneu-ho a provar"
+
+#~ msgid "The download was interrupted with the error:"
+#~ msgstr "S'ha aturat la baixada amb l'error següent:"
+
+#~ msgid "Could not find any appropriate CD"
+#~ msgstr "No s'ha pogut trobar cap CD adient"
+
+#~ msgid "You must be logged in as administrator!"
+#~ msgstr "Heu d'haver entrat com a administrador!"
+
+#~ msgid ""
+#~ "You have $memoryMB MB of memory, the installer requires ${MinMemoryMB} "
+#~ "MB.\n"
+#~ "Do you want to continue anyway? The installation may fail in such "
+#~ "conditions."
+#~ msgstr ""
+#~ "Teniu $memoryMB MB de memòria disponibles, però calen ${MinMemoryMB} MB "
+#~ "per a l'instal·lador.\n"
+#~ "Voleu continuar? En aquestes condicions pot ser que falli instal·lació."
+
+#~ msgid "Please wait while the required files are retrieved and prepared"
+#~ msgstr "Espereu mentre s'obtenen i es preparen els fitxers necessaris"
+
+#~ msgid "Retrieving installation files, resume supported"
+#~ msgstr ""
+#~ "S'estan obtenint els fitxers d'instal·lació, es pot reprendre la tasca"
+
+#~ msgid "Backing up installation files..."
+#~ msgstr "S'està fent una còpia de seguretat dels fitxers d'instal·lació..."
+
+#~ msgid "Writing configuration files..."
+#~ msgstr "S'estan escrivint els fitxers de configuració..."
+
+#~ msgid "Setting up bootloader..."
+#~ msgstr "S'està configurant el carregador d'arrencada..."
+
+#~ msgid "Creating folders..."
+#~ msgstr "S'estan creant els directoris..."
+
+#~ msgid "${AppName} is already installed"
+#~ msgstr "El programa ${AppName} ja està instal·lat"
+
+#~ msgid ""
+#~ "$OldInstallationDrive\\${DefaultInstallationDir} will be uninstalled.\n"
+#~ "You can backup your files if you want."
+#~ msgstr ""
+#~ "Es desinstal·larà $OldInstallationDrive\\${DefaultInstallationDir}.\n"
+#~ "Si voleu, podeu fer una còpia de seguretat dels vostres fitxers."
+
+#~ msgid "Backup personal documents (home.disk)."
+#~ msgstr "Fes una còpia de seguretat dels documents personals (home.disk)."
+
+#~ msgid "Backup location: $BackupFolder"
+#~ msgstr "Ubicació de la còpia de seguretat: $BackupFolder"
+
+#~ msgid "Please remove any CD/DVD and reboot to complete the installation."
+#~ msgstr ""
+#~ "Traieu el CD/DVD del lector i torneu a engegar l'ordinador per a "
+#~ "completar la instal·lació."
+
+#~ msgid "Downloading installation files..."
+#~ msgstr "S'estan baixant els fitxers d'instal·lació..."
+
+#~ msgid "Initializing..."
+#~ msgstr "S'està inicialitzant..."
+
+#~ msgid "Retrying in %d seconds... (%d of %d)"
+#~ msgstr "Es tornarà a intentar en %d segons...(%d of %d)"
+
+#~ msgid "Retrying in %d seconds..."
+#~ msgstr "Es tornarà a intentar en %d segons..."
+
+#~ msgid "second"
+#~ msgstr "segon"
+
+#~ msgid "seconds"
+#~ msgstr "segons"
+
+#~ msgid "%s (%d%%) of %s @ %s/s"
+#~ msgstr "%s (%d%%) de %s @ %s/s"
+
+#~ msgid " (%s remaining)"
+#~ msgstr " (queden %s)"
+
+#~ msgid "Please connect to the internet now."
+#~ msgstr "Connecteu-vos ara a internet."
+
+#~ msgid "High Contrast"
+#~ msgstr "Contrast alt"
+
+#~ msgid "Magnifier"
+#~ msgstr "Ampliador"
+
+#~ msgid "Screen Reader"
+#~ msgstr "Lector de pantalla"
+
+#~ msgid "Keyboard Modifiers"
+#~ msgstr "Modificadors de teclat"
+
+#~ msgid "On-Screen Keyboard"
+#~ msgstr "Teclat en pantalla"
+
+#~ msgid "Start installer in normal mode"
+#~ msgstr "Arrenca l'instal·lador en mode normal"
+
+#~ msgid ""
+#~ "Start installer in safe graphic mode (only if you have display problems)"
+#~ msgstr ""
+#~ "Arrenca l'instal·lador en mode gràfic segur (només si teniu problemes de "
+#~ "pantalla)"
+
+#~ msgid ""
+#~ "Start installer with ACPI workarounds (only if you have ACPI problems)"
+#~ msgstr ""
+#~ "Arrenca l'instal·lador amb les solucions temporals per a l'ACPI (només si "
+#~ "teniu problemes amb l'ACPI)"
+
+#~ msgid "Start installer in verbose mode"
+#~ msgstr "Arrenca l'instal·lador en mode detallat"
+
+#~ msgid "Kubuntu uses the KDE3.5 desktop."
+#~ msgstr "El Kubuntu utilitza l'escriptori KDE 3.5."
