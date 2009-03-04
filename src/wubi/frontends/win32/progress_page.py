@@ -35,9 +35,9 @@ class ProgressPage(Page):
         elif self.info.previous_distro_name:
             distro_name = self.info.previous_distro_name
         self.insert_header(
-            _("Installing %(distro)s-%(version)s" % dict(distro=self.info.distro.name, version=self.info.version)),
+            _("Installing %(distro)s-%(version)s" % dict(distro=distro_name, version=self.info.version)),
             _("Please wait"),
-            "%s-header.bmp" % self.info.distro.name)
+            "%s-header.bmp" % distro_name)
 
         #navigation
         self.insert_navigation(_("Cancel"))
