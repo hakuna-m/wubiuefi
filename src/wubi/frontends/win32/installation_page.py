@@ -60,8 +60,7 @@ class InstallationPage(Page):
     def check_disk_free_space(self):
         if self.info.skip_size_check:
             return
-        distro = self.get_distro()
-        min_space_mb = distro.min_disk_space_mb + distro.max_iso_size/(1024**2)+ 100
+        min_space_mb = self.info.distro.min_disk_space_mb + self.info.distro.max_iso_size/(1024**2)+ 100
         max_space_mb = 0
         max_space_mb2 = 0
         for drive in self.info.drives:
@@ -73,21 +72,20 @@ class InstallationPage(Page):
         if max_space_mb < 1024:
             message = _("Only %sMB of disk space are available.\nAt least 1024MB are required as a bare minimum. Quitting")
             message = message % int(max_space_mb)
-            self.frontend.show_error_message(message, _("%s Installer") % distro.name)
+            self.frontend.show_error_message(message, _("%s Installer") % self.info.distro.name)
             self.frontend.quit()
         if max_space_mb2 < min_space_mb:
-            message = _("%sMB of disk size are required for installation.\nOnly %sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?")
+            message = _("%(min_space)sMB of disk size are required for installation.\nOnly %(max_space)sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?")
             min_space_mb = round(min_space_mb/1000+0.5)*1024
-            message = message % (int(min_space_mb), int(max_space_mb))
-            if not self.frontend.ask_confirmation(message, _("%s Installer") % distro.name):
+            message = message % dict(min_space=int(min_space_mb), max_space=int(max_space_mb))
+            if not self.frontend.ask_confirmation(message, _("%s Installer") % self.info.distro.name):
                 self.frontend.quit()
             else:
                 self.info.skip_size_check = True
 
     def populate_drive_list(self):
         self.check_disk_free_space()
-        distro = self.get_distro()
-        min_space_mb = distro.min_disk_space_mb + distro.max_iso_size/(1024**2)+ 100
+        min_space_mb = self.info.distro.min_disk_space_mb + self.info.distro.max_iso_size/(1024**2)+ 100
         self.drives_gb = []
         for drive in self.info.drives:
             if drive.type not in ['removable', 'hd']:
@@ -95,7 +93,8 @@ class InstallationPage(Page):
             drive_space_mb = int(drive.free_space_mb/1024) * 1000
             if self.info.skip_size_check \
             or drive_space_mb > min_space_mb:
-                text = _("%s (%sGB free)") % (drive.path, drive_space_mb/1000)
+                text = drive.path + " "
+                text += _("(%sGB free)") % (drive_space_mb/1000)
                 self.drives_gb.append(text)
                 self.target_drive_list.add_item(text)
         self.select_default_drive()
@@ -108,24 +107,24 @@ class InstallationPage(Page):
                 pass
             else:
                 drive = self.info.drives_dict.get(drive[:2].lower())
+        drive_text = self.drives_gb[0]
         if drive:
-            drive = _("%s (%sGB free)") % (drive.path, int(drive.free_space_mb/1024))
-        else:
-            drive = self.drives_gb[0]
-        self.target_drive_list.set_value(drive)
+            for d in self.drives_gb:
+                if d.startswith(drive.path):
+                    drive_text = d
+        self.target_drive_list.set_value(drive_text)
         self.on_drive_change()
 
     def populate_size_list(self):
         target_drive = self.get_drive()
-        distro = self.get_distro()
-        min_space_mb = distro.min_disk_space_mb
+        min_space_mb = self.info.distro.min_disk_space_mb
         #this will be 1-2GB less than the disk free space, to have space for the ISO
         self.size_list_gb = []
         for i in range(1, 31):
-            #~ log.debug("%s < %s and %s > %s" % (i * 1000 + distro.max_iso_size/1024**2 + 100 , target_drive.free_space_mb, i * 1000 , distro.min_disk_space_mb))
+            #~ log.debug("%s < %s and %s > %s" % (i * 1000 + self.info.distro.max_iso_size/1024**2 + 100 , target_drive.free_space_mb, i * 1000 , self.info.distro.min_disk_space_mb))
             if self.info.skip_size_check \
-            or i * 1000 >= distro.min_disk_space_mb: #use 1000 as it is more conservative
-                if i * 1000 + distro.max_iso_size/1024**2 + 100 <= target_drive.free_space_mb:
+            or i * 1000 >= self.info.distro.min_disk_space_mb: #use 1000 as it is more conservative
+                if i * 1000 + self.info.distro.max_iso_size/1024**2 + 100 <= target_drive.free_space_mb:
                     self.size_list_gb.append(i)
                     self.size_list.add_item("%sGB" % i)
         self.select_default_size()
@@ -169,10 +168,10 @@ class InstallationPage(Page):
 
         #header
         self.insert_header(
-            #TBD change it to something more dynamic
-            _("You are about to install Ubuntu"),
+            #The name is overridden in on_distro_change
+            _("You are about to install %s"),
             _("Please select username and password for the new account"),
-            _("Ubuntu-header.bmp"))
+            "%s-header.bmp")
 
         #navigation
         self.insert_navigation(_("Accessibility"), _("Install"), _("Cancel"), default=2)
@@ -207,7 +206,7 @@ class InstallationPage(Page):
             self.main, h*4 + w, h,
             "language.bmp", _("Language:"), True)
         self.populate_language_list()
-        self.launguage_list.on_change = self.on_language_change
+        self.language_list.on_change = self.on_language_change
 
         username = self.info.host_username.lower()
         username = username.replace(' ', '_')
@@ -221,7 +220,7 @@ class InstallationPage(Page):
             username, False)
         picture, label, combo = self.add_controls_block(
             self.main, h*4 + w, h*7,
-            "lock.bmp", "Password:", None)
+            "lock.bmp", _("Password:"), None)
         label.move(h*4 + w + 42, h*7 - 24)
         password = ""
         if self.info.test:
@@ -245,11 +244,6 @@ class InstallationPage(Page):
         drive = self.info.drives_dict.get(target_drive)
         return drive
 
-    def get_distro(self):
-        distro_name = str(self.distro_list.get_text()).lower()
-        distro = self.info.distros_dict.get((distro_name, self.info.arch))
-        return distro
-
     def get_installation_size_mb(self):
         installation_size = self.size_list.get_text()
         #using 1000 as opposed to 1024
@@ -257,11 +251,15 @@ class InstallationPage(Page):
         return installation_size
 
     def on_distro_change(self):
-        distro = self.get_distro()
+        distro_name = str(self.distro_list.get_text()).lower()
+        self.info.distro  = self.info.distros_dict.get((distro_name, self.info.arch))
+        bmp_file = "%s-header.bmp" % self.info.distro.name
+        self.header.image.set_image(os.path.join(self.info.image_dir, bmp_file))
+        self.header.title.set_text("You are about to install %s" % self.info.distro.name)
         if not self.info.skip_memory_check:
-            if self.info.total_memory_mb < distro.min_memory_mb:
-                message = _("%sMB of memory are required for installation.\nOnly %sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?")
-                message = message % (int(distro.min_memory_mb), int(self.info.total_memory_mb))
+            if self.info.total_memory_mb < self.info.distro.min_memory_mb:
+                message = _("%(min_memory)sMB of memory are required for installation.\nOnly %(total_memory)sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?")
+                message = message % dict(min_memory=int(self.info.distro.min_memory_mb), total_memory=int(self.info.total_memory_mb))
                 if not self.frontend.ask_confirmation(message):
                     self.frontend.quit()
                 else:
@@ -272,7 +270,7 @@ class InstallationPage(Page):
         language = self.language_list.get_text()
         language2 = language[:2]
         language3 = lang_country2linux_locale.get(self.info.language, None)
-        translation = gettext.translations(self.info.application_name, localedir=self.info.translations_dir, languages=[language, language2, language3])
+        translation = gettext.translation(self.info.application_name, localedir=self.info.translations_dir, languages=[language, language2, language3])
         translation.install()
 
     def on_drive_change(self):
@@ -291,7 +289,6 @@ class InstallationPage(Page):
     def on_install(self):
         drive = self.get_drive()
         installation_size_mb = self.get_installation_size_mb()
-        distro = self.get_distro()
         language = self.language_list.get_text()
         username = self.username.get_text()
         password1 = self.password1.get_text()
@@ -319,10 +316,9 @@ class InstallationPage(Page):
         if error_message:
             return
         log.debug(
-            _("target_drive=%s\ninstallation_size=%sMB\ndistro_name=%s\nlanguage=%s\nusername=%s") \
-            % (drive.path, installation_size_mb, distro.name, language, username))
+            "target_drive=%s\ninstallation_size=%sMB\ndistro_name=%s\nlanguage=%s\nusername=%s" \
+            % (drive.path, installation_size_mb, self.info.distro.name, language, username))
         self.info.target_drive = drive
-        self.info.distro = distro
         self.info.installation_size_mb = installation_size_mb
         self.info.language = language
         self.info.username = username

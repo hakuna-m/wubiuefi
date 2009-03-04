@@ -29,7 +29,7 @@ class CDBootPage(Page):
     def on_init(self):
         Page.on_init(self)
         self.set_background_color(255,255,255)
-        self.insert_vertical_image("Ubuntu-vertical.bmp")
+        self.insert_vertical_image("%s-vertical.bmp" % self.info.cd_distro.name)
 
         #sanity checks
         self.info.distro = self.info.cd_distro
@@ -50,7 +50,7 @@ class CDBootPage(Page):
         #main container
         self.insert_main()
         self.main.set_background_color(255,255,255)
-        self.main.title = ui.Label(self.main, 40, 20, self.main.width - 80, 60, _("Install CD booter"))
+        self.main.title = ui.Label(self.main, 40, 20, self.main.width - 80, 60, _("Install CD boot helper"))
         self.main.title.set_font(size=20, bold=True, family="Arial")
         txt = _("If your machine cannot boot off the CD, this program will install a new boot menu entry to help you boot from CD. In most cases this program is not needed, and it is sufficient to reboot with the CD-Rom in the tray.\n\nDo you want to proceed and install the CD booter?")
         self.main.label = ui.Label(self.main, 40, 90, self.main.width - 80, 80, txt)

@@ -29,7 +29,7 @@ class InstallationFinishPage(Page):
     def on_init(self):
         Page.on_init(self)
         self.set_background_color(255,255,255)
-        self.insert_vertical_image("Ubuntu-vertical.bmp")
+        self.insert_vertical_image("%s-vertical.bmp" % self.info.distro.name)
 
         #navigation
         self.insert_navigation(_("Finish"), default=1)
@@ -38,7 +38,7 @@ class InstallationFinishPage(Page):
         #main container
         self.insert_main()
         self.main.set_background_color(255,255,255)
-        self.main.title = ui.Label(self.main, 40, 20, self.main.width - 80, 60, _("Completing the Ubuntu Setup Wizard"))
+        self.main.title = ui.Label(self.main, 40, 20, self.main.width - 80, 60, _("Completing the %s Setup Wizard") % self.info.distro.name)
         self.main.title.set_font(size=20, bold=True, family="Arial")
         self.main.label = ui.Label(self.main, 40, 90, self.main.width - 80, 40, _("You need to reboot to complete the installation"))
         self.main.reboot_now = ui.RadioButton(self.main, 60, 150, self.main.width - 100, 20, _("Reboot now"))

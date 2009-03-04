@@ -53,7 +53,7 @@ class Wubi(object):
             log.exception(err)
             if self.frontend:
                 error_messages = "\n".join([e for e in err.args if isinstance(e, basestring)])
-                self.frontend.show_error_message(_("An error occurred:\n\n%s\n\nFor more information, please see the log file: %s") % (error_messages, self.info.log_file), _("Wubi Error"))
+                self.frontend.show_error_message(_("An error occurred:\n\n%(error)s\n\nFor more information, please see the log file: %(log)s") % dict(error=error_messages, log=self.info.log_file), _("Wubi Error"))
             self.quit()
 
     def quit(self):
@@ -120,12 +120,14 @@ class Wubi(object):
         '''
         #TBD add non_interactive mode
         #TBD add cd_boot mode
-        if self.info.previous_target_dir:
+        if self.info.previous_target_dir \
+        and os.path.isdir(self.info.previous_target_dir):
             log.info("Already installed, running the uninstaller...")
             self.info.uninstall_before_install = True
             self.run_uninstaller()
             self.backend.fetch_basic_info()
-            if self.info.previous_target_dir:
+            if self.info.previous_target_dir \
+            and os.path.isdir(self.info.previous_target_dir):
                 message = _("A previous installation was detected in %s.\nPlease uninstall that before continuing.")
                 message = message % self.info.previous_target_dir
                 log.error(message)
@@ -148,7 +150,8 @@ class Wubi(object):
         '''
         log.info("Running the uninstaller...")
         if not self.backend.run_previous_uninstaller():
-            if self.info.previous_target_dir:
+            if self.info.previous_target_dir \
+            and os.path.isdir(self.info.previous_target_dir):
                 self.frontend = self.get_frontend()
                 self.frontend.show_uninstallation_settings()
                 log.info("Received settings")

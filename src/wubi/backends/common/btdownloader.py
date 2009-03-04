@@ -71,10 +71,3 @@ def download(url, filename, associated_task=None):
         #~ paramfunc = None,
         #~ spewflag = Event(),
         )
-
-if __name__ == "__main__":
-    url = 'http://releases.ubuntu.com/8.10/ubuntu-8.10-desktop-i386.iso.torrent'
-    saveas = '/tmp/myfile'
-    def progress_callback(percent_completed, current_speed=None):
-        print "pc",percent_completed, current_speed
-    Task(url, saveas, associated_task)

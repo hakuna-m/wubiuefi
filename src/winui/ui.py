@@ -538,19 +538,17 @@ class RadioButton(Button):
     _window_class_name_ = "BUTTON"
     _window_style_ = Widget._window_style_ | BS_AUTORADIOBUTTON | WS_TABSTOP
     _is_transparent_ = True
-    #~ _window_ex_style_ = WS_EX_TRANSPARENT
 
 class GroupBox(Button):
     _window_class_name_ = "BUTTON"
     _window_style_ = Widget._window_style_ | BS_GROUPBOX  #| WS_TABSTOP
     _is_transparent_ = True
-    #~ _window_ex_style_ = WS_EX_CONTROLPARENT
+    _window_ex_style_ = WS_EX_CONTROLPARENT
 
 class CheckButton(Button):
     _window_class_name_ = "BUTTON"
     _window_style_ = Widget._window_style_ | BS_AUTOCHECKBOX  | WS_TABSTOP
     _is_transparent_ = True
-    #~ _window_ex_style_ = WS_EX_TRANSPARENT
 
 class Label(StaticWidget):
     _window_class_name_ = "Static"

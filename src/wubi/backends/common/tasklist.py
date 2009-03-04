@@ -251,11 +251,11 @@ class Task(object):
         Remaining time in human readable format
         '''
         if self.end_time:
-            return "0s"
+            return _("0s")
         end_time = self.estimate_end_time()
         secs = end_time - time.time()
         if secs <= 0:
-            return "0s"
+            return _("0s")
         hours = int(secs/3600)
         secs = secs - hours*3600
         mins = int(secs/60)
@@ -264,12 +264,12 @@ class Task(object):
         secs = min(secs, 59)
         message = []
         if hours:
-            message.append("%ih" % hours)
+            message.append(_("%ih") % hours)
         if mins:
-            message.append("%imin" % mins)
+            message.append(_("%imin") % mins)
         if not hours:
             if not mins or secs:
-                message.append("%is" % secs)
+                message.append(_("%is") % secs)
         message = " ".join(message)
         return message
 

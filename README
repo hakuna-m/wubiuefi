@@ -21,6 +21,7 @@ confirm all the default choices in the installation screens that will appear.
    byte compiled python files that is convenient for debugging purposes.
    Inside of Windows, unzip the archive, then run
    "python.exe main.py --verbose". You can edit any file inside of ./lib.
+ * make pot: generates a gettext template (po/wubi.pot)
 
 == Code overview ==
 

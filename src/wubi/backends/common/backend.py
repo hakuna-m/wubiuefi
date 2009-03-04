@@ -68,11 +68,11 @@ class Backend(object):
 
     def get_installation_tasklist(self):
         tasks = [
-            Task(self.select_target_dir, description=_("Selecting target directory")),
+            Task(self.select_target_dir, description=_("Selecting the target directory")),
             Task(self.create_dir_structure, description=_("Creating the installation directories")),
             Task(self.create_uninstaller, description=_("Creating the uninstaller")),
-            Task(self.copy_installation_files, description=_("Copying files")),
-            Task(self.get_iso, description=_("Retrieving the ISO")),
+            Task(self.copy_installation_files, description=_("Copying installation files")),
+            Task(self.get_iso, description=_("Retrieving installation files")),
             Task(self.extract_kernel, description=_("Extracting the kernel")),
             Task(self.choose_disk_sizes, description=_("Choosing disk sizes")),
             Task(self.create_preseed, description=_("Creating a preseed file")),
@@ -82,15 +82,16 @@ class Backend(object):
             Task(self.uncompress_files, description=_("Uncompressing files")),
             Task(self.eject_cd, description=_("Ejecting the CD")),
             ]
-        tasklist = ThreadedTaskList(name=_("Installer"), description=_("Installing"), tasks=tasks)
+        description = "Installing %(distro)s-%(version)s" % dict(distro=self.info.distro.name, version=self.info.version)
+        tasklist = ThreadedTaskList(name=_("installer"), description=description, tasks=tasks)
         return tasklist
 
     def get_cdboot_tasklist(self):
         tasks = [
-            Task(self.select_target_dir, description=_("Selecting target directory")),
+            Task(self.select_target_dir, description=_("Selecting the target directory")),
             Task(self.create_dir_structure, description=_("Creating the installation directories")),
             Task(self.create_uninstaller, description=_("Creating the uninstaller")),
-            Task(self.copy_installation_files, description=_("Copying files")),
+            Task(self.copy_installation_files, description=_("Copying installation files")),
             Task(self.use_cd, description=_("Extracting CD content")),
             Task(self.extract_kernel, description=_("Extracting the kernel")),
             Task(self.create_preseed_cdboot, description=_("Creating a preseed file")),
@@ -99,7 +100,7 @@ class Backend(object):
             Task(self.uncompress_files, description=_("Uncompressing files")),
             Task(self.eject_cd, description=_("Ejecting the CD")),
             ]
-        tasklist = ThreadedTaskList(name=_("Installer"), description=_("CD boot helper"), tasks=tasks)
+        tasklist = ThreadedTaskList(name=_("installer"), description=_("Installing CD boot helper"), tasks=tasks)
         return tasklist
 
 
@@ -116,7 +117,7 @@ class Backend(object):
             Task(self.undo_bootloader, _("Remove bootloader entry")),
             Task(self.remove_target_dir, _("Remove target dir")),
             Task(self.remove_registry_key, _("Remove registry key")),]
-        tasklist = ThreadedTaskList(name=_("Uninstaller"), description=_("Uninstalling"), tasks=tasks)
+        tasklist = ThreadedTaskList(name=_("Uninstaller"), description=_("Uninstalling %s") % self.info.previous_distro_name, tasks=tasks)
         return tasklist
 
     def show_info(self):
@@ -147,6 +148,7 @@ class Backend(object):
         self.fetch_host_info()
         self.info.previous_uninstaller_path = self.get_uninstaller_path()
         self.info.previous_target_dir = self.get_previous_target_dir()
+        self.info.previous_distro_name = self.get_previous_distro_name()
         self.info.keyboard_layout, self.info.keyboard_variant = self.get_keyboard_layout()
         self.info.locale = self.get_locale(self.info.language)
         self.info.total_memory_mb = self.get_total_memory_mb()

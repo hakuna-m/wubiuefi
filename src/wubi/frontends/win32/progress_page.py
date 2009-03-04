@@ -30,11 +30,14 @@ class ProgressPage(Page):
         Page.on_init(self)
 
         #header
+        if self.info.distro:
+            distro_name = self.info.distro.name
+        elif self.info.previous_distro_name:
+            distro_name = self.info.previous_distro_name
         self.insert_header(
-            #TBD change it to something more dynamic
-            _("Installing Ubuntu"),
+            _("Installing %(distro)s-%(version)s" % dict(distro=self.info.distro.name, version=self.info.version)),
             _("Please wait"),
-            _("Ubuntu-header.bmp"))
+            "%s-header.bmp" % self.info.distro.name)
 
         #navigation
         self.insert_navigation(_("Cancel"))

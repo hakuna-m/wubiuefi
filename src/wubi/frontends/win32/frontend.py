@@ -45,7 +45,7 @@ class WindowsFrontend(ui.Frontend):
 
     def cancel(self, confirm=False):
         if confirm:
-            if self.ask_confirmation("Are you sure you want to quit?", "Quitting"):
+            if self.ask_confirmation(_("Are you sure you want to quit?"), _("Quitting")):
                 log.info("Operation cancelled")
                 self.quit()
         else:

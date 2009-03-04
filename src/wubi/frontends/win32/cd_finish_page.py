@@ -29,7 +29,7 @@ class CDFinishPage(Page):
     def on_init(self):
         Page.on_init(self)
         self.set_background_color(255,255,255)
-        self.insert_vertical_image("Ubuntu-vertical.bmp")
+        self.insert_vertical_image("%s-vertical.bmp" % self.info.cd_distro.name)
 
         #navigation
         self.insert_navigation(_("< Back"), _("Finish"), _("Cancel"), default=2)

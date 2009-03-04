@@ -295,6 +295,11 @@ class WindowsBackend(Backend):
         log.debug("previous_target_dir=%s" % previous_target_dir)
         return previous_target_dir
 
+    def get_previous_distro_name(self):
+        previous_distro_name = registry.get_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'DisplayName')
+        log.debug("previous_distro_name=%s" % previous_distro_name)
+        return previous_distro_name
+
     def get_registry_key(self):
         registry_key = 'Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\'  + self.info.application_name.capitalize()
         log.debug('registry_key=%s' % registry_key)

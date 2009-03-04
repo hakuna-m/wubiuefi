@@ -29,7 +29,7 @@ class CDMenuPage(Page):
     def on_init(self):
         Page.on_init(self)
         self.set_background_color(255,255,255)
-        self.insert_vertical_image("Ubuntu-vertical.bmp")
+        self.insert_vertical_image("%s-vertical.bmp" % self.info.cd_distro.name)
         distro_name = self.info.cd_distro.name
 
         #navigation
@@ -50,8 +50,8 @@ class CDMenuPage(Page):
         #boot from cd
         self.main.boot_cd_button = ui.FlatButton(self.main, x, y, bw, bh, _("Demo and full installation"))
         y += bh + 2
-        txt = _("Try %s without installing! Simply reboot your machine with the CD in the tray. You may perform a full installation from within the demo to install %s either alongside Windows or as the only operating system.")
-        txt = txt % (distro_name, distro_name)
+        txt = _("Try %(distro)s without installing! Simply reboot your machine with the CD in the tray. You may perform a full installation from within the demo to install %(distro)s either alongside Windows or as the only operating system.")
+        txt = txt % dict(distro=distro_name)
         self.main.boot_cd_label = ui.Label(self.main, x, y, lw, lh, txt)
         self.main.boot_cd_button.on_click = self.on_cd_boot
 
@@ -59,8 +59,8 @@ class CDMenuPage(Page):
         y += lh + sep
         self.main.wubi_button = ui.FlatButton(self.main, x, y, bw, bh, _("Install inside Windows"))
         y += bh + 2
-        txt = _("Install and uninstall %s like any other application, without the need for a dedicated partition. You will be able to boot into either Windows or %s. Hibernation is not enabled in this mode and disk performance is slightly reduced.")
-        txt = txt % (distro_name, distro_name)
+        txt = _("Install and uninstall %(distro)s like any other application, without the need for a dedicated partition. You will be able to boot into either Windows or %(distro)s. Hibernation is not enabled in this mode and disk performance is slightly reduced.")
+        txt = txt % dict(distro=distro_name)
         self.main.wubi_label = ui.Label(self.main, x, y, lw, lh, txt)
         self.main.wubi_button.on_click = self.on_wubi
 
@@ -68,8 +68,8 @@ class CDMenuPage(Page):
         y += lh + sep
         self.main.info_button = ui.FlatButton(self.main, x, y, bw, bh, _("Learn more"))
         y += bh + 2
-        txt = _("%s is a free, community developed, linux-based operating system complete with a web browser, productivity software, instant messaging, and much more.")
-        txt = txt % (distro_name)
+        txt = _("%(distro)s is a free, community developed, linux-based operating system complete with a web browser, productivity software, instant messaging, and much more.")
+        txt = txt % dict(distro=distro_name)
         self.main.info_label = ui.Label(self.main, x, y, lw, lh, txt)
         self.main.info_button.on_click = self.on_info
 

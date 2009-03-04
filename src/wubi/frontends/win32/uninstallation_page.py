@@ -34,12 +34,11 @@ class UninstallationPage(Page):
         if self.info.uninstall_before_install:
             msg = _("Uninstallation required")
         else:
-            msg = _("You are about to uninstall Ubuntu")
+            msg = _("You are about to uninstall %s" % self.info.previous_distro_name)
         self.insert_header(
-            #TBD change it to something more dynamic
             msg,
             "",
-            "Ubuntu-header.bmp")
+            "%s-header.bmp" % self.info.previous_distro_name)
 
         #navigation
         self.insert_navigation(_("Uninstall"), _("Cancel"), default=2)
@@ -49,7 +48,7 @@ class UninstallationPage(Page):
         #Main control container
         self.insert_main()
         if self.info.uninstall_before_install:
-            msg = _("A previous installation was detected, it needs to be uninstalled before continuing\n")
+            msg = _("A previous installation was detected, it needs to be uninstalled before continuing")
         else:
             msg = _("Are you sure you want to uninstall?")
 

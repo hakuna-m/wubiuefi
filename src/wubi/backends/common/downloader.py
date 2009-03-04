@@ -63,7 +63,7 @@ class DownloadProgress(object):
 
 def download(url, filename=None, associated_task=None, web_proxy = None):
     if associated_task:
-        associated_task.description = "Downloading %s" % url
+        associated_task.description = _("Downloading %s") % url
         associated_task.unit = "KB"
     log.debug("downloading %s > %s" % (url, filename))
     progress_obj = DownloadProgress(associated_task)
