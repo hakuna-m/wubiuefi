@@ -29,6 +29,7 @@ class UninstallationPage(Page):
 
     def on_init(self):
         Page.on_init(self)
+        self.frontend.set_title(_("%s Uninstaller") % self.info.previous_distro_name)
 
         #header
         if self.info.uninstall_before_install:

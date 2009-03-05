@@ -29,6 +29,7 @@ class CDBootPage(Page):
     def on_init(self):
         Page.on_init(self)
         self.set_background_color(255,255,255)
+        self.frontend.set_title(_("%s CD Boot Helper") % self.info.cd_distro.name)
         self.insert_vertical_image("%s-vertical.bmp" % self.info.cd_distro.name)
 
         #sanity checks
@@ -39,7 +40,7 @@ class CDBootPage(Page):
                 self.info.target_drive = drive
                 break
         if not self.info.target_drive:
-            self.frontend.show_error_message(_("Not enough disk space to proceed"), _("CD Boot Helper Setup"))
+            self.frontend.show_error_message(_("Not enough disk space to proceed"))
 
         #navigation
         self.insert_navigation(_("Accessibility"), _("Install"), _("Cancel"), default=2)

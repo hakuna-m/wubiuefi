@@ -40,17 +40,16 @@ class WindowsFrontend(ui.Frontend):
         log.debug("__init__...")
         self.application = application
         self.current_page = None
-        kargs["text"] = "Ubuntu Setup"
+        kargs["text"] = self.application.info.application_name
         ui.Frontend.__init__(self, *args, **kargs)
 
     def cancel(self, confirm=False):
+        log.info("Operation cancelled")
         if confirm:
-            if self.ask_confirmation(_("Are you sure you want to quit?"), _("Quitting")):
-                log.info("Operation cancelled")
-                self.quit()
-        else:
-            log.info("Operation cancelled")
-            self.quit()
+            if not self.ask_confirmation(_("Are you sure you want to quit?")):
+                log.info("Cancelled cancellation, resuming")
+                return
+        self.quit()
 
     def on_quit(self):
         log.debug("frontend on_quit...")

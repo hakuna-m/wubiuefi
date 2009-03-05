@@ -71,14 +71,13 @@ class InstallationPage(Page):
                 max_space_mb2 = max(max_space_mb2, drive.free_space_mb)
         if max_space_mb < 1024:
             message = _("Only %sMB of disk space are available.\nAt least 1024MB are required as a bare minimum. Quitting")
-            message = message % int(max_space_mb)
-            self.frontend.show_error_message(message, _("%s Installer") % self.info.distro.name)
+            self.frontend.show_error_message(message % int(max_space_mb))
             self.frontend.quit()
         if max_space_mb2 < min_space_mb:
             message = _("%(min_space)sMB of disk size are required for installation.\nOnly %(max_space)sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?")
             min_space_mb = round(min_space_mb/1000+0.5)*1024
             message = message % dict(min_space=int(min_space_mb), max_space=int(max_space_mb))
-            if not self.frontend.ask_confirmation(message, _("%s Installer") % self.info.distro.name):
+            if not self.frontend.ask_confirmation(message):
                 self.frontend.quit()
             else:
                 self.info.skip_size_check = True
@@ -167,11 +166,11 @@ class InstallationPage(Page):
         Page.on_init(self)
 
         #header
+        #The title and image are overridden in on_distro_change, the following are stubs
         self.insert_header(
-            #The name is overridden in on_distro_change
-            _("You are about to install %s"),
+            "Installing",
             _("Please select username and password for the new account"),
-            "%s-header.bmp")
+            "header.bmp")
 
         #navigation
         self.insert_navigation(_("Accessibility"), _("Install"), _("Cancel"), default=2)
@@ -251,11 +250,12 @@ class InstallationPage(Page):
         return installation_size
 
     def on_distro_change(self):
-        distro_name = str(self.distro_list.get_text()).lower()
-        self.info.distro  = self.info.distros_dict.get((distro_name, self.info.arch))
+        distro_name = str(self.distro_list.get_text())
+        self.info.distro  = self.info.distros_dict.get((distro_name.lower(), self.info.arch))
+        self.frontend.set_title(_("%s Installer") % self.info.distro.name)
         bmp_file = "%s-header.bmp" % self.info.distro.name
         self.header.image.set_image(os.path.join(self.info.image_dir, bmp_file))
-        self.header.title.set_text("You are about to install %s" % self.info.distro.name)
+        self.header.title.set_text("You are about to install %(distro)s-%(version)s" % dict(distro=self.info.distro.name, version=self.info.version))
         if not self.info.skip_memory_check:
             if self.info.total_memory_mb < self.info.distro.min_memory_mb:
                 message = _("%(min_memory)sMB of memory are required for installation.\nOnly %(total_memory)sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?")

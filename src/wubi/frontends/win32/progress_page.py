@@ -73,4 +73,4 @@ class ProgressPage(Page):
             self.frontend.stop()
 
     def on_cancel(self):
-        self.frontend.cancel()
+        self.frontend.cancel(confirm=True)

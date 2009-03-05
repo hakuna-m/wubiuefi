@@ -31,6 +31,7 @@ class CDMenuPage(Page):
         self.set_background_color(255,255,255)
         self.insert_vertical_image("%s-vertical.bmp" % self.info.cd_distro.name)
         distro_name = self.info.cd_distro.name
+        self.frontend.set_title(_("%s Menu") % distro_name)
         cd_drive = self.info.drives_dict.get(self.info.cd_path[:2].lower())
 
         #navigation

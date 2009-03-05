@@ -343,6 +343,12 @@ class Frontend(object):
         self.main_window = main_window_class(**kargs)
         self.on_init()
 
+    def set_title(self, title):
+        self.main_window.set_text(title)
+
+    def get_title(self):
+        return self.main_window.get_text()
+
     def run(self):
         '''
         Starts the message processing
@@ -392,16 +398,24 @@ class Frontend(object):
         pass
 
     def show_error_message(self, message, title=None):
+        if not title:
+            title = self.get_title()
         result = windll.user32.MessageBoxW(self.main_window._hwnd, unicode(message), unicode(title), MB_OK|MB_ICONERROR)
 
     def show_info_message(self, message, title=None):
+        if not title:
+            title = self.get_title()
         result = windll.user32.MessageBoxW(self.main_window._hwnd, unicode(message), unicode(title), MB_OK|MB_ICONINFORMATION)
 
     def ask_confirmation(self, message, title=None):
+        if not title:
+            title = self.get_title()
         result = windll.user32.MessageBoxW(self.main_window._hwnd, unicode(message), unicode(title), MB_YESNO|MB_ICONQUESTION)
         return result == IDYES
 
     def ask_to_retry(self, message, title=None):
+        if not title:
+            title = self.get_title()
         result = windll.user32.MessageBoxW(self.main_window._hwnd, unicode(message), unicode(title), MB_RETRYCANCEL)
         return result == IDRETRY
 
