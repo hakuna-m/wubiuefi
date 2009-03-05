@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-03-04 02:17+0000\n"
+"POT-Creation-Date: 2009-03-05 01:11+0000\n"
 "PO-Revision-Date: 2008-05-12 10:02+0000\n"
 "Last-Translator: Kainourgiakis Giorgos <kaingeo@yahoo.gr>\n"
 "Language-Team: Greek <el@li.org>\n"
@@ -79,6 +79,8 @@ msgstr "Ρύθμιση προγράμματος απεγκατάστασης..."
 
 #: src/wubi/backends/common/backend.py:74
 #: src/wubi/backends/common/backend.py:94
+#: src/wubi/backends/common/backend.py:407
+#: src/wubi/backends/common/backend.py:413
 #, fuzzy
 msgid "Copying installation files"
 msgstr "Αντιγραφή αρχείων εγκατάστασης..."
@@ -129,12 +131,6 @@ msgstr "Αποσυμπίεση φακέλου wubi..."
 msgid "Ejecting the CD"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:86
-#: src/wubi/backends/common/backend.py:103
-#, fuzzy
-msgid "installer"
-msgstr "Εγκατάσταση εκκινητή CD."
-
 #: src/wubi/backends/common/backend.py:95
 msgid "Extracting CD content"
 msgstr ""
@@ -147,10 +143,6 @@ msgstr "Εγκατάσταση εκκινητή CD."
 #: src/wubi/backends/common/backend.py:109
 #: src/wubi/backends/common/backend.py:111
 msgid "Rebooting"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:111
-msgid "Reboot"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:116
@@ -170,10 +162,6 @@ msgid "Remove registry key"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:120
-msgid "Uninstaller"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:120
 #, python-format
 msgid "Uninstalling %s"
 msgstr ""
@@ -183,27 +171,37 @@ msgstr ""
 msgid "Checking CD %s"
 msgstr "Σύνδεση με %s..."
 
-#: src/wubi/backends/common/backend.py:273
+#: src/wubi/backends/common/backend.py:274
+#: src/wubi/backends/common/backend.py:314
+#: src/wubi/backends/common/backend.py:345
 #, fuzzy
-msgid "Retrieving the Metalink"
-msgstr "Ανάκτηση αρχείων εγκατάστασης."
+msgid "Downloading information on installation files"
+msgstr "Μεταφόρτωση αρχείων εγκατάστασης."
 
-#: src/wubi/backends/common/backend.py:286
-#, fuzzy, python-format
-msgid "Calculating md5 for %s"
-msgstr "Υπολογισμός checksums..."
-
-#: src/wubi/backends/common/backend.py:434
-#, python-format
-msgid "Extracting files from %s"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:441
+#: src/wubi/backends/common/backend.py:287
+#: src/wubi/backends/common/backend.py:338
+#: src/wubi/backends/common/backend.py:400
+#: src/wubi/backends/common/backend.py:444
 #, fuzzy
 msgid "Checking installation files"
 msgstr "Έλεγχος αρχείων εγκατάστασης."
 
-#: src/wubi/backends/common/backend.py:500
+#: src/wubi/backends/common/backend.py:371
+#, python-format
+msgid "Validating %s"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:437
+#, python-format
+msgid "Extracting files from %s"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:479
+#, python-format
+msgid "Copying files from CD %s"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:507
 #, fuzzy, python-format
 msgid "Checking %s"
 msgstr "Σύνδεση με %s..."
@@ -268,7 +266,7 @@ msgstr ""
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_page.py:44
 #: src/wubi/frontends/win32/cdboot_page.py:45
-#: src/wubi/frontends/win32/cd_menu_page.py:36
+#: src/wubi/frontends/win32/cd_menu_page.py:37
 #: src/wubi/frontends/win32/installation_page.py:177
 msgid "Cancel"
 msgstr ""
@@ -467,11 +465,11 @@ msgstr ""
 "περισσότερες περιπτώσεις το πρόγραμμα αυτό δεν χρειάζεται, μια και είναι "
 "αρκετό να επανεκκινήσετε με το CD-Rom στον οδηγό."
 
-#: src/wubi/frontends/win32/cd_menu_page.py:51
+#: src/wubi/frontends/win32/cd_menu_page.py:52
 msgid "Demo and full installation"
 msgstr ""
 
-#: src/wubi/frontends/win32/cd_menu_page.py:53
+#: src/wubi/frontends/win32/cd_menu_page.py:54
 #, python-format
 msgid ""
 "Try %(distro)s without installing! Simply reboot your machine with the CD in "
@@ -479,11 +477,11 @@ msgid ""
 "install %(distro)s either alongside Windows or as the only operating system."
 msgstr ""
 
-#: src/wubi/frontends/win32/cd_menu_page.py:60
+#: src/wubi/frontends/win32/cd_menu_page.py:63
 msgid "Install inside Windows"
 msgstr ""
 
-#: src/wubi/frontends/win32/cd_menu_page.py:62
+#: src/wubi/frontends/win32/cd_menu_page.py:65
 #, python-format
 msgid ""
 "Install and uninstall %(distro)s like any other application, without the "
@@ -492,11 +490,11 @@ msgid ""
 "is slightly reduced."
 msgstr ""
 
-#: src/wubi/frontends/win32/cd_menu_page.py:69
+#: src/wubi/frontends/win32/cd_menu_page.py:72
 msgid "Learn more"
 msgstr ""
 
-#: src/wubi/frontends/win32/cd_menu_page.py:71
+#: src/wubi/frontends/win32/cd_menu_page.py:74
 #, python-format
 msgid ""
 "%(distro)s is a free, community developed, linux-based operating system "
@@ -770,11 +768,11 @@ msgstr "Οι κωδικοί πρόσβασης δεν ταιριάζουν με�
 #~ "Παρακαλούμε απομακρύνετε οποιοδήποτε CD ή DVD και επανεκκινήστε τον "
 #~ "υπολογιστή σας για να ολοκληρωθεί η εγκατάσταση."
 
-#~ msgid "Downloading installation files..."
-#~ msgstr "Μεταφόρτωση αρχείων εγκατάστασης."
-
 #~ msgid "Initializing..."
 #~ msgstr "Αρχικοποίηση..."
+
+#~ msgid "Calculating checksums..."
+#~ msgstr "Υπολογισμός checksums..."
 
 #~ msgid "Retrying in %d seconds... (%d of %d)"
 #~ msgstr "Επαναπροσπάθεια σε %d δευτερόλεπτα... (%d από %d)"

@@ -83,7 +83,7 @@ class Backend(object):
             Task(self.eject_cd, description=_("Ejecting the CD")),
             ]
         description = "Installing %(distro)s-%(version)s" % dict(distro=self.info.distro.name, version=self.info.version)
-        tasklist = ThreadedTaskList(name=_("installer"), description=description, tasks=tasks)
+        tasklist = ThreadedTaskList(description=description, tasks=tasks)
         return tasklist
 
     def get_cdboot_tasklist(self):
@@ -100,7 +100,7 @@ class Backend(object):
             Task(self.uncompress_files, description=_("Uncompressing files")),
             Task(self.eject_cd, description=_("Ejecting the CD")),
             ]
-        tasklist = ThreadedTaskList(name=_("installer"), description=_("Installing CD boot helper"), tasks=tasks)
+        tasklist = ThreadedTaskList(description=_("Installing CD boot helper"), tasks=tasks)
         return tasklist
 
 
@@ -108,7 +108,7 @@ class Backend(object):
         tasks = [
             Task(self.reboot, description=_("Rebooting")),
             ]
-        tasklist = ThreadedTaskList(name=_("Reboot"), description=_("Rebooting"), tasks=tasks)
+        tasklist = ThreadedTaskList(description=_("Rebooting"), tasks=tasks)
         return tasklist
 
     def get_uninstallation_tasklist(self):
@@ -117,7 +117,7 @@ class Backend(object):
             Task(self.undo_bootloader, _("Remove bootloader entry")),
             Task(self.remove_target_dir, _("Remove target dir")),
             Task(self.remove_registry_key, _("Remove registry key")),]
-        tasklist = ThreadedTaskList(name=_("Uninstaller"), description=_("Uninstalling %s") % self.info.previous_distro_name, tasks=tasks)
+        tasklist = ThreadedTaskList(description=_("Uninstalling %s") % self.info.previous_distro_name, tasks=tasks)
         return tasklist
 
     def show_info(self):
@@ -264,13 +264,14 @@ class Backend(object):
         return True
 
     def check_iso(self, iso_path, associated_task=None):
+        log.debug("Checking %s" % iso_path)
         self.set_distro_from_arch(iso_path)
         if self.info.skip_md5_check:
             return True
         md5sum = None
         if not self.info.distro.metalink:
             get_metalink = associated_task.add_subtask(
-                self.get_metalink, description=_("Retrieving the Metalink"))
+                self.get_metalink, description=_("Downloading information on installation files"))
             get_metalink()
             if not self.info.distro.metalink:
                 log.error("ERROR: the metalink file is not available, cannot check the md5 for %s, ignoring" % iso_path)
@@ -283,7 +284,7 @@ class Backend(object):
             return True
         get_md5 = associated_task.add_subtask(
             get_file_md5,
-            description = _("Calculating md5 for %s") % iso_path)
+            description = _("Checking installation files") )
         md5sum2 = get_md5(iso_path)
         if md5sum != md5sum2:
             log.exception("Invalid md5 for ISO %s (%s != %s)" % (iso_path, md5sum, md5sum2))
@@ -310,7 +311,7 @@ class Backend(object):
         self.info.cd_path = None
         if not self.info.distro.metalink:
             get_metalink = associated_task.add_subtask(
-                self.get_metalink, description="Retrieving the Metalink")
+                self.get_metalink, description=_("Downloading information on installation files"))
             get_metalink()
             if not self.info.distro.metalink:
                 raise Exception("Cannot download the metalink and therefore the ISO")
@@ -334,14 +335,14 @@ class Backend(object):
             if iso_path:
                 check_iso = associated_task.add_subtask(
                     self.check_iso,
-                    description = "Checking ISO")
+                    description = _("Checking installation files"))
                 if check_iso(iso_path):
                     return True
                 else:
                     os.unlink(iso_path)
 
     def get_metalink(self, associated_task=None):
-        associated_task.description = "Retrieving metalink file..."
+        associated_task.description = _("Downloading information on installation files")
         try:
             url = self.info.distro.metalink_url
             metalink = downloader.download(url, self.info.install_dir, web_proxy=self.info.web_proxy)
@@ -367,7 +368,7 @@ class Backend(object):
             log.debug("Trying to use pre-specified ISO %s" % self.info.iso_path)
             is_valid_iso = associated_task.add_subtask(
                 self.info.distro.is_valid_iso,
-                description = "Validating %s" % self.info.iso_path)
+                description = _("Validating %s") % self.info.iso_path)
             if is_valid_iso(self.info.iso_path, self.info.check_arch):
                 self.info.cd_path = None
             return self.copy_iso(self.info.iso_path, associated_task)
@@ -380,7 +381,7 @@ class Backend(object):
         '''
         if self.info.check_arch:
             return
-        arch = self.info.distro.get_info(cd_or_iso_path)[2]
+        arch = self.info.distro.get_info(cd_or_iso_path)[3]
         if self.info.distro.arch == arch:
             return
         name = self.info.distro.name
@@ -396,19 +397,21 @@ class Backend(object):
         dest = join_path(self.info.install_dir, iso_name)
         check_iso = associated_task.add_subtask(
             self.check_iso,
-            description = "Checking %s" % iso_path)
+            description = _("Checking installation files"))
         if check_iso(iso_path):
             if os.path.dirname(iso_path) == dest:
                 pass
             elif os.path.dirname(iso_path) == self.info.backup_dir:
                 move_iso = associated_task.add_subtask(
                     shutil.move,
-                    description = "Moving %s > %s" % (iso_path, dest))
+                    description = _("Copying installation files"))
+                log.debug("Moving %s > %s" % (iso_path, dest))
                 move_iso(iso_path, dest)
             else:
                 copy_iso = associated_task.add_subtask(
                     copy_file,
-                    description = "Copying %s > %s" % (iso_path, dest),)
+                    description = _("Copying installation files"))
+                log.debug("Copying %s > %s" % (iso_path, dest))
                 copy_iso(iso_path, dest)
             self.info.cd_path = None
             self.info.iso_path = dest
@@ -440,9 +443,13 @@ class Backend(object):
                 self.check_iso,
                 description = _("Checking installation files"))
             if not check_iso(self.info.iso_path):
-                self.info.cd_path = None
-                self.info.iso_path = None
-                return False
+                subversion = self.info.cd_distro.get_info(self.info.cd_path)[2]
+                if subversion.lower() in ("alpha", "beta", "release candidate"):
+                    log.error("CD check failed, but ignoring because CD is %" % subversion)
+                else:
+                    self.info.cd_path = None
+                    self.info.iso_path = None
+                    return False
             return True
 
     def use_iso(self, associated_task):
@@ -469,7 +476,7 @@ class Backend(object):
         bootdir = self.info.install_boot_dir
         # Extract kernel, initrd, md5sums
         if self.info.cd_path:
-            log.debug("Copying files from mounted CD %s" % self.info.cd_path)
+            log.debug(_("Copying files from CD %s") % self.info.cd_path)
             for src in [
             join_path(self.info.cd_path, self.info.distro.md5sums),
             join_path(self.info.cd_path, self.info.distro.kernel),
@@ -483,7 +490,7 @@ class Backend(object):
         else:
             raise Exception("Could not retrieve the required installation files")
         # Check the files
-        log.debug("Checking files")
+        log.debug("Checking kernel, initrd and md5sums")
         self.info.kernel = join_path(bootdir, os.path.basename(self.info.distro.kernel))
         self.info.initrd = join_path(bootdir, os.path.basename(self.info.distro.initrd))
         md5sums = join_path(bootdir, os.path.basename(self.info.distro.md5sums))

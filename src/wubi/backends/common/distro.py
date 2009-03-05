@@ -156,7 +156,7 @@ class Distro(object):
         if not info:
             log.debug('could not get info %s' % info)
             return False
-        name, version, arch = info # used in backend as well
+        name, version, subversion, arch = info # used in backend as well
         if self.name and name != self.name:
             log.debug('wrong name: %s != %s' % (name, self.name))
             return False
@@ -183,6 +183,7 @@ class Distro(object):
             return None, None, None
         name = info.group('name')
         version = info.group('version')
+        subversion = info.group('subversion')
         arch = info.group('arch')
         log.debug("  parsed info=%s" % info.groupdict())
-        return name, version, arch
+        return name, version, subversion, arch

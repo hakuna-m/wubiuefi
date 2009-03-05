@@ -170,5 +170,7 @@ wubi (9.04) UNRELEASED; urgency=low
   * Reverted previous changes as suggested by Evan Dandrea and instead
     will hide Wubi option in CD menu if the drive is larger than
     max_iso_size unless a --force-wubi argument is used (LP: #338015)
+  * Modified English strings to make them less technical and added
+    missing ones
 
- -- Agostino Russo <agostino.russo@gmail.com>  Thu, 05 Mar 2009 00:19:05 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Thu, 05 Mar 2009 01:19:32 +0000
