@@ -176,5 +176,6 @@ wubi (9.04) UNRELEASED; urgency=low
   * Ask for confirmation before quitting
   * Some text edits
   * No need to set the title of the message boxes
+  * Updated gettext template and translations
 
- -- Agostino Russo <agostino.russo@gmail.com>  Thu, 05 Mar 2009 08:16:50 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Thu, 05 Mar 2009 08:19:56 +0000
