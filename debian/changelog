@@ -167,5 +167,8 @@ wubi (9.04) UNRELEASED; urgency=low
   * Merged old translations
   * Use previous distro name in strings during uninstallation progress
   * Provide an option to hide wubi installation in CD menu (LP: #338015)
+  * Reverted previous changes as suggested by Evan Dandrea and instead
+    will hide Wubi option in CD menu if the drive is larger than
+    max_iso_size unless a --force-wubi argument is used (LP: #338015)
 
- -- Agostino Russo <agostino.russo@gmail.com>  Wed, 04 Mar 2009 23:45:57 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Thu, 05 Mar 2009 00:19:05 +0000

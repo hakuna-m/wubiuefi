@@ -31,6 +31,7 @@ class CDMenuPage(Page):
         self.set_background_color(255,255,255)
         self.insert_vertical_image("%s-vertical.bmp" % self.info.cd_distro.name)
         distro_name = self.info.cd_distro.name
+        cd_drive = self.info.drives_dict.get(self.info.cd_path[:2].lower())
 
         #navigation
         self.insert_navigation(_("Cancel"))
@@ -56,7 +57,8 @@ class CDMenuPage(Page):
         self.main.boot_cd_button.on_click = self.on_cd_boot
 
         #wubi
-        if not self.info.hide_wubi:
+        if self.info.force_wubi or \
+        self.info.cd_distro.min_iso_size < cd_drive.total_space_mb*1024*1024 < self.info.cd_distro.max_iso_size:
             y += lh + sep
             self.main.wubi_button = ui.FlatButton(self.main, x, y, bw, bh, _("Install inside Windows"))
             y += bh + 2

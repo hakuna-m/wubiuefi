@@ -234,7 +234,7 @@ class Wubi(object):
         parser.add_option("--drive", dest="target_drive", help="Target drive")
         parser.add_option("--size", dest="installation_size_mb", help="Installation size in MB")
         parser.add_option("--locale", dest="locale", help="Linux locale")
-        parser.add_option("--hide-wubi", action="store_true", dest="hide_wubi", help="Hide the wubi option in CD menu")
+        parser.add_option("--force-wubi", action="store_true", dest="force_wubi", help="Show Wubi option in CD menu even when using a DVD")
         parser.add_option("--language", dest="language", help="Language")
         parser.add_option("--username", dest="username", help="Username")
         parser.add_option("--password", dest="password", help="Password (md5)")

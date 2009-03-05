@@ -43,7 +43,9 @@ class Drive(object):
         if self.type:
             volinfo = self.get_volume_information()
             self.filesystem = volinfo[-1] and volinfo[-1]
-            self.free_space_mb = 1.0*self.get_free_space()/1024**2
+            total, free = self.get_space()
+            self.total_space_mb = 1.0*total/1024**2
+            self.free_space_mb = 1.0*free/1024**2
 
     def get_volume_information(self):
         DWORD = ctypes.wintypes.DWORD
@@ -77,7 +79,7 @@ class Drive(object):
                 str(file_system_name_buffer.value).lower())
         return volume_information
 
-    def get_free_space(self):
+    def get_space(self):
         drive_path = self.path
         freeuser = ctypes.c_int64()
         total = ctypes.c_int64()
@@ -87,7 +89,7 @@ class Drive(object):
                 ctypes.byref(freeuser),
                 ctypes.byref(total),
                 ctypes.byref(free))
-        return freeuser.value
+        return total.value, freeuser.value
 
     def __str__(self):
         return "Drive(%s %s %s mb free %s)" % (self.path, self.type, self.free_space_mb, self.filesystem)
