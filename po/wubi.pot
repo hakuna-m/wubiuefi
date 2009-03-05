@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 9.04-r84\n"
+"Project-Id-Version: 9.04-r85\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-03-05 01:11+0000\n"
+"POT-Creation-Date: 2009-03-05 01:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,6 +121,12 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:83
 #: src/wubi/backends/common/backend.py:101
 msgid "Ejecting the CD"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:85
+#: src/wubi/frontends/win32/progress_page.py:38
+#, python-format
+msgid "Installing %(distro)s-%(version)s"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:95
@@ -310,11 +316,6 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
-msgstr ""
-
-#: src/wubi/frontends/win32/progress_page.py:38
-#, python-format
-msgid "Installing %(distro)s-%(version)s"
 msgstr ""
 
 #: src/wubi/frontends/win32/progress_page.py:39

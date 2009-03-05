@@ -105,6 +105,12 @@ msgstr ""
 msgid "Ejecting the CD"
 msgstr ""
 
+#: src/wubi/backends/common/backend.py:85
+#: src/wubi/frontends/win32/progress_page.py:38
+#, python-format
+msgid "Installing %(distro)s-%(version)s"
+msgstr ""
+
 #: src/wubi/backends/common/backend.py:95
 msgid "Extracting CD content"
 msgstr ""
@@ -292,11 +298,6 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
-msgstr ""
-
-#: src/wubi/frontends/win32/progress_page.py:38
-#, python-format
-msgid "Installing %(distro)s-%(version)s"
 msgstr ""
 
 #: src/wubi/frontends/win32/progress_page.py:39

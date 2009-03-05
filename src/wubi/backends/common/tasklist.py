@@ -361,10 +361,10 @@ class TaskList(Task):
     '''
     Root Task object which contains other tasks
     '''
-    def __init__(self, name=None, tasks=None, callback=None):
+    def __init__(self, name=None, description=None, tasks=None, callback=None):
         def tasklist():
             return
-        Task.__init__(self, tasklist, name=name, weight=0.01)
+        Task.__init__(self, tasklist, name=name, description=description, weight=0.01)
         self.callback = callback
         if tasks:
             for task in tasks:
@@ -377,9 +377,9 @@ class ThreadedTaskList(threading.Thread, TaskList):
     Can be started and stopped.
     Should be used as root Task object which contains other tasks.
     '''
-    def __init__ (self, name=None, tasks=None, callback=None, description=None):
+    def __init__ (self, name=None, description=None, tasks=None, callback=None):
         threading.Thread.__init__(self)
-        TaskList.__init__(self, name=name, tasks=tasks, callback = callback)
+        TaskList.__init__(self, name=name, description=description, tasks=tasks, callback = callback)
         self._stopped_event = threading.Event()
         self.setDaemon(True) #do not prevent the main application from closing
 

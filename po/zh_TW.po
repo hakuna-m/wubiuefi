@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-03-05 01:11+0000\n"
+"POT-Creation-Date: 2009-03-05 01:38+0000\n"
 "PO-Revision-Date: 2008-07-31 07:04+0000\n"
 "Last-Translator: 蔡查理 <Unknown>\n"
 "Language-Team: Traditional Chinese <zh_TW@li.org>\n"
@@ -130,6 +130,12 @@ msgstr "解壓縮 wubi 資料夾..."
 #: src/wubi/backends/common/backend.py:101
 msgid "Ejecting the CD"
 msgstr ""
+
+#: src/wubi/backends/common/backend.py:85
+#: src/wubi/frontends/win32/progress_page.py:38
+#, fuzzy, python-format
+msgid "Installing %(distro)s-%(version)s"
+msgstr "安裝系統 $Distro-$DistroVersion 中"
 
 #: src/wubi/backends/common/backend.py:95
 msgid "Extracting CD content"
@@ -333,11 +339,6 @@ msgstr ""
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
 msgstr ""
-
-#: src/wubi/frontends/win32/progress_page.py:38
-#, fuzzy, python-format
-msgid "Installing %(distro)s-%(version)s"
-msgstr "安裝系統 $Distro-$DistroVersion 中"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 msgid "Please wait"

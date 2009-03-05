@@ -82,7 +82,7 @@ class Backend(object):
             Task(self.uncompress_files, description=_("Uncompressing files")),
             Task(self.eject_cd, description=_("Ejecting the CD")),
             ]
-        description = "Installing %(distro)s-%(version)s" % dict(distro=self.info.distro.name, version=self.info.version)
+        description = _("Installing %(distro)s-%(version)s") % dict(distro=self.info.distro.name, version=self.info.version)
         tasklist = ThreadedTaskList(description=description, tasks=tasks)
         return tasklist
 

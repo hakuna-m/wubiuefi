@@ -172,5 +172,6 @@ wubi (9.04) UNRELEASED; urgency=low
     max_iso_size unless a --force-wubi argument is used (LP: #338015)
   * Modified English strings to make them less technical and added
     missing ones
+  * More text string edits
 
- -- Agostino Russo <agostino.russo@gmail.com>  Thu, 05 Mar 2009 01:19:32 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Thu, 05 Mar 2009 01:36:49 +0000
