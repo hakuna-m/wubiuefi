@@ -177,5 +177,8 @@ wubi (9.04) UNRELEASED; urgency=low
   * Some text edits
   * No need to set the title of the message boxes
   * Updated gettext template and translations
+  * Fixed typo (LP: #340400)
+  * Fixed CD eject issue due to wrong path (LP: #339907)
+  * Made btdownloader progress strings consistent with the ones used in the standard downloader
 
- -- Agostino Russo <agostino.russo@gmail.com>  Thu, 05 Mar 2009 08:19:56 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Wed, 11 Mar 2009 00:38:55 +0000

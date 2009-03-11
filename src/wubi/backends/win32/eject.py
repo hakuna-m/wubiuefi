@@ -29,7 +29,7 @@ def eject_cd(cd_path):
         return
     create_file = ctypes.windll.kernel32.CreateFileW
     cd_handle = create_file(
-        r'\\\\.\\' + cd_path,
+        "\\\\.\\%s" % cd_path[:2],
         GENERIC_READ,
         FILE_SHARE_READ|FILE_SHARE_WRITE,
         0,

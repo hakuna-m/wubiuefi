@@ -180,6 +180,7 @@ class Task(object):
             return
         message = "Running %s..." % self.name
         self.log(message)
+        self.error = None
         self.status = Task.ACTIVE
         self.start_time = time.time()
         self._notify_listeners(message)

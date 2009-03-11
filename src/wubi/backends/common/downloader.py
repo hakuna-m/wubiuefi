@@ -48,7 +48,7 @@ class DownloadProgress(object):
         log.debug("Download start filename=%s, url=%s, basename=%s, length=%s, text=%s" %
             (filename, url, basename, length, text))
         if self.associated_task:
-            self.associated_task.set_progress(0, message="Downloading %s from %s" % (basename, url))
+            self.associated_task.set_progress(0)
 
     def update(self, amount_read):
         progress = 1.0*amount_read/float(self.length+1)

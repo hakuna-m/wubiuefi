@@ -30,10 +30,13 @@ class DownloadError(Exception):
     pass
 
 def download(url, filename, associated_task=None):
-    associated_task.name = "btdownloader"
-    associated_task.description = "Downloading %s" % url
+    log.debug("downloading %s > %s" % (url, filename))
+    if associated_task:
+        associated_task.description = _("Downloading %s") % url
+        associated_task.unit = "KB"
+        associated_task.set_progress(0)
+
     params = ['--url', url, '--saveas', filename]
-    cols = 80
     stop_signal = Event()
 
     def set_saveas(default, size, filename, dir):
@@ -44,11 +47,14 @@ def download(url, filename, associated_task=None):
         return stop_signal.isSet()
 
     def on_progress(kargs):
+        total_download = float(kargs.get("downTotal", 0))*1024
         percent_completed = float(kargs.get("fractionDone", 0))
         percent_completed = min(0.99, percent_completed)
+        size = total_download/percent_completed
         current_speed = "%sKBps" % int(kargs.get("downRate", 0)/1024.0)
         if associated_task:
-            if associated_task.set_progress(percent_completed, current_speed=current_speed):
+            associated_task.size = size
+            if associated_task.set_progress(percent_completed):
                 stop_signal.set()
 
     def finish_callback():

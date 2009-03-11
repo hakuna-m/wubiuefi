@@ -445,7 +445,7 @@ class Backend(object):
             if not check_iso(self.info.iso_path):
                 subversion = self.info.cd_distro.get_info(self.info.cd_path)[2]
                 if subversion.lower() in ("alpha", "beta", "release candidate"):
-                    log.error("CD check failed, but ignoring because CD is %" % subversion)
+                    log.error("CD check failed, but ignoring because CD is %s" % subversion)
                 else:
                     self.info.cd_path = None
                     self.info.iso_path = None
