@@ -183,5 +183,6 @@ wubi (9.04) UNRELEASED; urgency=low
 
   [ Evan Dandrea ]
   * Fixed a typo in the translation template.
+  * Require adminstrator privileges (LP: #340400).  Thanks Agostino Russo!
 
  -- Agostino Russo <agostino.russo@gmail.com>  Wed, 11 Mar 2009 00:38:55 +0000
