@@ -181,4 +181,7 @@ wubi (9.04) UNRELEASED; urgency=low
   * Fixed CD eject issue due to wrong path (LP: #339907)
   * Made btdownloader progress strings consistent with the ones used in the standard downloader
 
+  [ Evan Dandrea ]
+  * Fixed a typo in the translation template.
+
  -- Agostino Russo <agostino.russo@gmail.com>  Wed, 11 Mar 2009 00:38:55 +0000

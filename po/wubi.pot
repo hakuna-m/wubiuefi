@@ -183,7 +183,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:43
 #, python-format
-msgid "%s has bee successfully uninstalled"
+msgid "%s has been successfully uninstalled"
 msgstr ""
 
 #: src/wubi/frontends/win32/cd_finish_page.py:35
