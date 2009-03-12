@@ -40,7 +40,7 @@ class UninstallationFinishPage(Page):
         self.main.set_background_color(255,255,255)
         self.main.title = ui.Label(self.main, 40, 20, self.main.width - 80, 60, _("Uninstallation completed"))
         self.main.title.set_font(size=20, bold=True, family="Arial")
-        self.main.label = ui.Label(self.main, 40, 90, self.main.width - 80, 40, _("%s has bee successfully uninstalled") % self.info.previous_distro_name)
+        self.main.label = ui.Label(self.main, 40, 90, self.main.width - 80, 40, _("%s has been successfully uninstalled") % self.info.previous_distro_name)
 
     def on_finish(self):
         self.frontend.stop()
