@@ -598,6 +598,8 @@ class WindowsBackend(Backend):
         bcdedit = join_path(os.getenv('SystemDrive'), 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
             bcdedit = join_path(os.environ['systemroot'], 'sysnative', 'bcdedit.exe')
+        # FIXME: Just test for bcdedit in the PATH.  What's the Windows
+        # equivalent of `type`?
         if not os.path.isfile(bcdedit):
             bcdedit = join_path(os.environ['systemroot'], 'System32', 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
@@ -610,14 +612,10 @@ class WindowsBackend(Backend):
         command = [bcdedit, '/create', '/d', '"%s"' % self.info.distro.name, '/application', 'bootsector']
         id = run_command(command)
         id = id[id.index('{'):id.index('}')+1]
-        command = [bcdedit, '/set', id,  'device', 'partition=%s' % self.info.target_drive.path]
-        run_command(command)
-        command = [bcdedit, '/set', id,  'path', 'wubildr.mbr']
-        run_command(command)
-        command = [bcdedit, ' /displayorder', id,  '/addlast']
-        run_command(command)
-        command = [bcdedit, ' /timeout', 10]
-        run_command(command)
+        run_command([bcdedit, '/set', id, 'device', 'partition=%s' % self.info.target_drive.path])
+        run_command([bcdedit, '/set', id, 'path', 'wubildr.mbr'])
+        run_command([bcdedit, '/displayorder', id, '/addlast'])
+        run_command([bcdedit, '/timeout', '10'])
         registry.set_value(
             'HKEY_LOCAL_MACHINE',
             self.info.registry_key,
@@ -653,6 +651,8 @@ class WindowsBackend(Backend):
         bcdedit = join_path(os.getenv('SystemDrive'), 'bcdedit.exe')
         if not isfile(bcdedit):
             bcdedit = join_path(os.getenv('SystemRoot'), 'sysnative', 'bcdedit.exe')
+        if not os.path.isfile(bcdedit):
+            bcdedit = join_path(os.environ['systemroot'], 'System32', 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
             log.error("Cannot find bcdedit")
             return

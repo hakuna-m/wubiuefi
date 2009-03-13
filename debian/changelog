@@ -185,12 +185,14 @@ wubi (9.04) UNRELEASED; urgency=low
   * Fixed a typo in the translation template.
   * Require adminstrator privileges (LP: #340400).  Thanks Agostino Russo!
   * os.environ is a dictionary, not a callable method.
-  * Only uncompress files in the boot directory.
+  * Only uncompress files in the boot directory (LP: #341640).  Thanks Agostino
+    Russo!
   * Call the correct bootloader installation method for each version of
     Windows.
   * Use registry.{get,set}_value not the nonexistent
     registry.{get,set}_key.
   * Fix typo where a bcdedit command was accidentally created using
     concatenation.
+  * subprocess.Popen takes a list of string arguments.
 
  -- Agostino Russo <agostino.russo@gmail.com>  Wed, 11 Mar 2009 00:38:55 +0000
