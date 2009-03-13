@@ -95,8 +95,8 @@ class WindowsBackend(Backend):
         self.info.icon = join_path(self.info.target_dir, self.info.distro.name + '.ico')
 
     def uncompress_files(self, associated_task):
-        command1 = ['compact', join_path(self.info.target_dir), '/U', '/S', '/A', '/F']
-        command2 = ['compact', join_path(self.info.target_dir,'*.*'), '/U', '/S', '/A', '/F']
+        command1 = ['compact', join_path(self.info.install_boot_dir), '/U', '/S', '/A', '/F']
+        command2 = ['compact', join_path(self.info.install_boot_dir,'*.*'), '/U', '/S', '/A', '/F']
         for command in [command1,command2]:
             log.debug(" ".join(command))
             try:
@@ -475,9 +475,9 @@ class WindowsBackend(Backend):
             if self.info.bootloader == 'xp':
                 mb = associated_task.add_subtask(self.modify_bootini)
             elif self.info.bootloader == '98':
-                mb = associated_task.add_subtask(self.modify_bootini)
+                mb = associated_task.add_subtask(self.modify_configsys)
             elif self.info.bootloader == 'vista':
-                mb = associated_task.add_subtask(self.modify_bootini)
+                mb = associated_task.add_subtask(self.modify_bcd)
             if mb:
                 mb(drive)
 
@@ -588,7 +588,7 @@ class WindowsBackend(Backend):
         log.debug("modify_bcd %s" % drive)
         if drive is self.info.system_drive \
         or drive.path == "C:" \
-        or drive.path == os.environ('systemroot')[:2]:
+        or drive.path == os.getenv('SystemDrive'):
             src = join_path(self.info.root_dir, 'winboot', 'wubildr')
             dest = join_path(drive.path, 'wubildr')
             shutil.copyfile(src,  dest)
@@ -597,18 +597,20 @@ class WindowsBackend(Backend):
             shutil.copyfile(src,  dest)
         bcdedit = join_path(os.getenv('SystemDrive'), 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
-            bcdedit = join_path(os.environ('systemroot'), 'sysnative', 'bcdedit.exe')
+            bcdedit = join_path(os.environ['systemroot'], 'sysnative', 'bcdedit.exe')
+        if not os.path.isfile(bcdedit):
+            bcdedit = join_path(os.environ['systemroot'], 'System32', 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
             log.error("Cannot find bcdedit")
             return
-        if registry.get_key('HKEY_LOCAL_MACHINE', self.info.registry_key, 'VistaBootDrive'):
+        if registry.get_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'VistaBootDrive'):
             log.debug("BCD has already been modified")
             return
 
         command = [bcdedit, '/create', '/d', '"%s"' % self.info.distro.name, '/application', 'bootsector']
         id = run_command(command)
         id = id[id.index('{'):id.index('}')+1]
-        command = [bcdedit, '/set', id,  'device', 'partition=%s' + self.info.target_drive.path]
+        command = [bcdedit, '/set', id,  'device', 'partition=%s' % self.info.target_drive.path]
         run_command(command)
         command = [bcdedit, '/set', id,  'path', 'wubildr.mbr']
         run_command(command)
@@ -616,7 +618,7 @@ class WindowsBackend(Backend):
         run_command(command)
         command = [bcdedit, ' /timeout', 10]
         run_command(command)
-        registry.set_key(
+        registry.set_value(
             'HKEY_LOCAL_MACHINE',
             self.info.registry_key,
             'VistaBootDrive',
@@ -654,7 +656,7 @@ class WindowsBackend(Backend):
         if not os.path.isfile(bcdedit):
             log.error("Cannot find bcdedit")
             return
-        id = registry.get_key(
+        id = registry.get_value(
             'HKEY_LOCAL_MACHINE',
             self.info.registry_key,
             'VistaBootDrive')
