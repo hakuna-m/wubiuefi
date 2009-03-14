@@ -1,260 +1,51 @@
+# #-#-#-#-#  nl.po (Wubi 165)  #-#-#-#-#
 # Translation template for Wubi (Windows Ubuntu Installer)
 # This file is distributed under the same license as the Wubi package.
 # Web site: https://launchpad.net/wubi/
 #
+# #-#-#-#-#  nl.po (umenu)  #-#-#-#-#
+# Dutch translation for umenu
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the umenu package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Wubi 165\n"
+"Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-03-05 08:19+0000\n"
-"PO-Revision-Date: 2008-05-12 12:40+0000\n"
-"Last-Translator: Balaam's Miracle <Unknown>\n"
-"Language-Team: RMZ <test@test.org>\n"
+"POT-Creation-Date: 2009-03-14 00:34+0000\n"
+"PO-Revision-Date: 2008-03-17 21:04+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-10-27 06:16+0000\n"
+"#-#-#-#-#  nl.po (Wubi 165)  #-#-#-#-#\n"
+"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
-
-#: src/wubi/application.py:56
-#, python-format
-msgid ""
-"An error occurred:\n"
-"\n"
-"%(error)s\n"
-"\n"
-"For more information, please see the log file: %(log)s"
-msgstr ""
-
-#: src/wubi/application.py:131 src/wubi/application.py:189
-#, python-format
-msgid ""
-"A previous installation was detected in %s.\n"
-"Please uninstall that before continuing."
-msgstr ""
-
-#: src/wubi/application.py:171
-msgid "No CD detected, cannot run CD menu"
-msgstr ""
-
-#: src/wubi/application.py:179
-msgid ""
-"Could not find any valid CD.\n"
-"CD boot helper can only be used with a Live CD."
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:71
-#: src/wubi/backends/common/backend.py:91
-msgid "Selecting the target directory"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:72
-#: src/wubi/backends/common/backend.py:92
-#, fuzzy
-msgid "Creating the installation directories"
-msgstr "Bezig met het ophalen van installatie-bestanden."
-
-#: src/wubi/backends/common/backend.py:73
-#: src/wubi/backends/common/backend.py:93
-#, fuzzy
-msgid "Creating the uninstaller"
-msgstr "Bezig met de uninstaller in te stellen...."
-
-#: src/wubi/backends/common/backend.py:74
-#: src/wubi/backends/common/backend.py:94
-#: src/wubi/backends/common/backend.py:407
-#: src/wubi/backends/common/backend.py:413
-#, fuzzy
-msgid "Copying installation files"
-msgstr "Bezig met kopiëren installatiebestanden..."
-
-#: src/wubi/backends/common/backend.py:75
-#, fuzzy
-msgid "Retrieving installation files"
-msgstr "Bezig met het ophalen van installatie-bestanden."
-
-#: src/wubi/backends/common/backend.py:76
-#: src/wubi/backends/common/backend.py:96
-msgid "Extracting the kernel"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:77
-msgid "Choosing disk sizes"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:78
-#: src/wubi/backends/common/backend.py:97
-msgid "Creating a preseed file"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:79
-#: src/wubi/backends/common/backend.py:98
-msgid "Adding a new bootlader entry"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:80
-#: src/wubi/backends/common/backend.py:99
-#, fuzzy
-msgid "Setting up installation boot menu"
-msgstr "Bezig met de uninstaller in te stellen...."
-
-#: src/wubi/backends/common/backend.py:81
-#, fuzzy
-msgid "Creating the virtual disks"
-msgstr "Bezig met aanmaken van virtuele schijven..."
-
-#: src/wubi/backends/common/backend.py:82
-#: src/wubi/backends/common/backend.py:100
-#, fuzzy
-msgid "Uncompressing files"
-msgstr "Bezig met wubi map uit te pakken..."
-
-#: src/wubi/backends/common/backend.py:83
-#: src/wubi/backends/common/backend.py:101
-msgid "Ejecting the CD"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:85
-#: src/wubi/frontends/win32/progress_page.py:38
-#, fuzzy, python-format
-msgid "Installing %(distro)s-%(version)s"
-msgstr "Bezig met installatie $Distro-$DistroVersion"
-
-#: src/wubi/backends/common/backend.py:95
-msgid "Extracting CD content"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:103
-#, fuzzy
-msgid "Installing CD boot helper"
-msgstr "CD-opstarter installeren"
-
-#: src/wubi/backends/common/backend.py:109
-#: src/wubi/backends/common/backend.py:111
-msgid "Rebooting"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:116
-msgid "Backup ISO"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:117
-msgid "Remove bootloader entry"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:118
-msgid "Remove target dir"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:119
-msgid "Remove registry key"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:120
-#, python-format
-msgid "Uninstalling %s"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:252
-#, fuzzy, python-format
-msgid "Checking CD %s"
-msgstr "Bezig met verbinden met %s..."
-
-#: src/wubi/backends/common/backend.py:274
-#: src/wubi/backends/common/backend.py:314
-#: src/wubi/backends/common/backend.py:345
-#, fuzzy
-msgid "Downloading information on installation files"
-msgstr "Downloaden van installatiebestanden..."
-
-#: src/wubi/backends/common/backend.py:287
-#: src/wubi/backends/common/backend.py:338
-#: src/wubi/backends/common/backend.py:400
-#: src/wubi/backends/common/backend.py:444
-#, fuzzy
-msgid "Checking installation files"
-msgstr "Controleren van installatiebestanden..."
-
-#: src/wubi/backends/common/backend.py:371
-#, python-format
-msgid "Validating %s"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:437
-#, python-format
-msgid "Extracting files from %s"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:479
-#, python-format
-msgid "Copying files from CD %s"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:507
-#, fuzzy, python-format
-msgid "Checking %s"
-msgstr "Bezig met verbinden met %s..."
-
-#: src/wubi/backends/common/tasklist.py:254
-#: src/wubi/backends/common/tasklist.py:258
-msgid "0s"
-msgstr ""
-
-#: src/wubi/backends/common/tasklist.py:267
-#, python-format
-msgid "%ih"
-msgstr ""
-
-#: src/wubi/backends/common/tasklist.py:269
-#, python-format
-msgid "%imin"
-msgstr ""
-
-#: src/wubi/backends/common/tasklist.py:272
-#, python-format
-msgid "%is"
-msgstr ""
-
-#: src/wubi/backends/common/downloader.py:66
-#, python-format
-msgid "Downloading %s"
-msgstr ""
-
-#: src/wubi/backends/win32/backend.py:148
-#, fuzzy, python-format
-msgid ""
-"The installation failed. Logs have been saved in: %s.\n"
-"\n"
-"Note that in verbose mode, the logs may include the password.\n"
-"\n"
-"The system will now reboot."
-msgstr ""
-"De installatie is mislukt. Een logbestand is bewaard in: $INSTDIR"
-"\\installation-logs.zip.\n"
-"\n"
-"Let op dat in spraakzame modus het logbestand uw wachtwoord kan bevatten.\n"
-"\n"
-"Het systeem zal nu worden herstart."
+"#-#-#-#-#  nl.po (umenu)  #-#-#-#-#\n"
+"X-Launchpad-Export-Date: 2008-10-27 09:28+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
 msgstr "Toegankelijkheidsprofiel"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
-#, fuzzy
-msgid "Please select the appropriate accessibility prfoile"
-msgstr "Stel het gewenste toegankelijkheidsprofiel in"
+msgid "Please select the appropriate accessibility profile"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
 msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/progress_page.py:43
+#: src/wubi/frontends/win32/cd_menu_page.py:38
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_page.py:45
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/cd_menu_page.py:38
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Cancel"
 msgstr ""
@@ -264,155 +55,40 @@ msgid "Visibility Aids"
 msgstr "Toegankelijkheidshulp voor visuele weergave"
 
 #: src/wubi/frontends/win32/accessibility_page.py:51
-#, fuzzy
 msgid "Visibility1"
-msgstr "Toegankelijkheidshulp voor visuele weergave"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:52
-#, fuzzy
 msgid "Visibility2"
-msgstr "Toegankelijkheidshulp voor visuele weergave"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:53
-#, fuzzy
 msgid "Visibility3"
-msgstr "Toegankelijkheidshulp voor visuele weergave"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:54
-#, fuzzy
 msgid "Braille"
-msgstr "Braille-terminal"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:57
 msgid "Mobility Aids"
 msgstr "Toegankelijkheidshulp voor invoer"
 
 #: src/wubi/frontends/win32/accessibility_page.py:58
-#, fuzzy
 msgid "Mobility1"
-msgstr "Toegankelijkheidshulp voor invoer"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:59
-#, fuzzy
 msgid "Mobility2"
-msgstr "Toegankelijkheidshulp voor invoer"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:62
 msgid "None"
 msgstr "Geen"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:35
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "Finish"
-msgstr ""
-
-#: src/wubi/frontends/win32/installation_finish_page.py:41
-#, python-format
-msgid "Completing the %s Setup Wizard"
-msgstr ""
-
-#: src/wubi/frontends/win32/installation_finish_page.py:43
-#, fuzzy
-msgid "You need to reboot to complete the installation"
-msgstr ""
-"De computer moet opnieuw opgestart worden om de installatie te voltooien."
-
-#: src/wubi/frontends/win32/installation_finish_page.py:44
-#: src/wubi/frontends/win32/cd_finish_page.py:47
-msgid "Reboot now"
-msgstr ""
-
-#: src/wubi/frontends/win32/installation_finish_page.py:45
-msgid "I want to manually reboot later"
-msgstr ""
-
-#: src/wubi/frontends/win32/progress_page.py:39
-msgid "Please wait"
-msgstr ""
-
-#: src/wubi/frontends/win32/progress_page.py:52
-msgid "Do not download, use a local file"
-msgstr ""
-
-#: src/wubi/frontends/win32/progress_page.py:65
-#, python-format
-msgid "Remaining time approximately %s"
-msgstr ""
-
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:41
-#, fuzzy
-msgid "Uninstallation completed"
-msgstr "Installatietaal:"
-
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:43
-#, python-format
-msgid "%s has bee successfully uninstalled"
-msgstr ""
-
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "< Back"
-msgstr ""
-
-#: src/wubi/frontends/win32/cd_finish_page.py:43
-msgid "Reboot required"
-msgstr ""
-
-#: src/wubi/frontends/win32/cd_finish_page.py:45
-msgid ""
-"To start the Live CD you need to reboot your machine leaving the CD in the "
-"tray. If your machine cannot boot from the CD, the last option should work "
-"in most cases."
-msgstr ""
-
-#: src/wubi/frontends/win32/cd_finish_page.py:48
-msgid "I want to manually reboot Later"
-msgstr ""
-
-#: src/wubi/frontends/win32/cd_finish_page.py:49
-msgid "Help me to boot from CD"
-msgstr ""
-
 #: src/wubi/frontends/win32/frontend.py:49
-#, fuzzy
 msgid "Are you sure you want to quit?"
-msgstr "Wilt u het de-installeren?"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:32
-#, fuzzy, python-format
-msgid "%s Uninstaller"
-msgstr "Herinstalleren"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:36
-#, fuzzy
-msgid "Uninstallation required"
-msgstr "Installatietaal:"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:38
-#, fuzzy, python-format
-msgid "You are about to uninstall %s"
-msgstr "U staat op het punt om $Distro-$DistroVersion te installeren"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-#, fuzzy
-msgid "Uninstall"
-msgstr "Herinstalleren"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:52
-msgid ""
-"A previous installation was detected, it needs to be uninstalled before "
-"continuing"
 msgstr ""
-
-#: src/wubi/frontends/win32/uninstallation_page.py:54
-#, fuzzy
-msgid "Are you sure you want to uninstall?"
-msgstr "Wilt u het de-installeren?"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:62
-#, fuzzy
-msgid "Backup the downloaded files (ISO)"
-msgstr "Reservekopie maken van gedownloade bestanden. (CD ISO bestand)."
 
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
@@ -425,20 +101,17 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
-#, fuzzy
 msgid "Accessibility"
-msgstr "Toeg&ankelijkheid"
+msgstr ""
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
-#, fuzzy
 msgid "Install"
-msgstr "Herinstalleren"
+msgstr ""
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
-#, fuzzy
 msgid "Install CD boot helper"
-msgstr "CD-opstarter installeren"
+msgstr ""
 
 #: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
@@ -455,6 +128,25 @@ msgstr ""
 "\n"
 "\n"
 "Wilt u doorgaan en de CD-opstarter installeren?"
+
+#: src/wubi/frontends/win32/progress_page.py:38
+#: src/wubi/backends/common/backend.py:85
+#, python-format
+msgid "Installing %(distro)s-%(version)s"
+msgstr ""
+
+#: src/wubi/frontends/win32/progress_page.py:39
+msgid "Please wait"
+msgstr ""
+
+#: src/wubi/frontends/win32/progress_page.py:52
+msgid "Do not download, use a local file"
+msgstr ""
+
+#: src/wubi/frontends/win32/progress_page.py:65
+#, python-format
+msgid "Remaining time approximately %s"
+msgstr ""
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
@@ -498,6 +190,94 @@ msgid ""
 "much more."
 msgstr ""
 
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/installation_finish_page.py:35
+msgid "Finish"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:41
+msgid "Uninstallation completed"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:43
+#, python-format
+msgid "%s has been successfully uninstalled"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:45
+msgid ""
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:47
+#: src/wubi/frontends/win32/installation_finish_page.py:44
+msgid "Reboot now"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:32
+#, python-format
+msgid "%s Uninstaller"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:36
+msgid "Uninstallation required"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:38
+#, python-format
+msgid "You are about to uninstall %s"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+msgid "Uninstall"
+msgstr "Verwijderen"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:52
+msgid ""
+"A previous installation was detected, it needs to be uninstalled before "
+"continuing"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:54
+msgid "Are you sure you want to uninstall?"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:62
+msgid "Backup the downloaded files (ISO)"
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_finish_page.py:41
+#, python-format
+msgid "Completing the %s Setup Wizard"
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_finish_page.py:43
+msgid "You need to reboot to complete the installation"
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_finish_page.py:45
+msgid "I want to manually reboot later"
+msgstr ""
+
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
 msgid ""
@@ -524,19 +304,16 @@ msgid "Please select username and password for the new account"
 msgstr "Kies een gebruikersnaam en wachtwoord voor de nieuwe account"
 
 #: src/wubi/frontends/win32/installation_page.py:188
-#, fuzzy
 msgid "Installation drive:"
-msgstr "Installatiegrootte (GB):"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:194
-#, fuzzy
 msgid "Installation size:"
-msgstr "Installatiegrootte (GB):"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:200
-#, fuzzy
 msgid "Desktop environment:"
-msgstr "Werkomgeving:"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:206
 msgid "Language:"
@@ -551,9 +328,9 @@ msgid "Password:"
 msgstr "Wachtwoord:"
 
 #: src/wubi/frontends/win32/installation_page.py:255
-#, fuzzy, python-format
+#, python-format
 msgid "%s Installer"
-msgstr "CD-opstarter installeren"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:261
 #, python-format
@@ -600,222 +377,199 @@ msgstr "Gebruik geen spaties in het wachtwoord."
 msgid "Passwords do not match."
 msgstr "Wachtwoorden komen niet overeen."
 
-#~ msgid "(Use CD)"
-#~ msgstr "(CD gebruiken)"
+#: src/wubi/backends/win32/backend.py:148
+#, python-format
+msgid ""
+"The installation failed. Logs have been saved in: %s.\n"
+"\n"
+"Note that in verbose mode, the logs may include the password.\n"
+"\n"
+"The system will now reboot."
+msgstr ""
 
-#~ msgid "(Read Only)"
-#~ msgstr "(Alleen-lezen)"
+#: src/wubi/backends/common/backend.py:71
+#: src/wubi/backends/common/backend.py:91
+msgid "Selecting the target directory"
+msgstr ""
 
-#~ msgid "Installation Drive ($freeSpace GB free):"
-#~ msgstr "Installatiestation ($freeSpace GB vrij):"
+#: src/wubi/backends/common/backend.py:72
+#: src/wubi/backends/common/backend.py:92
+msgid "Creating the installation directories"
+msgstr ""
 
-#~ msgid ""
-#~ "Please select a username for the new account.\n"
-#~ "It must be lower case.\n"
-#~ "It must not contain spaces.\n"
-#~ "It must contain only standard letters and numbers.\n"
-#~ "It cannot start by a number."
-#~ msgstr ""
-#~ "Kies een gebruikersnaam voor het nieuwe account.\n"
-#~ "Gebruik geen hoofdletters.\n"
-#~ "Gebruik geen spaties.\n"
-#~ "Gebruik alleen standaardletters en cijfers.\n"
-#~ "De naam mag niet met een cijfer beginnen."
+#: src/wubi/backends/common/backend.py:73
+#: src/wubi/backends/common/backend.py:93
+msgid "Creating the uninstaller"
+msgstr ""
 
-#~ msgid ""
-#~ "Please select a password for the new account.\n"
-#~ "It must not contain spaces."
-#~ msgstr ""
-#~ "Kies een wachtwoord voor het nieuwe account.\n"
-#~ "Het mag geen spaties bevatten."
+#: src/wubi/backends/common/backend.py:74
+#: src/wubi/backends/common/backend.py:94
+#: src/wubi/backends/common/backend.py:407
+#: src/wubi/backends/common/backend.py:413
+msgid "Copying installation files"
+msgstr ""
 
-#~ msgid ""
-#~ "How many GB do you want to allocate?\n"
-#~ "4GB is the bare minimum\n"
-#~ "8GB is comfortable"
-#~ msgstr ""
-#~ "Hoeveel GB wilt u toewijzen?\n"
-#~ "4GB is het absolute minimum\n"
-#~ "8GB is comfortabel"
+#: src/wubi/backends/common/backend.py:75
+msgid "Retrieving installation files"
+msgstr ""
 
-#~ msgid ""
-#~ "In which drive do you want to perform the installation?\n"
-#~ "This drive should have at least 5 GB free."
-#~ msgstr ""
-#~ "Op welk station wilt u de installatie uitvoeren?\n"
-#~ "Er moet op dit station minimaal 5 GB vrije ruimte zijn."
+#: src/wubi/backends/common/backend.py:76
+#: src/wubi/backends/common/backend.py:96
+msgid "Extracting the kernel"
+msgstr ""
 
-#~ msgid "Ubuntu is the default."
-#~ msgstr "Ubuntu is de standaardkeuze."
+#: src/wubi/backends/common/backend.py:77
+msgid "Choosing disk sizes"
+msgstr ""
 
-#~ msgid "Kubuntu-KDE4 uses the KDE4 desktop."
-#~ msgstr "Kubuntu-KDE4 gebruikt het KDE4 bureaublad."
+#: src/wubi/backends/common/backend.py:78
+#: src/wubi/backends/common/backend.py:97
+msgid "Creating a preseed file"
+msgstr ""
 
-#~ msgid "Xubuntu is good for older systems."
-#~ msgstr "Xubuntu is geschikt voor oudere systemen."
+#: src/wubi/backends/common/backend.py:79
+#: src/wubi/backends/common/backend.py:98
+msgid "Adding a new bootlader entry"
+msgstr ""
 
-#, fuzzy
-#~ msgid ""
-#~ "What graphical environment do you want to install?\n"
-#~ "* $(Distro1ToolTip)\n"
-#~ "* $(Distro3ToolTip)\n"
-#~ "* $(Distro4ToolTip)\n"
-#~ "* $(Distro2ToolTip)"
-#~ msgstr ""
-#~ "Welke grafische werkomgeving wilt u installeren?\n"
-#~ "* $(Distro1ToolTip)\n"
-#~ "* $(Distro2ToolTip)\n"
-#~ "* $(Distro3ToolTip)\n"
-#~ "* $(Distro4ToolTip)"
+#: src/wubi/backends/common/backend.py:80
+#: src/wubi/backends/common/backend.py:99
+msgid "Setting up installation boot menu"
+msgstr ""
 
-#~ msgid ""
-#~ "You have $freeSpace MB free, the installer requires ${MinSizeMB} MB "
-#~ "free.\n"
-#~ "Do you want to continue anyway? The installation may fail in such "
-#~ "conditions."
-#~ msgstr ""
-#~ "U heeft $freeSpace MB vrij, het installatieprogramma heeft ${MinSizeMB} "
-#~ "MB nodig.\n"
-#~ "Wilt u toch doorgaan? De installatie kan mislukken in deze omstandigheden."
+#: src/wubi/backends/common/backend.py:81
+msgid "Creating the virtual disks"
+msgstr ""
 
-#~ msgid "Could not retrieve some essential files"
-#~ msgstr "Het is niet gelukt enkele noodzakelijke bestanden op te zoeken"
+#: src/wubi/backends/common/backend.py:82
+#: src/wubi/backends/common/backend.py:100
+msgid "Uncompressing files"
+msgstr ""
 
-#~ msgid "Error while trying to execute bcdedit:"
-#~ msgstr "Fout tijdens het uitvoeren van bcdedit:"
+#: src/wubi/backends/common/backend.py:83
+#: src/wubi/backends/common/backend.py:101
+msgid "Ejecting the CD"
+msgstr ""
 
-#~ msgid "Error while trying to execute wubibcd:"
-#~ msgstr "Fout tijdens het uitvoeren van wubibcd:"
+#: src/wubi/backends/common/backend.py:95
+msgid "Extracting CD content"
+msgstr ""
 
-#~ msgid ""
-#~ "Could not access the CD, please make sure other applications are not "
-#~ "using it and try again"
-#~ msgstr ""
-#~ "Er was geen toegang mogelijk tot de CD, controleer of andere programma's "
-#~ "de CD gebruiken en probeer het opnieuw"
+#: src/wubi/backends/common/backend.py:103
+msgid "Installing CD boot helper"
+msgstr ""
 
-#~ msgid "The download was interrupted with the error:"
-#~ msgstr "De download werd onderbroken met error:"
+#: src/wubi/backends/common/backend.py:109
+#: src/wubi/backends/common/backend.py:111
+msgid "Rebooting"
+msgstr ""
 
-#~ msgid "Could not find any appropriate CD"
-#~ msgstr "De juiste CD kon niet gevonden worden"
+#: src/wubi/backends/common/backend.py:116
+msgid "Backup ISO"
+msgstr ""
 
-#~ msgid "You must be logged in as administrator!"
-#~ msgstr "U moet aangemeld zijn als beheerder!"
+#: src/wubi/backends/common/backend.py:117
+msgid "Remove bootloader entry"
+msgstr ""
 
-#~ msgid ""
-#~ "You have $memoryMB MB of memory, the installer requires ${MinMemoryMB} "
-#~ "MB.\n"
-#~ "Do you want to continue anyway? The installation may fail in such "
-#~ "conditions."
-#~ msgstr ""
-#~ "U heeft $memoryMB MB  aan geheugen, het installatieprogramma heeft "
-#~ "${MinMemoryMB} MB nodig.\n"
-#~ "Wilt u toch doorgaan? De installatie kan mislukken in deze omstandigheden."
+#: src/wubi/backends/common/backend.py:118
+msgid "Remove target dir"
+msgstr ""
 
-#~ msgid "Please wait while the required files are retrieved and prepared"
-#~ msgstr ""
-#~ "Wacht totdat de benodigde bestanden zijn binnengehaald en klaargezet"
+#: src/wubi/backends/common/backend.py:119
+msgid "Remove registry key"
+msgstr ""
 
-#~ msgid "Retrieving installation files, resume supported"
-#~ msgstr ""
-#~ "Bezig met het downloaden van installatie-bestanden, verdergaan na "
-#~ "onderbreken is mogelijk"
+#: src/wubi/backends/common/backend.py:120
+#, python-format
+msgid "Uninstalling %s"
+msgstr ""
 
-#~ msgid "Backing up installation files..."
-#~ msgstr "Bezig met een backup van de installatiebestanden..."
+#: src/wubi/backends/common/backend.py:252
+#, python-format
+msgid "Checking CD %s"
+msgstr ""
 
-#~ msgid "Writing configuration files..."
-#~ msgstr "Configuratiebestanden worden weggeschreven ..."
+#: src/wubi/backends/common/backend.py:274
+#: src/wubi/backends/common/backend.py:314
+#: src/wubi/backends/common/backend.py:345
+msgid "Downloading information on installation files"
+msgstr ""
 
-#~ msgid "Setting up bootloader..."
-#~ msgstr "Bezig met de bootloader klaar te maken..."
+#: src/wubi/backends/common/backend.py:287
+#: src/wubi/backends/common/backend.py:338
+#: src/wubi/backends/common/backend.py:400
+#: src/wubi/backends/common/backend.py:444
+msgid "Checking installation files"
+msgstr ""
 
-#~ msgid "Creating folders..."
-#~ msgstr "Bezig met aanmaken van mappen..."
+#: src/wubi/backends/common/backend.py:371
+#, python-format
+msgid "Validating %s"
+msgstr ""
 
-#~ msgid "${AppName} is already installed"
-#~ msgstr "${AppName} is al geïnstalleerd"
+#: src/wubi/backends/common/backend.py:437
+#, python-format
+msgid "Extracting files from %s"
+msgstr ""
 
-#~ msgid ""
-#~ "$OldInstallationDrive\\${DefaultInstallationDir} will be uninstalled.\n"
-#~ "You can backup your files if you want."
-#~ msgstr ""
-#~ "$OldInstallationDrive\\${DefaultInstallationDir} zal worden gede-"
-#~ "installeerd.\n"
-#~ "U kunt een reservekopie maken van uw bestanden."
+#: src/wubi/backends/common/backend.py:507
+#, python-format
+msgid "Checking %s"
+msgstr ""
 
-#~ msgid "Backup personal documents (home.disk)."
-#~ msgstr "Reservekopie maken van persoonlijke documenten (home.disk)."
+#: src/wubi/backends/common/tasklist.py:255
+#: src/wubi/backends/common/tasklist.py:259
+msgid "0s"
+msgstr ""
 
-#~ msgid "Backup location: $BackupFolder"
-#~ msgstr "Locatie voor reservekopieën: $BackupFolder"
+#: src/wubi/backends/common/tasklist.py:268
+#, python-format
+msgid "%ih"
+msgstr ""
 
-#~ msgid "Please remove any CD/DVD and reboot to complete the installation."
-#~ msgstr "Verwijder alle CD/DVD's en herstart om de installatie te voltooien."
+#: src/wubi/backends/common/tasklist.py:270
+#, python-format
+msgid "%imin"
+msgstr ""
 
-#~ msgid "Initializing..."
-#~ msgstr "Initialiseren..."
+#: src/wubi/backends/common/tasklist.py:273
+#, python-format
+msgid "%is"
+msgstr ""
 
-#~ msgid "Calculating checksums..."
-#~ msgstr "Bezig met uitrekenen controlesommen..."
+#: src/wubi/backends/common/downloader.py:66
+#: src/wubi/backends/common/btdownloader.py:35
+#, python-format
+msgid "Downloading %s"
+msgstr "Downloaden %s"
 
-#~ msgid "Retrying in %d seconds... (%d of %d)"
-#~ msgstr "Opnieuw proberen in %d seconden... (%d van %d)"
+#: src/wubi/application.py:56
+#, python-format
+msgid ""
+"An error occurred:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"For more information, please see the log file: %(log)s"
+msgstr ""
 
-#~ msgid "Retrying in %d seconds..."
-#~ msgstr "Opnieuw proberen in %d seconden..."
+#: src/wubi/application.py:131 src/wubi/application.py:189
+#, python-format
+msgid ""
+"A previous installation was detected in %s.\n"
+"Please uninstall that before continuing."
+msgstr ""
 
-#~ msgid "second"
-#~ msgstr "seconde"
+#: src/wubi/application.py:171
+msgid "No CD detected, cannot run CD menu"
+msgstr ""
 
-#~ msgid "seconds"
-#~ msgstr "seconden"
-
-#~ msgid "%s (%d%%) of %s @ %s/s"
-#~ msgstr "%s (%d%%) van %s @ %s/s"
-
-#~ msgid " (%s remaining)"
-#~ msgstr " (%s resterend)"
-
-#~ msgid "Please connect to the internet now."
-#~ msgstr "Maak nu een verbinding met het internet."
-
-#~ msgid "High Contrast"
-#~ msgstr "Hoog contrast"
-
-#~ msgid "Magnifier"
-#~ msgstr "Vergrootglas"
-
-#~ msgid "Screen Reader"
-#~ msgstr "Schermlezer"
-
-#~ msgid "Keyboard Modifiers"
-#~ msgstr "Toetsenbord controletoetsen"
-
-#~ msgid "On-Screen Keyboard"
-#~ msgstr "Schermtoetsenbord"
-
-#~ msgid "Start installer in normal mode"
-#~ msgstr "Installatieprogramma in standaardmodus opstarten"
-
-#~ msgid ""
-#~ "Start installer in safe graphic mode (only if you have display problems)"
-#~ msgstr ""
-#~ "Installatieprogramma in veilige grafische modus opstarten (alleen als u "
-#~ "weergave-problemen heeft)"
-
-#~ msgid ""
-#~ "Start installer with ACPI workarounds (only if you have ACPI problems)"
-#~ msgstr ""
-#~ "Installatieprogramma met omzeilfuncties voor ACPI-problemen opstarten "
-#~ "(alleen als u ACPI-problemen heeft)"
-
-#~ msgid "Start installer in verbose mode"
-#~ msgstr "Start installer in spraakzame modus"
-
-#~ msgid "Kubuntu uses the KDE3.5 desktop."
-#~ msgstr "Kubuntu gebruikt het KDE3.5 bureaublad."
+#: src/wubi/application.py:179
+msgid ""
+"Could not find any valid CD.\n"
+"CD boot helper can only be used with a Live CD."
+msgstr ""
 
 #~ msgid "Settings"
 #~ msgstr "Instellingen"
@@ -832,6 +586,12 @@ msgstr "Wachtwoorden komen niet overeen."
 #~ msgid "What do you want to do?"
 #~ msgstr "Wat wilt u doen?"
 
+#~ msgid "Reinstall"
+#~ msgstr "Herinstalleren"
+
+#~ msgid "Installation Size (GB):"
+#~ msgstr "Installatiegrootte (GB):"
+
 #~ msgid ""
 #~ " * Ubuntu uses the Gnome desktop.\n"
 #~ " * Kubuntu uses the KDE desktop, looks a little bit more like Windows.\n"
@@ -845,6 +605,11 @@ msgstr "Wachtwoorden komen niet overeen."
 #~ "wat oudere systemen.\n"
 #~ " * UbuntuStudio is een desktop omgeving gericht op het werken met "
 #~ "multimedia."
+
+#~ msgid "Retrieving installation files, resume supported"
+#~ msgstr ""
+#~ "Bezig met het downloaden van installatie-bestanden, verdergaan na "
+#~ "onderbreken is mogelijk"
 
 #~ msgid "free"
 #~ msgstr "vrij"

@@ -7,255 +7,34 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-03-05 08:19+0000\n"
+"POT-Creation-Date: 2009-03-14 00:34+0000\n"
 "PO-Revision-Date: 2008-06-14 09:21+0000\n"
 "Last-Translator: Hyunseok Hwang <fr.hwang@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-10-27 06:16+0000\n"
+"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
-
-#: src/wubi/application.py:56
-#, python-format
-msgid ""
-"An error occurred:\n"
-"\n"
-"%(error)s\n"
-"\n"
-"For more information, please see the log file: %(log)s"
-msgstr ""
-
-#: src/wubi/application.py:131 src/wubi/application.py:189
-#, python-format
-msgid ""
-"A previous installation was detected in %s.\n"
-"Please uninstall that before continuing."
-msgstr ""
-
-#: src/wubi/application.py:171
-msgid "No CD detected, cannot run CD menu"
-msgstr ""
-
-#: src/wubi/application.py:179
-msgid ""
-"Could not find any valid CD.\n"
-"CD boot helper can only be used with a Live CD."
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:71
-#: src/wubi/backends/common/backend.py:91
-msgid "Selecting the target directory"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:72
-#: src/wubi/backends/common/backend.py:92
-#, fuzzy
-msgid "Creating the installation directories"
-msgstr "설치 파일 검색."
-
-#: src/wubi/backends/common/backend.py:73
-#: src/wubi/backends/common/backend.py:93
-#, fuzzy
-msgid "Creating the uninstaller"
-msgstr "설치 제거 프로그램을 설정하는 중..."
-
-#: src/wubi/backends/common/backend.py:74
-#: src/wubi/backends/common/backend.py:94
-#: src/wubi/backends/common/backend.py:407
-#: src/wubi/backends/common/backend.py:413
-#, fuzzy
-msgid "Copying installation files"
-msgstr "설치 파일을 복사하는 중..."
-
-#: src/wubi/backends/common/backend.py:75
-#, fuzzy
-msgid "Retrieving installation files"
-msgstr "설치 파일 검색."
-
-#: src/wubi/backends/common/backend.py:76
-#: src/wubi/backends/common/backend.py:96
-msgid "Extracting the kernel"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:77
-msgid "Choosing disk sizes"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:78
-#: src/wubi/backends/common/backend.py:97
-msgid "Creating a preseed file"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:79
-#: src/wubi/backends/common/backend.py:98
-msgid "Adding a new bootlader entry"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:80
-#: src/wubi/backends/common/backend.py:99
-#, fuzzy
-msgid "Setting up installation boot menu"
-msgstr "설치 제거 프로그램을 설정하는 중..."
-
-#: src/wubi/backends/common/backend.py:81
-#, fuzzy
-msgid "Creating the virtual disks"
-msgstr "가상 디스크를 작성하는 중..."
-
-#: src/wubi/backends/common/backend.py:82
-#: src/wubi/backends/common/backend.py:100
-#, fuzzy
-msgid "Uncompressing files"
-msgstr "Wubi 폴더의 압축을 해제하는 중..."
-
-#: src/wubi/backends/common/backend.py:83
-#: src/wubi/backends/common/backend.py:101
-msgid "Ejecting the CD"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:85
-#: src/wubi/frontends/win32/progress_page.py:38
-#, fuzzy, python-format
-msgid "Installing %(distro)s-%(version)s"
-msgstr "$Distro-$DistroVersion을(를) 설치하는 중"
-
-#: src/wubi/backends/common/backend.py:95
-msgid "Extracting CD content"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:103
-#, fuzzy
-msgid "Installing CD boot helper"
-msgstr "CD 부팅 도구 설치"
-
-#: src/wubi/backends/common/backend.py:109
-#: src/wubi/backends/common/backend.py:111
-msgid "Rebooting"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:116
-msgid "Backup ISO"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:117
-msgid "Remove bootloader entry"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:118
-msgid "Remove target dir"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:119
-msgid "Remove registry key"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:120
-#, python-format
-msgid "Uninstalling %s"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:252
-#, fuzzy, python-format
-msgid "Checking CD %s"
-msgstr "%s에 연결 중..."
-
-#: src/wubi/backends/common/backend.py:274
-#: src/wubi/backends/common/backend.py:314
-#: src/wubi/backends/common/backend.py:345
-#, fuzzy
-msgid "Downloading information on installation files"
-msgstr "설치 파일을 내려받는 중..."
-
-#: src/wubi/backends/common/backend.py:287
-#: src/wubi/backends/common/backend.py:338
-#: src/wubi/backends/common/backend.py:400
-#: src/wubi/backends/common/backend.py:444
-#, fuzzy
-msgid "Checking installation files"
-msgstr "설치 파일을 확인하는 중..."
-
-#: src/wubi/backends/common/backend.py:371
-#, python-format
-msgid "Validating %s"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:437
-#, python-format
-msgid "Extracting files from %s"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:479
-#, python-format
-msgid "Copying files from CD %s"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:507
-#, fuzzy, python-format
-msgid "Checking %s"
-msgstr "%s에 연결 중..."
-
-#: src/wubi/backends/common/tasklist.py:254
-#: src/wubi/backends/common/tasklist.py:258
-msgid "0s"
-msgstr ""
-
-#: src/wubi/backends/common/tasklist.py:267
-#, python-format
-msgid "%ih"
-msgstr ""
-
-#: src/wubi/backends/common/tasklist.py:269
-#, python-format
-msgid "%imin"
-msgstr ""
-
-#: src/wubi/backends/common/tasklist.py:272
-#, python-format
-msgid "%is"
-msgstr ""
-
-#: src/wubi/backends/common/downloader.py:66
-#, python-format
-msgid "Downloading %s"
-msgstr ""
-
-#: src/wubi/backends/win32/backend.py:148
-#, fuzzy, python-format
-msgid ""
-"The installation failed. Logs have been saved in: %s.\n"
-"\n"
-"Note that in verbose mode, the logs may include the password.\n"
-"\n"
-"The system will now reboot."
-msgstr ""
-"설치가 실패했습니다. 설치 기록은 $INSTDIR\\installation-logs.zip에 저장되었습"
-"니다.\n"
-"\n"
-"설치 과정 표시 모드에서는 설치 기록에 암호가 포함되어 있음을 명심하십시오.\n"
-"\n"
-"이제 시스템은 다시 시작될 것입니다."
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
 msgstr "접근성 프로파일"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
-#, fuzzy
-msgid "Please select the appropriate accessibility prfoile"
-msgstr "알맞은 접근성 프로파일을 선택해 주십시오."
+msgid "Please select the appropriate accessibility profile"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
 msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/progress_page.py:43
+#: src/wubi/frontends/win32/cd_menu_page.py:38
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_page.py:45
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/cd_menu_page.py:38
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Cancel"
 msgstr ""
@@ -265,153 +44,40 @@ msgid "Visibility Aids"
 msgstr "시각적 보조 도구"
 
 #: src/wubi/frontends/win32/accessibility_page.py:51
-#, fuzzy
 msgid "Visibility1"
-msgstr "시각적 보조 도구"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:52
-#, fuzzy
 msgid "Visibility2"
-msgstr "시각적 보조 도구"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:53
-#, fuzzy
 msgid "Visibility3"
-msgstr "시각적 보조 도구"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:54
-#, fuzzy
 msgid "Braille"
-msgstr "점자 터미널"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:57
 msgid "Mobility Aids"
 msgstr "모바일 보조 도구"
 
 #: src/wubi/frontends/win32/accessibility_page.py:58
-#, fuzzy
 msgid "Mobility1"
-msgstr "모바일 보조 도구"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:59
-#, fuzzy
 msgid "Mobility2"
-msgstr "모바일 보조 도구"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:62
 msgid "None"
 msgstr "없음"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:35
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "Finish"
-msgstr ""
-
-#: src/wubi/frontends/win32/installation_finish_page.py:41
-#, python-format
-msgid "Completing the %s Setup Wizard"
-msgstr ""
-
-#: src/wubi/frontends/win32/installation_finish_page.py:43
-#, fuzzy
-msgid "You need to reboot to complete the installation"
-msgstr "설치를 완료하기 위해 시스템을 다시 시작할 필요가 있습니다."
-
-#: src/wubi/frontends/win32/installation_finish_page.py:44
-#: src/wubi/frontends/win32/cd_finish_page.py:47
-msgid "Reboot now"
-msgstr ""
-
-#: src/wubi/frontends/win32/installation_finish_page.py:45
-msgid "I want to manually reboot later"
-msgstr ""
-
-#: src/wubi/frontends/win32/progress_page.py:39
-msgid "Please wait"
-msgstr ""
-
-#: src/wubi/frontends/win32/progress_page.py:52
-msgid "Do not download, use a local file"
-msgstr ""
-
-#: src/wubi/frontends/win32/progress_page.py:65
-#, python-format
-msgid "Remaining time approximately %s"
-msgstr ""
-
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:41
-#, fuzzy
-msgid "Uninstallation completed"
-msgstr "설치 언어"
-
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:43
-#, python-format
-msgid "%s has bee successfully uninstalled"
-msgstr ""
-
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "< Back"
-msgstr ""
-
-#: src/wubi/frontends/win32/cd_finish_page.py:43
-msgid "Reboot required"
-msgstr ""
-
-#: src/wubi/frontends/win32/cd_finish_page.py:45
-msgid ""
-"To start the Live CD you need to reboot your machine leaving the CD in the "
-"tray. If your machine cannot boot from the CD, the last option should work "
-"in most cases."
-msgstr ""
-
-#: src/wubi/frontends/win32/cd_finish_page.py:48
-msgid "I want to manually reboot Later"
-msgstr ""
-
-#: src/wubi/frontends/win32/cd_finish_page.py:49
-msgid "Help me to boot from CD"
-msgstr ""
-
 #: src/wubi/frontends/win32/frontend.py:49
-#, fuzzy
 msgid "Are you sure you want to quit?"
-msgstr "설치제거 하시겠습니까?"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:32
-#, python-format
-msgid "%s Uninstaller"
 msgstr ""
-
-#: src/wubi/frontends/win32/uninstallation_page.py:36
-#, fuzzy
-msgid "Uninstallation required"
-msgstr "설치 언어"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:38
-#, fuzzy, python-format
-msgid "You are about to uninstall %s"
-msgstr "$Distro-$DistroVersion을(를)설치 하려고 합니다"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-msgid "Uninstall"
-msgstr ""
-
-#: src/wubi/frontends/win32/uninstallation_page.py:52
-msgid ""
-"A previous installation was detected, it needs to be uninstalled before "
-"continuing"
-msgstr ""
-
-#: src/wubi/frontends/win32/uninstallation_page.py:54
-#, fuzzy
-msgid "Are you sure you want to uninstall?"
-msgstr "설치제거 하시겠습니까?"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:62
-#, fuzzy
-msgid "Backup the downloaded files (ISO)"
-msgstr "내려받은 파일 백업하기(CD ISO 파일)."
 
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
@@ -424,9 +90,8 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
-#, fuzzy
 msgid "Accessibility"
-msgstr "접근성(&A)"
+msgstr ""
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
@@ -434,9 +99,8 @@ msgid "Install"
 msgstr ""
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
-#, fuzzy
 msgid "Install CD boot helper"
-msgstr "CD 부팅 도구 설치"
+msgstr ""
 
 #: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
@@ -452,6 +116,25 @@ msgstr ""
 "다.\n"
 "\n"
 "CD 부팅 도구를 설치 하시겠습니까?"
+
+#: src/wubi/frontends/win32/progress_page.py:38
+#: src/wubi/backends/common/backend.py:85
+#, python-format
+msgid "Installing %(distro)s-%(version)s"
+msgstr ""
+
+#: src/wubi/frontends/win32/progress_page.py:39
+msgid "Please wait"
+msgstr ""
+
+#: src/wubi/frontends/win32/progress_page.py:52
+msgid "Do not download, use a local file"
+msgstr ""
+
+#: src/wubi/frontends/win32/progress_page.py:65
+#, python-format
+msgid "Remaining time approximately %s"
+msgstr ""
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
@@ -495,6 +178,94 @@ msgid ""
 "much more."
 msgstr ""
 
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/installation_finish_page.py:35
+msgid "Finish"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:41
+msgid "Uninstallation completed"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:43
+#, python-format
+msgid "%s has been successfully uninstalled"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:45
+msgid ""
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:47
+#: src/wubi/frontends/win32/installation_finish_page.py:44
+msgid "Reboot now"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:32
+#, python-format
+msgid "%s Uninstaller"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:36
+msgid "Uninstallation required"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:38
+#, python-format
+msgid "You are about to uninstall %s"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+msgid "Uninstall"
+msgstr "설치 제거"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:52
+msgid ""
+"A previous installation was detected, it needs to be uninstalled before "
+"continuing"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:54
+msgid "Are you sure you want to uninstall?"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:62
+msgid "Backup the downloaded files (ISO)"
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_finish_page.py:41
+#, python-format
+msgid "Completing the %s Setup Wizard"
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_finish_page.py:43
+msgid "You need to reboot to complete the installation"
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_finish_page.py:45
+msgid "I want to manually reboot later"
+msgstr ""
+
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
 msgid ""
@@ -521,19 +292,16 @@ msgid "Please select username and password for the new account"
 msgstr "새 계정을 만들기 위해 사용자 이름과 암호를 선택해 주십시오."
 
 #: src/wubi/frontends/win32/installation_page.py:188
-#, fuzzy
 msgid "Installation drive:"
-msgstr "설치 크기 (GB):"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:194
-#, fuzzy
 msgid "Installation size:"
-msgstr "설치 크기 (GB):"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:200
-#, fuzzy
 msgid "Desktop environment:"
-msgstr "데스크탑 환경:"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:206
 msgid "Language:"
@@ -548,9 +316,9 @@ msgid "Password:"
 msgstr "암호:"
 
 #: src/wubi/frontends/win32/installation_page.py:255
-#, fuzzy, python-format
+#, python-format
 msgid "%s Installer"
-msgstr "CD 부팅 도구 설치"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:261
 #, python-format
@@ -597,214 +365,196 @@ msgstr "암호에 공백을 사용하지 말아 주십시오."
 msgid "Passwords do not match."
 msgstr "암호가 일치하지 않습니다."
 
-#~ msgid "(Use CD)"
-#~ msgstr "(CD 이용)"
+#: src/wubi/backends/win32/backend.py:148
+#, python-format
+msgid ""
+"The installation failed. Logs have been saved in: %s.\n"
+"\n"
+"Note that in verbose mode, the logs may include the password.\n"
+"\n"
+"The system will now reboot."
+msgstr ""
 
-#~ msgid "(Read Only)"
-#~ msgstr "(읽기 전용)"
+#: src/wubi/backends/common/backend.py:71
+#: src/wubi/backends/common/backend.py:91
+msgid "Selecting the target directory"
+msgstr ""
 
-#~ msgid "Installation Drive ($freeSpace GB free):"
-#~ msgstr "설치 드라이브 ($freeSpace GB 남음)"
+#: src/wubi/backends/common/backend.py:72
+#: src/wubi/backends/common/backend.py:92
+msgid "Creating the installation directories"
+msgstr ""
 
-#~ msgid ""
-#~ "Please select a username for the new account.\n"
-#~ "It must be lower case.\n"
-#~ "It must not contain spaces.\n"
-#~ "It must contain only standard letters and numbers.\n"
-#~ "It cannot start by a number."
-#~ msgstr ""
-#~ "새로운 계정에 대한 사용자 이름을 선택해 주십시오.\n"
-#~ "사용자 이름은 소문자여야 합니다.\n"
-#~ "사용자 이름은 공백을 포함하지 말아야 합니다.\n"
-#~ "사용자 이름은 표준 영문자와 숫자로만 이루어져야 합니다.\n"
-#~ "사용자 이름은 숫자로 시작될 수 없습니다."
+#: src/wubi/backends/common/backend.py:73
+#: src/wubi/backends/common/backend.py:93
+msgid "Creating the uninstaller"
+msgstr ""
 
-#~ msgid ""
-#~ "Please select a password for the new account.\n"
-#~ "It must not contain spaces."
-#~ msgstr ""
-#~ "새로운 계정에 대한 암호를 선택해 주십시오.\n"
-#~ "암호는 공백을 포함하지 말아야 합니다."
+#: src/wubi/backends/common/backend.py:74
+#: src/wubi/backends/common/backend.py:94
+#: src/wubi/backends/common/backend.py:407
+#: src/wubi/backends/common/backend.py:413
+msgid "Copying installation files"
+msgstr ""
 
-#~ msgid ""
-#~ "How many GB do you want to allocate?\n"
-#~ "4GB is the bare minimum\n"
-#~ "8GB is comfortable"
-#~ msgstr ""
-#~ "몇 GB를 할당 하시겠습니까?\n"
-#~ "최소 : 4GB\n"
-#~ "권장 : 8GB"
+#: src/wubi/backends/common/backend.py:75
+msgid "Retrieving installation files"
+msgstr ""
 
-#~ msgid ""
-#~ "In which drive do you want to perform the installation?\n"
-#~ "This drive should have at least 5 GB free."
-#~ msgstr ""
-#~ "어느 드라이브에서 설치를 수행 하시겠습니까?\n"
-#~ "이 드라이브는 최소한 5GB의 여유 공간을 갖고 있어야 합니다."
+#: src/wubi/backends/common/backend.py:76
+#: src/wubi/backends/common/backend.py:96
+msgid "Extracting the kernel"
+msgstr ""
 
-#~ msgid "Ubuntu is the default."
-#~ msgstr "우분투는 기본값입니다."
+#: src/wubi/backends/common/backend.py:77
+msgid "Choosing disk sizes"
+msgstr ""
 
-#~ msgid "Kubuntu-KDE4 uses the KDE4 desktop."
-#~ msgstr "쿠분투-KDE4는 KDE4 데스크탑을 사용합니다."
+#: src/wubi/backends/common/backend.py:78
+#: src/wubi/backends/common/backend.py:97
+msgid "Creating a preseed file"
+msgstr ""
 
-#~ msgid "Xubuntu is good for older systems."
-#~ msgstr "주분투는 오래된 시스템에 알맞습니다."
+#: src/wubi/backends/common/backend.py:79
+#: src/wubi/backends/common/backend.py:98
+msgid "Adding a new bootlader entry"
+msgstr ""
 
-#, fuzzy
-#~ msgid ""
-#~ "What graphical environment do you want to install?\n"
-#~ "* $(Distro1ToolTip)\n"
-#~ "* $(Distro3ToolTip)\n"
-#~ "* $(Distro4ToolTip)\n"
-#~ "* $(Distro2ToolTip)"
-#~ msgstr ""
-#~ "어떤 그래픽 환경을 설치 하시겠습니까?\n"
-#~ "* $(Distro1ToolTip)\n"
-#~ "* $(Distro2ToolTip)\n"
-#~ "* $(Distro3ToolTip)\n"
-#~ "* $(Distro4ToolTip)"
+#: src/wubi/backends/common/backend.py:80
+#: src/wubi/backends/common/backend.py:99
+msgid "Setting up installation boot menu"
+msgstr ""
 
-#~ msgid ""
-#~ "You have $freeSpace MB free, the installer requires ${MinSizeMB} MB "
-#~ "free.\n"
-#~ "Do you want to continue anyway? The installation may fail in such "
-#~ "conditions."
-#~ msgstr ""
-#~ "당신의 컴퓨터는 $freeSpace MB의 하드 디스크 여유 공간을 가지고 있지만, 설"
-#~ "치 프로그램은 ${MinSizeMB} MB의 여유 공간을 요구합니다.\n"
-#~ "그래도 설치를 계속하시겠습니까? 이러한 조건에서는 설치에 실패할지도 모릅니"
-#~ "다."
+#: src/wubi/backends/common/backend.py:81
+msgid "Creating the virtual disks"
+msgstr ""
 
-#~ msgid "Could not retrieve some essential files"
-#~ msgstr "몇가지 필수 파일들을 불러 올 수 없음"
+#: src/wubi/backends/common/backend.py:82
+#: src/wubi/backends/common/backend.py:100
+msgid "Uncompressing files"
+msgstr ""
 
-#~ msgid "Error while trying to execute bcdedit:"
-#~ msgstr "bcdedit를 실행하는 중에 오류 발생:"
+#: src/wubi/backends/common/backend.py:83
+#: src/wubi/backends/common/backend.py:101
+msgid "Ejecting the CD"
+msgstr ""
 
-#~ msgid "Error while trying to execute wubibcd:"
-#~ msgstr "wubibcd를 실행하는 중에 오류 발생:"
+#: src/wubi/backends/common/backend.py:95
+msgid "Extracting CD content"
+msgstr ""
 
-#~ msgid ""
-#~ "Could not access the CD, please make sure other applications are not "
-#~ "using it and try again"
-#~ msgstr ""
-#~ "CD에 접근할 수 없습니다, 다른 응용 프로그램이 사용하고 있지는 않은지 확인"
-#~ "한 후 다시 시도해 주십시오."
+#: src/wubi/backends/common/backend.py:103
+msgid "Installing CD boot helper"
+msgstr ""
 
-#~ msgid "The download was interrupted with the error:"
-#~ msgstr "오류로 인해 다운로드가 중지되었음:"
+#: src/wubi/backends/common/backend.py:109
+#: src/wubi/backends/common/backend.py:111
+msgid "Rebooting"
+msgstr ""
 
-#~ msgid "Could not find any appropriate CD"
-#~ msgstr "알맞은 CD를 찾을 수 없음"
+#: src/wubi/backends/common/backend.py:116
+msgid "Backup ISO"
+msgstr ""
 
-#~ msgid "You must be logged in as administrator!"
-#~ msgstr "관리자로 로그인된 상태여야 합니다!"
+#: src/wubi/backends/common/backend.py:117
+msgid "Remove bootloader entry"
+msgstr ""
 
-#~ msgid ""
-#~ "You have $memoryMB MB of memory, the installer requires ${MinMemoryMB} "
-#~ "MB.\n"
-#~ "Do you want to continue anyway? The installation may fail in such "
-#~ "conditions."
-#~ msgstr ""
-#~ "당신의 컴퓨터는 ${memoryMB} MB의 메모리를 가지고 있지만, 설치 프로그램은 "
-#~ "${MinMemoryMB} MB의 메모리를 요구합니다.\n"
-#~ "그래도 설치를 계속하시겠습니까? 이러한 조건에서는 설치에 실패 할지도 모릅"
-#~ "니다."
+#: src/wubi/backends/common/backend.py:118
+msgid "Remove target dir"
+msgstr ""
 
-#~ msgid "Please wait while the required files are retrieved and prepared"
-#~ msgstr "필요한 파일을 검색하여 준비하는 동안 잠시만 기다려 주십시오"
+#: src/wubi/backends/common/backend.py:119
+msgid "Remove registry key"
+msgstr ""
 
-#~ msgid "Retrieving installation files, resume supported"
-#~ msgstr "설치 파일을 검색하는 중, 재시작 가능"
+#: src/wubi/backends/common/backend.py:120
+#, python-format
+msgid "Uninstalling %s"
+msgstr ""
 
-#~ msgid "Backing up installation files..."
-#~ msgstr "설치 파일을 백업하는 중..."
+#: src/wubi/backends/common/backend.py:252
+#, python-format
+msgid "Checking CD %s"
+msgstr ""
 
-#~ msgid "Writing configuration files..."
-#~ msgstr "구성 파일을 작성하는 중..."
+#: src/wubi/backends/common/backend.py:274
+#: src/wubi/backends/common/backend.py:314
+#: src/wubi/backends/common/backend.py:345
+msgid "Downloading information on installation files"
+msgstr ""
 
-#~ msgid "Setting up bootloader..."
-#~ msgstr "부트로더를 설정하는 중..."
+#: src/wubi/backends/common/backend.py:287
+#: src/wubi/backends/common/backend.py:338
+#: src/wubi/backends/common/backend.py:400
+#: src/wubi/backends/common/backend.py:444
+msgid "Checking installation files"
+msgstr ""
 
-#~ msgid "Creating folders..."
-#~ msgstr "폴더들을 생성하는 중..."
+#: src/wubi/backends/common/backend.py:371
+#, python-format
+msgid "Validating %s"
+msgstr ""
 
-#~ msgid "${AppName} is already installed"
-#~ msgstr "${AppName}은(는) 이미 설치되어 있음"
+#: src/wubi/backends/common/backend.py:437
+#, python-format
+msgid "Extracting files from %s"
+msgstr ""
 
-#~ msgid ""
-#~ "$OldInstallationDrive\\${DefaultInstallationDir} will be uninstalled.\n"
-#~ "You can backup your files if you want."
-#~ msgstr ""
-#~ "$OldInstallationDrive\\${DefaultInstallationDir} 는 제거될 것입니다.\n"
-#~ "원한다면 당신의 파일들을 백업할 수 있습니다."
+#: src/wubi/backends/common/backend.py:507
+#, python-format
+msgid "Checking %s"
+msgstr ""
 
-#~ msgid "Backup personal documents (home.disk)."
-#~ msgstr "개인 문서 백업(home.disk)."
+#: src/wubi/backends/common/tasklist.py:255
+#: src/wubi/backends/common/tasklist.py:259
+msgid "0s"
+msgstr ""
 
-#~ msgid "Backup location: $BackupFolder"
-#~ msgstr "백업 위치: $BackupFolder"
+#: src/wubi/backends/common/tasklist.py:268
+#, python-format
+msgid "%ih"
+msgstr ""
 
-#~ msgid "Please remove any CD/DVD and reboot to complete the installation."
-#~ msgstr ""
-#~ "CD/DVD를 제거하고 설치를 완료하기 위해 시스템을 다시 시작해 주십시오."
+#: src/wubi/backends/common/tasklist.py:270
+#, python-format
+msgid "%imin"
+msgstr ""
 
-#~ msgid "Initializing..."
-#~ msgstr "초기화하는 중..."
+#: src/wubi/backends/common/tasklist.py:273
+#, python-format
+msgid "%is"
+msgstr ""
 
-#~ msgid "Calculating checksums..."
-#~ msgstr "체크섬을 계산하는 중..."
+#: src/wubi/backends/common/downloader.py:66
+#: src/wubi/backends/common/btdownloader.py:35
+#, python-format
+msgid "Downloading %s"
+msgstr "%s 다운로드 중"
 
-#~ msgid "Retrying in %d seconds... (%d of %d)"
-#~ msgstr "%d초 내에 재시도... (%d / %d)"
+#: src/wubi/application.py:56
+#, python-format
+msgid ""
+"An error occurred:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"For more information, please see the log file: %(log)s"
+msgstr ""
 
-#~ msgid "Retrying in %d seconds..."
-#~ msgstr "%d내에 재시도..."
+#: src/wubi/application.py:131 src/wubi/application.py:189
+#, python-format
+msgid ""
+"A previous installation was detected in %s.\n"
+"Please uninstall that before continuing."
+msgstr ""
 
-#~ msgid "second"
-#~ msgstr "초"
+#: src/wubi/application.py:171
+msgid "No CD detected, cannot run CD menu"
+msgstr ""
 
-#~ msgid "seconds"
-#~ msgstr "초"
-
-#~ msgid "%s (%d%%) of %s @ %s/s"
-#~ msgstr "%s (%d%%) / %s @ %s/초"
-
-#~ msgid " (%s remaining)"
-#~ msgstr " (%s 남음)"
-
-#~ msgid "Please connect to the internet now."
-#~ msgstr "지금 바로 인터넷에 연결해 주십시오."
-
-#~ msgid "High Contrast"
-#~ msgstr "고대비"
-
-#~ msgid "Magnifier"
-#~ msgstr "돋보기"
-
-#~ msgid "Screen Reader"
-#~ msgstr "화면-음성 변환"
-
-#~ msgid "Keyboard Modifiers"
-#~ msgstr "키보드"
-
-#~ msgid "On-Screen Keyboard"
-#~ msgstr "화상 키보드"
-
-#~ msgid "Start installer in normal mode"
-#~ msgstr "기본 모드로 설치 도구 시작"
-
-#~ msgid ""
-#~ "Start installer in safe graphic mode (only if you have display problems)"
-#~ msgstr "안전 그래픽 모드로 설치 도구 시작 (화면 문제가 있을 경우에만)"
-
-#~ msgid ""
-#~ "Start installer with ACPI workarounds (only if you have ACPI problems)"
-#~ msgstr "ACPI 문제 회피와 함께 설치 도구 시작 (ACPI 문제가 있을 경우에만)"
-
-#~ msgid "Start installer in verbose mode"
-#~ msgstr "설치 과정 표시 모드로 설치 도구 시작"
-
-#~ msgid "Kubuntu uses the KDE3.5 desktop."
-#~ msgstr "쿠분투는 KDE3.5 데스크탑을 사용합니다."
+#: src/wubi/application.py:179
+msgid ""
+"Could not find any valid CD.\n"
+"CD boot helper can only be used with a Live CD."
+msgstr ""

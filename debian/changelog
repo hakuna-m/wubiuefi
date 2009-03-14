@@ -202,5 +202,7 @@ wubi (9.04) UNRELEASED; urgency=low
     functionality, so we save over 150KB compressed
   * Wubi pot is generated (make pot) and there is no need to include it
     within the source files
+  * Make path comparisons all in upper case
+  * Merged umenu and wubi translations
 
- -- Agostino Russo <agostino.russo@gmail.com>  Fri, 13 Mar 2009 10:06:10 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Sat, 14 Mar 2009 02:32:53 +0000

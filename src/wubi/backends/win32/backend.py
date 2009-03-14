@@ -588,7 +588,7 @@ class WindowsBackend(Backend):
         log.debug("modify_bcd %s" % drive)
         if drive is self.info.system_drive \
         or drive.path == "C:" \
-        or drive.path == os.getenv('SystemDrive'):
+        or drive.path == os.getenv('SystemDrive').upper():
             src = join_path(self.info.root_dir, 'winboot', 'wubildr')
             dest = join_path(drive.path, 'wubildr')
             shutil.copyfile(src,  dest)

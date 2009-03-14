@@ -1,262 +1,52 @@
+# #-#-#-#-#  el.po (wubi)  #-#-#-#-#
 # Greek translation for wubi
 # Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
 # This file is distributed under the same license as the wubi package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
 #
+# #-#-#-#-#  el.po (umenu)  #-#-#-#-#
+# Greek translation for umenu
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the umenu package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: wubi\n"
+"Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-03-05 08:19+0000\n"
-"PO-Revision-Date: 2008-05-12 10:02+0000\n"
+"POT-Creation-Date: 2009-03-14 00:34+0000\n"
+"PO-Revision-Date: 2008-05-12 09:48+0000\n"
 "Last-Translator: Kainourgiakis Giorgos <kaingeo@yahoo.gr>\n"
 "Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-10-27 06:16+0000\n"
+"#-#-#-#-#  el.po (wubi)  #-#-#-#-#\n"
+"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
-
-#: src/wubi/application.py:56
-#, python-format
-msgid ""
-"An error occurred:\n"
-"\n"
-"%(error)s\n"
-"\n"
-"For more information, please see the log file: %(log)s"
-msgstr ""
-
-#: src/wubi/application.py:131 src/wubi/application.py:189
-#, python-format
-msgid ""
-"A previous installation was detected in %s.\n"
-"Please uninstall that before continuing."
-msgstr ""
-
-#: src/wubi/application.py:171
-msgid "No CD detected, cannot run CD menu"
-msgstr ""
-
-#: src/wubi/application.py:179
-msgid ""
-"Could not find any valid CD.\n"
-"CD boot helper can only be used with a Live CD."
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:71
-#: src/wubi/backends/common/backend.py:91
-msgid "Selecting the target directory"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:72
-#: src/wubi/backends/common/backend.py:92
-#, fuzzy
-msgid "Creating the installation directories"
-msgstr "Ανάκτηση αρχείων εγκατάστασης."
-
-#: src/wubi/backends/common/backend.py:73
-#: src/wubi/backends/common/backend.py:93
-#, fuzzy
-msgid "Creating the uninstaller"
-msgstr "Ρύθμιση προγράμματος απεγκατάστασης..."
-
-#: src/wubi/backends/common/backend.py:74
-#: src/wubi/backends/common/backend.py:94
-#: src/wubi/backends/common/backend.py:407
-#: src/wubi/backends/common/backend.py:413
-#, fuzzy
-msgid "Copying installation files"
-msgstr "Αντιγραφή αρχείων εγκατάστασης..."
-
-#: src/wubi/backends/common/backend.py:75
-#, fuzzy
-msgid "Retrieving installation files"
-msgstr "Ανάκτηση αρχείων εγκατάστασης."
-
-#: src/wubi/backends/common/backend.py:76
-#: src/wubi/backends/common/backend.py:96
-msgid "Extracting the kernel"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:77
-msgid "Choosing disk sizes"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:78
-#: src/wubi/backends/common/backend.py:97
-msgid "Creating a preseed file"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:79
-#: src/wubi/backends/common/backend.py:98
-msgid "Adding a new bootlader entry"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:80
-#: src/wubi/backends/common/backend.py:99
-#, fuzzy
-msgid "Setting up installation boot menu"
-msgstr "Ρύθμιση προγράμματος απεγκατάστασης..."
-
-#: src/wubi/backends/common/backend.py:81
-#, fuzzy
-msgid "Creating the virtual disks"
-msgstr "Δημιουργία εικονικών δίσκων..."
-
-#: src/wubi/backends/common/backend.py:82
-#: src/wubi/backends/common/backend.py:100
-#, fuzzy
-msgid "Uncompressing files"
-msgstr "Αποσυμπίεση φακέλου wubi..."
-
-#: src/wubi/backends/common/backend.py:83
-#: src/wubi/backends/common/backend.py:101
-msgid "Ejecting the CD"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:85
-#: src/wubi/frontends/win32/progress_page.py:38
-#, fuzzy, python-format
-msgid "Installing %(distro)s-%(version)s"
-msgstr "Εγκατάσταση $Distro-$DistroVersion"
-
-#: src/wubi/backends/common/backend.py:95
-msgid "Extracting CD content"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:103
-#, fuzzy
-msgid "Installing CD boot helper"
-msgstr "Εγκατάσταση εκκινητή CD."
-
-#: src/wubi/backends/common/backend.py:109
-#: src/wubi/backends/common/backend.py:111
-msgid "Rebooting"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:116
-msgid "Backup ISO"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:117
-msgid "Remove bootloader entry"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:118
-msgid "Remove target dir"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:119
-msgid "Remove registry key"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:120
-#, python-format
-msgid "Uninstalling %s"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:252
-#, fuzzy, python-format
-msgid "Checking CD %s"
-msgstr "Σύνδεση με %s..."
-
-#: src/wubi/backends/common/backend.py:274
-#: src/wubi/backends/common/backend.py:314
-#: src/wubi/backends/common/backend.py:345
-#, fuzzy
-msgid "Downloading information on installation files"
-msgstr "Μεταφόρτωση αρχείων εγκατάστασης."
-
-#: src/wubi/backends/common/backend.py:287
-#: src/wubi/backends/common/backend.py:338
-#: src/wubi/backends/common/backend.py:400
-#: src/wubi/backends/common/backend.py:444
-#, fuzzy
-msgid "Checking installation files"
-msgstr "Έλεγχος αρχείων εγκατάστασης."
-
-#: src/wubi/backends/common/backend.py:371
-#, python-format
-msgid "Validating %s"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:437
-#, python-format
-msgid "Extracting files from %s"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:479
-#, python-format
-msgid "Copying files from CD %s"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:507
-#, fuzzy, python-format
-msgid "Checking %s"
-msgstr "Σύνδεση με %s..."
-
-#: src/wubi/backends/common/tasklist.py:254
-#: src/wubi/backends/common/tasklist.py:258
-msgid "0s"
-msgstr ""
-
-#: src/wubi/backends/common/tasklist.py:267
-#, python-format
-msgid "%ih"
-msgstr ""
-
-#: src/wubi/backends/common/tasklist.py:269
-#, python-format
-msgid "%imin"
-msgstr ""
-
-#: src/wubi/backends/common/tasklist.py:272
-#, python-format
-msgid "%is"
-msgstr ""
-
-#: src/wubi/backends/common/downloader.py:66
-#, python-format
-msgid "Downloading %s"
-msgstr ""
-
-#: src/wubi/backends/win32/backend.py:148
-#, fuzzy, python-format
-msgid ""
-"The installation failed. Logs have been saved in: %s.\n"
-"\n"
-"Note that in verbose mode, the logs may include the password.\n"
-"\n"
-"The system will now reboot."
-msgstr ""
-"Η εγκατάσταση απέτυχε. Ελέγξτε το γιατί στο: $INSTDIR\\installation-logs."
-"zip.\n"
-"\n"
-"Προσέξτε στην αναλυτική λειτουργία, στο παραπάνω αρχείο μπορεί να περιέχεται "
-"ο κωδικός πρόσβασης.\n"
-"\n"
-"Το σύστημα θα επανεκκινηθεί."
+"#-#-#-#-#  el.po (umenu)  #-#-#-#-#\n"
+"X-Launchpad-Export-Date: 2008-10-27 09:28+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
 msgstr "Προφίλ βοηθημάτων"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
-#, fuzzy
-msgid "Please select the appropriate accessibility prfoile"
-msgstr "Παρακαλούμε επιλέξτε το κατάλληλο προφίλ βοηθητικής τεχνολογίας."
+msgid "Please select the appropriate accessibility profile"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
 msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/progress_page.py:43
+#: src/wubi/frontends/win32/cd_menu_page.py:38
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_page.py:45
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/cd_menu_page.py:38
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Cancel"
 msgstr ""
@@ -266,66 +56,81 @@ msgid "Visibility Aids"
 msgstr "Βοήθεια Όρασης"
 
 #: src/wubi/frontends/win32/accessibility_page.py:51
-#, fuzzy
 msgid "Visibility1"
-msgstr "Βοήθεια Όρασης"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:52
-#, fuzzy
 msgid "Visibility2"
-msgstr "Βοήθεια Όρασης"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:53
-#, fuzzy
 msgid "Visibility3"
-msgstr "Βοήθεια Όρασης"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:54
-#, fuzzy
 msgid "Braille"
-msgstr "Τερματικό Braille"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:57
 msgid "Mobility Aids"
 msgstr "Βοήθεια Κινητικότητας"
 
 #: src/wubi/frontends/win32/accessibility_page.py:58
-#, fuzzy
 msgid "Mobility1"
-msgstr "Βοήθεια Κινητικότητας"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:59
-#, fuzzy
 msgid "Mobility2"
-msgstr "Βοήθεια Κινητικότητας"
+msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:62
 msgid "None"
 msgstr "Κανένα"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:35
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "Finish"
+#: src/wubi/frontends/win32/frontend.py:49
+msgid "Are you sure you want to quit?"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_finish_page.py:41
+#: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
-msgid "Completing the %s Setup Wizard"
+msgid "%s CD Boot Helper"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_finish_page.py:43
-#, fuzzy
-msgid "You need to reboot to complete the installation"
-msgstr "Πρέπει να κάνετε επανεκκίνηση για την ολοκλήρωση της εγκατάστασης."
-
-#: src/wubi/frontends/win32/installation_finish_page.py:44
-#: src/wubi/frontends/win32/cd_finish_page.py:47
-msgid "Reboot now"
+#: src/wubi/frontends/win32/cdboot_page.py:43
+msgid "Not enough disk space to proceed"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_finish_page.py:45
-msgid "I want to manually reboot later"
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:176
+msgid "Accessibility"
+msgstr ""
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:176
+msgid "Install"
+msgstr ""
+
+#: src/wubi/frontends/win32/cdboot_page.py:54
+msgid "Install CD boot helper"
+msgstr ""
+
+#: src/wubi/frontends/win32/cdboot_page.py:56
+msgid ""
+"If your machine cannot boot off the CD, this program will install a new boot "
+"menu entry to help you boot from CD. In most cases this program is not "
+"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
+"\n"
+"Do you want to proceed and install the CD booter?"
+msgstr ""
+"Αν το σύστημα σας δεν μπορεί να εκκινήσει από το CD, το πρόγραμμα αυτό θα "
+"εγκαταστήσει ένα μενού εκκίνησης για να σας βοηθήσει να το κάνετε. Στις "
+"περισσότερες περιπτώσεις το πρόγραμμα αυτό δεν χρειάζεται, μια και είναι "
+"αρκετό να επανεκκινήσετε με το CD-Rom στον οδηγό."
+
+#: src/wubi/frontends/win32/progress_page.py:38
+#: src/wubi/backends/common/backend.py:85
+#, python-format
+msgid "Installing %(distro)s-%(version)s"
 msgstr ""
 
 #: src/wubi/frontends/win32/progress_page.py:39
@@ -341,117 +146,6 @@ msgstr ""
 msgid "Remaining time approximately %s"
 msgstr ""
 
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:41
-#, fuzzy
-msgid "Uninstallation completed"
-msgstr "Γλώσσα εγκατάστασης"
-
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:43
-#, python-format
-msgid "%s has bee successfully uninstalled"
-msgstr ""
-
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "< Back"
-msgstr ""
-
-#: src/wubi/frontends/win32/cd_finish_page.py:43
-msgid "Reboot required"
-msgstr ""
-
-#: src/wubi/frontends/win32/cd_finish_page.py:45
-msgid ""
-"To start the Live CD you need to reboot your machine leaving the CD in the "
-"tray. If your machine cannot boot from the CD, the last option should work "
-"in most cases."
-msgstr ""
-
-#: src/wubi/frontends/win32/cd_finish_page.py:48
-msgid "I want to manually reboot Later"
-msgstr ""
-
-#: src/wubi/frontends/win32/cd_finish_page.py:49
-msgid "Help me to boot from CD"
-msgstr ""
-
-#: src/wubi/frontends/win32/frontend.py:49
-#, fuzzy
-msgid "Are you sure you want to quit?"
-msgstr "Θέλετε να το απεγκαταστήσετε;"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:32
-#, python-format
-msgid "%s Uninstaller"
-msgstr ""
-
-#: src/wubi/frontends/win32/uninstallation_page.py:36
-#, fuzzy
-msgid "Uninstallation required"
-msgstr "Γλώσσα εγκατάστασης"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:38
-#, fuzzy, python-format
-msgid "You are about to uninstall %s"
-msgstr "Είστε έτοιμοι να εγκαταστήσετε το $Distro-$DistroVersion"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-msgid "Uninstall"
-msgstr ""
-
-#: src/wubi/frontends/win32/uninstallation_page.py:52
-msgid ""
-"A previous installation was detected, it needs to be uninstalled before "
-"continuing"
-msgstr ""
-
-#: src/wubi/frontends/win32/uninstallation_page.py:54
-#, fuzzy
-msgid "Are you sure you want to uninstall?"
-msgstr "Θέλετε να το απεγκαταστήσετε;"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:62
-#, fuzzy
-msgid "Backup the downloaded files (ISO)"
-msgstr "Διατηρήστε τα αρχεία που μεταφορτώσατε (αρχείο CD ISO)."
-
-#: src/wubi/frontends/win32/cdboot_page.py:32
-#, python-format
-msgid "%s CD Boot Helper"
-msgstr ""
-
-#: src/wubi/frontends/win32/cdboot_page.py:43
-msgid "Not enough disk space to proceed"
-msgstr ""
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:176
-#, fuzzy
-msgid "Accessibility"
-msgstr "&Βοηθήματα"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:176
-msgid "Install"
-msgstr ""
-
-#: src/wubi/frontends/win32/cdboot_page.py:54
-#, fuzzy
-msgid "Install CD boot helper"
-msgstr "Εγκατάσταση εκκινητή CD."
-
-#: src/wubi/frontends/win32/cdboot_page.py:56
-msgid ""
-"If your machine cannot boot off the CD, this program will install a new boot "
-"menu entry to help you boot from CD. In most cases this program is not "
-"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
-"\n"
-"Do you want to proceed and install the CD booter?"
-msgstr ""
-"Αν το σύστημα σας δεν μπορεί να εκκινήσει από το CD, το πρόγραμμα αυτό θα "
-"εγκαταστήσει ένα μενού εκκίνησης για να σας βοηθήσει να το κάνετε. Στις "
-"περισσότερες περιπτώσεις το πρόγραμμα αυτό δεν χρειάζεται, μια και είναι "
-"αρκετό να επανεκκινήσετε με το CD-Rom στον οδηγό."
-
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
 msgid "%s Menu"
@@ -459,7 +153,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cd_menu_page.py:53
 msgid "Demo and full installation"
-msgstr ""
+msgstr "Δοκιμαστική και πλήρη εγκατάσταση"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:55
 #, python-format
@@ -468,10 +162,14 @@ msgid ""
 "the tray. You may perform a full installation from within the demo to "
 "install %(distro)s either alongside Windows or as the only operating system."
 msgstr ""
+"Δοκιμάστε το %(distro)s χωρίς εγκατάσταση! Απλά κάντε επανεκκίνηση στο "
+"μηχάνημα με το CD στον οδηγό. Με αυτή την επιλογή θα μπορείτε να κάνετε μια "
+"πλήρη εγκατάσταση του %(distro)s είτε μαζί με τα Windows είτε ως μοναδικό "
+"λειτουργικό."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:64
 msgid "Install inside Windows"
-msgstr ""
+msgstr "Εγκατάσταση μέσα από τα Windows"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:66
 #, python-format
@@ -484,7 +182,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cd_menu_page.py:73
 msgid "Learn more"
-msgstr ""
+msgstr "Μάθετε περισσότερα"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:75
 #, python-format
@@ -492,6 +190,101 @@ msgid ""
 "%(distro)s is a free, community developed, linux-based operating system "
 "complete with a web browser, productivity software, instant messaging, and "
 "much more."
+msgstr ""
+"Το %(distro)s είναι ένα λειτουργικό σύστημα που είναι ελεύθερο, "
+"δημιουργημένο από την κοινότητα, και συμπεριλαμβάνει περιηγητή ιστοσελίδων, "
+"εφαρμογές γραφείου, άμεσα μηνύματα και πολλά περισσότερα."
+
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/installation_finish_page.py:35
+msgid "Finish"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:41
+msgid "Uninstallation completed"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:43
+#, python-format
+msgid "%s has been successfully uninstalled"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr "Απαιτείται επανεκκίνηση"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:45
+msgid ""
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
+msgstr ""
+"Για να εκκινήσετε το Live CD χρειάζεται να επανεκκινήσετε το μηχάνημα σας, "
+"απομακρύνοντας το CD από τον οδηγό. Αν το μηχάνημα σας δεν μπορεί να "
+"εκκινήσει από το CD, η τελευταία επιλογή θα λειτουργεί στις περισσότερες "
+"περιπτώσεις."
+
+#: src/wubi/frontends/win32/cd_finish_page.py:47
+#: src/wubi/frontends/win32/installation_finish_page.py:44
+msgid "Reboot now"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
+msgstr ""
+
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr "Βοήθεια εκκίνησης από το CD"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:32
+#, python-format
+msgid "%s Uninstaller"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:36
+msgid "Uninstallation required"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:38
+#, python-format
+msgid "You are about to uninstall %s"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+msgid "Uninstall"
+msgstr "Απεγκατάσταση"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:52
+msgid ""
+"A previous installation was detected, it needs to be uninstalled before "
+"continuing"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:54
+msgid "Are you sure you want to uninstall?"
+msgstr ""
+
+#: src/wubi/frontends/win32/uninstallation_page.py:62
+msgid "Backup the downloaded files (ISO)"
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_finish_page.py:41
+#, python-format
+msgid "Completing the %s Setup Wizard"
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_finish_page.py:43
+msgid "You need to reboot to complete the installation"
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_finish_page.py:45
+msgid "I want to manually reboot later"
 msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:73
@@ -520,19 +313,16 @@ msgid "Please select username and password for the new account"
 msgstr "Παρακαλούμε επιλέξτε όνομα χρήστη και κωδικό για το νέο λογαριασμό"
 
 #: src/wubi/frontends/win32/installation_page.py:188
-#, fuzzy
 msgid "Installation drive:"
-msgstr "Μέγεθος Εγκατάστασης (GB):"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:194
-#, fuzzy
 msgid "Installation size:"
-msgstr "Μέγεθος Εγκατάστασης (GB):"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:200
-#, fuzzy
 msgid "Desktop environment:"
-msgstr "Περιβάλλον Επιφάνειας Εργασίας:"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:206
 msgid "Language:"
@@ -547,9 +337,9 @@ msgid "Password:"
 msgstr "Κωδικός Πρόσβασης:"
 
 #: src/wubi/frontends/win32/installation_page.py:255
-#, fuzzy, python-format
+#, python-format
 msgid "%s Installer"
-msgstr "Εγκατάσταση εκκινητή CD."
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:261
 #, python-format
@@ -598,221 +388,213 @@ msgstr "Παρακαλούμε μη χρησιμοποιείτε κενά στο
 msgid "Passwords do not match."
 msgstr "Οι κωδικοί πρόσβασης δεν ταιριάζουν μεταξύ τους."
 
-#~ msgid "(Use CD)"
-#~ msgstr "(Χρησιμοποιήστε το CD)"
+#: src/wubi/backends/win32/backend.py:148
+#, python-format
+msgid ""
+"The installation failed. Logs have been saved in: %s.\n"
+"\n"
+"Note that in verbose mode, the logs may include the password.\n"
+"\n"
+"The system will now reboot."
+msgstr ""
 
-#~ msgid "(Read Only)"
-#~ msgstr "(Ανάγνωση μόνο)"
+#: src/wubi/backends/common/backend.py:71
+#: src/wubi/backends/common/backend.py:91
+msgid "Selecting the target directory"
+msgstr ""
 
-#~ msgid "Installation Drive ($freeSpace GB free):"
-#~ msgstr "Δίσκος Εγκατάστασης ($freeSpace GB ελεύθερα)"
+#: src/wubi/backends/common/backend.py:72
+#: src/wubi/backends/common/backend.py:92
+msgid "Creating the installation directories"
+msgstr ""
 
-#~ msgid ""
-#~ "Please select a username for the new account.\n"
-#~ "It must be lower case.\n"
-#~ "It must not contain spaces.\n"
-#~ "It must contain only standard letters and numbers.\n"
-#~ "It cannot start by a number."
-#~ msgstr ""
-#~ "Παρακαλούμε επιλέξτε ένα όνομα χρήστη για τον νέο λογαριασμό.\n"
-#~ "Πρέπει να είναι με μικρά γράμματα.\n"
-#~ "Δεν πρέπει να περιέχει κενά.\n"
-#~ "Πρέπει να περιέχει γράμματα και νούμερα.\n"
-#~ "Δεν μπορεί να ξεκινά με νούμερο."
+#: src/wubi/backends/common/backend.py:73
+#: src/wubi/backends/common/backend.py:93
+msgid "Creating the uninstaller"
+msgstr ""
 
-#~ msgid ""
-#~ "Please select a password for the new account.\n"
-#~ "It must not contain spaces."
-#~ msgstr ""
-#~ "Παρακαλούμε επιλέξτε έναν κωδικό πρόσβασης για τον νέο λογαριασμό.\n"
-#~ "Δεν πρέπει να περιέχει κενά."
+#: src/wubi/backends/common/backend.py:74
+#: src/wubi/backends/common/backend.py:94
+#: src/wubi/backends/common/backend.py:407
+#: src/wubi/backends/common/backend.py:413
+msgid "Copying installation files"
+msgstr ""
 
-#~ msgid ""
-#~ "How many GB do you want to allocate?\n"
-#~ "4GB is the bare minimum\n"
-#~ "8GB is comfortable"
-#~ msgstr ""
-#~ "Πόσo χώρο στον δίσκο (σε GB) θέλετε να διαθέσετε;\n"
-#~ "4GB είναι το ελάχιστο\n"
-#~ "8GB είναι άνετο"
+#: src/wubi/backends/common/backend.py:75
+msgid "Retrieving installation files"
+msgstr ""
 
-#~ msgid ""
-#~ "In which drive do you want to perform the installation?\n"
-#~ "This drive should have at least 5 GB free."
-#~ msgstr ""
-#~ "Σε ποιον δίσκο θέλετε να πραγματοποιήσετε την εγκατάσταση;\n"
-#~ "Ο δίσκος αυτός πρέπει να έχει τουλάχιστον 5 GB ελεύθερα."
+#: src/wubi/backends/common/backend.py:76
+#: src/wubi/backends/common/backend.py:96
+msgid "Extracting the kernel"
+msgstr ""
 
-#~ msgid "Ubuntu is the default."
-#~ msgstr "Το Ubuntu είναι το προεπιλεγμένο."
+#: src/wubi/backends/common/backend.py:77
+msgid "Choosing disk sizes"
+msgstr ""
 
-#~ msgid "Kubuntu-KDE4 uses the KDE4 desktop."
-#~ msgstr "Το Kubuntu-KDE4 χρησιμοποιεί το περιβάλλον εργασίας KDE4."
+#: src/wubi/backends/common/backend.py:78
+#: src/wubi/backends/common/backend.py:97
+msgid "Creating a preseed file"
+msgstr ""
 
-#~ msgid "Xubuntu is good for older systems."
-#~ msgstr "Το Xubuntu είναι καλό για παλαιότερα συστήματα."
+#: src/wubi/backends/common/backend.py:79
+#: src/wubi/backends/common/backend.py:98
+msgid "Adding a new bootlader entry"
+msgstr ""
 
-#, fuzzy
-#~ msgid ""
-#~ "What graphical environment do you want to install?\n"
-#~ "* $(Distro1ToolTip)\n"
-#~ "* $(Distro3ToolTip)\n"
-#~ "* $(Distro4ToolTip)\n"
-#~ "* $(Distro2ToolTip)"
-#~ msgstr ""
-#~ "Ποιο γραφικό περιβάλλον θα θέλατε να εγκαταστήσετε;\n"
-#~ "* $(Distro1ToolTip)\n"
-#~ "* $(Distro2ToolTip)\n"
-#~ "* $(Distro3ToolTip)\n"
-#~ "* $(Distro4ToolTip)"
+#: src/wubi/backends/common/backend.py:80
+#: src/wubi/backends/common/backend.py:99
+msgid "Setting up installation boot menu"
+msgstr ""
 
-#~ msgid ""
-#~ "You have $freeSpace MB free, the installer requires ${MinSizeMB} MB "
-#~ "free.\n"
-#~ "Do you want to continue anyway? The installation may fail in such "
-#~ "conditions."
-#~ msgstr ""
-#~ "Έχετε $freeSpace MB ελεύθερα, η εγκατάσταση απαιτεί τουλάχιστον "
-#~ "${MinSizeMB} MB.\n"
-#~ "Θέλετε να συνεχίσετε παρόλα αυτά; Η εγκατάσταση μπορεί να αποτύχει."
+#: src/wubi/backends/common/backend.py:81
+msgid "Creating the virtual disks"
+msgstr ""
 
-#~ msgid "Could not retrieve some essential files"
-#~ msgstr "Δεν μπορούν να ανακτηθούν ορισμένα βασικά αρχεία."
+#: src/wubi/backends/common/backend.py:82
+#: src/wubi/backends/common/backend.py:100
+msgid "Uncompressing files"
+msgstr ""
 
-#~ msgid "Error while trying to execute bcdedit:"
-#~ msgstr "Σφάλμα κατά την προσπάθεια εκτέλεσης του bcdedit:"
+#: src/wubi/backends/common/backend.py:83
+#: src/wubi/backends/common/backend.py:101
+msgid "Ejecting the CD"
+msgstr ""
 
-#~ msgid "Error while trying to execute wubibcd:"
-#~ msgstr "Σφάλμα κατά την προσπάθεια εκτέλεσης του wubibcd:"
+#: src/wubi/backends/common/backend.py:95
+msgid "Extracting CD content"
+msgstr ""
 
-#~ msgid ""
-#~ "Could not access the CD, please make sure other applications are not "
-#~ "using it and try again"
-#~ msgstr ""
-#~ "Δεν υπάρχει πρόσβαση στο CD, παρακαλούμε βεβαιώστε ότι δεν "
-#~ "χρησιμοποιείται από άλλες εφαρμογές και δοκιμάστε ξανά."
+#: src/wubi/backends/common/backend.py:103
+msgid "Installing CD boot helper"
+msgstr ""
 
-#~ msgid "The download was interrupted with the error:"
-#~ msgstr "Η λήψη διακόπηκε με το σφάλμα:"
+#: src/wubi/backends/common/backend.py:109
+#: src/wubi/backends/common/backend.py:111
+msgid "Rebooting"
+msgstr ""
 
-#~ msgid "Could not find any appropriate CD"
-#~ msgstr "Δεν βρέθηκε κανένα κατάλληλο CD."
+#: src/wubi/backends/common/backend.py:116
+msgid "Backup ISO"
+msgstr ""
 
-#~ msgid "You must be logged in as administrator!"
-#~ msgstr "Πρέπει να συνδεθείτε ως διαχειριστής!"
+#: src/wubi/backends/common/backend.py:117
+msgid "Remove bootloader entry"
+msgstr ""
 
-#~ msgid ""
-#~ "You have $memoryMB MB of memory, the installer requires ${MinMemoryMB} "
-#~ "MB.\n"
-#~ "Do you want to continue anyway? The installation may fail in such "
-#~ "conditions."
-#~ msgstr ""
-#~ "Έχετε $memoryMB MB μνήμης, η εγκατάσταση απαιτεί τουλάχιστον "
-#~ "${MinMemoryMB} MB.\n"
-#~ "Θέλετε να συνεχίσετε παρόλα αυτά; Η εγκατάσταση μπορεί να αποτύχει."
+#: src/wubi/backends/common/backend.py:118
+msgid "Remove target dir"
+msgstr ""
 
-#~ msgid "Please wait while the required files are retrieved and prepared"
-#~ msgstr ""
-#~ "Παρακαλούμε περιμένετε όσο τα απαιτούμενα αρχεία ανακτώνται και "
-#~ "ετοιμάζονται"
+#: src/wubi/backends/common/backend.py:119
+msgid "Remove registry key"
+msgstr ""
 
-#~ msgid "Retrieving installation files, resume supported"
-#~ msgstr ""
-#~ "Ανάκτηση αρχείων εγκατάστασης, σε περίπτωση διακοπής μπορείτε να "
-#~ "συνεχίσετε από το σημείο που σταματήσατε."
+#: src/wubi/backends/common/backend.py:120
+#, python-format
+msgid "Uninstalling %s"
+msgstr ""
 
-#~ msgid "Backing up installation files..."
-#~ msgstr "Φύλαξη αρχείων εγκατάστασης..."
+#: src/wubi/backends/common/backend.py:252
+#, python-format
+msgid "Checking CD %s"
+msgstr ""
 
-#~ msgid "Writing configuration files..."
-#~ msgstr "Εγγραφή αρχείων ρυθμίσεων..."
+#: src/wubi/backends/common/backend.py:274
+#: src/wubi/backends/common/backend.py:314
+#: src/wubi/backends/common/backend.py:345
+msgid "Downloading information on installation files"
+msgstr ""
 
-#~ msgid "Setting up bootloader..."
-#~ msgstr "Ρύθμιση φορτωτή εκκίνησης..."
+#: src/wubi/backends/common/backend.py:287
+#: src/wubi/backends/common/backend.py:338
+#: src/wubi/backends/common/backend.py:400
+#: src/wubi/backends/common/backend.py:444
+msgid "Checking installation files"
+msgstr ""
 
-#~ msgid "Creating folders..."
-#~ msgstr "Δημιουργία φακέλων..."
+#: src/wubi/backends/common/backend.py:371
+#, python-format
+msgid "Validating %s"
+msgstr ""
 
-#~ msgid "${AppName} is already installed"
-#~ msgstr "Το ${AppName} είναι ήδη εγκατεστημένο."
+#: src/wubi/backends/common/backend.py:437
+#, python-format
+msgid "Extracting files from %s"
+msgstr ""
 
-#~ msgid ""
-#~ "$OldInstallationDrive\\${DefaultInstallationDir} will be uninstalled.\n"
-#~ "You can backup your files if you want."
-#~ msgstr ""
-#~ "Θα εγκατασταθεί το $OldInstallationDrive\\${DefaultInstallationDir}.\n"
-#~ "Μπορείτε να κρατήσετε αντίγραφα ασφαλείας των αρχείων σας αν επιθυμείτε."
+#: src/wubi/backends/common/backend.py:507
+#, python-format
+msgid "Checking %s"
+msgstr ""
 
-#~ msgid "Backup personal documents (home.disk)."
-#~ msgstr "Διατηρήστε προσωπικά έγγραφα (home.disk)."
+#: src/wubi/backends/common/tasklist.py:255
+#: src/wubi/backends/common/tasklist.py:259
+msgid "0s"
+msgstr ""
 
-#~ msgid "Backup location: $BackupFolder"
-#~ msgstr "Τοποθεσία αντιγράφων ασφαλείας: $BackupFolder"
+#: src/wubi/backends/common/tasklist.py:268
+#, python-format
+msgid "%ih"
+msgstr ""
 
-#~ msgid "Please remove any CD/DVD and reboot to complete the installation."
-#~ msgstr ""
-#~ "Παρακαλούμε απομακρύνετε οποιοδήποτε CD ή DVD και επανεκκινήστε τον "
-#~ "υπολογιστή σας για να ολοκληρωθεί η εγκατάσταση."
+#: src/wubi/backends/common/tasklist.py:270
+#, python-format
+msgid "%imin"
+msgstr ""
 
-#~ msgid "Initializing..."
-#~ msgstr "Αρχικοποίηση..."
+#: src/wubi/backends/common/tasklist.py:273
+#, python-format
+msgid "%is"
+msgstr ""
 
-#~ msgid "Calculating checksums..."
-#~ msgstr "Υπολογισμός checksums..."
+#: src/wubi/backends/common/downloader.py:66
+#: src/wubi/backends/common/btdownloader.py:35
+#, python-format
+msgid "Downloading %s"
+msgstr "Λήψη %s"
 
-#~ msgid "Retrying in %d seconds... (%d of %d)"
-#~ msgstr "Επαναπροσπάθεια σε %d δευτερόλεπτα... (%d από %d)"
+#: src/wubi/application.py:56
+#, python-format
+msgid ""
+"An error occurred:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"For more information, please see the log file: %(log)s"
+msgstr ""
 
-#~ msgid "Retrying in %d seconds..."
-#~ msgstr "Επαναπροσπάθεια σε %d δευτερόλεπτα..."
+#: src/wubi/application.py:131 src/wubi/application.py:189
+#, python-format
+msgid ""
+"A previous installation was detected in %s.\n"
+"Please uninstall that before continuing."
+msgstr ""
 
-#~ msgid "second"
-#~ msgstr "δευτερόλεπτο"
+#: src/wubi/application.py:171
+msgid "No CD detected, cannot run CD menu"
+msgstr ""
 
-#~ msgid "seconds"
-#~ msgstr "δευτερόλεπτα"
+#: src/wubi/application.py:179
+msgid ""
+"Could not find any valid CD.\n"
+"CD boot helper can only be used with a Live CD."
+msgstr ""
 
-#~ msgid "%s (%d%%) of %s @ %s/s"
-#~ msgstr "%s (%d%%) από %s @ %s/s"
-
-#~ msgid " (%s remaining)"
-#~ msgstr " (%s απομένει)"
-
-#~ msgid "Please connect to the internet now."
-#~ msgstr "Παρακαλούμε συνδεθείτε τώρα με το διαδίκτυο."
-
-#~ msgid "High Contrast"
-#~ msgstr "Υψηλή Αντίθεση"
-
-#~ msgid "Magnifier"
-#~ msgstr "Μεγεθυντής"
-
-#~ msgid "Screen Reader"
-#~ msgstr "Εφαρμογή ανάγνωσης οθόνης"
-
-#~ msgid "Keyboard Modifiers"
-#~ msgstr "Τροποποιητές πληκτρολογίου"
-
-#~ msgid "On-Screen Keyboard"
-#~ msgstr "Πληκτρολόγιο Οθόνης"
-
-#~ msgid "Start installer in normal mode"
-#~ msgstr "Εκκίνηση προγράμματος εγκατάστασης σε κανονική λειτουργία"
+#~ msgid "%(distro)s CD Menu"
+#~ msgstr "Μενού CD του %(distro)s"
 
 #~ msgid ""
-#~ "Start installer in safe graphic mode (only if you have display problems)"
+#~ "Install and uninstall %(distro)s like any other application, without the "
+#~ "need for a dedicated partition.  You will be able to boot into either "
+#~ "Windows%(distro)s.  Hibernation is not enabled in this mode and disk "
+#~ "performance is slightly reduced."
 #~ msgstr ""
-#~ "Εκκίνηση προγράμματος εγκατάστασης σε ασφαλή λειτουργία (μόνο όταν έχετε "
-#~ "προβλήματα με την απεικόνιση)"
+#~ "Εγκαταστήστε και απεγκαταστήστε το %(distro)s ως άλλη μια εφαρμογή, χωρίς "
+#~ "να χρειαστείτε μια αποκλειστική κατάτμηση. Θα εκκινείτε τον υπολογιστή "
+#~ "σας είτε με Windows είτε με το %(distro)s. Στην επιλογή αυτή η απόδοση "
+#~ "είναι ελάχιστα μειωμένη."
 
-#~ msgid ""
-#~ "Start installer with ACPI workarounds (only if you have ACPI problems)"
-#~ msgstr ""
-#~ "Εκκίνηση προγράμματος εγκατάστασης με παράκαμψη του ACPI (μόνο όταν έχετε "
-#~ "προβλήματα με το ACPI)"
-
-#~ msgid "Start installer in verbose mode"
-#~ msgstr "Εκκίνηση προγράμματος εγκατάστασης σε αναλυτική λειτουργία"
-
-#~ msgid "Kubuntu uses the KDE3.5 desktop."
-#~ msgstr "Το Kubuntu χρησιμοποιεί το περιβάλλον εργασίας KDE3.5."
+#~ msgid "Invalid CD detected"
+#~ msgstr "Ανιχνεύθηκε προβληματικός δίσκος CD"
