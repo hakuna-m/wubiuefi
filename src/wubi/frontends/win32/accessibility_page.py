@@ -32,7 +32,7 @@ class AccessibilityPage(Page):
         #header
         self.insert_header(
             _("Accessibility profile"),
-            _("Please select the appropriate accessibility prfoile"),
+            _("Please select the appropriate accessibility profile"),
             "%s-header.bmp" % self.info.distro)
 
         #navigation

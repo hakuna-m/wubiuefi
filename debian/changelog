@@ -195,4 +195,12 @@ wubi (9.04) UNRELEASED; urgency=low
     concatenation.
   * subprocess.Popen takes a list of string arguments.
 
- -- Agostino Russo <agostino.russo@gmail.com>  Wed, 11 Mar 2009 00:38:55 +0000
+  [ Agostino Russo ]
+  * Fixed typo in translatable string (LP: #341680)
+  * No need to make a log message translatable
+  * Replaced _ssl.py with a stub since we do not really need ssl
+    functionality, so we save over 150KB compressed
+  * Wubi pot is generated (make pot) and there is no need to include it
+    within the source files
+
+ -- Agostino Russo <agostino.russo@gmail.com>  Fri, 13 Mar 2009 10:06:10 +0000

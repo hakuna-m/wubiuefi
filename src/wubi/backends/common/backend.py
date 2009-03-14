@@ -476,7 +476,7 @@ class Backend(object):
         bootdir = self.info.install_boot_dir
         # Extract kernel, initrd, md5sums
         if self.info.cd_path:
-            log.debug(_("Copying files from CD %s") % self.info.cd_path)
+            log.debug("Copying files from CD %s" % self.info.cd_path)
             for src in [
             join_path(self.info.cd_path, self.info.distro.md5sums),
             join_path(self.info.cd_path, self.info.distro.kernel),
