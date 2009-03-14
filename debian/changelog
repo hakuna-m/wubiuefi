@@ -194,6 +194,10 @@ wubi (9.04) UNRELEASED; urgency=low
   * Fix typo where a bcdedit command was accidentally created using
     concatenation.
   * subprocess.Popen takes a list of string arguments.
+  * Bcdedit requires absolute paths.
+  * There's no need to quote arguments to commands when using Popen.  It
+    passes them straight through, so you'll get "Ubuntu Linux" instead of
+    Ubuntu Linux.
 
   [ Agostino Russo ]
   * Fixed typo in translatable string (LP: #341680)
