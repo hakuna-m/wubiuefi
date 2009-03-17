@@ -63,7 +63,7 @@ class Backend(object):
         self.info.image_dir = join_path(self.info.data_dir, 'images')
         self.info.translations_dir = join_path(self.info.root_dir, 'translations')
         self.info.trusted_keys = join_path(self.info.data_dir, 'trustedkeys.gpg')
-        gettext.install(self.info.application_name, localedir=self.info.translations_dir)
+        gettext.install(self.info.application_name, localedir=self.info.translations_dir, unicode=True)
         log.debug('data_dir=%s' % self.info.data_dir)
 
     def get_installation_tasklist(self):

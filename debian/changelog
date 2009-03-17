@@ -208,5 +208,6 @@ wubi (9.04) UNRELEASED; urgency=low
     within the source files
   * Make path comparisons all in upper case
   * Merged umenu and wubi translations
+  * Use unicode by default in gettext translations (LP: #344151)
 
- -- Agostino Russo <agostino.russo@gmail.com>  Sat, 14 Mar 2009 02:32:53 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Tue, 17 Mar 2009 22:40:14 +0000
