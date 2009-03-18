@@ -27,7 +27,7 @@ def eject_cd(cd_path):
     #platform specific
     if not cd_path:
         return
-    create_file = ctypes.windll.kernel32.CreateFileW
+    create_file = ctypes.windll.kernel32.CreateFileA
     cd_handle = create_file(
         "\\\\.\\%s" % cd_path[:2],
         GENERIC_READ,
