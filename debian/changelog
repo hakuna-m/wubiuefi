@@ -20,18 +20,6 @@ wubi (9.04) UNRELEASED; urgency=low
   * Improved quit mechanism
   * Added tasklist as a more general replacement of the progress object
   * Revised tool scripts
-  * The full URL does not fit in the dialog, only show the filename
-  * Avoid division by zero when calculating bittorrent download progress
-  * Remove partially downloaded files before attempting a new download
-  * Cache ISO md5 calculations to avoid recalculating the md5 for the
-    same file (LP: 342250)
-
-  [ Hampus Wessman ]
-  * Added a new metalink parser
-  * Fixed the check for wine so that it looks in additonal places
-  * Added tools/wine to the branch
-
-  [ Agostino Russo ]
   * Added windows system info detection
   * Added installation page (partially implemented)
   * Minor GUI layout changes
@@ -86,11 +74,6 @@ wubi (9.04) UNRELEASED; urgency=low
   * Fixed generation of pressed and menu.lst as the templating was
     incomplete
   * Added wunui functionality that might help with transparent widgets
-
-  [ Hampus Wessman ]
-  * Fixed a bug in virtualdisk.py
-
-  [ Agostino Russo ]
   * Fixed formatting of the partitioning section in the preseed file
   * Do not show the console when running pylauncher (thanks Hampus
     Wessman)
@@ -132,13 +115,6 @@ wubi (9.04) UNRELEASED; urgency=low
     allocation
   * Stopped console windows from popping up when running commands
   * Added salt to the password hashing algorithm
-
-  [ Hampus Wessman ]
-  * Added deletion of temporary directory
-  * Fixed archive signature search in unpack.c
-  * Removed some debugging code
-
-  [ Agostino Russo ]
   * Fixed regression, a premature deletion of the temporary folder was
     preventing a correct startup
   * Factored out code that looks for archive start
@@ -185,6 +161,32 @@ wubi (9.04) UNRELEASED; urgency=low
   * Fixed typo (LP: #340400)
   * Fixed CD eject issue due to wrong path (LP: #339907)
   * Made btdownloader progress strings consistent with the ones used in the standard downloader
+  * Fixed typo in translatable string (LP: #341680)
+  * No need to make a log message translatable
+  * Replaced _ssl.py with a stub since we do not really need ssl
+    functionality, so we save over 150KB compressed
+  * Wubi pot is generated (make pot) and there is no need to include it
+    within the source files
+  * Make path comparisons all in upper case
+  * Merged umenu and wubi translations
+  * Use unicode by default in gettext translations (LP: #344151)
+  * Unicode win api call was using non-unicode argument preventing CD
+    from ejecting (LP: 339907)
+  * The full URL does not fit in the dialog, only show the filename
+  * Avoid division by zero when calculating bittorrent download progress
+  * Remove partially downloaded files before attempting a new download
+  * Cache ISO md5 calculations to avoid recalculating the md5 for the
+    same file (LP: 342250)
+  * Point isolist.ini to beta release
+
+  [ Hampus Wessman ]
+  * Added a new metalink parser
+  * Fixed the check for wine so that it looks in additonal places
+  * Added tools/wine to the branch
+  * Fixed a bug in virtualdisk.py
+  * Added deletion of temporary directory
+  * Fixed archive signature search in unpack.c
+  * Removed some debugging code
 
   [ Evan Dandrea ]
   * Fixed a typo in the translation template.
@@ -203,18 +205,5 @@ wubi (9.04) UNRELEASED; urgency=low
   * There's no need to quote arguments to commands when using Popen.  It
     passes them straight through, so you'll get "Ubuntu Linux" instead of
     Ubuntu Linux.
-
-  [ Agostino Russo ]
-  * Fixed typo in translatable string (LP: #341680)
-  * No need to make a log message translatable
-  * Replaced _ssl.py with a stub since we do not really need ssl
-    functionality, so we save over 150KB compressed
-  * Wubi pot is generated (make pot) and there is no need to include it
-    within the source files
-  * Make path comparisons all in upper case
-  * Merged umenu and wubi translations
-  * Use unicode by default in gettext translations (LP: #344151)
-  * Unicode win api call was using non-unicode argument preventing CD
-    from ejecting (LP: 339907)
 
  -- Agostino Russo <agostino.russo@gmail.com>  Wed, 18 Mar 2009 23:39:35 +0000
