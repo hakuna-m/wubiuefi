@@ -18,6 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import os
 import bittorrent.download
 import gzip #required by bittorrent
 from threading import Event
@@ -32,8 +33,7 @@ class DownloadError(Exception):
 def download(url, filename, associated_task=None):
     log.debug("downloading %s > %s" % (url, filename))
     if associated_task:
-        url_file = url.split("/")[-1]
-        associated_task.description = _("Downloading %s") % url_file
+        associated_task.description = _("Downloading %s") % os.path.basename(url)
         associated_task.unit = "KB"
         associated_task.set_progress(0)
 

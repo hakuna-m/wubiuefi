@@ -346,6 +346,7 @@ class Backend(object):
                     self.check_iso,
                     description = _("Checking installation files"))
                 if check_iso(iso_path):
+                    self.info.iso_path = iso_path
                     return True
                 else:
                     os.unlink(iso_path)
