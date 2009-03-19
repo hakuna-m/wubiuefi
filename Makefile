@@ -105,4 +105,5 @@ clean:
 	rm -rf dist/*
 	rm -rf build/*
 
-.PHONY: all build test
+.PHONY: all build test wubi wubizip wubi-pre-build pot runpy runbin ckeck_wine unittest
+	7z translations version.py pylauncher winboot grubutil grub4dos

@@ -32,7 +32,8 @@ class DownloadError(Exception):
 def download(url, filename, associated_task=None):
     log.debug("downloading %s > %s" % (url, filename))
     if associated_task:
-        associated_task.description = _("Downloading %s") % url
+        url_file = url.split("/")[-1]
+        associated_task.description = _("Downloading %s") % url_file
         associated_task.unit = "KB"
         associated_task.set_progress(0)
 
@@ -50,7 +51,10 @@ def download(url, filename, associated_task=None):
         total_download = float(kargs.get("downTotal", 0))*1024
         percent_completed = float(kargs.get("fractionDone", 0))
         percent_completed = min(0.99, percent_completed)
-        size = total_download/percent_completed
+        size = 1
+        if percent_completed:
+            size = total_download/percent_completed
+            percent_completed = size*percent_completed
         current_speed = "%sKBps" % int(kargs.get("downRate", 0)/1024.0)
         if associated_task:
             associated_task.size = size
@@ -77,3 +81,4 @@ def download(url, filename, associated_task=None):
         #~ paramfunc = None,
         #~ spewflag = Event(),
         )
+    return filename

@@ -20,6 +20,11 @@ wubi (9.04) UNRELEASED; urgency=low
   * Improved quit mechanism
   * Added tasklist as a more general replacement of the progress object
   * Revised tool scripts
+  * The full URL does not fit in the dialog, only show the filename
+  * Avoid division by zero when calculating bittorrent download progress
+  * Remove partially downloaded files before attempting a new download
+  * Cache ISO md5 calculations to avoid recalculating the md5 for the
+    same file (LP: 342250)
 
   [ Hampus Wessman ]
   * Added a new metalink parser
@@ -212,4 +217,4 @@ wubi (9.04) UNRELEASED; urgency=low
   * Unicode win api call was using non-unicode argument preventing CD
     from ejecting (LP: 339907)
 
- -- Agostino Russo <agostino.russo@gmail.com>  Wed, 18 Mar 2009 21:28:15 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Wed, 18 Mar 2009 23:39:35 +0000

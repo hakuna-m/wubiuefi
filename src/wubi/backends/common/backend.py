@@ -63,6 +63,7 @@ class Backend(object):
         self.info.image_dir = join_path(self.info.data_dir, 'images')
         self.info.translations_dir = join_path(self.info.root_dir, 'translations')
         self.info.trusted_keys = join_path(self.info.data_dir, 'trustedkeys.gpg')
+        self.info.iso_md5_hashes = {}
         gettext.install(self.info.application_name, localedir=self.info.translations_dir, unicode=True)
         log.debug('data_dir=%s' % self.info.data_dir)
 
@@ -282,10 +283,14 @@ class Backend(object):
         if not md5sum:
             log.error("ERROR: Could not find any md5 hash in the metalink for the ISO %s, ignoring" % iso_path)
             return True
-        get_md5 = associated_task.add_subtask(
-            get_file_md5,
-            description = _("Checking installation files") )
-        md5sum2 = get_md5(iso_path)
+        md5sum2 = self.info.iso_md5_hashes.get(iso_path, None)
+        if not md5sum2:
+            get_md5 = associated_task.add_subtask(
+                get_file_md5,
+                description = _("Checking installation files") )
+            md5sum2 = get_md5(iso_path)
+            if not iso_path.startswith(self.info.install_dir):
+                self.info.iso_md5_hashes[iso_path] = md5sum2
         if md5sum != md5sum2:
             log.exception("Invalid md5 for ISO %s (%s != %s)" % (iso_path, md5sum, md5sum2))
             return False
@@ -323,11 +328,15 @@ class Backend(object):
             if url.type == 'bittorrent':
                 if self.info.no_bittorrent:
                     continue
+                if os.path.isfile(save_as):
+                    os.unlink(save_as)
                 btdownload = associated_task.add_subtask(
                     btdownloader.download,
                     is_required = False)
                 iso_path = btdownload(url.url, save_as)
             else:
+                if os.path.isfile(save_as):
+                    os.unlink(save_as)
                 download = associated_task.add_subtask(
                     downloader.download,
                     is_required = True)
