@@ -177,8 +177,8 @@ wubi (9.04) UNRELEASED; urgency=low
   * Remove partially downloaded files before attempting a new download
   * Cache ISO md5 calculations to avoid recalculating the md5 for the
     same file (LP: 342250)
-  * Point isolist.ini to beta release
   * Ensure that the local ISO path is stored upon successful download
+  * Point isolist.ini to beta release (only for Ubuntu ISO)
 
   [ Hampus Wessman ]
   * Added a new metalink parser
@@ -207,4 +207,4 @@ wubi (9.04) UNRELEASED; urgency=low
     passes them straight through, so you'll get "Ubuntu Linux" instead of
     Ubuntu Linux.
 
- -- Agostino Russo <agostino.russo@gmail.com>  Thu, 19 Mar 2009 01:29:30 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Thu, 19 Mar 2009 01:47:11 +0000
