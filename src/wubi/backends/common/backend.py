@@ -444,7 +444,7 @@ class Backend(object):
         if cd_path:
             extract_iso = associated_task.add_subtask(
                 copy_file,
-                description = _("Extracting files from %s" % cd_path)
+                description = _("Extracting files from %s" % cd_path))
             self.info.iso_path = join_path(self.info.install_dir, "installation.iso")
             extract_iso(cd_path, self.info.iso_path)
             self.info.cd_path = cd_path
