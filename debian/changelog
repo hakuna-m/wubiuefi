@@ -209,5 +209,6 @@ wubi (9.04) UNRELEASED; urgency=low
   * There's no need to quote arguments to commands when using Popen.  It
     passes them straight through, so you'll get "Ubuntu Linux" instead of
     Ubuntu Linux.
+  * Removed an erroneous closing parentheses in the use_cd check.
 
  -- Agostino Russo <agostino.russo@gmail.com>  Thu, 19 Mar 2009 01:58:24 +0000
