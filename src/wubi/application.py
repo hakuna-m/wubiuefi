@@ -28,11 +28,13 @@ from wubi.frontends.win32 import WindowsFrontend
 import logging
 log = logging.getLogger("")
 
+
 class Wubi(object):
 
     def __init__(self, application_name, version, revision):
         self.frontend = None
         self.info = Info()
+        self.info.force_exit = False
         self.info.version = version
         self.info.revision = revision
         self.info.application_name = application_name
@@ -41,25 +43,32 @@ class Wubi(object):
         self.info.full_version = "%s %s rev%s" % (self.info.application_name, self.info.version, self.info.revision)
 
     def run(self):
+        self.info.quitting = False
         try:
             self.parse_commandline_arguments()
             self.set_logger()
             log.info("=== " + self.info.full_version + " ===")
             log.debug("Logfile is %s" % self.info.log_file)
+            log.debug("sys.argv = %s" % sys.argv)
             self.backend = self.get_backend()
             self.backend.fetch_basic_info()
             self.select_task()
         except Exception, err:
-            log.exception(err)
-            if self.frontend:
-                error_messages = "\n".join([e for e in err.args if isinstance(e, basestring)])
-                self.frontend.show_error_message(_("An error occurred:\n\n%(error)s\n\nFor more information, please see the log file: %(log)s") % dict(error=error_messages, log=self.info.log_file))
-            self.quit()
+            if self.info.quitting:
+                log.info("Quitting application")
+            else:
+                log.exception(err)
+                if self.frontend:
+                    error_messages = "\n".join([e for e in err.args if isinstance(e, basestring)])
+                    self.frontend.show_error_message(_("An error occurred:\n\n%(error)s\n\nFor more information, please see the log file: %(log)s") % dict(error=error_messages, log=self.info.log_file))
+            return
 
     def quit(self):
         '''
-        Sends quit signal to frontend if possible, since quit signals are originated by the frontend anyway
+        Sends quit signal to frontend if possible,
+        since quit signals are originated by the frontend anyway
         '''
+        log.debug("application.quit")
         if self.frontend and callable(self.frontend.quit):
             self.frontend.quit()
         else:
@@ -67,11 +76,17 @@ class Wubi(object):
 
     def on_quit(self):
         '''
-        Receives quit notification from frontend
+        Receives quit notification from frontend, or self.quit()
+        sys.exit cannot be used, because it also terminates the launching process
         '''
+        log.debug("application.on_quit")
+        self.info.quitting = True
+        if self.info.force_exit:
+            log.debug("Forceful exit")
         log.info("sys.exit")
         sys.exit(0)
 
+        
     def get_backend(self):
         '''
         Gets the appropriate backend for the system
@@ -149,16 +164,19 @@ class Wubi(object):
         Runs the uninstaller interface
         '''
         log.info("Running the uninstaller...")
-        if not self.backend.run_previous_uninstaller():
-            if self.info.previous_target_dir \
-            and os.path.isdir(self.info.previous_target_dir):
-                self.frontend = self.get_frontend()
-                self.frontend.show_uninstallation_settings()
-                log.info("Received settings")
-                self.frontend.run_tasks(self.backend.get_uninstallation_tasklist())
-                log.info("Almost finished uninstalling")
-                if not self.info.uninstall_before_install:
-                    self.frontend.show_uninstallation_finish_page()
+        if not self.info.previous_target_dir \
+        or not os.path.isdir(self.info.previous_target_dir):
+            log.error("No previous target dir found, exiting")
+            return
+        if self.backend.run_previous_uninstaller():
+            return
+        self.frontend = self.get_frontend()
+        self.frontend.show_uninstallation_settings()
+        log.info("Received settings")
+        self.frontend.run_tasks(self.backend.get_uninstallation_tasklist())
+        log.info("Almost finished uninstalling")
+        if not self.info.uninstall_before_install:
+            self.frontend.show_uninstallation_finish_page()
         log.info("Finished uninstallation")
 
     def run_cd_menu(self):
@@ -282,7 +300,7 @@ class Wubi(object):
                 handler.setLevel(logging.INFO)
             log.addHandler(handler)
         log.setLevel(logging.DEBUG)
-        log.debug("sys.argv = %s" % sys.argv)
+
 
 class Info(object):
 

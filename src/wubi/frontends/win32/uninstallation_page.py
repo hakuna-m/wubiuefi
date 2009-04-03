@@ -63,12 +63,13 @@ class UninstallationPage(Page):
         self.backup_iso.set_check(False)
         self.backup_iso.hide()
         install_dir = os.path.join(self.info.previous_target_dir, 'install')
-        if os.path.isdir(install_dir):
-            for f in os.listdir(install_dir):
-                if f.endswith('.iso'):
-                    self.backup_iso.set_check(True)
-                    self.backup_iso.show()
-                    break
+        ## Disabling ISO backup because download resume is not fully supported at the moment
+        #~ if os.path.isdir(install_dir):
+            #~ for f in os.listdir(install_dir):
+                #~ if f.endswith('.iso'):
+                    #~ self.backup_iso.set_check(True)
+                    #~ self.backup_iso.show()
+                    #~ break
 
     def on_uninstall(self):
         self.info.backup_iso = self.backup_iso.is_checked()

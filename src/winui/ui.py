@@ -360,11 +360,10 @@ class Frontend(object):
         while self._keep_running and windll.user32.GetMessageW(pMsg, NULL, 0, 0) > 0:
             #TBD if IsDialogMessage is used, other messages are not processed, for now doing a manual exception
             if self.main_window._hwnd == NULL \
-            or pMsg.contents.message in (WM_COMMAND, WM_PAINT, WM_CTLCOLORSTATIC, WM_DESTROY) \
+            or pMsg.contents.message in (WM_COMMAND, WM_PAINT, WM_CTLCOLORSTATIC, WM_DESTROY, WM_QUIT) \
             or not windll.user32.IsDialogMessage(self.main_window._hwnd , pMsg):
                 windll.user32.TranslateMessage(pMsg)
                 windll.user32.DispatchMessageW(pMsg)
-        #~ return msg.wParam
 
     def stop(self):
         '''
@@ -382,16 +381,16 @@ class Frontend(object):
 
     def quit(self):
         '''
-       Destroys the main window, which in turn calls _quit
+        Destroys the main window
         '''
         windll.user32.DestroyWindow(self.main_window._hwnd)
 
     def _quit(self):
         '''
-        Really quit anything on the windows side, this is called by MainWindow.on_destroy
+        Really quit anything on the windows side,
+        this is called by MainWindow.on_destroy
         '''
         windll.user32.PostQuitMessage(0)
-        self.run() #process any remaining message
         self.on_quit()
 
     def on_quit(self):

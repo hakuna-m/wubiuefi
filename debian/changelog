@@ -182,6 +182,12 @@ wubi (9.04) UNRELEASED; urgency=low
   * Had the wrong URL for beta in isolist.ini (thanks Colin Watson!)
   * Added beta URL for Kubuntu
   * Fixed Kubuntu package name and URLs
+  * Disabled ISO backup because download resume is not fully supported
+    at the moment
+  * Isolist.ini now points to the final release URLs
+  * Allow the uninstaller to delete the directory containing itself by
+    running the python code from a different process/location (LP:
+    #341605)
 
   [ Hampus Wessman ]
   * Added a new metalink parser
@@ -211,4 +217,4 @@ wubi (9.04) UNRELEASED; urgency=low
     Ubuntu Linux.
   * Removed an erroneous closing parentheses in the use_cd check.
 
- -- Agostino Russo <agostino.russo@gmail.com>  Thu, 19 Mar 2009 01:58:24 +0000
+ -- Agostino Russo <agostino.russo@gmail.com>  Fri, 03 Apr 2009 03:01:58 +0100

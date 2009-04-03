@@ -38,7 +38,7 @@ from metalink import parse_metalink
 from tasklist import ThreadedTaskList, Task
 from distro import Distro
 from mappings import lang_country2linux_locale
-from utils import join_path, run_command, md5_password, copy_file, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unix_path, rm_tree
+from utils import join_path, run_command, run_nonblocking_command, md5_password, copy_file, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unix_path, rm_tree
 from signature import verify_gpg_signature
 from os.path import abspath, dirname, isfile, isdir, exists
 
@@ -689,30 +689,29 @@ class Backend(object):
         return distros
 
     def run_previous_uninstaller(self):
-        '''
-        Returns True if the previous uninstaller was run
-        Otherwiser returns None/False
-        '''
-        if not self.info.previous_uninstaller_path:
-            log.debug("No previous_uninstaller_path %s" % self.info.previous_uninstaller_path)
+        if not self.info.previous_uninstaller_path \
+        or not os.path.isfile(self.info.previous_uninstaller_path):
             return
-        if not os.path.isfile(self.info.previous_uninstaller_path):
-            log.debug("Could not find the previous uninstaller %s" % self.info.previous_uninstaller_path)
-            return
-        if self.info.original_exe \
-        and get_file_md5(self.info.previous_uninstaller_path) == get_file_md5(self.info.original_exe):
-            log.debug("This is the previous uninstaller running")
-            # Skip to avoid an infinite loop, returning False forces the application to run the uninstallation code directly
-            return
-        log.info("Running previous uninstaller %s" % self.info.previous_uninstaller_path)
-        uninstaller = tempfile.NamedTemporaryFile()
-        uninstaller.close()
-        copy_file(self.info.previous_uninstaller_path, uninstaller.name)
-        command = [uninstaller.name, "--uninstall"]
-        try:
-            result = subprocess.call(command)
-        except Exception, err:
-            log.exception(err)
-        log.info("Finished uninstallation with result=%s" % result)
-        os.unlink(uninstaller.name)
-        return True
+        previous_uninstaller = self.info.previous_uninstaller_path.lower()
+        uninstaller = self.info.previous_uninstaller_path
+        if 0 and previous_uninstaller.lower() == self.info.original_exe.lower(): 
+            # This block is disabled as the functionality is achived via pylauncher
+            if self.info.original_exe.lower().startswith(self.info.previous_target_dir.lower()):
+                log.debug("Copying uninstaller to a temp directory, so that we can delete the containing directory")
+                uninstaller = tempfile.NamedTemporaryFile()
+                uninstaller.close()
+                uninstaller = uninstaller.name
+                copy_file(self.info.previous_uninstaller_path, uninstaller)
+            log.info("Launching asynchronously previous uninstaller %s" % uninstaller)
+            run_nonblocking_command([uninstaller, "--uninstall"], show_window=True)
+            return True
+        elif get_file_md5(self.info.original_exe) == get_file_md5(self.info.previous_uninstaller_path):
+            log.info("This is the uninstaller running")
+        else:
+            log.info("Launching previous uninestaller %s" % uninstaller)
+            subprocess.call([uninstaller, "--uninstall"]) 
+            # Note: the uninstaller is now non-blocking so we can just as well quit this running version
+            # TBD: make this call synchronous by waiting for the children process of the uninstaller
+            self.application.quit()
+            return True
+

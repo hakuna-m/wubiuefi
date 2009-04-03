@@ -72,13 +72,13 @@ class InstallationPage(Page):
         if max_space_mb < 1024:
             message = _("Only %sMB of disk space are available.\nAt least 1024MB are required as a bare minimum. Quitting")
             self.frontend.show_error_message(message % int(max_space_mb))
-            self.frontend.quit()
+            self.application.quit()
         if max_space_mb2 < min_space_mb:
             message = _("%(min_space)sMB of disk size are required for installation.\nOnly %(max_space)sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?")
             min_space_mb = round(min_space_mb/1000+0.5)*1024
             message = message % dict(min_space=int(min_space_mb), max_space=int(max_space_mb))
             if not self.frontend.ask_confirmation(message):
-                self.frontend.quit()
+                self.application.quit()
             else:
                 self.info.skip_size_check = True
 
@@ -261,7 +261,7 @@ class InstallationPage(Page):
                 message = _("%(min_memory)sMB of memory are required for installation.\nOnly %(total_memory)sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?")
                 message = message % dict(min_memory=int(self.info.distro.min_memory_mb), total_memory=int(self.info.total_memory_mb))
                 if not self.frontend.ask_confirmation(message):
-                    self.frontend.quit()
+                    self.application.quit()
                 else:
                     self.info.skip_memory_check = True
         self.populate_drive_list()
@@ -316,7 +316,7 @@ class InstallationPage(Page):
         if error_message:
             return
         log.debug(
-            "target_drive=%s\ninstallation_size=%sMB\ndistro_name=%s\nlanguage=%s\nusername=%s" \
+            "target_drive=%s, installation_size=%sMB, distro_name=%s, language=%s, username=%s" \
             % (drive.path, installation_size_mb, self.info.distro.name, language, username))
         self.info.target_drive = drive
         self.info.installation_size_mb = installation_size_mb

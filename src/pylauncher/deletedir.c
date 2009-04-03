@@ -38,7 +38,7 @@ int delete_directory(char* root_directory)
     pattern = concat(root_directory, "\\*.*", false);
     if(!pattern) return ERROR_NOT_ENOUGH_MEMORY;
     file_handle = FindFirstFile(pattern, &file_info);
-    
+
     if(file_handle != INVALID_HANDLE_VALUE){
         do{
             if(file_info.cFileName[0] != '.'){
@@ -74,7 +74,7 @@ int delete_directory(char* root_directory)
         freestr(&file_path);
         FindClose(file_handle);
         free(pattern);
-        
+
         DWORD dwError = GetLastError();
         if(dwError != ERROR_NO_MORE_FILES){
             return dwError;

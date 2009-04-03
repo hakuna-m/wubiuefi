@@ -107,7 +107,7 @@ def cat(outfile, *infiles):
     fout.close()
 
 def make_self_extracting_exe(target_dir):
-    pylauncher = ajoin(dirname(__file__), 'pylauncher.exe')
+    header = ajoin(dirname(__file__), 'header.exe')
     archive = ajoin(dirname(target_dir),'archive.7z')
     target = ajoin(dirname(target_dir), 'application.exe')
     signature = ajoin(dirname(target_dir), 'signature')
@@ -115,12 +115,13 @@ def make_self_extracting_exe(target_dir):
     f.write(SIGNATURE)
     f.close()
     print "Creating self extracting file %s" % target
-    cat(target, pylauncher, signature, archive)
+    cat(target, header, signature, archive)
 
-def add_python_dll(target_dir):
+def add_python_interpreter(target_dir):
     #TBD detect the dll/lib of the current python instance
-    pythondll = join(dirname(__file__), 'python23.dll')
-    shutil.copy(pythondll, target_dir)
+    for f in ('pylauncher.exe', 'python23.dll', 'pythonw.exe'):
+        source = ajoin(dirname(__file__), f)
+        shutil.copy(source, target_dir)
 
 def pack(script, target_dir, extras, nopyc):
     target_dir = ajoin(target_dir, 'files')
@@ -141,7 +142,7 @@ def pack(script, target_dir, extras, nopyc):
             print "copying %s -> %s" % (extra, target_path)
             shutil.copytree(extra, target_path)
 
-    add_python_dll(target_dir)
+    add_python_interpreter(target_dir)
     compress(target_dir)
     make_self_extracting_exe(target_dir)
 

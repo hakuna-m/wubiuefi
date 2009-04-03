@@ -1,7 +1,6 @@
 export SHELL = sh
 PROGRAM = pylauncher
 #LDFLAGS = -shared -dll
-LDFLAGS = -mwindows
 #LIB = -lm -static
 #LIBS = user32.lib gdi32.lib shell32.lib
 CC = i586-mingw32msvc-gcc
@@ -34,6 +33,7 @@ ifdef DEBUG
 	STRIP = @echo
 else
 	DEBUGFLAG =
+	LDFLAGS = -mwindows
 	STRIP = i586-mingw32msvc-strip
 endif
 
@@ -60,9 +60,13 @@ endif
 	$(7Z_DIR)/Compress/Lzma/LzmaDecode.c \
 	$(7Z_DIR)/7zCrc.c
 
-all: $(PROGRAM).exe
+all: pylauncher.exe header.exe
 
-$(PROGRAM).exe: $(7Z_OBJS) unpack.o deletedir.o pylauncher.o str.o resources.o
+header.exe:$(7Z_OBJS) unpack.o deletedir.o header.o str.o resources.o
+	$(CC) -o $@ $(LDFLAGS) $(LIBS) $^
+	$(STRIP) $@
+
+pylauncher.exe: deletedir.o pylauncher.o str.o resources.o
 	$(CC) -o $@ $(LDFLAGS) $(LIBS) $^
 	$(STRIP) $@
 
@@ -75,6 +79,9 @@ resources.o: resources.rc
 pylauncher.o: pylauncher.c
 	$(CC) $(DEBUGFLAG) $(CFLAGS) $^
 
+header.o: header.c
+	$(CC) $(DEBUGFLAG) $(CFLAGS) $^
+
 deletedir.o: deletedir.c
 	$(CC) $(DEBUGFLAG) $(CFLAGS) $^
 
@@ -85,4 +92,4 @@ str.o: str.c
 	$(CC) $(DEBUGFLAG) $(CFLAGS) $^
 
 clean:
-	rm -f unpack.exe pylauncher.exe $(7Z_OBJS) *.d *.o
+	rm -f unpack.exe header.exe pylauncher.exe $(7Z_OBJS) *.d *.o

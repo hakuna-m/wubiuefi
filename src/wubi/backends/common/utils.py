@@ -61,13 +61,22 @@ def run_command(command, show_window=False):
             "Error executing command\n>>command=%s\n>>retval=%s\n>>stderr=%s\n>>stdout=%s"
             % (" ".join(command), retval, output, errormsg))
 
-def run_async_command(command):
+def run_nonblocking_command(command, show_window=False):
     '''
     run command and return immediately
     '''
+    STARTF_USESHOWWINDOW = 1
+    SW_HIDE = 0
+    if show_window:
+        startupinfo = None
+    else:
+        startupinfo = subprocess.STARTUPINFO()
+        startupinfo.dwFlags |= STARTF_USESHOWWINDOW
+        startupinfo.wShowWindow = SW_HIDE
     process = subprocess.Popen(
-        command, stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=False)
-    process.communicate()
+        command,
+        startupinfo=startupinfo)
+    return process.pid
 
 def md5_password(password):
     # From http://mail.python.org/pipermail/python-list/2003-March/195202.html

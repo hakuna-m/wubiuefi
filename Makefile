@@ -18,16 +18,16 @@ wubi: wubi-pre-build
 wubizip: wubi-pre-build
 	PYTHONPATH=src tools/pywine build/pylauncher/pack.py --dir=build/wubi --nopyc src/main.py data build/bin build/version.py build/winboot build/translations
 	cp wine/drive_c/Python23/python.exe build/wubi/files #TBD
-	cp wine/drive_c/Python23/pythonw.exe build/wubi/files #TBD
 	cp build/cpuid/cpuid.dll build/bin
 	mv build/wubi/files build/wubi/wubi
 	cd build/wubi; zip -r ../wubi.zip wubi
 	mv build/wubi/wubi build/wubi/files
 
-wubi-pre-build: check_wine winboot pylauncher src/main.py src/wubi/*.py cpuid version.py translations
+wubi-pre-build: check_wine pylauncher winboot src/main.py src/wubi/*.py cpuid version.py translations
 	rm -rf build/wubi
 	rm -rf build/bin
 	cp -a blobs build/bin
+	cp wine/drive_c/Python23/pythonw.exe build/pylauncher #TBD
 	cp wine/drive_c/windows/system32/python23.dll build/pylauncher #TBD
 	cp build/cpuid/cpuid.dll build/bin
 

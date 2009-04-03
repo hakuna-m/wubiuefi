@@ -28,8 +28,8 @@ from progress_page import ProgressPage
 from cd_menu_page import CDMenuPage
 from cd_finish_page import CDFinishPage
 from cdboot_page import CDBootPage
+from wubi.errors import QuitException
 import logging
-import threading
 log = logging.getLogger("WindowsFrontend")
 
 
@@ -51,15 +51,27 @@ class WindowsFrontend(ui.Frontend):
                 return
         self.quit()
 
+    def run(self):
+        if self.application.info.quitting:
+            raise QuitException()
+        ui.Frontend.run(self)
+        if self.application.info.quitting:
+            raise QuitException()
+
+    def quit(self):
+        log.debug("frontend.quit")
+        ui.Frontend.quit(self)
+
     def on_quit(self):
-        log.debug("frontend on_quit...")
+        log.debug("frontend.on_quit")
         if hasattr(self, "tasklist") and self.tasklist:
             if self.tasklist.isAlive():
                 log.debug("stopping remaining background tasks: '%s'" % self.tasklist.name)
                 self.tasklist.cancel()
-                self.tasklist.join(1)
+                self.tasklist.join(3)
                 if self.tasklist.isAlive():
                     log.debug("Task cancellation timed out, the program will exit anyway")
+                    self.application.info.force_exit = True
         self.application.on_quit()
 
     def on_init(self):

@@ -51,7 +51,7 @@ class CDFinishPage(Page):
 
     def on_finish(self):
         if self.main.reboot_later.is_checked():
-            self.frontend.quit()
+            self.application.quit()
         elif self.main.reboot_now.is_checked():
             self.info.run_task = "reboot"
         elif self.main.cd_boot.is_checked():

@@ -32,7 +32,8 @@ class Page(ui.Page):
 
     def on_init(self):
         x, y, width, height = self.parent.get_client_rect()
-        self.info = self.frontend.application.info
+        self.application = self.frontend.application
+        self.info = self.application.info
         self.resize(width, height)
         self.width = width
         self.height = height

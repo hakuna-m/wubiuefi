@@ -37,6 +37,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "windows.h"
+#include "unpack.h"
 #include "deletedir.h"
 #include "str.h"
 
@@ -46,34 +47,52 @@
 int __cdecl
 main(int ac, char **av)
 {
-    //~ printf("pylauncher: starting\n");
-    char cmd[1000] = "";
+    //~ printf("header: starting\n");
     char message[1000] = "";
+    char cmd[1000] = "";
+    char pylauncher[MAX_PATH];
+    char currentdir[MAX_PATH];
+    char exefile[MAX_PATH];
+    char tmpdir[MAX_PATH];
     char targetdir[MAX_PATH];
-    char libdir[MAX_PATH];
-    char python[] = "pythonw.exe -S -OO ";
-    char mainscript[] = "main.pyo";
-    
-    strcpy(targetdir, av[1]);
-    strcpy(libdir, targetdir);
-    strcat(libdir, "\\lib");
-    printf("pylauncher targetdir=%s\n", targetdir);
 
-    SetEnvironmentVariable("PYTHONHOME", targetdir);
-    SetEnvironmentVariable("PYTHONOPTIMIZE", NULL);
-    SetEnvironmentVariable("PYTHONPATH", libdir);
-    SetEnvironmentVariable("PYTHONVERBOSE", "0");
-    SetEnvironmentVariable("PYTHONDEBUG", "Off");
+    GetModuleFileName(NULL, exefile, sizeof(exefile));
 
-    //Run script in python
+    //Create targetdir
+    GetTempPath(MAX_PATH, tmpdir);
+    GetTempFileName(tmpdir, "pyl", 0, targetdir);
+    DeleteFile(targetdir);
+    getcwd(currentdir, MAX_PATH);
+    CreateDirectory(targetdir, NULL);
+    chdir(targetdir);
+    //~ printf("targetdir = %s\n", targetdir);
+
+    //Extract LZMA bundled archive
+    if (unpack(exefile)) {
+        strcpy(message, "Cannot unpack "); 
+        strcat(message, exefile);
+        goto error;
+    }
+
+    //Copy pylauncher.exe
+    strcpy(pylauncher, targetdir);
+    strcat(pylauncher, ".exe");
+    if (!CopyFile("pylauncher.exe", pylauncher, FALSE)){
+        strcpy(message, "Cannot copy pylauncher");
+        goto error;
+    }
+
+    HANDLE exe_handle = OpenProcess(SYNCHRONIZE, TRUE, GetCurrentProcessId());
+    HANDLE pylauncher_handle = CreateFile(pylauncher, 0, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_FLAG_DELETE_ON_CLOSE, NULL);
+
+    strcat(cmd, pylauncher);
+    strcat(cmd, " \"");
     strcat(cmd, targetdir);
-    strcat(cmd, "\\");
-    strcat(cmd, python);
-    strcat(cmd, targetdir);
-    strcat(cmd, "\\");
-    strcat(cmd, mainscript);
+    strcat(cmd, "\"");
+    strcat(cmd, " --exefile=");
+    strcat(cmd, exefile);
     DWORD i;
-    for (i = 2; i < (DWORD) ac; i++){
+    for (i = 1; i < (DWORD) ac; i++){
         strcat(cmd, " ");
         strcat(cmd, av[i]);
     }
@@ -81,22 +100,14 @@ main(int ac, char **av)
     ZeroMemory(&si, sizeof(si));
     si.cb = sizeof(si);
     PROCESS_INFORMATION pi;
-    //~ printf("pylauncher: %s\n", cmd);
-    if(!CreateProcess(NULL, cmd, NULL, NULL, TRUE, 0, NULL, NULL, &si, &pi)){
-        strcpy(message, "Failed to run ");
-        strcat(message, cmd);
-        goto error;
-    } else {
-        WaitForSingleObject(pi.hProcess, INFINITE);
-    }
-
-    //Delete directory
-    //~ printf("pylauncher: deleting temp directory %s\n", targetdir);
-    delete_directory(targetdir);
-
-    //~ printf("pylauncher: Finished\n");
+    //~ printf("header: %s\n", cmd);
+    CreateProcess(NULL, cmd, NULL, NULL, TRUE, 0, NULL, NULL, &si, &pi);
+    Sleep(1000); // Give time to the new process to start
+    //~ printf("header: finishing\n");
+    CloseHandle(exe_handle);
+    CloseHandle(pylauncher_handle);
     return 0;
-    
+
 error:
     MessageBox(NULL, message, "Internal error", MB_ICONERROR | MB_OK);
     //TBD We should delete the targetdir but might be risky

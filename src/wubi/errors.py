@@ -20,3 +20,9 @@
 
 class WubiError(Exception):
     pass
+
+
+class QuitException(Exception):
+    '''
+    Application should have quitted and code should not be running anymore
+    '''
