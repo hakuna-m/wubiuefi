@@ -27,7 +27,6 @@ wubi-pre-build: check_wine pylauncher winboot src/main.py src/wubi/*.py cpuid ve
 	rm -rf build/wubi
 	rm -rf build/bin
 	cp -a blobs build/bin
-	cp wine/drive_c/Python23/pythonw.exe build/pylauncher #TBD
 	cp wine/drive_c/windows/system32/python23.dll build/pylauncher #TBD
 	cp build/cpuid/cpuid.dll build/bin
 

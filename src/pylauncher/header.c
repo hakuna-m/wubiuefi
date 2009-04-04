@@ -48,8 +48,8 @@ int __cdecl
 main(int ac, char **av)
 {
     //~ printf("header: starting\n");
-    char message[1000] = "";
-    char cmd[1000] = "";
+    char *cmd;
+    char message[MAX_PATH + 1000];
     char pylauncher[MAX_PATH];
     char currentdir[MAX_PATH];
     char exefile[MAX_PATH];
@@ -65,43 +65,42 @@ main(int ac, char **av)
     getcwd(currentdir, MAX_PATH);
     CreateDirectory(targetdir, NULL);
     chdir(targetdir);
-    //~ printf("targetdir = %s\n", targetdir);
 
     //Extract LZMA bundled archive
     if (unpack(exefile)) {
-        strcpy(message, "Cannot unpack "); 
-        strcat(message, exefile);
+        sprintf(message, "Cannot unpack %s\n", exefile);
         goto error;
     }
 
     //Copy pylauncher.exe
-    strcpy(pylauncher, targetdir);
-    strcat(pylauncher, ".exe");
+    sprintf(pylauncher, "%s.exe", targetdir);
     if (!CopyFile("pylauncher.exe", pylauncher, FALSE)){
-        strcpy(message, "Cannot copy pylauncher");
+        sprintf(message, "Cannot copy %s\n", pylauncher);
         goto error;
     }
 
     HANDLE exe_handle = OpenProcess(SYNCHRONIZE, TRUE, GetCurrentProcessId());
     HANDLE pylauncher_handle = CreateFile(pylauncher, 0, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_FLAG_DELETE_ON_CLOSE, NULL);
 
-    strcat(cmd, pylauncher);
-    strcat(cmd, " \"");
-    strcat(cmd, targetdir);
-    strcat(cmd, "\"");
-    strcat(cmd, " --exefile=");
-    strcat(cmd, exefile);
+    cmd = (char *)malloc((strlen(pylauncher) + strlen(targetdir) + strlen(exefile) + 9) * sizeof(char));
+    sprintf(cmd, "\"%s\" \"%s\" \"%s\"", pylauncher, targetdir, exefile);
     DWORD i;
     for (i = 1; i < (DWORD) ac; i++){
-        strcat(cmd, " ");
-        strcat(cmd, av[i]);
+        cmd = concat(cmd, " ", true);
+        cmd = concat(cmd, av[i], true);
     }
     STARTUPINFO si;
     ZeroMemory(&si, sizeof(si));
     si.cb = sizeof(si);
     PROCESS_INFORMATION pi;
-    //~ printf("header: %s\n", cmd);
-    CreateProcess(NULL, cmd, NULL, NULL, TRUE, 0, NULL, NULL, &si, &pi);
+    //~ printf("header running cmd: %s\n", cmd);
+    if(!CreateProcess(NULL, cmd, NULL, NULL, TRUE, 0, NULL, NULL, &si, &pi)){
+        strcpy(message, "Failed to run pylauncher\n");
+        free(cmd);
+        goto error;
+    }
+    free(cmd);
+
     Sleep(1000); // Give time to the new process to start
     //~ printf("header: finishing\n");
     CloseHandle(exe_handle);

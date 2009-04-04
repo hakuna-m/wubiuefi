@@ -119,7 +119,7 @@ def make_self_extracting_exe(target_dir):
 
 def add_python_interpreter(target_dir):
     #TBD detect the dll/lib of the current python instance
-    for f in ('pylauncher.exe', 'python23.dll', 'pythonw.exe'):
+    for f in ('pylauncher.exe', 'python23.dll', 'pyrun.exe'):
         source = ajoin(dirname(__file__), f)
         shutil.copy(source, target_dir)
 

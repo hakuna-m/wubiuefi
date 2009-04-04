@@ -23,11 +23,26 @@
 
 #include "deletedir.h"
 #include "str.h"
+#include "windows.h"
 
 #define true 1
 #define false 0
 
-int delete_directory(char* root_directory)
+int _delete_directory(char* root_directory);
+
+int delete_directory(char* target_directory)
+{
+    char abs_path[MAX_PATH];
+    int result;
+    if (GetFullPathName(target_directory, MAX_PATH, abs_path, NULL)!=0){
+        chdir("\\");
+        result = _delete_directory(abs_path);
+        return result;
+    }
+    return 1;
+}
+
+int _delete_directory(char* root_directory)
 {
     int result;
     HANDLE file_handle;
@@ -52,7 +67,7 @@ int delete_directory(char* root_directory)
                 result = 0;
                 if(file_info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY){
                     // Delete subdirectory
-                    result = delete_directory(file_path);
+                    result = _delete_directory(file_path);
                 } else {
                     // Set file attributes
                     if(SetFileAttributes(file_path, FILE_ATTRIBUTE_NORMAL) == FALSE){

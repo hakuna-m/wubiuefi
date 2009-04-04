@@ -60,9 +60,13 @@ endif
 	$(7Z_DIR)/Compress/Lzma/LzmaDecode.c \
 	$(7Z_DIR)/7zCrc.c
 
-all: pylauncher.exe header.exe
+all: pylauncher.exe header.exe pyrun.exe
 
 header.exe:$(7Z_OBJS) unpack.o deletedir.o header.o str.o resources.o
+	$(CC) -o $@ $(LDFLAGS) $(LIBS) $^
+	$(STRIP) $@
+
+pyrun.exe: deletedir.o pyrun.o str.o resources.o
 	$(CC) -o $@ $(LDFLAGS) $(LIBS) $^
 	$(STRIP) $@
 
@@ -77,6 +81,9 @@ resources.o: resources.rc
 	$(WINDRES) -o $@ $^
 
 pylauncher.o: pylauncher.c
+	$(CC) $(DEBUGFLAG) $(CFLAGS) $^
+
+pyrun.o: pyrun.c
 	$(CC) $(DEBUGFLAG) $(CFLAGS) $^
 
 header.o: header.c

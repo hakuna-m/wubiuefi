@@ -47,56 +47,45 @@ int __cdecl
 main(int ac, char **av)
 {
     //~ printf("pylauncher: starting\n");
-    char cmd[1000] = "";
-    char message[1000] = "";
-    char targetdir[MAX_PATH];
-    char libdir[MAX_PATH];
-    char python[] = "pythonw.exe -S -OO ";
-    char mainscript[] = "main.pyo";
-    
-    strcpy(targetdir, av[1]);
-    strcpy(libdir, targetdir);
-    strcat(libdir, "\\lib");
-    printf("pylauncher targetdir=%s\n", targetdir);
-
-    SetEnvironmentVariable("PYTHONHOME", targetdir);
-    SetEnvironmentVariable("PYTHONOPTIMIZE", NULL);
-    SetEnvironmentVariable("PYTHONPATH", libdir);
-    SetEnvironmentVariable("PYTHONVERBOSE", "0");
-    SetEnvironmentVariable("PYTHONDEBUG", "Off");
-
-    //Run script in python
-    strcat(cmd, targetdir);
-    strcat(cmd, "\\");
-    strcat(cmd, python);
-    strcat(cmd, targetdir);
-    strcat(cmd, "\\");
-    strcat(cmd, mainscript);
     DWORD i;
-    for (i = 2; i < (DWORD) ac; i++){
-        strcat(cmd, " ");
-        strcat(cmd, av[i]);
+    char *cmd;
+    char message[MAX_PATH + 1000];
+    char targetdir[MAX_PATH];
+    char exefile[MAX_PATH];
+    strcpy(targetdir, av[1]);
+    strcpy(exefile, av[2]);
+
+    //Run script in python script via pyrun
+    cmd = (char *)malloc((strlen(targetdir)*2 + +strlen(exefile) + 19) * sizeof(char));
+    sprintf(cmd, "\"%s\\pyrun.exe\" \"%s\" \"%s\"", targetdir, targetdir, exefile);
+    for (i = 3; i < (DWORD) ac; i++){
+        cmd = concat(cmd, " ", true);
+        cmd = concat(cmd, av[i], true);
     }
     STARTUPINFO si;
     ZeroMemory(&si, sizeof(si));
     si.cb = sizeof(si);
     PROCESS_INFORMATION pi;
-    //~ printf("pylauncher: %s\n", cmd);
+    //~ printf("pylauncher running cmd: %s\n", cmd);
     if(!CreateProcess(NULL, cmd, NULL, NULL, TRUE, 0, NULL, NULL, &si, &pi)){
-        strcpy(message, "Failed to run ");
-        strcat(message, cmd);
+        strcpy(message, "Failed to run pyrun\n");
+        free(cmd);
         goto error;
     } else {
         WaitForSingleObject(pi.hProcess, INFINITE);
     }
+    free(cmd);
 
     //Delete directory
     //~ printf("pylauncher: deleting temp directory %s\n", targetdir);
-    delete_directory(targetdir);
+    if (!delete_directory(targetdir)){
+        strcpy(message, "Error deleting directory\n");
+        goto error;
+    }
 
     //~ printf("pylauncher: Finished\n");
     return 0;
-    
+
 error:
     MessageBox(NULL, message, "Internal error", MB_ICONERROR | MB_OK);
     //TBD We should delete the targetdir but might be risky

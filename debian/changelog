@@ -188,6 +188,12 @@ wubi (9.04) UNRELEASED; urgency=low
   * Allow the uninstaller to delete the directory containing itself by
     running the python code from a different process/location (LP:
     #341605)
+  * Added a separate python launcher process, pyrun, in order to support
+    XP windows theming, which was a regression from previous commit
+    (LP: #341065)
+  * Make sure that arguments are properly quoted (thanks Colin Watson!)
+  * Before deleting the temp directory, make sure to move out of there
+    (LP: #341607)
 
   [ Hampus Wessman ]
   * Added a new metalink parser
@@ -217,4 +223,4 @@ wubi (9.04) UNRELEASED; urgency=low
     Ubuntu Linux.
   * Removed an erroneous closing parentheses in the use_cd check.
 
- -- Agostino Russo <agostino.russo@gmail.com>  Fri, 03 Apr 2009 03:01:58 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Sat, 04 Apr 2009 20:10:55 +0100
