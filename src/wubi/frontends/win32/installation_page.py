@@ -191,7 +191,7 @@ class InstallationPage(Page):
 
         picture, label, self.size_list = self.add_controls_block(
                 self.main, h, h*4,
-                "systemsize.bmp", _("Installation size:"), True)
+                "disksize.bmp", _("Installation size:"), True)
         # populated by on_drive_change
         self.size_list.on_change = self.on_size_change
 
@@ -256,6 +256,8 @@ class InstallationPage(Page):
         bmp_file = "%s-header.bmp" % self.info.distro.name
         self.header.image.set_image(os.path.join(self.info.image_dir, bmp_file))
         self.header.title.set_text("You are about to install %(distro)s-%(version)s" % dict(distro=self.info.distro.name, version=self.info.version))
+        icon_file = "%s.ico" % self.info.distro.name
+        self.frontend.set_icon(os.path.join(self.info.image_dir, icon_file))
         if not self.info.skip_memory_check:
             if self.info.total_memory_mb < self.info.distro.min_memory_mb:
                 message = _("%(min_memory)sMB of memory are required for installation.\nOnly %(total_memory)sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?")

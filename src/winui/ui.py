@@ -23,6 +23,7 @@ Python wrappers around win32 widgets and window classes
 
 from defs import *
 import sys
+import os
 
 __all__ = ["Window", "Frontend"]
 
@@ -73,14 +74,17 @@ class BasicWindow(object):
     _window_style_ = 0
     _window_ex_style_ = 0
 
-    def __init__(self, parent=None, x=None, y=None, width=None, height=None, text=None, frontend=None):
+    def __init__(self, parent=None, x=None, y=None, width=None, height=None, text=None, frontend=None, icon=None):
         self.parent = parent
+        self._icon = None
         if frontend:
             self.frontend = frontend
         else:
             self.frontend = parent.frontend
         if not self.__class__._window_class_name_:
             self.__class__._window_class_name_ = self.__class__.__name__
+            if icon:
+                self._icon = windll.user32.LoadImageW(NULL, unicode(icon), IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
             self._register_window()
         self._create_window(x, y, width, height, text)
         self._register_handlers()
@@ -90,7 +94,8 @@ class BasicWindow(object):
         self._window_class_ = WNDCLASSEX(
                 event_dispatcher,
                 self._window_class_name_,
-                self._window_class_style_)
+                self._window_class_style_,
+                icon=self._icon)
         self._window_class_._atom_ = windll.user32.RegisterClassExW(byref(self._window_class_))
         if not self._window_class_._atom_:
             raise WinError()
@@ -152,7 +157,7 @@ class Window(BasicWindow):
     _repaint_on_move_ = False
     _is_transparent_ = False
 
-    def __init__(self, parent=None, x=None, y=None, width=None, height=None, text=None, frontend=None):
+    def __init__(self, parent=None, x=None, y=None, width=None, height=None, text=None, frontend=None, icon=None):
         self._gdi_disposables = []
         self._background_color = None
         self._background_brush = None
@@ -160,7 +165,7 @@ class Window(BasicWindow):
         self._text_color = None
         self._null_brush = windll.gdi32.GetStockObject(NULL_BRUSH)
         self._gdi_disposables.append(self._null_brush)
-        BasicWindow.__init__(self, parent, x, y, width, height, text, frontend)
+        BasicWindow.__init__(self, parent, x, y, width, height, text, frontend, icon)
         self.set_font()
         self.update()
 
@@ -267,7 +272,6 @@ class Window(BasicWindow):
             self._gdi_disposables.append(self._background_brush)
             self._gdi_disposables.append(self._default_background_brush)
 
-
     def set_text_color(self, red255=None, green255=None, blue255=None):
         if (red255, green255, blue255) == (None, None, None):
             self._text_color = None
@@ -310,7 +314,7 @@ class Window(BasicWindow):
         parent_hwnd = event[0]
         hdc = event[2]
         if self._text_color:
-            windll.gdi32.SetTextColor(hdc, COLOR_BTNTEXT)
+            windll.gdi32.SetTextColor(hdc, self._text_color)
         if self._is_transparent_:
             windll.gdi32.SetBkMode(hdc, TRANSPARENT)
             brush = self._null_brush
@@ -345,6 +349,11 @@ class Frontend(object):
 
     def set_title(self, title):
         self.main_window.set_text(title)
+
+    def set_icon(self, icon_path):
+        if icon_path and os.path.isfile(icon_path):
+            self.main_window._icon = windll.user32.LoadImageW(NULL, unicode(icon_path), IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
+            windll.user32.SendMessageW(self.main_window._hwnd, WM_SETICON, ICON_SMALL, self.main_window._icon)
 
     def get_title(self):
         return self.main_window.get_text()
@@ -581,7 +590,6 @@ class Bitmap(StaticWidget):
 class Icon(StaticWidget):
     _window_class_name_ = "Static"
     _window_style_ = StaticWidget._window_style_|SS_ICON
-
 
     def set_image(self, path, width=0, height=0):
         path = unicode(path)

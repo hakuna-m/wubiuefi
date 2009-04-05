@@ -63,6 +63,8 @@ class Backend(object):
         self.info.image_dir = join_path(self.info.data_dir, 'images')
         self.info.translations_dir = join_path(self.info.root_dir, 'translations')
         self.info.trusted_keys = join_path(self.info.data_dir, 'trustedkeys.gpg')
+        self.info.application_icon = join_path(self.info.image_dir, self.info.application_name.capitalize() + ".ico")
+        self.info.icon = self.info.application_icon
         self.info.iso_md5_hashes = {}
         gettext.install(self.info.application_name, localedir=self.info.translations_dir, unicode=True)
         log.debug('data_dir=%s' % self.info.data_dir)
@@ -694,7 +696,7 @@ class Backend(object):
             return
         previous_uninstaller = self.info.previous_uninstaller_path.lower()
         uninstaller = self.info.previous_uninstaller_path
-        if 0 and previous_uninstaller.lower() == self.info.original_exe.lower(): 
+        if 0 and previous_uninstaller.lower() == self.info.original_exe.lower():
             # This block is disabled as the functionality is achived via pylauncher
             if self.info.original_exe.lower().startswith(self.info.previous_target_dir.lower()):
                 log.debug("Copying uninstaller to a temp directory, so that we can delete the containing directory")
@@ -709,7 +711,7 @@ class Backend(object):
             log.info("This is the uninstaller running")
         else:
             log.info("Launching previous uninestaller %s" % uninstaller)
-            subprocess.call([uninstaller, "--uninstall"]) 
+            subprocess.call([uninstaller, "--uninstall"])
             # Note: the uninstaller is now non-blocking so we can just as well quit this running version
             # TBD: make this call synchronous by waiting for the children process of the uninstaller
             self.application.quit()
