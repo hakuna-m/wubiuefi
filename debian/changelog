@@ -198,6 +198,8 @@ wubi (9.04) UNRELEASED; urgency=low
   * Remove wubildr files from each drive
   * Check that file extraction from ISO is successful before trying to
     parse the file (LP: #351966)
+  * The path of the original executable is now quoted, but the quotes
+    have to be stripped out within python (LP: #341605)
 
   [ Hampus Wessman ]
   * Added a new metalink parser
@@ -227,4 +229,4 @@ wubi (9.04) UNRELEASED; urgency=low
     Ubuntu Linux.
   * Removed an erroneous closing parentheses in the use_cd check.
 
- -- Agostino Russo <agostino.russo@gmail.com>  Sun, 05 Apr 2009 02:07:04 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Sun, 05 Apr 2009 03:01:49 +0100

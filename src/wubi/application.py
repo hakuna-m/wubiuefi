@@ -86,7 +86,7 @@ class Wubi(object):
         log.info("sys.exit")
         sys.exit(0)
 
-        
+
     def get_backend(self):
         '''
         Gets the appropriate backend for the system
@@ -269,8 +269,12 @@ class Wubi(object):
             self.info.debug = True
         if self.info.debug:
             self.info.verbosity = "verbose"
-        if self.info.original_exe and os.path.basename(self.info.original_exe).startswith("uninstall-"):
-            self.info.run_task = "uninstall"
+        if self.info.original_exe:
+            original_exe = self.info.original_exe.strip()
+            if original_exe[0] in ['"',"'"] and original_exe[-1]  in ['"',"'"]:
+                self.info.original_exe = original_exe[1:-1].strip()
+            if os.path.basename(self.info.original_exe).startswith("uninstall-"):
+                self.info.run_task = "uninstall"
 
     def set_logger(self, log_to_console=True):
         '''

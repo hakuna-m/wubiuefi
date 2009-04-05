@@ -58,8 +58,8 @@ main(int ac, char **av)
     const char pythonpath[MAX_PATH] = "lib";
     const char pythonhome[MAX_PATH] = ".";
     const char scriptfile[MAX_PATH] = "main.pyo";
-    char debug[4] = "Off";
-    char verbose[2] = "0";
+    const char debug[4] = "Off";
+    const char verbose[2] = "0";
 
     HINSTANCE dll;
     int (__cdecl * Py_Main)(int argc, char *argv[]);
