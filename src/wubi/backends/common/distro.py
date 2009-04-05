@@ -133,12 +133,9 @@ class Distro(object):
                 info_file = os.path.join(cd_or_iso_path, self.info_file)
             else:
                 return
-            if not os.path.isfile(info_file):
+            if not info_file or not os.path.isfile(info_file):
                 return
             info = read_file(info_file)
-            #~ log.debug("    info_file=%s, info=%s" % (info_file, info))
-            if info_file and os.path.isfile(info_file) and os.path.isfile(cd_or_iso_path):
-                os.unlink(info_file)
             info = self.parse_isoinfo(info)
             Distro.cache[(cd_or_iso_path, self.info_file)] = info
             return info

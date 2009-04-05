@@ -149,6 +149,8 @@ def md5_password(password):
     return ''.join(result)
 
 def get_file_md5(file_path, associated_task=None):
+    if not file_path or not os.path.isfile(file_path):
+        return
     file_size = os.path.getsize(file_path)/(1024**2)
     if associated_task:
         associated_task.unit = "MB"

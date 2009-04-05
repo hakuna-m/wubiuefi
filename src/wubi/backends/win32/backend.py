@@ -483,16 +483,16 @@ class WindowsBackend(Backend):
 
     def undo_bootloader(self, associated_task):
         winboot_files = ['wubildr', 'wubildr.mbr', 'wubildr.exe']
+        self.undo_bcd(associated_task)
         for drive in self.info.drives:
             if drive.type not in ('removable', 'hd'):
                 continue
             self.undo_bootini(drive, associated_task)
             self.undo_configsys(drive, associated_task)
-            self.undo_bcd(associated_task)
-        for f in winboot_files:
-            f = join_path(drive.path, f)
-            if os.path.isfile(f):
-                os.unlink(f)
+            for f in winboot_files:
+                f = join_path(drive.path, f)
+                if os.path.isfile(f):
+                    os.unlink(f)
 
     def modify_bootini(self, drive, associated_task):
         log.debug("modify_bootini %s" % drive.path)
@@ -666,6 +666,11 @@ class WindowsBackend(Backend):
         log.debug("Removing bcd entry %s" % id)
         command = [bcdedit, '/delete', id , '/f']
         run_command(command)
+        registry.set_value(
+            'HKEY_LOCAL_MACHINE',
+            self.info.registry_key,
+            'VistaBootDrive',
+            "")
 
     def get_arch(self):
         cpuid = ctypes.windll.LoadLibrary(self.info.cpuid)
