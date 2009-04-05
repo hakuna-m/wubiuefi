@@ -307,7 +307,7 @@ class InstallationPage(Page):
         elif not re_only_alphanum.match(username):
             error_message =  _("Your username must contain only standard letters and numbers.")
         elif username in reserved_usernames:
-            error_message = _("The selected username is reserved, please selected a different one.")
+            error_message = _("The selected username is reserved, please select a different one.")
         elif not password1:
             error_message = _("Please enter a valid password.")
         elif " " in password1:
