@@ -9,23 +9,18 @@
 # This file is distributed under the same license as the umenu package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2009-03-14 00:34+0000\n"
-"PO-Revision-Date: 2008-03-12 01:40+0000\n"
-"Last-Translator: Andre Noel <andrenoel@ubuntu.com>\n"
+"PO-Revision-Date: 2009-03-18 01:38+0000\n"
+"Last-Translator: André Gondim <andregondim@ubuntu.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  pt_BR.po (Wubi 187)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
-"#-#-#-#-#  pt_BR.po (umenu)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2008-10-27 09:28+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -34,11 +29,11 @@ msgstr "Perfil de acessibilidade"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
 msgid "Please select the appropriate accessibility profile"
-msgstr ""
+msgstr "Por favor selecione o perfil de acessibilidade apropriado"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
-msgstr ""
+msgstr "Próximo >>"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 #: src/wubi/frontends/win32/cdboot_page.py:46
@@ -48,7 +43,7 @@ msgstr ""
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
@@ -56,19 +51,19 @@ msgstr "Auxílio de visibilidade"
 
 #: src/wubi/frontends/win32/accessibility_page.py:51
 msgid "Visibility1"
-msgstr ""
+msgstr "Visibilidade1"
 
 #: src/wubi/frontends/win32/accessibility_page.py:52
 msgid "Visibility2"
-msgstr ""
+msgstr "Visibilidade2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:53
 msgid "Visibility3"
-msgstr ""
+msgstr "Visibilidade3"
 
 #: src/wubi/frontends/win32/accessibility_page.py:54
 msgid "Braille"
-msgstr ""
+msgstr "Braille"
 
 #: src/wubi/frontends/win32/accessibility_page.py:57
 msgid "Mobility Aids"
@@ -76,11 +71,11 @@ msgstr "Auxílio de mobilidade"
 
 #: src/wubi/frontends/win32/accessibility_page.py:58
 msgid "Mobility1"
-msgstr ""
+msgstr "Mobilidade1"
 
 #: src/wubi/frontends/win32/accessibility_page.py:59
 msgid "Mobility2"
-msgstr ""
+msgstr "Mobilidade2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:62
 msgid "None"
@@ -88,30 +83,30 @@ msgstr "Nenhum"
 
 #: src/wubi/frontends/win32/frontend.py:49
 msgid "Are you sure you want to quit?"
-msgstr ""
+msgstr "Você tem certeza que deseja sair?"
 
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
 msgid "%s CD Boot Helper"
-msgstr ""
+msgstr "%s Ajuda para CD de BOOT"
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
-msgstr ""
+msgstr "Sem espaço em disco para proceder"
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Accessibility"
-msgstr ""
+msgstr "Acessibilidade"
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Install"
-msgstr ""
+msgstr "Instalar"
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
-msgstr ""
+msgstr "Instalar Ajuda CD de Boot"
 
 #: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
@@ -356,11 +351,11 @@ msgstr "Por favor insira um nome de usuário válido"
 
 #: src/wubi/frontends/win32/installation_page.py:300
 msgid "Please use all lower cases in the username."
-msgstr "Por favor use letras minúsculas."
+msgstr "Por favor use apenas letras minúsculas no nome de usuário."
 
 #: src/wubi/frontends/win32/installation_page.py:302
 msgid "Please do not use spaces in the username."
-msgstr "Não use espaços no nome de usuário."
+msgstr "Por favor não coloque espaços no nome de usuário."
 
 #: src/wubi/frontends/win32/installation_page.py:304
 msgid "Your username must start with a letter."
@@ -381,11 +376,11 @@ msgstr "Por favor entre com uma senha válida."
 
 #: src/wubi/frontends/win32/installation_page.py:312
 msgid "Please do not use spaces in the password."
-msgstr "Não use espaços na senha."
+msgstr "Por favor não coloque espaços na senha."
 
 #: src/wubi/frontends/win32/installation_page.py:314
 msgid "Passwords do not match."
-msgstr "Senhas não conferem."
+msgstr "As senhas não conferem"
 
 #: src/wubi/backends/win32/backend.py:148
 #, python-format
@@ -581,23 +576,6 @@ msgid ""
 "CD boot helper can only be used with a Live CD."
 msgstr ""
 
-#~ msgid "%(distro)s CD Menu"
-#~ msgstr "Menu do CD do %(distro)s"
-
-#~ msgid ""
-#~ "Install and uninstall %(distro)s like any other application, without the "
-#~ "need for a dedicated partition.  You will be able to boot into either "
-#~ "Windows%(distro)s.  Hibernation is not enabled in this mode and disk "
-#~ "performance is slightly reduced."
-#~ msgstr ""
-#~ "Instale e desinstale o %(distro)s como qualquer outro programa, sem a "
-#~ "necessidade de uma partição separada. Você será capaz de ligar o "
-#~ "computador tanto no Windows quanto no %(distro)s. A hibernação não fica "
-#~ "ativada neste modo e o desempenho do disco é levemente reduzido."
-
-#~ msgid "Invalid CD detected"
-#~ msgstr "CD inválido detectado"
-
 #~ msgid "You need to reboot to complete the installation."
 #~ msgstr "Você deve reiniciar para completar a instalação."
 
@@ -661,3 +639,20 @@ msgstr ""
 #~ "Quantos GB você deseja alocar para o Ubuntu?\n"
 #~ "4GB é o mínimo\n"
 #~ "8GB é o recomendado"
+
+#~ msgid "%(distro)s CD Menu"
+#~ msgstr "Menu do CD do %(distro)s"
+
+#~ msgid "Invalid CD detected"
+#~ msgstr "CD inválido detectado"
+
+#~ msgid ""
+#~ "Install and uninstall %(distro)s like any other application, without the "
+#~ "need for a dedicated partition.  You will be able to boot into either "
+#~ "Windows%(distro)s.  Hibernation is not enabled in this mode and disk "
+#~ "performance is slightly reduced."
+#~ msgstr ""
+#~ "Instale e desinstale o %(distro)s como qualquer outro programa, sem a "
+#~ "necessidade de uma partição separada. Você será capaz de ligar o computador "
+#~ "tanto no Windows quanto no %(distro)s. A hibernação não fica ativada neste "
+#~ "modo e o desempenho do disco é levemente reduzido."

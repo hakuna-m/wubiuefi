@@ -10,23 +10,18 @@
 # This file is distributed under the same license as the umenu package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2009-03-14 00:34+0000\n"
-"PO-Revision-Date: 2008-05-12 09:48+0000\n"
+"PO-Revision-Date: 2009-03-27 07:33+0000\n"
 "Last-Translator: Kainourgiakis Giorgos <kaingeo@yahoo.gr>\n"
 "Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  el.po (wubi)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
-"#-#-#-#-#  el.po (umenu)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2008-10-27 09:28+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -35,11 +30,11 @@ msgstr "Προφίλ βοηθημάτων"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
 msgid "Please select the appropriate accessibility profile"
-msgstr ""
+msgstr "Παρακαλούμε επιλέξτε το κατάλληλο προφίλ βοηθητικής τεχνολογίας."
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
-msgstr ""
+msgstr "Επόμενο >>"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 #: src/wubi/frontends/win32/cdboot_page.py:46
@@ -49,7 +44,7 @@ msgstr ""
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Cancel"
-msgstr ""
+msgstr "Άκυρο"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
@@ -57,19 +52,19 @@ msgstr "Βοήθεια Όρασης"
 
 #: src/wubi/frontends/win32/accessibility_page.py:51
 msgid "Visibility1"
-msgstr ""
+msgstr "Ορατότητα1"
 
 #: src/wubi/frontends/win32/accessibility_page.py:52
 msgid "Visibility2"
-msgstr ""
+msgstr "Ορατότητα2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:53
 msgid "Visibility3"
-msgstr ""
+msgstr "Ορατότητα3"
 
 #: src/wubi/frontends/win32/accessibility_page.py:54
 msgid "Braille"
-msgstr ""
+msgstr "Σύστημα Braille"
 
 #: src/wubi/frontends/win32/accessibility_page.py:57
 msgid "Mobility Aids"
@@ -77,11 +72,11 @@ msgstr "Βοήθεια Κινητικότητας"
 
 #: src/wubi/frontends/win32/accessibility_page.py:58
 msgid "Mobility1"
-msgstr ""
+msgstr "Κινητικότητα1"
 
 #: src/wubi/frontends/win32/accessibility_page.py:59
 msgid "Mobility2"
-msgstr ""
+msgstr "Κινητικότητα2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:62
 msgid "None"
@@ -89,7 +84,7 @@ msgstr "Κανένα"
 
 #: src/wubi/frontends/win32/frontend.py:49
 msgid "Are you sure you want to quit?"
-msgstr ""
+msgstr "Είστε σίγουρος ότι θέλετε να εγκαταλείψετε;"
 
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
@@ -98,17 +93,17 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
-msgstr ""
+msgstr "Δεν υπάρχει αρκετός χώρος στον δίσκο"
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Accessibility"
-msgstr ""
+msgstr "Προσιτότητα"
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Install"
-msgstr ""
+msgstr "Εγκατάσταση"
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
@@ -131,20 +126,20 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:85
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
-msgstr ""
+msgstr "Εγκατάσταση του %(distro)s-%(version)s"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 msgid "Please wait"
-msgstr ""
+msgstr "Παρακαλούμε περιμένετε"
 
 #: src/wubi/frontends/win32/progress_page.py:52
 msgid "Do not download, use a local file"
-msgstr ""
+msgstr "Μην μεταφορτώσετε, χρησιμοποιείστε το τοπικό αρχείο"
 
 #: src/wubi/frontends/win32/progress_page.py:65
 #, python-format
 msgid "Remaining time approximately %s"
-msgstr ""
+msgstr "Χρόνος που απομένει %s"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
@@ -179,6 +174,10 @@ msgid ""
 "or %(distro)s. Hibernation is not enabled in this mode and disk performance "
 "is slightly reduced."
 msgstr ""
+"Εγκαταστήστε και απεγκαταστήστε το %(distro)s όπως κάθε άλλη εφαρμογή, χωρίς "
+"την δημιουργία ξεχωριστού διαμερίσματος. Θα μπορείτε να εκκινήσετε είτε από "
+"τα Windows είτε από το %(distro)s. Η αδρανοποίηση δεν είναι ενεργοποιημένη "
+"στην λειτουργία αυτή και η απόδοση του δίσκου είναι ελαφρώς μειωμένη."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:73
 msgid "Learn more"
@@ -199,20 +198,20 @@ msgstr ""
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/installation_finish_page.py:35
 msgid "Finish"
-msgstr ""
+msgstr "Τέλος"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
-msgstr ""
+msgstr "Η απεγκατάσταση ολοκληρώθηκε"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:43
 #, python-format
 msgid "%s has been successfully uninstalled"
-msgstr ""
+msgstr "Το %s απεγκαταστάθηκε επιτυχώς"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 msgid "< Back"
-msgstr ""
+msgstr "< Πίσω"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:43
 msgid "Reboot required"
@@ -232,11 +231,11 @@ msgstr ""
 #: src/wubi/frontends/win32/cd_finish_page.py:47
 #: src/wubi/frontends/win32/installation_finish_page.py:44
 msgid "Reboot now"
-msgstr ""
+msgstr "Επανεκκίνηση τώρα"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:48
 msgid "I want to manually reboot Later"
-msgstr ""
+msgstr "Επανεκκίνηση αργότερα"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
 msgid "Help me to boot from CD"
@@ -249,12 +248,12 @@ msgstr ""
 
 #: src/wubi/frontends/win32/uninstallation_page.py:36
 msgid "Uninstallation required"
-msgstr ""
+msgstr "Χρειάζεται απεγκατάσταση"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:38
 #, python-format
 msgid "You are about to uninstall %s"
-msgstr ""
+msgstr "Θα απεγκαταστήσετε το %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 msgid "Uninstall"
@@ -265,14 +264,16 @@ msgid ""
 "A previous installation was detected, it needs to be uninstalled before "
 "continuing"
 msgstr ""
+"Εντοπίστηκε μια παλιά εγκατάσταση, χρειάζεται να απεγκατασταθεί πριν "
+"συνεχίσετε"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:54
 msgid "Are you sure you want to uninstall?"
-msgstr ""
+msgstr "Είστε σίγουροι για την απεγκατάσταση;"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:62
 msgid "Backup the downloaded files (ISO)"
-msgstr ""
+msgstr "Κρατήστε τα μεταφορτωμένα αρχεία (ISO)"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
@@ -281,11 +282,11 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
-msgstr ""
+msgstr "Χρειάζεται να κάνετε επανεκκίνηση για να ολοκληρωθεί η εγκατάσταση"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
-msgstr ""
+msgstr "Επανεκκίνηση αργότερα"
 
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
@@ -293,6 +294,8 @@ msgid ""
 "Only %sMB of disk space are available.\n"
 "At least 1024MB are required as a bare minimum. Quitting"
 msgstr ""
+"Ο διαθέσιμος χώρος στο δίσκο είναι είναι μόνο %sMB.\n"
+"Απαιτούνται τουλάχιστον 1024MB. Έξοδος"
 
 #: src/wubi/frontends/win32/installation_page.py:77
 #, python-format
@@ -585,16 +588,16 @@ msgstr ""
 #~ msgid "%(distro)s CD Menu"
 #~ msgstr "Μενού CD του %(distro)s"
 
+#~ msgid "Invalid CD detected"
+#~ msgstr "Ανιχνεύθηκε προβληματικός δίσκος CD"
+
 #~ msgid ""
 #~ "Install and uninstall %(distro)s like any other application, without the "
 #~ "need for a dedicated partition.  You will be able to boot into either "
 #~ "Windows%(distro)s.  Hibernation is not enabled in this mode and disk "
 #~ "performance is slightly reduced."
 #~ msgstr ""
-#~ "Εγκαταστήστε και απεγκαταστήστε το %(distro)s ως άλλη μια εφαρμογή, χωρίς "
-#~ "να χρειαστείτε μια αποκλειστική κατάτμηση. Θα εκκινείτε τον υπολογιστή "
-#~ "σας είτε με Windows είτε με το %(distro)s. Στην επιλογή αυτή η απόδοση "
-#~ "είναι ελάχιστα μειωμένη."
-
-#~ msgid "Invalid CD detected"
-#~ msgstr "Ανιχνεύθηκε προβληματικός δίσκος CD"
+#~ "Εγκαταστήστε και απεγκαταστήστε το %(distro)s ως άλλη μια εφαρμογή, χωρίς να "
+#~ "χρειαστείτε μια αποκλειστική κατάτμηση. Θα εκκινείτε τον υπολογιστή σας είτε "
+#~ "με Windows είτε με το %(distro)s. Στην επιλογή αυτή η απόδοση είναι ελάχιστα "
+#~ "μειωμένη."

@@ -10,23 +10,18 @@
 # This file is distributed under the same license as the umenu package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2009-03-14 00:34+0000\n"
-"PO-Revision-Date: 2008-03-12 03:17+0000\n"
+"PO-Revision-Date: 2009-03-14 03:02+0000\n"
 "Last-Translator: David Machakhelidze <david.machakhelidze@gmail.com>\n"
 "Language-Team: Georgian <ka@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  ka.po (wubi)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
-"#-#-#-#-#  ka.po (umenu)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2008-10-27 09:28+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34

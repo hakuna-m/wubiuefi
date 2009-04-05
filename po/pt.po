@@ -9,23 +9,18 @@
 # This file is distributed under the same license as the umenu package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2009-03-14 00:34+0000\n"
-"PO-Revision-Date: 2008-03-12 08:31+0000\n"
-"Last-Translator: Marco da Silva <marcodasilva@gmail.com>\n"
+"PO-Revision-Date: 2009-03-21 11:30+0000\n"
+"Last-Translator: nglnx <Unknown>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  pt.po (Wubi 187)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
-"#-#-#-#-#  pt.po (umenu)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2008-10-27 09:28+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -34,11 +29,11 @@ msgstr "Perfil de acessibilidade"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
 msgid "Please select the appropriate accessibility profile"
-msgstr ""
+msgstr "Por favor seleccione o perfil de acessibilidade apropriado"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
-msgstr ""
+msgstr "Seguinte >>"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 #: src/wubi/frontends/win32/cdboot_page.py:46
@@ -48,7 +43,7 @@ msgstr ""
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
@@ -68,7 +63,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:54
 msgid "Braille"
-msgstr ""
+msgstr "Braille"
 
 #: src/wubi/frontends/win32/accessibility_page.py:57
 msgid "Mobility Aids"
@@ -97,17 +92,17 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
-msgstr ""
+msgstr "Não existe espaço suficiente em disco para prosseguir"
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Accessibility"
-msgstr ""
+msgstr "Acessibilidade"
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Install"
-msgstr ""
+msgstr "Instalar"
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
@@ -138,7 +133,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/progress_page.py:52
 msgid "Do not download, use a local file"
-msgstr ""
+msgstr "Não transferir. Utilizar um ficheiro local"
 
 #: src/wubi/frontends/win32/progress_page.py:65
 #, python-format
@@ -191,7 +186,7 @@ msgstr ""
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/installation_finish_page.py:35
 msgid "Finish"
-msgstr ""
+msgstr "Terminar"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
@@ -200,11 +195,11 @@ msgstr ""
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:43
 #, python-format
 msgid "%s has been successfully uninstalled"
-msgstr ""
+msgstr "%s foi desinstalado com sucesso"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 msgid "< Back"
-msgstr ""
+msgstr "< Retroceder"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:43
 msgid "Reboot required"
@@ -220,11 +215,11 @@ msgstr ""
 #: src/wubi/frontends/win32/cd_finish_page.py:47
 #: src/wubi/frontends/win32/installation_finish_page.py:44
 msgid "Reboot now"
-msgstr ""
+msgstr "Reiniciar agora"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:48
 msgid "I want to manually reboot Later"
-msgstr ""
+msgstr "Prefiro reiniciar mais tarde (manualmente)"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
 msgid "Help me to boot from CD"
@@ -233,16 +228,16 @@ msgstr ""
 #: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
 msgid "%s Uninstaller"
-msgstr ""
+msgstr "Desinstalador de %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:36
 msgid "Uninstallation required"
-msgstr ""
+msgstr "Desinstalação necessária"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:38
 #, python-format
 msgid "You are about to uninstall %s"
-msgstr ""
+msgstr "%s vai ser desinstalado"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 msgid "Uninstall"
@@ -253,6 +248,8 @@ msgid ""
 "A previous installation was detected, it needs to be uninstalled before "
 "continuing"
 msgstr ""
+"Foi detectada uma instalação interior, que precisa ser desinstalada antes de "
+"continuar"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:54
 msgid "Are you sure you want to uninstall?"
@@ -260,7 +257,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/uninstallation_page.py:62
 msgid "Backup the downloaded files (ISO)"
-msgstr ""
+msgstr "Criar cópia de segurança dos ficheiros transferidos (ISO)"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
@@ -269,11 +266,11 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
-msgstr ""
+msgstr "Precisa reiniciar para completar a instalação"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
-msgstr ""
+msgstr "Prefiro reiniciar mais tarde (manualmente)"
 
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
@@ -399,23 +396,23 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:73
 #: src/wubi/backends/common/backend.py:93
 msgid "Creating the uninstaller"
-msgstr ""
+msgstr "A criar o desinstalador"
 
 #: src/wubi/backends/common/backend.py:74
 #: src/wubi/backends/common/backend.py:94
 #: src/wubi/backends/common/backend.py:407
 #: src/wubi/backends/common/backend.py:413
 msgid "Copying installation files"
-msgstr ""
+msgstr "A copiar os ficheiros de instalação"
 
 #: src/wubi/backends/common/backend.py:75
 msgid "Retrieving installation files"
-msgstr ""
+msgstr "A obter os ficheiros de instalação"
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:96
 msgid "Extracting the kernel"
-msgstr ""
+msgstr "A extrair o kernel"
 
 #: src/wubi/backends/common/backend.py:77
 msgid "Choosing disk sizes"
@@ -438,12 +435,12 @@ msgstr ""
 
 #: src/wubi/backends/common/backend.py:81
 msgid "Creating the virtual disks"
-msgstr ""
+msgstr "A criar os discos virtuais"
 
 #: src/wubi/backends/common/backend.py:82
 #: src/wubi/backends/common/backend.py:100
 msgid "Uncompressing files"
-msgstr ""
+msgstr "A descomprimir os ficheiros"
 
 #: src/wubi/backends/common/backend.py:83
 #: src/wubi/backends/common/backend.py:101
@@ -461,7 +458,7 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:109
 #: src/wubi/backends/common/backend.py:111
 msgid "Rebooting"
-msgstr ""
+msgstr "A reiniciar"
 
 #: src/wubi/backends/common/backend.py:116
 msgid "Backup ISO"
@@ -477,17 +474,17 @@ msgstr ""
 
 #: src/wubi/backends/common/backend.py:119
 msgid "Remove registry key"
-msgstr ""
+msgstr "Remover chave do registro"
 
 #: src/wubi/backends/common/backend.py:120
 #, python-format
 msgid "Uninstalling %s"
-msgstr ""
+msgstr "A desinstalar %s"
 
 #: src/wubi/backends/common/backend.py:252
 #, python-format
 msgid "Checking CD %s"
-msgstr ""
+msgstr "A verificar o CD %s"
 
 #: src/wubi/backends/common/backend.py:274
 #: src/wubi/backends/common/backend.py:314
@@ -500,12 +497,12 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:400
 #: src/wubi/backends/common/backend.py:444
 msgid "Checking installation files"
-msgstr ""
+msgstr "A verificar os ficheiros de instalação"
 
 #: src/wubi/backends/common/backend.py:371
 #, python-format
 msgid "Validating %s"
-msgstr ""
+msgstr "A validar %s"
 
 #: src/wubi/backends/common/backend.py:437
 #, python-format
@@ -515,7 +512,7 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:507
 #, python-format
 msgid "Checking %s"
-msgstr ""
+msgstr "A verificar %s"
 
 #: src/wubi/backends/common/tasklist.py:255
 #: src/wubi/backends/common/tasklist.py:259
@@ -570,12 +567,6 @@ msgid ""
 "CD boot helper can only be used with a Live CD."
 msgstr ""
 
-#~ msgid "%(distro)s CD Menu"
-#~ msgstr "Menu do CD %(distro)s"
-
-#~ msgid "Invalid CD detected"
-#~ msgstr "CD inválido detectado"
-
 #~ msgid "You need to reboot to complete the installation."
 #~ msgstr "É necessário reiniciar para completar a instalação."
 
@@ -616,9 +607,8 @@ msgstr ""
 #~ "The download was cancelled. You can continue the download or remove "
 #~ "partially downloaded files by restarting setup at a later time."
 #~ msgstr ""
-#~ "A transferência foi cancelada. Pode continuar a transferência ou remover "
-#~ "os ficheiros parcialmente transferidos reiniciando a configuração mais "
-#~ "tarde."
+#~ "A transferência foi cancelada. Pode continuar a transferência ou remover os "
+#~ "ficheiros parcialmente transferidos reiniciando a configuração mais tarde."
 
 #~ msgid "Cannot connect to the internet."
 #~ msgstr "Não consegue conectar à internet."
@@ -659,15 +649,18 @@ msgstr ""
 #~ msgstr ""
 #~ "A transferir ficheiros de instalação, é possível recomeçar mais tarde"
 
+#, c-format
 #~ msgid "Connecting to %s..."
 #~ msgstr "A ligar a %s..."
 
 #~ msgid "Calculating checksums..."
 #~ msgstr "A calcular checksums..."
 
+#, c-format
 #~ msgid "Retrying in %d seconds... (%d of %d)"
 #~ msgstr "A tentar em %d segundos... (%d de %d)"
 
+#, c-format
 #~ msgid "Retrying in %d seconds..."
 #~ msgstr "A tentar em %d segundos..."
 
@@ -677,11 +670,19 @@ msgstr ""
 #~ msgid "seconds"
 #~ msgstr "segundos"
 
+#, c-format
 #~ msgid "%s (%d%%) of %s @ %s/s"
 #~ msgstr "%s (%d%%) de %s @ %s/s"
 
+#, c-format
 #~ msgid " (%s remaining)"
 #~ msgstr " (%s restante)"
 
 #~ msgid "free"
 #~ msgstr "livre."
+
+#~ msgid "%(distro)s CD Menu"
+#~ msgstr "Menu do CD %(distro)s"
+
+#~ msgid "Invalid CD detected"
+#~ msgstr "CD inválido detectado"

@@ -10,23 +10,18 @@
 # This file is distributed under the same license as the umenu package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2009-03-14 00:34+0000\n"
-"PO-Revision-Date: 2008-03-12 16:20+0000\n"
+"PO-Revision-Date: 2009-03-14 03:01+0000\n"
 "Last-Translator: Mikel Pascual Aldabaldetreku <mikel.paskual@gmail.com>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  eu.po (wubi)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
-"#-#-#-#-#  eu.po (umenu)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2008-10-27 09:28+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -35,7 +30,7 @@ msgstr "Erabilerraztasun profila"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
 msgid "Please select the appropriate accessibility profile"
-msgstr ""
+msgstr "Erabilerraztasun profil egokia hautatu ezazu"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
@@ -586,16 +581,16 @@ msgstr ""
 #~ msgid "%(distro)s CD Menu"
 #~ msgstr "%(distro)s CD Menua"
 
+#~ msgid "Invalid CD detected"
+#~ msgstr "CD baliogabea detektatu da"
+
 #~ msgid ""
 #~ "Install and uninstall %(distro)s like any other application, without the "
 #~ "need for a dedicated partition.  You will be able to boot into either "
 #~ "Windows%(distro)s.  Hibernation is not enabled in this mode and disk "
 #~ "performance is slightly reduced."
 #~ msgstr ""
-#~ "Beste edozein aplikazio bezala instalatu %(distro)s, berarentzako "
-#~ "partizio bat gorde beharrik gabe. Abiaraztean, Windows naiz %(distro)s "
-#~ "hautatu ahalko duzu. Hibernazioa ez dago gaituta modu honetan, eta "
-#~ "diskoaren efizientzia apur bat gutxitzen da."
-
-#~ msgid "Invalid CD detected"
-#~ msgstr "CD baliogabea detektatu da"
+#~ "Beste edozein aplikazio bezala instalatu %(distro)s, berarentzako partizio "
+#~ "bat gorde beharrik gabe. Abiaraztean, Windows naiz %(distro)s hautatu ahalko "
+#~ "duzu. Hibernazioa ez dago gaituta modu honetan, eta diskoaren efizientzia "
+#~ "apur bat gutxitzen da."

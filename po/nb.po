@@ -9,23 +9,18 @@
 # This file is distributed under the same license as the umenu package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2009-03-14 00:34+0000\n"
-"PO-Revision-Date: 2008-04-04 00:26+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2008-03-18 11:11+0000\n"
+"Last-Translator: Espen Skauvik <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  nb.po (Wubi 187)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
-"#-#-#-#-#  nb.po (umenu)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2008-10-27 09:28+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -601,9 +596,8 @@ msgstr ""
 #~ "The download was cancelled. You can continue the download or remove "
 #~ "partially downloaded files by restarting setup at a later time."
 #~ msgstr ""
-#~ "Nedlastingen ble avbrutt. Du kan fortsette nedlastingen eller fjerne "
-#~ "delvis nedlastede filer ved å starte installasjonen på nytt på ett senere "
-#~ "tidspunkt."
+#~ "Nedlastingen ble avbrutt. Du kan fortsette nedlastingen eller fjerne delvis "
+#~ "nedlastede filer ved å starte installasjonen på nytt på ett senere tidspunkt."
 
 #~ msgid "Cannot connect to the internet."
 #~ msgstr "Kan ikke koble til internett."
@@ -628,8 +622,7 @@ msgstr ""
 #~ msgstr ""
 #~ " * Ubuntu bruker Gnome skrivebord.\n"
 #~ " * Kubuntu bruker KDE skrivebord, ligner litt mer på Windows.\n"
-#~ " * Xubuntu bruker den lette XFCE desktop, et godt valg for eldre "
-#~ "systemer.\n"
+#~ " * Xubuntu bruker den lette XFCE desktop, et godt valg for eldre systemer.\n"
 #~ " * UbuntuStudio er et skrivebord som fokuserer på multimediaredigering."
 
 #~ msgid "Installing "
@@ -641,15 +634,18 @@ msgstr ""
 #~ msgid "Retrieving installation files, resume supported"
 #~ msgstr "Henter installasjons filene, gjenoppta er støttet."
 
+#, c-format
 #~ msgid "Connecting to %s..."
 #~ msgstr "Kobler til %s..."
 
 #~ msgid "Calculating checksums..."
 #~ msgstr "Kalkulerer sjekksum..."
 
+#, c-format
 #~ msgid "Retrying in %d seconds... (%d of %d)"
 #~ msgstr "Prøver på nytt om %d sekunder... (%d av %d)"
 
+#, c-format
 #~ msgid "Retrying in %d seconds..."
 #~ msgstr "Prøver på nytt om %d sekunder..."
 
@@ -659,9 +655,11 @@ msgstr ""
 #~ msgid "seconds"
 #~ msgstr "sekunder"
 
+#, c-format
 #~ msgid "%s (%d%%) of %s @ %s/s"
 #~ msgstr "%s (%d%%) of %s @ %s/s"
 
+#, c-format
 #~ msgid " (%s remaining)"
 #~ msgstr " (%s gjennværende)"
 

@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -23,7 +23,7 @@ msgstr "એક્સેસિબિલિટી પ્રોફાઇલ"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
 msgid "Please select the appropriate accessibility profile"
-msgstr ""
+msgstr "એક બંધબેસતી એક્સેસિબિલિટી પ્રોફાઇલ પસંદ કરો"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
@@ -110,9 +110,9 @@ msgid ""
 "\n"
 "Do you want to proceed and install the CD booter?"
 msgstr ""
-"જો તમે સીડીથી બહાર બુટ ન કરી શકો, તો આ કાર્યક્રમ તમને સીડી માંથી બુટ કરવા માટેની મદદ "
-"કરવા એક નવી બુટ મેનુ નોંધ સ્થાપિત કરશે. મોટે ભાગે આ કાર્યક્રમ આવશ્યક નથી, અને સીડીને ટ્રે "
-"માં રાખી કોમ્પ્યુટર ફરી શરૂ કરવું પર્યાપ્ત છે.\n"
+"જો તમે સીડીથી બહાર બુટ ન કરી શકો, તો આ કાર્યક્રમ તમને સીડી માંથી બુટ કરવા "
+"માટેની મદદ કરવા એક નવી બુટ મેનુ નોંધ સ્થાપિત કરશે. મોટે ભાગે આ કાર્યક્રમ "
+"આવશ્યક નથી, અને સીડીને ટ્રે માં રાખી કોમ્પ્યુટર ફરી શરૂ કરવું પર્યાપ્ત છે.\n"
 "\n"
 "શું તમે આગળ વધી સીડી બુટ કરનાર સ્થાપિત કરવા માગો છો?"
 
@@ -351,7 +351,8 @@ msgstr "વપરાશકર્તા નામમાં માત્ર સા
 #: src/wubi/frontends/win32/installation_page.py:308
 msgid "The selected username is reserved, please selected a different one."
 msgstr ""
-"પસંદ કરેલુ વપરાશકર્તા નામ આરક્ષિત છે, મહેરબાની કરી કોઇ અન્ય વપરાશકર્તા નામ પસંદ કરો."
+"પસંદ કરેલુ વપરાશકર્તા નામ આરક્ષિત છે, મહેરબાની કરી કોઇ અન્ય વપરાશકર્તા નામ "
+"પસંદ કરો."
 
 #: src/wubi/frontends/win32/installation_page.py:310
 msgid "Please enter a valid password."

@@ -10,23 +10,18 @@
 # This file is distributed under the same license as the umenu package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2009-03-14 00:34+0000\n"
-"PO-Revision-Date: 2008-03-29 12:45+0000\n"
+"PO-Revision-Date: 2009-03-30 19:48+0000\n"
 "Last-Translator: Kamil Páral <ripper42@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  cs.po (wubi)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
-"#-#-#-#-#  cs.po (umenu)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2008-10-27 09:28+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -35,11 +30,11 @@ msgstr "Profil přístupnosti"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
 msgid "Please select the appropriate accessibility profile"
-msgstr ""
+msgstr "Prosím vyberte odpovídající profil přístupnosti"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
-msgstr ""
+msgstr "Další >>"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 #: src/wubi/frontends/win32/cdboot_page.py:46
@@ -49,7 +44,7 @@ msgstr ""
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Cancel"
-msgstr ""
+msgstr "Zrušit"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
@@ -89,30 +84,30 @@ msgstr "Žádný"
 
 #: src/wubi/frontends/win32/frontend.py:49
 msgid "Are you sure you want to quit?"
-msgstr ""
+msgstr "Opravdu chcete skončit?"
 
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
 msgid "%s CD Boot Helper"
-msgstr ""
+msgstr "Pomocník pro zavedení z CD %s"
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
-msgstr ""
+msgstr "Pro pokračování není na disku dostatek místa"
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Accessibility"
-msgstr ""
+msgstr "Přístupnost"
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Install"
-msgstr ""
+msgstr "Nainstalovat"
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
-msgstr ""
+msgstr "Nainstalovat pomocníka pro zavedení z CD"
 
 #: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
@@ -132,25 +127,25 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:85
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
-msgstr ""
+msgstr "Probíhá instalace %(distro)s-%(version)s"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 msgid "Please wait"
-msgstr ""
+msgstr "Prosím čekejte"
 
 #: src/wubi/frontends/win32/progress_page.py:52
 msgid "Do not download, use a local file"
-msgstr ""
+msgstr "Nestahovat, použít místní soubor"
 
 #: src/wubi/frontends/win32/progress_page.py:65
 #, python-format
 msgid "Remaining time approximately %s"
-msgstr ""
+msgstr "Přibližný zbývající čas %s"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
 msgid "%s Menu"
-msgstr ""
+msgstr "Nabídka %s"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:53
 msgid "Demo and full installation"
@@ -164,8 +159,8 @@ msgid ""
 "install %(distro)s either alongside Windows or as the only operating system."
 msgstr ""
 "Vyzkoušejte %(distro)s bez instalace! Jednoduše restartujte váš počítač s CD "
-"v mechanice. Můžete provést plnou instalaci z ukázkové verze a nainstalovat %"
-"(distro)s buď společně s Windows nebo jako jediný operační systém."
+"v mechanice. Můžete provést plnou instalaci z ukázkové verze a nainstalovat "
+"%(distro)s buď společně s Windows nebo jako jediný operační systém."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:64
 msgid "Install inside Windows"
@@ -179,6 +174,10 @@ msgid ""
 "or %(distro)s. Hibernation is not enabled in this mode and disk performance "
 "is slightly reduced."
 msgstr ""
+"Nainstaluje a odstraní %(distro)s jako jakoukoliv jinou aplikaci bez "
+"nutnosti vyhrazeného oddílu. Při spouštění budete mít možnost zvolit mezi "
+"Windows a %(distro)s. V tomto režimu není možné používat uspání na disk a "
+"výkon disku je mírně snížen."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:73
 msgid "Learn more"
@@ -199,20 +198,20 @@ msgstr ""
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/installation_finish_page.py:35
 msgid "Finish"
-msgstr ""
+msgstr "Dokončit"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
-msgstr ""
+msgstr "Odinstalace dokončena"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:43
 #, python-format
 msgid "%s has been successfully uninstalled"
-msgstr ""
+msgstr "%s bylo úspěšně odinstalováno"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 msgid "< Back"
-msgstr ""
+msgstr "< Předchozí"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:43
 msgid "Reboot required"
@@ -230,11 +229,11 @@ msgstr ""
 #: src/wubi/frontends/win32/cd_finish_page.py:47
 #: src/wubi/frontends/win32/installation_finish_page.py:44
 msgid "Reboot now"
-msgstr ""
+msgstr "Restartovat nyní"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:48
 msgid "I want to manually reboot Later"
-msgstr ""
+msgstr "Chci ručně restartovat později"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
 msgid "Help me to boot from CD"
@@ -243,16 +242,16 @@ msgstr "Potřebuji pomoci s nastartováním z CD"
 #: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
 msgid "%s Uninstaller"
-msgstr ""
+msgstr "Odstranění %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:36
 msgid "Uninstallation required"
-msgstr ""
+msgstr "Je vyžadována odinstalace"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:38
 #, python-format
 msgid "You are about to uninstall %s"
-msgstr ""
+msgstr "Chystáte se odinstalovat %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 msgid "Uninstall"
@@ -263,27 +262,29 @@ msgid ""
 "A previous installation was detected, it needs to be uninstalled before "
 "continuing"
 msgstr ""
+"Byla nalezena předchozí instalace, pro pokračování je nutné tuto předchozí "
+"verzi odinstalovat"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:54
 msgid "Are you sure you want to uninstall?"
-msgstr ""
+msgstr "Opravdu chcete odinstalovat?"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:62
 msgid "Backup the downloaded files (ISO)"
-msgstr ""
+msgstr "Zálohovat stažené soubory (ISO)"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
 msgid "Completing the %s Setup Wizard"
-msgstr ""
+msgstr "Dokončování průvodce instalací %s"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
-msgstr ""
+msgstr "K dokončení instalace je nutné restartovat"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
-msgstr ""
+msgstr "Chci restartovat později ručně"
 
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
@@ -291,6 +292,8 @@ msgid ""
 "Only %sMB of disk space are available.\n"
 "At least 1024MB are required as a bare minimum. Quitting"
 msgstr ""
+"Je dostupných pouze %sMB diskového prostoru.\n"
+"Jako naprosté minimum je vyžadováno alespoň 1024MB. Ukončuje se"
 
 #: src/wubi/frontends/win32/installation_page.py:77
 #, python-format
@@ -300,11 +303,15 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
+"%(min_space)sMB diskového prostoru je vyžadováno pro instalaci.\n"
+"Je dostupných pouze %(max_space)sMB.\n"
+"Instalace může v určitých případech selhat.\n"
+"Chcete přesto pokračovat?"
 
 #: src/wubi/frontends/win32/installation_page.py:96
 #, python-format
 msgid "(%sGB free)"
-msgstr ""
+msgstr "(%sGB volných)"
 
 #: src/wubi/frontends/win32/installation_page.py:172
 msgid "Please select username and password for the new account"
@@ -312,15 +319,15 @@ msgstr "Prosím zvolte pro nový účet uživatelské jméno a heslo"
 
 #: src/wubi/frontends/win32/installation_page.py:188
 msgid "Installation drive:"
-msgstr ""
+msgstr "Jednotka pro instalaci:"
 
 #: src/wubi/frontends/win32/installation_page.py:194
 msgid "Installation size:"
-msgstr ""
+msgstr "Velikost instalace:"
 
 #: src/wubi/frontends/win32/installation_page.py:200
 msgid "Desktop environment:"
-msgstr ""
+msgstr "Pracovní prostředí:"
 
 #: src/wubi/frontends/win32/installation_page.py:206
 msgid "Language:"
@@ -337,7 +344,7 @@ msgstr "Heslo:"
 #: src/wubi/frontends/win32/installation_page.py:255
 #, python-format
 msgid "%s Installer"
-msgstr ""
+msgstr "Instalátor %s"
 
 #: src/wubi/frontends/win32/installation_page.py:261
 #, python-format
@@ -347,6 +354,10 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
+"%(min_memory)sMB paměti je vyžadováno pro instalaci.\n"
+"Pouze %(total_memory)sMB je dostupných.\n"
+"Instalace může za určitých okolností selhat.\n"
+"Přejete si přesto pokračovat v instalaci?"
 
 #: src/wubi/frontends/win32/installation_page.py:298
 msgid "Please enter a valid username"
@@ -394,157 +405,162 @@ msgid ""
 "\n"
 "The system will now reboot."
 msgstr ""
+"Instalace se nezdařila. Protokoly byly zaznamenány do: %s.\n"
+"\n"
+"Vězte, že ve výřečném režimu mohou protokoly obsahovat heslo.\n"
+"\n"
+"Systém se nyní restartuje."
 
 #: src/wubi/backends/common/backend.py:71
 #: src/wubi/backends/common/backend.py:91
 msgid "Selecting the target directory"
-msgstr ""
+msgstr "Zvolit cílovou složku"
 
 #: src/wubi/backends/common/backend.py:72
 #: src/wubi/backends/common/backend.py:92
 msgid "Creating the installation directories"
-msgstr ""
+msgstr "Vytváření instalačních složek"
 
 #: src/wubi/backends/common/backend.py:73
 #: src/wubi/backends/common/backend.py:93
 msgid "Creating the uninstaller"
-msgstr ""
+msgstr "Vytváření odinstalátoru"
 
 #: src/wubi/backends/common/backend.py:74
 #: src/wubi/backends/common/backend.py:94
 #: src/wubi/backends/common/backend.py:407
 #: src/wubi/backends/common/backend.py:413
 msgid "Copying installation files"
-msgstr ""
+msgstr "Kopírování instalačních souborů"
 
 #: src/wubi/backends/common/backend.py:75
 msgid "Retrieving installation files"
-msgstr ""
+msgstr "Získávání instalačních souborů"
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:96
 msgid "Extracting the kernel"
-msgstr ""
+msgstr "Rozbalování jádra"
 
 #: src/wubi/backends/common/backend.py:77
 msgid "Choosing disk sizes"
-msgstr ""
+msgstr "Výběr velikosti disku"
 
 #: src/wubi/backends/common/backend.py:78
 #: src/wubi/backends/common/backend.py:97
 msgid "Creating a preseed file"
-msgstr ""
+msgstr "Tvorba souboru preseed"
 
 #: src/wubi/backends/common/backend.py:79
 #: src/wubi/backends/common/backend.py:98
 msgid "Adding a new bootlader entry"
-msgstr ""
+msgstr "Přidávání nové položky do zavaděče"
 
 #: src/wubi/backends/common/backend.py:80
 #: src/wubi/backends/common/backend.py:99
 msgid "Setting up installation boot menu"
-msgstr ""
+msgstr "Nastavování zaváděcí nabídky instalace"
 
 #: src/wubi/backends/common/backend.py:81
 msgid "Creating the virtual disks"
-msgstr ""
+msgstr "Tvorba virtuálních disků"
 
 #: src/wubi/backends/common/backend.py:82
 #: src/wubi/backends/common/backend.py:100
 msgid "Uncompressing files"
-msgstr ""
+msgstr "Rozbalování souborů"
 
 #: src/wubi/backends/common/backend.py:83
 #: src/wubi/backends/common/backend.py:101
 msgid "Ejecting the CD"
-msgstr ""
+msgstr "Vysunování CD"
 
 #: src/wubi/backends/common/backend.py:95
 msgid "Extracting CD content"
-msgstr ""
+msgstr "Rozbalování obsahu CD"
 
 #: src/wubi/backends/common/backend.py:103
 msgid "Installing CD boot helper"
-msgstr ""
+msgstr "Instalace pomocníka pro zavádění z CD"
 
 #: src/wubi/backends/common/backend.py:109
 #: src/wubi/backends/common/backend.py:111
 msgid "Rebooting"
-msgstr ""
+msgstr "Restartování"
 
 #: src/wubi/backends/common/backend.py:116
 msgid "Backup ISO"
-msgstr ""
+msgstr "Zálohovat ISO"
 
 #: src/wubi/backends/common/backend.py:117
 msgid "Remove bootloader entry"
-msgstr ""
+msgstr "Odstranit položku zavaděče"
 
 #: src/wubi/backends/common/backend.py:118
 msgid "Remove target dir"
-msgstr ""
+msgstr "Odstranit cílovou složku"
 
 #: src/wubi/backends/common/backend.py:119
 msgid "Remove registry key"
-msgstr ""
+msgstr "Odstranit klíče registru"
 
 #: src/wubi/backends/common/backend.py:120
 #, python-format
 msgid "Uninstalling %s"
-msgstr ""
+msgstr "Odstraňování %s"
 
 #: src/wubi/backends/common/backend.py:252
 #, python-format
 msgid "Checking CD %s"
-msgstr ""
+msgstr "Kontrola CD %s"
 
 #: src/wubi/backends/common/backend.py:274
 #: src/wubi/backends/common/backend.py:314
 #: src/wubi/backends/common/backend.py:345
 msgid "Downloading information on installation files"
-msgstr ""
+msgstr "Stahování informací o instalačních souborech"
 
 #: src/wubi/backends/common/backend.py:287
 #: src/wubi/backends/common/backend.py:338
 #: src/wubi/backends/common/backend.py:400
 #: src/wubi/backends/common/backend.py:444
 msgid "Checking installation files"
-msgstr ""
+msgstr "Kontrola instalačních souborů"
 
 #: src/wubi/backends/common/backend.py:371
 #, python-format
 msgid "Validating %s"
-msgstr ""
+msgstr "Ověřování %s"
 
 #: src/wubi/backends/common/backend.py:437
 #, python-format
 msgid "Extracting files from %s"
-msgstr ""
+msgstr "Rozbalování souborů z %s"
 
 #: src/wubi/backends/common/backend.py:507
 #, python-format
 msgid "Checking %s"
-msgstr ""
+msgstr "Kontrola %s"
 
 #: src/wubi/backends/common/tasklist.py:255
 #: src/wubi/backends/common/tasklist.py:259
 msgid "0s"
-msgstr ""
+msgstr "0s"
 
 #: src/wubi/backends/common/tasklist.py:268
 #, python-format
 msgid "%ih"
-msgstr ""
+msgstr "%ih"
 
 #: src/wubi/backends/common/tasklist.py:270
 #, python-format
 msgid "%imin"
-msgstr ""
+msgstr "%imin"
 
 #: src/wubi/backends/common/tasklist.py:273
 #, python-format
 msgid "%is"
-msgstr ""
+msgstr "%is"
 
 #: src/wubi/backends/common/downloader.py:66
 #: src/wubi/backends/common/btdownloader.py:35
@@ -561,6 +577,11 @@ msgid ""
 "\n"
 "For more information, please see the log file: %(log)s"
 msgstr ""
+"Nastala chyba:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"Více informací je dostupných v souboru protokolu: %(log)s"
 
 #: src/wubi/application.py:131 src/wubi/application.py:189
 #, python-format
@@ -568,19 +589,26 @@ msgid ""
 "A previous installation was detected in %s.\n"
 "Please uninstall that before continuing."
 msgstr ""
+"Byla nalezena dřívější instalace v %s.\n"
+"Odinstalujte ji prosím dříve, než budete pokračovat."
 
 #: src/wubi/application.py:171
 msgid "No CD detected, cannot run CD menu"
-msgstr ""
+msgstr "Nenalezeno CD, nelze spustit nabídku CD"
 
 #: src/wubi/application.py:179
 msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
+"Nepodařilo se nalézt žádné platné CD.\n"
+"Pomocník pro zavedení z CD může být použit pouze se spustitelným CD."
 
 #~ msgid "%(distro)s CD Menu"
 #~ msgstr "Nabídka %(distro)s CD"
+
+#~ msgid "Invalid CD detected"
+#~ msgstr "Nalezeno poškozené CD"
 
 #~ msgid ""
 #~ "Install and uninstall %(distro)s like any other application, without the "
@@ -589,9 +617,6 @@ msgstr ""
 #~ "performance is slightly reduced."
 #~ msgstr ""
 #~ "Nainstalujte a odinstalujte %(distro)s jako jakoukoliv jinou aplikaci bez "
-#~ "potřeby zvláštního diskového oddílu. Budete schopni spouštět i Windows i %"
-#~ "(distro)s. Hibernace není v tomto režimu povolena a výkon disku je mírně "
+#~ "potřeby zvláštního diskového oddílu. Budete schopni spouštět i Windows i "
+#~ "%(distro)s. Hibernace není v tomto režimu povolena a výkon disku je mírně "
 #~ "snížen."
-
-#~ msgid "Invalid CD detected"
-#~ msgstr "Nalezeno poškozené CD"

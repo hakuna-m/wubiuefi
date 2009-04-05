@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2009-03-14 00:34+0000\n"
-"PO-Revision-Date: 2009-03-06 03:09+0000\n"
+"PO-Revision-Date: 2009-03-16 05:46+0000\n"
 "Last-Translator: Baldur <baldurpet@gmail.com>\n"
 "Language-Team: Icelandic <is@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -27,7 +27,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
-msgstr ""
+msgstr "Næsta >>"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 #: src/wubi/frontends/win32/cdboot_page.py:46
@@ -37,7 +37,7 @@ msgstr ""
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Cancel"
-msgstr ""
+msgstr "Hætta við"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
@@ -57,7 +57,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:54
 msgid "Braille"
-msgstr ""
+msgstr "Blindraletur"
 
 #: src/wubi/frontends/win32/accessibility_page.py:57
 msgid "Mobility Aids"
@@ -73,11 +73,11 @@ msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:62
 msgid "None"
-msgstr ""
+msgstr "Ekkert"
 
 #: src/wubi/frontends/win32/frontend.py:49
 msgid "Are you sure you want to quit?"
-msgstr ""
+msgstr "Ertu viss um að þú viljir hætta"
 
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
@@ -86,7 +86,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
-msgstr ""
+msgstr "Ekki nógu mikið pláss til að halda áfram"
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
@@ -96,7 +96,7 @@ msgstr ""
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Install"
-msgstr ""
+msgstr "Setja upp"
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
@@ -115,11 +115,11 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:85
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
-msgstr ""
+msgstr "Set upp %(distro)s-%(version)s"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 msgid "Please wait"
-msgstr ""
+msgstr "Hinkraðu aðeins"
 
 #: src/wubi/frontends/win32/progress_page.py:52
 msgid "Do not download, use a local file"
@@ -128,16 +128,16 @@ msgstr ""
 #: src/wubi/frontends/win32/progress_page.py:65
 #, python-format
 msgid "Remaining time approximately %s"
-msgstr ""
+msgstr "Tími eftir u.þ.b. %s"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
 msgid "%s Menu"
-msgstr ""
+msgstr "%s Valmynd"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:53
 msgid "Demo and full installation"
-msgstr ""
+msgstr "Sýniskynning og full uppsetning"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:55
 #, python-format
@@ -146,10 +146,14 @@ msgid ""
 "the tray. You may perform a full installation from within the demo to "
 "install %(distro)s either alongside Windows or as the only operating system."
 msgstr ""
+"Þú getur prufað %(distro)s án þess að setja það upp! Þú þarft einfaldlega að "
+"endurræsa tölvuna þína með geisladiskinum í. Ef þú vilt þá geturðu svo sett "
+"stýrikerfið upp %(distro)s í sýniskynningunni þannig að þú notar það með "
+"Windows. Einnig er hægt að setja það upp sem aðalstýrikerfið."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:64
 msgid "Install inside Windows"
-msgstr ""
+msgstr "Setja upp inn í Windows"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:66
 #, python-format
@@ -159,10 +163,14 @@ msgid ""
 "or %(distro)s. Hibernation is not enabled in this mode and disk performance "
 "is slightly reduced."
 msgstr ""
+"Setja upp og fjarlægja %(distro)s eins og forrit, þá þarftu ekki að skipta "
+"tölvunni þinni í hluta. Þá getur þú notað Windows eða %(distro)s. Það er "
+"hins vegar ekki hægt að svæfa tölvuna, og hún verður ekki eins hraðvirk ef "
+"þetta er valið"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:73
 msgid "Learn more"
-msgstr ""
+msgstr "Frekari upplýsingar"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:75
 #, python-format
@@ -171,29 +179,31 @@ msgid ""
 "complete with a web browser, productivity software, instant messaging, and "
 "much more."
 msgstr ""
+"%(distro)s er ókeypis stýrikerfi sem er byggt á Linux. Í því er vefvafri, "
+"skrifstofuforrit, glæruforrit, MSN og margt meira."
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/installation_finish_page.py:35
 msgid "Finish"
-msgstr ""
+msgstr "Klára"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
-msgstr ""
+msgstr "Búið að taka forritið út"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:43
 #, python-format
 msgid "%s has been successfully uninstalled"
-msgstr ""
+msgstr "Búið er að taka %s út af tölvunni"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 msgid "< Back"
-msgstr ""
+msgstr "< Til baka"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:43
 msgid "Reboot required"
-msgstr ""
+msgstr "Endurræsing nauðsynleg"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:45
 msgid ""
@@ -201,24 +211,27 @@ msgid ""
 "tray. If your machine cannot boot from the CD, the last option should work "
 "in most cases."
 msgstr ""
+"Þú verður að endurræsa tölvuna til að nota geisladiskinn, og skilja hann "
+"eftir í henni. Ef tölvan þín getur ekki keyrt diskinn þá ætti síðasti "
+"kosturinn að virka."
 
 #: src/wubi/frontends/win32/cd_finish_page.py:47
 #: src/wubi/frontends/win32/installation_finish_page.py:44
 msgid "Reboot now"
-msgstr ""
+msgstr "Endurræsa"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:48
 msgid "I want to manually reboot Later"
-msgstr ""
+msgstr "Ég vil ræsa tölvuna sjálfur"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
 msgid "Help me to boot from CD"
-msgstr ""
+msgstr "Hjálp við að nota geisladiskinn"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
 msgid "%s Uninstaller"
-msgstr ""
+msgstr "Fjarlægja %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:36
 msgid "Uninstallation required"
@@ -227,11 +240,11 @@ msgstr ""
 #: src/wubi/frontends/win32/uninstallation_page.py:38
 #, python-format
 msgid "You are about to uninstall %s"
-msgstr ""
+msgstr "Þú ert í þann mund að fjarlægja %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 msgid "Uninstall"
-msgstr ""
+msgstr "Fjarlægja"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:52
 msgid ""
@@ -241,24 +254,24 @@ msgstr ""
 
 #: src/wubi/frontends/win32/uninstallation_page.py:54
 msgid "Are you sure you want to uninstall?"
-msgstr ""
+msgstr "Ertu viss um að þú viljir fjarlægja?"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:62
 msgid "Backup the downloaded files (ISO)"
-msgstr ""
+msgstr "Taka afrit af skránum sem þú sóttir (ISO)"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
 msgid "Completing the %s Setup Wizard"
-msgstr ""
+msgstr "Klára uppsetningu á %s"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
-msgstr ""
+msgstr "Þú þarft að endurræsa tölvuna til að klára uppsetninguna"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
-msgstr ""
+msgstr "Ég ætla að ræsa tölvuna sjálfur"
 
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
@@ -266,6 +279,8 @@ msgid ""
 "Only %sMB of disk space are available.\n"
 "At least 1024MB are required as a bare minimum. Quitting"
 msgstr ""
+"Það eru bara %sMB af plássi.\n"
+"Að minnsta kosti 1024MB þarf. Hætti"
 
 #: src/wubi/frontends/win32/installation_page.py:77
 #, python-format
@@ -275,27 +290,31 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
+"%(min_space)sMB af diskaplássi þarf til að setja upp.\n"
+"Aðeins eru %(max_space)sMB tiltæk.\n"
+"Mögulegt er að uppsetningin gangi ekki út af þessu.\n"
+"Viltu halda áfram þrátt fyrir það?"
 
 #: src/wubi/frontends/win32/installation_page.py:96
 #, python-format
 msgid "(%sGB free)"
-msgstr ""
+msgstr "(%sGB laus)"
 
 #: src/wubi/frontends/win32/installation_page.py:172
 msgid "Please select username and password for the new account"
-msgstr ""
+msgstr "Veldu notandanafn og lykilorð fyrir nýja reikninginn"
 
 #: src/wubi/frontends/win32/installation_page.py:188
 msgid "Installation drive:"
-msgstr ""
+msgstr "Drif sem þú vilt nota:"
 
 #: src/wubi/frontends/win32/installation_page.py:194
 msgid "Installation size:"
-msgstr ""
+msgstr "Stærð:"
 
 #: src/wubi/frontends/win32/installation_page.py:200
 msgid "Desktop environment:"
-msgstr ""
+msgstr "Gluggaumhverfi:"
 
 #: src/wubi/frontends/win32/installation_page.py:206
 msgid "Language:"
@@ -325,7 +344,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:298
 msgid "Please enter a valid username"
-msgstr ""
+msgstr "Veldu gilt notendanafn"
 
 #: src/wubi/frontends/win32/installation_page.py:300
 msgid "Please use all lower cases in the username."
@@ -337,11 +356,11 @@ msgstr "Ekki nota eyður í notendanafninu"
 
 #: src/wubi/frontends/win32/installation_page.py:304
 msgid "Your username must start with a letter."
-msgstr ""
+msgstr "Notandanafnið verður að byrja á bókstaf."
 
 #: src/wubi/frontends/win32/installation_page.py:306
 msgid "Your username must contain only standard letters and numbers."
-msgstr ""
+msgstr "Notandanafnið getur bara innihaldið venjulega bókstafi og tölur."
 
 #: src/wubi/frontends/win32/installation_page.py:308
 msgid "The selected username is reserved, please selected a different one."
@@ -353,7 +372,7 @@ msgstr "Skrifaðu inn gilt lykilorð"
 
 #: src/wubi/frontends/win32/installation_page.py:312
 msgid "Please do not use spaces in the password."
-msgstr ""
+msgstr "Ekki nota bil í lykilorðinu."
 
 #: src/wubi/frontends/win32/installation_page.py:314
 msgid "Passwords do not match."
@@ -448,7 +467,7 @@ msgstr ""
 
 #: src/wubi/backends/common/backend.py:116
 msgid "Backup ISO"
-msgstr ""
+msgstr "ISO öryggisafrit"
 
 #: src/wubi/backends/common/backend.py:117
 msgid "Remove bootloader entry"
@@ -465,12 +484,12 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:120
 #, python-format
 msgid "Uninstalling %s"
-msgstr ""
+msgstr "Fjarlægi %s"
 
 #: src/wubi/backends/common/backend.py:252
 #, python-format
 msgid "Checking CD %s"
-msgstr ""
+msgstr "Athuga geisladisk %s"
 
 #: src/wubi/backends/common/backend.py:274
 #: src/wubi/backends/common/backend.py:314
@@ -503,28 +522,28 @@ msgstr ""
 #: src/wubi/backends/common/tasklist.py:255
 #: src/wubi/backends/common/tasklist.py:259
 msgid "0s"
-msgstr ""
+msgstr "0s"
 
 #: src/wubi/backends/common/tasklist.py:268
 #, python-format
 msgid "%ih"
-msgstr ""
+msgstr "%ih"
 
 #: src/wubi/backends/common/tasklist.py:270
 #, python-format
 msgid "%imin"
-msgstr ""
+msgstr "%imin"
 
 #: src/wubi/backends/common/tasklist.py:273
 #, python-format
 msgid "%is"
-msgstr ""
+msgstr "%is"
 
 #: src/wubi/backends/common/downloader.py:66
 #: src/wubi/backends/common/btdownloader.py:35
 #, python-format
 msgid "Downloading %s"
-msgstr ""
+msgstr "Sæki %s"
 
 #: src/wubi/application.py:56
 #, python-format

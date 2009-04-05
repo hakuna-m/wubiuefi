@@ -10,23 +10,18 @@
 # This file is distributed under the same license as the umenu package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2009-03-14 00:34+0000\n"
-"PO-Revision-Date: 2008-05-09 16:39+0000\n"
+"PO-Revision-Date: 2009-03-14 03:03+0000\n"
 "Last-Translator: Roy Chan <roy.chan@linux.org.hk>\n"
 "Language-Team: Chinese (Hong Kong) <zh_HK@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  zh_HK.po (wubi)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
-"#-#-#-#-#  zh_HK.po (umenu)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2008-10-27 09:28+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -158,8 +153,8 @@ msgid ""
 "the tray. You may perform a full installation from within the demo to "
 "install %(distro)s either alongside Windows or as the only operating system."
 msgstr ""
-"不安裝試用 %(distro)s！直接使用光碟機裡的光碟重新開機。您可在試用中進行安裝完"
-"整的 %(distro)s 而和 Windows 並存或成為唯一的作業系統。"
+"不安裝試用 %(distro)s！直接使用光碟機裡的光碟重新開機。您可在試用中進行安裝完整的 %(distro)s 而和 Windows "
+"並存或成為唯一的作業系統。"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:64
 msgid "Install inside Windows"
@@ -184,9 +179,7 @@ msgid ""
 "%(distro)s is a free, community developed, linux-based operating system "
 "complete with a web browser, productivity software, instant messaging, and "
 "much more."
-msgstr ""
-"%(distro)s 是一個自由，社群開發，建基於 Linux 附有網頁瀏覽器、辦公軟件、即時"
-"通訊及大量其他軟件的作業系統。"
+msgstr "%(distro)s 是一個自由，社群開發，建基於 Linux 附有網頁瀏覽器、辦公軟件、即時通訊及大量其他軟件的作業系統。"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 #: src/wubi/frontends/win32/cd_finish_page.py:35
@@ -216,9 +209,7 @@ msgid ""
 "To start the Live CD you need to reboot your machine leaving the CD in the "
 "tray. If your machine cannot boot from the CD, the last option should work "
 "in most cases."
-msgstr ""
-"要啟動此 Live CD，你需要把此光碟留在光碟機並重新開機。如果您的電腦不能用此 "
-"CD 開機，最後一個選項應該可以幫助您。"
+msgstr "要啟動此 Live CD，你需要把此光碟留在光碟機並重新開機。如果您的電腦不能用此 CD 開機，最後一個選項應該可以幫助您。"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:47
 #: src/wubi/frontends/win32/installation_finish_page.py:44
@@ -574,14 +565,14 @@ msgstr ""
 #~ msgid "%(distro)s CD Menu"
 #~ msgstr "%(distro)s CD 清單"
 
+#~ msgid "Invalid CD detected"
+#~ msgstr "偵測到無效的光碟"
+
 #~ msgid ""
 #~ "Install and uninstall %(distro)s like any other application, without the "
 #~ "need for a dedicated partition.  You will be able to boot into either "
 #~ "Windows%(distro)s.  Hibernation is not enabled in this mode and disk "
 #~ "performance is slightly reduced."
 #~ msgstr ""
-#~ "如其他應用程式一樣安裝和移除 %(distro)s，又無需一個專用的分割區。您可以以 "
-#~ "Windows 或 %(distro)s 開機。此模式不能休眠，而磁碟的速度亦會慢一點。"
-
-#~ msgid "Invalid CD detected"
-#~ msgstr "偵測到無效的光碟"
+#~ "如其他應用程式一樣安裝和移除 %(distro)s，又無需一個專用的分割區。您可以以 Windows 或 %(distro)s "
+#~ "開機。此模式不能休眠，而磁碟的速度亦會慢一點。"

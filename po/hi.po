@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2009-03-14 00:34+0000\n"
-"PO-Revision-Date: 2008-07-20 17:13+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2009-04-04 01:03+0000\n"
+"Last-Translator: Neetesh Biswas <Unknown>\n"
 "Language-Team: Hindi <hi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -27,7 +27,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
-msgstr ""
+msgstr "अगला>>"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 #: src/wubi/frontends/win32/cdboot_page.py:46
@@ -37,19 +37,19 @@ msgstr ""
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Cancel"
-msgstr ""
+msgstr "निरस्त"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
-msgstr ""
+msgstr "दृश्यता सहायक"
 
 #: src/wubi/frontends/win32/accessibility_page.py:51
 msgid "Visibility1"
-msgstr ""
+msgstr "दृश्यता 1"
 
 #: src/wubi/frontends/win32/accessibility_page.py:52
 msgid "Visibility2"
-msgstr ""
+msgstr "दृश्यता 2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:53
 msgid "Visibility3"
@@ -57,7 +57,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:54
 msgid "Braille"
-msgstr ""
+msgstr "ब्रेल"
 
 #: src/wubi/frontends/win32/accessibility_page.py:57
 msgid "Mobility Aids"
@@ -73,7 +73,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:62
 msgid "None"
-msgstr ""
+msgstr "कुछ नहीं"
 
 #: src/wubi/frontends/win32/frontend.py:49
 msgid "Are you sure you want to quit?"
@@ -82,7 +82,7 @@ msgstr ""
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
 msgid "%s CD Boot Helper"
-msgstr ""
+msgstr "%s सीडी बूट सहायक"
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
@@ -91,7 +91,7 @@ msgstr ""
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Accessibility"
-msgstr ""
+msgstr "सुगमता"
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
@@ -100,7 +100,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
-msgstr ""
+msgstr "सीडी बूट सहायक इंस्टॉल करें"
 
 #: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
@@ -119,7 +119,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/progress_page.py:39
 msgid "Please wait"
-msgstr ""
+msgstr "कृपया इंतजार करें..."
 
 #: src/wubi/frontends/win32/progress_page.py:52
 msgid "Do not download, use a local file"
@@ -133,7 +133,7 @@ msgstr ""
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
 msgid "%s Menu"
-msgstr ""
+msgstr "%s सूची"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:53
 msgid "Demo and full installation"
@@ -176,7 +176,7 @@ msgstr ""
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/installation_finish_page.py:35
 msgid "Finish"
-msgstr ""
+msgstr "समाप्त"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
@@ -189,7 +189,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 msgid "< Back"
-msgstr ""
+msgstr "< पीछे"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:43
 msgid "Reboot required"
@@ -213,7 +213,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
 msgid "Help me to boot from CD"
-msgstr ""
+msgstr "सीडी से बूट करने में मुझे सहायता करें"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
@@ -279,7 +279,7 @@ msgstr ""
 #: src/wubi/frontends/win32/installation_page.py:96
 #, python-format
 msgid "(%sGB free)"
-msgstr ""
+msgstr "(%sGB खाली)"
 
 #: src/wubi/frontends/win32/installation_page.py:172
 msgid "Please select username and password for the new account"
@@ -299,7 +299,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:206
 msgid "Language:"
-msgstr ""
+msgstr "भाषा:"
 
 #: src/wubi/frontends/win32/installation_page.py:215
 msgid "Username:"
@@ -307,7 +307,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:222
 msgid "Password:"
-msgstr ""
+msgstr "पासवर्ड:"
 
 #: src/wubi/frontends/win32/installation_page.py:255
 #, python-format

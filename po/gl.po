@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -23,7 +23,7 @@ msgstr "Perfil de accesibilidade"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
 msgid "Please select the appropriate accessibility profile"
-msgstr ""
+msgstr "Por favor, seleccione o perfil de accesibilidade apropiado"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
@@ -348,7 +348,8 @@ msgstr "O seu nome de usuario debe comezar cunha letra."
 
 #: src/wubi/frontends/win32/installation_page.py:306
 msgid "Your username must contain only standard letters and numbers."
-msgstr "O seu nome de usuario debe conter só letras internacionais e números."
+msgstr ""
+"O seu nome de usuario debe conter só letras internacionais e números."
 
 #: src/wubi/frontends/win32/installation_page.py:308
 msgid "The selected username is reserved, please selected a different one."

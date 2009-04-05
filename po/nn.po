@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -601,15 +601,18 @@ msgstr ""
 #~ msgid "Retrieving installation files, resume supported"
 #~ msgstr "Henter installasjonsfilene, gjenopptaking støtta"
 
+#, c-format
 #~ msgid "Connecting to %s..."
 #~ msgstr "Koplar til %s..."
 
 #~ msgid "Calculating checksums..."
 #~ msgstr "Kalkulerer kontrollsummar..."
 
+#, c-format
 #~ msgid "Retrying in %d seconds... (%d of %d)"
 #~ msgstr "Prøver igjen om %d sekund... (%d av %d)"
 
+#, c-format
 #~ msgid "Retrying in %d seconds..."
 #~ msgstr "Prøver igjen %d sekund..."
 
@@ -619,9 +622,11 @@ msgstr ""
 #~ msgid "seconds"
 #~ msgstr "sekund"
 
+#, c-format
 #~ msgid "%s (%d%%) of %s @ %s/s"
 #~ msgstr "%s (%d%%) av %s @ %s/s"
 
+#, c-format
 #~ msgid " (%s remaining)"
 #~ msgstr " (%s igjen)"
 
@@ -674,11 +679,11 @@ msgstr ""
 #~ msgstr "Feil under forsøket på å kjøre wubibcd:"
 
 #~ msgid ""
-#~ "Could not access the CD, please make sure other applications are not "
-#~ "using it and try again"
+#~ "Could not access the CD, please make sure other applications are not using "
+#~ "it and try again"
 #~ msgstr ""
-#~ "Kunne ikkje lese CD-en, sjå etter at andre program ikkje brukar han og "
-#~ "prøv igjen"
+#~ "Kunne ikkje lese CD-en, sjå etter at andre program ikkje brukar han og prøv "
+#~ "igjen"
 
 #~ msgid "You are about to install $Distro-$DistroVersion"
 #~ msgstr "Du skal til å installere $Distro-$DistroVersion"
@@ -745,8 +750,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "Start installer with ACPI workarounds (only if you have ACPI problems)"
-#~ msgstr ""
-#~ "Start installatøren med ACPI-omgåarar (berre om du har ACPI-problem)"
+#~ msgstr "Start installatøren med ACPI-omgåarar (berre om du har ACPI-problem)"
 
 #~ msgid "Start installer in verbose mode"
 #~ msgstr "Start installatøren i ordrik modus"
@@ -774,8 +778,7 @@ msgstr ""
 
 #~ msgid "Please remove any CD/DVD and reboot to complete the installation."
 #~ msgstr ""
-#~ "Fjern alle CD-/DVD-ar og restart datamaskinen for å fullføre "
-#~ "installasjonen."
+#~ "Fjern alle CD-/DVD-ar og restart datamaskinen for å fullføre installasjonen."
 
 #~ msgid "Installation language."
 #~ msgstr "Installasjonsspråk."

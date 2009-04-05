@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -342,12 +342,14 @@ msgstr "உமது பயனாளர் பெயர் கன்டிப்
 #: src/wubi/frontends/win32/installation_page.py:306
 msgid "Your username must contain only standard letters and numbers."
 msgstr ""
-"உமது பயனாளர் பெயர் கன்டிப்பாக சாதாரன எழுத்து மற்றும் இலக்கத்தினால் ஆக்கப்பட்டிருத்தல் வேன்டும்"
+"உமது பயனாளர் பெயர் கன்டிப்பாக சாதாரன எழுத்து மற்றும் இலக்கத்தினால் "
+"ஆக்கப்பட்டிருத்தல் வேன்டும்"
 
 #: src/wubi/frontends/win32/installation_page.py:308
 msgid "The selected username is reserved, please selected a different one."
 msgstr ""
-"தெரிவு செய்த பயனாளர் பெயர் ஏலவே பதிவு செய்யப்பட்டுள்ளது, வேறொன்றை தயவாய் தெரிவு செய்க"
+"தெரிவு செய்த பயனாளர் பெயர் ஏலவே பதிவு செய்யப்பட்டுள்ளது, வேறொன்றை தயவாய் "
+"தெரிவு செய்க"
 
 #: src/wubi/frontends/win32/installation_page.py:310
 msgid "Please enter a valid password."

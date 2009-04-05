@@ -1,32 +1,20 @@
-# #-#-#-#-#  id.po (wubi)  #-#-#-#-#
 # Indonesian translation for wubi
-# Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
-# This file is distributed under the same license as the wubi package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
-#
-# #-#-#-#-#  id.po (umenu)  #-#-#-#-#
-# Indonesian translation for umenu
 # Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
-# This file is distributed under the same license as the umenu package.
+# This file is distributed under the same license as the wubi package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: umenu\n"
+"Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2009-03-14 00:34+0000\n"
-"PO-Revision-Date: 2008-10-20 22:31+0000\n"
+"PO-Revision-Date: 2009-03-15 06:27+0000\n"
 "Last-Translator: Andy Apdhani <imtheface@ubuntu.com>\n"
 "Language-Team: Indonesian <id@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  id.po (wubi)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
-"#-#-#-#-#  id.po (umenu)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2008-10-27 09:28+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -35,11 +23,11 @@ msgstr "Profil aksesibilitas"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
 msgid "Please select the appropriate accessibility profile"
-msgstr ""
+msgstr "Silakan memilih profil aksesibilitas yang sesuai."
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
-msgstr ""
+msgstr "Lanjut >>"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 #: src/wubi/frontends/win32/cdboot_page.py:46
@@ -49,7 +37,7 @@ msgstr ""
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Cancel"
-msgstr ""
+msgstr "Batal"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
@@ -69,7 +57,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:54
 msgid "Braille"
-msgstr ""
+msgstr "Brailye"
 
 #: src/wubi/frontends/win32/accessibility_page.py:57
 msgid "Mobility Aids"
@@ -89,16 +77,16 @@ msgstr "Tidak ada"
 
 #: src/wubi/frontends/win32/frontend.py:49
 msgid "Are you sure you want to quit?"
-msgstr ""
+msgstr "Apakah Anda yakin ingin keluar?"
 
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
 msgid "%s CD Boot Helper"
-msgstr ""
+msgstr "CD Boot Helper %s"
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
-msgstr ""
+msgstr "Tidak cukup ruang disk untuk melanjutkan"
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
@@ -108,11 +96,11 @@ msgstr ""
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:176
 msgid "Install"
-msgstr ""
+msgstr "Instal"
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
-msgstr ""
+msgstr "Instal CD boot helper"
 
 #: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
@@ -127,25 +115,25 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:85
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
-msgstr ""
+msgstr "Menginstal %(distro)s-%(version)s"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 msgid "Please wait"
-msgstr ""
+msgstr "Silakan tunggu"
 
 #: src/wubi/frontends/win32/progress_page.py:52
 msgid "Do not download, use a local file"
-msgstr ""
+msgstr "Jangan unduh, gunakan berkas lokal"
 
 #: src/wubi/frontends/win32/progress_page.py:65
 #, python-format
 msgid "Remaining time approximately %s"
-msgstr ""
+msgstr "Waktu yang tersisa %s"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
 msgid "%s Menu"
-msgstr ""
+msgstr "Menu %s"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:53
 msgid "Demo and full installation"
@@ -178,7 +166,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cd_menu_page.py:73
 msgid "Learn more"
-msgstr "Perlajari Lebih Lanjut"
+msgstr "Pelajari lagi"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:75
 #, python-format
@@ -195,20 +183,20 @@ msgstr ""
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/installation_finish_page.py:35
 msgid "Finish"
-msgstr ""
+msgstr "Selesai"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
-msgstr ""
+msgstr "Proses menghapus Wubi selesai"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:43
 #, python-format
 msgid "%s has been successfully uninstalled"
-msgstr ""
+msgstr "%s telah berhasil dihapus"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 msgid "< Back"
-msgstr ""
+msgstr "< Kembali"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:43
 msgid "Reboot required"
@@ -227,11 +215,11 @@ msgstr ""
 #: src/wubi/frontends/win32/cd_finish_page.py:47
 #: src/wubi/frontends/win32/installation_finish_page.py:44
 msgid "Reboot now"
-msgstr ""
+msgstr "Reboot sekarang"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:48
 msgid "I want to manually reboot Later"
-msgstr ""
+msgstr "Saya ingin reboot secara manual nanti"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
 msgid "Help me to boot from CD"
@@ -240,7 +228,7 @@ msgstr "Bantu saya agar dapat boot dari CD"
 #: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
 msgid "%s Uninstaller"
-msgstr ""
+msgstr "Uninstaller %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:36
 msgid "Uninstallation required"
@@ -249,7 +237,7 @@ msgstr ""
 #: src/wubi/frontends/win32/uninstallation_page.py:38
 #, python-format
 msgid "You are about to uninstall %s"
-msgstr ""
+msgstr "Anda akan menghapus %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 msgid "Uninstall"
@@ -260,27 +248,28 @@ msgid ""
 "A previous installation was detected, it needs to be uninstalled before "
 "continuing"
 msgstr ""
+"Terdeteksi instalasi lama, sebelum lanjut, instalasi ini perlu dihapus dulu"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:54
 msgid "Are you sure you want to uninstall?"
-msgstr ""
+msgstr "Apakah Anda yakin ingin menghapus?"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:62
 msgid "Backup the downloaded files (ISO)"
-msgstr ""
+msgstr "Buat salinan berkas yang telah diunduh (ISO)"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
 msgid "Completing the %s Setup Wizard"
-msgstr ""
+msgstr "Menyelesaikan% s Setup Wizard"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
-msgstr ""
+msgstr "Anda harus reboot untuk menyelesaikan instalasi"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
-msgstr ""
+msgstr "Saya ingin reboot secara manual nanti"
 
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
@@ -288,6 +277,8 @@ msgid ""
 "Only %sMB of disk space are available.\n"
 "At least 1024MB are required as a bare minimum. Quitting"
 msgstr ""
+"Hanya tersedia %sMB untuk ruang disk.\n"
+"Setidaknya dibutuhkan sebesar 1024MB untuk instalasi minimum. Keluar"
 
 #: src/wubi/frontends/win32/installation_page.py:77
 #, python-format
@@ -297,27 +288,31 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
+"Dibutuhkan ruang disk %(min_space)sMB untuk instalasi.\n"
+"Hanya %(max_space)sMB yang tersedia.\n"
+"Instalasi mungkin gagal bila keadaannya seperti ini.\n"
+"Apakah Anda ingin tetap melanjutkan?"
 
 #: src/wubi/frontends/win32/installation_page.py:96
 #, python-format
 msgid "(%sGB free)"
-msgstr ""
+msgstr "(%sGB kosong)"
 
 #: src/wubi/frontends/win32/installation_page.py:172
 msgid "Please select username and password for the new account"
-msgstr "Silakan pilih nama user dan password untuk membuat user baru"
+msgstr "Silakan pilih nama pengguna dan sandi untuk akun baru"
 
 #: src/wubi/frontends/win32/installation_page.py:188
 msgid "Installation drive:"
-msgstr ""
+msgstr "Drive instalasi"
 
 #: src/wubi/frontends/win32/installation_page.py:194
 msgid "Installation size:"
-msgstr ""
+msgstr "Besar instalasi:"
 
 #: src/wubi/frontends/win32/installation_page.py:200
 msgid "Desktop environment:"
-msgstr ""
+msgstr "Lingkungan desktop:"
 
 #: src/wubi/frontends/win32/installation_page.py:206
 msgid "Language:"
@@ -329,12 +324,12 @@ msgstr "Nama pengguna:"
 
 #: src/wubi/frontends/win32/installation_page.py:222
 msgid "Password:"
-msgstr "Kata Sandi:"
+msgstr "Kata sandi:"
 
 #: src/wubi/frontends/win32/installation_page.py:255
 #, python-format
 msgid "%s Installer"
-msgstr ""
+msgstr "Penginstal %s"
 
 #: src/wubi/frontends/win32/installation_page.py:261
 #, python-format
@@ -344,6 +339,10 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
+"Dibutuhkan memori %(min_memory)sMB untuk instalasi.\n"
+"Hanya %(total_memory)sMB yang tersedia.\n"
+"Instalasi mungkin gagal bila keadaannya seperti ini.\n"
+"Apakah Anda ingin tetap melanjutkan?"
 
 #: src/wubi/frontends/win32/installation_page.py:298
 msgid "Please enter a valid username"
@@ -371,7 +370,7 @@ msgstr "Nama pengguna ini tidak dapat digunakan, silakan pilih yang lain."
 
 #: src/wubi/frontends/win32/installation_page.py:310
 msgid "Please enter a valid password."
-msgstr "Silakan masukkan kata sandi."
+msgstr "Masukkan kata sandi yang benar."
 
 #: src/wubi/frontends/win32/installation_page.py:312
 msgid "Please do not use spaces in the password."
@@ -390,78 +389,83 @@ msgid ""
 "\n"
 "The system will now reboot."
 msgstr ""
+"Instalasi gagal. Log telah disimpan di: %s.\n"
+"\n"
+"Perlu diketahui dalam modus verbose, log akan menyertakan kata sandi.\n"
+"\n"
+"Sistem sekarang akan reboot."
 
 #: src/wubi/backends/common/backend.py:71
 #: src/wubi/backends/common/backend.py:91
 msgid "Selecting the target directory"
-msgstr ""
+msgstr "Memilih direktori tujuan"
 
 #: src/wubi/backends/common/backend.py:72
 #: src/wubi/backends/common/backend.py:92
 msgid "Creating the installation directories"
-msgstr ""
+msgstr "Membuat direktori instalasi"
 
 #: src/wubi/backends/common/backend.py:73
 #: src/wubi/backends/common/backend.py:93
 msgid "Creating the uninstaller"
-msgstr ""
+msgstr "Membuat uninstaller"
 
 #: src/wubi/backends/common/backend.py:74
 #: src/wubi/backends/common/backend.py:94
 #: src/wubi/backends/common/backend.py:407
 #: src/wubi/backends/common/backend.py:413
 msgid "Copying installation files"
-msgstr ""
+msgstr "Menyalin berkas instalasi"
 
 #: src/wubi/backends/common/backend.py:75
 msgid "Retrieving installation files"
-msgstr ""
+msgstr "Mengambil berkas instalasi"
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:96
 msgid "Extracting the kernel"
-msgstr ""
+msgstr "Mengekstrak kernel"
 
 #: src/wubi/backends/common/backend.py:77
 msgid "Choosing disk sizes"
-msgstr ""
+msgstr "Memilih ukuran disk"
 
 #: src/wubi/backends/common/backend.py:78
 #: src/wubi/backends/common/backend.py:97
 msgid "Creating a preseed file"
-msgstr ""
+msgstr "Membuat berkas preseed"
 
 #: src/wubi/backends/common/backend.py:79
 #: src/wubi/backends/common/backend.py:98
 msgid "Adding a new bootlader entry"
-msgstr ""
+msgstr "Menambahkan entri bootloader baru"
 
 #: src/wubi/backends/common/backend.py:80
 #: src/wubi/backends/common/backend.py:99
 msgid "Setting up installation boot menu"
-msgstr ""
+msgstr "Menyiapkan menu boot instalasi"
 
 #: src/wubi/backends/common/backend.py:81
 msgid "Creating the virtual disks"
-msgstr ""
+msgstr "Membuat disk virtual"
 
 #: src/wubi/backends/common/backend.py:82
 #: src/wubi/backends/common/backend.py:100
 msgid "Uncompressing files"
-msgstr ""
+msgstr "Uncompressing berkas"
 
 #: src/wubi/backends/common/backend.py:83
 #: src/wubi/backends/common/backend.py:101
 msgid "Ejecting the CD"
-msgstr ""
+msgstr "Mengeluarkan CD"
 
 #: src/wubi/backends/common/backend.py:95
 msgid "Extracting CD content"
-msgstr ""
+msgstr "Mengekstrak konten CD"
 
 #: src/wubi/backends/common/backend.py:103
 msgid "Installing CD boot helper"
-msgstr ""
+msgstr "Menginstal CD boot helper"
 
 #: src/wubi/backends/common/backend.py:109
 #: src/wubi/backends/common/backend.py:111
@@ -470,83 +474,83 @@ msgstr ""
 
 #: src/wubi/backends/common/backend.py:116
 msgid "Backup ISO"
-msgstr ""
+msgstr "Salin ISO"
 
 #: src/wubi/backends/common/backend.py:117
 msgid "Remove bootloader entry"
-msgstr ""
+msgstr "Hapus entri bootloader"
 
 #: src/wubi/backends/common/backend.py:118
 msgid "Remove target dir"
-msgstr ""
+msgstr "Hapus direktori tujuan"
 
 #: src/wubi/backends/common/backend.py:119
 msgid "Remove registry key"
-msgstr ""
+msgstr "Hapus kunci registy"
 
 #: src/wubi/backends/common/backend.py:120
 #, python-format
 msgid "Uninstalling %s"
-msgstr ""
+msgstr "Meng-uninstall %s"
 
 #: src/wubi/backends/common/backend.py:252
 #, python-format
 msgid "Checking CD %s"
-msgstr ""
+msgstr "Memeriksa CD %s"
 
 #: src/wubi/backends/common/backend.py:274
 #: src/wubi/backends/common/backend.py:314
 #: src/wubi/backends/common/backend.py:345
 msgid "Downloading information on installation files"
-msgstr ""
+msgstr "Mengunduh informasi pada berkas instalasi"
 
 #: src/wubi/backends/common/backend.py:287
 #: src/wubi/backends/common/backend.py:338
 #: src/wubi/backends/common/backend.py:400
 #: src/wubi/backends/common/backend.py:444
 msgid "Checking installation files"
-msgstr ""
+msgstr "Memeriksa berkas instalasi"
 
 #: src/wubi/backends/common/backend.py:371
 #, python-format
 msgid "Validating %s"
-msgstr ""
+msgstr "Memvalidasi %s"
 
 #: src/wubi/backends/common/backend.py:437
 #, python-format
 msgid "Extracting files from %s"
-msgstr ""
+msgstr "Mengekstrak berkas dari %s"
 
 #: src/wubi/backends/common/backend.py:507
 #, python-format
 msgid "Checking %s"
-msgstr ""
+msgstr "Menyalin berkas dari CD %s"
 
 #: src/wubi/backends/common/tasklist.py:255
 #: src/wubi/backends/common/tasklist.py:259
 msgid "0s"
-msgstr ""
+msgstr "0d"
 
 #: src/wubi/backends/common/tasklist.py:268
 #, python-format
 msgid "%ih"
-msgstr ""
+msgstr "%ij"
 
 #: src/wubi/backends/common/tasklist.py:270
 #, python-format
 msgid "%imin"
-msgstr ""
+msgstr "%imen"
 
 #: src/wubi/backends/common/tasklist.py:273
 #, python-format
 msgid "%is"
-msgstr ""
+msgstr "%id"
 
 #: src/wubi/backends/common/downloader.py:66
 #: src/wubi/backends/common/btdownloader.py:35
 #, python-format
 msgid "Downloading %s"
-msgstr ""
+msgstr "Mengunduh %s"
 
 #: src/wubi/application.py:56
 #, python-format
@@ -557,6 +561,11 @@ msgid ""
 "\n"
 "For more information, please see the log file: %(log)s"
 msgstr ""
+"Terjadi kesalahan:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"Untuk informasi lebih lanjut, silakan lihat berkas log: %(log)s"
 
 #: src/wubi/application.py:131 src/wubi/application.py:189
 #, python-format
@@ -564,6 +573,8 @@ msgid ""
 "A previous installation was detected in %s.\n"
 "Please uninstall that before continuing."
 msgstr ""
+"Ada instalasi lama yang terdeteksi di %s.\n"
+"Silakan hapus dulu sebelum lanjut."
 
 #: src/wubi/application.py:171
 msgid "No CD detected, cannot run CD menu"
@@ -578,16 +589,15 @@ msgstr ""
 #~ msgid "%(distro)s CD Menu"
 #~ msgstr "Menu CD %(distro)s"
 
+#~ msgid "Invalid CD detected"
+#~ msgstr "CD tidak valid terdeteksi"
+
 #~ msgid ""
 #~ "Install and uninstall %(distro)s like any other application, without the "
 #~ "need for a dedicated partition.  You will be able to boot into either "
 #~ "Windows%(distro)s.  Hibernation is not enabled in this mode and disk "
 #~ "performance is slightly reduced."
 #~ msgstr ""
-#~ "Instal dan uninstal %(distro)s seperti aplikasi lainnya, tanpa butuh "
-#~ "partisi tersendiri. Anda dapat langsung dapat boot ke Windows atau %"
-#~ "(distro)s. Pada mode ini hibernasi tidak diaktifkan dan kinerja disk "
-#~ "sedikit berkurang."
-
-#~ msgid "Invalid CD detected"
-#~ msgstr "CD tidak valid terdeteksi"
+#~ "Instal dan uninstal %(distro)s seperti aplikasi lainnya, tanpa butuh partisi "
+#~ "tersendiri. Anda dapat langsung dapat boot ke Windows atau %(distro)s. Pada "
+#~ "mode ini hibernasi tidak diaktifkan dan kinerja disk sedikit berkurang."

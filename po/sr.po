@@ -10,23 +10,18 @@
 # This file is distributed under the same license as the umenu package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2009-03-14 00:34+0000\n"
-"PO-Revision-Date: 2008-08-31 06:39+0000\n"
+"PO-Revision-Date: 2009-03-14 03:03+0000\n"
 "Last-Translator: Vladimir Lazic <vlazic@gmail.com>\n"
 "Language-Team: Serbian <sr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  sr.po (wubi)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
-"#-#-#-#-#  sr.po (umenu)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2008-10-27 09:28+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -577,6 +572,9 @@ msgstr ""
 #~ msgid "%(distro)s CD Menu"
 #~ msgstr "%(distro)s оперативни систем - CD мени"
 
+#~ msgid "Invalid CD detected"
+#~ msgstr "Ваш CD је неисправан"
+
 #~ msgid ""
 #~ "Install and uninstall %(distro)s like any other application, without the "
 #~ "need for a dedicated partition.  You will be able to boot into either "
@@ -584,10 +582,7 @@ msgstr ""
 #~ "performance is slightly reduced."
 #~ msgstr ""
 #~ "Можете инсталирати и деинсталирати оперативни систем %(distro)s на исти "
-#~ "начин као било који други програм, без потребе за засебном партицијом. "
-#~ "При покретању рачунара бићете у могућности да покренете било Windows или %"
-#~ "(distro)s. Хибернација није омогућена у овом начину рада а карактеристике "
+#~ "начин као било који други програм, без потребе за засебном партицијом. При "
+#~ "покретању рачунара бићете у могућности да покренете било Windows или "
+#~ "%(distro)s. Хибернација није омогућена у овом начину рада а карактеристике "
 #~ "система су незнатно умањене у односу на нормалну инсталацију."
-
-#~ msgid "Invalid CD detected"
-#~ msgstr "Ваш CD је неисправан"

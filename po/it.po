@@ -9,23 +9,18 @@
 # This file is distributed under the same license as the umenu package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2009-03-14 00:34+0000\n"
-"PO-Revision-Date: 2008-03-24 13:40+0000\n"
-"Last-Translator: Milo Casagrande <milo_casagrande@yahoo.it>\n"
+"PO-Revision-Date: 2009-03-15 13:55+0000\n"
+"Last-Translator: Milo Casagrande <milo@milo.name>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  it.po (Wubi 128)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
-"#-#-#-#-#  it.po (umenu)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2008-10-27 09:28+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -33,9 +28,8 @@ msgid "Accessibility profile"
 msgstr "Profilo di accessibilità"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
-#, fuzzy
 msgid "Please select the appropriate accessibility profile"
-msgstr "Selezionare il profilo di accessibilità appropriato"
+msgstr "Scegliere il profilo più adatto alle proprie esigenze"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
@@ -154,31 +148,20 @@ msgid "%s Menu"
 msgstr "Menu di %s"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:53
-#, fuzzy
 msgid "Demo and full installation"
-msgstr ""
-"#-#-#-#-#  it.po (Wubi 128)  #-#-#-#-#\n"
-"Prova e installa\n"
-"#-#-#-#-#  it.po (umenu)  #-#-#-#-#\n"
-"Prova e installazione completa"
+msgstr "Prova e installa"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:55
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Try %(distro)s without installing! Simply reboot your machine with the CD in "
 "the tray. You may perform a full installation from within the demo to "
 "install %(distro)s either alongside Windows or as the only operating system."
 msgstr ""
-"#-#-#-#-#  it.po (Wubi 128)  #-#-#-#-#\n"
 "Consente di provare %(distro)s senza eseguire l'installazione: basta "
 "riavviare il computer con il CD inserito nel lettore. Sarà possibile "
 "eseguire un'installazione completa di %(distro)s a fianco di Windows o come "
-"sistema operativo principale dalla versione in prova.\n"
-"#-#-#-#-#  it.po (umenu)  #-#-#-#-#\n"
-"È possibile provare %(distro)s senza installarlo. È sufficiente riavviare il "
-"computer con il CD nel lettore ed eseguire l'installazione completa durante "
-"la dimostrazione e avere %(distro)s sia a fianco di Windows che come sistema "
-"operativo indipendente."
+"sistema operativo principale dalla versione in prova."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:64
 msgid "Install inside Windows"
@@ -198,29 +181,19 @@ msgstr ""
 "modalità e le prestazioni risultano leggermente ridotte."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:73
-#, fuzzy
 msgid "Learn more"
-msgstr ""
-"#-#-#-#-#  it.po (Wubi 128)  #-#-#-#-#\n"
-"Ulteriori informazioni\n"
-"#-#-#-#-#  it.po (umenu)  #-#-#-#-#\n"
-"Per saperne di più"
+msgstr "Ulteriori informazioni"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:75
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%(distro)s is a free, community developed, linux-based operating system "
 "complete with a web browser, productivity software, instant messaging, and "
 "much more."
 msgstr ""
-"#-#-#-#-#  it.po (Wubi 128)  #-#-#-#-#\n"
 "%(distro)s è un sistema operativo libero, basato su Linux e sviluppato dalla "
 "comunità dotato di browser web, programmi per la produttività, per la "
-"messaggistica istantanea e molto altro.\n"
-"#-#-#-#-#  it.po (umenu)  #-#-#-#-#\n"
-"%(distro)s è un sistema operativo libero, sviluppato dalla comunità e basato "
-"su Linux, completo di browser web, software di produttività, messaggistica "
-"istantanea e molto altro."
+"messaggistica istantanea e molto altro."
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 #: src/wubi/frontends/win32/cd_finish_page.py:35
@@ -233,7 +206,7 @@ msgid "Uninstallation completed"
 msgstr "Rimozione completata"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:43
-#, fuzzy, python-format
+#, python-format
 msgid "%s has been successfully uninstalled"
 msgstr "%s è stato rimosso con successo"
 
@@ -246,19 +219,13 @@ msgid "Reboot required"
 msgstr "Richiesto riavvio"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:45
-#, fuzzy
 msgid ""
 "To start the Live CD you need to reboot your machine leaving the CD in the "
 "tray. If your machine cannot boot from the CD, the last option should work "
 "in most cases."
 msgstr ""
-"#-#-#-#-#  it.po (Wubi 128)  #-#-#-#-#\n"
 "Per lanciare il «Live CD» è necessario riavviare il computer lasciando il CD "
 "nel lettore. Se il computer non è in grado di avviarsi dal CD, l'ultima "
-"opzione dovrebbe funzionare nella maggior parte dei casi.\n"
-"#-#-#-#-#  it.po (umenu)  #-#-#-#-#\n"
-"Per far partire il CD Live bisogna riavviare il computer lasciando il CD nel "
-"lettore. Se il computer non è in grado di effettuare l'avvio da CD, l'ultima "
 "opzione dovrebbe funzionare nella maggior parte dei casi."
 
 #: src/wubi/frontends/win32/cd_finish_page.py:47
@@ -271,13 +238,8 @@ msgid "I want to manually reboot Later"
 msgstr "Riavvio manuale"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
-#, fuzzy
 msgid "Help me to boot from CD"
-msgstr ""
-"#-#-#-#-#  it.po (Wubi 128)  #-#-#-#-#\n"
-"Avvio da CD assistito\n"
-"#-#-#-#-#  it.po (umenu)  #-#-#-#-#\n"
-"Aiuto per effettuare l'avvio da CD"
+msgstr "Avvio da CD assistito"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
@@ -418,7 +380,8 @@ msgstr "Il proprio nome utente deve iniziare con una lettera."
 
 #: src/wubi/frontends/win32/installation_page.py:306
 msgid "Your username must contain only standard letters and numbers."
-msgstr "Il proprio nome utente deve contenere solo lettere standard e numeri."
+msgstr ""
+"Il proprio nome utente deve contenere solo lettere standard e numeri."
 
 #: src/wubi/frontends/win32/installation_page.py:308
 msgid "The selected username is reserved, please selected a different one."
@@ -445,8 +408,8 @@ msgid ""
 "\n"
 "The system will now reboot."
 msgstr ""
-"L'installazione non è riuscita. I messaggi di errore sono stati salvati in: %"
-"s.\n"
+"L'installazione non è riuscita. I messaggi di errore sono stati salvati in: "
+"%s.\n"
 "\n"
 "Nella modalità prolissa, i messaggi potrebbero contenere la password.\n"
 "\n"
@@ -622,8 +585,8 @@ msgstr ""
 "\n"
 "%(error)s\n"
 "\n"
-"Per maggiori informazioni, consultare il file con i messaggi di errore: %"
-"(log)s"
+"Per maggiori informazioni, consultare il file con i messaggi di errore: "
+"%(log)s"
 
 #: src/wubi/application.py:131 src/wubi/application.py:189
 #, python-format
@@ -645,26 +608,6 @@ msgid ""
 msgstr ""
 "Impossibile trovare un CD valido.\n"
 "L'helper di avvio da CD può essere usato solo da un «Live CD»."
-
-#~ msgid "%(distro)s CD Menu"
-#~ msgstr "Menu CD di %(distro)s"
-
-#~ msgid ""
-#~ "Install and uninstall %(distro)s like any other application, without the "
-#~ "need for a dedicated partition.  You will be able to boot into either "
-#~ "Windows%(distro)s.  Hibernation is not enabled in this mode and disk "
-#~ "performance is slightly reduced."
-#~ msgstr ""
-#~ "Installa e disinstalla %(distro)s come ogni altra applicazione, senza la "
-#~ "necessità di una partizione dedicata. Sarà possibile avviare sia Windows "
-#~ "che %(distro)s. L'ibernazione non è abilitata in questa modalità e la "
-#~ "prestazione del disco è leggermente ridotta."
-
-#~ msgid "Invalid CD detected"
-#~ msgstr "Rilevato CD non valido"
-
-#~ msgid "Copying files from CD %s"
-#~ msgstr "Copia dei file dal CD in %s"
 
 #~ msgid "Ubuntu will be installed in the selected language."
 #~ msgstr "Ubuntu verrà installato nella lingua selezionata."
@@ -733,8 +676,8 @@ msgstr ""
 #~ "You do not need to change this setting yourself."
 #~ msgstr ""
 #~ "Questa è la Memoria Virtuale di Ubuntu.\n"
-#~ "La grandezza di tale spazio dovrebbe essere quantomeno pari a quella "
-#~ "della tua RAM fisica.\n"
+#~ "La grandezza di tale spazio dovrebbe essere quantomeno pari a quella della "
+#~ "tua RAM fisica.\n"
 #~ "Non è necessario che tu modifichi questi settaggi manualmente."
 
 #~ msgid ""
@@ -770,3 +713,24 @@ msgstr ""
 #~ "Xubuntu : Versione molto leggera che si avvale di XFCE.\n"
 #~ "UbuntuStudio : Versione speciale con software mirato all'editing "
 #~ "multimediale."
+
+#, python-format
+#~ msgid "Copying files from CD %s"
+#~ msgstr "Copia dei file dal CD in %s"
+
+#~ msgid "%(distro)s CD Menu"
+#~ msgstr "Menu CD di %(distro)s"
+
+#~ msgid "Invalid CD detected"
+#~ msgstr "Rilevato CD non valido"
+
+#~ msgid ""
+#~ "Install and uninstall %(distro)s like any other application, without the "
+#~ "need for a dedicated partition.  You will be able to boot into either "
+#~ "Windows%(distro)s.  Hibernation is not enabled in this mode and disk "
+#~ "performance is slightly reduced."
+#~ msgstr ""
+#~ "Installa e disinstalla %(distro)s come ogni altra applicazione, senza la "
+#~ "necessità di una partizione dedicata. Sarà possibile avviare sia Windows che "
+#~ "%(distro)s. L'ibernazione non è abilitata in questa modalità e la "
+#~ "prestazione del disco è leggermente ridotta."

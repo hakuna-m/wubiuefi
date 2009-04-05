@@ -9,23 +9,18 @@
 # This file is distributed under the same license as the umenu package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2009-03-14 00:34+0000\n"
-"PO-Revision-Date: 2008-03-13 16:55+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2009-03-11 10:09+0000\n"
+"Last-Translator: Moritz Baumann <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  de.po (Wubi 128)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
-"#-#-#-#-#  de.po (umenu)  #-#-#-#-#\n"
-"X-Launchpad-Export-Date: 2008-10-27 09:28+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -578,9 +573,8 @@ msgstr ""
 #~ "The download was cancelled. You can continue the download or remove "
 #~ "partially downloaded files by restarting setup at a later time."
 #~ msgstr ""
-#~ "Der Download wurde abgebrochen. Durch Neustart des Setup kann der "
-#~ "Download fortgesetzt oder teilweise heruntergeladene Dateien gelöscht "
-#~ "werden."
+#~ "Der Download wurde abgebrochen. Durch Neustart des Setup kann der Download "
+#~ "fortgesetzt oder teilweise heruntergeladene Dateien gelöscht werden."
 
 #~ msgid "Reinstall"
 #~ msgstr "Neuinstallation"

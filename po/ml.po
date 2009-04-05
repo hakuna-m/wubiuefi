@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -345,7 +345,9 @@ msgstr "Standard അക്ഷരങ്ങളും അക്കങ്ങളു�
 
 #: src/wubi/frontends/win32/installation_page.py:308
 msgid "The selected username is reserved, please selected a different one."
-msgstr "താങ്കള്‍ കൊടുത്ത ഉപയോക്തൃനാമം ഉപയോഗിക്കുവാന്‍ കഴിയുന്നതല്ല, ദയവായി മറ്റൊന്ന് ഉപയോഗിക്കുക."
+msgstr ""
+"താങ്കള്‍ കൊടുത്ത ഉപയോക്തൃനാമം ഉപയോഗിക്കുവാന്‍ കഴിയുന്നതല്ല, ദയവായി മറ്റൊന്ന് "
+"ഉപയോഗിക്കുക."
 
 #: src/wubi/frontends/win32/installation_page.py:310
 msgid "Please enter a valid password."

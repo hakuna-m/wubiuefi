@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -283,7 +283,8 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:172
 msgid "Please select username and password for the new account"
-msgstr "ದಯವಿಟ್ಟು ತಮ್ಮ ಹೊಸ ಖಾತೆಯ ಬಳಕೆದಾರನ ಹೆಸರು ಮತ್ತು ಗುಪ್ತಪದವನ್ನು ಆರಿಸಿಕೊಳ್ಳಿ"
+msgstr ""
+"ದಯವಿಟ್ಟು ತಮ್ಮ ಹೊಸ ಖಾತೆಯ ಬಳಕೆದಾರನ ಹೆಸರು ಮತ್ತು ಗುಪ್ತಪದವನ್ನು ಆರಿಸಿಕೊಳ್ಳಿ"
 
 #: src/wubi/frontends/win32/installation_page.py:188
 msgid "Installation drive:"

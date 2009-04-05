@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-03-14 00:20+0000\n"
+"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
@@ -23,7 +23,7 @@ msgstr "접근성 프로파일"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
 msgid "Please select the appropriate accessibility profile"
-msgstr ""
+msgstr "알맞은 접근성 프로파일을 선택해 주십시오."
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
@@ -110,10 +110,8 @@ msgid ""
 "\n"
 "Do you want to proceed and install the CD booter?"
 msgstr ""
-"당신의 컴퓨터가 CD 부팅을 할 수 없다면, 이 프로그램은 CD 부팅을 도와주기 위"
-"한 새로운 부트 메뉴 항목을 설치할 것입니다. 대부분의 경우 이프로그램은 필요"
-"치 않으며, 트레이 안의 CD-ROM과 함께 시스템을 재 시작하는 것으로 충분합니"
-"다.\n"
+"당신의 컴퓨터가 CD 부팅을 할 수 없다면, 이 프로그램은 CD 부팅을 도와주기 위한 새로운 부트 메뉴 항목을 설치할 것입니다. 대부분의 "
+"경우 이프로그램은 필요치 않으며, 트레이 안의 CD-ROM과 함께 시스템을 재 시작하는 것으로 충분합니다.\n"
 "\n"
 "CD 부팅 도구를 설치 하시겠습니까?"
 
