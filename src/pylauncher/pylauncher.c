@@ -78,7 +78,7 @@ main(int ac, char **av)
 
     //Delete directory
     //~ printf("pylauncher: deleting temp directory %s\n", targetdir);
-    if (!delete_directory(targetdir)){
+    if (delete_directory(targetdir)){
         strcpy(message, "Error deleting directory\n");
         goto error;
     }
