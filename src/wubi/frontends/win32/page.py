@@ -64,13 +64,13 @@ class Page(ui.Page):
         if title:
             self.header.title = ui.Label(
                 self.header,
-                hbw + 20, 10, self.width - 200, 20,
+                hbw + 20, 10, self.width - 200, 16,
                 text = title)
             self.header.title.set_font(bold=True)
         if subtitle:
             self.header.subtitle = ui.Label(
                 self.header,
-                hbw + 20, 30, self.width - 200, 20,
+                hbw + 20, 26, self.width - 200, 26,
                 text = subtitle)
         self.header.line = ui.EtchedRectangle(self.header,0, hbh,self.width, 2)
         self.header.height = hbh + 2
