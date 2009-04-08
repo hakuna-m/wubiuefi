@@ -204,6 +204,7 @@ wubi (9.04) UNRELEASED; urgency=low
   * Set the application icon (LP: #341631)
   * Fixed typo (LP: #355923)
   * Make enough space for translated subtitle (LP: #351519)
+  * Fixed typo (LP: #355928)
 
   [ Hampus Wessman ]
   * Added a new metalink parser
@@ -235,4 +236,4 @@ wubi (9.04) UNRELEASED; urgency=low
   * Ignore any failure in delete_directory as it is just working with temporary
     directories.
 
- -- Agostino Russo <agostino.russo@gmail.com>  Mon, 06 Apr 2009 01:38:59 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Wed, 08 Apr 2009 02:58:57 +0100

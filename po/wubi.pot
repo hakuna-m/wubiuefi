@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 9.04-r113\n"
+"Project-Id-Version: 9.04-r117\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-04-06 00:55+0100\n"
+"POT-Creation-Date: 2009-04-08 02:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,7 +94,7 @@ msgstr ""
 
 #: src/wubi/backends/common/backend.py:82
 #: src/wubi/backends/common/backend.py:101
-msgid "Adding a new bootlader entry"
+msgid "Adding a new bootloader entry"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:83
