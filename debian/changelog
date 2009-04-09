@@ -235,5 +235,7 @@ wubi (9.04) UNRELEASED; urgency=low
   * Removed an erroneous closing parentheses in the use_cd check.
   * Ignore any failure in delete_directory as it is just working with temporary
     directories.
+  * Ensure that vista boot menu entry points to the correct wubildr file
+    (LP: #358356)
 
- -- Agostino Russo <agostino.russo@gmail.com>  Wed, 08 Apr 2009 02:58:57 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Fri, 10 Apr 2009 00:17:21 +0100

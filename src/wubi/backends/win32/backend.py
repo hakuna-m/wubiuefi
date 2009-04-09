@@ -612,8 +612,9 @@ class WindowsBackend(Backend):
         command = [bcdedit, '/create', '/d', '%s' % self.info.distro.name, '/application', 'bootsector']
         id = run_command(command)
         id = id[id.index('{'):id.index('}')+1]
+        mbr_path = join_path(self.info.target_dir, 'winboot', 'wubildr.mbr')[2:]
         run_command([bcdedit, '/set', id, 'device', 'partition=%s' % self.info.target_drive.path])
-        run_command([bcdedit, '/set', id, 'path', '\wubildr.mbr'])
+        run_command([bcdedit, '/set', id, 'path', mbr_path])
         run_command([bcdedit, '/displayorder', id, '/addlast'])
         run_command([bcdedit, '/timeout', '10'])
         registry.set_value(
