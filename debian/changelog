@@ -205,6 +205,7 @@ wubi (9.04) UNRELEASED; urgency=low
   * Fixed typo (LP: #355923)
   * Make enough space for translated subtitle (LP: #351519)
   * Fixed typo (LP: #355928)
+  * Ubpdated translations from rosetta
 
   [ Hampus Wessman ]
   * Added a new metalink parser
@@ -238,4 +239,4 @@ wubi (9.04) UNRELEASED; urgency=low
   * Ensure that vista boot menu entry points to the correct wubildr file
     (LP: #358356)
 
- -- Agostino Russo <agostino.russo@gmail.com>  Fri, 10 Apr 2009 00:17:21 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Fri, 10 Apr 2009 01:08:42 +0100

@@ -13,15 +13,433 @@ msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-03-14 00:34+0000\n"
+"POT-Creation-Date: 2009-04-08 02:56+0100\n"
 "PO-Revision-Date: 2009-03-25 19:11+0000\n"
 "Last-Translator: Adi Roiban <adi@roiban.ro>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-04-05 00:36+0000\n"
+"X-Launchpad-Export-Date: 2009-04-09 23:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
+
+#: src/wubi/backends/win32/backend.py:148
+#, python-format
+msgid ""
+"The installation failed. Logs have been saved in: %s.\n"
+"\n"
+"Note that in verbose mode, the logs may include the password.\n"
+"\n"
+"The system will now reboot."
+msgstr ""
+"Instalarea a eșuat. Jurnalele au fost salvate în: %s.\n"
+"\n"
+"Nu uitați că în modul detaliat, jurnalele pot include parola.\n"
+"\n"
+"Sistemul se va reporni acum."
+
+#: src/wubi/backends/common/tasklist.py:255
+#: src/wubi/backends/common/tasklist.py:259
+msgid "0s"
+msgstr "0s"
+
+#: src/wubi/backends/common/tasklist.py:268
+#, python-format
+msgid "%ih"
+msgstr "%io"
+
+#: src/wubi/backends/common/tasklist.py:270
+#, python-format
+msgid "%imin"
+msgstr "%imin"
+
+#: src/wubi/backends/common/tasklist.py:273
+#, python-format
+msgid "%is"
+msgstr "%is"
+
+#: src/wubi/backends/common/downloader.py:66
+#: src/wubi/backends/common/btdownloader.py:36
+#, python-format
+msgid "Downloading %s"
+msgstr "Descărcare %s"
+
+#: src/wubi/backends/common/backend.py:74
+#: src/wubi/backends/common/backend.py:94
+msgid "Selecting the target directory"
+msgstr "Selectare dosar destinație"
+
+#: src/wubi/backends/common/backend.py:75
+#: src/wubi/backends/common/backend.py:95
+msgid "Creating the installation directories"
+msgstr "Se creează dosarele de instalare"
+
+#: src/wubi/backends/common/backend.py:76
+#: src/wubi/backends/common/backend.py:96
+msgid "Creating the uninstaller"
+msgstr "Se creează  dezinstalatorul"
+
+#: src/wubi/backends/common/backend.py:77
+#: src/wubi/backends/common/backend.py:97
+#: src/wubi/backends/common/backend.py:419
+#: src/wubi/backends/common/backend.py:425
+msgid "Copying installation files"
+msgstr "Se copiază fișierele de instalare"
+
+#: src/wubi/backends/common/backend.py:78
+msgid "Retrieving installation files"
+msgstr "Se obțin fișierele de instalare"
+
+#: src/wubi/backends/common/backend.py:79
+#: src/wubi/backends/common/backend.py:99
+msgid "Extracting the kernel"
+msgstr "Se extrage nucleul sistemului"
+
+#: src/wubi/backends/common/backend.py:80
+msgid "Choosing disk sizes"
+msgstr "Alegere dimensiune disc"
+
+#: src/wubi/backends/common/backend.py:81
+#: src/wubi/backends/common/backend.py:100
+msgid "Creating a preseed file"
+msgstr "Se creează un fișier preseed (de configurar"
+
+#: src/wubi/backends/common/backend.py:82
+#: src/wubi/backends/common/backend.py:101
+msgid "Adding a new bootloader entry"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:83
+#: src/wubi/backends/common/backend.py:102
+msgid "Setting up installation boot menu"
+msgstr "Se configurează meniu de pornire a sistemului de instalare"
+
+#: src/wubi/backends/common/backend.py:84
+msgid "Creating the virtual disks"
+msgstr "Se creează discurile virtuale"
+
+#: src/wubi/backends/common/backend.py:85
+#: src/wubi/backends/common/backend.py:103
+msgid "Uncompressing files"
+msgstr "De decomprimă fișierele"
+
+#: src/wubi/backends/common/backend.py:86
+#: src/wubi/backends/common/backend.py:104
+msgid "Ejecting the CD"
+msgstr "Se scoate CD-ul"
+
+#: src/wubi/backends/common/backend.py:88
+#: src/wubi/frontends/win32/progress_page.py:38
+#, python-format
+msgid "Installing %(distro)s-%(version)s"
+msgstr "Se instalează %(distro)s-%(version)s"
+
+#: src/wubi/backends/common/backend.py:98
+msgid "Extracting CD content"
+msgstr "Se extrage conținutul CD-ului"
+
+#: src/wubi/backends/common/backend.py:106
+msgid "Installing CD boot helper"
+msgstr "Se intalează ajutorul de pornire CD"
+
+#: src/wubi/backends/common/backend.py:112
+#: src/wubi/backends/common/backend.py:114
+msgid "Rebooting"
+msgstr "Se repornește"
+
+#: src/wubi/backends/common/backend.py:119
+msgid "Backup ISO"
+msgstr "Copie de rezervă ISO"
+
+#: src/wubi/backends/common/backend.py:120
+msgid "Remove bootloader entry"
+msgstr "Ștergerea intrării din meniul de boot"
+
+#: src/wubi/backends/common/backend.py:121
+msgid "Remove target dir"
+msgstr "Ștergerea directorului destinație"
+
+#: src/wubi/backends/common/backend.py:122
+msgid "Remove registry key"
+msgstr "Ștergerea cheii din registry"
+
+#: src/wubi/backends/common/backend.py:123
+#, python-format
+msgid "Uninstalling %s"
+msgstr "De dezinstalează %s"
+
+#: src/wubi/backends/common/backend.py:255
+#, python-format
+msgid "Checking CD %s"
+msgstr "Se verifică %s"
+
+#: src/wubi/backends/common/backend.py:277
+#: src/wubi/backends/common/backend.py:321
+#: src/wubi/backends/common/backend.py:357
+msgid "Downloading information on installation files"
+msgstr "Se descarcă informații despre fișierele de instalare"
+
+#: src/wubi/backends/common/backend.py:292
+#: src/wubi/backends/common/backend.py:349
+#: src/wubi/backends/common/backend.py:412
+#: src/wubi/backends/common/backend.py:456
+msgid "Checking installation files"
+msgstr "Se verifică fișierele de instalare"
+
+#: src/wubi/backends/common/backend.py:383
+#, python-format
+msgid "Validating %s"
+msgstr "Se validează %s"
+
+#: src/wubi/backends/common/backend.py:449
+#, python-format
+msgid "Extracting files from %s"
+msgstr "Se extrag fișiere din %s"
+
+#: src/wubi/backends/common/backend.py:519
+#, python-format
+msgid "Checking %s"
+msgstr "Se verifică %s"
+
+#: src/wubi/frontends/win32/frontend.py:51
+msgid "Are you sure you want to quit?"
+msgstr "Sigur doriți să ieșiți?"
+
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
+#: src/wubi/frontends/win32/installation_finish_page.py:35
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "Finish"
+msgstr "Terminat"
+
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:41
+msgid "Uninstallation completed"
+msgstr "Dezinstalare completă"
+
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:43
+#, python-format
+msgid "%s has been successfully uninstalled"
+msgstr "%s a fost dezinstalat cu succes"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:32
+#, python-format
+msgid "%s Uninstaller"
+msgstr "Dezinstalator %s"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:36
+msgid "Uninstallation required"
+msgstr "Dezinstalare necesară"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:38
+#, python-format
+msgid "You are about to uninstall %s"
+msgstr "Sunteți pe cale să dezinstalați %s"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+msgid "Uninstall"
+msgstr "Dezinstalare"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+#: src/wubi/frontends/win32/installation_page.py:176
+#: src/wubi/frontends/win32/progress_page.py:43
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/cd_menu_page.py:38
+#: src/wubi/frontends/win32/cdboot_page.py:46
+msgid "Cancel"
+msgstr "Renunță"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:52
+msgid ""
+"A previous installation was detected, it needs to be uninstalled before "
+"continuing"
+msgstr ""
+"A fost detectată o instalare anterioară, înainte de a continua acesta "
+"trebuie dezinstalată"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:54
+msgid "Are you sure you want to uninstall?"
+msgstr "Sunteți sigur că doriți să dezinstalați?"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:62
+msgid "Backup the downloaded files (ISO)"
+msgstr "Copie de siguranță pentru fișierele descărcate (ISO)"
+
+#: src/wubi/frontends/win32/installation_page.py:73
+#, python-format
+msgid ""
+"Only %sMB of disk space are available.\n"
+"At least 1024MB are required as a bare minimum. Quitting"
+msgstr ""
+"Sunt disponibili doar %sMB de spațiu pe disc.\n"
+"Este nevoie de cel puțin 1024MB. Se iese."
+
+#: src/wubi/frontends/win32/installation_page.py:77
+#, python-format
+msgid ""
+"%(min_space)sMB of disk size are required for installation.\n"
+"Only %(max_space)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"Este nevoie de %(min_space)sMB de spațiu de disc pentru instalare.\n"
+"Sunt disponibili doar %(max_space)sMB.\n"
+"S-ar putea ca instalarea să eșueze în aceste condiții.\n"
+"Vreți să continuați și așa?"
+
+#: src/wubi/frontends/win32/installation_page.py:96
+#, python-format
+msgid "(%sGB free)"
+msgstr "(%sGB liberi)"
+
+#: src/wubi/frontends/win32/installation_page.py:172
+msgid "Please select username and password for the new account"
+msgstr "Introduceți numele de utilizator și parola pentru noul cont"
+
+#: src/wubi/frontends/win32/installation_page.py:176
+#: src/wubi/frontends/win32/cdboot_page.py:46
+msgid "Accessibility"
+msgstr "Accesibilitate"
+
+#: src/wubi/frontends/win32/installation_page.py:176
+#: src/wubi/frontends/win32/cdboot_page.py:46
+msgid "Install"
+msgstr "Instalează"
+
+#: src/wubi/frontends/win32/installation_page.py:188
+msgid "Installation drive:"
+msgstr "Disc instalare:"
+
+#: src/wubi/frontends/win32/installation_page.py:194
+msgid "Installation size:"
+msgstr "Dimensiune instalare:"
+
+#: src/wubi/frontends/win32/installation_page.py:200
+msgid "Desktop environment:"
+msgstr "Mediu desktop:"
+
+#: src/wubi/frontends/win32/installation_page.py:206
+msgid "Language:"
+msgstr "Limbă:"
+
+#: src/wubi/frontends/win32/installation_page.py:215
+msgid "Username:"
+msgstr "Nume de utilizator:"
+
+#: src/wubi/frontends/win32/installation_page.py:222
+msgid "Password:"
+msgstr "Parolă:"
+
+#: src/wubi/frontends/win32/installation_page.py:255
+#, python-format
+msgid "%s Installer"
+msgstr "Instalator %s"
+
+#: src/wubi/frontends/win32/installation_page.py:263
+#, python-format
+msgid ""
+"%(min_memory)sMB of memory are required for installation.\n"
+"Only %(total_memory)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"Este nevoie de %(min_memory)sMB de memorie pentru instalare.\n"
+"Este disponibilă doar %(total_memory)sMB.\n"
+"S-ar putea ca instalarea să eșueze în aceste condiții.\n"
+"Vreți să continuați și așa?"
+
+#: src/wubi/frontends/win32/installation_page.py:300
+msgid "Please enter a valid username"
+msgstr "Introduceți un nume de utilizator valid"
+
+#: src/wubi/frontends/win32/installation_page.py:302
+msgid "Please use all lower cases in the username."
+msgstr "Folosiți doar litere mici în numele de utilizator."
+
+#: src/wubi/frontends/win32/installation_page.py:304
+msgid "Please do not use spaces in the username."
+msgstr "Nu utilizaţi spații în numele de utilizator."
+
+#: src/wubi/frontends/win32/installation_page.py:306
+msgid "Your username must start with a letter."
+msgstr "Numele de utilizator trebuie să înceapă cu o literă."
+
+#: src/wubi/frontends/win32/installation_page.py:308
+msgid "Your username must contain only standard letters and numbers."
+msgstr ""
+"Numele de utilizator trebuie să conțină numai litere standard și cifre."
+
+#: src/wubi/frontends/win32/installation_page.py:310
+msgid "The selected username is reserved, please select a different one."
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_page.py:312
+msgid "Please enter a valid password."
+msgstr "Introduceți o parolă validă."
+
+#: src/wubi/frontends/win32/installation_page.py:314
+msgid "Please do not use spaces in the password."
+msgstr "Nu utilizaţi spații în parolă."
+
+#: src/wubi/frontends/win32/installation_page.py:316
+msgid "Passwords do not match."
+msgstr "Parolele nu sunt la fel."
+
+#: src/wubi/frontends/win32/progress_page.py:39
+msgid "Please wait"
+msgstr "Vă rugăm așteptați"
+
+#: src/wubi/frontends/win32/progress_page.py:52
+msgid "Do not download, use a local file"
+msgstr "Nu descărca, folosește un fișier local"
+
+#: src/wubi/frontends/win32/progress_page.py:65
+#, python-format
+msgid "Remaining time approximately %s"
+msgstr "A mai rămas aproximativ %s"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:41
+#, python-format
+msgid "Completing the %s Setup Wizard"
+msgstr "Se finalizează asistentul de instalare %s"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:43
+msgid "You need to reboot to complete the installation"
+msgstr "Pentru a completa instalarea, trebuie să reporniți calculatorul"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:44
+#: src/wubi/frontends/win32/cd_finish_page.py:47
+msgid "Reboot now"
+msgstr "Repornește acum"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:45
+msgid "I want to manually reboot later"
+msgstr "Vreau să repornesc mai târziu, manual"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr "< Înapoi"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr "Este necesară repornirea"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:45
+msgid ""
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
+msgstr ""
+"Pentru a porni Live CD-ul trebuie să vă reporniti calculatorul lăsând CD-ul "
+"în unitate. Dacă calculatorul dumneavoastră nu poate initializa sistemul de "
+"pe CD, ultima optiune ar trebui să functioneze în majoritatea cazurilor."
+
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
+msgstr "Doresc să repornesc mai târziu, manual"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr "Ajută-mă să pornesc sistemul de pe CD"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
@@ -34,16 +452,6 @@ msgstr "Selectați profilul de accesibilitate potrivit"
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
 msgstr "Înainte>>"
-
-#: src/wubi/frontends/win32/accessibility_page.py:39
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/progress_page.py:43
-#: src/wubi/frontends/win32/cd_menu_page.py:38
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-#: src/wubi/frontends/win32/installation_page.py:176
-msgid "Cancel"
-msgstr "Renunță"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
@@ -80,67 +488,6 @@ msgstr "Mobilitate2"
 #: src/wubi/frontends/win32/accessibility_page.py:62
 msgid "None"
 msgstr "Nici unul"
-
-#: src/wubi/frontends/win32/frontend.py:49
-msgid "Are you sure you want to quit?"
-msgstr "Sigur doriți să ieșiți?"
-
-#: src/wubi/frontends/win32/cdboot_page.py:32
-#, python-format
-msgid "%s CD Boot Helper"
-msgstr "Ajutor pornire CD %s"
-
-#: src/wubi/frontends/win32/cdboot_page.py:43
-msgid "Not enough disk space to proceed"
-msgstr "Nu este destul spațiu pe disc pentru a continua"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:176
-msgid "Accessibility"
-msgstr "Accesibilitate"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:176
-msgid "Install"
-msgstr "Instalează"
-
-#: src/wubi/frontends/win32/cdboot_page.py:54
-msgid "Install CD boot helper"
-msgstr "Instalează ajutorul de pornire CD"
-
-#: src/wubi/frontends/win32/cdboot_page.py:56
-msgid ""
-"If your machine cannot boot off the CD, this program will install a new boot "
-"menu entry to help you boot from CD. In most cases this program is not "
-"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
-"\n"
-"Do you want to proceed and install the CD booter?"
-msgstr ""
-"În cazul în care calculatorul dumneavoastră nu poate porni de pe CD, acest "
-"program va instala o nouă opțiune în meniul de pornire pentru a vă ajuta să "
-"porniți de pe CD. De cele mai multe ori nu este nevoie de acest program și "
-"este suficient să porniți calculatorul cu CD-ROM-ul în unitate.\n"
-"\n"
-"Doriți să continuați și să instalați CD booter?"
-
-#: src/wubi/frontends/win32/progress_page.py:38
-#: src/wubi/backends/common/backend.py:85
-#, python-format
-msgid "Installing %(distro)s-%(version)s"
-msgstr "Se instalează %(distro)s-%(version)s"
-
-#: src/wubi/frontends/win32/progress_page.py:39
-msgid "Please wait"
-msgstr "Vă rugăm așteptați"
-
-#: src/wubi/frontends/win32/progress_page.py:52
-msgid "Do not download, use a local file"
-msgstr "Nu descărca, folosește un fișier local"
-
-#: src/wubi/frontends/win32/progress_page.py:65
-#, python-format
-msgid "Remaining time approximately %s"
-msgstr "A mai rămas aproximativ %s"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
@@ -195,382 +542,35 @@ msgstr ""
 "comunitate, bazat pe Linux, ce contine un navigator web, software de "
 "productivitate, mesagerie instant si multe altele."
 
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-#: src/wubi/frontends/win32/installation_finish_page.py:35
-msgid "Finish"
-msgstr "Terminat"
-
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:41
-msgid "Uninstallation completed"
-msgstr "Dezinstalare completă"
-
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:43
+#: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
-msgid "%s has been successfully uninstalled"
-msgstr "%s a fost dezinstalat cu succes"
+msgid "%s CD Boot Helper"
+msgstr "Ajutor pornire CD %s"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "< Back"
-msgstr "< Înapoi"
+#: src/wubi/frontends/win32/cdboot_page.py:43
+msgid "Not enough disk space to proceed"
+msgstr "Nu este destul spațiu pe disc pentru a continua"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:43
-msgid "Reboot required"
-msgstr "Este necesară repornirea"
+#: src/wubi/frontends/win32/cdboot_page.py:54
+msgid "Install CD boot helper"
+msgstr "Instalează ajutorul de pornire CD"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:45
+#: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
-"To start the Live CD you need to reboot your machine leaving the CD in the "
-"tray. If your machine cannot boot from the CD, the last option should work "
-"in most cases."
-msgstr ""
-"Pentru a porni Live CD-ul trebuie să vă reporniti calculatorul lăsând CD-ul "
-"în unitate. Dacă calculatorul dumneavoastră nu poate initializa sistemul de "
-"pe CD, ultima optiune ar trebui să functioneze în majoritatea cazurilor."
-
-#: src/wubi/frontends/win32/cd_finish_page.py:47
-#: src/wubi/frontends/win32/installation_finish_page.py:44
-msgid "Reboot now"
-msgstr "Repornește acum"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:48
-msgid "I want to manually reboot Later"
-msgstr "Doresc să repornesc mai târziu, manual"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:49
-msgid "Help me to boot from CD"
-msgstr "Ajută-mă să pornesc sistemul de pe CD"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:32
-#, python-format
-msgid "%s Uninstaller"
-msgstr "Dezinstalator %s"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:36
-msgid "Uninstallation required"
-msgstr "Dezinstalare necesară"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:38
-#, python-format
-msgid "You are about to uninstall %s"
-msgstr "Sunteți pe cale să dezinstalați %s"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-msgid "Uninstall"
-msgstr "Dezinstalare"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:52
-msgid ""
-"A previous installation was detected, it needs to be uninstalled before "
-"continuing"
-msgstr ""
-"A fost detectată o instalare anterioară, înainte de a continua acesta "
-"trebuie dezinstalată"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:54
-msgid "Are you sure you want to uninstall?"
-msgstr "Sunteți sigur că doriți să dezinstalați?"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:62
-msgid "Backup the downloaded files (ISO)"
-msgstr "Copie de siguranță pentru fișierele descărcate (ISO)"
-
-#: src/wubi/frontends/win32/installation_finish_page.py:41
-#, python-format
-msgid "Completing the %s Setup Wizard"
-msgstr "Se finalizează asistentul de instalare %s"
-
-#: src/wubi/frontends/win32/installation_finish_page.py:43
-msgid "You need to reboot to complete the installation"
-msgstr "Pentru a completa instalarea, trebuie să reporniți calculatorul"
-
-#: src/wubi/frontends/win32/installation_finish_page.py:45
-msgid "I want to manually reboot later"
-msgstr "Vreau să repornesc mai târziu, manual"
-
-#: src/wubi/frontends/win32/installation_page.py:73
-#, python-format
-msgid ""
-"Only %sMB of disk space are available.\n"
-"At least 1024MB are required as a bare minimum. Quitting"
-msgstr ""
-"Sunt disponibili doar %sMB de spațiu pe disc.\n"
-"Este nevoie de cel puțin 1024MB. Se iese."
-
-#: src/wubi/frontends/win32/installation_page.py:77
-#, python-format
-msgid ""
-"%(min_space)sMB of disk size are required for installation.\n"
-"Only %(max_space)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"Este nevoie de %(min_space)sMB de spațiu de disc pentru instalare.\n"
-"Sunt disponibili doar %(max_space)sMB.\n"
-"S-ar putea ca instalarea să eșueze în aceste condiții.\n"
-"Vreți să continuați și așa?"
-
-#: src/wubi/frontends/win32/installation_page.py:96
-#, python-format
-msgid "(%sGB free)"
-msgstr "(%sGB liberi)"
-
-#: src/wubi/frontends/win32/installation_page.py:172
-msgid "Please select username and password for the new account"
-msgstr "Introduceți numele de utilizator și parola pentru noul cont"
-
-#: src/wubi/frontends/win32/installation_page.py:188
-msgid "Installation drive:"
-msgstr "Disc instalare:"
-
-#: src/wubi/frontends/win32/installation_page.py:194
-msgid "Installation size:"
-msgstr "Dimensiune instalare:"
-
-#: src/wubi/frontends/win32/installation_page.py:200
-msgid "Desktop environment:"
-msgstr "Mediu desktop:"
-
-#: src/wubi/frontends/win32/installation_page.py:206
-msgid "Language:"
-msgstr "Limbă:"
-
-#: src/wubi/frontends/win32/installation_page.py:215
-msgid "Username:"
-msgstr "Nume de utilizator:"
-
-#: src/wubi/frontends/win32/installation_page.py:222
-msgid "Password:"
-msgstr "Parolă:"
-
-#: src/wubi/frontends/win32/installation_page.py:255
-#, python-format
-msgid "%s Installer"
-msgstr "Instalator %s"
-
-#: src/wubi/frontends/win32/installation_page.py:261
-#, python-format
-msgid ""
-"%(min_memory)sMB of memory are required for installation.\n"
-"Only %(total_memory)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"Este nevoie de %(min_memory)sMB de memorie pentru instalare.\n"
-"Este disponibilă doar %(total_memory)sMB.\n"
-"S-ar putea ca instalarea să eșueze în aceste condiții.\n"
-"Vreți să continuați și așa?"
-
-#: src/wubi/frontends/win32/installation_page.py:298
-msgid "Please enter a valid username"
-msgstr "Introduceți un nume de utilizator valid"
-
-#: src/wubi/frontends/win32/installation_page.py:300
-msgid "Please use all lower cases in the username."
-msgstr "Folosiți doar litere mici în numele de utilizator."
-
-#: src/wubi/frontends/win32/installation_page.py:302
-msgid "Please do not use spaces in the username."
-msgstr "Nu utilizaţi spații în numele de utilizator."
-
-#: src/wubi/frontends/win32/installation_page.py:304
-msgid "Your username must start with a letter."
-msgstr "Numele de utilizator trebuie să înceapă cu o literă."
-
-#: src/wubi/frontends/win32/installation_page.py:306
-msgid "Your username must contain only standard letters and numbers."
-msgstr ""
-"Numele de utilizator trebuie să conțină numai litere standard și cifre."
-
-#: src/wubi/frontends/win32/installation_page.py:308
-msgid "The selected username is reserved, please selected a different one."
-msgstr "Numele de utilizator ales este rezervat, alegeți altul."
-
-#: src/wubi/frontends/win32/installation_page.py:310
-msgid "Please enter a valid password."
-msgstr "Introduceți o parolă validă."
-
-#: src/wubi/frontends/win32/installation_page.py:312
-msgid "Please do not use spaces in the password."
-msgstr "Nu utilizaţi spații în parolă."
-
-#: src/wubi/frontends/win32/installation_page.py:314
-msgid "Passwords do not match."
-msgstr "Parolele nu sunt la fel."
-
-#: src/wubi/backends/win32/backend.py:148
-#, python-format
-msgid ""
-"The installation failed. Logs have been saved in: %s.\n"
+"If your machine cannot boot off the CD, this program will install a new boot "
+"menu entry to help you boot from CD. In most cases this program is not "
+"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
 "\n"
-"Note that in verbose mode, the logs may include the password.\n"
-"\n"
-"The system will now reboot."
+"Do you want to proceed and install the CD booter?"
 msgstr ""
-"Instalarea a eșuat. Jurnalele au fost salvate în: %s.\n"
+"În cazul în care calculatorul dumneavoastră nu poate porni de pe CD, acest "
+"program va instala o nouă opțiune în meniul de pornire pentru a vă ajuta să "
+"porniți de pe CD. De cele mai multe ori nu este nevoie de acest program și "
+"este suficient să porniți calculatorul cu CD-ROM-ul în unitate.\n"
 "\n"
-"Nu uitați că în modul detaliat, jurnalele pot include parola.\n"
-"\n"
-"Sistemul se va reporni acum."
+"Doriți să continuați și să instalați CD booter?"
 
-#: src/wubi/backends/common/backend.py:71
-#: src/wubi/backends/common/backend.py:91
-msgid "Selecting the target directory"
-msgstr "Selectare dosar destinație"
-
-#: src/wubi/backends/common/backend.py:72
-#: src/wubi/backends/common/backend.py:92
-msgid "Creating the installation directories"
-msgstr "Se creează dosarele de instalare"
-
-#: src/wubi/backends/common/backend.py:73
-#: src/wubi/backends/common/backend.py:93
-msgid "Creating the uninstaller"
-msgstr "Se creează  dezinstalatorul"
-
-#: src/wubi/backends/common/backend.py:74
-#: src/wubi/backends/common/backend.py:94
-#: src/wubi/backends/common/backend.py:407
-#: src/wubi/backends/common/backend.py:413
-msgid "Copying installation files"
-msgstr "Se copiază fișierele de instalare"
-
-#: src/wubi/backends/common/backend.py:75
-msgid "Retrieving installation files"
-msgstr "Se obțin fișierele de instalare"
-
-#: src/wubi/backends/common/backend.py:76
-#: src/wubi/backends/common/backend.py:96
-msgid "Extracting the kernel"
-msgstr "Se extrage nucleul sistemului"
-
-#: src/wubi/backends/common/backend.py:77
-msgid "Choosing disk sizes"
-msgstr "Alegere dimensiune disc"
-
-#: src/wubi/backends/common/backend.py:78
-#: src/wubi/backends/common/backend.py:97
-msgid "Creating a preseed file"
-msgstr "Se creează un fișier preseed (de configurar"
-
-#: src/wubi/backends/common/backend.py:79
-#: src/wubi/backends/common/backend.py:98
-msgid "Adding a new bootlader entry"
-msgstr "Se adaugă o nouă intrare în meniul de pornire"
-
-#: src/wubi/backends/common/backend.py:80
-#: src/wubi/backends/common/backend.py:99
-msgid "Setting up installation boot menu"
-msgstr "Se configurează meniu de pornire a sistemului de instalare"
-
-#: src/wubi/backends/common/backend.py:81
-msgid "Creating the virtual disks"
-msgstr "Se creează discurile virtuale"
-
-#: src/wubi/backends/common/backend.py:82
-#: src/wubi/backends/common/backend.py:100
-msgid "Uncompressing files"
-msgstr "De decomprimă fișierele"
-
-#: src/wubi/backends/common/backend.py:83
-#: src/wubi/backends/common/backend.py:101
-msgid "Ejecting the CD"
-msgstr "Se scoate CD-ul"
-
-#: src/wubi/backends/common/backend.py:95
-msgid "Extracting CD content"
-msgstr "Se extrage conținutul CD-ului"
-
-#: src/wubi/backends/common/backend.py:103
-msgid "Installing CD boot helper"
-msgstr "Se intalează ajutorul de pornire CD"
-
-#: src/wubi/backends/common/backend.py:109
-#: src/wubi/backends/common/backend.py:111
-msgid "Rebooting"
-msgstr "Se repornește"
-
-#: src/wubi/backends/common/backend.py:116
-msgid "Backup ISO"
-msgstr "Copie de rezervă ISO"
-
-#: src/wubi/backends/common/backend.py:117
-msgid "Remove bootloader entry"
-msgstr "Ștergerea intrării din meniul de boot"
-
-#: src/wubi/backends/common/backend.py:118
-msgid "Remove target dir"
-msgstr "Ștergerea directorului destinație"
-
-#: src/wubi/backends/common/backend.py:119
-msgid "Remove registry key"
-msgstr "Ștergerea cheii din registry"
-
-#: src/wubi/backends/common/backend.py:120
-#, python-format
-msgid "Uninstalling %s"
-msgstr "De dezinstalează %s"
-
-#: src/wubi/backends/common/backend.py:252
-#, python-format
-msgid "Checking CD %s"
-msgstr "Se verifică %s"
-
-#: src/wubi/backends/common/backend.py:274
-#: src/wubi/backends/common/backend.py:314
-#: src/wubi/backends/common/backend.py:345
-msgid "Downloading information on installation files"
-msgstr "Se descarcă informații despre fișierele de instalare"
-
-#: src/wubi/backends/common/backend.py:287
-#: src/wubi/backends/common/backend.py:338
-#: src/wubi/backends/common/backend.py:400
-#: src/wubi/backends/common/backend.py:444
-msgid "Checking installation files"
-msgstr "Se verifică fișierele de instalare"
-
-#: src/wubi/backends/common/backend.py:371
-#, python-format
-msgid "Validating %s"
-msgstr "Se validează %s"
-
-#: src/wubi/backends/common/backend.py:437
-#, python-format
-msgid "Extracting files from %s"
-msgstr "Se extrag fișiere din %s"
-
-#: src/wubi/backends/common/backend.py:507
-#, python-format
-msgid "Checking %s"
-msgstr "Se verifică %s"
-
-#: src/wubi/backends/common/tasklist.py:255
-#: src/wubi/backends/common/tasklist.py:259
-msgid "0s"
-msgstr "0s"
-
-#: src/wubi/backends/common/tasklist.py:268
-#, python-format
-msgid "%ih"
-msgstr "%io"
-
-#: src/wubi/backends/common/tasklist.py:270
-#, python-format
-msgid "%imin"
-msgstr "%imin"
-
-#: src/wubi/backends/common/tasklist.py:273
-#, python-format
-msgid "%is"
-msgstr "%is"
-
-#: src/wubi/backends/common/downloader.py:66
-#: src/wubi/backends/common/btdownloader.py:35
-#, python-format
-msgid "Downloading %s"
-msgstr "Descărcare %s"
-
-#: src/wubi/application.py:56
+#: src/wubi/application.py:63
 #, python-format
 msgid ""
 "An error occurred:\n"
@@ -585,7 +585,7 @@ msgstr ""
 "\n"
 "Pentru mai multe informații, vedeți fișierul jurnal: %(log)s"
 
-#: src/wubi/application.py:131 src/wubi/application.py:189
+#: src/wubi/application.py:146 src/wubi/application.py:207
 #, python-format
 msgid ""
 "A previous installation was detected in %s.\n"
@@ -594,11 +594,11 @@ msgstr ""
 "O instalare anterioară a fost detectată în %s.\n"
 "Înainte de a continua dezinstalați-o pe aceea."
 
-#: src/wubi/application.py:171
+#: src/wubi/application.py:189
 msgid "No CD detected, cannot run CD menu"
 msgstr "Nici un CD detectat, nu se poate executa meniul CD-ului"
 
-#: src/wubi/application.py:179
+#: src/wubi/application.py:197
 msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
@@ -608,6 +608,9 @@ msgstr ""
 
 #~ msgid "Installation Size (GB):"
 #~ msgstr "Mărimea instalării (în GB):"
+
+#~ msgid "The selected username is reserved, please selected a different one."
+#~ msgstr "Numele de utilizator ales este rezervat, alegeți altul."
 
 #~ msgid "%(distro)s CD Menu"
 #~ msgstr "%(distro)s Meniu CD"
