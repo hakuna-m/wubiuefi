@@ -72,12 +72,12 @@ d-i cdrom-detect/eject boolean false
 ubiquity mythbuntu/install_type string Frontend
 
 #Services
-# XYZservice accepts 'true', 'false'
-ubiquity mythbuntu/x11vnc string false
-ubiquity mythbuntu/sshservice string true
-ubiquity mythbuntu/sambaservice string true
-ubiquity mythbuntu/nfsservice string true
-ubiquity mythbuntu/mysqlservice string false
+# each boolean accepts 'true', 'false'
+ubiquity mythbuntu/x11vnc boolean false
+ubiquity mythbuntu/openssh-server boolean true
+ubiquity mythbuntu/samba boolean true
+ubiquity mythbuntu/nfs-kernel-server boolean true
+ubiquity mythbuntu/mysql-server boolean false
 
 # these are all strings
 #mythtv-common mythtv/mysql_mythtv_user string mythtv

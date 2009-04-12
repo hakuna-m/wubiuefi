@@ -239,4 +239,8 @@ wubi (9.04) UNRELEASED; urgency=low
   * Ensure that vista boot menu entry points to the correct wubildr file
     (LP: #358356)
 
+  [ Mario Limonciello ]
+  * Update mythbuntu.preseed to use the latest strings available in 
+    ubiquity-frontend-mythbuntu.
+
  -- Agostino Russo <agostino.russo@gmail.com>  Fri, 10 Apr 2009 01:08:42 +0100
