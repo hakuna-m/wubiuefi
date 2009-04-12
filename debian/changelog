@@ -242,5 +242,7 @@ wubi (9.04) UNRELEASED; urgency=low
   [ Mario Limonciello ]
   * Update mythbuntu.preseed to use the latest strings available in 
     ubiquity-frontend-mythbuntu.
+  * Check for preseed.$(distro) in the data directory before assuming that
+    preseed.lupin should be used. (LP: #359834)
 
  -- Agostino Russo <agostino.russo@gmail.com>  Fri, 10 Apr 2009 01:08:42 +0100

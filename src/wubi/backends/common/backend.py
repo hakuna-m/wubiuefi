@@ -532,7 +532,9 @@ class Backend(object):
         copy_file(source, target)
 
     def create_preseed(self):
-        template_file = join_path(self.info.data_dir, 'preseed.lupin')
+        template_file = join_path(self.info.data_dir, 'preseed.' + self.info.distro.name)
+        if not os.path.exists(template_file):
+            template_file = join_path(self.info.data_dir, 'preseed.lupin')
         template = read_file(template_file)
         partitioning = ""
         partitioning += "d-i partman-auto/disk string LIDISK\n"
