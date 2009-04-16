@@ -73,6 +73,7 @@ class Backend(object):
         tasks = [
             Task(self.select_target_dir, description=_("Selecting the target directory")),
             Task(self.create_dir_structure, description=_("Creating the installation directories")),
+            Task(self.uncompress_target_dir, description=_("Uncompressing files")),
             Task(self.create_uninstaller, description=_("Creating the uninstaller")),
             Task(self.copy_installation_files, description=_("Copying installation files")),
             Task(self.get_iso, description=_("Retrieving installation files")),
@@ -93,6 +94,7 @@ class Backend(object):
         tasks = [
             Task(self.select_target_dir, description=_("Selecting the target directory")),
             Task(self.create_dir_structure, description=_("Creating the installation directories")),
+            Task(self.uncompress_target_dir, description=_("Uncompressing files")),
             Task(self.create_uninstaller, description=_("Creating the uninstaller")),
             Task(self.copy_installation_files, description=_("Copying installation files")),
             Task(self.use_cd, description=_("Extracting CD content")),

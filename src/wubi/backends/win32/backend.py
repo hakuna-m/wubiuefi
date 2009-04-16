@@ -93,6 +93,8 @@ class WindowsBackend(Backend):
         self.info.target_dir = target_dir
         log.info('Installing into %s' % target_dir)
         self.info.icon = join_path(self.info.target_dir, self.info.distro.name + '.ico')
+
+    def uncompress_target_dir(self, associated_task):
         try:
             command = ['compact', target_dir, '/U', '/S', '/A', '/F']
             run_command(command)
