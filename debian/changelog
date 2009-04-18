@@ -210,6 +210,7 @@ wubi (9.04) UNRELEASED; urgency=low
     #359716)
   * Need to create the installation dir before uncompressing it (LP:
     #359716)
+  * Fixed variable scope in previous patch (LP: #359716)
 
   [ Hampus Wessman ]
   * Added a new metalink parser
@@ -249,4 +250,4 @@ wubi (9.04) UNRELEASED; urgency=low
   * Check for preseed.$(distro) in the data directory before assuming that
     preseed.lupin should be used. (LP: #359834)
 
- -- Agostino Russo <agostino.russo@gmail.com>  Thu, 16 Apr 2009 22:20:33 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Sat, 18 Apr 2009 13:33:49 +0100

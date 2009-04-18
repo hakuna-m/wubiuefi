@@ -96,7 +96,7 @@ class WindowsBackend(Backend):
 
     def uncompress_target_dir(self, associated_task):
         try:
-            command = ['compact', target_dir, '/U', '/S', '/A', '/F']
+            command = ['compact', self.info.target_dir, '/U', '/S', '/A', '/F']
             run_command(command)
         except Exception, err:
             log.error(err)
