@@ -34,7 +34,7 @@ if sys.version.startswith('2.3'):
 
 reserved_usernames = [unicode(n) for n in reserved_usernames]
 re_first_char_is_letter = re.compile("^[a-zA-Z_]")
-re_only_alphanum = re.compile("^[\w]+$")
+re_only_alphanum = re.compile("[a-z][-a-z0-9]*$")
 
 class InstallationPage(Page):
 
@@ -207,9 +207,8 @@ class InstallationPage(Page):
         self.populate_language_list()
         self.language_list.on_change = self.on_language_change
 
-        username = self.info.host_username.lower()
-        username = username.replace(' ', '_')
-        username = username.replace('_', '__')
+        username = self.info.host_username.strip().lower()
+        username = re.sub('[^-a-z0-9]', '', username)
         picture, label, combo = self.add_controls_block(
             self.main, h*4 + w, h*4,
             "user.bmp", _("Username:"), None)
