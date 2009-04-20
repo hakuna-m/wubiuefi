@@ -248,6 +248,8 @@ wubi (9.04) UNRELEASED; urgency=low
     directories.
   * Ensure that vista boot menu entry points to the correct wubildr file
     (LP: #358356)
+  * Remove the /S flag from compact calls.  It forces compact to run
+    against the current directory.
 
   [ Mario Limonciello ]
   * Update mythbuntu.preseed to use the latest strings available in

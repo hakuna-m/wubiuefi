@@ -96,16 +96,16 @@ class WindowsBackend(Backend):
 
     def uncompress_target_dir(self, associated_task):
         try:
-            command = ['compact', self.info.target_dir, '/U', '/S', '/A', '/F']
+            command = ['compact', self.info.target_dir, '/U', '/A', '/F']
             run_command(command)
-            command = ['compact', join_path(self.info.target_dir,'*.*'), '/U', '/S', '/A', '/F']
+            command = ['compact', join_path(self.info.target_dir,'*.*'), '/U', '/A', '/F']
             run_command(command)
         except Exception, err:
             log.error(err)
 
     def uncompress_files(self, associated_task):
-        command1 = ['compact', join_path(self.info.install_boot_dir), '/U', '/S', '/A', '/F']
-        command2 = ['compact', join_path(self.info.install_boot_dir,'*.*'), '/U', '/S', '/A', '/F']
+        command1 = ['compact', join_path(self.info.install_boot_dir), '/U', '/A', '/F']
+        command2 = ['compact', join_path(self.info.install_boot_dir,'*.*'), '/U', '/A', '/F']
         for command in [command1,command2]:
             log.debug(" ".join(command))
             try:
