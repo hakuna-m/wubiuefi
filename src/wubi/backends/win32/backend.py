@@ -98,6 +98,8 @@ class WindowsBackend(Backend):
         try:
             command = ['compact', self.info.target_dir, '/U', '/S', '/A', '/F']
             run_command(command)
+            command = ['compact', join_path(self.info.target_dir,'*.*'), '/U', '/S', '/A', '/F']
+            run_command(command)
         except Exception, err:
             log.error(err)
 
