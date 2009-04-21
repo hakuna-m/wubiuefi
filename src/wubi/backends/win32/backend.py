@@ -79,17 +79,8 @@ class WindowsBackend(Backend):
         target_dir.replace(' ', '_')
         target_dir.replace('__', '_')
         gold_target_dir = target_dir
-        if os.path.exists(target_dir) \
-        and self.info.previous_target_dir \
-        and os.path.isdir(self.info.previous_target_dir):
-            if self.info.previous_target_dir == target_dir:
-                rm_tree(self.info.previous_target_dir)
-                self.info.previous_target_dir = None
-            else:
-                for i in range(2, 1000):
-                    target_dir = gold_target_dir + '.' + str(i)
-                    if not os.path.exists(target_dir):
-                        break
+        if os.path.exists(target_dir):
+            raise Exception("Cannot install into %s.\nThere is another file or directory with this name.\nPlease remove it before continuing." % target_dir)
         self.info.target_dir = target_dir
         log.info('Installing into %s' % target_dir)
         self.info.icon = join_path(self.info.target_dir, self.info.distro.name + '.ico')

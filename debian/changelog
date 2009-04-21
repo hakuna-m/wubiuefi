@@ -216,6 +216,8 @@ wubi (9.04) UNRELEASED; urgency=low
   * Properly sanitize host username to avoid UnicodeDecodeError (LP:
     #344151)
   * Uncompress all target subdirectories (LP: #359716)
+  * If the target directory already exists, quit with an error message
+    (LP: #364166)
 
   [ Hampus Wessman ]
   * Added a new metalink parser
@@ -257,4 +259,4 @@ wubi (9.04) UNRELEASED; urgency=low
   * Check for preseed.$(distro) in the data directory before assuming that
     preseed.lupin should be used. (LP: #359834)
 
- -- Agostino Russo <agostino.russo@gmail.com>  Mon, 20 Apr 2009 08:50:27 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Tue, 21 Apr 2009 00:09:12 +0100
