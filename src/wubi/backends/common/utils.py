@@ -254,7 +254,11 @@ def replace_line_in_file(file_path, old_line, new_line):
     for i,line in enumerate(lines):
         if line.startswith(old_line):
             lines[i] = new_line
-    f.writelines(lines)
+    try:
+        f.writelines(lines)
+    except Exception, err:
+        log.error("lines=%s, file_path=%s, old_line=%s, new_line=%s" % (lines, file_path, old_line, new_line))
+        log.exception(err)
     f.close()
 
 def remove_line_in_file(file_path, rm_line):

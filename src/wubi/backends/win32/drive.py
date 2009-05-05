@@ -41,13 +41,12 @@ class Drive(object):
         if self.path == 'A:' and self.type == 'removable':
             self.type = None #skip floppy: TBD do something reasonble
         if self.type:
-            volinfo = self.get_volume_information()
-            self.filesystem = volinfo[-1] and volinfo[-1]
+            self.filesystem = self.get_filesystem()
             total, free = self.get_space()
             self.total_space_mb = 1.0*total/1024**2
             self.free_space_mb = 1.0*free/1024**2
 
-    def get_volume_information(self):
+    def get_filesystem(self):
         DWORD = ctypes.wintypes.DWORD
         MAX_PATH_NULL = 255
         drive_path = self.path
@@ -71,13 +70,12 @@ class Drive(object):
                 ctypes.byref(file_system_flags),
                 file_system_name_buffer,
                 MAX_PATH_NULL)
-        volume_information = (
-                str(volume_name_buffer.value),
-                volume_serial_number.value,
-                maximum_component_length.value,
-                file_system_flags.value,
-                str(file_system_name_buffer.value).lower())
-        return volume_information
+        filesystem = file_system_name_buffer.value
+        if not filesystem:
+            filesystem = ""
+        filesystem = filesystem.encode('ascii', 'ignore')
+        filesystem = filesystem.lower()
+        return filesystem
 
     def get_space(self):
         drive_path = self.path

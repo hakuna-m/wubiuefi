@@ -330,16 +330,21 @@ class WindowsBackend(Backend):
 
     def get_windows_username(self):
         windows_username = os.getenv('username')
+        windows_username = windows_username.encode('ascii', 'ignore')
         log.debug('windows_username=%s' % windows_username)
         return windows_username
 
     def get_windows_user_full_name(self):
         user_full_name = os.getenv('username') #TBD
+        user_full_name = user_full_name.encode('ascii', 'ignore')
         log.debug('user_full_name=%s' % user_full_name)
         return user_full_name
 
     def get_windows_user_dir(self):
-        user_directory = os.getenv('username') #TBD get user directory
+        homedrive = os.getenv('homedrive')
+        homepath = os.getenv('homepath')
+        user_directory = join_path(homedrive, homepath)
+        user_directory = user_directory.encode('ascii', 'ignore')
         log.debug('user_directory=%s' % user_directory)
         return user_directory
 
