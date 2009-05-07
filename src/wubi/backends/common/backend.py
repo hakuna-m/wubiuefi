@@ -409,14 +409,13 @@ class Backend(object):
         if not iso_path:
             return
         iso_name = os.path.basename(iso_path)
-        dest = join_path(self.info.install_dir, iso_name)
+        dest = join_path(self.info.install_dir, "installation.iso")
         check_iso = associated_task.add_subtask(
             self.check_iso,
             description = _("Checking installation files"))
         if check_iso(iso_path):
-            if os.path.dirname(iso_path) == dest:
-                pass
-            elif os.path.dirname(iso_path) == self.info.backup_dir:
+            if os.path.dirname(iso_path) == dest \
+            or os.path.dirname(iso_path) == self.info.backup_dir:
                 move_iso = associated_task.add_subtask(
                     shutil.move,
                     description = _("Copying installation files"))
