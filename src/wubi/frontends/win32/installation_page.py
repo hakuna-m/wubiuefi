@@ -271,7 +271,8 @@ class InstallationPage(Page):
         language = self.language_list.get_text()
         language2 = language[:2]
         language3 = lang_country2linux_locale.get(self.info.language, None)
-        translation = gettext.translation(self.info.application_name, localedir=self.info.translations_dir, languages=[language, language2, language3])
+        language4 = language3 and language3.split('.')[0]
+        translation = gettext.translation(self.info.application_name, localedir=self.info.translations_dir, languages=[language, language2, language3, language4])
         translation.install(unicode=True)
 
     def on_drive_change(self):

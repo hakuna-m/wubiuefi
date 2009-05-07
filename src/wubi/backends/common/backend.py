@@ -174,11 +174,12 @@ class Backend(object):
         return original_exe
 
     def get_locale(self, language_country):
-        locale = lang_country2linux_locale.get(language_country, None)
-        if not locale:
-            locale = lang_country2linux_locale.get("en_US")
-        log.debug("locale=%s" % locale)
-        return locale
+        _locale = lang_country2linux_locale.get(language_country, None)
+        if not _locale:
+            _locale = lang_country2linux_locale.get("en_US")
+        log.debug("python locale=%s" % str(locale.getdefaultlocale()))
+        log.debug("locale=%s" % _locale)
+        return _locale
 
     def get_languages(self):
         return mappings.languages
@@ -450,7 +451,13 @@ class Backend(object):
                 copy_file,
                 description = _("Extracting files from %s" % cd_path))
             self.info.iso_path = join_path(self.info.install_dir, "installation.iso")
-            extract_iso(cd_path, self.info.iso_path)
+            try:
+                extract_iso(cd_path, self.info.iso_path)
+            except Exception, err:
+                log.error(err)
+                self.info.cd_path = None
+                self.info.iso_path = None
+                return False
             self.info.cd_path = cd_path
             #This will often fail before release as the CD might not match the latest daily ISO
             check_iso = associated_task.add_subtask(

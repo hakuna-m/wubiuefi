@@ -135,8 +135,12 @@ class Distro(object):
                 return
             if not info_file or not os.path.isfile(info_file):
                 return
-            info = read_file(info_file)
-            info = self.parse_isoinfo(info)
+            try:
+                info = read_file(info_file)
+                info = self.parse_isoinfo(info)
+            except Exception, err:
+                log.error(err)
+                return
             Distro.cache[(cd_or_iso_path, self.info_file)] = info
             return info
 

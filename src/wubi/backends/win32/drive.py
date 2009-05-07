@@ -73,7 +73,8 @@ class Drive(object):
         filesystem = file_system_name_buffer.value
         if not filesystem:
             filesystem = ""
-        filesystem = filesystem.encode('ascii', 'ignore')
+        if isinstance(filesystem, str):
+            filesystem = filesystem.decode('ascii', 'ignore')
         filesystem = filesystem.lower()
         return filesystem
 

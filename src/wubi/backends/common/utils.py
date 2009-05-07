@@ -26,9 +26,12 @@ import shutil
 import sys
 import random
 import ctypes
+import logging
+
+log = logging.getLogger("CommonBackendUtils")
 
 def join_path(*args):
-    if args and args[0][-1] == ":":
+    if args and args[0] and args[0][-1] == ":":
         args = list(args)
         args[0] = args[0] + os.path.sep
     return os.path.abspath(os.path.join(*args))
@@ -257,7 +260,6 @@ def replace_line_in_file(file_path, old_line, new_line):
     try:
         f.writelines(lines)
     except Exception, err:
-        log.error("lines=%s, file_path=%s, old_line=%s, new_line=%s" % (lines, file_path, old_line, new_line))
         log.exception(err)
     f.close()
 
