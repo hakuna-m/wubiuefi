@@ -256,6 +256,8 @@ class Backend(object):
 
     def check_cd(self, cd_path, associated_task=None):
         associated_task.description = _("Checking CD %s") % cd_path
+        if not self.info.distro.is_valid_cd(cd_path, check_arch=False):
+            return False
         self.set_distro_from_arch(cd_path)
         if self.info.skip_md5_check:
             return True
@@ -271,6 +273,8 @@ class Backend(object):
 
     def check_iso(self, iso_path, associated_task=None):
         log.debug("Checking %s" % iso_path)
+        if not self.info.distro.is_valid_iso(iso_path, check_arch=False):
+            return False
         self.set_distro_from_arch(iso_path)
         if self.info.skip_md5_check:
             return True

@@ -178,10 +178,10 @@ class Distro(object):
         Ubuntu 9.04 "Jaunty Jackalope" - Alpha i386 (20090106.1)
         Ubuntu Split Name 9.04.1 "Jaunty Jackalope" - Final Release i386 (20090106.2)
         '''
-        log.debug("  info=%s" % info)
-        info = disk_info_re.match(info)
+        log.debug("  parsing info from str=%s" % info)
         if not info:
-            return None, None, None
+            return
+        info = disk_info_re.match(info)
         name = info.group('name')
         version = info.group('version')
         subversion = info.group('subversion')

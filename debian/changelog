@@ -227,6 +227,9 @@ wubi (9.04) UNRELEASED; urgency=low
   * Do not quit if there are ISO info parsing errors due to file
     corruption (LP: #366009)
   * Avoid white spaces in ISO name (LP: #365829)
+  * Fixed vfat filesystem detection (LP: #369225)
+  * More robust ISO check to avoid failures when the ISO file is
+    corrupted
 
   [ Hampus Wessman ]
   * Added a new metalink parser
@@ -268,4 +271,4 @@ wubi (9.04) UNRELEASED; urgency=low
   * Check for preseed.$(distro) in the data directory before assuming that
     preseed.lupin should be used. (LP: #359834)
 
- -- Agostino Russo <agostino.russo@gmail.com>  Thu, 07 May 2009 01:52:15 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Thu, 07 May 2009 23:32:09 +0100

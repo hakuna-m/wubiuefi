@@ -47,35 +47,15 @@ class Drive(object):
             self.free_space_mb = 1.0*free/1024**2
 
     def get_filesystem(self):
-        DWORD = ctypes.wintypes.DWORD
-        MAX_PATH_NULL = 255
-        drive_path = self.path
-        volume_serial_number = DWORD()
-        maximum_component_length = DWORD()
-        file_system_flags = DWORD()
-        if hasattr(ctypes.windll.kernel32, "GetVolumeInformationW"):
-            drive_path = unicode(drive_path)
-            volume_name_buffer = ctypes.create_unicode_buffer(MAX_PATH_NULL)
-            file_system_name_buffer = ctypes.create_unicode_buffer(MAX_PATH_NULL)
-            gvi = ctypes.windll.kernel32.GetVolumeInformationW
-        else:
-            volume_name_buffer = ctypes.create_string_buffer(MAX_PATH_NULL)
-            file_system_name_buffer = ctypes.create_string_buffer(MAX_PATH_NULL)
-            gvi = ctypes.windll.kernel32.GetVolumeInformationA
-        gvi(  drive_path,
-                volume_name_buffer,
-                MAX_PATH_NULL,
-                ctypes.byref(volume_serial_number),
-                ctypes.byref(maximum_component_length),
-                ctypes.byref(file_system_flags),
-                file_system_name_buffer,
-                MAX_PATH_NULL)
-        filesystem = file_system_name_buffer.value
-        if not filesystem:
-            filesystem = ""
-        if isinstance(filesystem, str):
-            filesystem = filesystem.decode('ascii', 'ignore')
-        filesystem = filesystem.lower()
+        MAX_PATH = 255
+        if not hasattr(ctypes.windll.kernel32, "GetVolumeInformationA"):
+            return ""
+        filesystem = ""
+        path = self.path[0] + ':\\'
+        buf = ctypes.create_string_buffer("", MAX_PATH)
+        ctypes.windll.kernel32.GetVolumeInformationA(path, None, 0, None, None, None, buf, len(buf))
+        if isinstance(buf.value, str):
+            filesystem = buf.value.lower()
         return filesystem
 
     def get_space(self):

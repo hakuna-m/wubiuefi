@@ -638,7 +638,7 @@ class WindowsBackend(Backend):
         usr_size_mb = 0
         swap_size_mb = 256
         root_size_mb = total_size_mb - swap_size_mb
-        if self.info.target_drive.filesystem == "vfat":
+        if self.info.target_drive.filesystem in ["fat", "fat32", "vfat"]:
             if root_size_mb > 8500:
                 home_size_mb = root_size_mb - 8000
                 usr_size_mb = 4000
