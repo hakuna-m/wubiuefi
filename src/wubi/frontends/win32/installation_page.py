@@ -20,7 +20,7 @@
 
 from winui import ui
 from page import Page
-from wubi.backends.common.mappings import reserved_usernames, lang_country2linux_locale
+from wubi.backends.common.mappings import reserved_usernames, lang_country2linux_locale, language2lang_country, lang_country2language
 import os
 import logging
 import sys
@@ -156,10 +156,15 @@ class InstallationPage(Page):
         self.on_distro_change()
 
     def populate_language_list(self):
-        languages = self.info.languages
+        languages = language2lang_country.keys()
+        languages.sort()
         for language in languages:
             self.language_list.add_item(language)
-        language = self.info.windows_language
+        language = lang_country2language.get(self.info.language, None)
+        if not language and self.info.windows_language in language2lang_country.keys():
+            language = self.info.windows_language
+        if not language:
+            language = lang_country2language.get("en_US")
         self.language_list.set_value(language)
 
     def on_init(self):
@@ -269,10 +274,12 @@ class InstallationPage(Page):
 
     def on_language_change(self):
         language = self.language_list.get_text()
-        language2 = language[:2]
+        language1 = language2lang_country.get(language, None)
+        language2 = language1 and language1.split('_')[0]
         language3 = lang_country2linux_locale.get(self.info.language, None)
         language4 = language3 and language3.split('.')[0]
-        translation = gettext.translation(self.info.application_name, localedir=self.info.translations_dir, languages=[language, language2, language3, language4])
+        language5 = language4 and language4.split('_')[0]
+        translation = gettext.translation(self.info.application_name, localedir=self.info.translations_dir, languages=[language1, language2, language3, language4, language5])
         translation.install(unicode=True)
 
     def on_drive_change(self):
@@ -292,6 +299,8 @@ class InstallationPage(Page):
         drive = self.get_drive()
         installation_size_mb = self.get_installation_size_mb()
         language = self.language_list.get_text()
+        language = language2lang_country.get(language, None)
+        locale = lang_country2linux_locale.get(language, self.info.locale)
         username = self.username.get_text()
         password1 = self.password1.get_text()
         password2 = self.password2.get_text()
@@ -318,11 +327,12 @@ class InstallationPage(Page):
         if error_message:
             return
         log.debug(
-            "target_drive=%s, installation_size=%sMB, distro_name=%s, language=%s, username=%s" \
-            % (drive.path, installation_size_mb, self.info.distro.name, language, username))
+            "target_drive=%s, installation_size=%sMB, distro_name=%s, language=%s, locale=%s, username=%s" \
+            % (drive.path, installation_size_mb, self.info.distro.name, language, locale, username))
         self.info.target_drive = drive
         self.info.installation_size_mb = installation_size_mb
         self.info.language = language
+        self.info.locale = locale
         self.info.username = username
         self.info.password = password1
         self.frontend.stop()

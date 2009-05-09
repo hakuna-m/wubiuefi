@@ -108,7 +108,6 @@ class Backend(object):
         tasklist = ThreadedTaskList(description=_("Installing CD boot helper"), tasks=tasks)
         return tasklist
 
-
     def get_reboot_tasklist(self):
         tasks = [
             Task(self.reboot, description=_("Rebooting")),
@@ -145,7 +144,6 @@ class Backend(object):
             log.debug("Forcing 32 bit arch")
             self.info.arch = "i386"
         self.info.check_arch = (self.info.arch == "i386")
-        self.info.languages = self.get_languages()
         self.info.distro = None
         self.info.distros = self.get_distros()
         distros = [((d.name.lower(), d.arch), d) for d in  self.info.distros]
@@ -173,16 +171,13 @@ class Backend(object):
         log.debug("original_exe=%s" % original_exe)
         return original_exe
 
-    def get_locale(self, language_country):
+    def get_locale(self, language_country, fallback="en_US"):
         _locale = lang_country2linux_locale.get(language_country, None)
         if not _locale:
-            _locale = lang_country2linux_locale.get("en_US")
+            _locale = lang_country2linux_locale.get(fallback)
         log.debug("python locale=%s" % str(locale.getdefaultlocale()))
         log.debug("locale=%s" % _locale)
         return _locale
-
-    def get_languages(self):
-        return mappings.languages
 
     def get_platform(self):
         platform = sys.platform

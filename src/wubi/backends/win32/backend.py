@@ -86,6 +86,8 @@ class WindowsBackend(Backend):
         self.info.icon = join_path(self.info.target_dir, self.info.distro.name + '.ico')
 
     def uncompress_target_dir(self, associated_task):
+        if self.info.target_drive.filesystem in ["fat", "fat32", "vfat"]:
+            return
         try:
             command = ['compact', self.info.target_dir, '/U', '/A', '/F']
             run_command(command)
@@ -95,6 +97,8 @@ class WindowsBackend(Backend):
             log.error(err)
 
     def uncompress_files(self, associated_task):
+        if self.info.target_drive.filesystem in ["fat", "fat32", "vfat"]:
+            return
         command1 = ['compact', join_path(self.info.install_boot_dir), '/U', '/A', '/F']
         command2 = ['compact', join_path(self.info.install_boot_dir,'*.*'), '/U', '/A', '/F']
         for command in [command1,command2]:
