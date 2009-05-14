@@ -232,6 +232,8 @@ wubi (9.04) UNRELEASED; urgency=low
     corrupted
   * Change the locale according to the language selector (LP: #373421)
   * The compact command is not supported on a vfat filesystems
+  * Fixed translatable strings, thanks Adi Roiban (LP: #376457)
+  * Added update-po to makefile, thanks Adi Roiban (LP: #376463)
 
   [ Hampus Wessman ]
   * Added a new metalink parser
@@ -273,4 +275,4 @@ wubi (9.04) UNRELEASED; urgency=low
   * Check for preseed.$(distro) in the data directory before assuming that
     preseed.lupin should be used. (LP: #359834)
 
- -- Agostino Russo <agostino.russo@gmail.com>  Fri, 08 May 2009 01:45:49 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Thu, 14 May 2009 22:48:14 +0100

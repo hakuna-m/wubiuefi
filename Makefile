@@ -40,6 +40,14 @@ pot:
 	sed -i 's/PACKAGE VERSION/$(VERSION)-r$(REVISION)/' po/$(PACKAGE).pot
 	sed -i 's/PACKAGE/$(PACKAGE)/' po/$(PACKAGE).pot
 
+update-po: pot
+	for i in po/*.po ;\
+	do \
+	mv $$i $${i}.old ; \
+	(msgmerge $${i}.old po/wubi.pot | msgattrib --no-obsolete > $$i) ; \
+	rm $${i}.old ; \
+	done
+
 translations: po/*.po
 	mkdir -p build/translations/
 	@for po in $^; do \

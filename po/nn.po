@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-04-08 02:56+0100\n"
+"POT-Creation-Date: 2009-05-14 23:17+0100\n"
 "PO-Revision-Date: 2008-04-09 00:33+0000\n"
 "Last-Translator: JoNNeMaNN <jonstodle@gmail.com>\n"
 "Language-Team: Norwegian Nynorsk <nn@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Launchpad-Export-Date: 2009-04-09 23:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: src/wubi/backends/win32/backend.py:148
+#: src/wubi/backends/win32/backend.py:152
 #, python-format
 msgid ""
 "The installation failed. Logs have been saved in: %s.\n"
@@ -54,138 +54,140 @@ msgid "Downloading %s"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:74
-#: src/wubi/backends/common/backend.py:94
+#: src/wubi/backends/common/backend.py:95
 msgid "Selecting the target directory"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:75
-#: src/wubi/backends/common/backend.py:95
+#: src/wubi/backends/common/backend.py:96
 msgid "Creating the installation directories"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:76
-#: src/wubi/backends/common/backend.py:96
-msgid "Creating the uninstaller"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:77
+#: src/wubi/backends/common/backend.py:86
 #: src/wubi/backends/common/backend.py:97
-#: src/wubi/backends/common/backend.py:419
-#: src/wubi/backends/common/backend.py:425
-msgid "Copying installation files"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:78
-msgid "Retrieving installation files"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:79
-#: src/wubi/backends/common/backend.py:99
-msgid "Extracting the kernel"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:80
-msgid "Choosing disk sizes"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:81
-#: src/wubi/backends/common/backend.py:100
-msgid "Creating a preseed file"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:82
-#: src/wubi/backends/common/backend.py:101
-msgid "Adding a new bootloader entry"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:83
-#: src/wubi/backends/common/backend.py:102
-msgid "Setting up installation boot menu"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:84
-msgid "Creating the virtual disks"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:85
-#: src/wubi/backends/common/backend.py:103
+#: src/wubi/backends/common/backend.py:105
 msgid "Uncompressing files"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:86
+#: src/wubi/backends/common/backend.py:77
+#: src/wubi/backends/common/backend.py:98
+msgid "Creating the uninstaller"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:78
+#: src/wubi/backends/common/backend.py:99
+#: src/wubi/backends/common/backend.py:420
+#: src/wubi/backends/common/backend.py:426
+msgid "Copying installation files"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:79
+msgid "Retrieving installation files"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:80
+#: src/wubi/backends/common/backend.py:101
+msgid "Extracting the kernel"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:81
+msgid "Choosing disk sizes"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:82
+#: src/wubi/backends/common/backend.py:102
+msgid "Creating a preseed file"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:83
+#: src/wubi/backends/common/backend.py:103
+msgid "Adding a new bootloader entry"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:84
 #: src/wubi/backends/common/backend.py:104
+msgid "Setting up installation boot menu"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:85
+msgid "Creating the virtual disks"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:87
+#: src/wubi/backends/common/backend.py:106
 msgid "Ejecting the CD"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:88
+#: src/wubi/backends/common/backend.py:89
 #: src/wubi/frontends/win32/progress_page.py:38
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:98
+#: src/wubi/backends/common/backend.py:100
 msgid "Extracting CD content"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:106
+#: src/wubi/backends/common/backend.py:108
 msgid "Installing CD boot helper"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:112
-#: src/wubi/backends/common/backend.py:114
+#: src/wubi/backends/common/backend.py:113
+#: src/wubi/backends/common/backend.py:115
 msgid "Rebooting"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:119
+#: src/wubi/backends/common/backend.py:120
 msgid "Backup ISO"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:120
+#: src/wubi/backends/common/backend.py:121
 msgid "Remove bootloader entry"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:121
+#: src/wubi/backends/common/backend.py:122
 msgid "Remove target dir"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:122
+#: src/wubi/backends/common/backend.py:123
 msgid "Remove registry key"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:123
+#: src/wubi/backends/common/backend.py:124
 #, python-format
 msgid "Uninstalling %s"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:255
+#: src/wubi/backends/common/backend.py:253
 #, python-format
 msgid "Checking CD %s"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:277
-#: src/wubi/backends/common/backend.py:321
-#: src/wubi/backends/common/backend.py:357
+#: src/wubi/backends/common/backend.py:279
+#: src/wubi/backends/common/backend.py:323
+#: src/wubi/backends/common/backend.py:359
 msgid "Downloading information on installation files"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:292
-#: src/wubi/backends/common/backend.py:349
-#: src/wubi/backends/common/backend.py:412
-#: src/wubi/backends/common/backend.py:456
+#: src/wubi/backends/common/backend.py:294
+#: src/wubi/backends/common/backend.py:351
+#: src/wubi/backends/common/backend.py:414
+#: src/wubi/backends/common/backend.py:463
 msgid "Checking installation files"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:383
+#: src/wubi/backends/common/backend.py:385
 #, python-format
 msgid "Validating %s"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:449
+#: src/wubi/backends/common/backend.py:450
 #, python-format
 msgid "Extracting files from %s"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:519
+#: src/wubi/backends/common/backend.py:526
 #, python-format
 msgid "Checking %s"
 msgstr ""
@@ -228,7 +230,7 @@ msgid "Uninstall"
 msgstr ""
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
-#: src/wubi/frontends/win32/installation_page.py:176
+#: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/progress_page.py:43
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/accessibility_page.py:39
@@ -272,50 +274,55 @@ msgstr ""
 msgid "(%sGB free)"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:172
+#: src/wubi/frontends/win32/installation_page.py:177
 msgid "Please select username and password for the new account"
 msgstr "Vel brukarnamn og passord for den nye kontoen"
 
-#: src/wubi/frontends/win32/installation_page.py:176
+#: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Accessibility"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:176
+#: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Install"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:188
+#: src/wubi/frontends/win32/installation_page.py:193
 msgid "Installation drive:"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:194
+#: src/wubi/frontends/win32/installation_page.py:199
 msgid "Installation size:"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:200
+#: src/wubi/frontends/win32/installation_page.py:205
 msgid "Desktop environment:"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:206
+#: src/wubi/frontends/win32/installation_page.py:211
 msgid "Language:"
 msgstr "Språk:"
 
-#: src/wubi/frontends/win32/installation_page.py:215
+#: src/wubi/frontends/win32/installation_page.py:219
 msgid "Username:"
 msgstr "Brukarnamn:"
 
-#: src/wubi/frontends/win32/installation_page.py:222
+#: src/wubi/frontends/win32/installation_page.py:226
 msgid "Password:"
 msgstr "Passord:"
 
-#: src/wubi/frontends/win32/installation_page.py:255
+#: src/wubi/frontends/win32/installation_page.py:259
 #, python-format
 msgid "%s Installer"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:263
+#: src/wubi/frontends/win32/installation_page.py:262
+#, fuzzy, python-format
+msgid "You are about to install %(distro)s-%(version)s"
+msgstr "Du skal til å installere $Distro-$DistroVersion"
+
+#: src/wubi/frontends/win32/installation_page.py:267
 #, python-format
 msgid ""
 "%(min_memory)sMB of memory are required for installation.\n"
@@ -324,39 +331,39 @@ msgid ""
 "Do you wish to continue anyway?"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:300
+#: src/wubi/frontends/win32/installation_page.py:309
 msgid "Please enter a valid username"
 msgstr "Skriv inn eit gyldig brukarnamn"
 
-#: src/wubi/frontends/win32/installation_page.py:302
+#: src/wubi/frontends/win32/installation_page.py:311
 msgid "Please use all lower cases in the username."
 msgstr "Berre bruk små bokstavar i brukarnamnet."
 
-#: src/wubi/frontends/win32/installation_page.py:304
+#: src/wubi/frontends/win32/installation_page.py:313
 msgid "Please do not use spaces in the username."
 msgstr "Ikkje bruk mellomrom i brukarnamnet."
 
-#: src/wubi/frontends/win32/installation_page.py:306
+#: src/wubi/frontends/win32/installation_page.py:315
 msgid "Your username must start with a letter."
 msgstr "Start brukarnamnet med ein bokstav."
 
-#: src/wubi/frontends/win32/installation_page.py:308
+#: src/wubi/frontends/win32/installation_page.py:317
 msgid "Your username must contain only standard letters and numbers."
 msgstr "Brukarnamnet kan berre innehalde vanlege bokstavar og tal."
 
-#: src/wubi/frontends/win32/installation_page.py:310
+#: src/wubi/frontends/win32/installation_page.py:319
 msgid "The selected username is reserved, please select a different one."
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:312
+#: src/wubi/frontends/win32/installation_page.py:321
 msgid "Please enter a valid password."
 msgstr "Skriv inn eit eit gyldig passord."
 
-#: src/wubi/frontends/win32/installation_page.py:314
+#: src/wubi/frontends/win32/installation_page.py:323
 msgid "Please do not use spaces in the password."
 msgstr "Ikkje bruk mellomrom i passordet."
 
-#: src/wubi/frontends/win32/installation_page.py:316
+#: src/wubi/frontends/win32/installation_page.py:325
 msgid "Passwords do not match."
 msgstr "Passorda er ikkje like."
 
@@ -558,276 +565,3 @@ msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
-
-#~ msgid "You need to reboot to complete the installation."
-#~ msgstr "Du må restarte datamaskinen for å fullføre installasjonen."
-
-#~ msgid "Desktop Environment:"
-#~ msgstr "Skrivebordsmiljø:"
-
-#~ msgid "Initializing..."
-#~ msgstr "Starter opp..."
-
-#~ msgid "Uncompressing wubi folder..."
-#~ msgstr "Dekomprimerer wubi-mappa..."
-
-#~ msgid "Copying installation files..."
-#~ msgstr "Kopierer installasjonsfilene..."
-
-#~ msgid "Backing up installation files..."
-#~ msgstr "Tryggingskopierar installasjonsfilene..."
-
-#~ msgid "Setting up uninstaller..."
-#~ msgstr "Set opp avinstallatøren..."
-
-#~ msgid "Setting up bootloader..."
-#~ msgstr "Set opp oppstartslastaren..."
-
-#~ msgid "Creating virtual disks..."
-#~ msgstr "Lagar virtuelle diskar..."
-
-#~ msgid "The download was interrupted with the error:"
-#~ msgstr "Nedlastinga vart avbroten av feilen:"
-
-#~ msgid "Please connect to the internet now."
-#~ msgstr "Kople til internett no."
-
-#~ msgid "Installation Size (GB):"
-#~ msgstr "Installasjonsstorleik (GB):"
-
-#~ msgid "Please wait while the required files are retrieved and prepared"
-#~ msgstr "Vent medan dei nødvendige filene er henta og gjort klare"
-
-#~ msgid "Retrieving installation files, resume supported"
-#~ msgstr "Henter installasjonsfilene, gjenopptaking støtta"
-
-#, c-format
-#~ msgid "Connecting to %s..."
-#~ msgstr "Koplar til %s..."
-
-#~ msgid "Calculating checksums..."
-#~ msgstr "Kalkulerer kontrollsummar..."
-
-#, c-format
-#~ msgid "Retrying in %d seconds... (%d of %d)"
-#~ msgstr "Prøver igjen om %d sekund... (%d av %d)"
-
-#, c-format
-#~ msgid "Retrying in %d seconds..."
-#~ msgstr "Prøver igjen %d sekund..."
-
-#~ msgid "second"
-#~ msgstr "sekund"
-
-#~ msgid "seconds"
-#~ msgstr "sekund"
-
-#, c-format
-#~ msgid "%s (%d%%) of %s @ %s/s"
-#~ msgstr "%s (%d%%) av %s @ %s/s"
-
-#, c-format
-#~ msgid " (%s remaining)"
-#~ msgstr " (%s igjen)"
-
-#~ msgid "Installation Drive ($freeSpace GB free):"
-#~ msgstr "Installasjonsdisk ($freeSpace GB ledig):"
-
-#~ msgid ""
-#~ "Please select a username for the new account.\n"
-#~ "It must be lower case.\n"
-#~ "It must not contain spaces.\n"
-#~ "It must contain only standard letters and numbers.\n"
-#~ "It cannot start by a number."
-#~ msgstr ""
-#~ "Vel eit brukarnamn for den nye kontoen.\n"
-#~ "Berre bruk små bokstavar.\n"
-#~ "Ikkje bruk mellomrom.\n"
-#~ "Berre bruk vanlege bokstavar og tal.\n"
-#~ "Ikkje start med eit tal."
-
-#~ msgid ""
-#~ "In which drive do you want to perform the installation?\n"
-#~ "This drive should have at least 5 GB free."
-#~ msgstr ""
-#~ "Kvifor ein disk skal du installere på?\n"
-#~ "Han bør ha minst 5 GB ledig."
-
-#~ msgid "Ubuntu is the default."
-#~ msgstr "Ubuntu er standarden."
-
-#~ msgid "Kubuntu uses the KDE3.5 desktop."
-#~ msgstr "Kubuntu bruker KDE3.5-skrivebordet."
-
-#~ msgid "Xubuntu is good for older systems."
-#~ msgstr "Xubuntu er bra for eldre system."
-
-#~ msgid ""
-#~ "What graphical environment do you want to install?\n"
-#~ "* $(Distro1ToolTip)\n"
-#~ "* $(Distro2ToolTip)\n"
-#~ "* $(Distro3ToolTip)\n"
-#~ "* $(Distro4ToolTip)"
-#~ msgstr ""
-#~ "Kvifor eit grafisk miljø vil du installere?\n"
-#~ "* $(Distro1ToolTip)\n"
-#~ "* $(Distro2ToolTip)\n"
-#~ "* $(Distro3ToolTip)\n"
-#~ "* $(Distro4ToolTip)"
-
-#~ msgid "Error while trying to execute wubibcd:"
-#~ msgstr "Feil under forsøket på å kjøre wubibcd:"
-
-#~ msgid ""
-#~ "Could not access the CD, please make sure other applications are not using "
-#~ "it and try again"
-#~ msgstr ""
-#~ "Kunne ikkje lese CD-en, sjå etter at andre program ikkje brukar han og prøv "
-#~ "igjen"
-
-#~ msgid "You are about to install $Distro-$DistroVersion"
-#~ msgstr "Du skal til å installere $Distro-$DistroVersion"
-
-#~ msgid "Installing $Distro-$DistroVersion"
-#~ msgstr "Installerer $Distro-$DistroVersion"
-
-#~ msgid "${AppName} is already installed"
-#~ msgstr "${AppName} er allereie installert"
-
-#~ msgid ""
-#~ "$OldInstallationDrive\\${DefaultInstallationDir} will be uninstalled.\n"
-#~ "You can backup your files if you want."
-#~ msgstr ""
-#~ "$OldInstallationDrive\\${DefaultInstallationDir} vil verte avinstallert.\n"
-#~ "Du kan tryggingskopiere filene om du vil."
-
-#~ msgid "Backup downloaded files (CD ISO file)."
-#~ msgstr "Tryggingskopier nedlasta filer (CD ISO-fila)."
-
-#~ msgid "Backup personal documents (home.disk)."
-#~ msgstr "Tryggingskopier personlege dokument (home.disk)."
-
-#~ msgid "Backup location: $BackupFolder"
-#~ msgstr "Tryggingskopimål: $BackupFolder"
-
-#~ msgid "Downloading installation files..."
-#~ msgstr "Lastar ned installasjonsfilene..."
-
-#~ msgid "Checking installation files..."
-#~ msgstr "Sjekker installasjonsfilene..."
-
-#~ msgid "&Accessibility"
-#~ msgstr "& tilgjengeligheit"
-
-#~ msgid "High Contrast"
-#~ msgstr "Høg kontrast"
-
-#~ msgid "Magnifier"
-#~ msgstr "Forstørrelseglas"
-
-#~ msgid "Screen Reader"
-#~ msgstr "Skjermlesar"
-
-#~ msgid "Braille Terminal"
-#~ msgstr "Blindeskriftterminal"
-
-#~ msgid "Keyboard Modifiers"
-#~ msgstr "Tastaturendrarar"
-
-#~ msgid "On-Screen Keyboard"
-#~ msgstr "Skjermtastatur"
-
-#~ msgid "Install CD booter"
-#~ msgstr "Installer CD-startar"
-
-#~ msgid "Start installer in normal mode"
-#~ msgstr "Start installatøren i normal modus"
-
-#~ msgid ""
-#~ "Start installer in safe graphic mode (only if you have display problems)"
-#~ msgstr ""
-#~ "Start installatøren i tryggrafikkmodus (berre om du har syningsproblem)"
-
-#~ msgid ""
-#~ "Start installer with ACPI workarounds (only if you have ACPI problems)"
-#~ msgstr "Start installatøren med ACPI-omgåarar (berre om du har ACPI-problem)"
-
-#~ msgid "Start installer in verbose mode"
-#~ msgstr "Start installatøren i ordrik modus"
-
-#~ msgid ""
-#~ "The installation failed. Logs have been saved in: $INSTDIR\\installation-"
-#~ "logs.zip.\n"
-#~ "\n"
-#~ "Note that in verbose mode, the logs may include the password.\n"
-#~ "\n"
-#~ "The system will now reboot."
-#~ msgstr ""
-#~ "Installasjonen feila. Loggar har vorte lagra i: $INSTDIR\\installation-"
-#~ "logs.zip.\n"
-#~ "\n"
-#~ "Merk at i ordrik modus, kan loggane inkludere passord.\n"
-#~ "\n"
-#~ "Systemet vil no restarte."
-
-#~ msgid "Not enough free space."
-#~ msgstr "Ikkje nok ledig plass."
-
-#~ msgid "Creating folders..."
-#~ msgstr "Lagar mapper..."
-
-#~ msgid "Please remove any CD/DVD and reboot to complete the installation."
-#~ msgstr ""
-#~ "Fjern alle CD-/DVD-ar og restart datamaskinen for å fullføre installasjonen."
-
-#~ msgid "Installation language."
-#~ msgstr "Installasjonsspråk."
-
-#~ msgid ""
-#~ "Please select a password for the new account.\n"
-#~ "It must not contain spaces."
-#~ msgstr ""
-#~ "Vel eit passord for den nye kontoen.\n"
-#~ "Ikkje bruk mellomrom."
-
-#~ msgid ""
-#~ "How many GB do you want to allocate?\n"
-#~ "4GB is the bare minimum\n"
-#~ "8GB is comfortable"
-#~ msgstr ""
-#~ "Kor mange GB vil du tildele?\n"
-#~ "4GB er minimum\n"
-#~ "8GB er passeleg"
-
-#~ msgid "Do you want to uninstall it?"
-#~ msgstr "Vil du avinstallere han?"
-
-#~ msgid "Retrieving installation files."
-#~ msgstr "Henter installasjonfilene."
-
-#~ msgid "(Use CD)"
-#~ msgstr "(Bruk CD)"
-
-#~ msgid "(Read Only)"
-#~ msgstr "(Berre Les)"
-
-#~ msgid "Kubuntu-KDE4 uses the KDE4 desktop."
-#~ msgstr "Kubuntu-KDE4 bruker KDE4-skrivebordet."
-
-#~ msgid "The selected username is reserved, please selected a different one."
-#~ msgstr "Det velde brukarnamnet er reservert, vel eit anna."
-
-#~ msgid "Could not retrieve some essential files"
-#~ msgstr "Kunne ikkje hente nokre nødvendige filer"
-
-#~ msgid "Error while trying to execute bcdedit:"
-#~ msgstr "Feil under forsøket på å kjøre bcdedit:"
-
-#~ msgid "Could not find any appropriate CD"
-#~ msgstr "Kunne ikkje finne ein passande CD"
-
-#~ msgid "Writing configuration files..."
-#~ msgstr "Skriver konfigureringsfilene..."
-
-#~ msgid "You must be logged in as administrator!"
-#~ msgstr "Du må vere innlogga som administrator!"

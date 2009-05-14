@@ -259,7 +259,7 @@ class InstallationPage(Page):
         self.frontend.set_title(_("%s Installer") % self.info.distro.name)
         bmp_file = "%s-header.bmp" % self.info.distro.name
         self.header.image.set_image(os.path.join(self.info.image_dir, bmp_file))
-        self.header.title.set_text("You are about to install %(distro)s-%(version)s" % dict(distro=self.info.distro.name, version=self.info.version))
+        self.header.title.set_text(_("You are about to install %(distro)s-%(version)s") % dict(distro=self.info.distro.name, version=self.info.version))
         icon_file = "%s.ico" % self.info.distro.name
         self.frontend.set_icon(os.path.join(self.info.image_dir, icon_file))
         if not self.info.skip_memory_check:

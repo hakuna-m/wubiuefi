@@ -35,7 +35,7 @@ class UninstallationPage(Page):
         if self.info.uninstall_before_install:
             msg = _("Uninstallation required")
         else:
-            msg = _("You are about to uninstall %s" % self.info.previous_distro_name)
+            msg = _("You are about to uninstall %s") % self.info.previous_distro_name
         self.insert_header(
             msg,
             "",

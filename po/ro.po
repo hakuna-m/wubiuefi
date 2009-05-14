@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-04-08 02:56+0100\n"
+"POT-Creation-Date: 2009-05-14 23:17+0100\n"
 "PO-Revision-Date: 2009-03-25 19:11+0000\n"
 "Last-Translator: Adi Roiban <adi@roiban.ro>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 "X-Launchpad-Export-Date: 2009-04-09 23:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: src/wubi/backends/win32/backend.py:148
+#: src/wubi/backends/win32/backend.py:152
 #, python-format
 msgid ""
 "The installation failed. Logs have been saved in: %s.\n"
@@ -65,138 +65,140 @@ msgid "Downloading %s"
 msgstr "Descărcare %s"
 
 #: src/wubi/backends/common/backend.py:74
-#: src/wubi/backends/common/backend.py:94
+#: src/wubi/backends/common/backend.py:95
 msgid "Selecting the target directory"
 msgstr "Selectare dosar destinație"
 
 #: src/wubi/backends/common/backend.py:75
-#: src/wubi/backends/common/backend.py:95
+#: src/wubi/backends/common/backend.py:96
 msgid "Creating the installation directories"
 msgstr "Se creează dosarele de instalare"
 
 #: src/wubi/backends/common/backend.py:76
-#: src/wubi/backends/common/backend.py:96
-msgid "Creating the uninstaller"
-msgstr "Se creează  dezinstalatorul"
-
-#: src/wubi/backends/common/backend.py:77
+#: src/wubi/backends/common/backend.py:86
 #: src/wubi/backends/common/backend.py:97
-#: src/wubi/backends/common/backend.py:419
-#: src/wubi/backends/common/backend.py:425
-msgid "Copying installation files"
-msgstr "Se copiază fișierele de instalare"
-
-#: src/wubi/backends/common/backend.py:78
-msgid "Retrieving installation files"
-msgstr "Se obțin fișierele de instalare"
-
-#: src/wubi/backends/common/backend.py:79
-#: src/wubi/backends/common/backend.py:99
-msgid "Extracting the kernel"
-msgstr "Se extrage nucleul sistemului"
-
-#: src/wubi/backends/common/backend.py:80
-msgid "Choosing disk sizes"
-msgstr "Alegere dimensiune disc"
-
-#: src/wubi/backends/common/backend.py:81
-#: src/wubi/backends/common/backend.py:100
-msgid "Creating a preseed file"
-msgstr "Se creează un fișier preseed (de configurar"
-
-#: src/wubi/backends/common/backend.py:82
-#: src/wubi/backends/common/backend.py:101
-msgid "Adding a new bootloader entry"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:83
-#: src/wubi/backends/common/backend.py:102
-msgid "Setting up installation boot menu"
-msgstr "Se configurează meniu de pornire a sistemului de instalare"
-
-#: src/wubi/backends/common/backend.py:84
-msgid "Creating the virtual disks"
-msgstr "Se creează discurile virtuale"
-
-#: src/wubi/backends/common/backend.py:85
-#: src/wubi/backends/common/backend.py:103
+#: src/wubi/backends/common/backend.py:105
 msgid "Uncompressing files"
 msgstr "De decomprimă fișierele"
 
-#: src/wubi/backends/common/backend.py:86
+#: src/wubi/backends/common/backend.py:77
+#: src/wubi/backends/common/backend.py:98
+msgid "Creating the uninstaller"
+msgstr "Se creează  dezinstalatorul"
+
+#: src/wubi/backends/common/backend.py:78
+#: src/wubi/backends/common/backend.py:99
+#: src/wubi/backends/common/backend.py:420
+#: src/wubi/backends/common/backend.py:426
+msgid "Copying installation files"
+msgstr "Se copiază fișierele de instalare"
+
+#: src/wubi/backends/common/backend.py:79
+msgid "Retrieving installation files"
+msgstr "Se obțin fișierele de instalare"
+
+#: src/wubi/backends/common/backend.py:80
+#: src/wubi/backends/common/backend.py:101
+msgid "Extracting the kernel"
+msgstr "Se extrage nucleul sistemului"
+
+#: src/wubi/backends/common/backend.py:81
+msgid "Choosing disk sizes"
+msgstr "Alegere dimensiune disc"
+
+#: src/wubi/backends/common/backend.py:82
+#: src/wubi/backends/common/backend.py:102
+msgid "Creating a preseed file"
+msgstr "Se creează un fișier preseed (de configurar"
+
+#: src/wubi/backends/common/backend.py:83
+#: src/wubi/backends/common/backend.py:103
+msgid "Adding a new bootloader entry"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:84
 #: src/wubi/backends/common/backend.py:104
+msgid "Setting up installation boot menu"
+msgstr "Se configurează meniu de pornire a sistemului de instalare"
+
+#: src/wubi/backends/common/backend.py:85
+msgid "Creating the virtual disks"
+msgstr "Se creează discurile virtuale"
+
+#: src/wubi/backends/common/backend.py:87
+#: src/wubi/backends/common/backend.py:106
 msgid "Ejecting the CD"
 msgstr "Se scoate CD-ul"
 
-#: src/wubi/backends/common/backend.py:88
+#: src/wubi/backends/common/backend.py:89
 #: src/wubi/frontends/win32/progress_page.py:38
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
 msgstr "Se instalează %(distro)s-%(version)s"
 
-#: src/wubi/backends/common/backend.py:98
+#: src/wubi/backends/common/backend.py:100
 msgid "Extracting CD content"
 msgstr "Se extrage conținutul CD-ului"
 
-#: src/wubi/backends/common/backend.py:106
+#: src/wubi/backends/common/backend.py:108
 msgid "Installing CD boot helper"
 msgstr "Se intalează ajutorul de pornire CD"
 
-#: src/wubi/backends/common/backend.py:112
-#: src/wubi/backends/common/backend.py:114
+#: src/wubi/backends/common/backend.py:113
+#: src/wubi/backends/common/backend.py:115
 msgid "Rebooting"
 msgstr "Se repornește"
 
-#: src/wubi/backends/common/backend.py:119
+#: src/wubi/backends/common/backend.py:120
 msgid "Backup ISO"
 msgstr "Copie de rezervă ISO"
 
-#: src/wubi/backends/common/backend.py:120
+#: src/wubi/backends/common/backend.py:121
 msgid "Remove bootloader entry"
 msgstr "Ștergerea intrării din meniul de boot"
 
-#: src/wubi/backends/common/backend.py:121
+#: src/wubi/backends/common/backend.py:122
 msgid "Remove target dir"
 msgstr "Ștergerea directorului destinație"
 
-#: src/wubi/backends/common/backend.py:122
+#: src/wubi/backends/common/backend.py:123
 msgid "Remove registry key"
 msgstr "Ștergerea cheii din registry"
 
-#: src/wubi/backends/common/backend.py:123
+#: src/wubi/backends/common/backend.py:124
 #, python-format
 msgid "Uninstalling %s"
 msgstr "De dezinstalează %s"
 
-#: src/wubi/backends/common/backend.py:255
+#: src/wubi/backends/common/backend.py:253
 #, python-format
 msgid "Checking CD %s"
 msgstr "Se verifică %s"
 
-#: src/wubi/backends/common/backend.py:277
-#: src/wubi/backends/common/backend.py:321
-#: src/wubi/backends/common/backend.py:357
+#: src/wubi/backends/common/backend.py:279
+#: src/wubi/backends/common/backend.py:323
+#: src/wubi/backends/common/backend.py:359
 msgid "Downloading information on installation files"
 msgstr "Se descarcă informații despre fișierele de instalare"
 
-#: src/wubi/backends/common/backend.py:292
-#: src/wubi/backends/common/backend.py:349
-#: src/wubi/backends/common/backend.py:412
-#: src/wubi/backends/common/backend.py:456
+#: src/wubi/backends/common/backend.py:294
+#: src/wubi/backends/common/backend.py:351
+#: src/wubi/backends/common/backend.py:414
+#: src/wubi/backends/common/backend.py:463
 msgid "Checking installation files"
 msgstr "Se verifică fișierele de instalare"
 
-#: src/wubi/backends/common/backend.py:383
+#: src/wubi/backends/common/backend.py:385
 #, python-format
 msgid "Validating %s"
 msgstr "Se validează %s"
 
-#: src/wubi/backends/common/backend.py:449
+#: src/wubi/backends/common/backend.py:450
 #, python-format
 msgid "Extracting files from %s"
 msgstr "Se extrag fișiere din %s"
 
-#: src/wubi/backends/common/backend.py:519
+#: src/wubi/backends/common/backend.py:526
 #, python-format
 msgid "Checking %s"
 msgstr "Se verifică %s"
@@ -239,7 +241,7 @@ msgid "Uninstall"
 msgstr "Dezinstalare"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
-#: src/wubi/frontends/win32/installation_page.py:176
+#: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/progress_page.py:43
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/accessibility_page.py:39
@@ -291,50 +293,55 @@ msgstr ""
 msgid "(%sGB free)"
 msgstr "(%sGB liberi)"
 
-#: src/wubi/frontends/win32/installation_page.py:172
+#: src/wubi/frontends/win32/installation_page.py:177
 msgid "Please select username and password for the new account"
 msgstr "Introduceți numele de utilizator și parola pentru noul cont"
 
-#: src/wubi/frontends/win32/installation_page.py:176
+#: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Accessibility"
 msgstr "Accesibilitate"
 
-#: src/wubi/frontends/win32/installation_page.py:176
+#: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Install"
 msgstr "Instalează"
 
-#: src/wubi/frontends/win32/installation_page.py:188
+#: src/wubi/frontends/win32/installation_page.py:193
 msgid "Installation drive:"
 msgstr "Disc instalare:"
 
-#: src/wubi/frontends/win32/installation_page.py:194
+#: src/wubi/frontends/win32/installation_page.py:199
 msgid "Installation size:"
 msgstr "Dimensiune instalare:"
 
-#: src/wubi/frontends/win32/installation_page.py:200
+#: src/wubi/frontends/win32/installation_page.py:205
 msgid "Desktop environment:"
 msgstr "Mediu desktop:"
 
-#: src/wubi/frontends/win32/installation_page.py:206
+#: src/wubi/frontends/win32/installation_page.py:211
 msgid "Language:"
 msgstr "Limbă:"
 
-#: src/wubi/frontends/win32/installation_page.py:215
+#: src/wubi/frontends/win32/installation_page.py:219
 msgid "Username:"
 msgstr "Nume de utilizator:"
 
-#: src/wubi/frontends/win32/installation_page.py:222
+#: src/wubi/frontends/win32/installation_page.py:226
 msgid "Password:"
 msgstr "Parolă:"
 
-#: src/wubi/frontends/win32/installation_page.py:255
+#: src/wubi/frontends/win32/installation_page.py:259
 #, python-format
 msgid "%s Installer"
 msgstr "Instalator %s"
 
-#: src/wubi/frontends/win32/installation_page.py:263
+#: src/wubi/frontends/win32/installation_page.py:262
+#, fuzzy, python-format
+msgid "You are about to install %(distro)s-%(version)s"
+msgstr "Se instalează %(distro)s-%(version)s"
+
+#: src/wubi/frontends/win32/installation_page.py:267
 #, python-format
 msgid ""
 "%(min_memory)sMB of memory are required for installation.\n"
@@ -347,40 +354,40 @@ msgstr ""
 "S-ar putea ca instalarea să eșueze în aceste condiții.\n"
 "Vreți să continuați și așa?"
 
-#: src/wubi/frontends/win32/installation_page.py:300
+#: src/wubi/frontends/win32/installation_page.py:309
 msgid "Please enter a valid username"
 msgstr "Introduceți un nume de utilizator valid"
 
-#: src/wubi/frontends/win32/installation_page.py:302
+#: src/wubi/frontends/win32/installation_page.py:311
 msgid "Please use all lower cases in the username."
 msgstr "Folosiți doar litere mici în numele de utilizator."
 
-#: src/wubi/frontends/win32/installation_page.py:304
+#: src/wubi/frontends/win32/installation_page.py:313
 msgid "Please do not use spaces in the username."
 msgstr "Nu utilizaţi spații în numele de utilizator."
 
-#: src/wubi/frontends/win32/installation_page.py:306
+#: src/wubi/frontends/win32/installation_page.py:315
 msgid "Your username must start with a letter."
 msgstr "Numele de utilizator trebuie să înceapă cu o literă."
 
-#: src/wubi/frontends/win32/installation_page.py:308
+#: src/wubi/frontends/win32/installation_page.py:317
 msgid "Your username must contain only standard letters and numbers."
 msgstr ""
 "Numele de utilizator trebuie să conțină numai litere standard și cifre."
 
-#: src/wubi/frontends/win32/installation_page.py:310
+#: src/wubi/frontends/win32/installation_page.py:319
 msgid "The selected username is reserved, please select a different one."
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:312
+#: src/wubi/frontends/win32/installation_page.py:321
 msgid "Please enter a valid password."
 msgstr "Introduceți o parolă validă."
 
-#: src/wubi/frontends/win32/installation_page.py:314
+#: src/wubi/frontends/win32/installation_page.py:323
 msgid "Please do not use spaces in the password."
 msgstr "Nu utilizaţi spații în parolă."
 
-#: src/wubi/frontends/win32/installation_page.py:316
+#: src/wubi/frontends/win32/installation_page.py:325
 msgid "Passwords do not match."
 msgstr "Parolele nu sunt la fel."
 
@@ -605,26 +612,3 @@ msgid ""
 msgstr ""
 "Nu s-a găsit un CD valid.\n"
 "Este nevoie de un Live CD."
-
-#~ msgid "Installation Size (GB):"
-#~ msgstr "Mărimea instalării (în GB):"
-
-#~ msgid "The selected username is reserved, please selected a different one."
-#~ msgstr "Numele de utilizator ales este rezervat, alegeți altul."
-
-#~ msgid "%(distro)s CD Menu"
-#~ msgstr "%(distro)s Meniu CD"
-
-#~ msgid "Invalid CD detected"
-#~ msgstr "S-a detectat un CD nevalid"
-
-#~ msgid ""
-#~ "Install and uninstall %(distro)s like any other application, without the "
-#~ "need for a dedicated partition.  You will be able to boot into either "
-#~ "Windows%(distro)s.  Hibernation is not enabled in this mode and disk "
-#~ "performance is slightly reduced."
-#~ msgstr ""
-#~ "Instalati si dezinstalati %(distro)s ca si orice altă aplicatie, fără a fi "
-#~ "nevoie de o compartimentare specială. Veti putea să initializati fie "
-#~ "Windows, fie %(distro)s. Hibernarea nu este activată în acest mod, iar "
-#~ "performantele discului sunt usor reduse."

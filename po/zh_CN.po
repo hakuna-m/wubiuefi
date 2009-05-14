@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
-"Report-Msgid-Bugs-To: Hampus Wessman <hw@vox.nu>\n"
-"POT-Creation-Date: 2009-04-08 02:56+0100\n"
+"Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
+"POT-Creation-Date: 2009-05-14 23:17+0100\n"
 "PO-Revision-Date: 2009-02-26 16:02+0000\n"
 "Last-Translator: rainofchaos <rainofchaos@gmail.com>\n"
 "Language-Team: Simplified Chinese <zh_CN@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Launchpad-Export-Date: 2009-04-09 23:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: src/wubi/backends/win32/backend.py:148
+#: src/wubi/backends/win32/backend.py:152
 #, python-format
 msgid ""
 "The installation failed. Logs have been saved in: %s.\n"
@@ -54,138 +54,140 @@ msgid "Downloading %s"
 msgstr "已经下载 %s"
 
 #: src/wubi/backends/common/backend.py:74
-#: src/wubi/backends/common/backend.py:94
+#: src/wubi/backends/common/backend.py:95
 msgid "Selecting the target directory"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:75
-#: src/wubi/backends/common/backend.py:95
+#: src/wubi/backends/common/backend.py:96
 msgid "Creating the installation directories"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:76
-#: src/wubi/backends/common/backend.py:96
-msgid "Creating the uninstaller"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:77
+#: src/wubi/backends/common/backend.py:86
 #: src/wubi/backends/common/backend.py:97
-#: src/wubi/backends/common/backend.py:419
-#: src/wubi/backends/common/backend.py:425
-msgid "Copying installation files"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:78
-msgid "Retrieving installation files"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:79
-#: src/wubi/backends/common/backend.py:99
-msgid "Extracting the kernel"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:80
-msgid "Choosing disk sizes"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:81
-#: src/wubi/backends/common/backend.py:100
-msgid "Creating a preseed file"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:82
-#: src/wubi/backends/common/backend.py:101
-msgid "Adding a new bootloader entry"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:83
-#: src/wubi/backends/common/backend.py:102
-msgid "Setting up installation boot menu"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:84
-msgid "Creating the virtual disks"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:85
-#: src/wubi/backends/common/backend.py:103
+#: src/wubi/backends/common/backend.py:105
 msgid "Uncompressing files"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:86
+#: src/wubi/backends/common/backend.py:77
+#: src/wubi/backends/common/backend.py:98
+msgid "Creating the uninstaller"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:78
+#: src/wubi/backends/common/backend.py:99
+#: src/wubi/backends/common/backend.py:420
+#: src/wubi/backends/common/backend.py:426
+msgid "Copying installation files"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:79
+msgid "Retrieving installation files"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:80
+#: src/wubi/backends/common/backend.py:101
+msgid "Extracting the kernel"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:81
+msgid "Choosing disk sizes"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:82
+#: src/wubi/backends/common/backend.py:102
+msgid "Creating a preseed file"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:83
+#: src/wubi/backends/common/backend.py:103
+msgid "Adding a new bootloader entry"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:84
 #: src/wubi/backends/common/backend.py:104
+msgid "Setting up installation boot menu"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:85
+msgid "Creating the virtual disks"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:87
+#: src/wubi/backends/common/backend.py:106
 msgid "Ejecting the CD"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:88
+#: src/wubi/backends/common/backend.py:89
 #: src/wubi/frontends/win32/progress_page.py:38
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:98
+#: src/wubi/backends/common/backend.py:100
 msgid "Extracting CD content"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:106
+#: src/wubi/backends/common/backend.py:108
 msgid "Installing CD boot helper"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:112
-#: src/wubi/backends/common/backend.py:114
+#: src/wubi/backends/common/backend.py:113
+#: src/wubi/backends/common/backend.py:115
 msgid "Rebooting"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:119
+#: src/wubi/backends/common/backend.py:120
 msgid "Backup ISO"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:120
+#: src/wubi/backends/common/backend.py:121
 msgid "Remove bootloader entry"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:121
+#: src/wubi/backends/common/backend.py:122
 msgid "Remove target dir"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:122
+#: src/wubi/backends/common/backend.py:123
 msgid "Remove registry key"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:123
+#: src/wubi/backends/common/backend.py:124
 #, python-format
 msgid "Uninstalling %s"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:255
+#: src/wubi/backends/common/backend.py:253
 #, python-format
 msgid "Checking CD %s"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:277
-#: src/wubi/backends/common/backend.py:321
-#: src/wubi/backends/common/backend.py:357
+#: src/wubi/backends/common/backend.py:279
+#: src/wubi/backends/common/backend.py:323
+#: src/wubi/backends/common/backend.py:359
 msgid "Downloading information on installation files"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:292
-#: src/wubi/backends/common/backend.py:349
-#: src/wubi/backends/common/backend.py:412
-#: src/wubi/backends/common/backend.py:456
+#: src/wubi/backends/common/backend.py:294
+#: src/wubi/backends/common/backend.py:351
+#: src/wubi/backends/common/backend.py:414
+#: src/wubi/backends/common/backend.py:463
 msgid "Checking installation files"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:383
+#: src/wubi/backends/common/backend.py:385
 #, python-format
 msgid "Validating %s"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:449
+#: src/wubi/backends/common/backend.py:450
 #, python-format
 msgid "Extracting files from %s"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:519
+#: src/wubi/backends/common/backend.py:526
 #, python-format
 msgid "Checking %s"
 msgstr ""
@@ -228,7 +230,7 @@ msgid "Uninstall"
 msgstr "卸载"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
-#: src/wubi/frontends/win32/installation_page.py:176
+#: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/progress_page.py:43
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/accessibility_page.py:39
@@ -272,50 +274,55 @@ msgstr ""
 msgid "(%sGB free)"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:172
+#: src/wubi/frontends/win32/installation_page.py:177
 msgid "Please select username and password for the new account"
 msgstr "请为新帐号选用用户名与密码  －非常重要，必备"
 
-#: src/wubi/frontends/win32/installation_page.py:176
+#: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Accessibility"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:176
+#: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Install"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:188
+#: src/wubi/frontends/win32/installation_page.py:193
 msgid "Installation drive:"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:194
+#: src/wubi/frontends/win32/installation_page.py:199
 msgid "Installation size:"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:200
+#: src/wubi/frontends/win32/installation_page.py:205
 msgid "Desktop environment:"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:206
+#: src/wubi/frontends/win32/installation_page.py:211
 msgid "Language:"
 msgstr "语言："
 
-#: src/wubi/frontends/win32/installation_page.py:215
+#: src/wubi/frontends/win32/installation_page.py:219
 msgid "Username:"
 msgstr "用户名"
 
-#: src/wubi/frontends/win32/installation_page.py:222
+#: src/wubi/frontends/win32/installation_page.py:226
 msgid "Password:"
 msgstr "密码："
 
-#: src/wubi/frontends/win32/installation_page.py:255
+#: src/wubi/frontends/win32/installation_page.py:259
 #, python-format
 msgid "%s Installer"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:263
+#: src/wubi/frontends/win32/installation_page.py:262
+#, fuzzy, python-format
+msgid "You are about to install %(distro)s-%(version)s"
+msgstr "你即将安装$Distro-$DistroVersion"
+
+#: src/wubi/frontends/win32/installation_page.py:267
 #, python-format
 msgid ""
 "%(min_memory)sMB of memory are required for installation.\n"
@@ -324,39 +331,39 @@ msgid ""
 "Do you wish to continue anyway?"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:300
+#: src/wubi/frontends/win32/installation_page.py:309
 msgid "Please enter a valid username"
 msgstr "请输入有效的用户名称"
 
-#: src/wubi/frontends/win32/installation_page.py:302
+#: src/wubi/frontends/win32/installation_page.py:311
 msgid "Please use all lower cases in the username."
 msgstr "请完全使用小写字母设置用户名称。"
 
-#: src/wubi/frontends/win32/installation_page.py:304
+#: src/wubi/frontends/win32/installation_page.py:313
 msgid "Please do not use spaces in the username."
 msgstr "请勿在用户名称中使用空格。"
 
-#: src/wubi/frontends/win32/installation_page.py:306
+#: src/wubi/frontends/win32/installation_page.py:315
 msgid "Your username must start with a letter."
 msgstr "你的用户名称必须以字母开头。"
 
-#: src/wubi/frontends/win32/installation_page.py:308
+#: src/wubi/frontends/win32/installation_page.py:317
 msgid "Your username must contain only standard letters and numbers."
 msgstr "你的用户名称必须仅包含标准字母和数字。"
 
-#: src/wubi/frontends/win32/installation_page.py:310
+#: src/wubi/frontends/win32/installation_page.py:319
 msgid "The selected username is reserved, please select a different one."
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:312
+#: src/wubi/frontends/win32/installation_page.py:321
 msgid "Please enter a valid password."
 msgstr "请输入有效密码。"
 
-#: src/wubi/frontends/win32/installation_page.py:314
+#: src/wubi/frontends/win32/installation_page.py:323
 msgid "Please do not use spaces in the password."
 msgstr "请勿在密码中使用空格。"
 
-#: src/wubi/frontends/win32/installation_page.py:316
+#: src/wubi/frontends/win32/installation_page.py:325
 msgid "Passwords do not match."
 msgstr "密码不一致。"
 
@@ -525,7 +532,8 @@ msgid ""
 "\n"
 "Do you want to proceed and install the CD booter?"
 msgstr ""
-"如果您的计算机无法从 CD 启动，本程序将会安装新的启动菜单项，用来帮您从 CD 启动。在大多数情况下，不需要本程序就能直接从 CD-Rom 启动。\n"
+"如果您的计算机无法从 CD 启动，本程序将会安装新的启动菜单项，用来帮您从 CD 启"
+"动。在大多数情况下，不需要本程序就能直接从 CD-Rom 启动。\n"
 "\n"
 "您想继续安装 CD 启动器吗？"
 
@@ -555,209 +563,3 @@ msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
-
-#~ msgid "You need to reboot to complete the installation."
-#~ msgstr "您需要重新启动计算机以完成安装"
-
-#~ msgid "Initializing..."
-#~ msgstr "正在初始化..."
-
-#~ msgid "Uncompressing wubi folder..."
-#~ msgstr "正在对wubi文件夹进行解压缩……"
-
-#~ msgid "Copying installation files..."
-#~ msgstr "正在复制安装文件..."
-
-#~ msgid "Backing up installation files..."
-#~ msgstr "正在备份安装文件..."
-
-#~ msgid "Setting up uninstaller..."
-#~ msgstr "正在设置卸载程序..."
-
-#~ msgid "Setting up bootloader..."
-#~ msgstr "正在设置引导程序..."
-
-#~ msgid "Creating virtual disks..."
-#~ msgstr "正在创建虚拟硬盘..."
-
-#~ msgid "The download was interrupted with the error:"
-#~ msgstr "下载过程出现错误已被中断："
-
-#~ msgid "Please wait while the required files are retrieved and prepared"
-#~ msgstr "请在系统获取与准备必要文件期间耐心等待。"
-
-#~ msgid "Retrieving installation files, resume supported"
-#~ msgstr "正在获取安装文件，支持断点续传"
-
-#, c-format
-#~ msgid "Connecting to %s..."
-#~ msgstr "正在连接 %s ..."
-
-#~ msgid "Calculating checksums..."
-#~ msgstr "正在计算校验码..."
-
-#, c-format
-#~ msgid "Retrying in %d seconds... (%d of %d)"
-#~ msgstr "将在 %d 秒后重试... (%d of %d)"
-
-#, c-format
-#~ msgid "Retrying in %d seconds..."
-#~ msgstr "在 %d 秒内进行重试..."
-
-#~ msgid "second"
-#~ msgstr "秒"
-
-#~ msgid "seconds"
-#~ msgstr "秒"
-
-#, c-format
-#~ msgid "%s (%d%%) of %s @ %s/s"
-#~ msgstr "%s (%d%%) of %s @ %s/s"
-
-#, c-format
-#~ msgid " (%s remaining)"
-#~ msgstr " （还剩 %s）"
-
-#~ msgid ""
-#~ "Please select a username for the new account.\n"
-#~ "It must be lower case.\n"
-#~ "It must not contain spaces.\n"
-#~ "It must contain only standard letters and numbers.\n"
-#~ "It cannot start by a number."
-#~ msgstr ""
-#~ "请为新帐号选择一个用户名。\n"
-#~ "必须为小写字母。\n"
-#~ "不能包含有空格。\n"
-#~ "只能含有标准字母和数字。\n"
-#~ "不能以数字为开头。"
-
-#~ msgid ""
-#~ "In which drive do you want to perform the installation?\n"
-#~ "This drive should have at least 5 GB free."
-#~ msgstr ""
-#~ "您想安装到哪个驱动器？\n"
-#~ "这个驱动器至少要有 5GB 的剩余空间。"
-
-#~ msgid "Kubuntu uses the KDE3.5 desktop."
-#~ msgstr "Kubuntu 使用 KDE3.5 桌面。"
-
-#~ msgid "Xubuntu is good for older systems."
-#~ msgstr "Xubuntu 适合较老的计算机。"
-
-#~ msgid ""
-#~ "What graphical environment do you want to install?\n"
-#~ "* $(Distro1ToolTip)\n"
-#~ "* $(Distro2ToolTip)\n"
-#~ "* $(Distro3ToolTip)\n"
-#~ "* $(Distro4ToolTip)"
-#~ msgstr ""
-#~ "您想安装哪种图形环境？\n"
-#~ "* $(Distro1ToolTip)\n"
-#~ "* $(Distro2ToolTip)\n"
-#~ "* $(Distro3ToolTip)\n"
-#~ "* $(Distro4ToolTip)"
-
-#~ msgid ""
-#~ "Could not access the CD, please make sure other applications are not using "
-#~ "it and try again"
-#~ msgstr "无法访问 CD，请确认其它程序没有使用它，并再试一次。"
-
-#~ msgid "You are about to install $Distro-$DistroVersion"
-#~ msgstr "你即将安装$Distro-$DistroVersion"
-
-#~ msgid "Installing $Distro-$DistroVersion"
-#~ msgstr "安装 $Distro-$DistroVersion"
-
-#~ msgid "${AppName} is already installed"
-#~ msgstr "${AppName} 已经安装"
-
-#~ msgid ""
-#~ "$OldInstallationDrive\\${DefaultInstallationDir} will be uninstalled.\n"
-#~ "You can backup your files if you want."
-#~ msgstr ""
-#~ "$OldInstallationDrive\\${DefaultInstallationDir} 将被卸载。\n"
-#~ "您可以备份需要的文件。"
-
-#~ msgid "Backup downloaded files (CD ISO file)."
-#~ msgstr "备份下载的文件 （CD ISO文件）。"
-
-#~ msgid "Backup personal documents (home.disk)."
-#~ msgstr "备份个人文档 （home.disk）"
-
-#~ msgid "Backup location: $BackupFolder"
-#~ msgstr "备份位置：$BackupFolder"
-
-#~ msgid "Downloading installation files..."
-#~ msgstr "正在下载安装文件..."
-
-#~ msgid "Checking installation files..."
-#~ msgstr "正在校验安装文件..."
-
-#~ msgid "High Contrast"
-#~ msgstr "高对比度"
-
-#~ msgid "Screen Reader"
-#~ msgstr "屏幕阅读器"
-
-#~ msgid "Braille Terminal"
-#~ msgstr "布莱叶盲文终端"
-
-#~ msgid "Keyboard Modifiers"
-#~ msgstr "修饰键"
-
-#~ msgid "On-Screen Keyboard"
-#~ msgstr "屏幕键盘"
-
-#~ msgid "Install CD booter"
-#~ msgstr "安装 CD 启动器"
-
-#~ msgid "Start installer in normal mode"
-#~ msgstr "用正常模式启动安装程序"
-
-#~ msgid ""
-#~ "Start installer in safe graphic mode (only if you have display problems)"
-#~ msgstr "用安全图形模式启动安装程序（仅当您出现显示问题时）"
-
-#~ msgid ""
-#~ "Start installer with ACPI workarounds (only if you have ACPI problems)"
-#~ msgstr "用 ACPI 临时解决方案启动安装程序（仅当您出现 ACPI 问题时）"
-
-#~ msgid "Start installer in verbose mode"
-#~ msgstr "用详细模式启动安装程序"
-
-#~ msgid "Creating folders..."
-#~ msgstr "正在创建文件夹..."
-
-#~ msgid "Please remove any CD/DVD and reboot to complete the installation."
-#~ msgstr "请取出所有 CD/DVD，然后重启完成安装。"
-
-#~ msgid ""
-#~ "How many GB do you want to allocate?\n"
-#~ "4GB is the bare minimum\n"
-#~ "8GB is comfortable"
-#~ msgstr ""
-#~ "你准备划分多少 GB？\n"
-#~ "4GB 是最小值\n"
-#~ "8GB 比较合适"
-
-#~ msgid "Retrieving installation files."
-#~ msgstr "检索安装文件."
-
-#~ msgid "The selected username is reserved, please selected a different one."
-#~ msgstr "所选择的用户名已被留作专用，请选择不同的用户名。"
-
-#~ msgid "Could not retrieve some essential files"
-#~ msgstr "不能检索一些必需的文件"
-
-#~ msgid "Writing configuration files..."
-#~ msgstr "正在写入配置文件..."
-
-#~ msgid "You must be logged in as administrator!"
-#~ msgstr "你必须以管理员身份登录！"
-
-#~ msgid ""
-#~ "You have $memoryMB MB of memory, the installer requires ${MinMemoryMB} MB.\n"
-#~ "Do you want to continue anyway? The installation may fail in such conditions."
-#~ msgstr ""
-#~ "你有$MB内存。安装程序要求${最小内存MB}MB。\n"
-#~ "你仍然要继续吗？在这样的情况下，安装可能会失败。"
