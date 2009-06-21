@@ -31,9 +31,10 @@ log = logging.getLogger("")
 
 class Wubi(object):
 
-    def __init__(self, application_name, version, revision):
+    def __init__(self, application_name, version, revision, root_dir):
         self.frontend = None
         self.info = Info()
+        self.info.root_dir = root_dir
         self.info.force_exit = False
         self.info.version = version
         self.info.revision = revision

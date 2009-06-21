@@ -19,76 +19,77 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char *argv[])
+int
+main (int argc, char *argv[])
 {
   FILE *in, *out;
-  unsigned char* data;
-  int length,i;
+  unsigned char *data;
+  int length, i;
 
   if (argc != 4)
     {
-      fprintf(stderr,"Usage: bin2h file.dat outfile.h token_name\n");
+      fprintf (stderr, "Usage: bin2h file.dat outfile.h token_name\n");
       return 1;
     }
 
-  in = fopen(argv[1],"rb");
+  in = fopen (argv[1], "rb");
 
   if (!in)
     {
-      fprintf(stderr,"bin2h: open %s fail\n",argv[1]);
+      fprintf (stderr, "bin2h: open %s fail\n", argv[1]);
       return 1;
     }
 
-  fseek(in,0,SEEK_END);
-  length=ftell(in);
-  fseek(in,0,SEEK_SET);
+  fseek (in, 0, SEEK_END);
+  length = ftell (in);
+  fseek (in, 0, SEEK_SET);
 
-  if (length==0)
+  if (length == 0)
     {
-      fprintf(stderr,"bin2h: %s is empty\n",argv[1]);
+      fprintf (stderr, "bin2h: %s is empty\n", argv[1]);
       return 1;
     }
 
-  if ((data=malloc(length))==NULL)
+  if ((data = malloc (length)) == NULL)
     {
-      fclose(in);
-      fprintf(stderr,"bin2h: can\'t allocate memory\n");
+      fclose (in);
+      fprintf (stderr, "bin2h: can\'t allocate memory\n");
       return 1;
     }
 
-  if ((fread(data,1,length,in))!=length)
+  if ((fread (data, 1, length, in)) != length)
     {
-      fclose(in);
-      fprintf(stderr,"bin2h: read %s fail\n",argv[1]);
+      fclose (in);
+      fprintf (stderr, "bin2h: read %s fail\n", argv[1]);
       return 1;
     }
 
-  fclose(in);
+  fclose (in);
 
-  out = fopen(argv[2],"wt");
+  out = fopen (argv[2], "wt");
 
   if (!out)
     {
-      fclose(in);
-      fprintf(stderr,"bin2h: open %s fail\n",argv[2]);
+      fclose (in);
+      fprintf (stderr, "bin2h: open %s fail\n", argv[2]);
       return 1;
     }
 
-  fprintf(out,"unsigned char %s[%d] = {",argv[3],length);
+  fprintf (out, "unsigned char %s[%d] = {", argv[3], length);
 
-  for (i=0;i<length;i++)
+  for (i = 0; i < length; i++)
     {
-      if (i % 20 ==0)
-        {
-          fprintf(out,"\n  ");
-        }
-      fprintf(out,"%d",data[i]);
-      if (i!=length-1)
-        fprintf(out,",");
+      if (i % 20 == 0)
+	{
+	  fprintf (out, "\n  ");
+	}
+      fprintf (out, "%d", data[i]);
+      if (i != length - 1)
+	fprintf (out, ",");
     }
 
-  fprintf(out,"};\n");
-  fclose(out);
-  free(data);
+  fprintf (out, "};\n");
+  fclose (out);
+  free (data);
   return 0;
 }

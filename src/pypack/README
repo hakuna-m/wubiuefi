@@ -1,0 +1,69 @@
+PyPack
+by Agostino Russo <agostino.russo@gmail.com>
+
+Pypack creates a self-sufficient packaged script suitable for "folder deployment".
+
+ * The package includes all the required dependencies, and therefore is self-sufficient
+ * The package only includes the required dependencies, so it is efficient
+ * It can be used to package libraries or applications.
+ * Using pypack is very simple and intuitive, no configuration file is required
+ * It is easy to change the content of the package before packaging
+ * It is easy to change the content of the package after packaging
+ * The packaged application is transparent and predictable
+ * It is easy to test and debug using either the unpackaged or the deployed packaged version
+ * Optionally you can compress the dirctory and/or turn it in a self-extracting, self-executable binary with the interpreter using pylauncher (Windows only)
+
+At least those are the goals.
+
+== QuickStart ==
+
+python pypack your_main_script.py
+
+If you need to bundle data directories, add extra modules, remove some modules:
+
+pypack --exclude=_ssl your_main_script.py /path/to/datadir1 /path/to/datadir2 /path/to/_include.py
+
+Where _include.py contains the required import statements, being prefixed with '_' ensures that the dependencies are included but not the script itself.
+
+For a complete list of options use
+
+python pypack --help
+
+Pypack itself is built with the command: ./pypack pypack README LICENSE
+
+Do not skip the next section!!!
+
+== Runtime Behaviour ==
+
+Pypack adds your main_script as './build/main_script' (keeping the original name), and all dependencies are added to a directory called  './build/lib'. So at runtime you need to have './lib' in your sys.path. You can either use a launcher that adds './lib' to sys.path, Otherwise add the following lines inside of your main_script before any other import statement:
+
+import sys, os
+root_dir = os.path.abspath(os.path.dirname(__file__))
+lib_dir = os.path.join(root_dir, 'lib')
+sys.path.insert(0, lib_dir)
+
+See the pypack code as an example
+
+== Adding Extra Modules and Data Files ==
+
+Any file or directory passed as extra argument is added to the package. If the file as a '.py' extension, it will be added to 'package/lib' with all of its dependencies. This is a good way to add extra modules and packages without importing in your main_script, for instance if you want to do dynamic module loading, or to explicitly add modules that are not discovered by pypack. If the extra argument is not a python file, it will be considered a data file/directory and it will be recursively copied into 'package/' + basename(extra). Symlinks will be deferenced.
+
+== Removing or Replacing Modules ==
+
+You can also use an --exclude option passing a comma delimited list of package names and/or you can use stub files in the source tree, which will replace the actual module.
+
+== Extensions and Bytecompilation ==
+
+If your application/library depends on compiled modules or if you want to ship byte compiled files, you can run pypack within a target environment to create a package for that architecture. If you need to create a Windows package from within Linux, install python inside of Wine with any needed package, and run pypack using python within Wine.
+
+If you want to be compatible with old versions of python, try to compile using a relatively old version of python.
+
+To produce optimized byte code, run: python -OO pypack --bytecompile your_script.py
+
+== Gotchas ==
+
+There are situations that cannot be handled with pypack. Pypack favors transparency and simplicity over corner case coverage. It will work in many cases, and many other situations will be easy to fix manually or with a custom script.
+
+A common situation is when in your application some packages are dynamically imported, in such scenario simply create an extra python script with explicity import statements and pass it as extra argument as explained in the section "Adding Extra Modules and Data Files".
+
+That said, you can quickly check if it works for you by running it and testing your application.

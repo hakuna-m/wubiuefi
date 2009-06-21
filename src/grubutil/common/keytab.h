@@ -23,8 +23,8 @@
 extern "C" {
 #endif
 
-char* str_upcase(char* str);
-int get_keycode(char* key);
+char* str_upcase (char* str);
+int get_keycode (char* key);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

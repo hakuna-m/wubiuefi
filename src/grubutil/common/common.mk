@@ -33,8 +33,8 @@ CC       = gcc
 OC	 = objcopy
 LD	 = ld
 
-CFLAGS   += -I$(CMNDIR) -I.
-AFLAGS   += -I$(CMNDIR) -I.
+CFLAGS   += -I$(CMNDIR) -I. -Wall
+AFLAGS   += -I$(CMNDIR) -I. -Wall
 
 SYSSTR   = lnx
 

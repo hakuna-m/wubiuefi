@@ -32,9 +32,9 @@ extern "C" {
 #define FST_EXT2		6
 
 extern int mbr_nhd, mbr_spt;
-int get_fstype(unsigned char*);
-char* fst2str(int);
-char* dfs2str(int);
+int get_fstype (unsigned char*);
+char* fst2str (int);
+char* dfs2str (int);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

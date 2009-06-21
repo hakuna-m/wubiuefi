@@ -52,11 +52,11 @@ class Backend(object):
     def __init__(self, application):
         self.application = application
         self.info = application.info
-        if hasattr(sys,'frozen') and sys.frozen:
-            root_dir = dirname(abspath(sys.executable))
-        else:
-            root_dir = ''
-        self.info.root_dir = abspath(root_dir)
+        #~ if hasattr(sys,'frozen') and sys.frozen:
+            #~ root_dir = dirname(abspath(sys.executable))
+        #~ else:
+            #~ root_dir = ''
+        #~ self.info.root_dir = abspath(root_dir)
         self.info.temp_dir = join_path(self.info.root_dir, 'temp')
         self.info.data_dir = join_path(self.info.root_dir, 'data')
         self.info.bin_dir = join_path(self.info.root_dir, 'bin')
@@ -66,8 +66,11 @@ class Backend(object):
         self.info.application_icon = join_path(self.info.image_dir, self.info.application_name.capitalize() + ".ico")
         self.info.icon = self.info.application_icon
         self.info.iso_md5_hashes = {}
-        gettext.install(self.info.application_name, localedir=self.info.translations_dir, unicode=True)
         log.debug('data_dir=%s' % self.info.data_dir)
+        if self.info.locale:
+    	    locale.setlocale(locale.LC_ALL, self.info.locale)
+    	    log.debug('user defined locale = %s' % self.info.locale)
+	gettext.install(self.info.application_name, localedir=self.info.translations_dir, unicode=True)
 
     def get_installation_tasklist(self):
         tasks = [
@@ -137,7 +140,8 @@ class Backend(object):
         self.info.original_exe = self.get_original_exe()
         self.info.platform = self.get_platform()
         self.info.osname = self.get_osname()
-        self.info.language, self.info.encoding = self.get_language_encoding()
+        if not self.info.language:
+    	    self.info.language, self.info.encoding = self.get_language_encoding()
         self.info.environment_variables = os.environ
         self.info.arch = self.get_arch()
         if self.info.force_i386:
@@ -153,7 +157,8 @@ class Backend(object):
         self.info.previous_target_dir = self.get_previous_target_dir()
         self.info.previous_distro_name = self.get_previous_distro_name()
         self.info.keyboard_layout, self.info.keyboard_variant = self.get_keyboard_layout()
-        self.info.locale = self.get_locale(self.info.language)
+        if not self.info.locale:
+    	    self.info.locale = self.get_locale(self.info.language)
         self.info.total_memory_mb = self.get_total_memory_mb()
         self.info.iso_path, self.info.iso_distro = self.find_any_iso()
         self.info.cd_path, self.info.cd_distro = self.find_any_cd()
@@ -447,7 +452,7 @@ class Backend(object):
         if cd_path:
             extract_iso = associated_task.add_subtask(
                 copy_file,
-                description = _("Extracting files from %s" % cd_path))
+                description = _("Extracting files from %s") % cd_path)
             self.info.iso_path = join_path(self.info.install_dir, "installation.iso")
             try:
                 extract_iso(cd_path, self.info.iso_path)

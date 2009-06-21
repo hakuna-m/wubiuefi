@@ -135,3 +135,5 @@ class WindowsFrontend(ui.Frontend):
         self.show_page(self.progress_page)
         if isinstance(tasklist.error, Exception):
             raise tasklist.error
+        elif isinstance(tasklist.error, tuple):
+            raise tasklist.error[0], tasklist.error[1], tasklist.error[2]

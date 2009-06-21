@@ -21,6 +21,7 @@
 from winui import ui
 from page import Page
 import logging
+import gettext
 log = logging.getLogger("WinuiProgressPage")
 
 
@@ -35,7 +36,7 @@ class ProgressPage(Page):
         elif self.info.previous_distro_name:
             distro_name = self.info.previous_distro_name
         self.insert_header(
-            _("Installing %(distro)s-%(version)s" % dict(distro=distro_name, version=self.info.version)),
+            _("Installing %(distro)s-%(version)s") % dict(distro=distro_name, version=self.info.version),
             _("Please wait"),
             "%s-header.bmp" % distro_name)
 
@@ -62,7 +63,7 @@ class ProgressPage(Page):
         self.main.task_label.set_text(task.description)
         if task.get_percent_completed() > 0:
             self.main.subprogressbar.set_position(int(100*task.get_percent_completed()))
-            self.main.subtask_label.set_text(_("Remaining time approximately %s") % task.estimate_remaining_time())
+            self.main.subtask_label.set_text(gettext.ngettext("Remaining time approximately %s","Remaining time approximately %s",task.estimate_remaining_time()) % task.estimate_remaining_time())
             self.main.subtask_label.show()
             self.main.subprogressbar.show()
         else:

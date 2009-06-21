@@ -29,7 +29,7 @@ d-i apt-setup/security-updates-failed note
 d-i mirror/http/proxy string
 
 ## SUITE
-d-i mirror/suite string jaunty
+d-i mirror/suite string karmic
 
 ## PARTITIONING
 $(partitioning)

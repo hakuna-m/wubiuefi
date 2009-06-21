@@ -20,6 +20,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+# once compiled and packaged by pypack,
+# all dependencies will be in ./lib,
+# so let's add ./lib to the path
+import sys
+import os
+root_dir = os.path.abspath(os.path.dirname(__file__))
+lib_dir = os.path.join(root_dir, 'lib')
+sys.path.insert(0, lib_dir)
+
 from wubi.application import Wubi
 
 try:
@@ -29,5 +38,5 @@ except:
     version = "0.0"
     revision = "0"
 
-application = Wubi(application_name, version, revision)
+application = Wubi(application_name, version, revision, root_dir)
 application.run()

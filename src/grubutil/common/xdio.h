@@ -30,8 +30,10 @@ extern "C" {
 #define MAX_DISKS		20
 #define MAX_PARTS		30
 
-#define XDF_FILE	1
-#define XDF_DISK	2
+#define XDF_FILE		1
+#define XDF_DISK		2
+
+#define XD_INVALID_SIZE		0xffffffff
 
 #if (! defined(WIN32)) && (! defined(DOS))
 
@@ -58,20 +60,21 @@ typedef struct {
   unsigned long ebs;		// Base address for the extended partition
 } xde_t;
 
-#define valueat(buf,ofs,type)	*((type*)(((char*)&buf)+ofs))
+#define valueat(buf,ofs,type)	*((type *) (((char*) &buf) + ofs))
 
 #ifdef DOS
-void xd16_init(xd_t*);
-int xd16_read(xd_t*,char*,int);
-int xd16_write(xd_t*,char*,int);
+void xd16_init (xd_t*);
+int xd16_read (xd_t*, char*, int);
+int xd16_write (xd_t*, char*, int);
 #endif
 
-xd_t* xd_open(char*,int);
-int xd_seek(xd_t*,unsigned long);
-int xd_enum(xd_t*,xde_t*);
-int xd_read(xd_t*,char*,int);
-int xd_write(xd_t*,char*,int);
-void xd_close(xd_t*);
+xd_t* xd_open (char*, int);
+int xd_seek (xd_t*, unsigned long);
+int xd_enum (xd_t*, xde_t*);
+int xd_read (xd_t*, char*, int);
+int xd_write (xd_t*, char*, int);
+void xd_close (xd_t*);
+unsigned long xd_size (xd_t* xd);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

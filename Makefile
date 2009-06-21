@@ -12,16 +12,14 @@ all: build
 build: wubi
 
 wubi: wubi-pre-build
-	PYTHONPATH=src tools/pywine -OO build/pylauncher/pack.py --dir=build/wubi src/main.py data build/bin build/version.py build/winboot build/translations
-	mv build/wubi/application.exe build/wubi.exe
+	PYTHONPATH=src tools/pywine -OO src/pypack/pypack --bytecompile --outputdir=build/wubi src/main.py data build/bin build/version.py build/winboot build/translations
+	PYTHONPATH=src tools/pywine -OO build/pylauncher/pack.py build/wubi
+	mv build/application.exe build/wubi.exe
 
 wubizip: wubi-pre-build
-	PYTHONPATH=src tools/pywine build/pylauncher/pack.py --dir=build/wubi --nopyc src/main.py data build/bin build/version.py build/winboot build/translations
-	cp wine/drive_c/Python23/python.exe build/wubi/files #TBD
-	cp build/cpuid/cpuid.dll build/bin
-	mv build/wubi/files build/wubi/wubi
-	cd build/wubi; zip -r ../wubi.zip wubi
-	mv build/wubi/wubi build/wubi/files
+	PYTHONPATH=src tools/pywine src/pypack/pypack --outputdir=build/wubi src/main.py data build/bin build/version.py build/winboot build/translations
+	cp wine/drive_c/Python23/python.exe build/wubi #TBD
+	cd build; zip -r wubi.zip wubi
 
 wubi-pre-build: check_wine pylauncher winboot src/main.py src/wubi/*.py cpuid version.py translations
 	rm -rf build/wubi

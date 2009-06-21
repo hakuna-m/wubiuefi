@@ -195,12 +195,12 @@ class Task(object):
             try:
                 result = self.associated_function(*self.associated_function_args, **self.associated_function_kargs)
             except Exception, err:
-                self.error = err
+                self.error = sys.exc_info()
                 self.status = Task.FAILED
                 log.exception(err)
                 if self.is_required:
                     root = self.get_root()
-                    root.error = err
+                    root.error = sys.error
                     root.cancel()
                     return
                 else:
