@@ -12,16 +12,16 @@ all: build
 build: wubi
 
 wubi: wubi-pre-build
-	PYTHONPATH=src tools/pywine -OO src/pypack/pypack --bytecompile --outputdir=build/wubi src/main.py data build/bin build/version.py build/winboot build/translations
+	PYTHONPATH=src tools/pywine -OO src/pypack/pypack --verbose --bytecompile --outputdir=build/wubi src/main.py data build/bin build/version.py build/winboot build/translations
 	PYTHONPATH=src tools/pywine -OO build/pylauncher/pack.py build/wubi
 	mv build/application.exe build/wubi.exe
 
 wubizip: wubi-pre-build
-	PYTHONPATH=src tools/pywine src/pypack/pypack --outputdir=build/wubi src/main.py data build/bin build/version.py build/winboot build/translations
+	PYTHONPATH=src tools/pywine src/pypack/pypack --verbose --outputdir=build/wubi src/main.py data build/bin build/version.py build/winboot build/translations
 	cp wine/drive_c/Python23/python.exe build/wubi #TBD
 	cd build; zip -r wubi.zip wubi
 
-wubi-pre-build: check_wine pylauncher winboot src/main.py src/wubi/*.py cpuid version.py translations
+wubi-pre-build: check_wine pylauncher winboot2 src/main.py src/wubi/*.py cpuid version.py translations
 	rm -rf build/wubi
 	rm -rf build/bin
 	cp -a blobs build/bin
@@ -70,6 +70,16 @@ pylauncher: 7z src/pylauncher/*
 cpuid: src/cpuid/cpuid.c
 	cp -rf src/cpuid build
 	cd build/cpuid; make
+
+winboot2: grubutil
+	mkdir -p build/winboot
+	cp -f data/wubildr.cfg build/winboot/wubildr.cfg
+	./build/grubutil/grubinst/grubinst --grub2 --boot-file=wubildr -o build/winboot/wubildr.mbr
+	grub-mkimage -c build/winboot/wubildr.cfg -o build/grubutil/core.img \
+		pc fat ntfs biosdisk multiboot normal boot serial test hello terminfo \
+		gpt ntfscomp search linux boot cat cpuid echo fshelp fs_uuid ls \
+		chain halt help ls reboot sleep vbe pc loopback iso9660 ext2 configfile
+	cat /usr/lib/grub/i386-pc/lnxboot.img build/grubutil/core.img > build/winboot/wubildr
 
 winboot: grub4dos grubutil
 	mkdir -p build/winboot

@@ -12,8 +12,11 @@ wubi (9.10ubuntu1) UNRELEASED; urgency=low
   * Fixed untranslatable string, thanks Adi Roiban (LP: #376457)
   * Spin-off of pypack, which turns a script into a self-contained
     directory with all required dependencies, might be useful to others
+  * Now using grub2
+  * Fixed typos in pypack
+  * Updated grubutil to rev 31
 
- -- Agostino Russo <agostino.russo@gmail.com>  Sun, 21 Jun 2009 17:38:26 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Mon, 22 Jun 2009 23:38:29 +0100
 
 wubi (9.04) jaunty; urgency=low
 

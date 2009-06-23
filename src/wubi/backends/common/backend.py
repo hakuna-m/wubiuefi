@@ -68,9 +68,9 @@ class Backend(object):
         self.info.iso_md5_hashes = {}
         log.debug('data_dir=%s' % self.info.data_dir)
         if self.info.locale:
-    	    locale.setlocale(locale.LC_ALL, self.info.locale)
-    	    log.debug('user defined locale = %s' % self.info.locale)
-	gettext.install(self.info.application_name, localedir=self.info.translations_dir, unicode=True)
+            locale.setlocale(locale.LC_ALL, self.info.locale)
+            log.debug('user defined locale = %s' % self.info.locale)
+        gettext.install(self.info.application_name, localedir=self.info.translations_dir, unicode=True)
 
     def get_installation_tasklist(self):
         tasks = [
@@ -141,7 +141,7 @@ class Backend(object):
         self.info.platform = self.get_platform()
         self.info.osname = self.get_osname()
         if not self.info.language:
-    	    self.info.language, self.info.encoding = self.get_language_encoding()
+            self.info.language, self.info.encoding = self.get_language_encoding()
         self.info.environment_variables = os.environ
         self.info.arch = self.get_arch()
         if self.info.force_i386:
@@ -158,7 +158,7 @@ class Backend(object):
         self.info.previous_distro_name = self.get_previous_distro_name()
         self.info.keyboard_layout, self.info.keyboard_variant = self.get_keyboard_layout()
         if not self.info.locale:
-    	    self.info.locale = self.get_locale(self.info.language)
+            self.info.locale = self.get_locale(self.info.language)
         self.info.total_memory_mb = self.get_total_memory_mb()
         self.info.iso_path, self.info.iso_distro = self.find_any_iso()
         self.info.cd_path, self.info.cd_distro = self.find_any_cd()
@@ -594,7 +594,7 @@ class Backend(object):
         pass
 
     def modify_grub_configuration(self):
-        template_file = join_path(self.info.data_dir, 'menu.install')
+        template_file = join_path(self.info.data_dir, 'grub.install.cfg')
         template = read_file(template_file)
         if self.info.run_task == "cd_boot":
             isopath = ""
@@ -625,7 +625,7 @@ class Backend(object):
         if self.info.run_task == "cd_boot":
             content.replace(" automatic-ubiquity", "")
             content.replace(" iso-scan/filename=", "")
-        grub_config_file = join_path(self.info.install_boot_dir, "grub", "menu.lst")
+        grub_config_file = join_path(self.info.install_boot_dir, "grub", "grub.cfg")
         write_file(grub_config_file, content)
 
     def remove_target_dir(self, associated_task=None):

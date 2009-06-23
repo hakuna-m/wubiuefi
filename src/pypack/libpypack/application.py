@@ -36,7 +36,7 @@ class Application(object):
         self.root_dir = os.path.abspath(root_dir)
 
     def run(self):
-        self.localize
+        self.localize()
         self.parse_commandline_arguments()
         self.set_logger()
         self.create_dirs()
@@ -46,13 +46,13 @@ class Application(object):
     def localize(self):
         try:
             import gettext
-            gettext.install(self.name)
+            gettext.install(APPLICATION_NAME)
         except ImportError:
             import __builtin__
             def dummytrans (text):
                 """A _ function for systems without gettext. Effectively a NOOP"""
                 return text
-                __builtin__.__dict__['_'] = dummytrans
+            __builtin__.__dict__['_'] = dummytrans
 
     def print_readme(self):
         readme = ajoin(self.root_dir, 'README')
@@ -60,7 +60,6 @@ class Application(object):
         content = readme.read()
         readme.close()
         print content
-        return content
 
     def parse_commandline_arguments(self):
         usage = "%prog [options] main_script [extra extra extra]"

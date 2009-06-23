@@ -16,6 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -158,4 +159,47 @@ get_keycode (char *key)
 	return key_table[i].code[idx];
     }
   return 0;
+}
+
+static char keyname_buf[16];
+
+char *
+get_keyname (unsigned short code)
+{
+  int i;
+
+  for (i = 0; key_table[i].name; i++)
+    {
+      int j;
+
+      for (j = 0; j < 4; j++)
+	{	 
+	  if (key_table[i].code[j] == code)
+	    {
+	      char *p;
+	      
+	      switch (j)
+		{
+		case 0:
+		  p = "";
+		  break;
+		case 1:
+		  p = "shift-";
+		  break;
+		case 2:
+		  p = "ctrl-";
+		  break;
+		case 3:
+		  p = "alt-";
+		  break;
+		}
+
+	      sprintf (keyname_buf, "%s%s", p, key_table[i].name);
+	      return keyname_buf;
+	    }
+	}
+    }
+
+  sprintf (keyname_buf, "0x%x", code);
+  return keyname_buf;
 }
