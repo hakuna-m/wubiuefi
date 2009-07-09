@@ -1,5 +1,6 @@
-wubi (9.10ubuntu1) UNRELEASED; urgency=low
+wubi (9.10) UNRELEASED; urgency=low
 
+  [ Agostino Russo ]
   * Upped references to 9.10/karmic
   * Synched grubutil branch with upstream
   * Do not show original absolute path of bytecompiled modules in error
@@ -16,7 +17,12 @@ wubi (9.10ubuntu1) UNRELEASED; urgency=low
   * Fixed typos in pypack
   * Updated grubutil to rev 31
 
- -- Agostino Russo <agostino.russo@gmail.com>  Mon, 22 Jun 2009 23:38:29 +0100
+  [ Michael Casadevall ]
+  * Added support for UNR
+  * Modified isolist.ini to represent new casper filename; capser.lz for lzma
+    compressed initramfses
+
+ -- Michael Casadevall <mcasadevall@ubuntu.com>  Thu, 09 Jul 2009 08:06:21 -0400
 
 wubi (9.04) jaunty; urgency=low
 
