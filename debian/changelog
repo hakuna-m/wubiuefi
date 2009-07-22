@@ -22,7 +22,10 @@ wubi (9.10) UNRELEASED; urgency=low
   * Modified isolist.ini to represent new casper filename; capser.lz for lzma
     compressed initramfses
 
- -- Michael Casadevall <mcasadevall@ubuntu.com>  Thu, 09 Jul 2009 08:06:21 -0400
+  [ Evan Dandrea ]
+  * Add support for Kubuntu Netbook Edition (LP: #402850).
+
+ -- Evan Dandrea <evand@ubuntu.com>  Wed, 22 Jul 2009 14:44:15 +0100
 
 wubi (9.04) jaunty; urgency=low
 
