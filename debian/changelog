@@ -24,6 +24,8 @@ wubi (9.10) UNRELEASED; urgency=low
 
   [ Evan Dandrea ]
   * Add support for Kubuntu Netbook Edition (LP: #402850).
+  * Fix typos for netbook images in data/isolist.ini.
+  * Support dashes in project names.  Thanks Steve Kowalik!
 
  -- Evan Dandrea <evand@ubuntu.com>  Wed, 22 Jul 2009 14:44:15 +0100
 
