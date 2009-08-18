@@ -183,6 +183,7 @@ class Distro(object):
             return
         info = disk_info_re.match(info)
         name = info.group('name')
+        name = info.group('name').replace('-', ' ')
         version = info.group('version')
         subversion = info.group('subversion')
         arch = info.group('arch')

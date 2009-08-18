@@ -22,6 +22,7 @@
 import time
 import threading
 import logging
+import sys
 
 log = logging.getLogger("TaskList")
 
@@ -200,7 +201,7 @@ class Task(object):
                 log.exception(err)
                 if self.is_required:
                     root = self.get_root()
-                    root.error = sys.error
+                    root.error = self.error
                     root.cancel()
                     return
                 else:

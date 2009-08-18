@@ -76,9 +76,8 @@ winboot2: grubutil
 	cp -f data/wubildr.cfg build/winboot/wubildr.cfg
 	./build/grubutil/grubinst/grubinst --grub2 --boot-file=wubildr -o build/winboot/wubildr.mbr
 	grub-mkimage -c build/winboot/wubildr.cfg -o build/grubutil/core.img \
-		pc fat ntfs biosdisk multiboot normal boot serial test hello terminfo \
-		gpt ntfscomp search linux boot cat cpuid echo fshelp fs_uuid ls \
-		chain halt help ls reboot sleep vbe pc loopback iso9660 ext2 configfile
+		biosdisk pc gpt fat ntfs ntfscomp iso9660 loopback search linux boot minicmd cat cpuid chain halt help ls reboot \
+		echo test configfile sh sleep
 	cat /usr/lib/grub/i386-pc/lnxboot.img build/grubutil/core.img > build/winboot/wubildr
 
 winboot: grub4dos grubutil

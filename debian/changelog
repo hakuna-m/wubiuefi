@@ -16,6 +16,10 @@ wubi (9.10) UNRELEASED; urgency=low
   * Now using grub2
   * Fixed typos in pypack
   * Updated grubutil to rev 31
+  * Add grub modules in correct order
+  * Fixed grub.cfg files
+  * Ignore '-' in distro name (thanks Evan Dandrea)
+  * Fixed typos in tasklist
 
   [ Michael Casadevall ]
   * Added support for UNR
@@ -27,7 +31,7 @@ wubi (9.10) UNRELEASED; urgency=low
   * Fix typos for netbook images in data/isolist.ini.
   * Support dashes in project names.  Thanks Steve Kowalik!
 
- -- Evan Dandrea <evand@ubuntu.com>  Wed, 22 Jul 2009 14:44:15 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Tue, 18 Aug 2009 10:09:21 +0100
 
 wubi (9.04) jaunty; urgency=low
 
