@@ -30,8 +30,11 @@ wubi (9.10) UNRELEASED; urgency=low
   * Add support for Kubuntu Netbook Edition (LP: #402850).
   * Fix typos for netbook images in data/isolist.ini.
   * Support dashes in project names.  Thanks Steve Kowalik!
+  * Factor in free space on the source device when calculating whether
+    it's too big to use Wubi with.  This fixes using Wubi on
+    sufficiently large USB disks.
 
- -- Agostino Russo <agostino.russo@gmail.com>  Tue, 18 Aug 2009 10:09:21 +0100
+ -- Evan Dandrea <evand@ubuntu.com>  Fri, 21 Aug 2009 11:01:39 +0100
 
 wubi (9.04) jaunty; urgency=low
 

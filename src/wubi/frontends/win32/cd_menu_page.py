@@ -58,8 +58,9 @@ class CDMenuPage(Page):
         self.main.boot_cd_button.on_click = self.on_cd_boot
 
         #wubi
+        used = ((cd_drive.total_space_mb - cd_drive.free_space_mb)*1024*1024)
         if self.info.force_wubi or \
-        self.info.cd_distro.min_iso_size < cd_drive.total_space_mb*1024*1024 < self.info.cd_distro.max_iso_size:
+        self.info.cd_distro.min_iso_size <  used < self.info.cd_distro.max_iso_size:
             y += lh + sep
             self.main.wubi_button = ui.FlatButton(self.main, x, y, bw, bh, _("Install inside Windows"))
             y += bh + 2
