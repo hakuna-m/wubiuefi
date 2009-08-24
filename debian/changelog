@@ -33,6 +33,7 @@ wubi (9.10) UNRELEASED; urgency=low
   * Factor in free space on the source device when calculating whether
     it's too big to use Wubi with.  This fixes using Wubi on
     sufficiently large USB disks.
+  * Kubuntu Netbook Edition is now Kubuntu Netbook.
 
  -- Evan Dandrea <evand@ubuntu.com>  Fri, 21 Aug 2009 11:01:39 +0100
 
