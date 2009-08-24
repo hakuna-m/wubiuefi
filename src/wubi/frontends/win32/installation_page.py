@@ -255,7 +255,11 @@ class InstallationPage(Page):
 
     def on_distro_change(self):
         distro_name = str(self.distro_list.get_text())
-        self.info.distro  = self.info.distros_dict.get((distro_name.lower(), self.info.arch))
+        self.info.distro = self.info.distros_dict.get((distro_name.lower(), self.info.arch))
+        # Fall through to i386 if an amd64 version of a particular distribution
+        # does not exist.
+        if not self.info.distro and self.info.arch == 'amd64':
+            self.info.distro = self.info.distros_dict.get((distro_name.lower(), 'i386'))
         self.frontend.set_title(_("%s Installer") % self.info.distro.name)
         bmp_file = "%s-header.bmp" % self.info.distro.name
         self.header.image.set_image(os.path.join(self.info.image_dir, bmp_file))
