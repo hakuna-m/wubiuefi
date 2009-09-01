@@ -38,6 +38,10 @@ wubi (9.10) UNRELEASED; urgency=low
   * Use i386 if an amd64 version of the selected distribution does not
     exist.
 
+  [ Colin Watson ]
+  * Use "new" simplified partman preseeding (actually available since
+    hardy).
+
  -- Agostino Russo <agostino.russo@gmail.com>  Sun, 30 Aug 2009 00:47:22 +0100
 
 wubi (9.04) jaunty; urgency=low
