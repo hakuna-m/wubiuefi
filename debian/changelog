@@ -37,6 +37,8 @@ wubi (9.10) UNRELEASED; urgency=low
   * Kubuntu Netbook Edition is now Kubuntu Netbook.
   * Use i386 if an amd64 version of the selected distribution does not
     exist.
+  * Use the correct syntax for grub2 (elif does not exist).  Thanks to
+    Colin Watson for the tip.
 
   [ Colin Watson ]
   * Use "new" simplified partman preseeding (actually available since
