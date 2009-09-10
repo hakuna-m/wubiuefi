@@ -1,8 +1,8 @@
 ## LOCALE
-# set using kernel boot argumens
+# set using kernel boot arguments
 
 ## KEYBOARD
-# set using kernel boot argumens
+# set using kernel boot arguments
 
 ## NETWORKING
 d-i netcfg/choose_interface select auto
