@@ -612,6 +612,8 @@ class Backend(object):
             accessibility = self.info.accessibility,
             kernel = unix_path(self.info.kernel),
             initrd = unix_path(self.info.initrd),
+            title1 = "Completing the Ubuntu installation.",
+            title2 = "For more installation boot options, press `ESC' now...",
             normal_mode_title = "Normal mode",
             safe_graphic_mode_title = "Safe graphic mode",
             acpi_workarounds_title = "ACPI workarounds",

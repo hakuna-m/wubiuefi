@@ -21,6 +21,7 @@ wubi (9.10) UNRELEASED; urgency=low
   * Ignore '-' in distro name (thanks Evan Dandrea)
   * Fixed typos in tasklist
   * Grub modules have been renamed upstream
+  * Allow booting via the grub2 loopmount module
 
   [ Michael Casadevall ]
   * Added support for UNR
@@ -44,7 +45,7 @@ wubi (9.10) UNRELEASED; urgency=low
   * Use "new" simplified partman preseeding (actually available since
     hardy).
 
- -- Agostino Russo <agostino.russo@gmail.com>  Sun, 30 Aug 2009 00:47:22 +0100
+ -- Agostino Russo <agostino.russo@gmail.com>  Sat, 12 Sep 2009 15:28:14 +0100
 
 wubi (9.04) jaunty; urgency=low
 
