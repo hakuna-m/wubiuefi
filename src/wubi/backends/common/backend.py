@@ -603,6 +603,10 @@ class Backend(object):
             #~ isopath = unix_path(self.info.cd_path)
         elif self.info.iso_path:
             isopath = unix_path(self.info.iso_path)
+        if self.info.target_drive.is_fat():
+            rootflags = "ROOTFLAGS=sync"
+        else:
+            rootflags = "ROOTFLAGS=syncio"
         dic = dict(
             custom_installation_dir = unix_path(self.info.custominstall),
             iso_path = isopath,
@@ -612,6 +616,7 @@ class Backend(object):
             accessibility = self.info.accessibility,
             kernel = unix_path(self.info.kernel),
             initrd = unix_path(self.info.initrd),
+            rootflags = rootflags,
             title1 = "Completing the Ubuntu installation.",
             title2 = "For more installation boot options, press `ESC' now...",
             normal_mode_title = "Normal mode",

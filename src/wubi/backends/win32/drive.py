@@ -46,6 +46,9 @@ class Drive(object):
             self.total_space_mb = 1.0*total/1024**2
             self.free_space_mb = 1.0*free/1024**2
 
+    def is_fat(self):
+        return self.filesystem in ["fat", "fat32", "vfat"]
+
     def get_filesystem(self):
         MAX_PATH = 255
         if not hasattr(ctypes.windll.kernel32, "GetVolumeInformationA"):

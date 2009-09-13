@@ -86,7 +86,7 @@ class WindowsBackend(Backend):
         self.info.icon = join_path(self.info.target_dir, self.info.distro.name + '.ico')
 
     def uncompress_target_dir(self, associated_task):
-        if self.info.target_drive.filesystem in ["fat", "fat32", "vfat"]:
+        if self.info.target_drive.is_fat():
             return
         try:
             command = ['compact', self.info.target_dir, '/U', '/A', '/F']
@@ -97,7 +97,7 @@ class WindowsBackend(Backend):
             log.error(err)
 
     def uncompress_files(self, associated_task):
-        if self.info.target_drive.filesystem in ["fat", "fat32", "vfat"]:
+        if self.info.target_drive.is_fat():
             return
         command1 = ['compact', join_path(self.info.install_boot_dir), '/U', '/A', '/F']
         command2 = ['compact', join_path(self.info.install_boot_dir,'*.*'), '/U', '/A', '/F']
@@ -642,7 +642,7 @@ class WindowsBackend(Backend):
         usr_size_mb = 0
         swap_size_mb = 256
         root_size_mb = total_size_mb - swap_size_mb
-        if self.info.target_drive.filesystem in ["fat", "fat32", "vfat"]:
+        if self.info.target_drive.is_fat():
             if root_size_mb > 8500:
                 home_size_mb = root_size_mb - 8000
                 usr_size_mb = 4000

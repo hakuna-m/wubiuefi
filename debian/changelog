@@ -22,6 +22,9 @@ wubi (9.10) UNRELEASED; urgency=low
   * Fixed typos in tasklist
   * Grub modules have been renamed upstream
   * Allow booting via the grub2 loopmount module
+  * Modified embedded grub cfg since root.disk is available at
+    installation time
+  * Added back syncio mount option
 
   [ Michael Casadevall ]
   * Added support for UNR
