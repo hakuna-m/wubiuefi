@@ -47,6 +47,8 @@ wubi (9.10) UNRELEASED; urgency=low
   [ Colin Watson ]
   * Use "new" simplified partman preseeding (actually available since
     hardy).
+  * Pass rootflags= rather than ROOTFLAGS=, since as far as I can tell
+    initramfs-tools ignores the latter.
 
  -- Agostino Russo <agostino.russo@gmail.com>  Sat, 12 Sep 2009 15:28:14 +0100
 
