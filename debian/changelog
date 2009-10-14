@@ -25,6 +25,7 @@ wubi (9.10) UNRELEASED; urgency=low
   * Modified embedded grub cfg since root.disk is available at
     installation time
   * Added back syncio mount option
+  * Use ext4 by default (lp: #444214)
 
   [ Michael Casadevall ]
   * Added support for UNR
