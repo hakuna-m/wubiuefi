@@ -44,6 +44,7 @@ wubi (9.10) UNRELEASED; urgency=low
     exist.
   * Use the correct syntax for grub2 (elif does not exist).  Thanks to
     Colin Watson for the tip.
+  * Use $default_filesystem in place of ext4.
 
   [ Colin Watson ]
   * Use "new" simplified partman preseeding (actually available since

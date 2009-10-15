@@ -555,16 +555,16 @@ class Backend(object):
         partitioning += "d-i partman-auto-loop/recipe string \\\n"
         disks_dir = unix_path(self.info.disks_dir) + '/'
         if self.info.root_size_mb:
-            partitioning += '  %s 3000 %s %s ext4 method{ format } format{ } use_filesystem{ } filesystem{ ext4 } mountpoint{ / } . \\\n' \
+            partitioning += '  %s 3000 %s %s $default_filesystem method{ format } format{ } use_filesystem{ } $default_filesystem{ } mountpoint{ / } . \\\n' \
             %(disks_dir + 'root.disk', self.info.root_size_mb, self.info.root_size_mb)
         if self.info.swap_size_mb:
             partitioning += '  %s 100 %s %s linux-swap method{ swap } format{ } . \\\n' \
             %(disks_dir + 'swap.disk', self.info.swap_size_mb, self.info.swap_size_mb)
         if self.info.home_size_mb:
-            partitioning += '  %s 100 %s %s ext4 method{ format } format{ } use_filesystem{ } filesystem{ ext4 } mountpoint{ /home } . \\\n' \
+            partitioning += '  %s 100 %s %s $default_filesystem method{ format } format{ } use_filesystem{ } $default_filesystem{ } mountpoint{ /home } . \\\n' \
             %(disks_dir + 'home.disk', self.info.home_size_mb, self.info.home_size_mb)
         if self.info.usr_size_mb:
-            partitioning += '  %s 100 %s %s ext4 method{ format } format{ } use_filesystem{ } filesystem{ ext4 } mountpoint{ /usr } . \\\n' \
+            partitioning += '  %s 100 %s %s $default_filesystem method{ format } format{ } use_filesystem{ } $default_filesystem{ } mountpoint{ /usr } . \\\n' \
             %(disks_dir + 'usr.disk', self.info.usr_size_mb, self.info.usr_size_mb)
         partitioning += "\n"
         safe_host_username = self.info.host_username.replace(" ", "+")
