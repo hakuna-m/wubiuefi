@@ -43,7 +43,7 @@ class InstallationPage(Page):
             parent,
             left, top + 6, 32, 32)
         picture.set_image(
-            os.path.join(self.info.image_dir, bmp))
+            os.path.join(unicode(str(self.info.image_dir), 'mbcs'), unicode(str(bmp), 'mbcs')))
         label = ui.Label(
             parent,
             left + 32 + 10, top, 150, 12,
@@ -262,10 +262,10 @@ class InstallationPage(Page):
             self.info.distro = self.info.distros_dict.get((distro_name.lower(), 'i386'))
         self.frontend.set_title(_("%s Installer") % self.info.distro.name)
         bmp_file = "%s-header.bmp" % self.info.distro.name
-        self.header.image.set_image(os.path.join(self.info.image_dir, bmp_file))
+        self.header.image.set_image(os.path.join(unicode(str(self.info.image_dir), 'mbcs'), unicode(str(bmp_file), 'mbcs')))
         self.header.title.set_text(_("You are about to install %(distro)s-%(version)s") % dict(distro=self.info.distro.name, version=self.info.version))
         icon_file = "%s.ico" % self.info.distro.name
-        self.frontend.set_icon(os.path.join(self.info.image_dir, icon_file))
+        self.frontend.set_icon(os.path.join(unicode(str(self.info.image_dir), 'mbcs'), unicode(str(icon_file), 'mbcs')))
         if not self.info.skip_memory_check:
             if self.info.total_memory_mb < self.info.distro.min_memory_mb:
                 message = _("%(min_memory)sMB of memory are required for installation.\nOnly %(total_memory)sMB are available.\nThe installation may fail in such circumstances.\nDo you wish to continue anyway?")

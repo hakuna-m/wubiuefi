@@ -84,7 +84,7 @@ class BasicWindow(object):
         if not self.__class__._window_class_name_:
             self.__class__._window_class_name_ = self.__class__.__name__
             if icon:
-                self._icon = windll.user32.LoadImageW(NULL, unicode(icon), IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
+                self._icon = windll.user32.LoadImageW(NULL, unicode(icon, 'mbcs'), IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
             self._register_window()
         self._create_window(x, y, width, height, text)
         self._register_handlers()
@@ -352,7 +352,7 @@ class Frontend(object):
 
     def set_icon(self, icon_path):
         if icon_path and os.path.isfile(icon_path):
-            self.main_window._icon = windll.user32.LoadImageW(NULL, unicode(icon_path), IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
+            self.main_window._icon = windll.user32.LoadImageW(NULL, icon_path, IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
             windll.user32.SendMessageW(self.main_window._hwnd, WM_SETICON, ICON_SMALL, self.main_window._icon)
 
     def get_title(self):
@@ -582,7 +582,6 @@ class Bitmap(StaticWidget):
     _window_ex_style_ = WS_EX_TRANSPARENT
 
     def set_image(self, path, width=0, height=0):
-        path = unicode(path)
         himage = windll.user32.LoadImageW(NULL, path, IMAGE_BITMAP, width, height, LR_LOADFROMFILE);
         self._gdi_disposables.append(himage)
         self._send_message(STM_SETIMAGE, IMAGE_BITMAP, himage)
@@ -592,7 +591,6 @@ class Icon(StaticWidget):
     _window_style_ = StaticWidget._window_style_|SS_ICON
 
     def set_image(self, path, width=0, height=0):
-        path = unicode(path)
         himage = windll.user32.LoadImageW(NULL, path, IMAGE_ICON, width, height, LR_LOADFROMFILE);
         self._gdi_disposables.append(himage)
         self._send_message(STM_SETIMAGE, IMAGE_ICON, himage)
