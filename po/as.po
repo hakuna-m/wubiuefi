@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-05-14 23:17+0100\n"
+"POT-Creation-Date: 2009-10-25 09:30+0000\n"
 "PO-Revision-Date: 2008-07-21 19:02+0000\n"
 "Last-Translator: pri <Unknown>\n"
 "Language-Team: Assamese <as@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-04-09 23:52+0000\n"
+"X-Launchpad-Export-Date: 2009-10-24 21:16+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/backends/win32/backend.py:152
@@ -27,22 +27,22 @@ msgid ""
 "The system will now reboot."
 msgstr ""
 
-#: src/wubi/backends/common/tasklist.py:255
-#: src/wubi/backends/common/tasklist.py:259
+#: src/wubi/backends/common/tasklist.py:256
+#: src/wubi/backends/common/tasklist.py:260
 msgid "0s"
 msgstr ""
 
-#: src/wubi/backends/common/tasklist.py:268
+#: src/wubi/backends/common/tasklist.py:269
 #, python-format
 msgid "%ih"
 msgstr ""
 
-#: src/wubi/backends/common/tasklist.py:270
+#: src/wubi/backends/common/tasklist.py:271
 #, python-format
 msgid "%imin"
 msgstr ""
 
-#: src/wubi/backends/common/tasklist.py:273
+#: src/wubi/backends/common/tasklist.py:274
 #, python-format
 msgid "%is"
 msgstr ""
@@ -53,141 +53,141 @@ msgstr ""
 msgid "Downloading %s"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:74
-#: src/wubi/backends/common/backend.py:95
-msgid "Selecting the target directory"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:75
-#: src/wubi/backends/common/backend.py:96
-msgid "Creating the installation directories"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:76
-#: src/wubi/backends/common/backend.py:86
-#: src/wubi/backends/common/backend.py:97
-#: src/wubi/backends/common/backend.py:105
-msgid "Uncompressing files"
-msgstr ""
-
 #: src/wubi/backends/common/backend.py:77
 #: src/wubi/backends/common/backend.py:98
-msgid "Creating the uninstaller"
+msgid "Selecting the target directory"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:78
 #: src/wubi/backends/common/backend.py:99
-#: src/wubi/backends/common/backend.py:420
-#: src/wubi/backends/common/backend.py:426
-msgid "Copying installation files"
+msgid "Creating the installation directories"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:79
-msgid "Retrieving installation files"
+#: src/wubi/backends/common/backend.py:89
+#: src/wubi/backends/common/backend.py:100
+#: src/wubi/backends/common/backend.py:108
+msgid "Uncompressing files"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:80
 #: src/wubi/backends/common/backend.py:101
-msgid "Extracting the kernel"
+msgid "Creating the uninstaller"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:81
-msgid "Choosing disk sizes"
+#: src/wubi/backends/common/backend.py:102
+#: src/wubi/backends/common/backend.py:425
+#: src/wubi/backends/common/backend.py:431
+msgid "Copying installation files"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:82
-#: src/wubi/backends/common/backend.py:102
-msgid "Creating a preseed file"
+msgid "Retrieving installation files"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:83
-#: src/wubi/backends/common/backend.py:103
-msgid "Adding a new bootloader entry"
+#: src/wubi/backends/common/backend.py:104
+msgid "Extracting the kernel"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:84
-#: src/wubi/backends/common/backend.py:104
-msgid "Setting up installation boot menu"
+msgid "Choosing disk sizes"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:85
-msgid "Creating the virtual disks"
+#: src/wubi/backends/common/backend.py:105
+msgid "Creating a preseed file"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:86
+#: src/wubi/backends/common/backend.py:106
+msgid "Adding a new bootloader entry"
 msgstr ""
 
 #: src/wubi/backends/common/backend.py:87
-#: src/wubi/backends/common/backend.py:106
+#: src/wubi/backends/common/backend.py:107
+msgid "Setting up installation boot menu"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:88
+msgid "Creating the virtual disks"
+msgstr ""
+
+#: src/wubi/backends/common/backend.py:90
+#: src/wubi/backends/common/backend.py:109
 msgid "Ejecting the CD"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:89
-#: src/wubi/frontends/win32/progress_page.py:38
+#: src/wubi/backends/common/backend.py:92
+#: src/wubi/frontends/win32/progress_page.py:39
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:100
+#: src/wubi/backends/common/backend.py:103
 msgid "Extracting CD content"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:108
+#: src/wubi/backends/common/backend.py:111
 msgid "Installing CD boot helper"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:113
-#: src/wubi/backends/common/backend.py:115
+#: src/wubi/backends/common/backend.py:116
+#: src/wubi/backends/common/backend.py:118
 msgid "Rebooting"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:120
+#: src/wubi/backends/common/backend.py:123
 msgid "Backup ISO"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:121
+#: src/wubi/backends/common/backend.py:124
 msgid "Remove bootloader entry"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:122
+#: src/wubi/backends/common/backend.py:125
 msgid "Remove target dir"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:123
+#: src/wubi/backends/common/backend.py:126
 msgid "Remove registry key"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:124
+#: src/wubi/backends/common/backend.py:127
 #, python-format
 msgid "Uninstalling %s"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:253
+#: src/wubi/backends/common/backend.py:258
 #, python-format
 msgid "Checking CD %s"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:279
-#: src/wubi/backends/common/backend.py:323
-#: src/wubi/backends/common/backend.py:359
+#: src/wubi/backends/common/backend.py:284
+#: src/wubi/backends/common/backend.py:328
+#: src/wubi/backends/common/backend.py:364
 msgid "Downloading information on installation files"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:294
-#: src/wubi/backends/common/backend.py:351
-#: src/wubi/backends/common/backend.py:414
-#: src/wubi/backends/common/backend.py:463
+#: src/wubi/backends/common/backend.py:299
+#: src/wubi/backends/common/backend.py:356
+#: src/wubi/backends/common/backend.py:419
+#: src/wubi/backends/common/backend.py:468
 msgid "Checking installation files"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:385
+#: src/wubi/backends/common/backend.py:390
 #, python-format
 msgid "Validating %s"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:450
+#: src/wubi/backends/common/backend.py:455
 #, python-format
 msgid "Extracting files from %s"
 msgstr ""
 
-#: src/wubi/backends/common/backend.py:526
+#: src/wubi/backends/common/backend.py:531
 #, python-format
 msgid "Checking %s"
 msgstr ""
@@ -231,7 +231,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 #: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/progress_page.py:43
+#: src/wubi/frontends/win32/progress_page.py:44
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/accessibility_page.py:39
 #: src/wubi/frontends/win32/cd_menu_page.py:38
@@ -312,17 +312,17 @@ msgstr ""
 msgid "Password:"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:259
+#: src/wubi/frontends/win32/installation_page.py:263
 #, python-format
 msgid "%s Installer"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:262
+#: src/wubi/frontends/win32/installation_page.py:266
 #, python-format
 msgid "You are about to install %(distro)s-%(version)s"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:267
+#: src/wubi/frontends/win32/installation_page.py:271
 #, python-format
 msgid ""
 "%(min_memory)sMB of memory are required for installation.\n"
@@ -331,54 +331,56 @@ msgid ""
 "Do you wish to continue anyway?"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:309
+#: src/wubi/frontends/win32/installation_page.py:313
 msgid "Please enter a valid username"
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:311
+#: src/wubi/frontends/win32/installation_page.py:315
 msgid "Please use all lower cases in the username."
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:313
+#: src/wubi/frontends/win32/installation_page.py:317
 msgid "Please do not use spaces in the username."
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:315
+#: src/wubi/frontends/win32/installation_page.py:319
 msgid "Your username must start with a letter."
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:317
+#: src/wubi/frontends/win32/installation_page.py:321
 msgid "Your username must contain only standard letters and numbers."
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:319
+#: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:321
+#: src/wubi/frontends/win32/installation_page.py:325
 msgid "Please enter a valid password."
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:323
+#: src/wubi/frontends/win32/installation_page.py:327
 msgid "Please do not use spaces in the password."
 msgstr ""
 
-#: src/wubi/frontends/win32/installation_page.py:325
+#: src/wubi/frontends/win32/installation_page.py:329
 msgid "Passwords do not match."
 msgstr ""
 
-#: src/wubi/frontends/win32/progress_page.py:39
+#: src/wubi/frontends/win32/progress_page.py:40
 msgid "Please wait"
 msgstr ""
 
-#: src/wubi/frontends/win32/progress_page.py:52
+#: src/wubi/frontends/win32/progress_page.py:53
 msgid "Do not download, use a local file"
 msgstr ""
 
-#: src/wubi/frontends/win32/progress_page.py:65
+#: src/wubi/frontends/win32/progress_page.py:66
 #, python-format
 msgid "Remaining time approximately %s"
-msgstr ""
+msgid_plural "Remaining time approximately %s"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
@@ -486,11 +488,11 @@ msgid ""
 "install %(distro)s either alongside Windows or as the only operating system."
 msgstr ""
 
-#: src/wubi/frontends/win32/cd_menu_page.py:64
+#: src/wubi/frontends/win32/cd_menu_page.py:65
 msgid "Install inside Windows"
 msgstr ""
 
-#: src/wubi/frontends/win32/cd_menu_page.py:66
+#: src/wubi/frontends/win32/cd_menu_page.py:67
 #, python-format
 msgid ""
 "Install and uninstall %(distro)s like any other application, without the "
@@ -499,11 +501,11 @@ msgid ""
 "is slightly reduced."
 msgstr ""
 
-#: src/wubi/frontends/win32/cd_menu_page.py:73
+#: src/wubi/frontends/win32/cd_menu_page.py:74
 msgid "Learn more"
 msgstr ""
 
-#: src/wubi/frontends/win32/cd_menu_page.py:75
+#: src/wubi/frontends/win32/cd_menu_page.py:76
 #, python-format
 msgid ""
 "%(distro)s is a free, community developed, linux-based operating system "
@@ -533,7 +535,7 @@ msgid ""
 "Do you want to proceed and install the CD booter?"
 msgstr ""
 
-#: src/wubi/application.py:63
+#: src/wubi/application.py:64
 #, python-format
 msgid ""
 "An error occurred:\n"
@@ -543,18 +545,18 @@ msgid ""
 "For more information, please see the log file: %(log)s"
 msgstr ""
 
-#: src/wubi/application.py:146 src/wubi/application.py:207
+#: src/wubi/application.py:147 src/wubi/application.py:208
 #, python-format
 msgid ""
 "A previous installation was detected in %s.\n"
 "Please uninstall that before continuing."
 msgstr ""
 
-#: src/wubi/application.py:189
+#: src/wubi/application.py:190
 msgid "No CD detected, cannot run CD menu"
 msgstr ""
 
-#: src/wubi/application.py:197
+#: src/wubi/application.py:198
 msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."

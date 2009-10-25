@@ -1,16 +1,16 @@
-# Kabyle translation for wubi
-# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# Telugu translation for wubi
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the wubi package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2009-10-25 09:30+0000\n"
-"PO-Revision-Date: 2009-03-02 08:33+0000\n"
-"Last-Translator: yugurten <yugurten1@hotmail.fr>\n"
-"Language-Team: Kabyle <kab@li.org>\n"
+"PO-Revision-Date: 2009-04-27 04:00+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Telugu <te@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -302,7 +302,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:211
 msgid "Language:"
-msgstr "Tutlayt:"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:219
 msgid "Username:"
@@ -310,7 +310,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:226
 msgid "Password:"
-msgstr "Awal n te baḍnit:"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:263
 #, python-format

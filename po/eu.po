@@ -14,14 +14,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-05-14 23:17+0100\n"
-"PO-Revision-Date: 2009-03-14 03:01+0000\n"
+"POT-Creation-Date: 2009-10-25 09:30+0000\n"
+"PO-Revision-Date: 2009-06-30 14:59+0000\n"
 "Last-Translator: Mikel Pascual Aldabaldetreku <mikel.paskual@gmail.com>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-04-09 23:52+0000\n"
+"X-Launchpad-Export-Date: 2009-10-24 21:16+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/backends/win32/backend.py:152
@@ -33,26 +33,31 @@ msgid ""
 "\n"
 "The system will now reboot."
 msgstr ""
+"Instalazioak huts egin du. Txostenak hemen gorde dira: %s.\n"
+"\n"
+"Modu hiztunean, txostenek pasahitza erakuts dezakete.\n"
+"\n"
+"Sistema berrabiaraziko da orain."
 
-#: src/wubi/backends/common/tasklist.py:255
-#: src/wubi/backends/common/tasklist.py:259
+#: src/wubi/backends/common/tasklist.py:256
+#: src/wubi/backends/common/tasklist.py:260
 msgid "0s"
-msgstr ""
+msgstr "0s"
 
-#: src/wubi/backends/common/tasklist.py:268
+#: src/wubi/backends/common/tasklist.py:269
 #, python-format
 msgid "%ih"
-msgstr ""
+msgstr "%iord"
 
-#: src/wubi/backends/common/tasklist.py:270
+#: src/wubi/backends/common/tasklist.py:271
 #, python-format
 msgid "%imin"
-msgstr ""
+msgstr "%imin"
 
-#: src/wubi/backends/common/tasklist.py:273
+#: src/wubi/backends/common/tasklist.py:274
 #, python-format
 msgid "%is"
-msgstr ""
+msgstr "%is"
 
 #: src/wubi/backends/common/downloader.py:66
 #: src/wubi/backends/common/btdownloader.py:36
@@ -60,177 +65,177 @@ msgstr ""
 msgid "Downloading %s"
 msgstr "%s deskargatzen"
 
-#: src/wubi/backends/common/backend.py:74
-#: src/wubi/backends/common/backend.py:95
-msgid "Selecting the target directory"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:75
-#: src/wubi/backends/common/backend.py:96
-msgid "Creating the installation directories"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:76
-#: src/wubi/backends/common/backend.py:86
-#: src/wubi/backends/common/backend.py:97
-#: src/wubi/backends/common/backend.py:105
-msgid "Uncompressing files"
-msgstr ""
-
 #: src/wubi/backends/common/backend.py:77
 #: src/wubi/backends/common/backend.py:98
-msgid "Creating the uninstaller"
-msgstr ""
+msgid "Selecting the target directory"
+msgstr "Helburu-direktorioa hautatzen"
 
 #: src/wubi/backends/common/backend.py:78
 #: src/wubi/backends/common/backend.py:99
-#: src/wubi/backends/common/backend.py:420
-#: src/wubi/backends/common/backend.py:426
-msgid "Copying installation files"
-msgstr ""
+msgid "Creating the installation directories"
+msgstr "Instalazio-direktorioak sortzen"
 
 #: src/wubi/backends/common/backend.py:79
-msgid "Retrieving installation files"
-msgstr ""
+#: src/wubi/backends/common/backend.py:89
+#: src/wubi/backends/common/backend.py:100
+#: src/wubi/backends/common/backend.py:108
+msgid "Uncompressing files"
+msgstr "Fitxategiak erauzten"
 
 #: src/wubi/backends/common/backend.py:80
 #: src/wubi/backends/common/backend.py:101
-msgid "Extracting the kernel"
-msgstr ""
+msgid "Creating the uninstaller"
+msgstr "Desinstalatzailea sortzen"
 
 #: src/wubi/backends/common/backend.py:81
-msgid "Choosing disk sizes"
-msgstr ""
+#: src/wubi/backends/common/backend.py:102
+#: src/wubi/backends/common/backend.py:425
+#: src/wubi/backends/common/backend.py:431
+msgid "Copying installation files"
+msgstr "Instalazio-fitxategiak kopiatzen"
 
 #: src/wubi/backends/common/backend.py:82
-#: src/wubi/backends/common/backend.py:102
-msgid "Creating a preseed file"
-msgstr ""
+msgid "Retrieving installation files"
+msgstr "Instalazio-fitxategiak eskuratzen"
 
 #: src/wubi/backends/common/backend.py:83
-#: src/wubi/backends/common/backend.py:103
-msgid "Adding a new bootloader entry"
-msgstr ""
+#: src/wubi/backends/common/backend.py:104
+msgid "Extracting the kernel"
+msgstr "Nukleoa erauzten"
 
 #: src/wubi/backends/common/backend.py:84
-#: src/wubi/backends/common/backend.py:104
-msgid "Setting up installation boot menu"
-msgstr ""
+msgid "Choosing disk sizes"
+msgstr "Disko-tamainak hautatzen"
 
 #: src/wubi/backends/common/backend.py:85
-msgid "Creating the virtual disks"
-msgstr ""
+#: src/wubi/backends/common/backend.py:105
+msgid "Creating a preseed file"
+msgstr "Preseed-fitxategia sortzen"
+
+#: src/wubi/backends/common/backend.py:86
+#: src/wubi/backends/common/backend.py:106
+msgid "Adding a new bootloader entry"
+msgstr "Abio-kargatzailean sarrera berria sortzen"
 
 #: src/wubi/backends/common/backend.py:87
-#: src/wubi/backends/common/backend.py:106
-msgid "Ejecting the CD"
-msgstr ""
+#: src/wubi/backends/common/backend.py:107
+msgid "Setting up installation boot menu"
+msgstr "Instalazioaren abio-menua ezartzen"
 
-#: src/wubi/backends/common/backend.py:89
-#: src/wubi/frontends/win32/progress_page.py:38
+#: src/wubi/backends/common/backend.py:88
+msgid "Creating the virtual disks"
+msgstr "Disko birtualak sortzen"
+
+#: src/wubi/backends/common/backend.py:90
+#: src/wubi/backends/common/backend.py:109
+msgid "Ejecting the CD"
+msgstr "CD-a erauzten"
+
+#: src/wubi/backends/common/backend.py:92
+#: src/wubi/frontends/win32/progress_page.py:39
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
-msgstr ""
+msgstr "%(distro)s-%(version)s instalatzen"
 
-#: src/wubi/backends/common/backend.py:100
+#: src/wubi/backends/common/backend.py:103
 msgid "Extracting CD content"
-msgstr ""
+msgstr "CDaren edukiak erauzten"
 
-#: src/wubi/backends/common/backend.py:108
+#: src/wubi/backends/common/backend.py:111
 msgid "Installing CD boot helper"
-msgstr ""
+msgstr "CDa abiatzeko laguntzailea instalatzen"
 
-#: src/wubi/backends/common/backend.py:113
-#: src/wubi/backends/common/backend.py:115
+#: src/wubi/backends/common/backend.py:116
+#: src/wubi/backends/common/backend.py:118
 msgid "Rebooting"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:120
-msgid "Backup ISO"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:121
-msgid "Remove bootloader entry"
-msgstr ""
-
-#: src/wubi/backends/common/backend.py:122
-msgid "Remove target dir"
-msgstr ""
+msgstr "Berrabiarazten"
 
 #: src/wubi/backends/common/backend.py:123
-msgid "Remove registry key"
-msgstr ""
+msgid "Backup ISO"
+msgstr "ISO-a kopiatu"
 
 #: src/wubi/backends/common/backend.py:124
+msgid "Remove bootloader entry"
+msgstr "Abio-kargatzaileko sarrera kendu"
+
+#: src/wubi/backends/common/backend.py:125
+msgid "Remove target dir"
+msgstr "Helburu-direktorioa kendu"
+
+#: src/wubi/backends/common/backend.py:126
+msgid "Remove registry key"
+msgstr "Erregistroko gakoa kendu"
+
+#: src/wubi/backends/common/backend.py:127
 #, python-format
 msgid "Uninstalling %s"
-msgstr ""
+msgstr "%s desinstalatzen"
 
-#: src/wubi/backends/common/backend.py:253
+#: src/wubi/backends/common/backend.py:258
 #, python-format
 msgid "Checking CD %s"
-msgstr ""
+msgstr "%s CDa egiaztatzen"
 
-#: src/wubi/backends/common/backend.py:279
-#: src/wubi/backends/common/backend.py:323
-#: src/wubi/backends/common/backend.py:359
+#: src/wubi/backends/common/backend.py:284
+#: src/wubi/backends/common/backend.py:328
+#: src/wubi/backends/common/backend.py:364
 msgid "Downloading information on installation files"
-msgstr ""
+msgstr "Instalazio-fitxategien informazioa deskargatzen"
 
-#: src/wubi/backends/common/backend.py:294
-#: src/wubi/backends/common/backend.py:351
-#: src/wubi/backends/common/backend.py:414
-#: src/wubi/backends/common/backend.py:463
+#: src/wubi/backends/common/backend.py:299
+#: src/wubi/backends/common/backend.py:356
+#: src/wubi/backends/common/backend.py:419
+#: src/wubi/backends/common/backend.py:468
 msgid "Checking installation files"
-msgstr ""
+msgstr "Instalazio-fitxategiak egiaztatzen"
 
-#: src/wubi/backends/common/backend.py:385
+#: src/wubi/backends/common/backend.py:390
 #, python-format
 msgid "Validating %s"
-msgstr ""
+msgstr "%s egiaztatzen"
 
-#: src/wubi/backends/common/backend.py:450
+#: src/wubi/backends/common/backend.py:455
 #, python-format
 msgid "Extracting files from %s"
-msgstr ""
+msgstr "%s-ko fitxategiak erauzten"
 
-#: src/wubi/backends/common/backend.py:526
+#: src/wubi/backends/common/backend.py:531
 #, python-format
 msgid "Checking %s"
-msgstr ""
+msgstr "%s egiaztatzen"
 
 #: src/wubi/frontends/win32/frontend.py:51
 msgid "Are you sure you want to quit?"
-msgstr ""
+msgstr "Ziur zaude irten nahi duzula?"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 #: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 msgid "Finish"
-msgstr ""
+msgstr "Amaitu"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
-msgstr ""
+msgstr "Desinstalazioa burututa"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:43
 #, python-format
 msgid "%s has been successfully uninstalled"
-msgstr ""
+msgstr "Arrakastaz desinstalatu da %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
 msgid "%s Uninstaller"
-msgstr ""
+msgstr "%s Desinstalatzailea"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:36
 msgid "Uninstallation required"
-msgstr ""
+msgstr "Desinstalatzailea beharrezkoa da"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:38
 #, python-format
 msgid "You are about to uninstall %s"
-msgstr ""
+msgstr "%s desinstalatuko duzu"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 msgid "Uninstall"
@@ -238,27 +243,29 @@ msgstr "Desinstalatu"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 #: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/progress_page.py:43
+#: src/wubi/frontends/win32/progress_page.py:44
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/accessibility_page.py:39
 #: src/wubi/frontends/win32/cd_menu_page.py:38
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Cancel"
-msgstr ""
+msgstr "Utzi"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:52
 msgid ""
 "A previous installation was detected, it needs to be uninstalled before "
 "continuing"
 msgstr ""
+"Aurreko instalazio bat detektatu da. Desinstalatu egin beharko da jarraitu "
+"aurretik"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:54
 msgid "Are you sure you want to uninstall?"
-msgstr ""
+msgstr "Ziur zaude desinstalatu nahi duzula?"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:62
 msgid "Backup the downloaded files (ISO)"
-msgstr ""
+msgstr "Deskargatutako fitxategiak kopiatu (ISO)"
 
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
@@ -266,6 +273,8 @@ msgid ""
 "Only %sMB of disk space are available.\n"
 "At least 1024MB are required as a bare minimum. Quitting"
 msgstr ""
+"%sMB bakarrik daude libre diskoan.\n"
+"1024MB behar dituzu gutxienez. Irteten"
 
 #: src/wubi/frontends/win32/installation_page.py:77
 #, python-format
@@ -275,11 +284,15 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
+"%(min_space)sMB behar dira instalaziorako.\n"
+"%(max_space)sMB bakarrik daude libre diskoan.\n"
+"Egoera honetan, instalazioak huts egin dezake.\n"
+"Halaere, jarraitu egin nahi al duzu?"
 
 #: src/wubi/frontends/win32/installation_page.py:96
 #, python-format
 msgid "(%sGB free)"
-msgstr ""
+msgstr "(%sGB libre)"
 
 #: src/wubi/frontends/win32/installation_page.py:177
 msgid "Please select username and password for the new account"
@@ -288,24 +301,24 @@ msgstr "Hautatu itzazu kontu berriaren erabiltzaile-izena eta pasahitza"
 #: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Accessibility"
-msgstr ""
+msgstr "Erabilerraztasuna"
 
 #: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Install"
-msgstr ""
+msgstr "Instalatu"
 
 #: src/wubi/frontends/win32/installation_page.py:193
 msgid "Installation drive:"
-msgstr ""
+msgstr "Instalaziorako gailua:"
 
 #: src/wubi/frontends/win32/installation_page.py:199
 msgid "Installation size:"
-msgstr ""
+msgstr "Instalazioaren tamaina:"
 
 #: src/wubi/frontends/win32/installation_page.py:205
 msgid "Desktop environment:"
-msgstr ""
+msgstr "Mahaigaineko ingurunea:"
 
 #: src/wubi/frontends/win32/installation_page.py:211
 msgid "Language:"
@@ -319,17 +332,17 @@ msgstr "Erabiltzaile-izena:"
 msgid "Password:"
 msgstr "Pasahitza:"
 
-#: src/wubi/frontends/win32/installation_page.py:259
+#: src/wubi/frontends/win32/installation_page.py:263
 #, python-format
 msgid "%s Installer"
-msgstr ""
+msgstr "%s Instalatzailea"
 
-#: src/wubi/frontends/win32/installation_page.py:262
+#: src/wubi/frontends/win32/installation_page.py:266
 #, python-format
 msgid "You are about to install %(distro)s-%(version)s"
-msgstr ""
+msgstr "%(distro)s-%(version)s instalatuko duzu"
 
-#: src/wubi/frontends/win32/installation_page.py:267
+#: src/wubi/frontends/win32/installation_page.py:271
 #, python-format
 msgid ""
 "%(min_memory)sMB of memory are required for installation.\n"
@@ -337,78 +350,84 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
+"%(min_memory)sMB-eko memoria behar da instalaziorako.\n"
+"%(total_memory)sMB bakarrik daude erabilgarri.\n"
+"Egoera honetan, instalazioak huts egin dezake.\n"
+"Halaere, jarraitu egin nahi al duzu?"
 
-#: src/wubi/frontends/win32/installation_page.py:309
+#: src/wubi/frontends/win32/installation_page.py:313
 msgid "Please enter a valid username"
 msgstr "Erabiltzaile-izen egoki bat sartu"
 
-#: src/wubi/frontends/win32/installation_page.py:311
+#: src/wubi/frontends/win32/installation_page.py:315
 msgid "Please use all lower cases in the username."
 msgstr "Minuskulak bakarrik erabili erabiltzaile-izenean."
 
-#: src/wubi/frontends/win32/installation_page.py:313
+#: src/wubi/frontends/win32/installation_page.py:317
 msgid "Please do not use spaces in the username."
 msgstr "Ez hutsunerik erabili erabiltzaile-izenean."
 
-#: src/wubi/frontends/win32/installation_page.py:315
+#: src/wubi/frontends/win32/installation_page.py:319
 msgid "Your username must start with a letter."
 msgstr "Hizki batekin hasi behar du zure erabiltzaile-izenak."
 
-#: src/wubi/frontends/win32/installation_page.py:317
+#: src/wubi/frontends/win32/installation_page.py:321
 msgid "Your username must contain only standard letters and numbers."
 msgstr ""
 "Hizki eta zenbaki arruntak bakarrik eduki ditzake zure erabiltzaile-izenak."
 
-#: src/wubi/frontends/win32/installation_page.py:319
+#: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."
-msgstr ""
+msgstr "Erreserbatuta dago erabiltzaile-izen hori, beste bat erabili ezazu."
 
-#: src/wubi/frontends/win32/installation_page.py:321
+#: src/wubi/frontends/win32/installation_page.py:325
 msgid "Please enter a valid password."
 msgstr "Pasahitz egoki bat sartu."
 
-#: src/wubi/frontends/win32/installation_page.py:323
+#: src/wubi/frontends/win32/installation_page.py:327
 msgid "Please do not use spaces in the password."
 msgstr "Ez hutsunerik erabili pasahitzean."
 
-#: src/wubi/frontends/win32/installation_page.py:325
+#: src/wubi/frontends/win32/installation_page.py:329
 msgid "Passwords do not match."
 msgstr "Pasahitzak ez datoz bat."
 
-#: src/wubi/frontends/win32/progress_page.py:39
+#: src/wubi/frontends/win32/progress_page.py:40
 msgid "Please wait"
-msgstr ""
+msgstr "Itxaron, mesedez"
 
-#: src/wubi/frontends/win32/progress_page.py:52
+#: src/wubi/frontends/win32/progress_page.py:53
 msgid "Do not download, use a local file"
-msgstr ""
+msgstr "Ez deskargatu, fitxategi lokal bat erabili"
 
-#: src/wubi/frontends/win32/progress_page.py:65
-#, python-format
+#: src/wubi/frontends/win32/progress_page.py:66
+#, fuzzy, python-format
 msgid "Remaining time approximately %s"
-msgstr ""
+msgid_plural "Remaining time approximately %s"
+msgstr[0] "%s inguru falta"
+msgstr[1] "%s inguru falta"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
 msgid "Completing the %s Setup Wizard"
-msgstr ""
+msgstr "%s Konfigurazio-Laguntzailea burutzen"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
-msgstr ""
+msgstr "Berrabiarazi egin beharko duzu instalazioa burutzeko"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:44
 #: src/wubi/frontends/win32/cd_finish_page.py:47
 msgid "Reboot now"
-msgstr ""
+msgstr "Orain berrabiarazi"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
-msgstr ""
+msgstr "Geroago berraziarazi nahi dut"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 msgid "< Back"
-msgstr ""
+msgstr "< Atzera"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:43
 msgid "Reboot required"
@@ -426,7 +445,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cd_finish_page.py:48
 msgid "I want to manually reboot Later"
-msgstr ""
+msgstr "Geroago eskuz berrabiarazi nahi dut"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
 msgid "Help me to boot from CD"
@@ -442,7 +461,7 @@ msgstr "Erabilerraztasun profil egokia hautatu ezazu"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
-msgstr ""
+msgstr "Hurrengoa >>"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
@@ -450,19 +469,19 @@ msgstr "Ikusgarritasun Laguntzak"
 
 #: src/wubi/frontends/win32/accessibility_page.py:51
 msgid "Visibility1"
-msgstr ""
+msgstr "Ikusgarritasuna1"
 
 #: src/wubi/frontends/win32/accessibility_page.py:52
 msgid "Visibility2"
-msgstr ""
+msgstr "Ikusgarritasuna2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:53
 msgid "Visibility3"
-msgstr ""
+msgstr "Ikusgarritasuna3"
 
 #: src/wubi/frontends/win32/accessibility_page.py:54
 msgid "Braille"
-msgstr ""
+msgstr "Braille"
 
 #: src/wubi/frontends/win32/accessibility_page.py:57
 msgid "Mobility Aids"
@@ -470,11 +489,11 @@ msgstr "Mugikortasun Laguntzak"
 
 #: src/wubi/frontends/win32/accessibility_page.py:58
 msgid "Mobility1"
-msgstr ""
+msgstr "Mugikortasuna1"
 
 #: src/wubi/frontends/win32/accessibility_page.py:59
 msgid "Mobility2"
-msgstr ""
+msgstr "Mugikortasuna2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:62
 msgid "None"
@@ -483,7 +502,7 @@ msgstr "Batere ez"
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
 msgid "%s Menu"
-msgstr ""
+msgstr "%s Menua"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:53
 msgid "Demo and full installation"
@@ -496,16 +515,16 @@ msgid ""
 "the tray. You may perform a full installation from within the demo to "
 "install %(distro)s either alongside Windows or as the only operating system."
 msgstr ""
-"instalatu beharrik gabe proba dezakezu %(distro)s! Ordenagailuan CDa sartuta "
+"Instalatu beharrik gabe proba dezakezu %(distro)s! Ordenagailuan CDa sartuta "
 "duzula berrabiarazi besterik ez duzu egin behar. Probatu bitartean, hala "
 "nahi baduzu, %(distro)s instalatu ahalko duzu, Windows mantenduz edo kenduz "
 "(zuk nahi duzuna)."
 
-#: src/wubi/frontends/win32/cd_menu_page.py:64
+#: src/wubi/frontends/win32/cd_menu_page.py:65
 msgid "Install inside Windows"
-msgstr "Windows barruan instalatu"
+msgstr "Windows-en barruan instalatu"
 
-#: src/wubi/frontends/win32/cd_menu_page.py:66
+#: src/wubi/frontends/win32/cd_menu_page.py:67
 #, python-format
 msgid ""
 "Install and uninstall %(distro)s like any other application, without the "
@@ -513,12 +532,16 @@ msgid ""
 "or %(distro)s. Hibernation is not enabled in this mode and disk performance "
 "is slightly reduced."
 msgstr ""
+"Beste edozein aplikazio bezala instalatu eta desinstalatu %(distro)s, "
+"partizio berezirik behar gabe. Ordenagailua abiaraztean, Windows naiz %"
+"(distro)s aukeratu ahalko duzu. Modu honetan hibernazioa ezgaitzen da eta "
+"disko-abiadura apur bat murrizten da."
 
-#: src/wubi/frontends/win32/cd_menu_page.py:73
+#: src/wubi/frontends/win32/cd_menu_page.py:74
 msgid "Learn more"
 msgstr "Gehiago ikasi"
 
-#: src/wubi/frontends/win32/cd_menu_page.py:75
+#: src/wubi/frontends/win32/cd_menu_page.py:76
 #, python-format
 msgid ""
 "%(distro)s is a free, community developed, linux-based operating system "
@@ -532,15 +555,15 @@ msgstr ""
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
 msgid "%s CD Boot Helper"
-msgstr ""
+msgstr "%s CD-abio Laguuntzailea"
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
-msgstr ""
+msgstr "Jarraitzeko disko-espazio nahikorik ez"
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
-msgstr ""
+msgstr "CD-abio laguntzailea instalatu"
 
 #: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
@@ -557,7 +580,7 @@ msgstr ""
 "\n"
 "Aurrera jarraitu eta CD-abiarazlea instalatu?"
 
-#: src/wubi/application.py:63
+#: src/wubi/application.py:64
 #, python-format
 msgid ""
 "An error occurred:\n"
@@ -566,20 +589,29 @@ msgid ""
 "\n"
 "For more information, please see the log file: %(log)s"
 msgstr ""
+"errorea gertatu da:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"Informazio gehiago eskuratzeko, txostenera jo: %(log)s"
 
-#: src/wubi/application.py:146 src/wubi/application.py:207
+#: src/wubi/application.py:147 src/wubi/application.py:208
 #, python-format
 msgid ""
 "A previous installation was detected in %s.\n"
 "Please uninstall that before continuing."
 msgstr ""
+"Aurreko instalazio bat detektatu da %s-n.\n"
+"Jarraitu aurretik, desinstalatu ezazu."
 
-#: src/wubi/application.py:189
+#: src/wubi/application.py:190
 msgid "No CD detected, cannot run CD menu"
-msgstr ""
+msgstr "Ez da CD-rik detektatu, ezin CD-menua abiarazi"
 
-#: src/wubi/application.py:197
+#: src/wubi/application.py:198
 msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
+"Ezin baliozko CD-rik aurkitu.\n"
+"Live CD bat behar da CD-abio laguntzailea erabiltzeko."

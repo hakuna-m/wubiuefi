@@ -28,6 +28,7 @@ wubi (9.10ubuntu1) UNRELEASED; urgency=low
   * Use ext4 by default (lp: #444214)
   * Support Japanese-multibyte usernames, patch provided by Jun
     Kobayashi, (LP: #452348)
+  * Updated translations, syncing from Rosetta
 
   [ Michael Casadevall ]
   * Added support for UNR
