@@ -1,4 +1,4 @@
-wubi (9.10ubuntu1) UNRELEASED; urgency=low
+wubi (9.10) karmic; urgency=low
 
   [ Agostino Russo ]
   * Upped references to 9.10/karmic
