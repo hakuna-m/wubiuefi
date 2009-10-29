@@ -30,6 +30,7 @@ wubi (9.10ubuntu1) UNRELEASED; urgency=low
     Kobayashi, (LP: #452348)
   * Updated translations, syncing from Rosetta
   * Fix country detection (LP: #428575)
+  * Add 'Nederland' to country name mappings (LP: #428575)
 
   [ Michael Casadevall ]
   * Added support for UNR
