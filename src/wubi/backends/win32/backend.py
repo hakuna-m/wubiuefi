@@ -206,6 +206,10 @@ class WindowsBackend(Backend):
 
     def get_country(self):
         icountry = registry.get_value('HKEY_CURRENT_USER', 'Control Panel\\International', 'iCountry')
+        try:
+                icountry = int(icountry)
+        except:
+                pass
         country = mappings.icountry2country.get(icountry)
         if not country:
             scountry = registry.get_value('HKEY_CURRENT_USER', 'Control Panel\\International', 'sCountry')

@@ -176,6 +176,7 @@ name2country  = {
     "Nauru" : "NR",
     "Nepal" : "NP",
     "Netherlands Antilles" : "AN",
+    "Netherland" : "NL",
     "Netherlands" : "NL",
     "New Caledonia" : "NC",
     "New Zealand" : "NZ",
