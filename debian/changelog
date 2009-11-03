@@ -1,3 +1,9 @@
+wubi (9.10ubuntu1) UNRELEASED; urgency=low
+
+  * Fixed country and keymap detection (LP: #428575)
+
+ -- Agostino Russo <agostino.russo@gmail.com>  Tue, 03 Nov 2009 00:43:27 +0000
+
 wubi (9.10) karmic; urgency=low
 
   [ Agostino Russo ]
@@ -29,9 +35,6 @@ wubi (9.10) karmic; urgency=low
   * Support Japanese-multibyte usernames, patch provided by Jun
     Kobayashi, (LP: #452348)
   * Updated translations, syncing from Rosetta
-  * Fix country detection (LP: #428575)
-  * Add 'Nederland' to country name mappings (LP: #428575)
-  * Keymap mapping uses numeric keys (LP: #428575)
 
   [ Michael Casadevall ]
   * Added support for UNR
