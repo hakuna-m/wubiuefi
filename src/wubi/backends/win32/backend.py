@@ -551,7 +551,7 @@ class WindowsBackend(Backend):
         if not os.path.isfile(bootini):
             return
         run_command(['attrib', '-R', '-S', '-H', bootini])
-        remove_line_in_file(bootini, 'c:\wubildr.mbr')
+        remove_line_in_file(bootini, 'c:\wubildr.mbr', ignore_case=True)
         run_command(['attrib', '+R', '+S', '+H', bootini])
 
     def modify_configsys(self, drive, associated_task):

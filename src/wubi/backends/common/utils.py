@@ -263,12 +263,16 @@ def replace_line_in_file(file_path, old_line, new_line):
         log.exception(err)
     f.close()
 
-def remove_line_in_file(file_path, rm_line):
+def remove_line_in_file(file_path, rm_line, ignore_case=False):
     f = open(file_path, 'r')
     lines = f.readlines()
     f.close()
     f = open(file_path, 'w')
+    if ignore_case:
+        rm_line = rm_line.lower()
     for i,line in enumerate(lines):
+        if ignore_case:
+            line = line.lower()
         if line.startswith(rm_line):
             lines[i] = ""
     f.writelines(lines)
