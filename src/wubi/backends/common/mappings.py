@@ -924,6 +924,7 @@ country2tz = {
     "ZW" : "Africa/Harare",
 }
 
+#This list is overridden below
 language2lang_country = {
     "Afar (ET)" : "aa_ET",
     "Afrikaans (ZA)" : "af_ZA",
@@ -961,6 +962,7 @@ language2lang_country = {
     "Catalan (ES)" : "ca_ES",
     "Catalan (FR)" : "ca_FR",
     "Catalan (IT)" : "ca_IT",
+    "Chinese (CN)": "zh_CN",
     "Cree (UA)" : "crh_UA",
     "Czech (CZ)" : "cs_CZ",
     "Czech (PL)" : "csb_PL",
@@ -1134,6 +1136,7 @@ language2lang_country = {
     "Breton" : "br_FR",
     "Bosnian" : "bs_BA",
     "Catalan" : "ca_ES",
+    "Chinese": "zh_CN",
     "Cree" : "crh_UA",
     "Czech" : "cs_CZ",
     "Welsh" : "cy_GB",
