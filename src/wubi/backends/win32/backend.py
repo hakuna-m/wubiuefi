@@ -362,14 +362,12 @@ class WindowsBackend(Backend):
 
     def get_keyboard_layout(self):
         win_keyboard_id = ctypes.windll.user32.GetKeyboardLayout(0)
-        #~ lower word is the locale identifier (higher word is a handler to the actual layout)
+        # lower word is the locale identifier (higher word is a handler to the actual layout)
         locale_id = win_keyboard_id & 0x0000FFFF
-        locale_id = '0x%04X' % locale_id
         keyboard_layout = mappings.keymaps.get(locale_id)
         if not keyboard_layout:
             keyboard_layout = self.info.country.lower()
-        variant_id = win_keyboard_id & 4294967295L #0xFFFFFFFF
-        variant_id = '0x%08X' % variant_id
+        variant_id = win_keyboard_id & 0xFFFFFFFF
         keyboard_variant = mappings.hkl2variant.get(variant_id)
         if not keyboard_variant:
             keyboard_variant = ""
