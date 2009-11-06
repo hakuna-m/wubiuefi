@@ -6,6 +6,7 @@ wubi (9.10ubuntu1) UNRELEASED; urgency=low
   * Boot.ini is not restored if drive letter is in upper case (LP:
     #400936)
   * Added traditional chinese to language list (LP: #468457)
+  * Default to English if translations are not available (LP: #469131)
 
  -- Agostino Russo <agostino.russo@gmail.com>  Tue, 03 Nov 2009 00:43:27 +0000
 
