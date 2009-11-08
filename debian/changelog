@@ -7,6 +7,9 @@ wubi (9.10ubuntu1) UNRELEASED; urgency=low
     #400936)
   * Added traditional chinese to language list (LP: #468457)
   * Default to English if translations are not available (LP: #469131)
+  * Better embedded grub.cfg, previous version was a workaround for a 
+    grub2 bug that didn't allow us to test for the existance of a 
+    file. That grub bug (rev 1724) has now been fixed.  
 
  -- Agostino Russo <agostino.russo@gmail.com>  Tue, 03 Nov 2009 00:43:27 +0000
 
