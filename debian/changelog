@@ -1,5 +1,6 @@
 wubi (9.10ubuntu1) UNRELEASED; urgency=low
 
+  [ Agostino Russo ]
   * Fixed country and keymap detection (LP: #428575)
   * Added Chinese to language selector (LP: #468457)
   * The amd64 URL for Kubuntu was pointing to the i386 ISO (LP: #465936)
@@ -10,6 +11,10 @@ wubi (9.10ubuntu1) UNRELEASED; urgency=low
   * Better embedded grub.cfg, previous version was a workaround for a 
     grub2 bug that didn't allow us to test for the existance of a 
     file. That grub bug (rev 1724) has now been fixed.  
+
+  [ Colin Watson ]
+  * Handle separate /boot in embedded grub.cfg (idea from Mark Abene in LP
+    #477169).
 
  -- Agostino Russo <agostino.russo@gmail.com>  Tue, 03 Nov 2009 00:43:27 +0000
 
