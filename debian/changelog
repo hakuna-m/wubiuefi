@@ -1,4 +1,4 @@
-wubi (9.10ubuntu1) UNRELEASED; urgency=low
+wubi (10.04) UNRELEASED; urgency=low
 
   [ Agostino Russo ]
   * Fixed country and keymap detection (LP: #428575)
@@ -16,7 +16,10 @@ wubi (9.10ubuntu1) UNRELEASED; urgency=low
   * Handle separate /boot in embedded grub.cfg (idea from Mark Abene in LP
     #477169).
 
- -- Agostino Russo <agostino.russo@gmail.com>  Tue, 03 Nov 2009 00:43:27 +0000
+  [ Evan Dandrea ]
+  * Bump to 10.04
+
+ -- Evan Dandrea <evand@ubuntu.com>  Wed, 17 Mar 2010 11:39:04 +0000
 
 wubi (9.10) karmic; urgency=low
 
