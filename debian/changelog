@@ -15,6 +15,8 @@ wubi (10.04) UNRELEASED; urgency=low
   [ Colin Watson ]
   * Handle separate /boot in embedded grub.cfg (idea from Mark Abene in LP
     #477169).
+  * Fall back to searching for /ubuntu/install/boot/grub/grub.cfg even if
+    /ubuntu/disks/root.disk exists but is unusable (may fix LP #541607).
 
   [ Evan Dandrea ]
   * Bump to 10.04
