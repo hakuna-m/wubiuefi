@@ -20,6 +20,7 @@ wubi (10.04) UNRELEASED; urgency=low
 
   [ Evan Dandrea ]
   * Bump to 10.04
+  * Ubuntu Netbook Remix is now the Ubuntu Netbook Edition.
 
  -- Evan Dandrea <evand@ubuntu.com>  Wed, 17 Mar 2010 11:39:04 +0000
 
