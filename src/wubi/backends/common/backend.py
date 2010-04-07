@@ -439,6 +439,7 @@ class Backend(object):
         cd_path = None
         if self.info.cd_distro \
         and self.info.distro == self.info.cd_distro \
+        and self.info.cd_path \
         and os.path.isdir(self.info.cd_path):
             cd_path = self.info.cd_path
         else:
