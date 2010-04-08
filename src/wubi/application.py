@@ -122,10 +122,10 @@ class Wubi(object):
             self.run_uninstaller()
         elif self.info.run_task == "show_info":
             self.show_info()
-        elif self.info.cd_path or self.info.run_task == "cd_menu":
-            self.run_cd_menu()
         elif self.info.run_task == "reboot":
             self.reboot()
+        elif self.info.cd_path or self.info.run_task == "cd_menu":
+            self.run_cd_menu()
         else:
             self.run_installer()
         self.quit()

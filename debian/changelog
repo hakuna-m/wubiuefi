@@ -13,6 +13,7 @@ wubi (10.04) UNRELEASED; urgency=low
     file. That grub bug (rev 1724) has now been fixed.  
   * Bumped preseed suite to lucid
   * Avoid error due to null cd_path (LP: #552357)
+  * Fixed CD menu reboot (LP: #543032)
 
   [ Colin Watson ]
   * Handle separate /boot in embedded grub.cfg (idea from Mark Abene in LP
