@@ -14,14 +14,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-10-25 09:30+0000\n"
-"PO-Revision-Date: 2009-03-14 03:03+0000\n"
-"Last-Translator: Agostino Russo <agostino.russo@gmail.com>\n"
+"POT-Creation-Date: 2009-11-03 23:48+0000\n"
+"PO-Revision-Date: 2010-01-11 21:19+0000\n"
+"Last-Translator: Piotr Strębski <strebski@o2.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-24 21:16+0000\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2;\n"
+"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "X-Poedit-Country: Poland\n"
 "X-Poedit-Language: Polish\n"
@@ -66,44 +68,44 @@ msgstr "Pobieranie %s"
 #: src/wubi/backends/common/backend.py:77
 #: src/wubi/backends/common/backend.py:98
 msgid "Selecting the target directory"
-msgstr ""
+msgstr "Proszę wybrać katalog docelowy"
 
 #: src/wubi/backends/common/backend.py:78
 #: src/wubi/backends/common/backend.py:99
 msgid "Creating the installation directories"
-msgstr ""
+msgstr "Tworzenie katalogów dla instalacji"
 
 #: src/wubi/backends/common/backend.py:79
 #: src/wubi/backends/common/backend.py:89
 #: src/wubi/backends/common/backend.py:100
 #: src/wubi/backends/common/backend.py:108
 msgid "Uncompressing files"
-msgstr ""
+msgstr "Rozpakowywanie plików"
 
 #: src/wubi/backends/common/backend.py:80
 #: src/wubi/backends/common/backend.py:101
 msgid "Creating the uninstaller"
-msgstr ""
+msgstr "Tworzenie programu odinstalowującego"
 
 #: src/wubi/backends/common/backend.py:81
 #: src/wubi/backends/common/backend.py:102
 #: src/wubi/backends/common/backend.py:425
 #: src/wubi/backends/common/backend.py:431
 msgid "Copying installation files"
-msgstr ""
+msgstr "Kopiowanie plików instalacji"
 
 #: src/wubi/backends/common/backend.py:82
 msgid "Retrieving installation files"
-msgstr ""
+msgstr "Pobieranie plików instalacji"
 
 #: src/wubi/backends/common/backend.py:83
 #: src/wubi/backends/common/backend.py:104
 msgid "Extracting the kernel"
-msgstr ""
+msgstr "Rozpakowywanie jądra systemu"
 
 #: src/wubi/backends/common/backend.py:84
 msgid "Choosing disk sizes"
-msgstr ""
+msgstr "Wybieranie rozmiaru dysków"
 
 #: src/wubi/backends/common/backend.py:85
 #: src/wubi/backends/common/backend.py:105
@@ -113,7 +115,7 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:86
 #: src/wubi/backends/common/backend.py:106
 msgid "Adding a new bootloader entry"
-msgstr ""
+msgstr "Dodawanie nowego wpisu programu uruchomieniowego"
 
 #: src/wubi/backends/common/backend.py:87
 #: src/wubi/backends/common/backend.py:107
@@ -122,22 +124,22 @@ msgstr ""
 
 #: src/wubi/backends/common/backend.py:88
 msgid "Creating the virtual disks"
-msgstr ""
+msgstr "Tworzenie dysków wirtualnych"
 
 #: src/wubi/backends/common/backend.py:90
 #: src/wubi/backends/common/backend.py:109
 msgid "Ejecting the CD"
-msgstr ""
+msgstr "Wysuwanie tacki napędu CD"
 
 #: src/wubi/backends/common/backend.py:92
 #: src/wubi/frontends/win32/progress_page.py:39
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
-msgstr ""
+msgstr "Instalacja %(distro)s-%(version)s"
 
 #: src/wubi/backends/common/backend.py:103
 msgid "Extracting CD content"
-msgstr ""
+msgstr "Wypakowywanie zawartości CD"
 
 #: src/wubi/backends/common/backend.py:111
 msgid "Installing CD boot helper"
@@ -146,46 +148,46 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:116
 #: src/wubi/backends/common/backend.py:118
 msgid "Rebooting"
-msgstr ""
+msgstr "Ponowne uruchamianie"
 
 #: src/wubi/backends/common/backend.py:123
 msgid "Backup ISO"
-msgstr ""
+msgstr "Zapasowy obraz płyty"
 
 #: src/wubi/backends/common/backend.py:124
 msgid "Remove bootloader entry"
-msgstr ""
+msgstr "Usuwanie wpisu programu uruchomieniowego"
 
 #: src/wubi/backends/common/backend.py:125
 msgid "Remove target dir"
-msgstr ""
+msgstr "Usuwanie katalogu docelowego"
 
 #: src/wubi/backends/common/backend.py:126
 msgid "Remove registry key"
-msgstr ""
+msgstr "Usuwanie wpisów rejestru"
 
 #: src/wubi/backends/common/backend.py:127
 #, python-format
 msgid "Uninstalling %s"
-msgstr ""
+msgstr "Odinstalowywanie %s"
 
 #: src/wubi/backends/common/backend.py:258
 #, python-format
 msgid "Checking CD %s"
-msgstr ""
+msgstr "Sprawdzanie płyty CD %s"
 
 #: src/wubi/backends/common/backend.py:284
 #: src/wubi/backends/common/backend.py:328
 #: src/wubi/backends/common/backend.py:364
 msgid "Downloading information on installation files"
-msgstr ""
+msgstr "Pobieranie informacji o plikach instalacyjnych"
 
 #: src/wubi/backends/common/backend.py:299
 #: src/wubi/backends/common/backend.py:356
 #: src/wubi/backends/common/backend.py:419
 #: src/wubi/backends/common/backend.py:468
 msgid "Checking installation files"
-msgstr ""
+msgstr "Sprawdzanie plików instalacyjnych"
 
 #: src/wubi/backends/common/backend.py:390
 #, python-format
@@ -195,49 +197,49 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:455
 #, python-format
 msgid "Extracting files from %s"
-msgstr ""
+msgstr "Wypakowywanie plików z %s"
 
 #: src/wubi/backends/common/backend.py:531
 #, python-format
 msgid "Checking %s"
-msgstr ""
+msgstr "Sprawdzanie %s"
 
 #: src/wubi/frontends/win32/frontend.py:51
 msgid "Are you sure you want to quit?"
-msgstr ""
+msgstr "Czy na pewno chcesz wyjść?"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 #: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 msgid "Finish"
-msgstr ""
+msgstr "Zakończ"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
-msgstr ""
+msgstr "Odinstalowywanie zakończone"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:43
 #, python-format
 msgid "%s has been successfully uninstalled"
-msgstr ""
+msgstr "%s zostało odinstalowane poprawnie"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
 msgid "%s Uninstaller"
-msgstr ""
+msgstr "Program odinstalowujący %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:36
 msgid "Uninstallation required"
-msgstr ""
+msgstr "Wymagane odinstalowanie"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:38
 #, python-format
 msgid "You are about to uninstall %s"
-msgstr ""
+msgstr "Nastąpi odinstalowanie %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 msgid "Uninstall"
-msgstr "Odinstaluj"
+msgstr "Odinstalowanie"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 #: src/wubi/frontends/win32/installation_page.py:181
@@ -247,21 +249,23 @@ msgstr "Odinstaluj"
 #: src/wubi/frontends/win32/cd_menu_page.py:38
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Cancel"
-msgstr ""
+msgstr "Anuluj"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:52
 msgid ""
 "A previous installation was detected, it needs to be uninstalled before "
 "continuing"
 msgstr ""
+"Poprzednia instalacja została wykryta, należy ją odinstalować, aby móc "
+"kontynuować."
 
 #: src/wubi/frontends/win32/uninstallation_page.py:54
 msgid "Are you sure you want to uninstall?"
-msgstr ""
+msgstr "Czy jesteś pewny, że chcesz odinstalować?"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:62
 msgid "Backup the downloaded files (ISO)"
-msgstr ""
+msgstr "Zapisz kopię zapasową pobranych plików (ISO)"
 
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
@@ -269,6 +273,8 @@ msgid ""
 "Only %sMB of disk space are available.\n"
 "At least 1024MB are required as a bare minimum. Quitting"
 msgstr ""
+"Pozostało tylko %sMB dostępnych na dysku twardym.\n"
+"Wymaga się co najmniej 1024MB. Instalacja została przerwana."
 
 #: src/wubi/frontends/win32/installation_page.py:77
 #, python-format
@@ -282,7 +288,7 @@ msgstr ""
 #: src/wubi/frontends/win32/installation_page.py:96
 #, python-format
 msgid "(%sGB free)"
-msgstr ""
+msgstr "(%s GB wolnych)"
 
 #: src/wubi/frontends/win32/installation_page.py:177
 msgid "Please select username and password for the new account"
@@ -291,12 +297,12 @@ msgstr "Proszę podać nazwę użytkownika i hasło dla nowego konta."
 #: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Accessibility"
-msgstr ""
+msgstr "Ułatwienia dostępu"
 
 #: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Install"
-msgstr ""
+msgstr "Zainstaluj"
 
 #: src/wubi/frontends/win32/installation_page.py:193
 msgid "Installation drive:"
@@ -308,7 +314,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:205
 msgid "Desktop environment:"
-msgstr ""
+msgstr "Środowisko pulpitu:"
 
 #: src/wubi/frontends/win32/installation_page.py:211
 msgid "Language:"
@@ -363,7 +369,7 @@ msgstr "Nazwa użytkownika może zawierać tylko standardowe litery i liczby."
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."
-msgstr ""
+msgstr "Zaznaczona nazwa użytkownika jest zajęta, proszę wybrać inną."
 
 #: src/wubi/frontends/win32/installation_page.py:325
 msgid "Please enter a valid password."
@@ -379,7 +385,7 @@ msgstr "Hasła nie zgadzają się."
 
 #: src/wubi/frontends/win32/progress_page.py:40
 msgid "Please wait"
-msgstr ""
+msgstr "Proszę czekać"
 
 #: src/wubi/frontends/win32/progress_page.py:53
 msgid "Do not download, use a local file"
@@ -399,12 +405,12 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
-msgstr ""
+msgstr "Musisz zrestartować komputer, by ukończyć instalację"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:44
 #: src/wubi/frontends/win32/cd_finish_page.py:47
 msgid "Reboot now"
-msgstr ""
+msgstr "Zrestartuj teraz"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
@@ -412,7 +418,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 msgid "< Back"
-msgstr ""
+msgstr "< Wstecz"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:43
 msgid "Reboot required"
@@ -430,7 +436,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cd_finish_page.py:48
 msgid "I want to manually reboot Later"
-msgstr ""
+msgstr "Chcę później zrestartować komputer ręcznie"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
 msgid "Help me to boot from CD"
@@ -446,11 +452,11 @@ msgstr "Proszę wybrać odpowiedni profil dostępności"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
-msgstr ""
+msgstr "Dalej >>"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
-msgstr "Wzpomaganie wizualne"
+msgstr "Wspomaganie wizualne"
 
 #: src/wubi/frontends/win32/accessibility_page.py:51
 msgid "Visibility1"
@@ -539,7 +545,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
-msgstr ""
+msgstr "Za mało miejsca na dysku, aby kontynuować"
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
@@ -569,6 +575,11 @@ msgid ""
 "\n"
 "For more information, please see the log file: %(log)s"
 msgstr ""
+"Wystąpił błąd:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"Więcej informacji w pliku logu: %(log)s"
 
 #: src/wubi/application.py:147 src/wubi/application.py:208
 #, python-format

@@ -7,14 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-10-25 09:30+0000\n"
-"PO-Revision-Date: 2009-10-16 17:28+0000\n"
+"POT-Creation-Date: 2009-11-03 23:48+0000\n"
+"PO-Revision-Date: 2010-03-15 03:46+0000\n"
 "Last-Translator: Neetesh Biswas <Unknown>\n"
 "Language-Team: Hindi <hi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-24 21:16+0000\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/backends/win32/backend.py:152
@@ -26,61 +27,64 @@ msgid ""
 "\n"
 "The system will now reboot."
 msgstr ""
+"संस्थापन विफल रहा | विस्तृत सूचना  %s में रख दी गयी है\n"
+"ध्यान दें की इस विधि से विस्तृत सुचना में आपके  कूट शब्द है रखा हुआ है\n"
+"यह कंप्यूटर फिर से शुरू होगी"
 
 #: src/wubi/backends/common/tasklist.py:256
 #: src/wubi/backends/common/tasklist.py:260
 msgid "0s"
-msgstr ""
+msgstr "प्रचालन तंत्र (OS)"
 
 #: src/wubi/backends/common/tasklist.py:269
 #, python-format
 msgid "%ih"
-msgstr ""
+msgstr "%ih"
 
 #: src/wubi/backends/common/tasklist.py:271
 #, python-format
 msgid "%imin"
-msgstr ""
+msgstr "%i मिनट"
 
 #: src/wubi/backends/common/tasklist.py:274
 #, python-format
 msgid "%is"
-msgstr ""
+msgstr "%i सेकंड"
 
 #: src/wubi/backends/common/downloader.py:66
 #: src/wubi/backends/common/btdownloader.py:36
 #, python-format
 msgid "Downloading %s"
-msgstr ""
+msgstr "%s डाउनलोड कर रहे है"
 
 #: src/wubi/backends/common/backend.py:77
 #: src/wubi/backends/common/backend.py:98
 msgid "Selecting the target directory"
-msgstr ""
+msgstr "संस्थापन लक्ष्य चुना जा रहा है"
 
 #: src/wubi/backends/common/backend.py:78
 #: src/wubi/backends/common/backend.py:99
 msgid "Creating the installation directories"
-msgstr ""
+msgstr "संस्थापन लक्ष्य बनाया जा रहा है"
 
 #: src/wubi/backends/common/backend.py:79
 #: src/wubi/backends/common/backend.py:89
 #: src/wubi/backends/common/backend.py:100
 #: src/wubi/backends/common/backend.py:108
 msgid "Uncompressing files"
-msgstr ""
+msgstr "फ़ाइलो को अनकम्प्रेस कर रहे है"
 
 #: src/wubi/backends/common/backend.py:80
 #: src/wubi/backends/common/backend.py:101
 msgid "Creating the uninstaller"
-msgstr ""
+msgstr "अ-संस्थापना बनाया जा रहा है"
 
 #: src/wubi/backends/common/backend.py:81
 #: src/wubi/backends/common/backend.py:102
 #: src/wubi/backends/common/backend.py:425
 #: src/wubi/backends/common/backend.py:431
 msgid "Copying installation files"
-msgstr ""
+msgstr "संस्थापन संचिका का प्रतिरूप बनाया जा रहा है"
 
 #: src/wubi/backends/common/backend.py:82
 msgid "Retrieving installation files"
@@ -93,7 +97,7 @@ msgstr ""
 
 #: src/wubi/backends/common/backend.py:84
 msgid "Choosing disk sizes"
-msgstr ""
+msgstr "डिस्क के परिमाप को चुन रहे है"
 
 #: src/wubi/backends/common/backend.py:85
 #: src/wubi/backends/common/backend.py:105
@@ -103,7 +107,7 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:86
 #: src/wubi/backends/common/backend.py:106
 msgid "Adding a new bootloader entry"
-msgstr ""
+msgstr "एक नये बूटलोडर एन्ट्री को समाहित कर रहॆ है"
 
 #: src/wubi/backends/common/backend.py:87
 #: src/wubi/backends/common/backend.py:107
@@ -117,7 +121,7 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:90
 #: src/wubi/backends/common/backend.py:109
 msgid "Ejecting the CD"
-msgstr ""
+msgstr "CD को बाहर निकाल रहे है"
 
 #: src/wubi/backends/common/backend.py:92
 #: src/wubi/frontends/win32/progress_page.py:39
@@ -162,20 +166,20 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:258
 #, python-format
 msgid "Checking CD %s"
-msgstr ""
+msgstr "CD %s की जाच कर रहे है"
 
 #: src/wubi/backends/common/backend.py:284
 #: src/wubi/backends/common/backend.py:328
 #: src/wubi/backends/common/backend.py:364
 msgid "Downloading information on installation files"
-msgstr ""
+msgstr "सन्सथापना फ़ाइलो के विषय मे सूचना डाउनलोड कर रहे है"
 
 #: src/wubi/backends/common/backend.py:299
 #: src/wubi/backends/common/backend.py:356
 #: src/wubi/backends/common/backend.py:419
 #: src/wubi/backends/common/backend.py:468
 msgid "Checking installation files"
-msgstr ""
+msgstr "सन्सथापना फ़ाइलो कि जाच कर रहे है"
 
 #: src/wubi/backends/common/backend.py:390
 #, python-format
@@ -190,7 +194,7 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:531
 #, python-format
 msgid "Checking %s"
-msgstr ""
+msgstr "%s कि जाच कर रहे है"
 
 #: src/wubi/frontends/win32/frontend.py:51
 msgid "Are you sure you want to quit?"
@@ -244,6 +248,8 @@ msgid ""
 "A previous installation was detected, it needs to be uninstalled before "
 "continuing"
 msgstr ""
+"एक पहले से ही सन्सथापना को पाया गया, इसे पहले असन्सथापित करने कि आवश्यक्ता "
+"है जारी रहे"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:54
 msgid "Are you sure you want to uninstall?"
@@ -276,7 +282,7 @@ msgstr "(%sGB खाली)"
 
 #: src/wubi/frontends/win32/installation_page.py:177
 msgid "Please select username and password for the new account"
-msgstr ""
+msgstr "कृपया नए खाते के लिए प्रयोक्ता नाम और गुप्त शब्द चुने"
 
 #: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
@@ -286,7 +292,7 @@ msgstr "सुगमता"
 #: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Install"
-msgstr ""
+msgstr "सन्सथापित करे"
 
 #: src/wubi/frontends/win32/installation_page.py:193
 msgid "Installation drive:"
@@ -337,15 +343,15 @@ msgstr "कृपया वैध नाम चुनें"
 
 #: src/wubi/frontends/win32/installation_page.py:315
 msgid "Please use all lower cases in the username."
-msgstr ""
+msgstr "कृपया प्रयोक्ता नाम में केवल निचले रूप ही इस्तेमाल करें"
 
 #: src/wubi/frontends/win32/installation_page.py:317
 msgid "Please do not use spaces in the username."
-msgstr ""
+msgstr "कृपया प्रयोक्ता नाम में खाली जगह ना रखे"
 
 #: src/wubi/frontends/win32/installation_page.py:319
 msgid "Your username must start with a letter."
-msgstr ""
+msgstr "प्रयोक्ता नाम अक्षर से ही शुरू होना चाहिए"
 
 #: src/wubi/frontends/win32/installation_page.py:321
 msgid "Your username must contain only standard letters and numbers."
@@ -357,15 +363,15 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:325
 msgid "Please enter a valid password."
-msgstr ""
+msgstr "कृपया वैध गुप्त शब्द चुने"
 
 #: src/wubi/frontends/win32/installation_page.py:327
 msgid "Please do not use spaces in the password."
-msgstr ""
+msgstr "कृपया गुप्त शब्द में खाली जगह ना रखे"
 
 #: src/wubi/frontends/win32/installation_page.py:329
 msgid "Passwords do not match."
-msgstr ""
+msgstr "दोनों गुप्त शब्द एक नहीं है"
 
 #: src/wubi/frontends/win32/progress_page.py:40
 msgid "Please wait"
@@ -389,12 +395,12 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
-msgstr ""
+msgstr "सन्सथापन को पूरा करने के लिये आपको पुन: बूट करने की आवश्यक्ता है"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:44
 #: src/wubi/frontends/win32/cd_finish_page.py:47
 msgid "Reboot now"
-msgstr ""
+msgstr "रीबूट करे"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
@@ -406,7 +412,7 @@ msgstr "< पीछे"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:43
 msgid "Reboot required"
-msgstr ""
+msgstr "रीबूट की आवश्यक्ता है"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:45
 msgid ""
@@ -449,7 +455,7 @@ msgstr "दृश्यता 2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:53
 msgid "Visibility3"
-msgstr ""
+msgstr "दृश्यता ३"
 
 #: src/wubi/frontends/win32/accessibility_page.py:54
 msgid "Braille"
@@ -490,7 +496,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cd_menu_page.py:65
 msgid "Install inside Windows"
-msgstr ""
+msgstr "विन्डोस के भीतर सन्सथापित करे"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:67
 #, python-format
@@ -503,7 +509,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cd_menu_page.py:74
 msgid "Learn more"
-msgstr ""
+msgstr "अधिक जानकारी पाए"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:76
 #, python-format
@@ -520,7 +526,7 @@ msgstr "%s सीडी बूट सहायक"
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
-msgstr ""
+msgstr "आगे बढने के लिये पर्याप्त डिस्क रिक्तता नही"
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
@@ -554,7 +560,7 @@ msgstr ""
 
 #: src/wubi/application.py:190
 msgid "No CD detected, cannot run CD menu"
-msgstr ""
+msgstr "कोइ CD प्राप्त नही हुआ, CD सूचि चला पाने मे असमर्थ"
 
 #: src/wubi/application.py:198
 msgid ""

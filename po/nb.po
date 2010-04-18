@@ -13,14 +13,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-10-25 09:30+0000\n"
+"POT-Creation-Date: 2009-11-03 23:48+0000\n"
 "PO-Revision-Date: 2009-05-17 23:02+0000\n"
 "Last-Translator: Christian Aasan <christian.aasan@gmail.com>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-24 21:16+0000\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/backends/win32/backend.py:152
@@ -399,11 +400,11 @@ msgid "Do not download, use a local file"
 msgstr "Last ikke ned, bruk en lokal fil"
 
 #: src/wubi/frontends/win32/progress_page.py:66
-#, fuzzy, python-format
+#, python-format
 msgid "Remaining time approximately %s"
 msgid_plural "Remaining time approximately %s"
-msgstr[0] "Ca %s igjen"
-msgstr[1] "Ca %s igjen"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format

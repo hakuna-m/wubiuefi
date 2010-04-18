@@ -14,14 +14,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-10-25 09:30+0000\n"
-"PO-Revision-Date: 2009-06-06 20:09+0000\n"
-"Last-Translator: Ddorda <d.dorda@gmail.com>\n"
+"POT-Creation-Date: 2009-11-03 23:48+0000\n"
+"PO-Revision-Date: 2010-04-16 21:37+0000\n"
+"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-24 21:16+0000\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/backends/win32/backend.py:152
@@ -137,7 +138,7 @@ msgstr "מתבצעת התקנת %(distro)s-%(version)s"
 
 #: src/wubi/backends/common/backend.py:103
 msgid "Extracting CD content"
-msgstr "חילוץ תוכן התקליטור מתבצע"
+msgstr "מתבצע חילוץ תוכן התקליטור"
 
 #: src/wubi/backends/common/backend.py:111
 msgid "Installing CD boot helper"
@@ -204,7 +205,7 @@ msgstr "מתבצעת בדיקת %s"
 
 #: src/wubi/frontends/win32/frontend.py:51
 msgid "Are you sure you want to quit?"
-msgstr "האם אתה בטוח שברצונך לצאת?"
+msgstr "האם ברצונך לצאת?"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 #: src/wubi/frontends/win32/installation_finish_page.py:35
@@ -224,7 +225,7 @@ msgstr "הסרת %s הושלמה בהצלחה"
 #: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
 msgid "%s Uninstaller"
-msgstr "תוכנית הסרת %s"
+msgstr "תכנית הסרת %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:36
 msgid "Uninstallation required"
@@ -257,7 +258,7 @@ msgstr "אותרה התקנה קודמת, יש צורך בהסרתה בטרם ה
 
 #: src/wubi/frontends/win32/uninstallation_page.py:54
 msgid "Are you sure you want to uninstall?"
-msgstr "האם אתה בטוח שברצונך להסיר את ההתקנה?"
+msgstr "האם ברצונך להסיר את ההתקנה?"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:62
 msgid "Backup the downloaded files (ISO)"
@@ -269,8 +270,8 @@ msgid ""
 "Only %sMB of disk space are available.\n"
 "At least 1024MB are required as a bare minimum. Quitting"
 msgstr ""
-"רק %sMB של שטח דיסק פנוי.\n"
-"נדרשים לפחות 1024MB עבור המינימום. יוצא"
+"רק %sמ\"ב של שטח דיסק פנוי.\n"
+"נדרשים 1024מ\"ב לכל הפחות. יוצא"
 
 #: src/wubi/frontends/win32/installation_page.py:77
 #, python-format
@@ -280,9 +281,9 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
-"%(min_space)sMB של גודל דיסק נדרשים עבור ההתקנה.\n"
-"רק %(max_space)sMB זמינים.\n"
-"בנסיבות אלו ההתקנה עלולה להכשל.\n"
+"%(min_space)sמ\"ב מנפח הכונן נדרשים עבור ההתקנה.\n"
+"רק %(max_space)sמ\"ב זמינים.\n"
+"בנסיבות אלו ההתקנה עלולה להיכשל.\n"
 "האם ברצונך להמשיך בכל מקרה?"
 
 #: src/wubi/frontends/win32/installation_page.py:96
@@ -292,7 +293,7 @@ msgstr "(%sג\"ב פנויים)"
 
 #: src/wubi/frontends/win32/installation_page.py:177
 msgid "Please select username and password for the new account"
-msgstr "אנא בחר שם משתמש וסיסמה לחשבון החדש"
+msgstr "יש לבחור שם משתמש וסיסמה לחשבון החדש"
 
 #: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
@@ -314,7 +315,7 @@ msgstr "גודל ההתקנה:"
 
 #: src/wubi/frontends/win32/installation_page.py:205
 msgid "Desktop environment:"
-msgstr "סביבת העבודה:"
+msgstr "סביבת שולחן העבודה:"
 
 #: src/wubi/frontends/win32/installation_page.py:211
 msgid "Language:"
@@ -331,12 +332,12 @@ msgstr "סיסמה:"
 #: src/wubi/frontends/win32/installation_page.py:263
 #, python-format
 msgid "%s Installer"
-msgstr "תוכנית התקנת %s"
+msgstr "תכנית התקנת %s"
 
 #: src/wubi/frontends/win32/installation_page.py:266
 #, python-format
 msgid "You are about to install %(distro)s-%(version)s"
-msgstr "אתה עומד להתקין את %(distro)s-%(version)s"
+msgstr "%(distro)s-%(version)s מועמדת להתקנה"
 
 #: src/wubi/frontends/win32/installation_page.py:271
 #, python-format
@@ -346,18 +347,18 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
-"%(min_memory)sMB זיכרון נחוצים להתקנה.\n"
-"רק %(total_memory)sMB זמינים.\n"
-"בנסיבות אלו ההתקנה עלולה להכשל.\n"
+"%(min_memory)sמ\"ב של זיכרון נחוצים להתקנה.\n"
+"רק %(total_memory)sמ\"ב זמינים.\n"
+"בנסיבות אלו ההתקנה עלולה להיכשל.\n"
 "האם ברצונך להמשיך בכל מקרה?"
 
 #: src/wubi/frontends/win32/installation_page.py:313
 msgid "Please enter a valid username"
-msgstr "נא הזן שם משתמש תקני"
+msgstr "נא להזין שם משתמש תקני"
 
 #: src/wubi/frontends/win32/installation_page.py:315
 msgid "Please use all lower cases in the username."
-msgstr "השתמש באותיות קטנות בלבד בשם המשתמש."
+msgstr "יש להשתמש באותיות קטנות בלבד בשם המשתמש."
 
 #: src/wubi/frontends/win32/installation_page.py:317
 msgid "Please do not use spaces in the username."
@@ -369,7 +370,7 @@ msgstr "על שם המשתמש להתחיל באות."
 
 #: src/wubi/frontends/win32/installation_page.py:321
 msgid "Your username must contain only standard letters and numbers."
-msgstr "על שם המשתמש שלך להכיל אותיות ומספרים תקניים בלבד."
+msgstr "על שם המשתמש שלך להכיל אותיות באנגלית ומספרים תקניים בלבד."
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."
@@ -377,7 +378,7 @@ msgstr "שם המשתמש הנבחר הינו שמור, יש לבחור בשם �
 
 #: src/wubi/frontends/win32/installation_page.py:325
 msgid "Please enter a valid password."
-msgstr "נא הזן סיסמה תקנית."
+msgstr "נא להזין סיסמה תקנית."
 
 #: src/wubi/frontends/win32/installation_page.py:327
 msgid "Please do not use spaces in the password."
@@ -396,7 +397,7 @@ msgid "Do not download, use a local file"
 msgstr "ללא הורדה, שימוש בקובץ מקומי"
 
 #: src/wubi/frontends/win32/progress_page.py:66
-#, fuzzy, python-format
+#, python-format
 msgid "Remaining time approximately %s"
 msgid_plural "Remaining time approximately %s"
 msgstr[0] "הזמן הנותר המשוערך %s"
@@ -452,7 +453,7 @@ msgstr "פרופיל נגישות"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
 msgid "Please select the appropriate accessibility profile"
-msgstr "נא בחר את פרופיל הנגישות הרצוי"
+msgstr "נא לבחור את פרופיל הנגישות הרצוי"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
@@ -460,7 +461,7 @@ msgstr "הבא >>"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
-msgstr "עזרי חזות"
+msgstr "עזרי תצוגה"
 
 #: src/wubi/frontends/win32/accessibility_page.py:51
 msgid "Visibility1"
@@ -510,13 +511,13 @@ msgid ""
 "the tray. You may perform a full installation from within the demo to "
 "install %(distro)s either alongside Windows or as the only operating system."
 msgstr ""
-"נסה את %(distro)s ללא צורך בהתקנה! פשוט אתחל את המחשב עם התקליטור בכונן. "
-"תוכל לבצע התקנה מלאה מתוך ההדגמה ולהתקין את %(distro)s או לצד Windows כמערכת "
-"ההפעלה היחידה."
+"ניתן לנסות את %(distro)s ללא צורך בהתקנה! פשוט עליך לאתחל את המחשב עם "
+"התקליטור בכונן. ניתן לבצע התקנה מלאה מתוך ההדגמה ולהתקין את %(distro)s או "
+"לצד Windows או כמערכת ההפעלה היחידה."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:65
 msgid "Install inside Windows"
-msgstr "התקן בתוך Windows"
+msgstr "התקנה בתוך Windows"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:67
 #, python-format
@@ -526,13 +527,13 @@ msgid ""
 "or %(distro)s. Hibernation is not enabled in this mode and disk performance "
 "is slightly reduced."
 msgstr ""
-"התקן והסר את %(distro)s כמו כל יישום אחר, ללא כל צורך להקדיש מחיצה עבור זה. "
-"יהיה באפשרותך לאתחל לתוך Windows או %(distro)s. מצב שינה אינו מאופשר באופציה "
-"זו ויכולות הדיסק מופחתות מעט."
+"ניתן להתקין ולהסיר את %(distro)s כמו כל יישום אחר, ללא כל צורך בהקדשת מחיצה "
+"למטרה זו. ניתן יהיה לאתחל לתוך Windows או לתוך %(distro)s. לא ניתן להפעיל את "
+"מצב השינה בצורת הפעלה זו ויכולות הכונן מופחתות מעט."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:74
 msgid "Learn more"
-msgstr "למד עוד"
+msgstr "מידע נוסף"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:76
 #, python-format
@@ -541,13 +542,13 @@ msgid ""
 "complete with a web browser, productivity software, instant messaging, and "
 "much more."
 msgstr ""
-"%(distro)s הינה חופשית, מפותחת על ידי קהילה, מערכת הפעלה מבוססת לינוקס עם "
-"דפדפן אינטרנט, תוכנות הפקה, מסרים מידיים ועוד תכונות רבות."
+"%(distro)s הינה מערכת הפעלה חופשית, מפותחת על ידי קהילה, המבוססת על לינוקס "
+"ומכילה דפדפן אינטרנט, תוכנות הפקה, מסרים מידיים ועוד תכונות רבות."
 
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
 msgid "%s CD Boot Helper"
-msgstr "מסייע האיתחול של תקליטור %s"
+msgstr "מסייע האתחול של תקליטור %s"
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
@@ -555,7 +556,7 @@ msgstr "אין די שטח פנוי בכונן להמשך"
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
-msgstr "מסייע האיתחול של תקליטור ההתקנה"
+msgstr "מסייע האתחול של תקליטור ההתקנה"
 
 #: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
@@ -565,9 +566,9 @@ msgid ""
 "\n"
 "Do you want to proceed and install the CD booter?"
 msgstr ""
-"אם המחשב שלך לא מצליח להעלות את נתוני האיתחול מהקליטור, תוכנה זו תוסיף רשומה "
-"חדשה בתפריט האיתחול שתעזור לך לאתחל מהתקליטור. ברב המקרים תוכנה זו אינה "
-"נחוצה, ואיתחול כשהתקליטור נמצא בכונן מספיק בהחלט.\n"
+"אם המחשב שלך לא מצליח להעלות את נתוני האתחול מהתקליטור, תכנה זו תוסיף רשומה "
+"חדשה בתפריט האתחול שתסייע לך לאתחל מהתקליטור. ברב המקרים תכנה זו אינה נחוצה, "
+"ואתחול כשהתקליטור נמצא בכונן מספק בהחלט.\n"
 "\n"
 "האם ברצונך להמשיך ולהתקין את המאתחל מתקליטורים?"
 
@@ -592,8 +593,8 @@ msgid ""
 "A previous installation was detected in %s.\n"
 "Please uninstall that before continuing."
 msgstr ""
-"התקנה מוקדמת זוהתה ב־%s.\n"
-"יש להסיר אותה לפני שתמשיך."
+"התקנה קודמת זוהתה ב־%s.\n"
+"יש להסיר אותה לפני מעבר הלאה."
 
 #: src/wubi/application.py:190
 msgid "No CD detected, cannot run CD menu"
@@ -605,4 +606,4 @@ msgid ""
 "CD boot helper can only be used with a Live CD."
 msgstr ""
 "לא ניתן למצוא תקליטור תקני כלשהו.\n"
-"ניתן להשתמש במסייע האיתחול מתקליטור רק באמצעות תקליטור חי."
+"ניתן להשתמש במסייע האתחול מתקליטור רק באמצעות תקליטור חי."

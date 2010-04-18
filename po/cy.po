@@ -7,14 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-10-25 09:30+0000\n"
-"PO-Revision-Date: 2008-12-17 04:27+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-11-03 23:48+0000\n"
+"PO-Revision-Date: 2009-12-20 15:11+0000\n"
+"Last-Translator: Cadan ap Tomos <cadz123@googlemail.com>\n"
 "Language-Team: Welsh <cy@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-24 21:16+0000\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 0 : n==2 ? 1 : (n != 8 || n != 11) ? "
+"2 : 3;\n"
+"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/backends/win32/backend.py:152
@@ -277,6 +279,8 @@ msgstr ""
 #: src/wubi/frontends/win32/installation_page.py:177
 msgid "Please select username and password for the new account"
 msgstr ""
+"Dewisiwch enw defnyddiwr a chyfrinair ar gyfer y cyfrif newydd, os gwelwch "
+"yn dda"
 
 #: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
@@ -302,15 +306,15 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:211
 msgid "Language:"
-msgstr ""
+msgstr "Iaith:"
 
 #: src/wubi/frontends/win32/installation_page.py:219
 msgid "Username:"
-msgstr ""
+msgstr "Enw defnyddiwr:"
 
 #: src/wubi/frontends/win32/installation_page.py:226
 msgid "Password:"
-msgstr ""
+msgstr "Cyfrinair:"
 
 #: src/wubi/frontends/win32/installation_page.py:263
 #, python-format
@@ -365,7 +369,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:329
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Nid yw'r cyfrineiriau yn cydweddu."
 
 #: src/wubi/frontends/win32/progress_page.py:40
 msgid "Please wait"
@@ -469,7 +473,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:62
 msgid "None"
-msgstr ""
+msgstr "Dim"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format

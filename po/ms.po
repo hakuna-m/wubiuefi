@@ -7,15 +7,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-10-25 09:30+0000\n"
-"PO-Revision-Date: 2009-05-07 13:09+0000\n"
-"Last-Translator: Shaiffulnizam Mohamad <Unknown>\n"
+"POT-Creation-Date: 2009-11-03 23:48+0000\n"
+"PO-Revision-Date: 2010-03-25 00:31+0000\n"
+"Last-Translator: Ahmed Noor Kader Mustajir Md Eusoff <Unknown>\n"
 "Language-Team: Malay <ms@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-24 21:16+0000\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
+
+#: src/wubi/frontends/win32/frontend.py:51
+msgid "Are you sure you want to quit?"
+msgstr "Anda pasti untuk keluar?"
+
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:43
+#, python-format
+msgid "%s has been successfully uninstalled"
+msgstr "%s telah dinyahpasang"
 
 #: src/wubi/backends/win32/backend.py:152
 #, python-format
@@ -26,12 +36,10 @@ msgid ""
 "\n"
 "The system will now reboot."
 msgstr ""
-"Pemasangan Gagal. Catatan disimpan di: %s.\n"
-"\n"
-"Sila ambilperhatian, dalammode verbose. Catatan tersebut mungkin termasuk "
+"Pemasangan gagal. Catatan telah disimpan di: %s.\n"
+"Sila ambil perhatian, dalam mod verbose catatan tersebut mungkin mengandungi "
 "kata laluan.\n"
-"\n"
-"Sistem akan diulang mula kembali."
+"Sistem akan di-but semula."
 
 #: src/wubi/backends/common/tasklist.py:256
 #: src/wubi/backends/common/tasklist.py:260
@@ -198,10 +206,6 @@ msgstr "Mengekstrak fail dari %s"
 msgid "Checking %s"
 msgstr "Memeriksa %s"
 
-#: src/wubi/frontends/win32/frontend.py:51
-msgid "Are you sure you want to quit?"
-msgstr "Anda pasti untuk keluar?"
-
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 #: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/cd_finish_page.py:35
@@ -211,11 +215,6 @@ msgstr "Tamat"
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
 msgstr "Nyahpasang selesai"
-
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:43
-#, python-format
-msgid "%s has been successfully uninstalled"
-msgstr "%s telah dinyahpasang"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
@@ -334,7 +333,7 @@ msgstr "%s Pemasangan"
 #: src/wubi/frontends/win32/installation_page.py:266
 #, python-format
 msgid "You are about to install %(distro)s-%(version)s"
-msgstr ""
+msgstr "Anda akan memasang %(distro)s-%(version)s"
 
 #: src/wubi/frontends/win32/installation_page.py:271
 #, python-format
@@ -394,11 +393,11 @@ msgid "Do not download, use a local file"
 msgstr "Jangan muat turun, guna fail lokal"
 
 #: src/wubi/frontends/win32/progress_page.py:66
-#, fuzzy, python-format
+#, python-format
 msgid "Remaining time approximately %s"
 msgid_plural "Remaining time approximately %s"
-msgstr[0] "Jangkaan Masa yang tinggal %s"
-msgstr[1] "Jangkaan Masa yang tinggal %s"
+msgstr[0] "Jangkaan masa yang tinggal %s"
+msgstr[1] "Jangkaan masa yang tinggal %s"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format

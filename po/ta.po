@@ -7,14 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-10-25 09:30+0000\n"
-"PO-Revision-Date: 2008-04-30 07:08+0000\n"
-"Last-Translator: Abdul Haleem <Unknown>\n"
+"POT-Creation-Date: 2009-11-03 23:48+0000\n"
+"PO-Revision-Date: 2009-12-03 05:17+0000\n"
+"Last-Translator: Surendhar <Unknown>\n"
 "Language-Team: Tamil <ta@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-24 21:16+0000\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/backends/win32/backend.py:152
@@ -30,7 +31,7 @@ msgstr ""
 #: src/wubi/backends/common/tasklist.py:256
 #: src/wubi/backends/common/tasklist.py:260
 msgid "0s"
-msgstr ""
+msgstr "0 வினாடி"
 
 #: src/wubi/backends/common/tasklist.py:269
 #, python-format
@@ -350,7 +351,8 @@ msgstr "உமது பயனாளர் பெயர் கன்டிப்
 #: src/wubi/frontends/win32/installation_page.py:321
 msgid "Your username must contain only standard letters and numbers."
 msgstr ""
-"உமது பயனாளர் பெயர் கன்டிப்பாக சாதாரன எழுத்து மற்றும் இலக்கத்தினால் ஆக்கப்பட்டிருத்தல் வேன்டும்"
+"உமது பயனாளர் பெயர் கன்டிப்பாக சாதாரன எழுத்து மற்றும் இலக்கத்தினால் "
+"ஆக்கப்பட்டிருத்தல் வேன்டும்"
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."

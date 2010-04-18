@@ -6,15 +6,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
-"Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-10-25 09:30+0000\n"
-"PO-Revision-Date: 2009-04-27 04:00+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-11-03 23:48+0000\n"
+"PO-Revision-Date: 2010-02-21 12:44+0000\n"
+"Last-Translator: Arun Kumar <arunkumar413@gmail.com>\n"
 "Language-Team: Telugu <te@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-24 21:16+0000\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/backends/win32/backend.py:152
@@ -26,6 +27,10 @@ msgid ""
 "\n"
 "The system will now reboot."
 msgstr ""
+"సంస్తాపించడం లో పొరపాటు జరిగింది.వివరాలు %s లో గల వివరాల దస్త్రం లో "
+"బద్రపరచడమైనది.\n"
+"వేర్బోస్ క్రమం లో ఉన్నప్పుడు,వివరాలలో అనుమతి పదం కూడా ఉంటుందని గమనించగలరు.\n"
+" సిస్టం తక్షణమే తిరిగి బూట్ అవుతుంది."
 
 #: src/wubi/backends/common/tasklist.py:256
 #: src/wubi/backends/common/tasklist.py:260
@@ -35,17 +40,17 @@ msgstr ""
 #: src/wubi/backends/common/tasklist.py:269
 #, python-format
 msgid "%ih"
-msgstr ""
+msgstr "%iగం"
 
 #: src/wubi/backends/common/tasklist.py:271
 #, python-format
 msgid "%imin"
-msgstr ""
+msgstr "%iనిమి"
 
 #: src/wubi/backends/common/tasklist.py:274
 #, python-format
 msgid "%is"
-msgstr ""
+msgstr "%iసె"
 
 #: src/wubi/backends/common/downloader.py:66
 #: src/wubi/backends/common/btdownloader.py:36
@@ -93,7 +98,7 @@ msgstr ""
 
 #: src/wubi/backends/common/backend.py:84
 msgid "Choosing disk sizes"
-msgstr ""
+msgstr "డిస్క్ కొలతలను ఎంచుకుంటుంది"
 
 #: src/wubi/backends/common/backend.py:85
 #: src/wubi/backends/common/backend.py:105

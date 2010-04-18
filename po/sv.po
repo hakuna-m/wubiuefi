@@ -13,14 +13,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-10-25 09:30+0000\n"
-"PO-Revision-Date: 2009-07-07 09:26+0000\n"
+"POT-Creation-Date: 2009-11-03 23:48+0000\n"
+"PO-Revision-Date: 2009-11-24 10:02+0000\n"
 "Last-Translator: Daniel Nylander <yeager@ubuntu.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-24 21:16+0000\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/backends/win32/backend.py:152
@@ -372,7 +373,8 @@ msgstr "Ditt användarnamn måste börja med en bokstav."
 
 #: src/wubi/frontends/win32/installation_page.py:321
 msgid "Your username must contain only standard letters and numbers."
-msgstr "Ditt användarnamn får endast innehålla standardbokstäver och siffror."
+msgstr ""
+"Ditt användarnamn får endast innehålla standardbokstäver och siffror."
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."
@@ -399,7 +401,7 @@ msgid "Do not download, use a local file"
 msgstr "Hämta inte, använd en lokal fil"
 
 #: src/wubi/frontends/win32/progress_page.py:66
-#, fuzzy, python-format
+#, python-format
 msgid "Remaining time approximately %s"
 msgid_plural "Remaining time approximately %s"
 msgstr[0] "Ungefärlig återstående tid %s"
@@ -515,8 +517,8 @@ msgid ""
 msgstr ""
 "Prova %(distro)s utan att installera någonting! Starta helt enkelt om din "
 "dator med cd-skivan inmatad i läsaren. Du kan genomföra en fullständig "
-"installation från skivan inifrån demonstrationen för att installera %(distro)"
-"s antingen vid sidan om Windows eller som det enda operativsystemet."
+"installation från skivan inifrån demonstrationen för att installera "
+"%(distro)s antingen vid sidan om Windows eller som det enda operativsystemet."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:65
 msgid "Install inside Windows"

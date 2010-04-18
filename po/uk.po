@@ -7,14 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-10-25 09:30+0000\n"
+"POT-Creation-Date: 2009-11-03 23:48+0000\n"
 "PO-Revision-Date: 2009-05-22 23:34+0000\n"
 "Last-Translator: svv <skrypnychuk@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-24 21:16+0000\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/backends/win32/backend.py:152
@@ -243,7 +245,8 @@ msgstr "Скасувати"
 msgid ""
 "A previous installation was detected, it needs to be uninstalled before "
 "continuing"
-msgstr "Виявлено попередню установку, її потрібно видалити перед продовженням"
+msgstr ""
+"Виявлено попередню установку, її потрібно видалити перед продовженням"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:54
 msgid "Are you sure you want to uninstall?"
@@ -356,7 +359,8 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."
-msgstr "Вибране ім'я користувача є зарезервованим, будь ласка, виберіть інше."
+msgstr ""
+"Вибране ім'я користувача є зарезервованим, будь ласка, виберіть інше."
 
 #: src/wubi/frontends/win32/installation_page.py:325
 msgid "Please enter a valid password."
@@ -379,11 +383,11 @@ msgid "Do not download, use a local file"
 msgstr ""
 
 #: src/wubi/frontends/win32/progress_page.py:66
-#, fuzzy, python-format
+#, python-format
 msgid "Remaining time approximately %s"
 msgid_plural "Remaining time approximately %s"
-msgstr[0] "Залишилося близько %s"
-msgstr[1] "Залишилося близько %s"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format

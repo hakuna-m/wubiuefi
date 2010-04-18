@@ -7,14 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-10-25 09:30+0000\n"
-"PO-Revision-Date: 2009-09-30 10:21+0000\n"
-"Last-Translator: Padma Jadav <padmajadav@gmail.com>\n"
+"POT-Creation-Date: 2009-11-03 23:48+0000\n"
+"PO-Revision-Date: 2010-01-20 18:52+0000\n"
+"Last-Translator: suniyo <suniyo@gmail.com>\n"
 "Language-Team: Gujarati <gu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-24 21:16+0000\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/backends/win32/backend.py:152
@@ -26,26 +27,29 @@ msgid ""
 "\n"
 "The system will now reboot."
 msgstr ""
+"ઇન્સ્તોલેસન નાપાસ થયું. લોગ્સ અહિયાં સેવ કરવા માં આવિયા છે: %s\n"
+"ધ્યાન રાખો કે વેર્બોસે મોડ માં લોગ્સ માં પાસવર્ડ હોય છે.\n"
+"સીસ્ટમ હવે ફરી ચાલુ થશે."
 
 #: src/wubi/backends/common/tasklist.py:256
 #: src/wubi/backends/common/tasklist.py:260
 msgid "0s"
-msgstr "૦સે"
+msgstr "0s"
 
 #: src/wubi/backends/common/tasklist.py:269
 #, python-format
 msgid "%ih"
-msgstr "%iકલાક"
+msgstr "%ih"
 
 #: src/wubi/backends/common/tasklist.py:271
 #, python-format
 msgid "%imin"
-msgstr "%iમિ"
+msgstr "%imin"
 
 #: src/wubi/backends/common/tasklist.py:274
 #, python-format
 msgid "%is"
-msgstr "%iસે"
+msgstr "%is"
 
 #: src/wubi/backends/common/downloader.py:66
 #: src/wubi/backends/common/btdownloader.py:36
@@ -56,24 +60,24 @@ msgstr "%s ડાઉનલોડ કરે છે"
 #: src/wubi/backends/common/backend.py:77
 #: src/wubi/backends/common/backend.py:98
 msgid "Selecting the target directory"
-msgstr ""
+msgstr "લક્ષ્ય ડીરેકટરી પસંદ કરી રહયું છે"
 
 #: src/wubi/backends/common/backend.py:78
 #: src/wubi/backends/common/backend.py:99
 msgid "Creating the installation directories"
-msgstr ""
+msgstr "ઇન્સટોલેસન ડીરેકટરી બનાવી રહયું છે"
 
 #: src/wubi/backends/common/backend.py:79
 #: src/wubi/backends/common/backend.py:89
 #: src/wubi/backends/common/backend.py:100
 #: src/wubi/backends/common/backend.py:108
 msgid "Uncompressing files"
-msgstr ""
+msgstr "ફાઈલો ને દબાણ માં થી ખોલી રહયું છે"
 
 #: src/wubi/backends/common/backend.py:80
 #: src/wubi/backends/common/backend.py:101
 msgid "Creating the uninstaller"
-msgstr ""
+msgstr "અનઇનસ્તોલર બનાવી રહયું છે"
 
 #: src/wubi/backends/common/backend.py:81
 #: src/wubi/backends/common/backend.py:102
@@ -84,35 +88,35 @@ msgstr "ઇન્સ્ટોલેશન ફાઇલ કોપી કરે �
 
 #: src/wubi/backends/common/backend.py:82
 msgid "Retrieving installation files"
-msgstr ""
+msgstr "ઇન્સ્ટોલેશન ફાઇલ મેળવી રહયું છે."
 
 #: src/wubi/backends/common/backend.py:83
 #: src/wubi/backends/common/backend.py:104
 msgid "Extracting the kernel"
-msgstr ""
+msgstr "કર્નલ છુટું કરી રહયું છે."
 
 #: src/wubi/backends/common/backend.py:84
 msgid "Choosing disk sizes"
-msgstr ""
+msgstr "ડિસ્ક સાઈઝ પસંદ કરી રહયું છે."
 
 #: src/wubi/backends/common/backend.py:85
 #: src/wubi/backends/common/backend.py:105
 msgid "Creating a preseed file"
-msgstr ""
+msgstr "દબાણ યુક્ત ફાઈલ બનાવી રહયું છે."
 
 #: src/wubi/backends/common/backend.py:86
 #: src/wubi/backends/common/backend.py:106
 msgid "Adding a new bootloader entry"
-msgstr ""
+msgstr "નવી બૂટલોડર એનટ્રી ઉમેરી રહયું છે."
 
 #: src/wubi/backends/common/backend.py:87
 #: src/wubi/backends/common/backend.py:107
 msgid "Setting up installation boot menu"
-msgstr ""
+msgstr "ઇન્સ્ટોલેશન બૂટ મેનુ તૈયાર કરી રહયું છે."
 
 #: src/wubi/backends/common/backend.py:88
 msgid "Creating the virtual disks"
-msgstr ""
+msgstr "વરચુઅલ ડિસ્ક બનાવી રહયું છે."
 
 #: src/wubi/backends/common/backend.py:90
 #: src/wubi/backends/common/backend.py:109
@@ -123,111 +127,111 @@ msgstr "સીડી બહાર નીકાળે છે"
 #: src/wubi/frontends/win32/progress_page.py:39
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
-msgstr ""
+msgstr "ઇનસ્ટાલ  %(distro)s-%(version)s કરી રહયું છે."
 
 #: src/wubi/backends/common/backend.py:103
 msgid "Extracting CD content"
-msgstr ""
+msgstr "CD ની માહિતી છુટી કરી રહયું છે"
 
 #: src/wubi/backends/common/backend.py:111
 msgid "Installing CD boot helper"
-msgstr ""
+msgstr "CD દ બૂટ મદદગાર ઇનસ્ટાલ કરી રહયું છે."
 
 #: src/wubi/backends/common/backend.py:116
 #: src/wubi/backends/common/backend.py:118
 msgid "Rebooting"
-msgstr ""
+msgstr "ફરી ચાલુ કરી રહયું છે."
 
 #: src/wubi/backends/common/backend.py:123
 msgid "Backup ISO"
-msgstr ""
+msgstr "બેકપ ISO"
 
 #: src/wubi/backends/common/backend.py:124
 msgid "Remove bootloader entry"
-msgstr ""
+msgstr "બૂટલોડર એનટ્રી નિકાળી રહયું છે."
 
 #: src/wubi/backends/common/backend.py:125
 msgid "Remove target dir"
-msgstr ""
+msgstr "લક્ષ્ય dir નિકાળી રહયું છે."
 
 #: src/wubi/backends/common/backend.py:126
 msgid "Remove registry key"
-msgstr ""
+msgstr "રજીસ્તરી કિ નિકાળી રહયું છે."
 
 #: src/wubi/backends/common/backend.py:127
 #, python-format
 msgid "Uninstalling %s"
-msgstr ""
+msgstr "અનઇનસ્ટાલ કરી રહયું છે %s"
 
 #: src/wubi/backends/common/backend.py:258
 #, python-format
 msgid "Checking CD %s"
-msgstr ""
+msgstr "તપાસી રહયું છે. %s"
 
 #: src/wubi/backends/common/backend.py:284
 #: src/wubi/backends/common/backend.py:328
 #: src/wubi/backends/common/backend.py:364
 msgid "Downloading information on installation files"
-msgstr ""
+msgstr "ઇન્સ્ટોલેશન ફાઈલો વિશે માહિતી ડાઉનલોડ કરી રહયું છે."
 
 #: src/wubi/backends/common/backend.py:299
 #: src/wubi/backends/common/backend.py:356
 #: src/wubi/backends/common/backend.py:419
 #: src/wubi/backends/common/backend.py:468
 msgid "Checking installation files"
-msgstr ""
+msgstr "ઇન્સ્ટોલેશન ફાઈલો તપાસી રહયું છે."
 
 #: src/wubi/backends/common/backend.py:390
 #, python-format
 msgid "Validating %s"
-msgstr ""
+msgstr "%s  પાકું કરી રહયું છે"
 
 #: src/wubi/backends/common/backend.py:455
 #, python-format
 msgid "Extracting files from %s"
-msgstr ""
+msgstr "%s થી ફાઈલો છુટી કરી રહયું છે."
 
 #: src/wubi/backends/common/backend.py:531
 #, python-format
 msgid "Checking %s"
-msgstr ""
+msgstr "%s તપાસી રહયું છે."
 
 #: src/wubi/frontends/win32/frontend.py:51
 msgid "Are you sure you want to quit?"
-msgstr ""
+msgstr "શું તમે ખરેખર બહાર નીકળવા માંગો છો?"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 #: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 msgid "Finish"
-msgstr "સમાપન"
+msgstr "સમાપ્ત કરો"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
-msgstr ""
+msgstr "અનઇન્સ્ટોલેશન પૂર્ણ થયું."
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:43
 #, python-format
 msgid "%s has been successfully uninstalled"
-msgstr ""
+msgstr "%s સફળતા પુર્વક અનઇન્સ્ટોલેશન થઇ ગયું છે."
 
 #: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
 msgid "%s Uninstaller"
-msgstr ""
+msgstr "ઇન્સ્ટોલર %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:36
 msgid "Uninstallation required"
-msgstr ""
+msgstr "અનઇન્સ્ટોલેશનની જરૂર છે."
 
 #: src/wubi/frontends/win32/uninstallation_page.py:38
 #, python-format
 msgid "You are about to uninstall %s"
-msgstr ""
+msgstr "તમે %s અનઇનસ્ટાલ કરવા જઈ રહયા છો."
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 msgid "Uninstall"
-msgstr ""
+msgstr "અનઇનસ્ટાલ"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 #: src/wubi/frontends/win32/installation_page.py:181
@@ -237,21 +241,22 @@ msgstr ""
 #: src/wubi/frontends/win32/cd_menu_page.py:38
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Cancel"
-msgstr "રદ કરો"
+msgstr "રદ્ કરો"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:52
 msgid ""
 "A previous installation was detected, it needs to be uninstalled before "
 "continuing"
 msgstr ""
+"જુનું ઇન્સ્ટોલેશન મળી આવ્યું છે, નવું કરતા પેહલા તને નીકળવું જરૂરી છે."
 
 #: src/wubi/frontends/win32/uninstallation_page.py:54
 msgid "Are you sure you want to uninstall?"
-msgstr ""
+msgstr "શું તમે ખરેખર અનઇનસ્ટાલ કરવા માંગો છો?"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:62
 msgid "Backup the downloaded files (ISO)"
-msgstr ""
+msgstr "ડાઉનલોડ કરેલ ફાઈલો નો બેકપ લો. (ISO)"
 
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
@@ -259,6 +264,8 @@ msgid ""
 "Only %sMB of disk space are available.\n"
 "At least 1024MB are required as a bare minimum. Quitting"
 msgstr ""
+"ફક્ત %sMB જેટલીજ જગ્યા પ્રાપ્ય છે.\n"
+"લઘુતમ ૧૦૨૪ MB જરૂરી છે. બહાર નિકાળી રહયું છે."
 
 #: src/wubi/frontends/win32/installation_page.py:77
 #, python-format
@@ -268,11 +275,15 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
+"%(min_space)sMB જેટલી જગ્યા ઇન્સ્ટોલેશન માટે જરૂરી છે. \n"
+"ફક્ત %(max_space)sMB પ્રાપ્ય છે. \n"
+"આવી સ્થિતિ માં ઇન્સ્ટોલેશન નાપાસ થઇ શકે છે.\n"
+"શું તોપણ તમે આગળ વધવા માંગો છો?"
 
 #: src/wubi/frontends/win32/installation_page.py:96
 #, python-format
 msgid "(%sGB free)"
-msgstr ""
+msgstr "(%sGB મુક્ત)"
 
 #: src/wubi/frontends/win32/installation_page.py:177
 msgid "Please select username and password for the new account"
@@ -281,32 +292,32 @@ msgstr "મહેરબાની કરીને નવા ખાતા મા�
 #: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Accessibility"
-msgstr ""
+msgstr "સુલભતા"
 
 #: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Install"
-msgstr "સ્થાપન"
+msgstr "સ્થાપન કરો"
 
 #: src/wubi/frontends/win32/installation_page.py:193
 msgid "Installation drive:"
-msgstr "સ્થાપન  ડ્રાઈવ"
+msgstr "ઇનસ્ટાલ ડ્રાઈવ"
 
 #: src/wubi/frontends/win32/installation_page.py:199
 msgid "Installation size:"
-msgstr "સ્થાપન કદ"
+msgstr "ઇનસ્ટાલ કદ"
 
 #: src/wubi/frontends/win32/installation_page.py:205
 msgid "Desktop environment:"
-msgstr ""
+msgstr "ડેસ્કટોપ વાતાવરણ."
 
 #: src/wubi/frontends/win32/installation_page.py:211
 msgid "Language:"
-msgstr "ભાષા:"
+msgstr "ભાષાઃ"
 
 #: src/wubi/frontends/win32/installation_page.py:219
 msgid "Username:"
-msgstr "વપરાશકર્તાનું નામ:"
+msgstr "વપરાશકર્તા નામ:"
 
 #: src/wubi/frontends/win32/installation_page.py:226
 msgid "Password:"
@@ -315,12 +326,12 @@ msgstr "પાસવર્ડ:"
 #: src/wubi/frontends/win32/installation_page.py:263
 #, python-format
 msgid "%s Installer"
-msgstr "%s સ્થાપક"
+msgstr "%s ઇનસ્ટાલર"
 
 #: src/wubi/frontends/win32/installation_page.py:266
 #, python-format
 msgid "You are about to install %(distro)s-%(version)s"
-msgstr ""
+msgstr "તમે હવે %(distro)s-%(version)s ઇનસ્ટાલ કરવા જઈ રહયા છો."
 
 #: src/wubi/frontends/win32/installation_page.py:271
 #, python-format
@@ -330,6 +341,10 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
+"%(min_memory)sMB જેટલી જગ્યા ઇન્સ્ટોલેશન માટે જરૂરી છે.\n"
+"ફક્ત %(total_memory)sMB પ્રાપ્ય છે.\n"
+"આવી સ્થિતિ માં ઇન્સ્ટોલેશન નાપાસ થઇ શકે છે.\n"
+"શું તોપણ તમે આગળ વધવા માંગો છો?"
 
 #: src/wubi/frontends/win32/installation_page.py:313
 msgid "Please enter a valid username"
@@ -354,6 +369,7 @@ msgstr "વપરાશકર્તા નામમાં માત્ર સા
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."
 msgstr ""
+"પસંદ કરેલ વપરાશકર્તા નામ કોઈ પેહલા પસંદ કરી ચૂકયું છે, નવું પસંદ કરો."
 
 #: src/wubi/frontends/win32/installation_page.py:325
 msgid "Please enter a valid password."
@@ -373,32 +389,32 @@ msgstr "મહેરબાની કરીને રાહ જૂઓ"
 
 #: src/wubi/frontends/win32/progress_page.py:53
 msgid "Do not download, use a local file"
-msgstr ""
+msgstr "ડાઉનલોડ ના કરો, સ્થાનિક ફાઈલ વાપરો"
 
 #: src/wubi/frontends/win32/progress_page.py:66
 #, python-format
 msgid "Remaining time approximately %s"
 msgid_plural "Remaining time approximately %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "બાકી રહેલ અંદાજીત સમય %s"
+msgstr[1] "બાકી રહેલ અંદાજીત સમય %s"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
 msgid "Completing the %s Setup Wizard"
-msgstr ""
+msgstr "%s સેટઅપ વિઝાર્ડ પૂર્ણ કરી રહયું છે"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
-msgstr ""
+msgstr "ઇન્સ્તોલેસન ખતમ કરવા માટે ફરી ચાલુ કરવું (રીબૂત) જરૂરી છે"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:44
 #: src/wubi/frontends/win32/cd_finish_page.py:47
 msgid "Reboot now"
-msgstr ""
+msgstr "હવે ફરી ચાલુ કરો (રીબૂત)"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
-msgstr ""
+msgstr "હું જાતે ફરી ચાલુ (રીબૂત) કરવા માંગું છુ"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 msgid "< Back"
@@ -406,7 +422,7 @@ msgstr "< આગળ"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:43
 msgid "Reboot required"
-msgstr ""
+msgstr "ફરી ચાલુ કરવું (રીબૂત) જરૂરી"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:45
 msgid ""
@@ -414,14 +430,16 @@ msgid ""
 "tray. If your machine cannot boot from the CD, the last option should work "
 "in most cases."
 msgstr ""
+"જીવંત CD ચાલુ કરવા માટે તેને યંત્રમાં રાખીને ફરી ચાલુ કરવું (રીબૂત) જરૂરી "
+"છે. જો તમારું યંત્ર CD ચાલુ ના થતું હોઈ તો અંતિમ વિકલ્પ મોટા ભાગે કામ કરશે."
 
 #: src/wubi/frontends/win32/cd_finish_page.py:48
 msgid "I want to manually reboot Later"
-msgstr ""
+msgstr "હું જાતે ફરી ચાલુ (રીબૂત) કરવા માંગું છુ"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
 msgid "Help me to boot from CD"
-msgstr ""
+msgstr "CD માં થી ચલાવવા (રીબૂત) માટે મને મદદ કરો"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
@@ -441,19 +459,19 @@ msgstr "દૃષ્ટિ સહાયો"
 
 #: src/wubi/frontends/win32/accessibility_page.py:51
 msgid "Visibility1"
-msgstr ""
+msgstr "દેખાવાની ક્ષમતા ૧"
 
 #: src/wubi/frontends/win32/accessibility_page.py:52
 msgid "Visibility2"
-msgstr ""
+msgstr "દેખાવાની ક્ષમતા ૨"
 
 #: src/wubi/frontends/win32/accessibility_page.py:53
 msgid "Visibility3"
-msgstr ""
+msgstr "દેખાવાની ક્ષમતા ૩"
 
 #: src/wubi/frontends/win32/accessibility_page.py:54
 msgid "Braille"
-msgstr ""
+msgstr "બ્રેઇલ"
 
 #: src/wubi/frontends/win32/accessibility_page.py:57
 msgid "Mobility Aids"
@@ -478,7 +496,7 @@ msgstr "%s મેનુ"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:53
 msgid "Demo and full installation"
-msgstr ""
+msgstr "સરઘસ અને પૂર્ણ સ્થાપના"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:55
 #, python-format
@@ -487,6 +505,9 @@ msgid ""
 "the tray. You may perform a full installation from within the demo to "
 "install %(distro)s either alongside Windows or as the only operating system."
 msgstr ""
+"%(distro)s  સ્થાપન ક્રિયા વગર વાપરો! CD તમારા યંત્રમાં રાખી ને ફરી ચાલુ કરો. "
+"તમે સરઘસ ની અંદર થીજ %(distro)s  પૂર્ણ સ્થાપન પણ કરી શકશો અને તેને વિનડોઝ ની "
+"સાથે કે એક અલગ વ્યવસ્થાપન પ્રણાલી તરીકે સ્થાપિત કરી શકશો"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:65
 msgid "Install inside Windows"
@@ -500,6 +521,9 @@ msgid ""
 "or %(distro)s. Hibernation is not enabled in this mode and disk performance "
 "is slightly reduced."
 msgstr ""
+"%(distro)s ને કોઈ પારટિસન વગર અન્ય કોઈ પણ કાર્ય પ્રણાલી ની જેમ ઇન્સતોલ કે "
+"અનઇનસ્તોલ કરી શકશો. તમે વિનડોઝ કે %(distro)s માં બૂટ કરી શકશો. આ પદ્ધતિમાં "
+"હાઈબરનેશન ઉપલબ્ધ નથી અને ડિસ્કની કાર્યક્ષમતા થોડી ઘટી જાય છે."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:74
 msgid "Learn more"
@@ -512,19 +536,22 @@ msgid ""
 "complete with a web browser, productivity software, instant messaging, and "
 "much more."
 msgstr ""
+"%(distro)s એક મુક્ત સમુદાય દ્વારા બનાવેલ, લિન્ક્ષ આધારિત, વેબ બ્રૌઝેર, "
+"પ્રોડેકતીવીતી સોફ્ટવેર, ક્ષણિક સંદેશ અને બીજી ઘણી સેવાઓ યુક્ત સંચાલન પ્રણાલી "
+"છે."
 
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
 msgid "%s CD Boot Helper"
-msgstr ""
+msgstr "%s CD બૂટ મદદગાર"
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
-msgstr ""
+msgstr "આગળ વધવા માટે પુરતી મુક્ત જગ્યા ડિસ્ક પર પ્રાપ્ય નથી."
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
-msgstr ""
+msgstr "બૂટ મદદગાર ઇન્સ્તાલ કરો"
 
 #: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
@@ -534,9 +561,9 @@ msgid ""
 "\n"
 "Do you want to proceed and install the CD booter?"
 msgstr ""
-"જો તમે સીડીથી બહાર બુટ ન કરી શકો, તો આ કાર્યક્રમ તમને સીડી માંથી બુટ કરવા માટેની મદદ "
-"કરવા એક નવી બુટ મેનુ નોંધ સ્થાપિત કરશે. મોટે ભાગે આ કાર્યક્રમ આવશ્યક નથી, અને સીડીને ટ્રે "
-"માં રાખી કોમ્પ્યુટર ફરી શરૂ કરવું પર્યાપ્ત છે.\n"
+"જો તમે સીડીથી બહાર બુટ ન કરી શકો, તો આ કાર્યક્રમ તમને સીડી માંથી બુટ કરવા "
+"માટેની મદદ કરવા એક નવી બુટ મેનુ નોંધ સ્થાપિત કરશે. મોટે ભાગે આ કાર્યક્રમ "
+"આવશ્યક નથી, અને સીડીને ટ્રે માં રાખી કોમ્પ્યુટર ફરી શરૂ કરવું પર્યાપ્ત છે.\n"
 "\n"
 "શું તમે આગળ વધી સીડી બુટ કરનાર સ્થાપિત કરવા માગો છો?"
 
@@ -549,20 +576,25 @@ msgid ""
 "\n"
 "For more information, please see the log file: %(log)s"
 msgstr ""
+"એક ભૂલ થઇ છે\n"
+"%(error)s\n"
+"વધારે માહિતી માટે આ લોગ ફાઈલ જુવો :%(log)s"
 
 #: src/wubi/application.py:147 src/wubi/application.py:208
 #, python-format
 msgid ""
 "A previous installation was detected in %s.\n"
 "Please uninstall that before continuing."
-msgstr ""
+msgstr "જુનું ઇન્સ્તાલએસન %s માં ર્રદ થયેલ છે."
 
 #: src/wubi/application.py:190
 msgid "No CD detected, cannot run CD menu"
-msgstr ""
+msgstr "કોઈ CD મળેલ નથી, CD મેનુ ચાલવા અક્ષમ્ય"
 
 #: src/wubi/application.py:198
 msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
+"કોઈ પ્રમાણિત CD મળેલ નથી \n"
+"CD બૂટ મદદગાર ફક્ત જીવંત CD જોડેજ વાપરી શકાય છે."

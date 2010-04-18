@@ -7,14 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-10-25 09:30+0000\n"
-"PO-Revision-Date: 2008-05-07 20:57+0000\n"
-"Last-Translator: LaPingvino <ikojba@gmail.com>\n"
+"POT-Creation-Date: 2009-11-03 23:48+0000\n"
+"PO-Revision-Date: 2010-03-18 13:49+0000\n"
+"Last-Translator: Michael Moroni <haikara90@gmail.com>\n"
 "Language-Team: Esperanto <eo@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-24 21:16+0000\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/backends/win32/backend.py:152
@@ -26,42 +27,46 @@ msgid ""
 "\n"
 "The system will now reboot."
 msgstr ""
+"La instalado fiaskis. Protokoloj estis konservataj en: %s.\n"
+"\n"
+"Noti, ke en verbose regimo, la protokoloj povus inkludi la pasvorton.\n"
+"La sistemo estos restartita."
 
 #: src/wubi/backends/common/tasklist.py:256
 #: src/wubi/backends/common/tasklist.py:260
 msgid "0s"
-msgstr ""
+msgstr "0s"
 
 #: src/wubi/backends/common/tasklist.py:269
 #, python-format
 msgid "%ih"
-msgstr ""
+msgstr "%ih"
 
 #: src/wubi/backends/common/tasklist.py:271
 #, python-format
 msgid "%imin"
-msgstr ""
+msgstr "%imin"
 
 #: src/wubi/backends/common/tasklist.py:274
 #, python-format
 msgid "%is"
-msgstr ""
+msgstr "%is"
 
 #: src/wubi/backends/common/downloader.py:66
 #: src/wubi/backends/common/btdownloader.py:36
 #, python-format
 msgid "Downloading %s"
-msgstr ""
+msgstr "Elŝutanta %s"
 
 #: src/wubi/backends/common/backend.py:77
 #: src/wubi/backends/common/backend.py:98
 msgid "Selecting the target directory"
-msgstr ""
+msgstr "Elektanta la celan dosierujon"
 
 #: src/wubi/backends/common/backend.py:78
 #: src/wubi/backends/common/backend.py:99
 msgid "Creating the installation directories"
-msgstr ""
+msgstr "Kreanta la dosierujon por la instalado"
 
 #: src/wubi/backends/common/backend.py:79
 #: src/wubi/backends/common/backend.py:89
@@ -73,7 +78,7 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:80
 #: src/wubi/backends/common/backend.py:101
 msgid "Creating the uninstaller"
-msgstr ""
+msgstr "Kreanta la malinstalilon"
 
 #: src/wubi/backends/common/backend.py:81
 #: src/wubi/backends/common/backend.py:102

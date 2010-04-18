@@ -7,14 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-10-25 09:30+0000\n"
-"PO-Revision-Date: 2009-02-24 17:44+0000\n"
-"Last-Translator: The Extra Terrestrial <Unknown>\n"
+"POT-Creation-Date: 2009-11-03 23:48+0000\n"
+"PO-Revision-Date: 2009-11-16 15:54+0000\n"
+"Last-Translator: S.P. Cortez <Unknown>\n"
 "Language-Team: Macedonian <mk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-24 21:16+0000\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
+"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/backends/win32/backend.py:152
@@ -337,15 +338,15 @@ msgstr "Ве молам внесете валидно корисничко им�
 
 #: src/wubi/frontends/win32/installation_page.py:315
 msgid "Please use all lower cases in the username."
-msgstr ""
+msgstr "Ве молам користете само мали букви во корисничкото име."
 
 #: src/wubi/frontends/win32/installation_page.py:317
 msgid "Please do not use spaces in the username."
-msgstr ""
+msgstr "Ве молам не користете празни места во корисничкото име."
 
 #: src/wubi/frontends/win32/installation_page.py:319
 msgid "Your username must start with a letter."
-msgstr ""
+msgstr "Вашето корисничко име мора да започнува со буква."
 
 #: src/wubi/frontends/win32/installation_page.py:321
 msgid "Your username must contain only standard letters and numbers."
@@ -357,15 +358,15 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:325
 msgid "Please enter a valid password."
-msgstr ""
+msgstr "Ве молам внесете валидна лозинка."
 
 #: src/wubi/frontends/win32/installation_page.py:327
 msgid "Please do not use spaces in the password."
-msgstr ""
+msgstr "Ве молам не користете празни места во лозинката."
 
 #: src/wubi/frontends/win32/installation_page.py:329
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Лозинките не се совпаѓаат."
 
 #: src/wubi/frontends/win32/progress_page.py:40
 msgid "Please wait"
@@ -425,11 +426,11 @@ msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
-msgstr ""
+msgstr "Профил за пристапност"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
 msgid "Please select the appropriate accessibility profile"
-msgstr ""
+msgstr "Ве молам одберете го соодветниот профил за пристапност"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
@@ -437,7 +438,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
-msgstr ""
+msgstr "Очни помагала"
 
 #: src/wubi/frontends/win32/accessibility_page.py:51
 msgid "Visibility1"

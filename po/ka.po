@@ -14,14 +14,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2009-10-25 09:30+0000\n"
-"PO-Revision-Date: 2009-03-14 03:02+0000\n"
-"Last-Translator: David Machakhelidze <david.machakhelidze@gmail.com>\n"
+"POT-Creation-Date: 2009-11-03 23:48+0000\n"
+"PO-Revision-Date: 2010-03-06 17:34+0000\n"
+"Last-Translator: aleksandre apkhaidze <momtsere@yahoo.com>\n"
 "Language-Team: Georgian <ka@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-24 21:16+0000\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wubi/backends/win32/backend.py:152
@@ -340,7 +341,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:313
 msgid "Please enter a valid username"
-msgstr ""
+msgstr "შეიყვანეთ კორექტული სახელი"
 
 #: src/wubi/frontends/win32/installation_page.py:315
 msgid "Please use all lower cases in the username."
@@ -348,11 +349,11 @@ msgstr "გამოიყენეთ მხოლოდ პატარა ა
 
 #: src/wubi/frontends/win32/installation_page.py:317
 msgid "Please do not use spaces in the username."
-msgstr ""
+msgstr "არ გამოიყენით სახელში ცარიელი სიმბოლოები."
 
 #: src/wubi/frontends/win32/installation_page.py:319
 msgid "Your username must start with a letter."
-msgstr "სახელი ასოთი უნდა იწყებოდეს."
+msgstr "სახელი უნდა იწყებოდეს ასოთი."
 
 #: src/wubi/frontends/win32/installation_page.py:321
 msgid "Your username must contain only standard letters and numbers."
@@ -432,11 +433,11 @@ msgstr "დახმარება დისკიდან ჩატვირ�
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
-msgstr ""
+msgstr "წვდომის პროფილი"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
 msgid "Please select the appropriate accessibility profile"
-msgstr ""
+msgstr "გთხოვთ ამოირჩიოთ სათანადო წვდომის პროფილი"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
@@ -541,6 +542,11 @@ msgid ""
 "\n"
 "Do you want to proceed and install the CD booter?"
 msgstr ""
+"თუ თქვენი მანქანა ვერ იტვირთება CD-დან, მაშინ ეს პროგრამა დააყენებს ახალ "
+"ჩატვირთვის მენიუს, CD-დან ჩასატვირთად. უმეტეს შემთხვევაში ეს პროგრამა არ "
+"არის საჭირო და საკმარისია მანქანის გადატვირთვა მასში დატოვებული CD-თი.\n"
+"\n"
+"გსურთ გაგრძელება და CD-ის ჩამრტვირთავის დაყენება?"
 
 #: src/wubi/application.py:64
 #, python-format
