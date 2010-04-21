@@ -25,7 +25,7 @@ import logging
 import re
 
 log = logging.getLogger('Distro')
-disk_info_re = '''(?P<name>[\w\s-]+) (?P<version>[\d.]+) \"(?P<codename>[\D]+)\" - (?P<subversion>[\D]+) (?P<arch>i386|amd64) \((?P<build>[\d.]+)\)'''
+disk_info_re = '''(?P<name>[\w\s-]+) (?P<version>[\d.]+)(?: LTS)? \"(?P<codename>[\D]+)\" - (?P<subversion>[\D]+) (?P<arch>i386|amd64) \((?P<build>[\d.]+)\)'''
 disk_info_re = re.compile(disk_info_re)
 
 class Distro(object):
