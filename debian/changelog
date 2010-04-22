@@ -21,6 +21,8 @@ wubi (10.04) UNRELEASED; urgency=low
     #477169).
   * Fall back to searching for /ubuntu/install/boot/grub/grub.cfg even if
     /ubuntu/disks/root.disk exists but is unusable (LP: #541607).
+  * Skip " LTS" in .disk/info when comparing versions (see LP #558488).
+  * Build-depend on gcc-multilib on amd64, so that 'gcc -m32' works.
 
   [ Evan Dandrea ]
   * Bump to 10.04
