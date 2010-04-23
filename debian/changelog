@@ -28,6 +28,7 @@ wubi (10.04) UNRELEASED; urgency=low
   * Bump to 10.04
   * Ubuntu Netbook Remix is now the Ubuntu Netbook Edition (LP: #541881).
   * Update translations from Launchpad.
+  * Updated Ubuntu branding.  Thanks Michael Forrest!
 
  -- Agostino Russo <agostino.russo@gmail.com>  Wed, 07 Apr 2010 23:42:08 +0100
 
