@@ -631,8 +631,8 @@ class Backend(object):
             k = "$(%s)" % k
             content = content.replace(k, v)
         if self.info.run_task == "cd_boot":
-            content.replace(" automatic-ubiquity", "")
-            content.replace(" iso-scan/filename=", "")
+            content = content.replace(" automatic-ubiquity", "")
+            content = content.replace(" iso-scan/filename=", "")
         grub_config_file = join_path(self.info.install_boot_dir, "grub", "grub.cfg")
         write_file(grub_config_file, content)
 
