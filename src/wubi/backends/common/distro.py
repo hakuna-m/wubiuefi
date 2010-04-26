@@ -19,7 +19,6 @@
 #
 
 import os
-import shutil
 from utils import read_file
 import logging
 import re
