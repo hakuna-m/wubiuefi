@@ -2,6 +2,7 @@ wubi (10.10) UNRELEASED; urgency=low
 
   [ Colin Watson ]
   * Bump to 10.10.
+  * GRUB no longer has a 'sh' module; use 'normal' instead.
 
  -- Colin Watson <cjwatson@ubuntu.com>  Wed, 30 Jun 2010 11:44:43 +0100
 
