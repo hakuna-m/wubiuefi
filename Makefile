@@ -75,7 +75,7 @@ winboot2: grubutil
 	mkdir -p build/winboot
 	cp -f data/wubildr.cfg build/winboot/wubildr.cfg
 	./build/grubutil/grubinst/grubinst --grub2 --boot-file=wubildr -o build/winboot/wubildr.mbr
-	grub-mkimage -c build/winboot/wubildr.cfg -o build/grubutil/core.img \
+	grub-mkimage -O i386-pc -c build/winboot/wubildr.cfg -o build/grubutil/core.img \
 		loadenv biosdisk part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback search linux boot minicmd cat cpuid chain halt help ls reboot \
 		echo test configfile normal sleep
 	cat /usr/lib/grub/i386-pc/lnxboot.img build/grubutil/core.img > build/winboot/wubildr

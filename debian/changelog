@@ -3,6 +3,8 @@ wubi (10.10) UNRELEASED; urgency=low
   [ Colin Watson ]
   * Bump to 10.10.
   * GRUB no longer has a 'sh' module; use 'normal' instead.
+  * Pass '-O i386-pc' to grub-mkimage, required by GRUB snapshots from
+    2010-05-17 onwards.
 
  -- Colin Watson <cjwatson@ubuntu.com>  Wed, 30 Jun 2010 11:44:43 +0100
 
