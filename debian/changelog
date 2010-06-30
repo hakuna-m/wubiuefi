@@ -1,3 +1,10 @@
+wubi (10.10) UNRELEASED; urgency=low
+
+  [ Colin Watson ]
+  * Bump to 10.10.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed, 30 Jun 2010 11:44:43 +0100
+
 wubi (10.04) UNRELEASED; urgency=low
 
   [ Agostino Russo ]
