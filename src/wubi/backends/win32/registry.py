@@ -22,6 +22,8 @@ import _winreg
 import logging
 log = logging.getLogger("registry")
 
+from winui.defs import KEY_SET_VALUE
+
 def get_value(key, subkey, attr):
     key = getattr(_winreg, key)
     try:
