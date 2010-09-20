@@ -23,7 +23,6 @@ import os
 import md5
 import subprocess
 import shutil
-import sys
 import random
 import ctypes
 import logging

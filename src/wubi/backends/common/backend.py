@@ -25,7 +25,6 @@ import locale
 import struct
 import logging
 import time
-import mappings
 import gettext
 import glob
 import shutil
@@ -38,9 +37,9 @@ from metalink import parse_metalink
 from tasklist import ThreadedTaskList, Task
 from distro import Distro
 from mappings import lang_country2linux_locale
-from utils import join_path, run_command, run_nonblocking_command, md5_password, copy_file, replace_line_in_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unix_path, rm_tree
+from utils import join_path, run_nonblocking_command, md5_password, copy_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unix_path, rm_tree
 from signature import verify_gpg_signature
-from os.path import abspath, dirname, isfile, isdir, exists
+from os.path import abspath, dirname
 
 log = logging.getLogger("CommonBackend")
 

@@ -21,7 +21,7 @@
 import copy
 import xml.sax
 import xml.sax.handler
-from xml.sax.saxutils import escape, unescape
+from xml.sax.saxutils import unescape
 
 class MetalinkException(Exception):
     def __init__(self, message):

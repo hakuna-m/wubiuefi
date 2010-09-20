@@ -24,7 +24,6 @@ http://linux.duke.edu/projects/urlgrabber/help/urlgrabber.grabber.html
 '''
 
 import os
-import sys
 import logging
 log = logging.getLogger('downloader')
 
