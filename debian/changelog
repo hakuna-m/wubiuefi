@@ -11,6 +11,8 @@ wubi (10.10) UNRELEASED; urgency=low
     it using normal mode (LP: #600578).
   * Import KEY_SET_VALUE in win32 registry module.
   * Remove some unused or duplicate imports.
+  * Add the font, gfxterm, and gettext modules to the wubildr image, to
+    support our default configuration file (LP: #653134).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Wed, 30 Jun 2010 11:44:43 +0100
 
