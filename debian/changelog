@@ -4,6 +4,7 @@ wubi (11.04) UNRELEASED; urgency=low
   * Bump to 11.04.
   * Sync up checks for permitted characters in usernames with user-setup
     (LP: #397129).
+  * Don't strip underscores from the host username.
 
 wubi (10.10) UNRELEASED; urgency=low
 

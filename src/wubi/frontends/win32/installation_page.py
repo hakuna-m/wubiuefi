@@ -213,7 +213,7 @@ class InstallationPage(Page):
         self.language_list.on_change = self.on_language_change
 
         username = self.info.host_username.strip().lower()
-        username = re.sub('[^-a-z0-9]', '', username)
+        username = re.sub('[^-a-z0-9_]', '', username)
         picture, label, combo = self.add_controls_block(
             self.main, h*4 + w, h*4,
             "user.bmp", _("Username:"), None)
