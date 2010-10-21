@@ -33,8 +33,8 @@ if sys.version.startswith('2.3'):
     from sets import Set as set
 
 reserved_usernames = [unicode(n) for n in reserved_usernames]
-re_first_char_is_letter = re.compile("^[a-zA-Z_]")
-re_only_alphanum = re.compile("[a-z][-a-z0-9]*$")
+re_username_first = re.compile("^[a-z]")
+re_username = re.compile("[a-z][-a-z0-9_]*$")
 
 class InstallationPage(Page):
 
@@ -315,10 +315,10 @@ class InstallationPage(Page):
             error_message = _("Please use all lower cases in the username.")
         elif " " in username:
             error_message =  _("Please do not use spaces in the username.")
-        elif not re_first_char_is_letter.match(username):
-            error_message =  _("Your username must start with a letter.")
-        elif not re_only_alphanum.match(username):
-            error_message =  _("Your username must contain only standard letters and numbers.")
+        elif not re_username_first.match(username):
+            error_message =  _("Your username must start with a lower-case letter.")
+        elif not re_username.match(username):
+            error_message =  _("Your username must contain only lower-case letters, numbers, hyphens, and underscores.")
         elif username in reserved_usernames:
             error_message = _("The selected username is reserved, please select a different one.")
         elif not password1:
