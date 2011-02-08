@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2010-10-21 12:20+0100\n"
-"PO-Revision-Date: 2010-04-16 21:37+0000\n"
+"PO-Revision-Date: 2010-09-01 10:23+0000\n"
 "Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "Language: he\n"
@@ -23,14 +23,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
+"X-Generator: Launchpad (build 12335)\n"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 #: src/wubi/backends/common/backend.py:91
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
-msgstr "מתבצעת התקנת %(distro)s-%(version)s"
+msgstr "%(distro)s-%(version)s מותקנת"
 
 #: src/wubi/frontends/win32/progress_page.py:40
 msgid "Please wait"
@@ -48,7 +48,7 @@ msgstr "ביטול"
 
 #: src/wubi/frontends/win32/progress_page.py:53
 msgid "Do not download, use a local file"
-msgstr "ללא הורדה, שימוש בקובץ מקומי"
+msgstr "לא להוריד, יש להשתמש בקובץ מקומי"
 
 #: src/wubi/frontends/win32/progress_page.py:66
 #, python-format
@@ -69,7 +69,7 @@ msgstr "סיום"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:43
 msgid "Reboot required"
-msgstr "נדרש איתחול"
+msgstr "נדרשת הפעלה מחדש"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:45
 msgid ""
@@ -79,7 +79,7 @@ msgid ""
 msgstr ""
 "כדי להפעיל את התקליטור החי (תמחישור) יהיה עליך לאתחל את המחשב ולהשאיר את "
 "התקליטור בכונן. אם המחשב שלך לא יכול לאתחל מתקליטור, האפשרות האחרונה אמורה "
-"לעבוד ברב המקרים."
+"לעבוד ברוב המקרים."
 
 #: src/wubi/frontends/win32/cd_finish_page.py:47
 #: src/wubi/frontends/win32/installation_finish_page.py:44
@@ -92,16 +92,16 @@ msgstr "אבצע הפעלה מחדש בעצמי מאוחר יותר"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
 msgid "Help me to boot from CD"
-msgstr "עזור לי לאתחל מתקליטור"
+msgstr "קבלת סיוע לאתחול מתקליטור"
 
 #: src/wubi/frontends/win32/frontend.py:51
 msgid "Are you sure you want to quit?"
-msgstr "האם ברצונך לצאת?"
+msgstr "האם באמת ברצונך לצאת?"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
 msgid "%s Uninstaller"
-msgstr "תכנית הסרת %s"
+msgstr "תכנית להסרת %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:36
 msgid "Uninstallation required"
@@ -120,11 +120,11 @@ msgstr "הסרה"
 msgid ""
 "A previous installation was detected, it needs to be uninstalled before "
 "continuing"
-msgstr "אותרה התקנה קודמת, יש צורך בהסרתה בטרם המעבר הלאה"
+msgstr "אותרה התקנה קודמת, יש צורך בהסרתה בטרם ההמשך בתהליך"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:54
 msgid "Are you sure you want to uninstall?"
-msgstr "האם ברצונך להסיר את ההתקנה?"
+msgstr "האם באמת ברצונך להסיר את ההתקנה?"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:62
 msgid "Backup the downloaded files (ISO)"
@@ -136,8 +136,8 @@ msgid ""
 "Only %sMB of disk space are available.\n"
 "At least 1024MB are required as a bare minimum. Quitting"
 msgstr ""
-"רק %sמ\"ב של שטח דיסק פנוי.\n"
-"נדרשים 1024מ\"ב לכל הפחות. יוצא"
+"ישנם רק %s מ״ב של שטח פנוי בכונן.\n"
+"נדרשים 1024 מ״ב לכל הפחות. התכנית תיסגר"
 
 #: src/wubi/frontends/win32/installation_page.py:77
 #, python-format
@@ -147,19 +147,19 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
-"%(min_space)sמ\"ב מנפח הכונן נדרשים עבור ההתקנה.\n"
-"רק %(max_space)sמ\"ב זמינים.\n"
+"%(min_space)s מ״ב של שטח פנוי בכונן נדרשים לצורכי התקנה.\n"
+"רק %(max_space)s מ״ב זמינים.\n"
 "בנסיבות אלו ההתקנה עלולה להיכשל.\n"
 "האם ברצונך להמשיך בכל מקרה?"
 
 #: src/wubi/frontends/win32/installation_page.py:96
 #, python-format
 msgid "(%sGB free)"
-msgstr "(%sג\"ב פנויים)"
+msgstr "(%s ג״ב פנויים)"
 
 #: src/wubi/frontends/win32/installation_page.py:177
 msgid "Please select username and password for the new account"
-msgstr "יש לבחור שם משתמש וסיסמה לחשבון החדש"
+msgstr "נא לבחור בשם משתמש ובססמה לחשבון החדש"
 
 #: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
@@ -189,11 +189,11 @@ msgstr "שפה:"
 
 #: src/wubi/frontends/win32/installation_page.py:219
 msgid "Username:"
-msgstr "שם משתמש:"
+msgstr "שם המשתמש:"
 
 #: src/wubi/frontends/win32/installation_page.py:226
 msgid "Password:"
-msgstr "סיסמה:"
+msgstr "ססמה:"
 
 #: src/wubi/frontends/win32/installation_page.py:263
 #, python-format
@@ -213,8 +213,8 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
-"%(min_memory)sמ\"ב של זיכרון נחוצים להתקנה.\n"
-"רק %(total_memory)sמ\"ב זמינים.\n"
+"%(min_memory)s מ״ב של זיכרון נחוצים להתקנה.\n"
+"רק %(total_memory)s מ״ב זמינים.\n"
 "בנסיבות אלו ההתקנה עלולה להיכשל.\n"
 "האם ברצונך להמשיך בכל מקרה?"
 
@@ -231,32 +231,30 @@ msgid "Please do not use spaces in the username."
 msgstr "נא לא להשתמש ברווחים כחלק משם מהמשתמש."
 
 #: src/wubi/frontends/win32/installation_page.py:319
-#, fuzzy
 msgid "Your username must start with a lower-case letter."
-msgstr "על שם המשתמש להתחיל באות."
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:321
-#, fuzzy
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
-msgstr "על שם המשתמש שלך להכיל אותיות באנגלית ומספרים תקניים בלבד."
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."
-msgstr "שם המשתמש הנבחר הינו שמור, יש לבחור בשם אחר."
+msgstr "שם המשתמש הנבחר הנו שמור, נא לבחור בשם אחר."
 
 #: src/wubi/frontends/win32/installation_page.py:325
 msgid "Please enter a valid password."
-msgstr "נא להזין סיסמה תקנית."
+msgstr "נא להזין ססמה תקנית."
 
 #: src/wubi/frontends/win32/installation_page.py:327
 msgid "Please do not use spaces in the password."
-msgstr "נא לא להשתמש ברווחים בסיסמה."
+msgstr "נא לא להשתמש ברווחים בססמה."
 
 #: src/wubi/frontends/win32/installation_page.py:329
 msgid "Passwords do not match."
-msgstr "הסיסמאות אינן תואמות."
+msgstr "הססמאות אינן תואמות."
 
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
@@ -287,7 +285,7 @@ msgid ""
 "the tray. You may perform a full installation from within the demo to "
 "install %(distro)s either alongside Windows or as the only operating system."
 msgstr ""
-"ניתן לנסות את %(distro)s ללא צורך בהתקנה! פשוט עליך לאתחל את המחשב עם "
+"ניתן להתנסות ב־%(distro)s ללא צורך בהתקנה! עליך פשוט להפעיל את המחשב מחדש עם "
 "התקליטור בכונן. ניתן לבצע התקנה מלאה מתוך ההדגמה ולהתקין את %(distro)s או "
 "לצד Windows או כמערכת ההפעלה היחידה."
 
@@ -304,8 +302,8 @@ msgid ""
 "is slightly reduced."
 msgstr ""
 "ניתן להתקין ולהסיר את %(distro)s כמו כל יישום אחר, ללא כל צורך בהקדשת מחיצה "
-"למטרה זו. ניתן יהיה לאתחל לתוך Windows או לתוך %(distro)s. לא ניתן להפעיל את "
-"מצב השינה בצורת הפעלה זו ויכולות הכונן מופחתות מעט."
+"למטרה זו. תהיה באפשרותך לאתחל לתוך Windows או לתוך %(distro)s. לא ניתן "
+"להפעיל את מצב השינה בצורת הפעלה זו ויכולות הכונן מופחתות מעט."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:74
 msgid "Learn more"
@@ -318,8 +316,8 @@ msgid ""
 "complete with a web browser, productivity software, instant messaging, and "
 "much more."
 msgstr ""
-"%(distro)s הינה מערכת הפעלה חופשית, מפותחת על ידי קהילה, המבוססת על לינוקס "
-"ומכילה דפדפן אינטרנט, תוכנות הפקה, מסרים מידיים ועוד תכונות רבות."
+"%(distro)s הנה מערכת הפעלה חופשית המפותחת על ידי קהילה ומבוססת על לינוקס "
+"המכילה דפדפן אינטרנט, תוכנות הפקה, מסרים מידיים ועוד תכונות רבות."
 
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
@@ -328,7 +326,7 @@ msgstr "מסייע האתחול של תקליטור %s"
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
-msgstr "אין די שטח פנוי בכונן להמשך"
+msgstr "אין די שטח פנוי בכונן כדי להמשיך"
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
@@ -342,11 +340,11 @@ msgid ""
 "\n"
 "Do you want to proceed and install the CD booter?"
 msgstr ""
-"אם המחשב שלך לא מצליח להעלות את נתוני האתחול מהתקליטור, תכנה זו תוסיף רשומה "
-"חדשה בתפריט האתחול שתסייע לך לאתחל מהתקליטור. ברב המקרים תכנה זו אינה נחוצה, "
-"ואתחול כשהתקליטור נמצא בכונן מספק בהחלט.\n"
+"אם המחשב שלך לא מצליח להעלות את נתוני האתחול מהתקליטור, תכנית זו תוסיף רשומה "
+"חדשה בתפריט האתחול שתסייע לך לאתחל מהתקליטור. ברוב המקרים תכנית זו אינה "
+"נחוצה והפעלת המחשב מחדש כשהתקליטור נמצא בכונן מספיקה בהחלט.\n"
 "\n"
-"האם ברצונך להמשיך ולהתקין את המאתחל מתקליטורים?"
+"האם ברצונך להמשיך ולהתקין את מאתחל התקליטורים?"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
@@ -415,28 +413,28 @@ msgid ""
 "The system will now reboot."
 msgstr ""
 "ההתקנה נכשלה. קובצי היומן נשמרו תחת : %s\n"
-"נא לשים לב כי במצב verbose, היומן עלול להכיל את הסיסמה.\n"
+"נא לשים לב כי במצב verbose, היומן עלול להכיל את הססמה.\n"
 "המערכת תופעל מחדש כעת."
 
 #: src/wubi/backends/common/tasklist.py:256
 #: src/wubi/backends/common/tasklist.py:260
 msgid "0s"
-msgstr "0שנ'"
+msgstr "0 שנ׳"
 
 #: src/wubi/backends/common/tasklist.py:269
 #, python-format
 msgid "%ih"
-msgstr "%iשע'"
+msgstr "%i שע׳"
 
 #: src/wubi/backends/common/tasklist.py:271
 #, python-format
 msgid "%imin"
-msgstr "%iד'"
+msgstr "%i ד׳"
 
 #: src/wubi/backends/common/tasklist.py:274
 #, python-format
 msgid "%is"
-msgstr "%iשנ'"
+msgstr "%i שנ׳"
 
 #: src/wubi/backends/common/downloader.py:65
 #: src/wubi/backends/common/btdownloader.py:36
@@ -447,12 +445,12 @@ msgstr "מתבצעת הורדת %s"
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:97
 msgid "Selecting the target directory"
-msgstr "בחירת תיקיית היעד"
+msgstr "תיקיית היעד נבחרת"
 
 #: src/wubi/backends/common/backend.py:77
 #: src/wubi/backends/common/backend.py:98
 msgid "Creating the installation directories"
-msgstr "יצירת תיקיות ההתקנה"
+msgstr "תיקיות ההתקנה נוצרות"
 
 #: src/wubi/backends/common/backend.py:78
 #: src/wubi/backends/common/backend.py:88
@@ -464,51 +462,51 @@ msgstr "פריסת הקבצים מתבצעת"
 #: src/wubi/backends/common/backend.py:79
 #: src/wubi/backends/common/backend.py:100
 msgid "Creating the uninstaller"
-msgstr "יצירת תוכנית ההסרה"
+msgstr "תכנית ההסרה נוצרת"
 
 #: src/wubi/backends/common/backend.py:80
 #: src/wubi/backends/common/backend.py:101
 #: src/wubi/backends/common/backend.py:424
 #: src/wubi/backends/common/backend.py:430
 msgid "Copying installation files"
-msgstr "העתקת קובצי ההתקנה"
+msgstr "קובצי ההתקנה מועתקים"
 
 #: src/wubi/backends/common/backend.py:81
 msgid "Retrieving installation files"
-msgstr "איחזור קובצי ההתקנה"
+msgstr "קובצי ההתקנה מתקבלים"
 
 #: src/wubi/backends/common/backend.py:82
 #: src/wubi/backends/common/backend.py:103
 msgid "Extracting the kernel"
-msgstr "חילוץ הליבה"
+msgstr "הליבה מחולצת"
 
 #: src/wubi/backends/common/backend.py:83
 msgid "Choosing disk sizes"
-msgstr "בחירת נפחי הכוננים"
+msgstr "נפחי הכוננים נבחרים"
 
 #: src/wubi/backends/common/backend.py:84
 #: src/wubi/backends/common/backend.py:104
 msgid "Creating a preseed file"
-msgstr "יצירת קובץ preseed"
+msgstr "נוצר קובץ preseed"
 
 #: src/wubi/backends/common/backend.py:85
 #: src/wubi/backends/common/backend.py:105
 msgid "Adding a new bootloader entry"
-msgstr "הוספת רשומת איתחול חדשה"
+msgstr "נוספת רשומת אתחול חדשה"
 
 #: src/wubi/backends/common/backend.py:86
 #: src/wubi/backends/common/backend.py:106
 msgid "Setting up installation boot menu"
-msgstr "הגדרת תפריט האיתחול של ההתקנה מתבצעת"
+msgstr "תפריט אתחול ההתקנה מוגדר"
 
 #: src/wubi/backends/common/backend.py:87
 msgid "Creating the virtual disks"
-msgstr "יצירת הכוננים הווירטואליים מתבצעת"
+msgstr "הכוננים הווירטואליים נוצרים"
 
 #: src/wubi/backends/common/backend.py:89
 #: src/wubi/backends/common/backend.py:108
 msgid "Ejecting the CD"
-msgstr "חילוץ התקליטור מתבצע"
+msgstr "התקליטור מחולץ"
 
 #: src/wubi/backends/common/backend.py:102
 msgid "Extracting CD content"
@@ -516,66 +514,66 @@ msgstr "מתבצע חילוץ תוכן התקליטור"
 
 #: src/wubi/backends/common/backend.py:110
 msgid "Installing CD boot helper"
-msgstr "התקנת מסייע איתחול התקליטור מתבצעת"
+msgstr "מסייע אתחול התקליטור מותקן"
 
 #: src/wubi/backends/common/backend.py:115
 #: src/wubi/backends/common/backend.py:117
 msgid "Rebooting"
-msgstr "מתבצעת הפעלה מחדש"
+msgstr "המערכת מופעלת מחדש"
 
 #: src/wubi/backends/common/backend.py:122
 msgid "Backup ISO"
-msgstr "ISO לגיבוי"
+msgstr "ה־ISO מגובה"
 
 #: src/wubi/backends/common/backend.py:123
 msgid "Remove bootloader entry"
-msgstr "הסרת הרשומה מטוען האיתחול"
+msgstr "הרשומה מוסרת ממנהל האתרחול"
 
 #: src/wubi/backends/common/backend.py:124
 msgid "Remove target dir"
-msgstr "הסרת תיקיית היעד"
+msgstr "תיקיית היעד מוסרת"
 
 #: src/wubi/backends/common/backend.py:125
 msgid "Remove registry key"
-msgstr "הסרת המפתח ברישומי המערכת"
+msgstr "רישומי המערכת מוסרים"
 
 #: src/wubi/backends/common/backend.py:126
 #, python-format
 msgid "Uninstalling %s"
-msgstr "הסרת %s מתבצעת"
+msgstr "%s מוסר"
 
 #: src/wubi/backends/common/backend.py:257
 #, python-format
 msgid "Checking CD %s"
-msgstr "בדיקת התקליטור %s"
+msgstr "התקליטור %s נבדק"
 
 #: src/wubi/backends/common/backend.py:283
 #: src/wubi/backends/common/backend.py:327
 #: src/wubi/backends/common/backend.py:363
 msgid "Downloading information on installation files"
-msgstr "מתבצעת הורדת מידע אודות קובצי ההתקנה"
+msgstr "מתקבל מידע על קובצי התקנה"
 
 #: src/wubi/backends/common/backend.py:298
 #: src/wubi/backends/common/backend.py:355
 #: src/wubi/backends/common/backend.py:418
 #: src/wubi/backends/common/backend.py:468
 msgid "Checking installation files"
-msgstr "מתבצעת בדיקת קובצי ההתקנה"
+msgstr "קובצי ההתקנה נבדקים"
 
 #: src/wubi/backends/common/backend.py:389
 #, python-format
 msgid "Validating %s"
-msgstr "מתבצע אימות %s"
+msgstr "%s בהליכי אימות"
 
 #: src/wubi/backends/common/backend.py:455
 #, python-format
 msgid "Extracting files from %s"
-msgstr "מתבצע חילוץ קבצים מ־%s"
+msgstr "מחולצים קבצים מ־%s"
 
 #: src/wubi/backends/common/backend.py:531
 #, python-format
 msgid "Checking %s"
-msgstr "מתבצעת בדיקת %s"
+msgstr "%s נבדק"
 
 #: src/wubi/application.py:64
 #, python-format
@@ -586,7 +584,7 @@ msgid ""
 "\n"
 "For more information, please see the log file: %(log)s"
 msgstr ""
-"ארעה שגיאה:\n"
+"אירעה שגיאה:\n"
 "\n"
 "%(error)s\n"
 "\n"
@@ -598,8 +596,8 @@ msgid ""
 "A previous installation was detected in %s.\n"
 "Please uninstall that before continuing."
 msgstr ""
-"התקנה קודמת זוהתה ב־%s.\n"
-"יש להסיר אותה לפני מעבר הלאה."
+"אותרה התקנה קודמת ב־%s.\n"
+"יש להסיר אותה לפני ההמשך בתהליך."
 
 #: src/wubi/application.py:190
 msgid "No CD detected, cannot run CD menu"

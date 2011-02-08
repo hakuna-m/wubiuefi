@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n == 1 ? 0 : (n == 0 || ((n % 100) >= 2 && "
 "(n % 100) <= 10) ) ? 1 : ((n % 100) >= 11 && (n % 100) <= 19 ) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
+"X-Generator: Launchpad (build 12335)\n"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 #: src/wubi/backends/common/backend.py:91
@@ -212,16 +212,14 @@ msgid "Please do not use spaces in the username."
 msgstr "Jekk jogħġbok tużax spazji ġol-username."
 
 #: src/wubi/frontends/win32/installation_page.py:319
-#, fuzzy
 msgid "Your username must start with a lower-case letter."
-msgstr "Il-username li tagħżel għandu jibda b'ittra."
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:321
-#, fuzzy
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
-msgstr "Il-username li tagħżel jista' jkollu biss ittri komuni u numri."
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."

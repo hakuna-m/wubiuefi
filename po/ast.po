@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2010-10-21 12:20+0100\n"
-"PO-Revision-Date: 2010-03-16 15:25+0000\n"
-"Last-Translator: Marcos <marcos@softastur.org>\n"
+"PO-Revision-Date: 2010-08-22 20:38+0000\n"
+"Last-Translator: Iñigo Varela <malditoastur@gmail.com>\n"
 "Language-Team: Asturian <ast@li.org>\n"
 "Language: ast\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
+"X-Generator: Launchpad (build 12335)\n"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 #: src/wubi/backends/common/backend.py:91
@@ -47,8 +47,8 @@ msgstr "Nun descargar; usar un ficheru llocal"
 #, python-format
 msgid "Remaining time approximately %s"
 msgid_plural "Remaining time approximately %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Tiempu restante aproximáu %s"
+msgstr[1] "Tiempu restante aproximáu %s"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 msgid "< Back"
@@ -225,17 +225,14 @@ msgid "Please do not use spaces in the username."
 msgstr "Por favor, nun use espacios nel nome d'usuariu."
 
 #: src/wubi/frontends/win32/installation_page.py:319
-#, fuzzy
 msgid "Your username must start with a lower-case letter."
-msgstr "El so nome d'usuariu tien d'entamar con una lletra."
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:321
-#, fuzzy
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
 msgstr ""
-"El so nome d'usuariu tien de contener namái lletres y númberos estándar."
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."

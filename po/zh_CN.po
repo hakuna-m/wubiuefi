@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2010-10-21 12:20+0100\n"
-"PO-Revision-Date: 2009-11-10 03:36+0000\n"
+"PO-Revision-Date: 2010-12-26 08:46+0000\n"
 "Last-Translator: 英华 <wantinghard@gmail.com>\n"
 "Language-Team: Simplified Chinese <i18n-zh@googlegroups.com>\n"
 "Language: \n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
+"X-Generator: Launchpad (build 12335)\n"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 #: src/wubi/backends/common/backend.py:91
@@ -222,16 +222,14 @@ msgid "Please do not use spaces in the username."
 msgstr "请勿在用户名称中使用空格。"
 
 #: src/wubi/frontends/win32/installation_page.py:319
-#, fuzzy
 msgid "Your username must start with a lower-case letter."
-msgstr "您的用户名称必须以字母开头。"
+msgstr "您的用户名必须以小写字母开头。"
 
 #: src/wubi/frontends/win32/installation_page.py:321
-#, fuzzy
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
-msgstr "您的用户名称必须仅包含标准字母和数字。"
+msgstr "您的用户名只能包含小写字母、数字、连字符和下划线。"
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."

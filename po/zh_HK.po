@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2010-10-21 12:20+0100\n"
-"PO-Revision-Date: 2010-04-05 12:55+0000\n"
+"PO-Revision-Date: 2011-02-04 22:19+0000\n"
 "Last-Translator: Cloud Wong <Unknown>\n"
 "Language-Team: Chinese (Hong Kong) <zh_HK@li.org>\n"
 "Language: zh_HK\n"
@@ -23,8 +23,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
+"X-Generator: Launchpad (build 12335)\n"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 #: src/wubi/backends/common/backend.py:91
@@ -220,16 +220,14 @@ msgid "Please do not use spaces in the username."
 msgstr "請不要在用戶名稱中加入空白字元。"
 
 #: src/wubi/frontends/win32/installation_page.py:319
-#, fuzzy
 msgid "Your username must start with a lower-case letter."
-msgstr "你的用戶名稱必須以字母開始。"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:321
-#, fuzzy
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
-msgstr "你的用戶名稱只可以包含標準字母及數字。"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."
@@ -327,6 +325,11 @@ msgid ""
 "\n"
 "Do you want to proceed and install the CD booter?"
 msgstr ""
+"假如你的電腦並不能以CD來啟動，本程式將會安裝一個啟動載入器來協助你以CD啟動電"
+"腦。在大部份的情況下並不需要這個程式，將CD-Rom留在光碟機內已可以用它來重新啟"
+"動。\n"
+"\n"
+"你是否想繼續並安裝CD啟動器？"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
@@ -394,74 +397,79 @@ msgid ""
 "\n"
 "The system will now reboot."
 msgstr ""
+"安裝失敗. 記錄檔已貯存至： %s。\n"
+"\n"
+"請注意：在詳細模式下，記錄檔可能包含密碼。\n"
+"\n"
+"系統將會重新開機。"
 
 #: src/wubi/backends/common/tasklist.py:256
 #: src/wubi/backends/common/tasklist.py:260
 msgid "0s"
-msgstr ""
+msgstr "0 秒"
 
 #: src/wubi/backends/common/tasklist.py:269
 #, python-format
 msgid "%ih"
-msgstr ""
+msgstr "%i 小時"
 
 #: src/wubi/backends/common/tasklist.py:271
 #, python-format
 msgid "%imin"
-msgstr ""
+msgstr "%i 分鐘"
 
 #: src/wubi/backends/common/tasklist.py:274
 #, python-format
 msgid "%is"
-msgstr ""
+msgstr "%i 秒"
 
 #: src/wubi/backends/common/downloader.py:65
 #: src/wubi/backends/common/btdownloader.py:36
 #, python-format
 msgid "Downloading %s"
-msgstr ""
+msgstr "正在下載 %s"
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:97
 msgid "Selecting the target directory"
-msgstr ""
+msgstr "正在選擇目標目錄"
 
 #: src/wubi/backends/common/backend.py:77
 #: src/wubi/backends/common/backend.py:98
 msgid "Creating the installation directories"
-msgstr ""
+msgstr "正在建立安裝目錄"
 
 #: src/wubi/backends/common/backend.py:78
 #: src/wubi/backends/common/backend.py:88
 #: src/wubi/backends/common/backend.py:99
 #: src/wubi/backends/common/backend.py:107
 msgid "Uncompressing files"
-msgstr ""
+msgstr "正在解壓縮檔案"
 
 #: src/wubi/backends/common/backend.py:79
 #: src/wubi/backends/common/backend.py:100
 msgid "Creating the uninstaller"
-msgstr ""
+msgstr "正在建立反安裝程式"
 
 #: src/wubi/backends/common/backend.py:80
 #: src/wubi/backends/common/backend.py:101
 #: src/wubi/backends/common/backend.py:424
 #: src/wubi/backends/common/backend.py:430
 msgid "Copying installation files"
-msgstr ""
+msgstr "正在複製安裝檔案"
 
 #: src/wubi/backends/common/backend.py:81
 msgid "Retrieving installation files"
-msgstr ""
+msgstr "正在恢復安裝檔案"
 
 #: src/wubi/backends/common/backend.py:82
 #: src/wubi/backends/common/backend.py:103
 msgid "Extracting the kernel"
-msgstr ""
+msgstr "正在提取核心"
 
 #: src/wubi/backends/common/backend.py:83
 msgid "Choosing disk sizes"
-msgstr ""
+msgstr "正在選擇磁碟大小"
 
 #: src/wubi/backends/common/backend.py:84
 #: src/wubi/backends/common/backend.py:104
@@ -471,7 +479,7 @@ msgstr ""
 #: src/wubi/backends/common/backend.py:85
 #: src/wubi/backends/common/backend.py:105
 msgid "Adding a new bootloader entry"
-msgstr ""
+msgstr "正在加入新的開機載入器條目"
 
 #: src/wubi/backends/common/backend.py:86
 #: src/wubi/backends/common/backend.py:106

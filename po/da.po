@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wubi 277\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2010-10-21 12:20+0100\n"
-"PO-Revision-Date: 2010-04-10 17:32+0000\n"
+"PO-Revision-Date: 2010-05-26 07:49+0000\n"
 "Last-Translator: AJenbo <anders@jenbo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
+"X-Generator: Launchpad (build 12335)\n"
 "X-Poedit-Language: Danish\n"
 
 #: src/wubi/frontends/win32/progress_page.py:39
@@ -228,16 +228,14 @@ msgid "Please do not use spaces in the username."
 msgstr "Brug venligst ikke mellemrum i brugernavnet."
 
 #: src/wubi/frontends/win32/installation_page.py:319
-#, fuzzy
 msgid "Your username must start with a lower-case letter."
-msgstr "Dit brugernavn skal starte med et bogstav."
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:321
-#, fuzzy
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
-msgstr "Dit brugernavn må kun bestå af almindelige bogstaver og tal."
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."
@@ -245,15 +243,15 @@ msgstr "Det valgte brugernavn er reserveret. Du skal vælge et andet."
 
 #: src/wubi/frontends/win32/installation_page.py:325
 msgid "Please enter a valid password."
-msgstr "Indtast venligst et gyldigt kodeord."
+msgstr "Indtast venligst en gyldigt adgangskode."
 
 #: src/wubi/frontends/win32/installation_page.py:327
 msgid "Please do not use spaces in the password."
-msgstr "Brug venligst ikke mellemrum i kodeordet."
+msgstr "Brug venligst ikke mellemrum i adgangskoden."
 
 #: src/wubi/frontends/win32/installation_page.py:329
 msgid "Passwords do not match."
-msgstr "Kodeorderne er ikke ens."
+msgstr "Adgangskoderne er ikke ens."
 
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
@@ -414,6 +412,12 @@ msgid ""
 "\n"
 "The system will now reboot."
 msgstr ""
+"Installationen mislykkedes. Der er blevet gemt logge i: %s.\n"
+"\n"
+"Vær opmærksom på at i uddybende tilstand, kan loggene indeholde "
+"adgangskoden.\n"
+"\n"
+"Systemet vil nu genstarte."
 
 #: src/wubi/backends/common/tasklist.py:256
 #: src/wubi/backends/common/tasklist.py:260

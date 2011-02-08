@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2010-10-21 12:20+0100\n"
-"PO-Revision-Date: 2010-01-20 18:52+0000\n"
-"Last-Translator: suniyo <suniyo@gmail.com>\n"
+"PO-Revision-Date: 2010-07-19 00:29+0000\n"
+"Last-Translator: Purvesh R. Shah. <purveshrshah@gmail.com>\n"
 "Language-Team: Gujarati <gu@li.org>\n"
 "Language: gu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
+"X-Generator: Launchpad (build 12335)\n"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 #: src/wubi/backends/common/backend.py:91
@@ -177,11 +177,11 @@ msgstr "ડેસ્કટોપ વાતાવરણ."
 
 #: src/wubi/frontends/win32/installation_page.py:211
 msgid "Language:"
-msgstr "ભાષાઃ"
+msgstr "ભાષા:"
 
 #: src/wubi/frontends/win32/installation_page.py:219
 msgid "Username:"
-msgstr "વપરાશકર્તા નામ:"
+msgstr "વપરાશકર્તાનું નામ:"
 
 #: src/wubi/frontends/win32/installation_page.py:226
 msgid "Password:"
@@ -223,16 +223,14 @@ msgid "Please do not use spaces in the username."
 msgstr "વપરાશકર્તા નામમાં સ્પેસ વાપરશો નહિ."
 
 #: src/wubi/frontends/win32/installation_page.py:319
-#, fuzzy
 msgid "Your username must start with a lower-case letter."
-msgstr "વપરાશકર્તા નામ એક અક્ષર વડેજ શરૂ થવું જોઇએ."
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:321
-#, fuzzy
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
-msgstr "વપરાશકર્તા નામમાં માત્ર સામાન્ય અક્ષરો અને આંકડા જ હોવા જોઇએ."
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."

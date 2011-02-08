@@ -15,16 +15,16 @@ msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2010-10-21 12:20+0100\n"
-"PO-Revision-Date: 2009-06-30 14:59+0000\n"
-"Last-Translator: Mikel Pascual Aldabaldetreku <mikel.paskual@gmail.com>\n"
+"PO-Revision-Date: 2010-11-24 21:03+0000\n"
+"Last-Translator: Mikel Larreategi <larreategi@eibar.org>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
+"X-Generator: Launchpad (build 12335)\n"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 #: src/wubi/backends/common/backend.py:91
@@ -54,8 +54,8 @@ msgstr "Ez deskargatu, fitxategi lokal bat erabili"
 #, python-format
 msgid "Remaining time approximately %s"
 msgid_plural "Remaining time approximately %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Falta den gutxi gora beherako denbora %s"
+msgstr[1] "Falta den gutxi gora beherako denbora %s"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 msgid "< Back"
@@ -233,17 +233,16 @@ msgid "Please do not use spaces in the username."
 msgstr "Ez hutsunerik erabili erabiltzaile-izenean."
 
 #: src/wubi/frontends/win32/installation_page.py:319
-#, fuzzy
 msgid "Your username must start with a lower-case letter."
-msgstr "Hizki batekin hasi behar du zure erabiltzaile-izenak."
+msgstr "Erabiltzaile-izena letra xehe batekin hasi behar da."
 
 #: src/wubi/frontends/win32/installation_page.py:321
-#, fuzzy
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
 msgstr ""
-"Hizki eta zenbaki arruntak bakarrik eduki ditzake zure erabiltzaile-izenak."
+"Zure erabiltzaile-izenak letra xeheak, zenbakiak, gidoiak eta azpimarrak "
+"bakarrik izan ditzake."
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."

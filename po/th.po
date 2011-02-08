@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2010-10-21 12:20+0100\n"
-"PO-Revision-Date: 2010-03-20 07:09+0000\n"
+"PO-Revision-Date: 2010-05-24 04:45+0000\n"
 "Last-Translator: SiraNokyoongtong <gumaraa@gmail.com>\n"
 "Language-Team: Thai <th@li.org>\n"
 "Language: th\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
+"X-Generator: Launchpad (build 12335)\n"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 #: src/wubi/backends/common/backend.py:91
@@ -27,7 +27,7 @@ msgstr "กำลังติดตั้ง %(distro)s-%(version)s"
 
 #: src/wubi/frontends/win32/progress_page.py:40
 msgid "Please wait"
-msgstr "กรุณารอสักครู่"
+msgstr "กรุณารอ"
 
 #: src/wubi/frontends/win32/progress_page.py:44
 #: src/wubi/frontends/win32/cd_finish_page.py:35
@@ -57,7 +57,7 @@ msgstr "< ย้อนกลับ"
 #: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 msgid "Finish"
-msgstr "เสร็จ"
+msgstr "เสร็จสิ้น"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:43
 msgid "Reboot required"
@@ -101,11 +101,11 @@ msgstr "จำเป็นต้องถอดถอน"
 #: src/wubi/frontends/win32/uninstallation_page.py:38
 #, python-format
 msgid "You are about to uninstall %s"
-msgstr "คุณมีความต้องการถอดถอน %s"
+msgstr "คุณมีความต้องถอนการติดตั้ง %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 msgid "Uninstall"
-msgstr "ถอดถอน"
+msgstr "ถอนการติดตั้ง"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:52
 msgid ""
@@ -164,11 +164,11 @@ msgstr "ติดตั้ง"
 
 #: src/wubi/frontends/win32/installation_page.py:193
 msgid "Installation drive:"
-msgstr "ติดตั้งที่ไดรว์:"
+msgstr "ไดรว์ที่จะติดตั้ง:"
 
 #: src/wubi/frontends/win32/installation_page.py:199
 msgid "Installation size:"
-msgstr "ขนาดติดตั้ง:"
+msgstr "ขนาดที่ติดตั้ง:"
 
 #: src/wubi/frontends/win32/installation_page.py:205
 msgid "Desktop environment:"
@@ -222,16 +222,14 @@ msgid "Please do not use spaces in the username."
 msgstr "โปรดอย่าใช้เว้นวรรคในชื่อผู้ใช้"
 
 #: src/wubi/frontends/win32/installation_page.py:319
-#, fuzzy
 msgid "Your username must start with a lower-case letter."
-msgstr "ชื่อผู้ใช้คุณต้องเริ่มต้นด้วยตัวอักษร"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:321
-#, fuzzy
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
-msgstr "ชื่อผู้ใช้ของคุณต้องประกอบไปด้วยตัวอักขระมาตรฐานและตัวเลขเท่านั้น"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."
@@ -368,7 +366,7 @@ msgstr "Visibility3"
 
 #: src/wubi/frontends/win32/accessibility_page.py:54
 msgid "Braille"
-msgstr "เบรลล์"
+msgstr "อักษรเบรลล์"
 
 #: src/wubi/frontends/win32/accessibility_page.py:57
 msgid "Mobility Aids"

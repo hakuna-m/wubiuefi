@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2010-10-21 12:20+0100\n"
-"PO-Revision-Date: 2010-03-15 03:46+0000\n"
-"Last-Translator: Neetesh Biswas <Unknown>\n"
+"PO-Revision-Date: 2010-04-23 08:55+0000\n"
+"Last-Translator: Manish Kumar <manishku86@yahoo.co.in>\n"
 "Language-Team: Hindi <hi@li.org>\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
+"X-Generator: Launchpad (build 12335)\n"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 #: src/wubi/backends/common/backend.py:91
@@ -70,6 +70,9 @@ msgid ""
 "tray. If your machine cannot boot from the CD, the last option should work "
 "in most cases."
 msgstr ""
+"सजीव सीडी को चलाने के लिये आपको मशीन में सीडी के रहते हुए पुनःबूट करने कि आवश्यक्ता है यदि "
+"आपका मशीन सीडी से बूट नही हो पाता, तब अधिकाश परिस्थीतियो मे अन्तिम विकल्प को काम "
+"करना चाहिये."
 
 #: src/wubi/frontends/win32/cd_finish_page.py:47
 #: src/wubi/frontends/win32/installation_finish_page.py:44
@@ -212,9 +215,8 @@ msgid "Please do not use spaces in the username."
 msgstr "कृपया प्रयोक्ता नाम में खाली जगह ना रखे"
 
 #: src/wubi/frontends/win32/installation_page.py:319
-#, fuzzy
 msgid "Your username must start with a lower-case letter."
-msgstr "प्रयोक्ता नाम अक्षर से ही शुरू होना चाहिए"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:321
 msgid ""
@@ -560,6 +562,8 @@ msgid ""
 "A previous installation was detected in %s.\n"
 "Please uninstall that before continuing."
 msgstr ""
+"एक पूर्ववर्ती %s का संस्थापन का पता चला है.\n"
+"कृपया आगे बदने के पहले असंस्थापित करें."
 
 #: src/wubi/application.py:190
 msgid "No CD detected, cannot run CD menu"

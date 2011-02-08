@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2010-10-21 12:20+0100\n"
-"PO-Revision-Date: 2009-11-16 15:54+0000\n"
-"Last-Translator: S.P. Cortez <Unknown>\n"
+"PO-Revision-Date: 2010-07-13 13:46+0000\n"
+"Last-Translator: Ристе Ристевски <risteristevski1@gmail.com>\n"
 "Language-Team: Macedonian <mk@li.org>\n"
 "Language: mk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
-"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
+"X-Generator: Launchpad (build 12335)\n"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 #: src/wubi/backends/common/backend.py:91
@@ -211,9 +211,8 @@ msgid "Please do not use spaces in the username."
 msgstr "Ве молам не користете празни места во корисничкото име."
 
 #: src/wubi/frontends/win32/installation_page.py:319
-#, fuzzy
 msgid "Your username must start with a lower-case letter."
-msgstr "Вашето корисничко име мора да започнува со буква."
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:321
 msgid ""
@@ -313,6 +312,11 @@ msgid ""
 "\n"
 "Do you want to proceed and install the CD booter?"
 msgstr ""
+"Доколку вашата машина неможе да го бутира системот преку CD, оваа програма "
+"ќе инсталира нова бут внес за да ти помогне да го бутираш преку CD.  Во "
+"повеќето случаи оваа програма не е потребна, и е препорачливо да го "
+"рестартирате системот со CD-Rom-от внатре.\n"
+"Дали сакате да продолжите со инсталацијата на CD бут вчитувачот?"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
@@ -348,7 +352,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:57
 msgid "Mobility Aids"
-msgstr ""
+msgstr "Преносливи помагала"
 
 #: src/wubi/frontends/win32/accessibility_page.py:58
 msgid "Mobility1"
@@ -360,7 +364,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/accessibility_page.py:62
 msgid "None"
-msgstr ""
+msgstr "Нема"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"

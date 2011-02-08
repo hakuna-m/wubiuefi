@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2010-10-21 12:20+0100\n"
-"PO-Revision-Date: 2010-03-18 11:47+0000\n"
+"PO-Revision-Date: 2010-05-07 10:41+0000\n"
 "Last-Translator: jmb_kz <Unknown>\n"
 "Language-Team: Kazakh <kk@li.org>\n"
 "Language: kk\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
+"X-Generator: Launchpad (build 12335)\n"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 #: src/wubi/backends/common/backend.py:91
@@ -225,18 +225,14 @@ msgid "Please do not use spaces in the username."
 msgstr "Пайдаланушының атын енгізгенде бос орындар қолданылмау керек."
 
 #: src/wubi/frontends/win32/installation_page.py:319
-#, fuzzy
 msgid "Your username must start with a lower-case letter."
-msgstr "Пайдаланушының аты әріптен басталуы керек."
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:321
-#, fuzzy
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
 msgstr ""
-"Пайдаланушының атын енгізгенде тек кәдімгі әріптер мен сандар қолданылуы "
-"керек."
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."
@@ -342,11 +338,11 @@ msgid ""
 "\n"
 "Do you want to proceed and install the CD booter?"
 msgstr ""
-"Егер сіздің компьютеріңіз компакт-дискіден жүктеле алмаса, бұл бағдарлама "
+"Егер сіздің компьютеріңіз компакт-дискіден жүктеліне алмаса, бұл бағдарлама "
 "жүктелу мәзіріне қосымша таңдауды қосады. Әдетте, бұл бағдарлама керек "
 "болмай, дискіні шығармай тұра, қайта жүктелу жеткілікті.\n"
 "\n"
-"Әрі қарай жалғастырып, дискт жүктегішті орнатуды қалайсыз ба?"
+"Әрі қарай жалғастырып, дисктен жүктегішті орнатуды қалайсыз ба?"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"

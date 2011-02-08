@@ -14,16 +14,16 @@ msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2010-10-21 12:20+0100\n"
-"PO-Revision-Date: 2010-03-26 23:42+0000\n"
-"Last-Translator: Moritz Baumann <Unknown>\n"
+"PO-Revision-Date: 2011-02-01 09:11+0000\n"
+"Last-Translator: Jonas Endersch <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
+"X-Generator: Launchpad (build 12335)\n"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 #: src/wubi/backends/common/backend.py:91
@@ -234,16 +234,16 @@ msgid "Please do not use spaces in the username."
 msgstr "Bitte verwenden Sie keine Leerzeichen im Benutzernamen."
 
 #: src/wubi/frontends/win32/installation_page.py:319
-#, fuzzy
 msgid "Your username must start with a lower-case letter."
-msgstr "Ihr Benutzername muss mit einem Buchstaben beginnen."
+msgstr "Ihr Benutzername muss mit einem Kleinbuchstaben beginnen."
 
 #: src/wubi/frontends/win32/installation_page.py:321
-#, fuzzy
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
-msgstr "Der Benutzername darf nur Standardbuchstaben und Zahlen enthalten."
+msgstr ""
+"Ihr Benutzername darf nur Kleinbuchstaben, Ziffern, Bindestriche und "
+"Unterstriche enthalten."
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."

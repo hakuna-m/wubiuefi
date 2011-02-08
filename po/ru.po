@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2010-10-21 12:20+0100\n"
-"PO-Revision-Date: 2010-01-08 17:37+0000\n"
-"Last-Translator: Sergey Sedov <Unknown>\n"
+"PO-Revision-Date: 2011-01-14 18:23+0000\n"
+"Last-Translator: Кирилл Чекрыжов <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -26,8 +26,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
+"X-Generator: Launchpad (build 12335)\n"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 #: src/wubi/backends/common/backend.py:91
@@ -238,16 +238,16 @@ msgid "Please do not use spaces in the username."
 msgstr "Пожалуйста, не используйте пробелы в имени пользователя."
 
 #: src/wubi/frontends/win32/installation_page.py:319
-#, fuzzy
 msgid "Your username must start with a lower-case letter."
-msgstr "Имя пользователя должно начинаться с буквы."
+msgstr "Ваше имя пользователя должно начинаться со строчной буквы."
 
 #: src/wubi/frontends/win32/installation_page.py:321
-#, fuzzy
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
-msgstr "Имя пользователя должно содержать только латинские буквы и цифры."
+msgstr ""
+"Ваше имя пользователя может содержать только буквы в нижнем регистре, цифры, "
+"дефисы и подчеркивания."
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."

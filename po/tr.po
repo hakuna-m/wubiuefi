@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2010-10-21 12:20+0100\n"
-"PO-Revision-Date: 2010-02-01 09:42+0000\n"
-"Last-Translator: Ayhan Keser <keser.ayhan@translation.ubuntu-tr.org>\n"
+"PO-Revision-Date: 2010-10-03 09:44+0000\n"
+"Last-Translator: Yiğit Ateş <yigitates@ceviri.ubuntu-tr.net>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
+"X-Generator: Launchpad (build 12335)\n"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 #: src/wubi/backends/common/backend.py:91
@@ -80,7 +80,7 @@ msgstr "Şimdi yeniden başlat"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:48
 msgid "I want to manually reboot Later"
-msgstr "Daha sonra elle yeniden başlatmak istiyorum"
+msgstr "Daha sonra yeniden başlatmak istiyorum"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
 msgid "Help me to boot from CD"
@@ -221,16 +221,14 @@ msgid "Please do not use spaces in the username."
 msgstr "Lütfen kullanıcı adında boşluk kullanmayın."
 
 #: src/wubi/frontends/win32/installation_page.py:319
-#, fuzzy
 msgid "Your username must start with a lower-case letter."
-msgstr "Kullanıcı adınız bir harfle başlamalıdır."
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:321
-#, fuzzy
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
-msgstr "Kullanıcı adınız sadece standart harfler ve sayılar içermelidir."
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."
@@ -251,7 +249,7 @@ msgstr "Parolalar eşleşmiyor."
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
 msgid "Completing the %s Setup Wizard"
-msgstr ""
+msgstr "%s Kurulum Sihirbazı tamamlanıyor"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
@@ -259,12 +257,12 @@ msgstr "Kurulumu tamamlamak için sistemi yeniden başlatmanız gerekir"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
-msgstr "Daha sonra manuel olarak yeniden başlatmak istiyorum"
+msgstr "Daha sonra yeniden başlatmak istiyorum"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
 msgid "%s Menu"
-msgstr ""
+msgstr "%s Menü"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:53
 msgid "Demo and full installation"
@@ -306,7 +304,7 @@ msgstr ""
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
 msgid "%s CD Boot Helper"
-msgstr ""
+msgstr "%s CD Yükleme Yardımcısı"
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
@@ -314,7 +312,7 @@ msgstr "Devam etmek için disk alanı yetersiz"
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
-msgstr ""
+msgstr "CD yükleme yardımcısını kur"
 
 #: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
@@ -370,7 +368,7 @@ msgstr "Hareketlilik1"
 
 #: src/wubi/frontends/win32/accessibility_page.py:59
 msgid "Mobility2"
-msgstr ""
+msgstr "Mobility2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:62
 msgid "None"
@@ -476,7 +474,7 @@ msgstr "Sıkıştırılmış dosya oluşturuluyor"
 #: src/wubi/backends/common/backend.py:85
 #: src/wubi/backends/common/backend.py:105
 msgid "Adding a new bootloader entry"
-msgstr ""
+msgstr "Yeni bir önyükleyici girişi ekleniyor"
 
 #: src/wubi/backends/common/backend.py:86
 #: src/wubi/backends/common/backend.py:106
@@ -511,7 +509,7 @@ msgstr "Yedek ISO"
 
 #: src/wubi/backends/common/backend.py:123
 msgid "Remove bootloader entry"
-msgstr ""
+msgstr "Önyükleyici girişini kaldır"
 
 #: src/wubi/backends/common/backend.py:124
 msgid "Remove target dir"

@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2010-10-21 12:20+0100\n"
-"PO-Revision-Date: 2010-03-08 10:09+0000\n"
-"Last-Translator: IronStar <Unknown>\n"
+"PO-Revision-Date: 2010-09-16 19:28+0000\n"
+"Last-Translator: Rancher <Unknown>\n"
 "Language-Team: Serbian <sr@li.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -24,18 +24,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2010-04-18 09:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
+"X-Generator: Launchpad (build 12335)\n"
 
 #: src/wubi/frontends/win32/progress_page.py:39
 #: src/wubi/backends/common/backend.py:91
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
-msgstr "Инсталирам %(distro)s-%(version)s"
+msgstr "Инсталирање %(distro)s-%(version)s"
 
 #: src/wubi/frontends/win32/progress_page.py:40
 msgid "Please wait"
-msgstr ""
+msgstr "Молимо, сачекајте..."
 
 #: src/wubi/frontends/win32/progress_page.py:44
 #: src/wubi/frontends/win32/cd_finish_page.py:35
@@ -45,18 +45,19 @@ msgstr ""
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Cancel"
-msgstr ""
+msgstr "Откажи"
 
 #: src/wubi/frontends/win32/progress_page.py:53
 msgid "Do not download, use a local file"
-msgstr "Не преузимај, користи локалну датотеку"
+msgstr "Не преузимај, већ користи локалну датотеку"
 
 #: src/wubi/frontends/win32/progress_page.py:66
 #, python-format
 msgid "Remaining time approximately %s"
 msgid_plural "Remaining time approximately %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Преостаје приближно %s"
+msgstr[1] "Преостаје приближно %s"
+msgstr[2] "Преостаје приближно %s"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 msgid "< Back"
@@ -66,7 +67,7 @@ msgstr "< Назад"
 #: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 msgid "Finish"
-msgstr "Заврши"
+msgstr "Крај"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:43
 msgid "Reboot required"
@@ -78,9 +79,9 @@ msgid ""
 "tray. If your machine cannot boot from the CD, the last option should work "
 "in most cases."
 msgstr ""
-"Да би сте покренули пробно коришћење оперативног система са CD-а, неопходно "
-"је да рестарујете рачунар (немојте вадити CD). Ако Ваш рачунар не може да "
-"покрене са CD-а, последња опција би требала да ради у већини случајева."
+"Да бисте покренули пробно коришћење оперативног система, неопходно је да "
+"поново покренете рачунар (не вадите диск). Ако рачунар не препозна диск, "
+"последња опција би требало да ради у већини случајева."
 
 #: src/wubi/frontends/win32/cd_finish_page.py:47
 #: src/wubi/frontends/win32/installation_finish_page.py:44
@@ -89,20 +90,20 @@ msgstr "Поново покрени систем сада"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:48
 msgid "I want to manually reboot Later"
-msgstr "Желим да ручно поново покренем систем касније"
+msgstr "Желим касније да покренем рачунар"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
 msgid "Help me to boot from CD"
-msgstr "Помози ми при покретању са CD-а"
+msgstr "Помоћ у покретању система са диска"
 
 #: src/wubi/frontends/win32/frontend.py:51
 msgid "Are you sure you want to quit?"
-msgstr "Да ли сте сигурни да желите да изађете?"
+msgstr "Желите ли да изађете?"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
 msgid "%s Uninstaller"
-msgstr "%s Деинсталер"
+msgstr "%s деинсталациони програм"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:36
 msgid "Uninstallation required"
@@ -111,25 +112,27 @@ msgstr "Потребна је деинсталација"
 #: src/wubi/frontends/win32/uninstallation_page.py:38
 #, python-format
 msgid "You are about to uninstall %s"
-msgstr ""
+msgstr "Управо ћете да уклоните %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 msgid "Uninstall"
-msgstr ""
+msgstr "Уклони"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:52
 msgid ""
 "A previous installation was detected, it needs to be uninstalled before "
 "continuing"
 msgstr ""
+"Пронађена је претходна инсталација. Потребно је да се изврши деинсталација "
+"пре настављања"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:54
 msgid "Are you sure you want to uninstall?"
-msgstr ""
+msgstr "Желите ли да уклоните програм?"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:62
 msgid "Backup the downloaded files (ISO)"
-msgstr ""
+msgstr "Архивирај преузете датотеке (ISO)"
 
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
@@ -137,6 +140,8 @@ msgid ""
 "Only %sMB of disk space are available.\n"
 "At least 1024MB are required as a bare minimum. Quitting"
 msgstr ""
+"Доступно је само %sMB слободног простора.\n"
+"Потребно је најмање 1024MB. Излажење"
 
 #: src/wubi/frontends/win32/installation_page.py:77
 #, python-format
@@ -146,29 +151,34 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
+"Потребно је најмање %(min_space)sMB слободног простора на диску за наставак "
+"инсталације.\n"
+"Доступно је само %(max_space)sMB.\n"
+"Инсталација вероватно неће успети у таквим околностима.\n"
+"Да ли ипак желите да наставите?"
 
 #: src/wubi/frontends/win32/installation_page.py:96
 #, python-format
 msgid "(%sGB free)"
-msgstr ""
+msgstr "(%sGB слободно)"
 
 #: src/wubi/frontends/win32/installation_page.py:177
 msgid "Please select username and password for the new account"
-msgstr "Изабери корисничко име и лозинку за нов налог"
+msgstr "Изаберите корисничко име и лозинку за нови налог"
 
 #: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Accessibility"
-msgstr ""
+msgstr "Доступност"
 
 #: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/cdboot_page.py:46
 msgid "Install"
-msgstr ""
+msgstr "Инсталирај"
 
 #: src/wubi/frontends/win32/installation_page.py:193
 msgid "Installation drive:"
-msgstr "Инсталациони драјв:"
+msgstr "Инсталациона јединица"
 
 #: src/wubi/frontends/win32/installation_page.py:199
 msgid "Installation size:"
@@ -176,7 +186,7 @@ msgstr "Величина инсталације:"
 
 #: src/wubi/frontends/win32/installation_page.py:205
 msgid "Desktop environment:"
-msgstr "Окружење на радној површини:"
+msgstr "Окружење радне површине:"
 
 #: src/wubi/frontends/win32/installation_page.py:211
 msgid "Language:"
@@ -193,12 +203,12 @@ msgstr "Лозинка:"
 #: src/wubi/frontends/win32/installation_page.py:263
 #, python-format
 msgid "%s Installer"
-msgstr ""
+msgstr "%s инсталациони програм"
 
 #: src/wubi/frontends/win32/installation_page.py:266
 #, python-format
 msgid "You are about to install %(distro)s-%(version)s"
-msgstr ""
+msgstr "Управо ћете да инсталирате %(distro)s-%(version)s"
 
 #: src/wubi/frontends/win32/installation_page.py:271
 #, python-format
@@ -208,68 +218,70 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
+"Потребно је најмање %(min_memory)sMB меморије за инсталацију.\n"
+"Доступно је само %(total_memory)sMB.\n"
+"Инсталација можда неће успети у таквим околностима.\n"
+"Да ли ипак желите да наставите?"
 
 #: src/wubi/frontends/win32/installation_page.py:313
 msgid "Please enter a valid username"
-msgstr "Молим унесите валидно корисничко име"
+msgstr "Унесите исправно корисничко име"
 
 #: src/wubi/frontends/win32/installation_page.py:315
 msgid "Please use all lower cases in the username."
-msgstr "Молим користите само мала слова у вашем корисничком имену."
+msgstr "Користите само мала слова у корисничком имену."
 
 #: src/wubi/frontends/win32/installation_page.py:317
 msgid "Please do not use spaces in the username."
-msgstr "Молим не користите празна места у корисничком имену."
+msgstr "Не користите размаке у корисничком имену."
 
 #: src/wubi/frontends/win32/installation_page.py:319
-#, fuzzy
 msgid "Your username must start with a lower-case letter."
-msgstr "Ваше корисничко име мора почети словом."
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:321
-#, fuzzy
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
-msgstr "Ваше корисничко име може садржати само стандардна слова и бројеве."
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:323
 msgid "The selected username is reserved, please select a different one."
-msgstr "Изабрано корисничко име је резервисано, молимо изаберите друго."
+msgstr "Корисничко име је већ заузето. Изаберите друго."
 
 #: src/wubi/frontends/win32/installation_page.py:325
 msgid "Please enter a valid password."
-msgstr "Молимо унесите валидну лозинку."
+msgstr "Унесите исправну лозинку."
 
 #: src/wubi/frontends/win32/installation_page.py:327
 msgid "Please do not use spaces in the password."
-msgstr "Молим не користите празна места у лозинки."
+msgstr "Не користите размаке у лозинки."
 
 #: src/wubi/frontends/win32/installation_page.py:329
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Лозинке се не поклапају."
 
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
 msgid "Completing the %s Setup Wizard"
-msgstr ""
+msgstr "Довршавање %s водича за инсталацију"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
-msgstr "Морате поново покренути систем да бисте завршили инсталацију"
+msgstr "Морате поново да покренете систем како би се инсталација завршила"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
-msgstr "Желим да ручно поново покренем систем касније"
+msgstr "Желим касније да покренем систем"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
 msgid "%s Menu"
-msgstr ""
+msgstr "%s мени"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:53
 msgid "Demo and full installation"
-msgstr "Пробно коришћење и пуна инсталација"
+msgstr "Пробна и пуна инсталација"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:55
 #, python-format
@@ -278,8 +290,8 @@ msgid ""
 "the tray. You may perform a full installation from within the demo to "
 "install %(distro)s either alongside Windows or as the only operating system."
 msgstr ""
-"Пробајте %(distro)s без инсталације! Довољно је да поново покренете рачунар "
-"са овим CD-ом и покренуће се пробни начин рада. Одатле можете инсталирати "
+"Пробајте %(distro)s без инсталирања! Довољно је да поново покренете рачунар "
+"с овим диском и покренуће се пробни начин рада. Одатле можете да инсталирате "
 "оперативни систем %(distro)s уз Windows или као једини оперативни систем."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:65
@@ -294,6 +306,10 @@ msgid ""
 "or %(distro)s. Hibernation is not enabled in this mode and disk performance "
 "is slightly reduced."
 msgstr ""
+"Инсталација и деинсталација оперативног система %(distro)s се врши као и код "
+"сваког другог програма, без потребе за нову партицију. Бићете у могућности "
+"да покренете или Windows или %(distro)s. Хибернација је онемогућена у овом "
+"режиму и перформансе диска су знатно умањене."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:74
 msgid "Learn more"
@@ -306,22 +322,23 @@ msgid ""
 "complete with a web browser, productivity software, instant messaging, and "
 "much more."
 msgstr ""
-"%(distro)s је бесплатан, одржаван од стране заједнице, оперативни систем "
-"базиран на линуксу. Садржи потпуни скуп програма - интернет прегледник, "
-"канцеларијске програме, програм за брзу размену порука и још много других."
+"%(distro)s је бесплатан оперативни систем заснован на Linux-у који се "
+"одржава од стране заједнице. Садржи потпуни скуп програма — интернет "
+"прегледач, канцеларијски програми, програм за брзу размену порука и још "
+"много тога другог."
 
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
 msgid "%s CD Boot Helper"
-msgstr ""
+msgstr "%s помагач за покретање диска"
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
-msgstr "Нема довољно места на диску за наставак"
+msgstr "Нема довољно простора на диску"
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
-msgstr ""
+msgstr "Инсталирај помагач за покретање диска"
 
 #: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
@@ -331,54 +348,60 @@ msgid ""
 "\n"
 "Do you want to proceed and install the CD booter?"
 msgstr ""
+"Ако Ваш рачунар не може да покрене диск, овај програм ће инсталирати нови "
+"мени за покретање како би Вам помогли у тој намери. У већини случајева овај "
+"програм није неопходан и довољно је да поново покренете рачунар с диском у "
+"њему.\n"
+"\n"
+"Да ли желите да инсталирате покретач диска?"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
-msgstr ""
+msgstr "Профил доступности"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
 msgid "Please select the appropriate accessibility profile"
-msgstr ""
+msgstr "Изаберите одговарајући профил доступности"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
-msgstr ""
+msgstr "Напред >>"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
-msgstr ""
+msgstr "Видљивост помоћи"
 
 #: src/wubi/frontends/win32/accessibility_page.py:51
 msgid "Visibility1"
-msgstr ""
+msgstr "Видљивост1"
 
 #: src/wubi/frontends/win32/accessibility_page.py:52
 msgid "Visibility2"
-msgstr ""
+msgstr "Видљивост2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:53
 msgid "Visibility3"
-msgstr ""
+msgstr "Видљивост3"
 
 #: src/wubi/frontends/win32/accessibility_page.py:54
 msgid "Braille"
-msgstr ""
+msgstr "Брајеви"
 
 #: src/wubi/frontends/win32/accessibility_page.py:57
 msgid "Mobility Aids"
-msgstr ""
+msgstr "Покретљивост помагала"
 
 #: src/wubi/frontends/win32/accessibility_page.py:58
 msgid "Mobility1"
-msgstr ""
+msgstr "Покретљивост1"
 
 #: src/wubi/frontends/win32/accessibility_page.py:59
 msgid "Mobility2"
-msgstr ""
+msgstr "Покретљивост2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:62
 msgid "None"
-msgstr ""
+msgstr "Ништа"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
@@ -387,7 +410,7 @@ msgstr "Деинсталација је завршена"
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:43
 #, python-format
 msgid "%s has been successfully uninstalled"
-msgstr "%s је успешно деинсталиран"
+msgstr "%s је успешно уклоњен"
 
 #: src/wubi/backends/win32/backend.py:150
 #, python-format
@@ -400,168 +423,168 @@ msgid ""
 msgstr ""
 "Инсталација није успела. Извештаји су сачувани у: %s.\n"
 "\n"
-"Приметите да у verbose моду, извештаји могу садржати лозинку.\n"
+"Упамтите да у verbose режиму извештаји могу садржати лозинку.\n"
 "\n"
 "Систем ће се сада поново покренути."
 
 #: src/wubi/backends/common/tasklist.py:256
 #: src/wubi/backends/common/tasklist.py:260
 msgid "0s"
-msgstr ""
+msgstr "0s"
 
 #: src/wubi/backends/common/tasklist.py:269
 #, python-format
 msgid "%ih"
-msgstr ""
+msgstr "%ih"
 
 #: src/wubi/backends/common/tasklist.py:271
 #, python-format
 msgid "%imin"
-msgstr ""
+msgstr "%imin"
 
 #: src/wubi/backends/common/tasklist.py:274
 #, python-format
 msgid "%is"
-msgstr ""
+msgstr "%is"
 
 #: src/wubi/backends/common/downloader.py:65
 #: src/wubi/backends/common/btdownloader.py:36
 #, python-format
 msgid "Downloading %s"
-msgstr "Преузимам %s"
+msgstr "Преузимање %s"
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:97
 msgid "Selecting the target directory"
-msgstr "Бирам циљни директоријум"
+msgstr "Бирање одредишног директоријума"
 
 #: src/wubi/backends/common/backend.py:77
 #: src/wubi/backends/common/backend.py:98
 msgid "Creating the installation directories"
-msgstr "Правим инсталационе директоријуме"
+msgstr "Прављење инсталационих директоријума"
 
 #: src/wubi/backends/common/backend.py:78
 #: src/wubi/backends/common/backend.py:88
 #: src/wubi/backends/common/backend.py:99
 #: src/wubi/backends/common/backend.py:107
 msgid "Uncompressing files"
-msgstr "Отпакујем датотеке"
+msgstr "Отпакивање датотека"
 
 #: src/wubi/backends/common/backend.py:79
 #: src/wubi/backends/common/backend.py:100
 msgid "Creating the uninstaller"
-msgstr ""
+msgstr "Прављење деинсталационог програма"
 
 #: src/wubi/backends/common/backend.py:80
 #: src/wubi/backends/common/backend.py:101
 #: src/wubi/backends/common/backend.py:424
 #: src/wubi/backends/common/backend.py:430
 msgid "Copying installation files"
-msgstr "Копирам инсталационе датотеке"
+msgstr "Умножавање инсталационих датотека"
 
 #: src/wubi/backends/common/backend.py:81
 msgid "Retrieving installation files"
-msgstr ""
+msgstr "Преузимање инсталационих датотека"
 
 #: src/wubi/backends/common/backend.py:82
 #: src/wubi/backends/common/backend.py:103
 msgid "Extracting the kernel"
-msgstr "Отпакујем кернел"
+msgstr "Отпакивање језгра"
 
 #: src/wubi/backends/common/backend.py:83
 msgid "Choosing disk sizes"
-msgstr ""
+msgstr "Бирање величине диска"
 
 #: src/wubi/backends/common/backend.py:84
 #: src/wubi/backends/common/backend.py:104
 msgid "Creating a preseed file"
-msgstr ""
+msgstr "Прављење датотеке за аутоматизацију инсталације"
 
 #: src/wubi/backends/common/backend.py:85
 #: src/wubi/backends/common/backend.py:105
 msgid "Adding a new bootloader entry"
-msgstr "Уносим нови унос у bootloader"
+msgstr "Додавање новог уноса у покретачки програм"
 
 #: src/wubi/backends/common/backend.py:86
 #: src/wubi/backends/common/backend.py:106
 msgid "Setting up installation boot menu"
-msgstr ""
+msgstr "Постављање инсталационог менија за покретање система"
 
 #: src/wubi/backends/common/backend.py:87
 msgid "Creating the virtual disks"
-msgstr "Правим виртуелне дискове"
+msgstr "Стварање виртуелних дискова"
 
 #: src/wubi/backends/common/backend.py:89
 #: src/wubi/backends/common/backend.py:108
 msgid "Ejecting the CD"
-msgstr "Избацујем CD"
+msgstr "Избацивање диска"
 
 #: src/wubi/backends/common/backend.py:102
 msgid "Extracting CD content"
-msgstr "Отпакујем садржај CD-а"
+msgstr "Отпакивање садржаја диска"
 
 #: src/wubi/backends/common/backend.py:110
 msgid "Installing CD boot helper"
-msgstr "Инсталирам CD boot помагача"
+msgstr "Инсталирање помагача за покретање диска"
 
 #: src/wubi/backends/common/backend.py:115
 #: src/wubi/backends/common/backend.py:117
 msgid "Rebooting"
-msgstr "Поново покрећем рачунар"
+msgstr "Поновно покретање рачунара"
 
 #: src/wubi/backends/common/backend.py:122
 msgid "Backup ISO"
-msgstr ""
+msgstr "Архивирање ISO датотеке"
 
 #: src/wubi/backends/common/backend.py:123
 msgid "Remove bootloader entry"
-msgstr "Уклони унос из bootloader-a"
+msgstr "Уклони унос из покретачког програма"
 
 #: src/wubi/backends/common/backend.py:124
 msgid "Remove target dir"
-msgstr "Уклони циљани директоријум"
+msgstr "Уклони одредишни директоријум"
 
 #: src/wubi/backends/common/backend.py:125
 msgid "Remove registry key"
-msgstr "Уклони унос у регистар бази"
+msgstr "Уклони регистарски кључ"
 
 #: src/wubi/backends/common/backend.py:126
 #, python-format
 msgid "Uninstalling %s"
-msgstr "Деинсталирам %s"
+msgstr "Уклањање %s"
 
 #: src/wubi/backends/common/backend.py:257
 #, python-format
 msgid "Checking CD %s"
-msgstr "Проверавам компакт диск %s"
+msgstr "Проверавање диска %s"
 
 #: src/wubi/backends/common/backend.py:283
 #: src/wubi/backends/common/backend.py:327
 #: src/wubi/backends/common/backend.py:363
 msgid "Downloading information on installation files"
-msgstr "Преузимам информације о инсталационим датотекама"
+msgstr "Преузимање података о инсталационим датотекама"
 
 #: src/wubi/backends/common/backend.py:298
 #: src/wubi/backends/common/backend.py:355
 #: src/wubi/backends/common/backend.py:418
 #: src/wubi/backends/common/backend.py:468
 msgid "Checking installation files"
-msgstr "Проверавам инсталационе датотеке"
+msgstr "Проверавање инсталационих датотека"
 
 #: src/wubi/backends/common/backend.py:389
 #, python-format
 msgid "Validating %s"
-msgstr "Валидишем %s"
+msgstr "Проверавање %s"
 
 #: src/wubi/backends/common/backend.py:455
 #, python-format
 msgid "Extracting files from %s"
-msgstr "Отпакујем датотеке од %s"
+msgstr "Отпакивање датотека из %s"
 
 #: src/wubi/backends/common/backend.py:531
 #, python-format
 msgid "Checking %s"
-msgstr "Проверавам %s"
+msgstr "Проверавање %s"
 
 #: src/wubi/application.py:64
 #, python-format
@@ -572,11 +595,11 @@ msgid ""
 "\n"
 "For more information, please see the log file: %(log)s"
 msgstr ""
-"Грешка се догодила:\n"
+"Догодила се грешка:\n"
 "\n"
 "%(error)s\n"
 "\n"
-"За више информација, молимо погледајте дневник: %(log)s"
+"За више информација, погледајте извештај: %(log)s"
 
 #: src/wubi/application.py:147 src/wubi/application.py:208
 #, python-format
@@ -584,13 +607,17 @@ msgid ""
 "A previous installation was detected in %s.\n"
 "Please uninstall that before continuing."
 msgstr ""
+"Пронађена је претходна инсталација у %s.\n"
+"Деинсталирајте тај програм пре настављања."
 
 #: src/wubi/application.py:190
 msgid "No CD detected, cannot run CD menu"
-msgstr ""
+msgstr "Диск није пронађен. Покретање менија није успело."
 
 #: src/wubi/application.py:198
 msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
+"Ниједан исправан диск није пронађен.\n"
+"Помагач у покретању диска се може користити само с живим диском."
