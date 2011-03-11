@@ -7,30 +7,30 @@ default		0
 
 title $(normal_mode_title)
 find --set-root --ignore-floppies $(kernel)
-kernel $(kernel) debian-installer/custom-installation=$(custom_installation_dir) iso-scan/filename=$(iso_path) automatic-ubiquity noprompt quiet splash  boot=casper ro debian-installer/locale=$(locale) console-setup/layoutcode=$(keyboard_layout) console-setup/variantcode=$(keyboard_variant) -- $(accessibility)
+kernel $(kernel) debian-installer/custom-installation=$(custom_installation_dir) iso-scan/filename=$(iso_path) automatic-ubiquity noprompt quiet splash  boot=casper ro debian-installer/locale=$(locale) keyboard-configuration/layoutcode=$(keyboard_layout) keyboard-configuration/variantcode=$(keyboard_variant) -- $(accessibility)
 initrd $(initrd)
 boot
 
 title $(safe_graphic_mode_title)
 find --set-root --ignore-floppies $(kernel)
-kernel $(kernel) debian-installer/custom-installation=$(custom_installation_dir) iso-scan/filename=$(iso_path) automatic-ubiquity noprompt debug debug-ubiquity xforcevesa boot=casper ro debian-installer/locale=$(locale) console-setup/layoutcode=$(keyboard_layout) console-setup/variantcode=$(keyboard_variant) -- $(accessibility)
+kernel $(kernel) debian-installer/custom-installation=$(custom_installation_dir) iso-scan/filename=$(iso_path) automatic-ubiquity noprompt debug debug-ubiquity xforcevesa boot=casper ro debian-installer/locale=$(locale) keyboard-configuration/layoutcode=$(keyboard_layout) keyboard-configuration/variantcode=$(keyboard_variant) -- $(accessibility)
 initrd $(initrd)
 boot
 
 title $(acpi_workarounds_title)
 find --set-root --ignore-floppies $(kernel)
-kernel $(kernel) debian-installer/custom-installation=$(custom_installation_dir) iso-scan/filename=$(iso_path) automatic-ubiquity noprompt debug debug-ubiquity boot=casper ro debian-installer/locale=$(locale) console-setup/layoutcode=$(keyboard_layout) console-setup/variantcode=$(keyboard_variant) -- $(accessibility) acpi=off noapic nolapic
+kernel $(kernel) debian-installer/custom-installation=$(custom_installation_dir) iso-scan/filename=$(iso_path) automatic-ubiquity noprompt debug debug-ubiquity boot=casper ro debian-installer/locale=$(locale) keyboard-configuration/layoutcode=$(keyboard_layout) keyboard-configuration/variantcode=$(keyboard_variant) -- $(accessibility) acpi=off noapic nolapic
 initrd $(initrd)
 boot
 
 title $(verbose_mode_title)
 find --set-root --ignore-floppies $(kernel)
-kernel $(kernel) debian-installer/custom-installation=$(custom_installation_dir) iso-scan/filename=$(iso_path) automatic-ubiquity noprompt debug debug-ubiquity boot=casper ro debian-installer/locale=$(locale) console-setup/layoutcode=$(keyboard_layout) console-setup/variantcode=$(keyboard_variant) -- $(accessibility)
+kernel $(kernel) debian-installer/custom-installation=$(custom_installation_dir) iso-scan/filename=$(iso_path) automatic-ubiquity noprompt debug debug-ubiquity boot=casper ro debian-installer/locale=$(locale) keyboard-configuration/layoutcode=$(keyboard_layout) keyboard-configuration/variantcode=$(keyboard_variant) -- $(accessibility)
 initrd $(initrd)
 boot
 
 title $(demo_mode_title)
 find --set-root --ignore-floppies $(kernel)
-kernel $(kernel) iso-scan/filename=$(iso_path) quiet splash boot=casper ro debian-installer/locale=$(locale) console-setup/layoutcode=$(keyboard_layout) console-setup/variantcode=$(keyboard_variant) -- $(accessibility)
+kernel $(kernel) iso-scan/filename=$(iso_path) quiet splash boot=casper ro debian-installer/locale=$(locale) keyboard-configuration/layoutcode=$(keyboard_layout) keyboard-configuration/variantcode=$(keyboard_variant) -- $(accessibility)
 initrd $(initrd)
 boot

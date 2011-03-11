@@ -6,6 +6,8 @@ wubi (11.04) UNRELEASED; urgency=low
     (LP: #397129).
   * Don't strip underscores from the host username.
   * Update translations from Launchpad.
+  * Switch to new keyboard-configuration/* names for console-setup
+    preseeding.
 
   [ Jonathan Riddell ]
   * Remove Kubuntu Netbook option, no longer a separate CD
