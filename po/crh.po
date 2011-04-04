@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2010-10-21 12:20+0100\n"
+"POT-Creation-Date: 2011-04-04 11:04+0100\n"
 "PO-Revision-Date: 2010-04-18 03:59+0000\n"
 "Last-Translator: Reşat SABIQ <tilde.birlik@gmail.com>\n"
 "Language-Team: Qırımtatarca (Qırım Türkçesi) <tilde-birlik-tercime@lists."
@@ -17,112 +17,277 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
-"X-Generator: Launchpad (build 12335)\n"
+"X-Launchpad-Export-Date: 2011-04-04 10:00+0000\n"
+"X-Generator: Launchpad (build 12710)\n"
 
-#: src/wubi/frontends/win32/progress_page.py:39
+#: src/wubi/application.py:64
+#, python-format
+msgid ""
+"An error occurred:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"For more information, please see the log file: %(log)s"
+msgstr ""
+"Hata sudur etti:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"Daha çoq malümat içün lütfen kütük dosyesine baqıñız: %(log)s"
+
+#: src/wubi/application.py:147 src/wubi/application.py:208
+#, python-format
+msgid ""
+"A previous installation was detected in %s.\n"
+"Please uninstall that before continuing."
+msgstr ""
+"Şurada evelki bir qurulım alğılandı: %s.\n"
+"Lütfen devam etmeden evel onı ğayrı quruñız."
+
+#: src/wubi/application.py:190
+msgid "No CD detected, cannot run CD menu"
+msgstr "İç bir CD alğılanmadı, CD menüsi çaptırılamay"
+
+#: src/wubi/application.py:198
+msgid ""
+"Could not find any valid CD.\n"
+"CD boot helper can only be used with a Live CD."
+msgstr ""
+"İç bir keçerli CD tapılamadı.\n"
+"CD başlattırma yardımcısı faqat bir Canlı CD ile qullanıla bilir."
+
+#: src/wubi/backends/common/tasklist.py:256
+#: src/wubi/backends/common/tasklist.py:260
+msgid "0s"
+msgstr "0s"
+
+#: src/wubi/backends/common/tasklist.py:269
+#, python-format
+msgid "%ih"
+msgstr "%i saat"
+
+#: src/wubi/backends/common/tasklist.py:271
+#, python-format
+msgid "%imin"
+msgstr "%i daqqa"
+
+#: src/wubi/backends/common/tasklist.py:274
+#, python-format
+msgid "%is"
+msgstr "%i saniye"
+
+#: src/wubi/backends/common/backend.py:76
+#: src/wubi/backends/common/backend.py:97
+msgid "Selecting the target directory"
+msgstr "Hedef fihrist saylana"
+
+#: src/wubi/backends/common/backend.py:77
+#: src/wubi/backends/common/backend.py:98
+msgid "Creating the installation directories"
+msgstr "Qurulım fihristleri icat etile"
+
+# tüklü
+#: src/wubi/backends/common/backend.py:78
+#: src/wubi/backends/common/backend.py:88
+#: src/wubi/backends/common/backend.py:99
+#: src/wubi/backends/common/backend.py:107
+msgid "Uncompressing files"
+msgstr "Dosyeler sıqıştırmasızlaştırıla"
+
+#: src/wubi/backends/common/backend.py:79
+#: src/wubi/backends/common/backend.py:100
+msgid "Creating the uninstaller"
+msgstr "Ğayrı qurucı icat etile"
+
+#: src/wubi/backends/common/backend.py:80
+#: src/wubi/backends/common/backend.py:101
+#: src/wubi/backends/common/backend.py:424
+#: src/wubi/backends/common/backend.py:430
+msgid "Copying installation files"
+msgstr "Qurulım dosyeleri kopiyalana"
+
+#: src/wubi/backends/common/backend.py:81
+msgid "Retrieving installation files"
+msgstr "Qurulım dosyeleri tapılıp ketirile"
+
+#: src/wubi/backends/common/backend.py:82
+#: src/wubi/backends/common/backend.py:103
+msgid "Extracting the kernel"
+msgstr "Çegirdek hulâsa etile"
+
+#: src/wubi/backends/common/backend.py:83
+msgid "Choosing disk sizes"
+msgstr "Disk ölçüleri saylana"
+
+# tüklü
+#: src/wubi/backends/common/backend.py:84
+#: src/wubi/backends/common/backend.py:104
+msgid "Creating a preseed file"
+msgstr "Ög-saçuv dosyesi icat etile"
+
+#: src/wubi/backends/common/backend.py:85
+#: src/wubi/backends/common/backend.py:105
+msgid "Adding a new bootloader entry"
+msgstr "Yañı bir başlattırıcı kirdisi eklene"
+
+#: src/wubi/backends/common/backend.py:86
+#: src/wubi/backends/common/backend.py:106
+msgid "Setting up installation boot menu"
+msgstr "Qurulım başlattırma menüsi tesbit etile"
+
+#: src/wubi/backends/common/backend.py:87
+msgid "Creating the virtual disks"
+msgstr "Sanal diskler icat etile"
+
+#: src/wubi/backends/common/backend.py:89
+#: src/wubi/backends/common/backend.py:108
+msgid "Ejecting the CD"
+msgstr "CD çıqartıla"
+
 #: src/wubi/backends/common/backend.py:91
+#: src/wubi/frontends/win32/progress_page.py:39
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
 msgstr "%(distro)s-%(version)s qurula"
 
-#: src/wubi/frontends/win32/progress_page.py:40
-msgid "Please wait"
-msgstr "Lütfen bekleñiz"
+#: src/wubi/backends/common/backend.py:102
+msgid "Extracting CD content"
+msgstr "CD mündericesi hulâsa etile"
 
+#: src/wubi/backends/common/backend.py:110
+msgid "Installing CD boot helper"
+msgstr "CD başlattırma yardımcısı qurula"
+
+#: src/wubi/backends/common/backend.py:115
+#: src/wubi/backends/common/backend.py:117
+msgid "Rebooting"
+msgstr "Kene başlattırıla"
+
+#: src/wubi/backends/common/backend.py:122
+msgid "Backup ISO"
+msgstr "Yedekleme İSO"
+
+#: src/wubi/backends/common/backend.py:123
+msgid "Remove bootloader entry"
+msgstr "Başlattırma yükleyicisi kirildisini çetleştir"
+
+#: src/wubi/backends/common/backend.py:124
+msgid "Remove target dir"
+msgstr "Hedef fihristni çetleştir"
+
+#: src/wubi/backends/common/backend.py:125
+msgid "Remove registry key"
+msgstr "Sicil anahtarını çetleştir"
+
+#: src/wubi/backends/common/backend.py:126
+#, python-format
+msgid "Uninstalling %s"
+msgstr "%s ğayrı qurula"
+
+#: src/wubi/backends/common/backend.py:257
+#, python-format
+msgid "Checking CD %s"
+msgstr "%s CD teşkerile"
+
+#: src/wubi/backends/common/backend.py:283
+#: src/wubi/backends/common/backend.py:327
+#: src/wubi/backends/common/backend.py:363
+msgid "Downloading information on installation files"
+msgstr "Qurulım dosyeleri üzerine malümat endirile"
+
+#: src/wubi/backends/common/backend.py:298
+#: src/wubi/backends/common/backend.py:355
+#: src/wubi/backends/common/backend.py:418
+#: src/wubi/backends/common/backend.py:468
+msgid "Checking installation files"
+msgstr "Qurulım dosyeleri teşkerile"
+
+#: src/wubi/backends/common/backend.py:389
+#, python-format
+msgid "Validating %s"
+msgstr "%s keçerlilene"
+
+# tüklü
+#: src/wubi/backends/common/backend.py:455
+#, python-format
+msgid "Extracting files from %s"
+msgstr "Şuradan dosyeler hulâsa etile: %s"
+
+#: src/wubi/backends/common/backend.py:531
+#, python-format
+msgid "Checking %s"
+msgstr "%s teşkerile"
+
+#: src/wubi/backends/common/downloader.py:65
+#: src/wubi/backends/common/btdownloader.py:36
+#, python-format
+msgid "Downloading %s"
+msgstr "%s endirile"
+
+#: src/wubi/backends/win32/backend.py:150
+#, python-format
+msgid ""
+"The installation failed. Logs have been saved in: %s.\n"
+"\n"
+"Note that in verbose mode, the logs may include the password.\n"
+"\n"
+"The system will now reboot."
+msgstr ""
+"Qurulım oñmadı. Kütükler şurada saqlanğandır: %s.\n"
+"\n"
+"Haberiñiz olsun ki, lafçan tarzda kütüklerniñ sır-sözni ihtiva etmesi "
+"mümkündir.\n"
+"\n"
+"Sistem şimdi kene başlattırılacaq."
+
+# tüklü
+#: src/wubi/frontends/win32/cdboot_page.py:32
+#, python-format
+msgid "%s CD Boot Helper"
+msgstr "%s CD Başlattırma Yardımcısı"
+
+#: src/wubi/frontends/win32/cdboot_page.py:43
+msgid "Not enough disk space to proceed"
+msgstr "Devam etmek içün disk fezası yetersiz"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:181
+msgid "Accessibility"
+msgstr "İrişilebilirlik"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:181
+msgid "Install"
+msgstr "Qur"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/progress_page.py:44
+#: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/cd_menu_page.py:38
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_page.py:45
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/cd_menu_page.py:38
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Cancel"
 msgstr "Vazgeç"
 
-#: src/wubi/frontends/win32/progress_page.py:53
-msgid "Do not download, use a local file"
-msgstr "Endirme, yerli bir dosyeni qullan"
+#: src/wubi/frontends/win32/cdboot_page.py:54
+msgid "Install CD boot helper"
+msgstr "CD başlattırma yardımcısını qur"
 
-#: src/wubi/frontends/win32/progress_page.py:66
-#, python-format
-msgid "Remaining time approximately %s"
-msgid_plural "Remaining time approximately %s"
-msgstr[0] "Qalğan vaqıt taqriben %s"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "< Back"
-msgstr "< Keri"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-#: src/wubi/frontends/win32/installation_finish_page.py:35
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
-msgid "Finish"
-msgstr "Tamamla"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:43
-msgid "Reboot required"
-msgstr "Kene başlattıruv şarttır"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:45
+#: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
-"To start the Live CD you need to reboot your machine leaving the CD in the "
-"tray. If your machine cannot boot from the CD, the last option should work "
-"in most cases."
+"If your machine cannot boot off the CD, this program will install a new boot "
+"menu entry to help you boot from CD. In most cases this program is not "
+"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
+"\n"
+"Do you want to proceed and install the CD booter?"
 msgstr ""
-"Canlı CD başlatmaq içün CD'ni sinide qaldırıp bilgisayarıñıznı kene "
-"başlattıruvıñız kerek. Bilgisayarıñız CD qullanaraq başlattıramasa, ekseriy "
-"hallarda soñki ihtiyarnıñ çalışuvı lâzim."
-
-#: src/wubi/frontends/win32/cd_finish_page.py:47
-#: src/wubi/frontends/win32/installation_finish_page.py:44
-msgid "Reboot now"
-msgstr "Şimdi kene başlattır"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:48
-msgid "I want to manually reboot Later"
-msgstr "Daha soñra elden kene başlattırmağa isteyim"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:49
-msgid "Help me to boot from CD"
-msgstr "Maña CD qullanaraq başlattırmağa yardım et"
-
-#: src/wubi/frontends/win32/frontend.py:51
-msgid "Are you sure you want to quit?"
-msgstr "Çıqmağa istegeniñizden eminsiñizmi?"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:32
-#, python-format
-msgid "%s Uninstaller"
-msgstr "%s Ğayrı qurucısı"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:36
-msgid "Uninstallation required"
-msgstr "Ğayrı qurulım şarttır"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:38
-#, python-format
-msgid "You are about to uninstall %s"
-msgstr "%s ğayrı qurulmaq üzredir"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-msgid "Uninstall"
-msgstr "Ğayrı qur"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:52
-msgid ""
-"A previous installation was detected, it needs to be uninstalled before "
-"continuing"
-msgstr ""
-"Evelki bir qurulım alğılandı, devam etmeden evel onıñ ğayrı quruluvı kerek"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:54
-msgid "Are you sure you want to uninstall?"
-msgstr "Ğayrı qurmağa istegeniñizden eminsiñizmi?"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:62
-msgid "Backup the downloaded files (ISO)"
-msgstr "Endirilgen dosyelerni yedekle (İSO)"
+"Eger bilgisayarıñız CD qullanaraq başlattıramay ise, bu program sizge CD "
+"qullanaraq başlattırmağa yardım etmek içün yañı bir başlattırma menü "
+"unsurını quracaqtır. Ekseriy hallarda, bu programğa ihtiyac duyulmaz ve "
+"CD'ni sinige qoyıp bilgisayarnı kene başlatmaq yeterli olur.\n"
+"\n"
+"Devam etip CD başlattırıcısını qurmağa isteysiñizmi?"
 
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
@@ -154,16 +319,6 @@ msgstr "(%sGB boş)"
 #: src/wubi/frontends/win32/installation_page.py:177
 msgid "Please select username and password for the new account"
 msgstr "Lütfen yañı esap içün qullanıcı adı ve sır-sözni saylañız"
-
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/cdboot_page.py:46
-msgid "Accessibility"
-msgstr "İrişilebilirlik"
-
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/cdboot_page.py:46
-msgid "Install"
-msgstr "Qur"
 
 # tüklü
 #: src/wubi/frontends/win32/installation_page.py:193
@@ -251,6 +406,79 @@ msgstr "Lütfen sır-sözde boşluqlarnı qullanmañız."
 msgid "Passwords do not match."
 msgstr "Sır-sözler eşleşmey."
 
+#: src/wubi/frontends/win32/progress_page.py:40
+msgid "Please wait"
+msgstr "Lütfen bekleñiz"
+
+#: src/wubi/frontends/win32/progress_page.py:53
+msgid "Do not download, use a local file"
+msgstr "Endirme, yerli bir dosyeni qullan"
+
+#: src/wubi/frontends/win32/progress_page.py:66
+#, python-format
+msgid "Remaining time approximately %s"
+msgid_plural "Remaining time approximately %s"
+msgstr[0] "Qalğan vaqıt taqriben %s"
+
+#: src/wubi/frontends/win32/frontend.py:51
+msgid "Are you sure you want to quit?"
+msgstr "Çıqmağa istegeniñizden eminsiñizmi?"
+
+#: src/wubi/frontends/win32/accessibility_page.py:34
+msgid "Accessibility profile"
+msgstr "İrişilebilirlik profili"
+
+#: src/wubi/frontends/win32/accessibility_page.py:35
+msgid "Please select the appropriate accessibility profile"
+msgstr "Lütfen uyğun irişilebilirlik profilini saylañız"
+
+#: src/wubi/frontends/win32/accessibility_page.py:39
+msgid "Next >>"
+msgstr "Soñraki >>"
+
+#: src/wubi/frontends/win32/accessibility_page.py:50
+msgid "Visibility Aids"
+msgstr "Körünirlik İaneleri"
+
+#: src/wubi/frontends/win32/accessibility_page.py:51
+msgid "Visibility1"
+msgstr "Körünirlik1"
+
+#: src/wubi/frontends/win32/accessibility_page.py:52
+msgid "Visibility2"
+msgstr "Körünirlik2"
+
+#: src/wubi/frontends/win32/accessibility_page.py:53
+msgid "Visibility3"
+msgstr "Körünirlik3"
+
+# tüklü
+#: src/wubi/frontends/win32/accessibility_page.py:54
+msgid "Braille"
+msgstr "Qabartma Yazı"
+
+#: src/wubi/frontends/win32/accessibility_page.py:57
+msgid "Mobility Aids"
+msgstr "Areketçenlik İaneleri"
+
+#: src/wubi/frontends/win32/accessibility_page.py:58
+msgid "Mobility1"
+msgstr "Areketçenlik1"
+
+#: src/wubi/frontends/win32/accessibility_page.py:59
+msgid "Mobility2"
+msgstr "Areketçenlik2"
+
+#: src/wubi/frontends/win32/accessibility_page.py:62
+msgid "None"
+msgstr "İç biri"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:35
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
+msgid "Finish"
+msgstr "Tamamla"
+
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
 msgid "Completing the %s Setup Wizard"
@@ -259,6 +487,11 @@ msgstr "%s Tesbit Siirbazı Tamamlana"
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
 msgstr "Qurulımnı tamamlamaq içün kene başlattırmalısıñız"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:44
+#: src/wubi/frontends/win32/cd_finish_page.py:47
+msgid "Reboot now"
+msgstr "Şimdi kene başlattır"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
@@ -318,83 +551,31 @@ msgstr ""
 "bir işletim sistemidir ve bir ağ kezicisi, semerelilik yazılımı, aniy "
 "mesajlaşma ve başqa çoq şey temin eter."
 
-# tüklü
-#: src/wubi/frontends/win32/cdboot_page.py:32
-#, python-format
-msgid "%s CD Boot Helper"
-msgstr "%s CD Başlattırma Yardımcısı"
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr "< Keri"
 
-#: src/wubi/frontends/win32/cdboot_page.py:43
-msgid "Not enough disk space to proceed"
-msgstr "Devam etmek içün disk fezası yetersiz"
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr "Kene başlattıruv şarttır"
 
-#: src/wubi/frontends/win32/cdboot_page.py:54
-msgid "Install CD boot helper"
-msgstr "CD başlattırma yardımcısını qur"
-
-#: src/wubi/frontends/win32/cdboot_page.py:56
+#: src/wubi/frontends/win32/cd_finish_page.py:45
 msgid ""
-"If your machine cannot boot off the CD, this program will install a new boot "
-"menu entry to help you boot from CD. In most cases this program is not "
-"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
-"\n"
-"Do you want to proceed and install the CD booter?"
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
 msgstr ""
-"Eger bilgisayarıñız CD qullanaraq başlattıramay ise, bu program sizge CD "
-"qullanaraq başlattırmağa yardım etmek içün yañı bir başlattırma menü "
-"unsurını quracaqtır. Ekseriy hallarda, bu programğa ihtiyac duyulmaz ve "
-"CD'ni sinige qoyıp bilgisayarnı kene başlatmaq yeterli olur.\n"
-"\n"
-"Devam etip CD başlattırıcısını qurmağa isteysiñizmi?"
+"Canlı CD başlatmaq içün CD'ni sinide qaldırıp bilgisayarıñıznı kene "
+"başlattıruvıñız kerek. Bilgisayarıñız CD qullanaraq başlattıramasa, ekseriy "
+"hallarda soñki ihtiyarnıñ çalışuvı lâzim."
 
-#: src/wubi/frontends/win32/accessibility_page.py:34
-msgid "Accessibility profile"
-msgstr "İrişilebilirlik profili"
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
+msgstr "Daha soñra elden kene başlattırmağa isteyim"
 
-#: src/wubi/frontends/win32/accessibility_page.py:35
-msgid "Please select the appropriate accessibility profile"
-msgstr "Lütfen uyğun irişilebilirlik profilini saylañız"
-
-#: src/wubi/frontends/win32/accessibility_page.py:39
-msgid "Next >>"
-msgstr "Soñraki >>"
-
-#: src/wubi/frontends/win32/accessibility_page.py:50
-msgid "Visibility Aids"
-msgstr "Körünirlik İaneleri"
-
-#: src/wubi/frontends/win32/accessibility_page.py:51
-msgid "Visibility1"
-msgstr "Körünirlik1"
-
-#: src/wubi/frontends/win32/accessibility_page.py:52
-msgid "Visibility2"
-msgstr "Körünirlik2"
-
-#: src/wubi/frontends/win32/accessibility_page.py:53
-msgid "Visibility3"
-msgstr "Körünirlik3"
-
-# tüklü
-#: src/wubi/frontends/win32/accessibility_page.py:54
-msgid "Braille"
-msgstr "Qabartma Yazı"
-
-#: src/wubi/frontends/win32/accessibility_page.py:57
-msgid "Mobility Aids"
-msgstr "Areketçenlik İaneleri"
-
-#: src/wubi/frontends/win32/accessibility_page.py:58
-msgid "Mobility1"
-msgstr "Areketçenlik1"
-
-#: src/wubi/frontends/win32/accessibility_page.py:59
-msgid "Mobility2"
-msgstr "Areketçenlik2"
-
-#: src/wubi/frontends/win32/accessibility_page.py:62
-msgid "None"
-msgstr "İç biri"
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr "Maña CD qullanaraq başlattırmağa yardım et"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
@@ -405,216 +586,35 @@ msgstr "Ğayrı qurulım tamamlandı"
 msgid "%s has been successfully uninstalled"
 msgstr "%s muvafaqiyetnen ğayrı quruldı"
 
-#: src/wubi/backends/win32/backend.py:150
+#: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
+msgid "%s Uninstaller"
+msgstr "%s Ğayrı qurucısı"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:36
+msgid "Uninstallation required"
+msgstr "Ğayrı qurulım şarttır"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:38
+#, python-format
+msgid "You are about to uninstall %s"
+msgstr "%s ğayrı qurulmaq üzredir"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+msgid "Uninstall"
+msgstr "Ğayrı qur"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:52
 msgid ""
-"The installation failed. Logs have been saved in: %s.\n"
-"\n"
-"Note that in verbose mode, the logs may include the password.\n"
-"\n"
-"The system will now reboot."
+"A previous installation was detected, it needs to be uninstalled before "
+"continuing"
 msgstr ""
-"Qurulım oñmadı. Kütükler şurada saqlanğandır: %s.\n"
-"\n"
-"Haberiñiz olsun ki, lafçan tarzda kütüklerniñ sır-sözni ihtiva etmesi "
-"mümkündir.\n"
-"\n"
-"Sistem şimdi kene başlattırılacaq."
+"Evelki bir qurulım alğılandı, devam etmeden evel onıñ ğayrı quruluvı kerek"
 
-#: src/wubi/backends/common/tasklist.py:256
-#: src/wubi/backends/common/tasklist.py:260
-msgid "0s"
-msgstr "0s"
+#: src/wubi/frontends/win32/uninstallation_page.py:54
+msgid "Are you sure you want to uninstall?"
+msgstr "Ğayrı qurmağa istegeniñizden eminsiñizmi?"
 
-#: src/wubi/backends/common/tasklist.py:269
-#, python-format
-msgid "%ih"
-msgstr "%i saat"
-
-#: src/wubi/backends/common/tasklist.py:271
-#, python-format
-msgid "%imin"
-msgstr "%i daqqa"
-
-#: src/wubi/backends/common/tasklist.py:274
-#, python-format
-msgid "%is"
-msgstr "%i saniye"
-
-#: src/wubi/backends/common/downloader.py:65
-#: src/wubi/backends/common/btdownloader.py:36
-#, python-format
-msgid "Downloading %s"
-msgstr "%s endirile"
-
-#: src/wubi/backends/common/backend.py:76
-#: src/wubi/backends/common/backend.py:97
-msgid "Selecting the target directory"
-msgstr "Hedef fihrist saylana"
-
-#: src/wubi/backends/common/backend.py:77
-#: src/wubi/backends/common/backend.py:98
-msgid "Creating the installation directories"
-msgstr "Qurulım fihristleri icat etile"
-
-# tüklü
-#: src/wubi/backends/common/backend.py:78
-#: src/wubi/backends/common/backend.py:88
-#: src/wubi/backends/common/backend.py:99
-#: src/wubi/backends/common/backend.py:107
-msgid "Uncompressing files"
-msgstr "Dosyeler sıqıştırmasızlaştırıla"
-
-#: src/wubi/backends/common/backend.py:79
-#: src/wubi/backends/common/backend.py:100
-msgid "Creating the uninstaller"
-msgstr "Ğayrı qurucı icat etile"
-
-#: src/wubi/backends/common/backend.py:80
-#: src/wubi/backends/common/backend.py:101
-#: src/wubi/backends/common/backend.py:424
-#: src/wubi/backends/common/backend.py:430
-msgid "Copying installation files"
-msgstr "Qurulım dosyeleri kopiyalana"
-
-#: src/wubi/backends/common/backend.py:81
-msgid "Retrieving installation files"
-msgstr "Qurulım dosyeleri tapılıp ketirile"
-
-#: src/wubi/backends/common/backend.py:82
-#: src/wubi/backends/common/backend.py:103
-msgid "Extracting the kernel"
-msgstr "Çegirdek hulâsa etile"
-
-#: src/wubi/backends/common/backend.py:83
-msgid "Choosing disk sizes"
-msgstr "Disk ölçüleri saylana"
-
-# tüklü
-#: src/wubi/backends/common/backend.py:84
-#: src/wubi/backends/common/backend.py:104
-msgid "Creating a preseed file"
-msgstr "Ög-saçuv dosyesi icat etile"
-
-#: src/wubi/backends/common/backend.py:85
-#: src/wubi/backends/common/backend.py:105
-msgid "Adding a new bootloader entry"
-msgstr "Yañı bir başlattırıcı kirdisi eklene"
-
-#: src/wubi/backends/common/backend.py:86
-#: src/wubi/backends/common/backend.py:106
-msgid "Setting up installation boot menu"
-msgstr "Qurulım başlattırma menüsi tesbit etile"
-
-#: src/wubi/backends/common/backend.py:87
-msgid "Creating the virtual disks"
-msgstr "Sanal diskler icat etile"
-
-#: src/wubi/backends/common/backend.py:89
-#: src/wubi/backends/common/backend.py:108
-msgid "Ejecting the CD"
-msgstr "CD çıqartıla"
-
-#: src/wubi/backends/common/backend.py:102
-msgid "Extracting CD content"
-msgstr "CD mündericesi hulâsa etile"
-
-#: src/wubi/backends/common/backend.py:110
-msgid "Installing CD boot helper"
-msgstr "CD başlattırma yardımcısı qurula"
-
-#: src/wubi/backends/common/backend.py:115
-#: src/wubi/backends/common/backend.py:117
-msgid "Rebooting"
-msgstr "Kene başlattırıla"
-
-#: src/wubi/backends/common/backend.py:122
-msgid "Backup ISO"
-msgstr "Yedekleme İSO"
-
-#: src/wubi/backends/common/backend.py:123
-msgid "Remove bootloader entry"
-msgstr "Başlattırma yükleyicisi kirildisini çetleştir"
-
-#: src/wubi/backends/common/backend.py:124
-msgid "Remove target dir"
-msgstr "Hedef fihristni çetleştir"
-
-#: src/wubi/backends/common/backend.py:125
-msgid "Remove registry key"
-msgstr "Sicil anahtarını çetleştir"
-
-#: src/wubi/backends/common/backend.py:126
-#, python-format
-msgid "Uninstalling %s"
-msgstr "%s ğayrı qurula"
-
-#: src/wubi/backends/common/backend.py:257
-#, python-format
-msgid "Checking CD %s"
-msgstr "%s CD teşkerile"
-
-#: src/wubi/backends/common/backend.py:283
-#: src/wubi/backends/common/backend.py:327
-#: src/wubi/backends/common/backend.py:363
-msgid "Downloading information on installation files"
-msgstr "Qurulım dosyeleri üzerine malümat endirile"
-
-#: src/wubi/backends/common/backend.py:298
-#: src/wubi/backends/common/backend.py:355
-#: src/wubi/backends/common/backend.py:418
-#: src/wubi/backends/common/backend.py:468
-msgid "Checking installation files"
-msgstr "Qurulım dosyeleri teşkerile"
-
-#: src/wubi/backends/common/backend.py:389
-#, python-format
-msgid "Validating %s"
-msgstr "%s keçerlilene"
-
-# tüklü
-#: src/wubi/backends/common/backend.py:455
-#, python-format
-msgid "Extracting files from %s"
-msgstr "Şuradan dosyeler hulâsa etile: %s"
-
-#: src/wubi/backends/common/backend.py:531
-#, python-format
-msgid "Checking %s"
-msgstr "%s teşkerile"
-
-#: src/wubi/application.py:64
-#, python-format
-msgid ""
-"An error occurred:\n"
-"\n"
-"%(error)s\n"
-"\n"
-"For more information, please see the log file: %(log)s"
-msgstr ""
-"Hata sudur etti:\n"
-"\n"
-"%(error)s\n"
-"\n"
-"Daha çoq malümat içün lütfen kütük dosyesine baqıñız: %(log)s"
-
-#: src/wubi/application.py:147 src/wubi/application.py:208
-#, python-format
-msgid ""
-"A previous installation was detected in %s.\n"
-"Please uninstall that before continuing."
-msgstr ""
-"Şurada evelki bir qurulım alğılandı: %s.\n"
-"Lütfen devam etmeden evel onı ğayrı quruñız."
-
-#: src/wubi/application.py:190
-msgid "No CD detected, cannot run CD menu"
-msgstr "İç bir CD alğılanmadı, CD menüsi çaptırılamay"
-
-#: src/wubi/application.py:198
-msgid ""
-"Could not find any valid CD.\n"
-"CD boot helper can only be used with a Live CD."
-msgstr ""
-"İç bir keçerli CD tapılamadı.\n"
-"CD başlattırma yardımcısı faqat bir Canlı CD ile qullanıla bilir."
+#: src/wubi/frontends/win32/uninstallation_page.py:62
+msgid "Backup the downloaded files (ISO)"
+msgstr "Endirilgen dosyelerni yedekle (İSO)"

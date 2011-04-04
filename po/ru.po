@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2010-10-21 12:20+0100\n"
+"POT-Creation-Date: 2011-04-04 11:04+0100\n"
 "PO-Revision-Date: 2011-01-14 18:23+0000\n"
 "Last-Translator: Кирилл Чекрыжов <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -26,115 +26,272 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
-"X-Generator: Launchpad (build 12335)\n"
+"X-Launchpad-Export-Date: 2011-04-04 10:00+0000\n"
+"X-Generator: Launchpad (build 12710)\n"
 
-#: src/wubi/frontends/win32/progress_page.py:39
+#: src/wubi/application.py:64
+#, python-format
+msgid ""
+"An error occurred:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"For more information, please see the log file: %(log)s"
+msgstr ""
+"Произошла ошибка:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"Более подробную информацию смотрите в файле журнала: %(log)s"
+
+#: src/wubi/application.py:147 src/wubi/application.py:208
+#, python-format
+msgid ""
+"A previous installation was detected in %s.\n"
+"Please uninstall that before continuing."
+msgstr ""
+"Предыдущая установка обнаружена в %s.\n"
+"Пожалуйста, удалите её прежде чем продолжить."
+
+#: src/wubi/application.py:190
+msgid "No CD detected, cannot run CD menu"
+msgstr "CD-диск не обнаружен, невозможно запустить CD-меню"
+
+#: src/wubi/application.py:198
+msgid ""
+"Could not find any valid CD.\n"
+"CD boot helper can only be used with a Live CD."
+msgstr ""
+"Не удалось найти требуемый CD-диск.\n"
+"Помощник загрузки может использоваться только с живым CD."
+
+#: src/wubi/backends/common/tasklist.py:256
+#: src/wubi/backends/common/tasklist.py:260
+msgid "0s"
+msgstr "0с"
+
+#: src/wubi/backends/common/tasklist.py:269
+#, python-format
+msgid "%ih"
+msgstr "%iч"
+
+#: src/wubi/backends/common/tasklist.py:271
+#, python-format
+msgid "%imin"
+msgstr "%iмин"
+
+#: src/wubi/backends/common/tasklist.py:274
+#, python-format
+msgid "%is"
+msgstr "%iс"
+
+#: src/wubi/backends/common/backend.py:76
+#: src/wubi/backends/common/backend.py:97
+msgid "Selecting the target directory"
+msgstr "Выбор каталога для установки"
+
+#: src/wubi/backends/common/backend.py:77
+#: src/wubi/backends/common/backend.py:98
+msgid "Creating the installation directories"
+msgstr "Создание каталогов для установки"
+
+#: src/wubi/backends/common/backend.py:78
+#: src/wubi/backends/common/backend.py:88
+#: src/wubi/backends/common/backend.py:99
+#: src/wubi/backends/common/backend.py:107
+msgid "Uncompressing files"
+msgstr "Распаковка файлов"
+
+#: src/wubi/backends/common/backend.py:79
+#: src/wubi/backends/common/backend.py:100
+msgid "Creating the uninstaller"
+msgstr "Создание программы удаления"
+
+#: src/wubi/backends/common/backend.py:80
+#: src/wubi/backends/common/backend.py:101
+#: src/wubi/backends/common/backend.py:424
+#: src/wubi/backends/common/backend.py:430
+msgid "Copying installation files"
+msgstr "Копирование установочных файлов"
+
+#: src/wubi/backends/common/backend.py:81
+msgid "Retrieving installation files"
+msgstr "Получение установочных файлов"
+
+#: src/wubi/backends/common/backend.py:82
+#: src/wubi/backends/common/backend.py:103
+msgid "Extracting the kernel"
+msgstr "Извлечение ядра"
+
+#: src/wubi/backends/common/backend.py:83
+msgid "Choosing disk sizes"
+msgstr "Выбор размера диска"
+
+#: src/wubi/backends/common/backend.py:84
+#: src/wubi/backends/common/backend.py:104
+msgid "Creating a preseed file"
+msgstr "Создание файла автоматизации установки"
+
+#: src/wubi/backends/common/backend.py:85
+#: src/wubi/backends/common/backend.py:105
+msgid "Adding a new bootloader entry"
+msgstr "Добавление нового элемента в загрузчик"
+
+#: src/wubi/backends/common/backend.py:86
+#: src/wubi/backends/common/backend.py:106
+msgid "Setting up installation boot menu"
+msgstr "Настройка загрузочного меню"
+
+#: src/wubi/backends/common/backend.py:87
+msgid "Creating the virtual disks"
+msgstr "Создание виртуальных дисков"
+
+#: src/wubi/backends/common/backend.py:89
+#: src/wubi/backends/common/backend.py:108
+msgid "Ejecting the CD"
+msgstr "Извлечение CD"
+
 #: src/wubi/backends/common/backend.py:91
+#: src/wubi/frontends/win32/progress_page.py:39
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
 msgstr "Установка %(distro)s-%(version)s"
 
-#: src/wubi/frontends/win32/progress_page.py:40
-msgid "Please wait"
-msgstr "Пожалуйста, подождите"
+#: src/wubi/backends/common/backend.py:102
+msgid "Extracting CD content"
+msgstr "Извлечение содержимого CD"
 
+#: src/wubi/backends/common/backend.py:110
+msgid "Installing CD boot helper"
+msgstr "Установка помощника CD-загрузки"
+
+#: src/wubi/backends/common/backend.py:115
+#: src/wubi/backends/common/backend.py:117
+msgid "Rebooting"
+msgstr "Перезагрузка"
+
+#: src/wubi/backends/common/backend.py:122
+msgid "Backup ISO"
+msgstr "Резервный ISO"
+
+#: src/wubi/backends/common/backend.py:123
+msgid "Remove bootloader entry"
+msgstr "Удалить загрузочную запись"
+
+#: src/wubi/backends/common/backend.py:124
+msgid "Remove target dir"
+msgstr "Удалить каталог назначения"
+
+#: src/wubi/backends/common/backend.py:125
+msgid "Remove registry key"
+msgstr "Удалить ключ реестра"
+
+#: src/wubi/backends/common/backend.py:126
+#, python-format
+msgid "Uninstalling %s"
+msgstr "Удаление %s"
+
+#: src/wubi/backends/common/backend.py:257
+#, python-format
+msgid "Checking CD %s"
+msgstr "Проверка CD %s"
+
+#: src/wubi/backends/common/backend.py:283
+#: src/wubi/backends/common/backend.py:327
+#: src/wubi/backends/common/backend.py:363
+msgid "Downloading information on installation files"
+msgstr "Загрузка информации по файлам установки"
+
+#: src/wubi/backends/common/backend.py:298
+#: src/wubi/backends/common/backend.py:355
+#: src/wubi/backends/common/backend.py:418
+#: src/wubi/backends/common/backend.py:468
+msgid "Checking installation files"
+msgstr "Проверка файлов установки"
+
+#: src/wubi/backends/common/backend.py:389
+#, python-format
+msgid "Validating %s"
+msgstr "Проверка %s"
+
+#: src/wubi/backends/common/backend.py:455
+#, python-format
+msgid "Extracting files from %s"
+msgstr "Извлечение файлов из %s"
+
+#: src/wubi/backends/common/backend.py:531
+#, python-format
+msgid "Checking %s"
+msgstr "Проверка %s"
+
+#: src/wubi/backends/common/downloader.py:65
+#: src/wubi/backends/common/btdownloader.py:36
+#, python-format
+msgid "Downloading %s"
+msgstr "Загрузка %s"
+
+#: src/wubi/backends/win32/backend.py:150
+#, python-format
+msgid ""
+"The installation failed. Logs have been saved in: %s.\n"
+"\n"
+"Note that in verbose mode, the logs may include the password.\n"
+"\n"
+"The system will now reboot."
+msgstr ""
+"Не удалось выполнить установку. Журналы установки сохранены в: %s.\n"
+"\n"
+"Обратите внимание — в подробном режиме журналы могут содержать пароль.\n"
+"\n"
+"Система будет перезагружена."
+
+#: src/wubi/frontends/win32/cdboot_page.py:32
+#, python-format
+msgid "%s CD Boot Helper"
+msgstr "%s помощник CD-загрузки"
+
+#: src/wubi/frontends/win32/cdboot_page.py:43
+msgid "Not enough disk space to proceed"
+msgstr "Для продолжения не хватает дискового пространства"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:181
+msgid "Accessibility"
+msgstr "Доступность"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:181
+msgid "Install"
+msgstr "Установить"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/progress_page.py:44
+#: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/cd_menu_page.py:38
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_page.py:45
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/cd_menu_page.py:38
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Cancel"
 msgstr "Отмена"
 
-#: src/wubi/frontends/win32/progress_page.py:53
-msgid "Do not download, use a local file"
-msgstr "Не загружать, использовать локальный файл"
+#: src/wubi/frontends/win32/cdboot_page.py:54
+msgid "Install CD boot helper"
+msgstr "Установить помощника CD-загрузки"
 
-#: src/wubi/frontends/win32/progress_page.py:66
-#, python-format
-msgid "Remaining time approximately %s"
-msgid_plural "Remaining time approximately %s"
-msgstr[0] "Осталось примерно %s"
-msgstr[1] "Осталось примерно %s"
-msgstr[2] "Осталось примерно %s"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "< Back"
-msgstr "< Назад"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-#: src/wubi/frontends/win32/installation_finish_page.py:35
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
-msgid "Finish"
-msgstr "Закончить"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:43
-msgid "Reboot required"
-msgstr "Требуется перезагрузка"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:45
+#: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
-"To start the Live CD you need to reboot your machine leaving the CD in the "
-"tray. If your machine cannot boot from the CD, the last option should work "
-"in most cases."
+"If your machine cannot boot off the CD, this program will install a new boot "
+"menu entry to help you boot from CD. In most cases this program is not "
+"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
+"\n"
+"Do you want to proceed and install the CD booter?"
 msgstr ""
-"Для загрузки живого CD необходимо перезагрузить компьютер, оставив диск в "
-"приводе. Если ваш компьютер не может загрузиться с CD, попробуйте последний "
-"вариант, который срабатывает в большинстве случаев."
-
-#: src/wubi/frontends/win32/cd_finish_page.py:47
-#: src/wubi/frontends/win32/installation_finish_page.py:44
-msgid "Reboot now"
-msgstr "Перезагрузить сейчас"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:48
-msgid "I want to manually reboot Later"
-msgstr "Я хочу перезагрузить компьютер позже"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:49
-msgid "Help me to boot from CD"
-msgstr "Помощь в загрузке с CD"
-
-#: src/wubi/frontends/win32/frontend.py:51
-msgid "Are you sure you want to quit?"
-msgstr "Вы уверены, что хотите выйти?"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:32
-#, python-format
-msgid "%s Uninstaller"
-msgstr "Программа удаления %s"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:36
-msgid "Uninstallation required"
-msgstr "Требуется удаление"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:38
-#, python-format
-msgid "You are about to uninstall %s"
-msgstr "Вы собираетесь удалить %s"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-msgid "Uninstall"
-msgstr "Удалить"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:52
-msgid ""
-"A previous installation was detected, it needs to be uninstalled before "
-"continuing"
-msgstr ""
-"Была обнаружена предыдущая установка, она должна быть удалена перед тем, как "
-"продолжить"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:54
-msgid "Are you sure you want to uninstall?"
-msgstr "Вы уверены, что хотите удалить?"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:62
-msgid "Backup the downloaded files (ISO)"
-msgstr "Резервное копирование загруженных файлов (ISO)"
+"Если ваш компьютер не может загружаться с компакт диска, данная программа "
+"добавит новый пункт в загрузочное меню, чтобы помочь вам загрузиться с "
+"компакт диска. В большинстве случаев эта программа не нужна и достаточно "
+"просто перезагрузить компьютер, оставив диск в приводе.\n"
+"\n"
+"Установить загрузчик с CD?"
 
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
@@ -167,16 +324,6 @@ msgstr "(%sГБ свободно)"
 msgid "Please select username and password for the new account"
 msgstr ""
 "Пожалуйста, выберите имя пользователя и пароль для новой учетной записи"
-
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/cdboot_page.py:46
-msgid "Accessibility"
-msgstr "Доступность"
-
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/cdboot_page.py:46
-msgid "Install"
-msgstr "Установить"
 
 #: src/wubi/frontends/win32/installation_page.py:193
 msgid "Installation drive:"
@@ -267,6 +414,80 @@ msgstr "Пожалуйста, не используйте пробелы в па
 msgid "Passwords do not match."
 msgstr "Пароли не совпадают."
 
+#: src/wubi/frontends/win32/progress_page.py:40
+msgid "Please wait"
+msgstr "Пожалуйста, подождите"
+
+#: src/wubi/frontends/win32/progress_page.py:53
+msgid "Do not download, use a local file"
+msgstr "Не загружать, использовать локальный файл"
+
+#: src/wubi/frontends/win32/progress_page.py:66
+#, python-format
+msgid "Remaining time approximately %s"
+msgid_plural "Remaining time approximately %s"
+msgstr[0] "Осталось примерно %s"
+msgstr[1] "Осталось примерно %s"
+msgstr[2] "Осталось примерно %s"
+
+#: src/wubi/frontends/win32/frontend.py:51
+msgid "Are you sure you want to quit?"
+msgstr "Вы уверены, что хотите выйти?"
+
+#: src/wubi/frontends/win32/accessibility_page.py:34
+msgid "Accessibility profile"
+msgstr "Профиль доступности"
+
+#: src/wubi/frontends/win32/accessibility_page.py:35
+msgid "Please select the appropriate accessibility profile"
+msgstr "Пожалуйста, выберите подходящий профиль доступности"
+
+#: src/wubi/frontends/win32/accessibility_page.py:39
+msgid "Next >>"
+msgstr "Далее >>"
+
+#: src/wubi/frontends/win32/accessibility_page.py:50
+msgid "Visibility Aids"
+msgstr "Средства для людей с ограниченным зрением"
+
+#: src/wubi/frontends/win32/accessibility_page.py:51
+msgid "Visibility1"
+msgstr "Видимость1"
+
+#: src/wubi/frontends/win32/accessibility_page.py:52
+msgid "Visibility2"
+msgstr "Видимость2"
+
+#: src/wubi/frontends/win32/accessibility_page.py:53
+msgid "Visibility3"
+msgstr "Видимость3"
+
+#: src/wubi/frontends/win32/accessibility_page.py:54
+msgid "Braille"
+msgstr "Шрифт Брайля"
+
+#: src/wubi/frontends/win32/accessibility_page.py:57
+msgid "Mobility Aids"
+msgstr "Средства для людей с ограниченными двигательными способностями"
+
+#: src/wubi/frontends/win32/accessibility_page.py:58
+msgid "Mobility1"
+msgstr "Профиль подвижности 1"
+
+#: src/wubi/frontends/win32/accessibility_page.py:59
+msgid "Mobility2"
+msgstr "Профиль подвижности 2"
+
+#: src/wubi/frontends/win32/accessibility_page.py:62
+msgid "None"
+msgstr "Отсутствует"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:35
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
+msgid "Finish"
+msgstr "Закончить"
+
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
 msgid "Completing the %s Setup Wizard"
@@ -275,6 +496,11 @@ msgstr "Завершение работы Помощника установки 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
 msgstr "Для завершения установки необходима перезагрузка системы"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:44
+#: src/wubi/frontends/win32/cd_finish_page.py:47
+msgid "Reboot now"
+msgstr "Перезагрузить сейчас"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
@@ -333,81 +559,31 @@ msgstr ""
 "на основе ядра Linux, укомплектованная веб-браузером, офисным пакетом, "
 "программой обмена мгновенными сообщениями и многим другим."
 
-#: src/wubi/frontends/win32/cdboot_page.py:32
-#, python-format
-msgid "%s CD Boot Helper"
-msgstr "%s помощник CD-загрузки"
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr "< Назад"
 
-#: src/wubi/frontends/win32/cdboot_page.py:43
-msgid "Not enough disk space to proceed"
-msgstr "Для продолжения не хватает дискового пространства"
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr "Требуется перезагрузка"
 
-#: src/wubi/frontends/win32/cdboot_page.py:54
-msgid "Install CD boot helper"
-msgstr "Установить помощника CD-загрузки"
-
-#: src/wubi/frontends/win32/cdboot_page.py:56
+#: src/wubi/frontends/win32/cd_finish_page.py:45
 msgid ""
-"If your machine cannot boot off the CD, this program will install a new boot "
-"menu entry to help you boot from CD. In most cases this program is not "
-"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
-"\n"
-"Do you want to proceed and install the CD booter?"
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
 msgstr ""
-"Если ваш компьютер не может загружаться с компакт диска, данная программа "
-"добавит новый пункт в загрузочное меню, чтобы помочь вам загрузиться с "
-"компакт диска. В большинстве случаев эта программа не нужна и достаточно "
-"просто перезагрузить компьютер, оставив диск в приводе.\n"
-"\n"
-"Установить загрузчик с CD?"
+"Для загрузки живого CD необходимо перезагрузить компьютер, оставив диск в "
+"приводе. Если ваш компьютер не может загрузиться с CD, попробуйте последний "
+"вариант, который срабатывает в большинстве случаев."
 
-#: src/wubi/frontends/win32/accessibility_page.py:34
-msgid "Accessibility profile"
-msgstr "Профиль доступности"
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
+msgstr "Я хочу перезагрузить компьютер позже"
 
-#: src/wubi/frontends/win32/accessibility_page.py:35
-msgid "Please select the appropriate accessibility profile"
-msgstr "Пожалуйста, выберите подходящий профиль доступности"
-
-#: src/wubi/frontends/win32/accessibility_page.py:39
-msgid "Next >>"
-msgstr "Далее >>"
-
-#: src/wubi/frontends/win32/accessibility_page.py:50
-msgid "Visibility Aids"
-msgstr "Средства для людей с ограниченным зрением"
-
-#: src/wubi/frontends/win32/accessibility_page.py:51
-msgid "Visibility1"
-msgstr "Видимость1"
-
-#: src/wubi/frontends/win32/accessibility_page.py:52
-msgid "Visibility2"
-msgstr "Видимость2"
-
-#: src/wubi/frontends/win32/accessibility_page.py:53
-msgid "Visibility3"
-msgstr "Видимость3"
-
-#: src/wubi/frontends/win32/accessibility_page.py:54
-msgid "Braille"
-msgstr "Шрифт Брайля"
-
-#: src/wubi/frontends/win32/accessibility_page.py:57
-msgid "Mobility Aids"
-msgstr "Средства для людей с ограниченными двигательными способностями"
-
-#: src/wubi/frontends/win32/accessibility_page.py:58
-msgid "Mobility1"
-msgstr "Профиль подвижности 1"
-
-#: src/wubi/frontends/win32/accessibility_page.py:59
-msgid "Mobility2"
-msgstr "Профиль подвижности 2"
-
-#: src/wubi/frontends/win32/accessibility_page.py:62
-msgid "None"
-msgstr "Отсутствует"
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr "Помощь в загрузке с CD"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
@@ -418,212 +594,36 @@ msgstr "Удаление завершено"
 msgid "%s has been successfully uninstalled"
 msgstr "%s был успешно удалён"
 
-#: src/wubi/backends/win32/backend.py:150
+#: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
+msgid "%s Uninstaller"
+msgstr "Программа удаления %s"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:36
+msgid "Uninstallation required"
+msgstr "Требуется удаление"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:38
+#, python-format
+msgid "You are about to uninstall %s"
+msgstr "Вы собираетесь удалить %s"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+msgid "Uninstall"
+msgstr "Удалить"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:52
 msgid ""
-"The installation failed. Logs have been saved in: %s.\n"
-"\n"
-"Note that in verbose mode, the logs may include the password.\n"
-"\n"
-"The system will now reboot."
+"A previous installation was detected, it needs to be uninstalled before "
+"continuing"
 msgstr ""
-"Не удалось выполнить установку. Журналы установки сохранены в: %s.\n"
-"\n"
-"Обратите внимание — в подробном режиме журналы могут содержать пароль.\n"
-"\n"
-"Система будет перезагружена."
+"Была обнаружена предыдущая установка, она должна быть удалена перед тем, как "
+"продолжить"
 
-#: src/wubi/backends/common/tasklist.py:256
-#: src/wubi/backends/common/tasklist.py:260
-msgid "0s"
-msgstr "0с"
+#: src/wubi/frontends/win32/uninstallation_page.py:54
+msgid "Are you sure you want to uninstall?"
+msgstr "Вы уверены, что хотите удалить?"
 
-#: src/wubi/backends/common/tasklist.py:269
-#, python-format
-msgid "%ih"
-msgstr "%iч"
-
-#: src/wubi/backends/common/tasklist.py:271
-#, python-format
-msgid "%imin"
-msgstr "%iмин"
-
-#: src/wubi/backends/common/tasklist.py:274
-#, python-format
-msgid "%is"
-msgstr "%iс"
-
-#: src/wubi/backends/common/downloader.py:65
-#: src/wubi/backends/common/btdownloader.py:36
-#, python-format
-msgid "Downloading %s"
-msgstr "Загрузка %s"
-
-#: src/wubi/backends/common/backend.py:76
-#: src/wubi/backends/common/backend.py:97
-msgid "Selecting the target directory"
-msgstr "Выбор каталога для установки"
-
-#: src/wubi/backends/common/backend.py:77
-#: src/wubi/backends/common/backend.py:98
-msgid "Creating the installation directories"
-msgstr "Создание каталогов для установки"
-
-#: src/wubi/backends/common/backend.py:78
-#: src/wubi/backends/common/backend.py:88
-#: src/wubi/backends/common/backend.py:99
-#: src/wubi/backends/common/backend.py:107
-msgid "Uncompressing files"
-msgstr "Распаковка файлов"
-
-#: src/wubi/backends/common/backend.py:79
-#: src/wubi/backends/common/backend.py:100
-msgid "Creating the uninstaller"
-msgstr "Создание программы удаления"
-
-#: src/wubi/backends/common/backend.py:80
-#: src/wubi/backends/common/backend.py:101
-#: src/wubi/backends/common/backend.py:424
-#: src/wubi/backends/common/backend.py:430
-msgid "Copying installation files"
-msgstr "Копирование установочных файлов"
-
-#: src/wubi/backends/common/backend.py:81
-msgid "Retrieving installation files"
-msgstr "Получение установочных файлов"
-
-#: src/wubi/backends/common/backend.py:82
-#: src/wubi/backends/common/backend.py:103
-msgid "Extracting the kernel"
-msgstr "Извлечение ядра"
-
-#: src/wubi/backends/common/backend.py:83
-msgid "Choosing disk sizes"
-msgstr "Выбор размера диска"
-
-#: src/wubi/backends/common/backend.py:84
-#: src/wubi/backends/common/backend.py:104
-msgid "Creating a preseed file"
-msgstr "Создание файла автоматизации установки"
-
-#: src/wubi/backends/common/backend.py:85
-#: src/wubi/backends/common/backend.py:105
-msgid "Adding a new bootloader entry"
-msgstr "Добавление нового элемента в загрузчик"
-
-#: src/wubi/backends/common/backend.py:86
-#: src/wubi/backends/common/backend.py:106
-msgid "Setting up installation boot menu"
-msgstr "Настройка загрузочного меню"
-
-#: src/wubi/backends/common/backend.py:87
-msgid "Creating the virtual disks"
-msgstr "Создание виртуальных дисков"
-
-#: src/wubi/backends/common/backend.py:89
-#: src/wubi/backends/common/backend.py:108
-msgid "Ejecting the CD"
-msgstr "Извлечение CD"
-
-#: src/wubi/backends/common/backend.py:102
-msgid "Extracting CD content"
-msgstr "Извлечение содержимого CD"
-
-#: src/wubi/backends/common/backend.py:110
-msgid "Installing CD boot helper"
-msgstr "Установка помощника CD-загрузки"
-
-#: src/wubi/backends/common/backend.py:115
-#: src/wubi/backends/common/backend.py:117
-msgid "Rebooting"
-msgstr "Перезагрузка"
-
-#: src/wubi/backends/common/backend.py:122
-msgid "Backup ISO"
-msgstr "Резервный ISO"
-
-#: src/wubi/backends/common/backend.py:123
-msgid "Remove bootloader entry"
-msgstr "Удалить загрузочную запись"
-
-#: src/wubi/backends/common/backend.py:124
-msgid "Remove target dir"
-msgstr "Удалить каталог назначения"
-
-#: src/wubi/backends/common/backend.py:125
-msgid "Remove registry key"
-msgstr "Удалить ключ реестра"
-
-#: src/wubi/backends/common/backend.py:126
-#, python-format
-msgid "Uninstalling %s"
-msgstr "Удаление %s"
-
-#: src/wubi/backends/common/backend.py:257
-#, python-format
-msgid "Checking CD %s"
-msgstr "Проверка CD %s"
-
-#: src/wubi/backends/common/backend.py:283
-#: src/wubi/backends/common/backend.py:327
-#: src/wubi/backends/common/backend.py:363
-msgid "Downloading information on installation files"
-msgstr "Загрузка информации по файлам установки"
-
-#: src/wubi/backends/common/backend.py:298
-#: src/wubi/backends/common/backend.py:355
-#: src/wubi/backends/common/backend.py:418
-#: src/wubi/backends/common/backend.py:468
-msgid "Checking installation files"
-msgstr "Проверка файлов установки"
-
-#: src/wubi/backends/common/backend.py:389
-#, python-format
-msgid "Validating %s"
-msgstr "Проверка %s"
-
-#: src/wubi/backends/common/backend.py:455
-#, python-format
-msgid "Extracting files from %s"
-msgstr "Извлечение файлов из %s"
-
-#: src/wubi/backends/common/backend.py:531
-#, python-format
-msgid "Checking %s"
-msgstr "Проверка %s"
-
-#: src/wubi/application.py:64
-#, python-format
-msgid ""
-"An error occurred:\n"
-"\n"
-"%(error)s\n"
-"\n"
-"For more information, please see the log file: %(log)s"
-msgstr ""
-"Произошла ошибка:\n"
-"\n"
-"%(error)s\n"
-"\n"
-"Более подробную информацию смотрите в файле журнала: %(log)s"
-
-#: src/wubi/application.py:147 src/wubi/application.py:208
-#, python-format
-msgid ""
-"A previous installation was detected in %s.\n"
-"Please uninstall that before continuing."
-msgstr ""
-"Предыдущая установка обнаружена в %s.\n"
-"Пожалуйста, удалите её прежде чем продолжить."
-
-#: src/wubi/application.py:190
-msgid "No CD detected, cannot run CD menu"
-msgstr "CD-диск не обнаружен, невозможно запустить CD-меню"
-
-#: src/wubi/application.py:198
-msgid ""
-"Could not find any valid CD.\n"
-"CD boot helper can only be used with a Live CD."
-msgstr ""
-"Не удалось найти требуемый CD-диск.\n"
-"Помощник загрузки может использоваться только с живым CD."
+#: src/wubi/frontends/win32/uninstallation_page.py:62
+msgid "Backup the downloaded files (ISO)"
+msgstr "Резервное копирование загруженных файлов (ISO)"

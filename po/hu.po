@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2010-10-21 12:20+0100\n"
+"POT-Creation-Date: 2011-04-04 11:04+0100\n"
 "PO-Revision-Date: 2009-11-20 13:00+0000\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -22,114 +22,272 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
-"X-Generator: Launchpad (build 12335)\n"
+"X-Launchpad-Export-Date: 2011-04-04 10:00+0000\n"
+"X-Generator: Launchpad (build 12710)\n"
 
-#: src/wubi/frontends/win32/progress_page.py:39
+#: src/wubi/application.py:64
+#, python-format
+msgid ""
+"An error occurred:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"For more information, please see the log file: %(log)s"
+msgstr ""
+"Hiba történt:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"További információkért nézze meg a naplófájlt: %(log)s"
+
+#: src/wubi/application.py:147 src/wubi/application.py:208
+#, python-format
+msgid ""
+"A previous installation was detected in %s.\n"
+"Please uninstall that before continuing."
+msgstr ""
+"Korábbi telepítés található itt: %s.\n"
+"Távolítsa ezt el a folytatás előtt."
+
+#: src/wubi/application.py:190
+msgid "No CD detected, cannot run CD menu"
+msgstr "Nem található CD, ezért nem jeleníthető meg a menü"
+
+#: src/wubi/application.py:198
+msgid ""
+"Could not find any valid CD.\n"
+"CD boot helper can only be used with a Live CD."
+msgstr ""
+"Nem található érvényes CD.\n"
+"A CD-indítási segéd csak live CD-vel használható."
+
+#: src/wubi/backends/common/tasklist.py:256
+#: src/wubi/backends/common/tasklist.py:260
+msgid "0s"
+msgstr "0 mp"
+
+#: src/wubi/backends/common/tasklist.py:269
+#, python-format
+msgid "%ih"
+msgstr "%i ó"
+
+#: src/wubi/backends/common/tasklist.py:271
+#, python-format
+msgid "%imin"
+msgstr "%i perc"
+
+#: src/wubi/backends/common/tasklist.py:274
+#, python-format
+msgid "%is"
+msgstr "%i mp"
+
+#: src/wubi/backends/common/backend.py:76
+#: src/wubi/backends/common/backend.py:97
+msgid "Selecting the target directory"
+msgstr "Célkönyvtár kiválasztása"
+
+#: src/wubi/backends/common/backend.py:77
+#: src/wubi/backends/common/backend.py:98
+msgid "Creating the installation directories"
+msgstr "Telepítési könyvtárak létrehozása"
+
+#: src/wubi/backends/common/backend.py:78
+#: src/wubi/backends/common/backend.py:88
+#: src/wubi/backends/common/backend.py:99
+#: src/wubi/backends/common/backend.py:107
+msgid "Uncompressing files"
+msgstr "Fájlok kibontása"
+
+#: src/wubi/backends/common/backend.py:79
+#: src/wubi/backends/common/backend.py:100
+msgid "Creating the uninstaller"
+msgstr "Az eltávolító létrehozása"
+
+#: src/wubi/backends/common/backend.py:80
+#: src/wubi/backends/common/backend.py:101
+#: src/wubi/backends/common/backend.py:424
+#: src/wubi/backends/common/backend.py:430
+msgid "Copying installation files"
+msgstr "Telepítőfájlok másolása"
+
+#: src/wubi/backends/common/backend.py:81
+msgid "Retrieving installation files"
+msgstr "Telepítőfájlok lekérése"
+
+#: src/wubi/backends/common/backend.py:82
+#: src/wubi/backends/common/backend.py:103
+msgid "Extracting the kernel"
+msgstr "A rendszermag kibontása"
+
+#: src/wubi/backends/common/backend.py:83
+msgid "Choosing disk sizes"
+msgstr "Lemezméretek választása"
+
+#: src/wubi/backends/common/backend.py:84
+#: src/wubi/backends/common/backend.py:104
+msgid "Creating a preseed file"
+msgstr "Preseed fájl létrehozása"
+
+#: src/wubi/backends/common/backend.py:85
+#: src/wubi/backends/common/backend.py:105
+msgid "Adding a new bootloader entry"
+msgstr "Új rendszerbetöltő-bejegyzés hozzáadása"
+
+#: src/wubi/backends/common/backend.py:86
+#: src/wubi/backends/common/backend.py:106
+msgid "Setting up installation boot menu"
+msgstr "Telepítő rendszerindító menü beállítása"
+
+#: src/wubi/backends/common/backend.py:87
+msgid "Creating the virtual disks"
+msgstr "A virtuális lemezek létrehozása"
+
+#: src/wubi/backends/common/backend.py:89
+#: src/wubi/backends/common/backend.py:108
+msgid "Ejecting the CD"
+msgstr "CD-tálca kiadása"
+
 #: src/wubi/backends/common/backend.py:91
+#: src/wubi/frontends/win32/progress_page.py:39
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
 msgstr "%(distro)s-%(version)s telepítése"
 
-#: src/wubi/frontends/win32/progress_page.py:40
-msgid "Please wait"
-msgstr "Kis türelmet"
+#: src/wubi/backends/common/backend.py:102
+msgid "Extracting CD content"
+msgstr "CD tartalmának kibontása"
 
+#: src/wubi/backends/common/backend.py:110
+msgid "Installing CD boot helper"
+msgstr "CD-indítási segéd telepítése"
+
+#: src/wubi/backends/common/backend.py:115
+#: src/wubi/backends/common/backend.py:117
+msgid "Rebooting"
+msgstr "Újraindítás"
+
+#: src/wubi/backends/common/backend.py:122
+msgid "Backup ISO"
+msgstr "ISO biztonsági mentése"
+
+#: src/wubi/backends/common/backend.py:123
+msgid "Remove bootloader entry"
+msgstr "Rendszerindító bejegyzés törlése"
+
+#: src/wubi/backends/common/backend.py:124
+msgid "Remove target dir"
+msgstr "Célkönyvtár eltávolítása"
+
+#: src/wubi/backends/common/backend.py:125
+msgid "Remove registry key"
+msgstr "Rendszerleíró kulcs eltávolítása"
+
+#: src/wubi/backends/common/backend.py:126
+#, python-format
+msgid "Uninstalling %s"
+msgstr "%s eltávolítása"
+
+#: src/wubi/backends/common/backend.py:257
+#, python-format
+msgid "Checking CD %s"
+msgstr "%s CD ellenőrzése"
+
+#: src/wubi/backends/common/backend.py:283
+#: src/wubi/backends/common/backend.py:327
+#: src/wubi/backends/common/backend.py:363
+msgid "Downloading information on installation files"
+msgstr "Telepítőfájlok információinak letöltése"
+
+#: src/wubi/backends/common/backend.py:298
+#: src/wubi/backends/common/backend.py:355
+#: src/wubi/backends/common/backend.py:418
+#: src/wubi/backends/common/backend.py:468
+msgid "Checking installation files"
+msgstr "Telepítőfájlok ellenőrzése"
+
+#: src/wubi/backends/common/backend.py:389
+#, python-format
+msgid "Validating %s"
+msgstr "%s ellenőrzése"
+
+#: src/wubi/backends/common/backend.py:455
+#, python-format
+msgid "Extracting files from %s"
+msgstr "Fájlok kibontása ebből: %s"
+
+#: src/wubi/backends/common/backend.py:531
+#, python-format
+msgid "Checking %s"
+msgstr "%s ellenőrzése"
+
+#: src/wubi/backends/common/downloader.py:65
+#: src/wubi/backends/common/btdownloader.py:36
+#, python-format
+msgid "Downloading %s"
+msgstr "%s letöltése"
+
+#: src/wubi/backends/win32/backend.py:150
+#, python-format
+msgid ""
+"The installation failed. Logs have been saved in: %s.\n"
+"\n"
+"Note that in verbose mode, the logs may include the password.\n"
+"\n"
+"The system will now reboot."
+msgstr ""
+"A telepítés meghiúsult. A naplók a következő helyen találhatók: %s.\n"
+"\n"
+"Ne feledje, hogy részletes módban a naplók tartalmazhatják a jelszót.\n"
+"\n"
+"A rendszer most újraindul."
+
+#: src/wubi/frontends/win32/cdboot_page.py:32
+#, python-format
+msgid "%s CD Boot Helper"
+msgstr "%s CD-indítási segéd"
+
+#: src/wubi/frontends/win32/cdboot_page.py:43
+msgid "Not enough disk space to proceed"
+msgstr "Nincs elég lemezterület a folytatáshoz"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:181
+msgid "Accessibility"
+msgstr "Akadálymentesítés"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:181
+msgid "Install"
+msgstr "Telepítés"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/progress_page.py:44
+#: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/cd_menu_page.py:38
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_page.py:45
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/cd_menu_page.py:38
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Cancel"
 msgstr "Mégse"
 
-#: src/wubi/frontends/win32/progress_page.py:53
-msgid "Do not download, use a local file"
-msgstr "Ne töltse le, használjon helyi fájlt"
+#: src/wubi/frontends/win32/cdboot_page.py:54
+msgid "Install CD boot helper"
+msgstr "Telepítő CD-indítási segéd"
 
-#: src/wubi/frontends/win32/progress_page.py:66
-#, python-format
-msgid "Remaining time approximately %s"
-msgid_plural "Remaining time approximately %s"
-msgstr[0] "Hátralévő idő körülbelül %s"
-msgstr[1] "Hátralévő idő körülbelül %s"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "< Back"
-msgstr "< Vissza"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-#: src/wubi/frontends/win32/installation_finish_page.py:35
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
-msgid "Finish"
-msgstr "Befejezés"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:43
-msgid "Reboot required"
-msgstr "Újraindítás szükséges"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:45
+#: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
-"To start the Live CD you need to reboot your machine leaving the CD in the "
-"tray. If your machine cannot boot from the CD, the last option should work "
-"in most cases."
+"If your machine cannot boot off the CD, this program will install a new boot "
+"menu entry to help you boot from CD. In most cases this program is not "
+"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
+"\n"
+"Do you want to proceed and install the CD booter?"
 msgstr ""
-"A Live CD elindításához újra kell indítani a gépet és a meghajtóban kell "
-"hagyni a CD-t. Ha a gépe nem képes CD-ről indulni, akkor válassza az utolsó "
-"lehetőséget."
-
-#: src/wubi/frontends/win32/cd_finish_page.py:47
-#: src/wubi/frontends/win32/installation_finish_page.py:44
-msgid "Reboot now"
-msgstr "Újraindítás most"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:48
-msgid "I want to manually reboot Later"
-msgstr "Később szeretném saját kezűleg újraindítani"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:49
-msgid "Help me to boot from CD"
-msgstr "Segítség a CD-ről való induláshoz."
-
-#: src/wubi/frontends/win32/frontend.py:51
-msgid "Are you sure you want to quit?"
-msgstr "Biztos, hogy ki szeretne lépni?"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:32
-#, python-format
-msgid "%s Uninstaller"
-msgstr "%s eltávolító"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:36
-msgid "Uninstallation required"
-msgstr "Eltávolítás szükséges"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:38
-#, python-format
-msgid "You are about to uninstall %s"
-msgstr "A(z) %s eltávolítására készül"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-msgid "Uninstall"
-msgstr "Eltávolítás"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:52
-msgid ""
-"A previous installation was detected, it needs to be uninstalled before "
-"continuing"
-msgstr ""
-"Egy régebbi telepítés észlelhető, ezért a folytatás előtt el kell azt "
-"távolítani"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:54
-msgid "Are you sure you want to uninstall?"
-msgstr "Biztosan el akarja távolítani?"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:62
-msgid "Backup the downloaded files (ISO)"
-msgstr "A letöltött ISO fájlok biztonsági mentése"
+"Ha a gépe nem képes CD-ről indulni, akkor ez a program telepít egy új "
+"indítómenü-bejegyzést a CD-ről történő indulás elősegítése érdekében. A "
+"legtöbb esetben erre a programra nincs szükség, és elegendő az újraindítás a "
+"meghajtóba helyezett CD-vel\n"
+"\n"
+"Kívánja folytatni a telepítő CD-indító telepítésével?"
 
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
@@ -161,16 +319,6 @@ msgstr "(%s GB szabad)"
 #: src/wubi/frontends/win32/installation_page.py:177
 msgid "Please select username and password for the new account"
 msgstr "Kérem válasszon felhasználónevet és jelszót az új fiókhoz."
-
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/cdboot_page.py:46
-msgid "Accessibility"
-msgstr "Akadálymentesítés"
-
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/cdboot_page.py:46
-msgid "Install"
-msgstr "Telepítés"
 
 #: src/wubi/frontends/win32/installation_page.py:193
 msgid "Installation drive:"
@@ -259,6 +407,79 @@ msgstr "Ne használjon szóközt a jelszóban."
 msgid "Passwords do not match."
 msgstr "A jelszavak nem egyeznek."
 
+#: src/wubi/frontends/win32/progress_page.py:40
+msgid "Please wait"
+msgstr "Kis türelmet"
+
+#: src/wubi/frontends/win32/progress_page.py:53
+msgid "Do not download, use a local file"
+msgstr "Ne töltse le, használjon helyi fájlt"
+
+#: src/wubi/frontends/win32/progress_page.py:66
+#, python-format
+msgid "Remaining time approximately %s"
+msgid_plural "Remaining time approximately %s"
+msgstr[0] "Hátralévő idő körülbelül %s"
+msgstr[1] "Hátralévő idő körülbelül %s"
+
+#: src/wubi/frontends/win32/frontend.py:51
+msgid "Are you sure you want to quit?"
+msgstr "Biztos, hogy ki szeretne lépni?"
+
+#: src/wubi/frontends/win32/accessibility_page.py:34
+msgid "Accessibility profile"
+msgstr "Akadálymentesítési profil"
+
+#: src/wubi/frontends/win32/accessibility_page.py:35
+msgid "Please select the appropriate accessibility profile"
+msgstr "Válassza ki a megfelelő akadálymentesítési profilt"
+
+#: src/wubi/frontends/win32/accessibility_page.py:39
+msgid "Next >>"
+msgstr "Következő >>"
+
+#: src/wubi/frontends/win32/accessibility_page.py:50
+msgid "Visibility Aids"
+msgstr "Láthatósági segítség"
+
+#: src/wubi/frontends/win32/accessibility_page.py:51
+msgid "Visibility1"
+msgstr "Láthatóság1"
+
+#: src/wubi/frontends/win32/accessibility_page.py:52
+msgid "Visibility2"
+msgstr "Láthatóság2"
+
+#: src/wubi/frontends/win32/accessibility_page.py:53
+msgid "Visibility3"
+msgstr "Láthatóság3"
+
+#: src/wubi/frontends/win32/accessibility_page.py:54
+msgid "Braille"
+msgstr "Braille"
+
+#: src/wubi/frontends/win32/accessibility_page.py:57
+msgid "Mobility Aids"
+msgstr "Mobilitási segítség"
+
+#: src/wubi/frontends/win32/accessibility_page.py:58
+msgid "Mobility1"
+msgstr "Mobilitás1"
+
+#: src/wubi/frontends/win32/accessibility_page.py:59
+msgid "Mobility2"
+msgstr "Mobilitás2"
+
+#: src/wubi/frontends/win32/accessibility_page.py:62
+msgid "None"
+msgstr "Nincs"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:35
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
+msgid "Finish"
+msgstr "Befejezés"
+
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
 msgid "Completing the %s Setup Wizard"
@@ -267,6 +488,11 @@ msgstr "A(z) %s telepítővarázsló befejezése"
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
 msgstr "A számítógépet újra kell indítani a telepítés befejezéséhez"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:44
+#: src/wubi/frontends/win32/cd_finish_page.py:47
+msgid "Reboot now"
+msgstr "Újraindítás most"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
@@ -325,81 +551,31 @@ msgstr ""
 "operációs rendszer, webböngészővel, irodai szoftverekkel, azonnali "
 "üzenetküldéssel, és sok egyébbel."
 
-#: src/wubi/frontends/win32/cdboot_page.py:32
-#, python-format
-msgid "%s CD Boot Helper"
-msgstr "%s CD-indítási segéd"
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr "< Vissza"
 
-#: src/wubi/frontends/win32/cdboot_page.py:43
-msgid "Not enough disk space to proceed"
-msgstr "Nincs elég lemezterület a folytatáshoz"
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr "Újraindítás szükséges"
 
-#: src/wubi/frontends/win32/cdboot_page.py:54
-msgid "Install CD boot helper"
-msgstr "Telepítő CD-indítási segéd"
-
-#: src/wubi/frontends/win32/cdboot_page.py:56
+#: src/wubi/frontends/win32/cd_finish_page.py:45
 msgid ""
-"If your machine cannot boot off the CD, this program will install a new boot "
-"menu entry to help you boot from CD. In most cases this program is not "
-"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
-"\n"
-"Do you want to proceed and install the CD booter?"
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
 msgstr ""
-"Ha a gépe nem képes CD-ről indulni, akkor ez a program telepít egy új "
-"indítómenü-bejegyzést a CD-ről történő indulás elősegítése érdekében. A "
-"legtöbb esetben erre a programra nincs szükség, és elegendő az újraindítás a "
-"meghajtóba helyezett CD-vel\n"
-"\n"
-"Kívánja folytatni a telepítő CD-indító telepítésével?"
+"A Live CD elindításához újra kell indítani a gépet és a meghajtóban kell "
+"hagyni a CD-t. Ha a gépe nem képes CD-ről indulni, akkor válassza az utolsó "
+"lehetőséget."
 
-#: src/wubi/frontends/win32/accessibility_page.py:34
-msgid "Accessibility profile"
-msgstr "Akadálymentesítési profil"
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
+msgstr "Később szeretném saját kezűleg újraindítani"
 
-#: src/wubi/frontends/win32/accessibility_page.py:35
-msgid "Please select the appropriate accessibility profile"
-msgstr "Válassza ki a megfelelő akadálymentesítési profilt"
-
-#: src/wubi/frontends/win32/accessibility_page.py:39
-msgid "Next >>"
-msgstr "Következő >>"
-
-#: src/wubi/frontends/win32/accessibility_page.py:50
-msgid "Visibility Aids"
-msgstr "Láthatósági segítség"
-
-#: src/wubi/frontends/win32/accessibility_page.py:51
-msgid "Visibility1"
-msgstr "Láthatóság1"
-
-#: src/wubi/frontends/win32/accessibility_page.py:52
-msgid "Visibility2"
-msgstr "Láthatóság2"
-
-#: src/wubi/frontends/win32/accessibility_page.py:53
-msgid "Visibility3"
-msgstr "Láthatóság3"
-
-#: src/wubi/frontends/win32/accessibility_page.py:54
-msgid "Braille"
-msgstr "Braille"
-
-#: src/wubi/frontends/win32/accessibility_page.py:57
-msgid "Mobility Aids"
-msgstr "Mobilitási segítség"
-
-#: src/wubi/frontends/win32/accessibility_page.py:58
-msgid "Mobility1"
-msgstr "Mobilitás1"
-
-#: src/wubi/frontends/win32/accessibility_page.py:59
-msgid "Mobility2"
-msgstr "Mobilitás2"
-
-#: src/wubi/frontends/win32/accessibility_page.py:62
-msgid "None"
-msgstr "Nincs"
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr "Segítség a CD-ről való induláshoz."
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
@@ -410,212 +586,36 @@ msgstr "Eltávolítás befejeződött"
 msgid "%s has been successfully uninstalled"
 msgstr "%s sikeresen eltávolítva."
 
-#: src/wubi/backends/win32/backend.py:150
+#: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
+msgid "%s Uninstaller"
+msgstr "%s eltávolító"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:36
+msgid "Uninstallation required"
+msgstr "Eltávolítás szükséges"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:38
+#, python-format
+msgid "You are about to uninstall %s"
+msgstr "A(z) %s eltávolítására készül"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+msgid "Uninstall"
+msgstr "Eltávolítás"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:52
 msgid ""
-"The installation failed. Logs have been saved in: %s.\n"
-"\n"
-"Note that in verbose mode, the logs may include the password.\n"
-"\n"
-"The system will now reboot."
+"A previous installation was detected, it needs to be uninstalled before "
+"continuing"
 msgstr ""
-"A telepítés meghiúsult. A naplók a következő helyen találhatók: %s.\n"
-"\n"
-"Ne feledje, hogy részletes módban a naplók tartalmazhatják a jelszót.\n"
-"\n"
-"A rendszer most újraindul."
+"Egy régebbi telepítés észlelhető, ezért a folytatás előtt el kell azt "
+"távolítani"
 
-#: src/wubi/backends/common/tasklist.py:256
-#: src/wubi/backends/common/tasklist.py:260
-msgid "0s"
-msgstr "0 mp"
+#: src/wubi/frontends/win32/uninstallation_page.py:54
+msgid "Are you sure you want to uninstall?"
+msgstr "Biztosan el akarja távolítani?"
 
-#: src/wubi/backends/common/tasklist.py:269
-#, python-format
-msgid "%ih"
-msgstr "%i ó"
-
-#: src/wubi/backends/common/tasklist.py:271
-#, python-format
-msgid "%imin"
-msgstr "%i perc"
-
-#: src/wubi/backends/common/tasklist.py:274
-#, python-format
-msgid "%is"
-msgstr "%i mp"
-
-#: src/wubi/backends/common/downloader.py:65
-#: src/wubi/backends/common/btdownloader.py:36
-#, python-format
-msgid "Downloading %s"
-msgstr "%s letöltése"
-
-#: src/wubi/backends/common/backend.py:76
-#: src/wubi/backends/common/backend.py:97
-msgid "Selecting the target directory"
-msgstr "Célkönyvtár kiválasztása"
-
-#: src/wubi/backends/common/backend.py:77
-#: src/wubi/backends/common/backend.py:98
-msgid "Creating the installation directories"
-msgstr "Telepítési könyvtárak létrehozása"
-
-#: src/wubi/backends/common/backend.py:78
-#: src/wubi/backends/common/backend.py:88
-#: src/wubi/backends/common/backend.py:99
-#: src/wubi/backends/common/backend.py:107
-msgid "Uncompressing files"
-msgstr "Fájlok kibontása"
-
-#: src/wubi/backends/common/backend.py:79
-#: src/wubi/backends/common/backend.py:100
-msgid "Creating the uninstaller"
-msgstr "Az eltávolító létrehozása"
-
-#: src/wubi/backends/common/backend.py:80
-#: src/wubi/backends/common/backend.py:101
-#: src/wubi/backends/common/backend.py:424
-#: src/wubi/backends/common/backend.py:430
-msgid "Copying installation files"
-msgstr "Telepítőfájlok másolása"
-
-#: src/wubi/backends/common/backend.py:81
-msgid "Retrieving installation files"
-msgstr "Telepítőfájlok lekérése"
-
-#: src/wubi/backends/common/backend.py:82
-#: src/wubi/backends/common/backend.py:103
-msgid "Extracting the kernel"
-msgstr "A rendszermag kibontása"
-
-#: src/wubi/backends/common/backend.py:83
-msgid "Choosing disk sizes"
-msgstr "Lemezméretek választása"
-
-#: src/wubi/backends/common/backend.py:84
-#: src/wubi/backends/common/backend.py:104
-msgid "Creating a preseed file"
-msgstr "Preseed fájl létrehozása"
-
-#: src/wubi/backends/common/backend.py:85
-#: src/wubi/backends/common/backend.py:105
-msgid "Adding a new bootloader entry"
-msgstr "Új rendszerbetöltő-bejegyzés hozzáadása"
-
-#: src/wubi/backends/common/backend.py:86
-#: src/wubi/backends/common/backend.py:106
-msgid "Setting up installation boot menu"
-msgstr "Telepítő rendszerindító menü beállítása"
-
-#: src/wubi/backends/common/backend.py:87
-msgid "Creating the virtual disks"
-msgstr "A virtuális lemezek létrehozása"
-
-#: src/wubi/backends/common/backend.py:89
-#: src/wubi/backends/common/backend.py:108
-msgid "Ejecting the CD"
-msgstr "CD-tálca kiadása"
-
-#: src/wubi/backends/common/backend.py:102
-msgid "Extracting CD content"
-msgstr "CD tartalmának kibontása"
-
-#: src/wubi/backends/common/backend.py:110
-msgid "Installing CD boot helper"
-msgstr "CD-indítási segéd telepítése"
-
-#: src/wubi/backends/common/backend.py:115
-#: src/wubi/backends/common/backend.py:117
-msgid "Rebooting"
-msgstr "Újraindítás"
-
-#: src/wubi/backends/common/backend.py:122
-msgid "Backup ISO"
-msgstr "ISO biztonsági mentése"
-
-#: src/wubi/backends/common/backend.py:123
-msgid "Remove bootloader entry"
-msgstr "Rendszerindító bejegyzés törlése"
-
-#: src/wubi/backends/common/backend.py:124
-msgid "Remove target dir"
-msgstr "Célkönyvtár eltávolítása"
-
-#: src/wubi/backends/common/backend.py:125
-msgid "Remove registry key"
-msgstr "Rendszerleíró kulcs eltávolítása"
-
-#: src/wubi/backends/common/backend.py:126
-#, python-format
-msgid "Uninstalling %s"
-msgstr "%s eltávolítása"
-
-#: src/wubi/backends/common/backend.py:257
-#, python-format
-msgid "Checking CD %s"
-msgstr "%s CD ellenőrzése"
-
-#: src/wubi/backends/common/backend.py:283
-#: src/wubi/backends/common/backend.py:327
-#: src/wubi/backends/common/backend.py:363
-msgid "Downloading information on installation files"
-msgstr "Telepítőfájlok információinak letöltése"
-
-#: src/wubi/backends/common/backend.py:298
-#: src/wubi/backends/common/backend.py:355
-#: src/wubi/backends/common/backend.py:418
-#: src/wubi/backends/common/backend.py:468
-msgid "Checking installation files"
-msgstr "Telepítőfájlok ellenőrzése"
-
-#: src/wubi/backends/common/backend.py:389
-#, python-format
-msgid "Validating %s"
-msgstr "%s ellenőrzése"
-
-#: src/wubi/backends/common/backend.py:455
-#, python-format
-msgid "Extracting files from %s"
-msgstr "Fájlok kibontása ebből: %s"
-
-#: src/wubi/backends/common/backend.py:531
-#, python-format
-msgid "Checking %s"
-msgstr "%s ellenőrzése"
-
-#: src/wubi/application.py:64
-#, python-format
-msgid ""
-"An error occurred:\n"
-"\n"
-"%(error)s\n"
-"\n"
-"For more information, please see the log file: %(log)s"
-msgstr ""
-"Hiba történt:\n"
-"\n"
-"%(error)s\n"
-"\n"
-"További információkért nézze meg a naplófájlt: %(log)s"
-
-#: src/wubi/application.py:147 src/wubi/application.py:208
-#, python-format
-msgid ""
-"A previous installation was detected in %s.\n"
-"Please uninstall that before continuing."
-msgstr ""
-"Korábbi telepítés található itt: %s.\n"
-"Távolítsa ezt el a folytatás előtt."
-
-#: src/wubi/application.py:190
-msgid "No CD detected, cannot run CD menu"
-msgstr "Nem található CD, ezért nem jeleníthető meg a menü"
-
-#: src/wubi/application.py:198
-msgid ""
-"Could not find any valid CD.\n"
-"CD boot helper can only be used with a Live CD."
-msgstr ""
-"Nem található érvényes CD.\n"
-"A CD-indítási segéd csak live CD-vel használható."
+#: src/wubi/frontends/win32/uninstallation_page.py:62
+msgid "Backup the downloaded files (ISO)"
+msgstr "A letöltött ISO fájlok biztonsági mentése"

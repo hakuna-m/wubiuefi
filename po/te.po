@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2010-10-21 12:20+0100\n"
+"POT-Creation-Date: 2011-04-04 11:04+0100\n"
 "PO-Revision-Date: 2011-01-16 13:50+0000\n"
 "Last-Translator: Arjuna Rao Chavala <arjunaraoc@gmail.com>\n"
 "Language-Team: Telugu translators\n"
@@ -17,111 +17,266 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
-"X-Generator: Launchpad (build 12335)\n"
+"X-Launchpad-Export-Date: 2011-04-04 10:01+0000\n"
+"X-Generator: Launchpad (build 12710)\n"
 
-#: src/wubi/frontends/win32/progress_page.py:39
+#: src/wubi/application.py:64
+#, python-format
+msgid ""
+"An error occurred:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"For more information, please see the log file: %(log)s"
+msgstr ""
+"దోషం ఏర్పడింది:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"మరిన్ని వివరాలకు చూడండి లాగ్ ఫైలు(లు): %(log)s"
+
+#: src/wubi/application.py:147 src/wubi/application.py:208
+#, python-format
+msgid ""
+"A previous installation was detected in %s.\n"
+"Please uninstall that before continuing."
+msgstr "%s లో పాత స్థాపన కనుగొనబడింది. కొనసాగించేముందు, దానిని తొలగించాలి"
+
+#: src/wubi/application.py:190
+msgid "No CD detected, cannot run CD menu"
+msgstr "CD కనబడలేదు, CD మెనూ నడుపుట వీలుకాదు"
+
+#: src/wubi/application.py:198
+msgid ""
+"Could not find any valid CD.\n"
+"CD boot helper can only be used with a Live CD."
+msgstr ""
+"సరియైన CD కనబడలేదు.\n"
+"CD బూట్ హెల్పర్  ప్రత్యక్షఅనుభవ(Live) CD  తో మాత్రమే వాడవచ్చు."
+
+#: src/wubi/backends/common/tasklist.py:256
+#: src/wubi/backends/common/tasklist.py:260
+msgid "0s"
+msgstr "0s"
+
+#: src/wubi/backends/common/tasklist.py:269
+#, python-format
+msgid "%ih"
+msgstr "%iగం"
+
+#: src/wubi/backends/common/tasklist.py:271
+#, python-format
+msgid "%imin"
+msgstr "%iనిమి"
+
+#: src/wubi/backends/common/tasklist.py:274
+#, python-format
+msgid "%is"
+msgstr "%iసె"
+
+#: src/wubi/backends/common/backend.py:76
+#: src/wubi/backends/common/backend.py:97
+msgid "Selecting the target directory"
+msgstr "లక్ష్య సంచయం  ఎంపికచేయి"
+
+#: src/wubi/backends/common/backend.py:77
+#: src/wubi/backends/common/backend.py:98
+msgid "Creating the installation directories"
+msgstr "స్థాపన సంచయాలు సృష్టించు"
+
+#: src/wubi/backends/common/backend.py:78
+#: src/wubi/backends/common/backend.py:88
+#: src/wubi/backends/common/backend.py:99
+#: src/wubi/backends/common/backend.py:107
+msgid "Uncompressing files"
+msgstr "ఫైళ్లను సాధారణ స్థాయికి తెచ్చు"
+
+#: src/wubi/backends/common/backend.py:79
+#: src/wubi/backends/common/backend.py:100
+msgid "Creating the uninstaller"
+msgstr "తొలగించునది సృష్టించు"
+
+#: src/wubi/backends/common/backend.py:80
+#: src/wubi/backends/common/backend.py:101
+#: src/wubi/backends/common/backend.py:424
+#: src/wubi/backends/common/backend.py:430
+msgid "Copying installation files"
+msgstr "స్థాపన ఫైళ్లను నకలుచేయు"
+
+#: src/wubi/backends/common/backend.py:81
+msgid "Retrieving installation files"
+msgstr "స్థాపనఫైళ్లను పొందుట"
+
+#: src/wubi/backends/common/backend.py:82
+#: src/wubi/backends/common/backend.py:103
+msgid "Extracting the kernel"
+msgstr "కెర్నెల్ వేరుచేసిపొందుట"
+
+#: src/wubi/backends/common/backend.py:83
+msgid "Choosing disk sizes"
+msgstr "డిస్క్ పరిమాణాలను ఎంపికచేయుట"
+
+#: src/wubi/backends/common/backend.py:84
+#: src/wubi/backends/common/backend.py:104
+msgid "Creating a preseed file"
+msgstr "ప్రిసీడ్ ఫైల ను సృష్టించుట"
+
+#: src/wubi/backends/common/backend.py:85
+#: src/wubi/backends/common/backend.py:105
+msgid "Adding a new bootloader entry"
+msgstr "కొత్త బూట్లోడర్ నమోదు చేర్చుట"
+
+#: src/wubi/backends/common/backend.py:86
+#: src/wubi/backends/common/backend.py:106
+msgid "Setting up installation boot menu"
+msgstr "స్థాపన బూట్ మెను సిద్దపరచుట"
+
+#: src/wubi/backends/common/backend.py:87
+msgid "Creating the virtual disks"
+msgstr "మిథ్యా డిస్క్లను సృష్టించుట"
+
+#: src/wubi/backends/common/backend.py:89
+#: src/wubi/backends/common/backend.py:108
+msgid "Ejecting the CD"
+msgstr "CD త్రోసివేయుట"
+
 #: src/wubi/backends/common/backend.py:91
+#: src/wubi/frontends/win32/progress_page.py:39
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
 msgstr "%(distro)s-%(version)s స్థాపన"
 
-#: src/wubi/frontends/win32/progress_page.py:40
-msgid "Please wait"
-msgstr "దయచేసి వేచి ఉండండి"
+#: src/wubi/backends/common/backend.py:102
+msgid "Extracting CD content"
+msgstr "CD నిక్షిప్తాలను పొందుట"
 
+#: src/wubi/backends/common/backend.py:110
+msgid "Installing CD boot helper"
+msgstr "CD బూట్ సహయకి  స్థాపించుట"
+
+#: src/wubi/backends/common/backend.py:115
+#: src/wubi/backends/common/backend.py:117
+msgid "Rebooting"
+msgstr "తిరిగి ప్రారంభించుట"
+
+#: src/wubi/backends/common/backend.py:122
+msgid "Backup ISO"
+msgstr "బ్యాక్అప్ ISO"
+
+#: src/wubi/backends/common/backend.py:123
+msgid "Remove bootloader entry"
+msgstr "బూట్ లోడర్ నమోదు తొలగింపు"
+
+#: src/wubi/backends/common/backend.py:124
+msgid "Remove target dir"
+msgstr "లక్ష్య సంచయం తొలగించు"
+
+#: src/wubi/backends/common/backend.py:125
+msgid "Remove registry key"
+msgstr "రిజిస్ట్రీ కీ తొలగించు"
+
+#: src/wubi/backends/common/backend.py:126
+#, python-format
+msgid "Uninstalling %s"
+msgstr "%s తొలగించుట"
+
+#: src/wubi/backends/common/backend.py:257
+#, python-format
+msgid "Checking CD %s"
+msgstr "CD %s తనిఖీ చేయుట"
+
+#: src/wubi/backends/common/backend.py:283
+#: src/wubi/backends/common/backend.py:327
+#: src/wubi/backends/common/backend.py:363
+msgid "Downloading information on installation files"
+msgstr "స్థాపన ఫైళ్లగురించి వివరాలను డౌనులోడు  చేయుట"
+
+#: src/wubi/backends/common/backend.py:298
+#: src/wubi/backends/common/backend.py:355
+#: src/wubi/backends/common/backend.py:418
+#: src/wubi/backends/common/backend.py:468
+msgid "Checking installation files"
+msgstr "స్థాపన ఫైళ్లను తనిఖీచేయుట"
+
+#: src/wubi/backends/common/backend.py:389
+#, python-format
+msgid "Validating %s"
+msgstr "%s సరియైనవిగా నిర్ధారించుట"
+
+#: src/wubi/backends/common/backend.py:455
+#, python-format
+msgid "Extracting files from %s"
+msgstr "%s నుండి ఫైళ్లను పొందుట"
+
+#: src/wubi/backends/common/backend.py:531
+#, python-format
+msgid "Checking %s"
+msgstr "%s నుతనిఖీచేయుట"
+
+#: src/wubi/backends/common/downloader.py:65
+#: src/wubi/backends/common/btdownloader.py:36
+#, python-format
+msgid "Downloading %s"
+msgstr "%s డౌనులోడు చేయు"
+
+#: src/wubi/backends/win32/backend.py:150
+#, python-format
+msgid ""
+"The installation failed. Logs have been saved in: %s.\n"
+"\n"
+"Note that in verbose mode, the logs may include the password.\n"
+"\n"
+"The system will now reboot."
+msgstr ""
+"సంస్తాపించడం లో పొరపాటు జరిగింది.వివరాలు %s లో గల వివరాల దస్త్రం లో బద్రపరచడమైనది.\n"
+"వేర్బోస్ క్రమం లో ఉన్నప్పుడు,వివరాలలో అనుమతి పదం కూడా ఉంటుందని గమనించగలరు.\n"
+" సిస్టం తక్షణమే తిరిగి బూట్ అవుతుంది."
+
+#: src/wubi/frontends/win32/cdboot_page.py:32
+#, python-format
+msgid "%s CD Boot Helper"
+msgstr "%s CD బూట్ సహయకి"
+
+#: src/wubi/frontends/win32/cdboot_page.py:43
+msgid "Not enough disk space to proceed"
+msgstr "కొనసాగటానికి  చాలినంత ఖాళీ డిస్క్ లేదు."
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:181
+msgid "Accessibility"
+msgstr "అనుకూలపరచుట"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:181
+msgid "Install"
+msgstr "స్థాపించు"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/progress_page.py:44
+#: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/cd_menu_page.py:38
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_page.py:45
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/cd_menu_page.py:38
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Cancel"
 msgstr "రద్దు"
 
-#: src/wubi/frontends/win32/progress_page.py:53
-msgid "Do not download, use a local file"
-msgstr "డౌనులోడు వద్దు, స్థానిక ఫైల్ వాడు."
+#: src/wubi/frontends/win32/cdboot_page.py:54
+msgid "Install CD boot helper"
+msgstr "CD బూట్ సహయకి  స్థాపన"
 
-#: src/wubi/frontends/win32/progress_page.py:66
-#, python-format
-msgid "Remaining time approximately %s"
-msgid_plural "Remaining time approximately %s"
-msgstr[0] "మిగిలిన సమయం సుమారుగా %s"
-msgstr[1] "మిగిలిన సమయం సుమారుగా %s"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "< Back"
-msgstr "< వెనక్కి"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-#: src/wubi/frontends/win32/installation_finish_page.py:35
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
-msgid "Finish"
-msgstr "ముగించు"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:43
-msgid "Reboot required"
-msgstr "తిరిగి ప్రారంభం (రీబూట్) అవసరము"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:45
+#: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
-"To start the Live CD you need to reboot your machine leaving the CD in the "
-"tray. If your machine cannot boot from the CD, the last option should work "
-"in most cases."
+"If your machine cannot boot off the CD, this program will install a new boot "
+"menu entry to help you boot from CD. In most cases this program is not "
+"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
+"\n"
+"Do you want to proceed and install the CD booter?"
 msgstr ""
-"ప్రత్యక్ష అనుభవ CD ప్రారంభానికి, CD ని యంత్రములో వదలి తిరిగి ప్రారంభించండి. మీ యంత్రము CD  నుండి "
-"బూట్ చేయలేకపోతే, చివరి ఐచ్ఛికము చాలాసార్లు పనిచేస్తుంది."
-
-#: src/wubi/frontends/win32/cd_finish_page.py:47
-#: src/wubi/frontends/win32/installation_finish_page.py:44
-msgid "Reboot now"
-msgstr "ఇప్పుడు తిరిగి ప్రారంభించు"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:48
-msgid "I want to manually reboot Later"
-msgstr "నేను మానవీయంగా తరువాత తిరిగి ప్రారంభించుతాను"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:49
-msgid "Help me to boot from CD"
-msgstr "CD నుండి బూట్ చేయుటకు నాకు సహాయపడండి."
-
-#: src/wubi/frontends/win32/frontend.py:51
-msgid "Are you sure you want to quit?"
-msgstr "మీరు నిష్క్రమించుట నిజంగా చేయదలచారా?"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:32
-#, python-format
-msgid "%s Uninstaller"
-msgstr "%s తొలగింపు వుపకరణం"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:36
-msgid "Uninstallation required"
-msgstr "నిర్మూలన అవసరం"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:38
-#, python-format
-msgid "You are about to uninstall %s"
-msgstr "నిర్మూలన చేయబోయేది %s"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-msgid "Uninstall"
-msgstr "నిర్మూలన"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:52
-msgid ""
-"A previous installation was detected, it needs to be uninstalled before "
-"continuing"
-msgstr "పాత స్థాపన కనుగొనబడింది. కొనసాగించేముందు, దానిని తొలగించాలి"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:54
-msgid "Are you sure you want to uninstall?"
-msgstr "మీరు తొలగింపు నిజంగా చేయదలచారా?"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:62
-msgid "Backup the downloaded files (ISO)"
-msgstr "డౌనులోడు చేసిన ఫైళ్లు(ISO)బ్యాక్అప్ చేయు"
+"మీ యంత్రము CD నుండి బూట్ కాకపోతే, ఈ ప్రోగ్రామ్  కొత్త బూట్ మెనూ నమోదు చేసి CD బూట్ చేయటానికి "
+"తోడ్పడుతుంది. చాలా సందర్భాలలో యిది అవసరము లేదు. ట్రేలో CD పెట్టి తిరిగి ప్రారంభించితే చాలు.\n"
+"\n"
+"CD బూటర్ ని స్థాపించుటకు కొనసాగాలనుకుంటున్నారా?"
 
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
@@ -153,16 +308,6 @@ msgstr "(%sGB ఖాళీ)"
 #: src/wubi/frontends/win32/installation_page.py:177
 msgid "Please select username and password for the new account"
 msgstr "కొత్త ఖాతా కొరకు వాడుకరి పేరు మరియు సంకేతపదం ఎంపికచేయి"
-
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/cdboot_page.py:46
-msgid "Accessibility"
-msgstr "అనుకూలపరచుట"
-
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/cdboot_page.py:46
-msgid "Install"
-msgstr "స్థాపించు"
 
 #: src/wubi/frontends/win32/installation_page.py:193
 msgid "Installation drive:"
@@ -249,6 +394,79 @@ msgstr "దయచేసి  సంకేతపదంలో ఖాళీలను
 msgid "Passwords do not match."
 msgstr "సంకేతపదాలు సరితూగటంలేదు"
 
+#: src/wubi/frontends/win32/progress_page.py:40
+msgid "Please wait"
+msgstr "దయచేసి వేచి ఉండండి"
+
+#: src/wubi/frontends/win32/progress_page.py:53
+msgid "Do not download, use a local file"
+msgstr "డౌనులోడు వద్దు, స్థానిక ఫైల్ వాడు."
+
+#: src/wubi/frontends/win32/progress_page.py:66
+#, python-format
+msgid "Remaining time approximately %s"
+msgid_plural "Remaining time approximately %s"
+msgstr[0] "మిగిలిన సమయం సుమారుగా %s"
+msgstr[1] "మిగిలిన సమయం సుమారుగా %s"
+
+#: src/wubi/frontends/win32/frontend.py:51
+msgid "Are you sure you want to quit?"
+msgstr "మీరు నిష్క్రమించుట నిజంగా చేయదలచారా?"
+
+#: src/wubi/frontends/win32/accessibility_page.py:34
+msgid "Accessibility profile"
+msgstr "అనుకూలపరచుటకు లక్షణాలు"
+
+#: src/wubi/frontends/win32/accessibility_page.py:35
+msgid "Please select the appropriate accessibility profile"
+msgstr "అనుకూలపరచుటకు లక్షణాలను ఎంపికచేయి"
+
+#: src/wubi/frontends/win32/accessibility_page.py:39
+msgid "Next >>"
+msgstr "తదుపరి >>"
+
+#: src/wubi/frontends/win32/accessibility_page.py:50
+msgid "Visibility Aids"
+msgstr "దృశ్య సహయకాలు"
+
+#: src/wubi/frontends/win32/accessibility_page.py:51
+msgid "Visibility1"
+msgstr "దృశ్య1"
+
+#: src/wubi/frontends/win32/accessibility_page.py:52
+msgid "Visibility2"
+msgstr "దృశ్య2"
+
+#: src/wubi/frontends/win32/accessibility_page.py:53
+msgid "Visibility3"
+msgstr "దృశ్య3"
+
+#: src/wubi/frontends/win32/accessibility_page.py:54
+msgid "Braille"
+msgstr "బ్రెయిలి"
+
+#: src/wubi/frontends/win32/accessibility_page.py:57
+msgid "Mobility Aids"
+msgstr "కదలిక  సహయకాలు"
+
+#: src/wubi/frontends/win32/accessibility_page.py:58
+msgid "Mobility1"
+msgstr "కదలిక1"
+
+#: src/wubi/frontends/win32/accessibility_page.py:59
+msgid "Mobility2"
+msgstr "కదలిక2"
+
+#: src/wubi/frontends/win32/accessibility_page.py:62
+msgid "None"
+msgstr "ఏదీకాదు"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:35
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
+msgid "Finish"
+msgstr "ముగించు"
+
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
 msgid "Completing the %s Setup Wizard"
@@ -257,6 +475,11 @@ msgstr "%s సిద్ధపరచు విజర్డు పూర్తవ�
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
 msgstr "స్థాపన పూర్తిచేయటానికి తిరిగి ప్రారంభించాలి"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:44
+#: src/wubi/frontends/win32/cd_finish_page.py:47
+msgid "Reboot now"
+msgstr "ఇప్పుడు తిరిగి ప్రారంభించు"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
@@ -311,79 +534,30 @@ msgstr ""
 "%(distro)s ఒక స్వతంత్ర సముదాయం అభివృద్ధి చేసిన, లినక్స్ ఆధారిత నిర్వహణ వ్యవస్థ. దీనిలో వెబ్ విహరిణి, "
 "వుత్పాదకత సాఫ్ట్వేర్, సత్వర సందేశిని ఇంకా చాలా సౌలభ్యాలున్న అనువర్తనాలున్నాయి."
 
-#: src/wubi/frontends/win32/cdboot_page.py:32
-#, python-format
-msgid "%s CD Boot Helper"
-msgstr "%s CD బూట్ సహయకి"
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr "< వెనక్కి"
 
-#: src/wubi/frontends/win32/cdboot_page.py:43
-msgid "Not enough disk space to proceed"
-msgstr "కొనసాగటానికి  చాలినంత ఖాళీ డిస్క్ లేదు."
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr "తిరిగి ప్రారంభం (రీబూట్) అవసరము"
 
-#: src/wubi/frontends/win32/cdboot_page.py:54
-msgid "Install CD boot helper"
-msgstr "CD బూట్ సహయకి  స్థాపన"
-
-#: src/wubi/frontends/win32/cdboot_page.py:56
+#: src/wubi/frontends/win32/cd_finish_page.py:45
 msgid ""
-"If your machine cannot boot off the CD, this program will install a new boot "
-"menu entry to help you boot from CD. In most cases this program is not "
-"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
-"\n"
-"Do you want to proceed and install the CD booter?"
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
 msgstr ""
-"మీ యంత్రము CD నుండి బూట్ కాకపోతే, ఈ ప్రోగ్రామ్  కొత్త బూట్ మెనూ నమోదు చేసి CD బూట్ చేయటానికి "
-"తోడ్పడుతుంది. చాలా సందర్భాలలో యిది అవసరము లేదు. ట్రేలో CD పెట్టి తిరిగి ప్రారంభించితే చాలు.\n"
-"\n"
-"CD బూటర్ ని స్థాపించుటకు కొనసాగాలనుకుంటున్నారా?"
+"ప్రత్యక్ష అనుభవ CD ప్రారంభానికి, CD ని యంత్రములో వదలి తిరిగి ప్రారంభించండి. మీ యంత్రము CD  నుండి "
+"బూట్ చేయలేకపోతే, చివరి ఐచ్ఛికము చాలాసార్లు పనిచేస్తుంది."
 
-#: src/wubi/frontends/win32/accessibility_page.py:34
-msgid "Accessibility profile"
-msgstr "అనుకూలపరచుటకు లక్షణాలు"
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
+msgstr "నేను మానవీయంగా తరువాత తిరిగి ప్రారంభించుతాను"
 
-#: src/wubi/frontends/win32/accessibility_page.py:35
-msgid "Please select the appropriate accessibility profile"
-msgstr "అనుకూలపరచుటకు లక్షణాలను ఎంపికచేయి"
-
-#: src/wubi/frontends/win32/accessibility_page.py:39
-msgid "Next >>"
-msgstr "తదుపరి >>"
-
-#: src/wubi/frontends/win32/accessibility_page.py:50
-msgid "Visibility Aids"
-msgstr "దృశ్య సహయకాలు"
-
-#: src/wubi/frontends/win32/accessibility_page.py:51
-msgid "Visibility1"
-msgstr "దృశ్య1"
-
-#: src/wubi/frontends/win32/accessibility_page.py:52
-msgid "Visibility2"
-msgstr "దృశ్య2"
-
-#: src/wubi/frontends/win32/accessibility_page.py:53
-msgid "Visibility3"
-msgstr "దృశ్య3"
-
-#: src/wubi/frontends/win32/accessibility_page.py:54
-msgid "Braille"
-msgstr "బ్రెయిలి"
-
-#: src/wubi/frontends/win32/accessibility_page.py:57
-msgid "Mobility Aids"
-msgstr "కదలిక  సహయకాలు"
-
-#: src/wubi/frontends/win32/accessibility_page.py:58
-msgid "Mobility1"
-msgstr "కదలిక1"
-
-#: src/wubi/frontends/win32/accessibility_page.py:59
-msgid "Mobility2"
-msgstr "కదలిక2"
-
-#: src/wubi/frontends/win32/accessibility_page.py:62
-msgid "None"
-msgstr "ఏదీకాదు"
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr "CD నుండి బూట్ చేయుటకు నాకు సహాయపడండి."
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
@@ -394,208 +568,34 @@ msgstr "తొలగింపు పూర్తయింది."
 msgid "%s has been successfully uninstalled"
 msgstr "%s విజయవంతంగా తొలగించటమైనది"
 
-#: src/wubi/backends/win32/backend.py:150
+#: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
+msgid "%s Uninstaller"
+msgstr "%s తొలగింపు వుపకరణం"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:36
+msgid "Uninstallation required"
+msgstr "నిర్మూలన అవసరం"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:38
+#, python-format
+msgid "You are about to uninstall %s"
+msgstr "నిర్మూలన చేయబోయేది %s"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+msgid "Uninstall"
+msgstr "నిర్మూలన"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:52
 msgid ""
-"The installation failed. Logs have been saved in: %s.\n"
-"\n"
-"Note that in verbose mode, the logs may include the password.\n"
-"\n"
-"The system will now reboot."
-msgstr ""
-"సంస్తాపించడం లో పొరపాటు జరిగింది.వివరాలు %s లో గల వివరాల దస్త్రం లో బద్రపరచడమైనది.\n"
-"వేర్బోస్ క్రమం లో ఉన్నప్పుడు,వివరాలలో అనుమతి పదం కూడా ఉంటుందని గమనించగలరు.\n"
-" సిస్టం తక్షణమే తిరిగి బూట్ అవుతుంది."
+"A previous installation was detected, it needs to be uninstalled before "
+"continuing"
+msgstr "పాత స్థాపన కనుగొనబడింది. కొనసాగించేముందు, దానిని తొలగించాలి"
 
-#: src/wubi/backends/common/tasklist.py:256
-#: src/wubi/backends/common/tasklist.py:260
-msgid "0s"
-msgstr "0s"
+#: src/wubi/frontends/win32/uninstallation_page.py:54
+msgid "Are you sure you want to uninstall?"
+msgstr "మీరు తొలగింపు నిజంగా చేయదలచారా?"
 
-#: src/wubi/backends/common/tasklist.py:269
-#, python-format
-msgid "%ih"
-msgstr "%iగం"
-
-#: src/wubi/backends/common/tasklist.py:271
-#, python-format
-msgid "%imin"
-msgstr "%iనిమి"
-
-#: src/wubi/backends/common/tasklist.py:274
-#, python-format
-msgid "%is"
-msgstr "%iసె"
-
-#: src/wubi/backends/common/downloader.py:65
-#: src/wubi/backends/common/btdownloader.py:36
-#, python-format
-msgid "Downloading %s"
-msgstr "%s డౌనులోడు చేయు"
-
-#: src/wubi/backends/common/backend.py:76
-#: src/wubi/backends/common/backend.py:97
-msgid "Selecting the target directory"
-msgstr "లక్ష్య సంచయం  ఎంపికచేయి"
-
-#: src/wubi/backends/common/backend.py:77
-#: src/wubi/backends/common/backend.py:98
-msgid "Creating the installation directories"
-msgstr "స్థాపన సంచయాలు సృష్టించు"
-
-#: src/wubi/backends/common/backend.py:78
-#: src/wubi/backends/common/backend.py:88
-#: src/wubi/backends/common/backend.py:99
-#: src/wubi/backends/common/backend.py:107
-msgid "Uncompressing files"
-msgstr "ఫైళ్లను సాధారణ స్థాయికి తెచ్చు"
-
-#: src/wubi/backends/common/backend.py:79
-#: src/wubi/backends/common/backend.py:100
-msgid "Creating the uninstaller"
-msgstr "తొలగించునది సృష్టించు"
-
-#: src/wubi/backends/common/backend.py:80
-#: src/wubi/backends/common/backend.py:101
-#: src/wubi/backends/common/backend.py:424
-#: src/wubi/backends/common/backend.py:430
-msgid "Copying installation files"
-msgstr "స్థాపన ఫైళ్లను నకలుచేయు"
-
-#: src/wubi/backends/common/backend.py:81
-msgid "Retrieving installation files"
-msgstr "స్థాపనఫైళ్లను పొందుట"
-
-#: src/wubi/backends/common/backend.py:82
-#: src/wubi/backends/common/backend.py:103
-msgid "Extracting the kernel"
-msgstr "కెర్నెల్ వేరుచేసిపొందుట"
-
-#: src/wubi/backends/common/backend.py:83
-msgid "Choosing disk sizes"
-msgstr "డిస్క్ పరిమాణాలను ఎంపికచేయుట"
-
-#: src/wubi/backends/common/backend.py:84
-#: src/wubi/backends/common/backend.py:104
-msgid "Creating a preseed file"
-msgstr "ప్రిసీడ్ ఫైల ను సృష్టించుట"
-
-#: src/wubi/backends/common/backend.py:85
-#: src/wubi/backends/common/backend.py:105
-msgid "Adding a new bootloader entry"
-msgstr "కొత్త బూట్లోడర్ నమోదు చేర్చుట"
-
-#: src/wubi/backends/common/backend.py:86
-#: src/wubi/backends/common/backend.py:106
-msgid "Setting up installation boot menu"
-msgstr "స్థాపన బూట్ మెను సిద్దపరచుట"
-
-#: src/wubi/backends/common/backend.py:87
-msgid "Creating the virtual disks"
-msgstr "మిథ్యా డిస్క్లను సృష్టించుట"
-
-#: src/wubi/backends/common/backend.py:89
-#: src/wubi/backends/common/backend.py:108
-msgid "Ejecting the CD"
-msgstr "CD త్రోసివేయుట"
-
-#: src/wubi/backends/common/backend.py:102
-msgid "Extracting CD content"
-msgstr "CD నిక్షిప్తాలను పొందుట"
-
-#: src/wubi/backends/common/backend.py:110
-msgid "Installing CD boot helper"
-msgstr "CD బూట్ సహయకి  స్థాపించుట"
-
-#: src/wubi/backends/common/backend.py:115
-#: src/wubi/backends/common/backend.py:117
-msgid "Rebooting"
-msgstr "తిరిగి ప్రారంభించుట"
-
-#: src/wubi/backends/common/backend.py:122
-msgid "Backup ISO"
-msgstr "బ్యాక్అప్ ISO"
-
-#: src/wubi/backends/common/backend.py:123
-msgid "Remove bootloader entry"
-msgstr "బూట్ లోడర్ నమోదు తొలగింపు"
-
-#: src/wubi/backends/common/backend.py:124
-msgid "Remove target dir"
-msgstr "లక్ష్య సంచయం తొలగించు"
-
-#: src/wubi/backends/common/backend.py:125
-msgid "Remove registry key"
-msgstr "రిజిస్ట్రీ కీ తొలగించు"
-
-#: src/wubi/backends/common/backend.py:126
-#, python-format
-msgid "Uninstalling %s"
-msgstr "%s తొలగించుట"
-
-#: src/wubi/backends/common/backend.py:257
-#, python-format
-msgid "Checking CD %s"
-msgstr "CD %s తనిఖీ చేయుట"
-
-#: src/wubi/backends/common/backend.py:283
-#: src/wubi/backends/common/backend.py:327
-#: src/wubi/backends/common/backend.py:363
-msgid "Downloading information on installation files"
-msgstr "స్థాపన ఫైళ్లగురించి వివరాలను డౌనులోడు  చేయుట"
-
-#: src/wubi/backends/common/backend.py:298
-#: src/wubi/backends/common/backend.py:355
-#: src/wubi/backends/common/backend.py:418
-#: src/wubi/backends/common/backend.py:468
-msgid "Checking installation files"
-msgstr "స్థాపన ఫైళ్లను తనిఖీచేయుట"
-
-#: src/wubi/backends/common/backend.py:389
-#, python-format
-msgid "Validating %s"
-msgstr "%s సరియైనవిగా నిర్ధారించుట"
-
-#: src/wubi/backends/common/backend.py:455
-#, python-format
-msgid "Extracting files from %s"
-msgstr "%s నుండి ఫైళ్లను పొందుట"
-
-#: src/wubi/backends/common/backend.py:531
-#, python-format
-msgid "Checking %s"
-msgstr "%s నుతనిఖీచేయుట"
-
-#: src/wubi/application.py:64
-#, python-format
-msgid ""
-"An error occurred:\n"
-"\n"
-"%(error)s\n"
-"\n"
-"For more information, please see the log file: %(log)s"
-msgstr ""
-"దోషం ఏర్పడింది:\n"
-"\n"
-"%(error)s\n"
-"\n"
-"మరిన్ని వివరాలకు చూడండి లాగ్ ఫైలు(లు): %(log)s"
-
-#: src/wubi/application.py:147 src/wubi/application.py:208
-#, python-format
-msgid ""
-"A previous installation was detected in %s.\n"
-"Please uninstall that before continuing."
-msgstr "%s లో పాత స్థాపన కనుగొనబడింది. కొనసాగించేముందు, దానిని తొలగించాలి"
-
-#: src/wubi/application.py:190
-msgid "No CD detected, cannot run CD menu"
-msgstr "CD కనబడలేదు, CD మెనూ నడుపుట వీలుకాదు"
-
-#: src/wubi/application.py:198
-msgid ""
-"Could not find any valid CD.\n"
-"CD boot helper can only be used with a Live CD."
-msgstr ""
-"సరియైన CD కనబడలేదు.\n"
-"CD బూట్ హెల్పర్  ప్రత్యక్షఅనుభవ(Live) CD  తో మాత్రమే వాడవచ్చు."
+#: src/wubi/frontends/win32/uninstallation_page.py:62
+msgid "Backup the downloaded files (ISO)"
+msgstr "డౌనులోడు చేసిన ఫైళ్లు(ISO)బ్యాక్అప్ చేయు"

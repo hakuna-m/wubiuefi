@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2010-10-21 12:20+0100\n"
+"POT-Creation-Date: 2011-04-04 11:04+0100\n"
 "PO-Revision-Date: 2010-10-27 10:24+0000\n"
 "Last-Translator: Aamir Shahzad <Unknown>\n"
 "Language-Team: Urdu <ur@li.org>\n"
@@ -16,113 +16,272 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-02-08 12:52+0000\n"
-"X-Generator: Launchpad (build 12335)\n"
+"X-Launchpad-Export-Date: 2011-04-04 10:01+0000\n"
+"X-Generator: Launchpad (build 12710)\n"
 
-#: src/wubi/frontends/win32/progress_page.py:39
+#: src/wubi/application.py:64
+#, python-format
+msgid ""
+"An error occurred:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"For more information, please see the log file: %(log)s"
+msgstr ""
+"ایک غلطی ہو گئی:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"مزید معلومات کے لئے ، براہ مہربانی لاگ فائل دیکھیں:‌ %(log)s"
+
+#: src/wubi/application.py:147 src/wubi/application.py:208
+#, python-format
+msgid ""
+"A previous installation was detected in %s.\n"
+"Please uninstall that before continuing."
+msgstr ""
+"%s پر ایک گزشتہ تنصیب کے بارے میں پتہ چلا۔\n"
+"برائے مہربانی آگے بڑھنے سے پہلے اسے غیر تنصیب کریں۔"
+
+#: src/wubi/application.py:190
+msgid "No CD detected, cannot run CD menu"
+msgstr "سی ڈی کا پتہ نہیں چلایا جا سکا، سی ڈی مینو نہیں چل سکتا"
+
+#: src/wubi/application.py:198
+msgid ""
+"Could not find any valid CD.\n"
+"CD boot helper can only be used with a Live CD."
+msgstr ""
+"کوئی بھی موزوں سی ڈی نہیں مل سکی۔\n"
+"سی ڈی بوٹ مدد گار صرف لائیو سی ڈی کے ساتھ استعمال ہو سکتا ہے۔"
+
+#: src/wubi/backends/common/tasklist.py:256
+#: src/wubi/backends/common/tasklist.py:260
+msgid "0s"
+msgstr "0 سکینڈ"
+
+#: src/wubi/backends/common/tasklist.py:269
+#, python-format
+msgid "%ih"
+msgstr "%i گھنٹے"
+
+#: src/wubi/backends/common/tasklist.py:271
+#, python-format
+msgid "%imin"
+msgstr "%i‌ منٹ"
+
+#: src/wubi/backends/common/tasklist.py:274
+#, python-format
+msgid "%is"
+msgstr "%i‌ سکینڈ"
+
+#: src/wubi/backends/common/backend.py:76
+#: src/wubi/backends/common/backend.py:97
+msgid "Selecting the target directory"
+msgstr "ٹارگٹ ڈائریکٹری منتخب کریں"
+
+#: src/wubi/backends/common/backend.py:77
+#: src/wubi/backends/common/backend.py:98
+msgid "Creating the installation directories"
+msgstr "انسٹالیشن ڈائریکٹریز بناتے ہوئے"
+
+#: src/wubi/backends/common/backend.py:78
+#: src/wubi/backends/common/backend.py:88
+#: src/wubi/backends/common/backend.py:99
+#: src/wubi/backends/common/backend.py:107
+msgid "Uncompressing files"
+msgstr "فائلوں‌ کو کشید (ایکسٹریکٹ) کرتے ہوئے"
+
+#: src/wubi/backends/common/backend.py:79
+#: src/wubi/backends/common/backend.py:100
+msgid "Creating the uninstaller"
+msgstr "ان انسٹالر بناتے ہوئے"
+
+#: src/wubi/backends/common/backend.py:80
+#: src/wubi/backends/common/backend.py:101
+#: src/wubi/backends/common/backend.py:424
+#: src/wubi/backends/common/backend.py:430
+msgid "Copying installation files"
+msgstr "انسٹالیشن فائلیں‌ کاپی کرتے ہوئے"
+
+#: src/wubi/backends/common/backend.py:81
+msgid "Retrieving installation files"
+msgstr "انسٹالیشن فائلیں‌ حاصل کرتے ہوئے"
+
+#: src/wubi/backends/common/backend.py:82
+#: src/wubi/backends/common/backend.py:103
+msgid "Extracting the kernel"
+msgstr "کرنل کو کشید کرتے ہوئے"
+
+#: src/wubi/backends/common/backend.py:83
+msgid "Choosing disk sizes"
+msgstr "ڈسک کا حجم منتخب کرتے ہوئے"
+
+#: src/wubi/backends/common/backend.py:84
+#: src/wubi/backends/common/backend.py:104
+msgid "Creating a preseed file"
+msgstr "پریسیڈ فائلیں‌ بناتے ہوئے"
+
+#: src/wubi/backends/common/backend.py:85
+#: src/wubi/backends/common/backend.py:105
+msgid "Adding a new bootloader entry"
+msgstr "ایک نئی بوٹلوڈر انٹری شامل کرتے ہوئے"
+
+#: src/wubi/backends/common/backend.py:86
+#: src/wubi/backends/common/backend.py:106
+msgid "Setting up installation boot menu"
+msgstr "انسٹالیشن بوٹ مینیو کو ترتیب دیتے ہوئے"
+
+#: src/wubi/backends/common/backend.py:87
+msgid "Creating the virtual disks"
+msgstr "مجازی ڈسک کی تشکیل دیتے ہوئے"
+
+#: src/wubi/backends/common/backend.py:89
+#: src/wubi/backends/common/backend.py:108
+msgid "Ejecting the CD"
+msgstr "سی ڈی کا اخراج کریں"
+
 #: src/wubi/backends/common/backend.py:91
+#: src/wubi/frontends/win32/progress_page.py:39
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
 msgstr "تنصیب %(distro)s-%(version)s"
 
-#: src/wubi/frontends/win32/progress_page.py:40
-msgid "Please wait"
-msgstr "برائےمہربانی انتظار کریں"
+#: src/wubi/backends/common/backend.py:102
+msgid "Extracting CD content"
+msgstr "سی ڈی کے مواد کو کشید کرتے ہوئے"
 
+#: src/wubi/backends/common/backend.py:110
+msgid "Installing CD boot helper"
+msgstr "سی ڈی بوٹ مددگار کی تنصیب"
+
+#: src/wubi/backends/common/backend.py:115
+#: src/wubi/backends/common/backend.py:117
+msgid "Rebooting"
+msgstr "دوبارہ چلاتے ہوئے"
+
+#: src/wubi/backends/common/backend.py:122
+msgid "Backup ISO"
+msgstr "آئی ایس او کی بیک اپ بنانا"
+
+#: src/wubi/backends/common/backend.py:123
+msgid "Remove bootloader entry"
+msgstr "بوٹ لوڈر انٹری کو ختم کیا جائے"
+
+#: src/wubi/backends/common/backend.py:124
+msgid "Remove target dir"
+msgstr "ٹارگٹ ڈائریکٹری کو ختم کیا جائے"
+
+#: src/wubi/backends/common/backend.py:125
+msgid "Remove registry key"
+msgstr "رجسٹری کوڈ کو ختم کریں"
+
+#: src/wubi/backends/common/backend.py:126
+#, python-format
+msgid "Uninstalling %s"
+msgstr "ناتنصیب %s"
+
+#: src/wubi/backends/common/backend.py:257
+#, python-format
+msgid "Checking CD %s"
+msgstr "سی ڈی کی جانچ %s"
+
+#: src/wubi/backends/common/backend.py:283
+#: src/wubi/backends/common/backend.py:327
+#: src/wubi/backends/common/backend.py:363
+msgid "Downloading information on installation files"
+msgstr "تنصیب فائلوں‌ کی معلومات ڈاؤن لوڈ کی جا رہی ہے"
+
+#: src/wubi/backends/common/backend.py:298
+#: src/wubi/backends/common/backend.py:355
+#: src/wubi/backends/common/backend.py:418
+#: src/wubi/backends/common/backend.py:468
+msgid "Checking installation files"
+msgstr "تنصیب فائلوں کی جانچ پڑتال"
+
+#: src/wubi/backends/common/backend.py:389
+#, python-format
+msgid "Validating %s"
+msgstr "جانچنا %s"
+
+#: src/wubi/backends/common/backend.py:455
+#, python-format
+msgid "Extracting files from %s"
+msgstr "%s سے فائلیں کشید کرنا"
+
+#: src/wubi/backends/common/backend.py:531
+#, python-format
+msgid "Checking %s"
+msgstr "%s کی جانچ پڑتال"
+
+#: src/wubi/backends/common/downloader.py:65
+#: src/wubi/backends/common/btdownloader.py:36
+#, python-format
+msgid "Downloading %s"
+msgstr "ڈاؤن لوڈنگ  %s"
+
+#: src/wubi/backends/win32/backend.py:150
+#, python-format
+msgid ""
+"The installation failed. Logs have been saved in: %s.\n"
+"\n"
+"Note that in verbose mode, the logs may include the password.\n"
+"\n"
+"The system will now reboot."
+msgstr ""
+"انسٹالیشن فیل ہو گئی۔ لاگ %s مقام پر محفوظ کر دی گئی\n"
+"\n"
+"توجہ فرمائی، لکھائی موڈ میں لاگز کے اندر پاسورڈ ہو سکتا ہے\n"
+"\n"
+"اب سسٹم ری بوٹ کرئے گا۔"
+
+#: src/wubi/frontends/win32/cdboot_page.py:32
+#, python-format
+msgid "%s CD Boot Helper"
+msgstr "%s سی ڈی بوٹ مددگار"
+
+#: src/wubi/frontends/win32/cdboot_page.py:43
+msgid "Not enough disk space to proceed"
+msgstr "کاروائی آگے بڑھانے کے لیے ڈسک کی جگہ ناکافی ہے"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:181
+msgid "Accessibility"
+msgstr "معذور رسائی"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:181
+msgid "Install"
+msgstr "نصب کریں"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:181
 #: src/wubi/frontends/win32/progress_page.py:44
+#: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/cd_menu_page.py:38
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_page.py:45
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/cd_menu_page.py:38
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Cancel"
 msgstr "منسوخ"
 
-#: src/wubi/frontends/win32/progress_page.py:53
-msgid "Do not download, use a local file"
-msgstr "ڈاؤن لوڈ مت کریں،  مقامی فائل کا استعمال کریں"
+#: src/wubi/frontends/win32/cdboot_page.py:54
+msgid "Install CD boot helper"
+msgstr "سی ڈی بوٹ مدد گار کی تنصیب"
 
-#: src/wubi/frontends/win32/progress_page.py:66
-#, python-format
-msgid "Remaining time approximately %s"
-msgid_plural "Remaining time approximately %s"
-msgstr[0] "باقی وقت تقریبا %s"
-msgstr[1] "باقی وقت تقریبا %s"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "< Back"
-msgstr "< واپس"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-#: src/wubi/frontends/win32/installation_finish_page.py:35
-#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
-msgid "Finish"
-msgstr "ختم"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:43
-msgid "Reboot required"
-msgstr "ری بوٹ کی ضرورت"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:45
+#: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
-"To start the Live CD you need to reboot your machine leaving the CD in the "
-"tray. If your machine cannot boot from the CD, the last option should work "
-"in most cases."
+"If your machine cannot boot off the CD, this program will install a new boot "
+"menu entry to help you boot from CD. In most cases this program is not "
+"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
+"\n"
+"Do you want to proceed and install the CD booter?"
 msgstr ""
-"لائیو سی ڈی کو چلانے کے لیے ضروری ہے کہ آپ سی ڈی کو ٹرے میں چھوڑ کر مشین "
-"دوبارہ بوٹ کریں۔ اگر آپ کی مشین سی ڈی سے بوت نہیں کر سکتی، تو آخری آپشن کو "
-"زیادہ تر واقعات میں چلنا چاہیے۔"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:47
-#: src/wubi/frontends/win32/installation_finish_page.py:44
-msgid "Reboot now"
-msgstr "اب پھر بوٹ کریں"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:48
-msgid "I want to manually reboot Later"
-msgstr "میں‌ چاہتا ہوں کہ خود بعد میں ری بوٹ کروں"
-
-#: src/wubi/frontends/win32/cd_finish_page.py:49
-msgid "Help me to boot from CD"
-msgstr "سی ڈی سے بوٹ کرنے میں میری مدد کریں"
-
-#: src/wubi/frontends/win32/frontend.py:51
-msgid "Are you sure you want to quit?"
-msgstr "کيا آپ واقعي چھوڑ نا چاہ رہیے ہیں؟"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:32
-#, python-format
-msgid "%s Uninstaller"
-msgstr "%s تنصیبی"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:36
-msgid "Uninstallation required"
-msgstr "غیر تنصیب کی ضرورت"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:38
-#, python-format
-msgid "You are about to uninstall %s"
-msgstr "آپ %s کو ان انسٹال کرنے جا رہے ہیں"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-msgid "Uninstall"
-msgstr "غیر تنصیب"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:52
-msgid ""
-"A previous installation was detected, it needs to be uninstalled before "
-"continuing"
-msgstr ""
-"ایک گزشتہ تنصیب کا پتہ چلا، آگے بڑھنے سے پہلے غیر تنصیب کرنے کی ضرورت ہے"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:54
-msgid "Are you sure you want to uninstall?"
-msgstr "کیا آپ واقعی ان انسٹال کرنا چاہتے ہیں؟"
-
-#: src/wubi/frontends/win32/uninstallation_page.py:62
-msgid "Backup the downloaded files (ISO)"
-msgstr "ڈاؤن لوڈ فائلوں (آئی ایس او) کا بیک اپ بنایا جائے"
+"اگر آپ کی مشین سی ڈی سے بوٹ نہیں کر سکتی تو یہ پروگرام ایک نئی بوٹ انٹری نصب "
+"کر دے گا جو سی ڈی سے بوٹ کرنے میں مدد دے گی۔ اکثر صورتوں میں اس پروگرام کی "
+"ضرورت نہیں ہوتی، اور صرف یہی کافی ہوتا ہے کہ  سی ڈی روم کو ٹرے میں رکھ کر "
+"دوبارہ چلایا جائے۔\n"
+"\n"
+"کیا آپ آگے بڑھنا چاہتے ہیں اور سی ڈی بوٹر کو نصب کیا جائے؟"
 
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
@@ -154,16 +313,6 @@ msgstr "(%sجی بی مفت)"
 #: src/wubi/frontends/win32/installation_page.py:177
 msgid "Please select username and password for the new account"
 msgstr "برائے مہربانی نئے اکاؤنٹ کے لیے یوزر کا نام اور پاسورڈ منتخب کریں"
-
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/cdboot_page.py:46
-msgid "Accessibility"
-msgstr "معذور رسائی"
-
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/cdboot_page.py:46
-msgid "Install"
-msgstr "نصب کریں"
 
 #: src/wubi/frontends/win32/installation_page.py:193
 msgid "Installation drive:"
@@ -252,6 +401,79 @@ msgstr "برائے مہربانی پاس ورڈ میں خالی جگہ مت اس
 msgid "Passwords do not match."
 msgstr "خفیہ لفظ میل نہیں کھاتا۔"
 
+#: src/wubi/frontends/win32/progress_page.py:40
+msgid "Please wait"
+msgstr "برائےمہربانی انتظار کریں"
+
+#: src/wubi/frontends/win32/progress_page.py:53
+msgid "Do not download, use a local file"
+msgstr "ڈاؤن لوڈ مت کریں،  مقامی فائل کا استعمال کریں"
+
+#: src/wubi/frontends/win32/progress_page.py:66
+#, python-format
+msgid "Remaining time approximately %s"
+msgid_plural "Remaining time approximately %s"
+msgstr[0] "باقی وقت تقریبا %s"
+msgstr[1] "باقی وقت تقریبا %s"
+
+#: src/wubi/frontends/win32/frontend.py:51
+msgid "Are you sure you want to quit?"
+msgstr "کيا آپ واقعي چھوڑ نا چاہ رہیے ہیں؟"
+
+#: src/wubi/frontends/win32/accessibility_page.py:34
+msgid "Accessibility profile"
+msgstr "رسائی پروفائل"
+
+#: src/wubi/frontends/win32/accessibility_page.py:35
+msgid "Please select the appropriate accessibility profile"
+msgstr "مناسب رسائی پروفائل کا انتخاب کریں"
+
+#: src/wubi/frontends/win32/accessibility_page.py:39
+msgid "Next >>"
+msgstr "اگلا >>"
+
+#: src/wubi/frontends/win32/accessibility_page.py:50
+msgid "Visibility Aids"
+msgstr "دیکھائی کی مدد"
+
+#: src/wubi/frontends/win32/accessibility_page.py:51
+msgid "Visibility1"
+msgstr "دکھائی1"
+
+#: src/wubi/frontends/win32/accessibility_page.py:52
+msgid "Visibility2"
+msgstr "دکھائی2"
+
+#: src/wubi/frontends/win32/accessibility_page.py:53
+msgid "Visibility3"
+msgstr "دیکھائی3"
+
+#: src/wubi/frontends/win32/accessibility_page.py:54
+msgid "Braille"
+msgstr "بریل"
+
+#: src/wubi/frontends/win32/accessibility_page.py:57
+msgid "Mobility Aids"
+msgstr "موبلٹی ایڈز"
+
+#: src/wubi/frontends/win32/accessibility_page.py:58
+msgid "Mobility1"
+msgstr "موبلٹی1"
+
+#: src/wubi/frontends/win32/accessibility_page.py:59
+msgid "Mobility2"
+msgstr "موبلٹی2"
+
+#: src/wubi/frontends/win32/accessibility_page.py:62
+msgid "None"
+msgstr "کچھ نہیں"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:35
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/uninstallation_finish_page.py:35
+msgid "Finish"
+msgstr "ختم"
+
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
 msgid "Completing the %s Setup Wizard"
@@ -260,6 +482,11 @@ msgstr "سیٹ اپ وزرڈ مکمل %s"
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
 msgstr "آپ کو تنصیب مکمل کرنے کے لیے کمپیوٹر دوبارہ چلانے کی ضرورت ہے"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:44
+#: src/wubi/frontends/win32/cd_finish_page.py:47
+msgid "Reboot now"
+msgstr "اب پھر بوٹ کریں"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
@@ -316,81 +543,31 @@ msgstr ""
 "براؤزر، پروڈکٹیو سوفٹ ویئر، فوری پیغام رسانی کے ساتھ ساتھ اور بہت کچھ مہیا "
 "کرتا ہے۔"
 
-#: src/wubi/frontends/win32/cdboot_page.py:32
-#, python-format
-msgid "%s CD Boot Helper"
-msgstr "%s سی ڈی بوٹ مددگار"
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr "< واپس"
 
-#: src/wubi/frontends/win32/cdboot_page.py:43
-msgid "Not enough disk space to proceed"
-msgstr "کاروائی آگے بڑھانے کے لیے ڈسک کی جگہ ناکافی ہے"
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr "ری بوٹ کی ضرورت"
 
-#: src/wubi/frontends/win32/cdboot_page.py:54
-msgid "Install CD boot helper"
-msgstr "سی ڈی بوٹ مدد گار کی تنصیب"
-
-#: src/wubi/frontends/win32/cdboot_page.py:56
+#: src/wubi/frontends/win32/cd_finish_page.py:45
 msgid ""
-"If your machine cannot boot off the CD, this program will install a new boot "
-"menu entry to help you boot from CD. In most cases this program is not "
-"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
-"\n"
-"Do you want to proceed and install the CD booter?"
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
 msgstr ""
-"اگر آپ کی مشین سی ڈی سے بوٹ نہیں کر سکتی تو یہ پروگرام ایک نئی بوٹ انٹری نصب "
-"کر دے گا جو سی ڈی سے بوٹ کرنے میں مدد دے گی۔ اکثر صورتوں میں اس پروگرام کی "
-"ضرورت نہیں ہوتی، اور صرف یہی کافی ہوتا ہے کہ  سی ڈی روم کو ٹرے میں رکھ کر "
-"دوبارہ چلایا جائے۔\n"
-"\n"
-"کیا آپ آگے بڑھنا چاہتے ہیں اور سی ڈی بوٹر کو نصب کیا جائے؟"
+"لائیو سی ڈی کو چلانے کے لیے ضروری ہے کہ آپ سی ڈی کو ٹرے میں چھوڑ کر مشین "
+"دوبارہ بوٹ کریں۔ اگر آپ کی مشین سی ڈی سے بوت نہیں کر سکتی، تو آخری آپشن کو "
+"زیادہ تر واقعات میں چلنا چاہیے۔"
 
-#: src/wubi/frontends/win32/accessibility_page.py:34
-msgid "Accessibility profile"
-msgstr "رسائی پروفائل"
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
+msgstr "میں‌ چاہتا ہوں کہ خود بعد میں ری بوٹ کروں"
 
-#: src/wubi/frontends/win32/accessibility_page.py:35
-msgid "Please select the appropriate accessibility profile"
-msgstr "مناسب رسائی پروفائل کا انتخاب کریں"
-
-#: src/wubi/frontends/win32/accessibility_page.py:39
-msgid "Next >>"
-msgstr "اگلا >>"
-
-#: src/wubi/frontends/win32/accessibility_page.py:50
-msgid "Visibility Aids"
-msgstr "دیکھائی کی مدد"
-
-#: src/wubi/frontends/win32/accessibility_page.py:51
-msgid "Visibility1"
-msgstr "دکھائی1"
-
-#: src/wubi/frontends/win32/accessibility_page.py:52
-msgid "Visibility2"
-msgstr "دکھائی2"
-
-#: src/wubi/frontends/win32/accessibility_page.py:53
-msgid "Visibility3"
-msgstr "دیکھائی3"
-
-#: src/wubi/frontends/win32/accessibility_page.py:54
-msgid "Braille"
-msgstr "بریل"
-
-#: src/wubi/frontends/win32/accessibility_page.py:57
-msgid "Mobility Aids"
-msgstr "موبلٹی ایڈز"
-
-#: src/wubi/frontends/win32/accessibility_page.py:58
-msgid "Mobility1"
-msgstr "موبلٹی1"
-
-#: src/wubi/frontends/win32/accessibility_page.py:59
-msgid "Mobility2"
-msgstr "موبلٹی2"
-
-#: src/wubi/frontends/win32/accessibility_page.py:62
-msgid "None"
-msgstr "کچھ نہیں"
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr "سی ڈی سے بوٹ کرنے میں میری مدد کریں"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
@@ -401,212 +578,35 @@ msgstr "غیر تنصیب مکمل"
 msgid "%s has been successfully uninstalled"
 msgstr "%s کی کامیابی سے غیر تنصیب  ہو چکی"
 
-#: src/wubi/backends/win32/backend.py:150
+#: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
+msgid "%s Uninstaller"
+msgstr "%s تنصیبی"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:36
+msgid "Uninstallation required"
+msgstr "غیر تنصیب کی ضرورت"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:38
+#, python-format
+msgid "You are about to uninstall %s"
+msgstr "آپ %s کو ان انسٹال کرنے جا رہے ہیں"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+msgid "Uninstall"
+msgstr "غیر تنصیب"
+
+#: src/wubi/frontends/win32/uninstallation_page.py:52
 msgid ""
-"The installation failed. Logs have been saved in: %s.\n"
-"\n"
-"Note that in verbose mode, the logs may include the password.\n"
-"\n"
-"The system will now reboot."
+"A previous installation was detected, it needs to be uninstalled before "
+"continuing"
 msgstr ""
-"انسٹالیشن فیل ہو گئی۔ لاگ %s مقام پر محفوظ کر دی گئی\n"
-"\n"
-"توجہ فرمائی، لکھائی موڈ میں لاگز کے اندر پاسورڈ ہو سکتا ہے\n"
-"\n"
-"اب سسٹم ری بوٹ کرئے گا۔"
+"ایک گزشتہ تنصیب کا پتہ چلا، آگے بڑھنے سے پہلے غیر تنصیب کرنے کی ضرورت ہے"
 
-#: src/wubi/backends/common/tasklist.py:256
-#: src/wubi/backends/common/tasklist.py:260
-msgid "0s"
-msgstr "0 سکینڈ"
+#: src/wubi/frontends/win32/uninstallation_page.py:54
+msgid "Are you sure you want to uninstall?"
+msgstr "کیا آپ واقعی ان انسٹال کرنا چاہتے ہیں؟"
 
-#: src/wubi/backends/common/tasklist.py:269
-#, python-format
-msgid "%ih"
-msgstr "%i گھنٹے"
-
-#: src/wubi/backends/common/tasklist.py:271
-#, python-format
-msgid "%imin"
-msgstr "%i‌ منٹ"
-
-#: src/wubi/backends/common/tasklist.py:274
-#, python-format
-msgid "%is"
-msgstr "%i‌ سکینڈ"
-
-#: src/wubi/backends/common/downloader.py:65
-#: src/wubi/backends/common/btdownloader.py:36
-#, python-format
-msgid "Downloading %s"
-msgstr "ڈاؤن لوڈنگ  %s"
-
-#: src/wubi/backends/common/backend.py:76
-#: src/wubi/backends/common/backend.py:97
-msgid "Selecting the target directory"
-msgstr "ٹارگٹ ڈائریکٹری منتخب کریں"
-
-#: src/wubi/backends/common/backend.py:77
-#: src/wubi/backends/common/backend.py:98
-msgid "Creating the installation directories"
-msgstr "انسٹالیشن ڈائریکٹریز بناتے ہوئے"
-
-#: src/wubi/backends/common/backend.py:78
-#: src/wubi/backends/common/backend.py:88
-#: src/wubi/backends/common/backend.py:99
-#: src/wubi/backends/common/backend.py:107
-msgid "Uncompressing files"
-msgstr "فائلوں‌ کو کشید (ایکسٹریکٹ) کرتے ہوئے"
-
-#: src/wubi/backends/common/backend.py:79
-#: src/wubi/backends/common/backend.py:100
-msgid "Creating the uninstaller"
-msgstr "ان انسٹالر بناتے ہوئے"
-
-#: src/wubi/backends/common/backend.py:80
-#: src/wubi/backends/common/backend.py:101
-#: src/wubi/backends/common/backend.py:424
-#: src/wubi/backends/common/backend.py:430
-msgid "Copying installation files"
-msgstr "انسٹالیشن فائلیں‌ کاپی کرتے ہوئے"
-
-#: src/wubi/backends/common/backend.py:81
-msgid "Retrieving installation files"
-msgstr "انسٹالیشن فائلیں‌ حاصل کرتے ہوئے"
-
-#: src/wubi/backends/common/backend.py:82
-#: src/wubi/backends/common/backend.py:103
-msgid "Extracting the kernel"
-msgstr "کرنل کو کشید کرتے ہوئے"
-
-#: src/wubi/backends/common/backend.py:83
-msgid "Choosing disk sizes"
-msgstr "ڈسک کا حجم منتخب کرتے ہوئے"
-
-#: src/wubi/backends/common/backend.py:84
-#: src/wubi/backends/common/backend.py:104
-msgid "Creating a preseed file"
-msgstr "پریسیڈ فائلیں‌ بناتے ہوئے"
-
-#: src/wubi/backends/common/backend.py:85
-#: src/wubi/backends/common/backend.py:105
-msgid "Adding a new bootloader entry"
-msgstr "ایک نئی بوٹلوڈر انٹری شامل کرتے ہوئے"
-
-#: src/wubi/backends/common/backend.py:86
-#: src/wubi/backends/common/backend.py:106
-msgid "Setting up installation boot menu"
-msgstr "انسٹالیشن بوٹ مینیو کو ترتیب دیتے ہوئے"
-
-#: src/wubi/backends/common/backend.py:87
-msgid "Creating the virtual disks"
-msgstr "مجازی ڈسک کی تشکیل دیتے ہوئے"
-
-#: src/wubi/backends/common/backend.py:89
-#: src/wubi/backends/common/backend.py:108
-msgid "Ejecting the CD"
-msgstr "سی ڈی کا اخراج کریں"
-
-#: src/wubi/backends/common/backend.py:102
-msgid "Extracting CD content"
-msgstr "سی ڈی کے مواد کو کشید کرتے ہوئے"
-
-#: src/wubi/backends/common/backend.py:110
-msgid "Installing CD boot helper"
-msgstr "سی ڈی بوٹ مددگار کی تنصیب"
-
-#: src/wubi/backends/common/backend.py:115
-#: src/wubi/backends/common/backend.py:117
-msgid "Rebooting"
-msgstr "دوبارہ چلاتے ہوئے"
-
-#: src/wubi/backends/common/backend.py:122
-msgid "Backup ISO"
-msgstr "آئی ایس او کی بیک اپ بنانا"
-
-#: src/wubi/backends/common/backend.py:123
-msgid "Remove bootloader entry"
-msgstr "بوٹ لوڈر انٹری کو ختم کیا جائے"
-
-#: src/wubi/backends/common/backend.py:124
-msgid "Remove target dir"
-msgstr "ٹارگٹ ڈائریکٹری کو ختم کیا جائے"
-
-#: src/wubi/backends/common/backend.py:125
-msgid "Remove registry key"
-msgstr "رجسٹری کوڈ کو ختم کریں"
-
-#: src/wubi/backends/common/backend.py:126
-#, python-format
-msgid "Uninstalling %s"
-msgstr "ناتنصیب %s"
-
-#: src/wubi/backends/common/backend.py:257
-#, python-format
-msgid "Checking CD %s"
-msgstr "سی ڈی کی جانچ %s"
-
-#: src/wubi/backends/common/backend.py:283
-#: src/wubi/backends/common/backend.py:327
-#: src/wubi/backends/common/backend.py:363
-msgid "Downloading information on installation files"
-msgstr "تنصیب فائلوں‌ کی معلومات ڈاؤن لوڈ کی جا رہی ہے"
-
-#: src/wubi/backends/common/backend.py:298
-#: src/wubi/backends/common/backend.py:355
-#: src/wubi/backends/common/backend.py:418
-#: src/wubi/backends/common/backend.py:468
-msgid "Checking installation files"
-msgstr "تنصیب فائلوں کی جانچ پڑتال"
-
-#: src/wubi/backends/common/backend.py:389
-#, python-format
-msgid "Validating %s"
-msgstr "جانچنا %s"
-
-#: src/wubi/backends/common/backend.py:455
-#, python-format
-msgid "Extracting files from %s"
-msgstr "%s سے فائلیں کشید کرنا"
-
-#: src/wubi/backends/common/backend.py:531
-#, python-format
-msgid "Checking %s"
-msgstr "%s کی جانچ پڑتال"
-
-#: src/wubi/application.py:64
-#, python-format
-msgid ""
-"An error occurred:\n"
-"\n"
-"%(error)s\n"
-"\n"
-"For more information, please see the log file: %(log)s"
-msgstr ""
-"ایک غلطی ہو گئی:\n"
-"\n"
-"%(error)s\n"
-"\n"
-"مزید معلومات کے لئے ، براہ مہربانی لاگ فائل دیکھیں:‌ %(log)s"
-
-#: src/wubi/application.py:147 src/wubi/application.py:208
-#, python-format
-msgid ""
-"A previous installation was detected in %s.\n"
-"Please uninstall that before continuing."
-msgstr ""
-"%s پر ایک گزشتہ تنصیب کے بارے میں پتہ چلا۔\n"
-"برائے مہربانی آگے بڑھنے سے پہلے اسے غیر تنصیب کریں۔"
-
-#: src/wubi/application.py:190
-msgid "No CD detected, cannot run CD menu"
-msgstr "سی ڈی کا پتہ نہیں چلایا جا سکا، سی ڈی مینو نہیں چل سکتا"
-
-#: src/wubi/application.py:198
-msgid ""
-"Could not find any valid CD.\n"
-"CD boot helper can only be used with a Live CD."
-msgstr ""
-"کوئی بھی موزوں سی ڈی نہیں مل سکی۔\n"
-"سی ڈی بوٹ مدد گار صرف لائیو سی ڈی کے ساتھ استعمال ہو سکتا ہے۔"
+#: src/wubi/frontends/win32/uninstallation_page.py:62
+msgid "Backup the downloaded files (ISO)"
+msgstr "ڈاؤن لوڈ فائلوں (آئی ایس او) کا بیک اپ بنایا جائے"

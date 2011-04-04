@@ -15,6 +15,11 @@ wubi (11.04) UNRELEASED; urgency=low
   * Remove Kubuntu Netbook option, no longer a separate CD
   * Update Kubuntu artwork
 
+  [ Evan Dandrea ]
+  * Update translations from Launchpad.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed, 30 Jun 2010 11:44:43 +0100
+
 wubi (10.10) UNRELEASED; urgency=low
 
   [ Colin Watson ]
