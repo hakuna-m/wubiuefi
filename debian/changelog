@@ -8,8 +8,8 @@ wubi (11.04) UNRELEASED; urgency=low
   * Update translations from Launchpad.
   * Switch to new keyboard-configuration/* names for console-setup
     preseeding.
-  * Add the true module to the wubildr image, to support our default
-    configuration file.
+  * Add the true, vbe, vga, video_bochs, and video_cirrus modules to the
+    wubildr image, to support our default configuration file.
 
   [ Jonathan Riddell ]
   * Remove Kubuntu Netbook option, no longer a separate CD
