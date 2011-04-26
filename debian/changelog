@@ -17,6 +17,7 @@ wubi (11.04) UNRELEASED; urgency=low
 
   [ Evan Dandrea ]
   * Update translations from Launchpad.
+  * Remove Wubi from the Windows Startup folder, if found.
 
  -- Colin Watson <cjwatson@ubuntu.com>  Wed, 30 Jun 2010 11:44:43 +0100
 

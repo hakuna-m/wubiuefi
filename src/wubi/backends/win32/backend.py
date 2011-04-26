@@ -159,6 +159,15 @@ class WindowsBackend(Backend):
         log.debug('Copying %s -> %s' % (src, dest))
         shutil.copyfile(src, dest)
 
+    def get_startup_folder(self):
+        startup_folder = registry.get_value(
+                'HKEY_LOCAL_MACHINE',
+                'SOFTWARE\\Microsoft\\Windows\\CurrentVersion'
+                '\\Explorer\\Shell Folders',
+                'Common Startup')
+        log.debug('startup_folder=%s' % startup_folder)
+        return startup_folder
+
     def get_windows_version2(self):
         windows_version2 = registry.get_value(
                 'HKEY_LOCAL_MACHINE',
