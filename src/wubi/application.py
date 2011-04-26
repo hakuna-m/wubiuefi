@@ -52,12 +52,7 @@ class Wubi(object):
             log.debug("Logfile is %s" % self.info.log_file)
             log.debug("sys.argv = %s" % sys.argv)
             self.backend = self.get_backend()
-            binary = os.path.join(self.backend.get_startup_folder(), 'wubi.exe')
-            if os.path.exists(binary):
-                try:
-                    os.remove(binary)
-                except OSError:
-                    log.error("Couldn't remove Wubi from startup.")
+            self.backend.remove_existing_binary()
             self.backend.fetch_basic_info()
             self.select_task()
         except Exception, err:

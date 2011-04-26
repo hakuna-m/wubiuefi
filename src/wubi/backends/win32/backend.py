@@ -159,6 +159,19 @@ class WindowsBackend(Backend):
         log.debug('Copying %s -> %s' % (src, dest))
         shutil.copyfile(src, dest)
 
+    def remove_existing_binary(self):
+        binary = os.path.join(self.get_startup_folder(), 'wubi.exe')
+        if os.path.exists(binary):
+            try:
+                os.remove(binary)
+            except OSError:
+                try:
+                    MOVEFILE_DELAY_UNTIL_REBOOT = 4
+                    ctypes.windll.kernel32.MoveFileExW(binary, None,
+                            MOVEFILE_DELAY_UNTIL_REBOOT)
+                except OSError:
+                    log.exception("Couldn't remove Wubi from startup:")
+
     def get_startup_folder(self):
         startup_folder = registry.get_value(
                 'HKEY_LOCAL_MACHINE',
