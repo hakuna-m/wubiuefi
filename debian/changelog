@@ -20,6 +20,7 @@ wubi (11.04) UNRELEASED; urgency=low
   * Remove Wubi from the Windows Startup folder, if found.
   * Catch IO errors around trying to remove Wubi from the startup folder
     (LP: #771517).
+  * Only ever schedule the wubi binary for removal later (LP: #771517).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Wed, 30 Jun 2010 11:44:43 +0100
 
