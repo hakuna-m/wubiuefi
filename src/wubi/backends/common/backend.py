@@ -603,10 +603,7 @@ class Backend(object):
             #~ isopath = unix_path(self.info.cd_path)
         elif self.info.iso_path:
             isopath = unix_path(self.info.iso_path)
-        if self.info.target_drive.is_fat():
-            rootflags = "rootflags=sync"
-        else:
-            rootflags = "rootflags=syncio"
+        rootflags = "rootflags=sync"
         dic = dict(
             custom_installation_dir = unix_path(self.info.custominstall),
             iso_path = isopath,

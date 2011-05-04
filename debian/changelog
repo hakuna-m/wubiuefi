@@ -4,6 +4,8 @@ wubi (11.10) UNRELEASED; urgency=low
   * Bump to 11.10.
   * Remove Ubuntu Netbook option, which is no longer a separate CD
     (LP: #772941).
+  * Switch to rootflags=sync for all filesystems.  ntfs-3g in oneiric now
+    has syncio only as a compatibility synonym for sync.
 
  -- Colin Watson <cjwatson@ubuntu.com>  Tue, 03 May 2011 21:57:25 +0100
 
