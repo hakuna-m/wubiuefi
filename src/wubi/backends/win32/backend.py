@@ -649,6 +649,7 @@ class WindowsBackend(Backend):
         run_command([bcdedit, '/set', id, 'path', mbr_path])
         run_command([bcdedit, '/displayorder', id, '/addlast'])
         run_command([bcdedit, '/timeout', '10'])
+        run_command([bcdedit, '/bootsequence', id])
         registry.set_value(
             'HKEY_LOCAL_MACHINE',
             self.info.registry_key,
