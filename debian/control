@@ -2,7 +2,7 @@ Source: wubi
 Section: universe/devel
 Priority: optional
 Maintainer: Agostino Russo <agostino.russo@gmail.com>
-Build-Depends: debhelper, python-central, lsb-release, gcc-multilib [amd64]
+Build-Depends: debhelper, python-central, lsb-release, gcc-multilib [amd64], grub-pc-bin
 Standards-Version: 3.7.2
 XS-Python-Version: current
 
