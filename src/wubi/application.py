@@ -252,7 +252,7 @@ class Wubi(object):
         parser.add_option("--test", action="store_true", dest="test", help="Test mode")
         parser.add_option("--debug", action="store_true", dest="debug", help="Debug mode")
         parser.add_option("--drive", dest="target_drive", help="Target drive")
-        parser.add_option("--size", dest="installation_size_mb", help="Installation size in MB")
+        parser.add_option("--size", type="int", dest="installation_size_mb", help="Installation size in MB")
         parser.add_option("--locale", dest="locale", help="Linux locale")
         parser.add_option("--force-wubi", action="store_true", dest="force_wubi", help="Show Wubi option in CD menu even when using a DVD")
         parser.add_option("--language", dest="language", help="Language")
