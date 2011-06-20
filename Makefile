@@ -76,6 +76,7 @@ winboot2:
 	cp -f data/wubildr.cfg data/wubildr-bootstrap.cfg build/winboot/
 	grub-ntldr-img --grub2 --boot-file=wubildr -o build/winboot/wubildr.mbr
 	cd build/winboot && tar cf wubildr.tar wubildr.cfg
+	mkdir -p build/grubutil
 	grub-mkimage -O i386-pc -c build/winboot/wubildr-bootstrap.cfg -m build/winboot/wubildr.tar -o build/grubutil/core.img \
 		loadenv biosdisk part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback search linux boot minicmd cat cpuid chain halt help ls reboot \
 		echo test configfile normal sleep memdisk tar font gfxterm gettext true vbe vga video_bochs video_cirrus
