@@ -8,6 +8,8 @@ wubi (11.10) UNRELEASED; urgency=low
     has syncio only as a compatibility synonym for sync.
   * Use grub-ntldr-img rather than our own copy of grubinst.
   * Declare --size as taking an int argument (LP: #799780).
+  * Add the gzio module to the wubildr image, since normal.mod loads it
+    unconditionally nowadays.
 
   [ Evan Dandrea ]
   * In Vista and newer versions of Windows, boot straight into the

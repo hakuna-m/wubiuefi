@@ -79,7 +79,7 @@ winboot2:
 	mkdir -p build/grubutil
 	grub-mkimage -O i386-pc -c build/winboot/wubildr-bootstrap.cfg -m build/winboot/wubildr.tar -o build/grubutil/core.img \
 		loadenv biosdisk part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback search linux boot minicmd cat cpuid chain halt help ls reboot \
-		echo test configfile normal sleep memdisk tar font gfxterm gettext true vbe vga video_bochs video_cirrus
+		echo test configfile gzio normal sleep memdisk tar font gfxterm gettext true vbe vga video_bochs video_cirrus
 	cat /usr/lib/grub/i386-pc/lnxboot.img build/grubutil/core.img > build/winboot/wubildr
 
 winboot: grub4dos grubutil
