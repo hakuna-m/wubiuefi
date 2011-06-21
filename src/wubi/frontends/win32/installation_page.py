@@ -86,6 +86,7 @@ class InstallationPage(Page):
         self.check_disk_free_space()
         min_space_mb = self.info.distro.min_disk_space_mb + self.info.distro.max_iso_size/(1024**2)+ 100
         self.drives_gb = []
+        self.target_drive_list.clear()
         for drive in self.info.drives:
             if drive.type not in ['removable', 'hd']:
                 continue
@@ -119,6 +120,7 @@ class InstallationPage(Page):
         min_space_mb = self.info.distro.min_disk_space_mb
         #this will be 1-2GB less than the disk free space, to have space for the ISO
         self.size_list_gb = []
+        self.size_list.clear()
         for i in range(1, 31):
             #~ log.debug("%s < %s and %s > %s" % (i * 1000 + self.info.distro.max_iso_size/1024**2 + 100 , target_drive.free_space_mb, i * 1000 , self.info.distro.min_disk_space_mb))
             if self.info.skip_size_check \
