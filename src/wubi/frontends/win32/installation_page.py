@@ -212,8 +212,11 @@ class InstallationPage(Page):
         self.populate_language_list()
         self.language_list.on_change = self.on_language_change
 
-        username = self.info.host_username.strip().lower()
-        username = re.sub('[^-a-z0-9_]', '', username)
+        if self.info.username:
+            username = self.info.username
+        else:
+            username = self.info.host_username
+        username = re.sub('[^-a-z0-9_]', '', username.strip().lower())
         picture, label, combo = self.add_controls_block(
             self.main, h*4 + w, h*4,
             "user.bmp", _("Username:"), None)
@@ -221,12 +224,15 @@ class InstallationPage(Page):
             self.main,
             h*4 + w + 42, h*4+20, 150, 20,
             username, False)
+
         picture, label, combo = self.add_controls_block(
             self.main, h*4 + w, h*7,
             "lock.bmp", _("Password:"), None)
         label.move(h*4 + w + 42, h*7 - 24)
         password = ""
-        if self.info.test:
+        if self.info.password:
+            password = self.info.password
+        elif self.info.test:
             password = "test"
         self.password1 = ui.PasswordEdit(
             self.main,
