@@ -10,6 +10,8 @@ wubi (11.10) UNRELEASED; urgency=low
   * Declare --size as taking an int argument (LP: #799780).
   * Add the gzio module to the wubildr image, since normal.mod loads it
     unconditionally nowadays.
+  * Remove grub-installer/bootdev_directory preseeding, only relevant for
+    GRUB Legacy.
 
   [ Evan Dandrea ]
   * In Vista and newer versions of Windows, boot straight into the

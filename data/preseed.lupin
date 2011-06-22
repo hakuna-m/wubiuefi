@@ -53,7 +53,6 @@ d-i user-setup/encrypt-home boolean false
 
 ## BOOT LOADER
 d-i lilo-installer/skip boolean true
-d-i grub-installer/bootdev_directory string /ubuntu/disks
 d-i grub-installer/only_debian boolean true
 d-i grub-installer/with_other_os boolean true
 
