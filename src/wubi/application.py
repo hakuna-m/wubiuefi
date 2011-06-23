@@ -156,7 +156,8 @@ class Wubi(object):
         log.info("Received settings")
         self.frontend.run_tasks(self.backend.get_installation_tasklist())
         log.info("Almost finished installing")
-        self.frontend.show_installation_finish_page()
+        if not self.info.non_interactive:
+            self.frontend.show_installation_finish_page()
         log.info("Finished installation")
         if self.info.run_task == "reboot":
             self.reboot()
@@ -173,11 +174,14 @@ class Wubi(object):
         if self.backend.run_previous_uninstaller():
             return
         self.frontend = self.get_frontend()
-        self.frontend.show_uninstallation_settings()
+        if self.info.non_interactive:
+            self.info.backup_iso = False
+        else:
+            self.frontend.show_uninstallation_settings()
         log.info("Received settings")
         self.frontend.run_tasks(self.backend.get_uninstallation_tasklist())
         log.info("Almost finished uninstalling")
-        if not self.info.uninstall_before_install:
+        if not self.info.uninstall_before_install and not self.info.non_interactive:
             self.frontend.show_uninstallation_finish_page()
         log.info("Finished uninstallation")
 

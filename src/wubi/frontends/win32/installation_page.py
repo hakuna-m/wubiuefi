@@ -250,6 +250,9 @@ class InstallationPage(Page):
             "")
         self.error_label.set_text_color(255, 0, 0)
 
+        if self.info.non_interactive:
+            self.on_install()
+
     def get_drive(self):
         target_drive = self.target_drive_list.get_text()[:2].lower()
         drive = self.info.drives_dict.get(target_drive)
@@ -318,7 +321,7 @@ class InstallationPage(Page):
         password2 = self.password2.get_text()
         error_message = ""
         if not username:
-            error_message = _("Please enter a valid username")
+            error_message = _("Please enter a valid username.")
         elif username != username.lower():
             error_message = _("Please use all lower cases in the username.")
         elif " " in username:
@@ -337,6 +340,9 @@ class InstallationPage(Page):
             error_message = _("Passwords do not match.")
         self.error_label.set_text(error_message)
         if error_message:
+            if self.info.non_interactive:
+                log.error("ERROR: %s Exiting." % error_message)
+                self.frontend.quit()
             return
         log.debug(
             "target_drive=%s, installation_size=%sMB, distro_name=%s, language=%s, locale=%s, username=%s" \
