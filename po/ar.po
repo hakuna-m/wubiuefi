@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2011-04-04 11:04+0100\n"
+"POT-Creation-Date: 2011-06-24 10:56+0100\n"
 "PO-Revision-Date: 2011-01-27 20:56+0000\n"
 "Last-Translator: Ahmed Shams <Unknown>\n"
 "Language-Team: Arabic <ar@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Launchpad-Export-Date: 2011-04-04 10:01+0000\n"
 "X-Generator: Launchpad (build 12710)\n"
 
-#: src/wubi/application.py:64
+#: src/wubi/application.py:65
 #, python-format
 msgid ""
 "An error occurred:\n"
@@ -35,7 +35,7 @@ msgstr ""
 "\n"
 "من فضلك طالع على ملف السجل لمزيد من المعلومات: %(log)s"
 
-#: src/wubi/application.py:147 src/wubi/application.py:208
+#: src/wubi/application.py:148 src/wubi/application.py:213
 #, python-format
 msgid ""
 "A previous installation was detected in %s.\n"
@@ -44,37 +44,17 @@ msgstr ""
 "وُجِد تثبيت سابق في %s.\n"
 "من فضلك أزِل ذلك التثبيت قبل المتابعة."
 
-#: src/wubi/application.py:190
+#: src/wubi/application.py:195
 msgid "No CD detected, cannot run CD menu"
 msgstr "لم يُكشف عن أي اسطوانات، لذلك لا يمكن تشغيل قائمة الاسطوانة."
 
-#: src/wubi/application.py:198
+#: src/wubi/application.py:203
 msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
 "لم يُعثر على أي اسطوانة صالحة.\n"
 "يمكن استخدام مساعد إقلاع الاسطوانات فقط مع اسطوانة حية."
-
-#: src/wubi/backends/common/tasklist.py:256
-#: src/wubi/backends/common/tasklist.py:260
-msgid "0s"
-msgstr "0ث"
-
-#: src/wubi/backends/common/tasklist.py:269
-#, python-format
-msgid "%ih"
-msgstr "%iه"
-
-#: src/wubi/backends/common/tasklist.py:271
-#, python-format
-msgid "%imin"
-msgstr "%iدقيقة"
-
-#: src/wubi/backends/common/tasklist.py:274
-#, python-format
-msgid "%is"
-msgstr "%iث"
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:97
@@ -215,11 +195,31 @@ msgstr "يستخرج ملفات من %s"
 msgid "Checking %s"
 msgstr "يفحص %s"
 
-#: src/wubi/backends/common/downloader.py:65
 #: src/wubi/backends/common/btdownloader.py:36
+#: src/wubi/backends/common/downloader.py:65
 #, python-format
 msgid "Downloading %s"
 msgstr "يُنزل %s"
+
+#: src/wubi/backends/common/tasklist.py:256
+#: src/wubi/backends/common/tasklist.py:260
+msgid "0s"
+msgstr "0ث"
+
+#: src/wubi/backends/common/tasklist.py:269
+#, python-format
+msgid "%ih"
+msgstr "%iه"
+
+#: src/wubi/backends/common/tasklist.py:271
+#, python-format
+msgid "%imin"
+msgstr "%iدقيقة"
+
+#: src/wubi/backends/common/tasklist.py:274
+#, python-format
+msgid "%is"
+msgstr "%iث"
 
 #: src/wubi/backends/win32/backend.py:150
 #, python-format
@@ -236,191 +236,6 @@ msgstr ""
 "\n"
 "سيعاد تشغيل النظام الآن."
 
-#: src/wubi/frontends/win32/cdboot_page.py:32
-#, python-format
-msgid "%s CD Boot Helper"
-msgstr "مساعد إقلاع الاسطوانة %s"
-
-#: src/wubi/frontends/win32/cdboot_page.py:43
-msgid "Not enough disk space to proceed"
-msgstr "لا توجد مساحة كافية على القرص للمواصلة"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-msgid "Accessibility"
-msgstr "الإتاحة"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-msgid "Install"
-msgstr "ثبت"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/progress_page.py:44
-#: src/wubi/frontends/win32/accessibility_page.py:39
-#: src/wubi/frontends/win32/cd_menu_page.py:38
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-msgid "Cancel"
-msgstr "ألغِ"
-
-#: src/wubi/frontends/win32/cdboot_page.py:54
-msgid "Install CD boot helper"
-msgstr "ثبت مساعد إقلاع الاسطوانات"
-
-#: src/wubi/frontends/win32/cdboot_page.py:56
-msgid ""
-"If your machine cannot boot off the CD, this program will install a new boot "
-"menu entry to help you boot from CD. In most cases this program is not "
-"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
-"\n"
-"Do you want to proceed and install the CD booter?"
-msgstr ""
-"إذا كان حاسوبك غير قادر على الإقلاع من القرص المدمج، فإن هذا البرنامج سوف "
-"يثبت مدخلة جديدة في قائمة الإقلاع لمساعدتك على الإقلاع من القرص المدمج. في "
-"معظم الحالات، لن تحتاج لهذا البرنامج، وسيكون كافيًا أن تعيد التشغيل مع وجود "
-"القرص المدمج داخل قارئ الأقراص.\n"
-"\n"
-"هل تود المواصلة وتثبيت مُقْلِع القرص المدمج؟"
-
-#: src/wubi/frontends/win32/installation_page.py:73
-#, python-format
-msgid ""
-"Only %sMB of disk space are available.\n"
-"At least 1024MB are required as a bare minimum. Quitting"
-msgstr ""
-"%sم.بايت متاحة من مساحة القرص فقط.\n"
-"مطلوب 1024م.بايت كحد أدنى. سأغلق"
-
-#: src/wubi/frontends/win32/installation_page.py:77
-#, python-format
-msgid ""
-"%(min_space)sMB of disk size are required for installation.\n"
-"Only %(max_space)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"مطلوب %(min_space)sم.بايت من حجم القرص لعملية التثبيت.\n"
-"%(max_space)sم.بايت متوفرة فقط.\n"
-"في مثل هذه الحالة قد تفشل عملية التثبيت.\n"
-"هل ترغب في المتابعة بالرغم من ذلك؟"
-
-#: src/wubi/frontends/win32/installation_page.py:96
-#, python-format
-msgid "(%sGB free)"
-msgstr "(%sج.بايت مساحة خالية)"
-
-#: src/wubi/frontends/win32/installation_page.py:177
-msgid "Please select username and password for the new account"
-msgstr "يرجى اختيار اسم مستخدم و كلمة سر للحساب الجديد"
-
-#: src/wubi/frontends/win32/installation_page.py:193
-msgid "Installation drive:"
-msgstr "سواقة التثبيت:"
-
-#: src/wubi/frontends/win32/installation_page.py:199
-msgid "Installation size:"
-msgstr "حجم التثبيت:"
-
-#: src/wubi/frontends/win32/installation_page.py:205
-msgid "Desktop environment:"
-msgstr "بيئة سطح المكتب:"
-
-#: src/wubi/frontends/win32/installation_page.py:211
-msgid "Language:"
-msgstr "اللغة:"
-
-#: src/wubi/frontends/win32/installation_page.py:219
-msgid "Username:"
-msgstr "اسم المستخدم:"
-
-#: src/wubi/frontends/win32/installation_page.py:226
-msgid "Password:"
-msgstr "كلمة السر:"
-
-#: src/wubi/frontends/win32/installation_page.py:263
-#, python-format
-msgid "%s Installer"
-msgstr "مثبت %s"
-
-#: src/wubi/frontends/win32/installation_page.py:266
-#, python-format
-msgid "You are about to install %(distro)s-%(version)s"
-msgstr "أنت على وشك تثبيت %(distro)s-%(version)s"
-
-#: src/wubi/frontends/win32/installation_page.py:271
-#, python-format
-msgid ""
-"%(min_memory)sMB of memory are required for installation.\n"
-"Only %(total_memory)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"مطلوب %(min_memory)sم.بايت من الذاكرة لعملية التثبيت.\n"
-"%(total_memory)sم.بايت متوفرة فقط.\n"
-"في مثل هذه الحالة قد تفشل عملية التثبيت.\n"
-"هل ترغب في المتابعة بالرغم من ذلك؟"
-
-#: src/wubi/frontends/win32/installation_page.py:313
-msgid "Please enter a valid username"
-msgstr "أدخل اسم مستخدم صالح من فضلك"
-
-#: src/wubi/frontends/win32/installation_page.py:315
-msgid "Please use all lower cases in the username."
-msgstr "يرجى استخدام الأحرف الصغيرة (الإنجليزية) في اسم المستخدم."
-
-#: src/wubi/frontends/win32/installation_page.py:317
-msgid "Please do not use spaces in the username."
-msgstr "يرجى عدم استخدام المسافات في اسم المستخدم."
-
-#: src/wubi/frontends/win32/installation_page.py:319
-msgid "Your username must start with a lower-case letter."
-msgstr "يجب أن يبدأ إسم المستخدم بحرف صغير."
-
-#: src/wubi/frontends/win32/installation_page.py:321
-msgid ""
-"Your username must contain only lower-case letters, numbers, hyphens, and "
-"underscores."
-msgstr ""
-"يجب أن يحتوي إسم المستخدم على أحرف صغيرة و أرقام و علامات وصل و شرطات سفلية "
-"فقط."
-
-#: src/wubi/frontends/win32/installation_page.py:323
-msgid "The selected username is reserved, please select a different one."
-msgstr "اسم المستخدم الذي اخترته محجوز، من فضلك اختر اسماً آخر."
-
-#: src/wubi/frontends/win32/installation_page.py:325
-msgid "Please enter a valid password."
-msgstr "يرجى إدخال كلمة سر سليمة."
-
-#: src/wubi/frontends/win32/installation_page.py:327
-msgid "Please do not use spaces in the password."
-msgstr "يرجى عدم استخدام المسافات في كلمة السر."
-
-#: src/wubi/frontends/win32/installation_page.py:329
-msgid "Passwords do not match."
-msgstr "كلمتا السر لا تتطابقان."
-
-#: src/wubi/frontends/win32/progress_page.py:40
-msgid "Please wait"
-msgstr "انتظر رجاء"
-
-#: src/wubi/frontends/win32/progress_page.py:53
-msgid "Do not download, use a local file"
-msgstr "لا تنزّل، استخدم ملفاً محلياً."
-
-#: src/wubi/frontends/win32/progress_page.py:66
-#, python-format
-msgid "Remaining time approximately %s"
-msgid_plural "Remaining time approximately %s"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/wubi/frontends/win32/frontend.py:51
-msgid "Are you sure you want to quit?"
-msgstr "أمتأكد أنك تريد الخروج؟"
-
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
 msgstr "لاحة الإتاحة"
@@ -432,6 +247,16 @@ msgstr "اختر لاحة الإتاحة الملائمة من فضلك"
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
 msgstr "التالي >>"
+
+#: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/cd_menu_page.py:38
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+#: src/wubi/frontends/win32/progress_page.py:44
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+msgid "Cancel"
+msgstr "ألغِ"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
@@ -469,29 +294,42 @@ msgstr "الحركة ٢"
 msgid "None"
 msgstr "لا شيء"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr "< للخلف"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 msgid "Finish"
 msgstr "أنهِ"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:41
-#, python-format
-msgid "Completing the %s Setup Wizard"
-msgstr "يكمل مرشد تثبيت %s"
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr "إعادة التشغيل مطلوبة"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:43
-msgid "You need to reboot to complete the installation"
-msgstr "تحتاج إلى إعادة التشغيل لإكمال التثبيت"
+#: src/wubi/frontends/win32/cd_finish_page.py:45
+msgid ""
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
+msgstr ""
+"لبدء الاسطوانة الحية تحتاج إلى إعادة تشغيل الجهاز مع إبقاء الاسطوانة داخل  "
+"قارئ الاسطوانات. و إذا لم يستطع جهازك الإقلاع من الاسطوانة فجرّب الخيار "
+"الأخير حيث أنه يفلح في معظم الحالات."
 
-#: src/wubi/frontends/win32/installation_finish_page.py:44
 #: src/wubi/frontends/win32/cd_finish_page.py:47
+#: src/wubi/frontends/win32/installation_finish_page.py:44
 msgid "Reboot now"
 msgstr "أعد التشغيل الآن"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:45
-msgid "I want to manually reboot later"
-msgstr "أرغب في إعادة التشغيل لاحقا"
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
+msgstr "أرغب في إعادة التشغيل لاحقاً"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr "ساعدني في الإقلاع من الاسطوانة"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
@@ -544,31 +382,194 @@ msgstr ""
 "يعد %(distro)s نظام تشغيل حر مطور من المجتمع ومبني على نظام لينكس ومشتمل على "
 "متصفح وِب كامل و برمجيات إنتاجية و برامج دردشة فورية والكثير."
 
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "< Back"
-msgstr "< للخلف"
+#: src/wubi/frontends/win32/cdboot_page.py:32
+#, python-format
+msgid "%s CD Boot Helper"
+msgstr "مساعد إقلاع الاسطوانة %s"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:43
-msgid "Reboot required"
-msgstr "إعادة التشغيل مطلوبة"
+#: src/wubi/frontends/win32/cdboot_page.py:43
+msgid "Not enough disk space to proceed"
+msgstr "لا توجد مساحة كافية على القرص للمواصلة"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:45
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+msgid "Accessibility"
+msgstr "الإتاحة"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+msgid "Install"
+msgstr "ثبت"
+
+#: src/wubi/frontends/win32/cdboot_page.py:54
+msgid "Install CD boot helper"
+msgstr "ثبت مساعد إقلاع الاسطوانات"
+
+#: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
-"To start the Live CD you need to reboot your machine leaving the CD in the "
-"tray. If your machine cannot boot from the CD, the last option should work "
-"in most cases."
+"If your machine cannot boot off the CD, this program will install a new boot "
+"menu entry to help you boot from CD. In most cases this program is not "
+"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
+"\n"
+"Do you want to proceed and install the CD booter?"
 msgstr ""
-"لبدء الاسطوانة الحية تحتاج إلى إعادة تشغيل الجهاز مع إبقاء الاسطوانة داخل  "
-"قارئ الاسطوانات. و إذا لم يستطع جهازك الإقلاع من الاسطوانة فجرّب الخيار "
-"الأخير حيث أنه يفلح في معظم الحالات."
+"إذا كان حاسوبك غير قادر على الإقلاع من القرص المدمج، فإن هذا البرنامج سوف "
+"يثبت مدخلة جديدة في قائمة الإقلاع لمساعدتك على الإقلاع من القرص المدمج. في "
+"معظم الحالات، لن تحتاج لهذا البرنامج، وسيكون كافيًا أن تعيد التشغيل مع وجود "
+"القرص المدمج داخل قارئ الأقراص.\n"
+"\n"
+"هل تود المواصلة وتثبيت مُقْلِع القرص المدمج؟"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:48
-msgid "I want to manually reboot Later"
-msgstr "أرغب في إعادة التشغيل لاحقاً"
+#: src/wubi/frontends/win32/frontend.py:51
+msgid "Are you sure you want to quit?"
+msgstr "أمتأكد أنك تريد الخروج؟"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:49
-msgid "Help me to boot from CD"
-msgstr "ساعدني في الإقلاع من الاسطوانة"
+#: src/wubi/frontends/win32/installation_finish_page.py:41
+#, python-format
+msgid "Completing the %s Setup Wizard"
+msgstr "يكمل مرشد تثبيت %s"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:43
+msgid "You need to reboot to complete the installation"
+msgstr "تحتاج إلى إعادة التشغيل لإكمال التثبيت"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:45
+msgid "I want to manually reboot later"
+msgstr "أرغب في إعادة التشغيل لاحقا"
+
+#: src/wubi/frontends/win32/installation_page.py:73
+#, python-format
+msgid ""
+"Only %sMB of disk space are available.\n"
+"At least 1024MB are required as a bare minimum. Quitting"
+msgstr ""
+"%sم.بايت متاحة من مساحة القرص فقط.\n"
+"مطلوب 1024م.بايت كحد أدنى. سأغلق"
+
+#: src/wubi/frontends/win32/installation_page.py:77
+#, python-format
+msgid ""
+"%(min_space)sMB of disk size are required for installation.\n"
+"Only %(max_space)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"مطلوب %(min_space)sم.بايت من حجم القرص لعملية التثبيت.\n"
+"%(max_space)sم.بايت متوفرة فقط.\n"
+"في مثل هذه الحالة قد تفشل عملية التثبيت.\n"
+"هل ترغب في المتابعة بالرغم من ذلك؟"
+
+#: src/wubi/frontends/win32/installation_page.py:97
+#, python-format
+msgid "(%sGB free)"
+msgstr "(%sج.بايت مساحة خالية)"
+
+#: src/wubi/frontends/win32/installation_page.py:179
+msgid "Please select username and password for the new account"
+msgstr "يرجى اختيار اسم مستخدم و كلمة سر للحساب الجديد"
+
+#: src/wubi/frontends/win32/installation_page.py:195
+msgid "Installation drive:"
+msgstr "سواقة التثبيت:"
+
+#: src/wubi/frontends/win32/installation_page.py:201
+msgid "Installation size:"
+msgstr "حجم التثبيت:"
+
+#: src/wubi/frontends/win32/installation_page.py:207
+msgid "Desktop environment:"
+msgstr "بيئة سطح المكتب:"
+
+#: src/wubi/frontends/win32/installation_page.py:213
+msgid "Language:"
+msgstr "اللغة:"
+
+#: src/wubi/frontends/win32/installation_page.py:224
+msgid "Username:"
+msgstr "اسم المستخدم:"
+
+#: src/wubi/frontends/win32/installation_page.py:232
+msgid "Password:"
+msgstr "كلمة السر:"
+
+#: src/wubi/frontends/win32/installation_page.py:274
+#, python-format
+msgid "%s Installer"
+msgstr "مثبت %s"
+
+#: src/wubi/frontends/win32/installation_page.py:277
+#, python-format
+msgid "You are about to install %(distro)s-%(version)s"
+msgstr "أنت على وشك تثبيت %(distro)s-%(version)s"
+
+#: src/wubi/frontends/win32/installation_page.py:282
+#, python-format
+msgid ""
+"%(min_memory)sMB of memory are required for installation.\n"
+"Only %(total_memory)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"مطلوب %(min_memory)sم.بايت من الذاكرة لعملية التثبيت.\n"
+"%(total_memory)sم.بايت متوفرة فقط.\n"
+"في مثل هذه الحالة قد تفشل عملية التثبيت.\n"
+"هل ترغب في المتابعة بالرغم من ذلك؟"
+
+#: src/wubi/frontends/win32/installation_page.py:324
+#, fuzzy
+msgid "Please enter a valid username."
+msgstr "أدخل اسم مستخدم صالح من فضلك"
+
+#: src/wubi/frontends/win32/installation_page.py:326
+msgid "Please use all lower cases in the username."
+msgstr "يرجى استخدام الأحرف الصغيرة (الإنجليزية) في اسم المستخدم."
+
+#: src/wubi/frontends/win32/installation_page.py:328
+msgid "Please do not use spaces in the username."
+msgstr "يرجى عدم استخدام المسافات في اسم المستخدم."
+
+#: src/wubi/frontends/win32/installation_page.py:330
+msgid "Your username must start with a lower-case letter."
+msgstr "يجب أن يبدأ إسم المستخدم بحرف صغير."
+
+#: src/wubi/frontends/win32/installation_page.py:332
+msgid ""
+"Your username must contain only lower-case letters, numbers, hyphens, and "
+"underscores."
+msgstr ""
+"يجب أن يحتوي إسم المستخدم على أحرف صغيرة و أرقام و علامات وصل و شرطات سفلية "
+"فقط."
+
+#: src/wubi/frontends/win32/installation_page.py:334
+msgid "The selected username is reserved, please select a different one."
+msgstr "اسم المستخدم الذي اخترته محجوز، من فضلك اختر اسماً آخر."
+
+#: src/wubi/frontends/win32/installation_page.py:336
+msgid "Please enter a valid password."
+msgstr "يرجى إدخال كلمة سر سليمة."
+
+#: src/wubi/frontends/win32/installation_page.py:338
+msgid "Please do not use spaces in the password."
+msgstr "يرجى عدم استخدام المسافات في كلمة السر."
+
+#: src/wubi/frontends/win32/installation_page.py:340
+msgid "Passwords do not match."
+msgstr "كلمتا السر لا تتطابقان."
+
+#: src/wubi/frontends/win32/progress_page.py:40
+msgid "Please wait"
+msgstr "انتظر رجاء"
+
+#: src/wubi/frontends/win32/progress_page.py:53
+msgid "Do not download, use a local file"
+msgstr "لا تنزّل، استخدم ملفاً محلياً."
+
+#: src/wubi/frontends/win32/progress_page.py:66
+#, python-format
+msgid "Remaining time approximately %s"
+msgid_plural "Remaining time approximately %s"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"

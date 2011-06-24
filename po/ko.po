@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2011-04-04 11:04+0100\n"
+"POT-Creation-Date: 2011-06-24 10:56+0100\n"
 "PO-Revision-Date: 2009-05-21 11:56+0000\n"
 "Last-Translator: Jihui Choi <jihui.choi@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Launchpad-Export-Date: 2011-04-04 10:00+0000\n"
 "X-Generator: Launchpad (build 12710)\n"
 
-#: src/wubi/application.py:64
+#: src/wubi/application.py:65
 #, python-format
 msgid ""
 "An error occurred:\n"
@@ -34,7 +34,7 @@ msgstr ""
 "\n"
 "더 자세한 정보는 로그 파일을 참조하십시오. : %(log)s"
 
-#: src/wubi/application.py:147 src/wubi/application.py:208
+#: src/wubi/application.py:148 src/wubi/application.py:213
 #, python-format
 msgid ""
 "A previous installation was detected in %s.\n"
@@ -43,37 +43,17 @@ msgstr ""
 "%s에 이전 설치 버전이 발견되었습니다.\n"
 "계속하려면 이전 버전을 삭제하십시오."
 
-#: src/wubi/application.py:190
+#: src/wubi/application.py:195
 msgid "No CD detected, cannot run CD menu"
 msgstr "CD를 찾을 수 없습니다."
 
-#: src/wubi/application.py:198
+#: src/wubi/application.py:203
 msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
 "올바른 CD를 찾을 수 없습니다.\n"
 "CD 부트 안내자는 라이브 CD에서만 사용할 수 있습니다."
-
-#: src/wubi/backends/common/tasklist.py:256
-#: src/wubi/backends/common/tasklist.py:260
-msgid "0s"
-msgstr "0s"
-
-#: src/wubi/backends/common/tasklist.py:269
-#, python-format
-msgid "%ih"
-msgstr "%ih"
-
-#: src/wubi/backends/common/tasklist.py:271
-#, python-format
-msgid "%imin"
-msgstr "%imin"
-
-#: src/wubi/backends/common/tasklist.py:274
-#, python-format
-msgid "%is"
-msgstr "%is"
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:97
@@ -214,11 +194,31 @@ msgstr "%s에서 파일 풀기"
 msgid "Checking %s"
 msgstr "%s 확인"
 
-#: src/wubi/backends/common/downloader.py:65
 #: src/wubi/backends/common/btdownloader.py:36
+#: src/wubi/backends/common/downloader.py:65
 #, python-format
 msgid "Downloading %s"
 msgstr "%s 내려 받기"
+
+#: src/wubi/backends/common/tasklist.py:256
+#: src/wubi/backends/common/tasklist.py:260
+msgid "0s"
+msgstr "0s"
+
+#: src/wubi/backends/common/tasklist.py:269
+#, python-format
+msgid "%ih"
+msgstr "%ih"
+
+#: src/wubi/backends/common/tasklist.py:271
+#, python-format
+msgid "%imin"
+msgstr "%imin"
+
+#: src/wubi/backends/common/tasklist.py:274
+#, python-format
+msgid "%is"
+msgstr "%is"
 
 #: src/wubi/backends/win32/backend.py:150
 #, python-format
@@ -235,189 +235,6 @@ msgstr ""
 "\n"
 "시스템을 재부팅합니다."
 
-#: src/wubi/frontends/win32/cdboot_page.py:32
-#, python-format
-msgid "%s CD Boot Helper"
-msgstr "%s CD 부트 안내자"
-
-#: src/wubi/frontends/win32/cdboot_page.py:43
-msgid "Not enough disk space to proceed"
-msgstr "디스크 공간이 부족합니다."
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-msgid "Accessibility"
-msgstr "접근성"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-msgid "Install"
-msgstr "설치하기"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/progress_page.py:44
-#: src/wubi/frontends/win32/accessibility_page.py:39
-#: src/wubi/frontends/win32/cd_menu_page.py:38
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-msgid "Cancel"
-msgstr "취소"
-
-#: src/wubi/frontends/win32/cdboot_page.py:54
-msgid "Install CD boot helper"
-msgstr "CD 부트 안내자 설치"
-
-#: src/wubi/frontends/win32/cdboot_page.py:56
-msgid ""
-"If your machine cannot boot off the CD, this program will install a new boot "
-"menu entry to help you boot from CD. In most cases this program is not "
-"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
-"\n"
-"Do you want to proceed and install the CD booter?"
-msgstr ""
-"당신의 컴퓨터가 CD 부팅을 할 수 없다면, 이 프로그램은 CD 부팅을 도와주기 위"
-"한 새로운 부트 메뉴 항목을 설치할 것입니다. 대부분의 경우 이프로그램은 필요"
-"치 않으며, 트레이 안의 CD-ROM과 함께 시스템을 재 시작하는 것으로 충분합니"
-"다.\n"
-"\n"
-"CD 부팅 도구를 설치 하시겠습니까?"
-
-#: src/wubi/frontends/win32/installation_page.py:73
-#, python-format
-msgid ""
-"Only %sMB of disk space are available.\n"
-"At least 1024MB are required as a bare minimum. Quitting"
-msgstr ""
-"디스크 공간의 %sMB만 사용할 수 있습니다.\n"
-"최소 1024MB가 필요합니다. 종료합니다."
-
-#: src/wubi/frontends/win32/installation_page.py:77
-#, python-format
-msgid ""
-"%(min_space)sMB of disk size are required for installation.\n"
-"Only %(max_space)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"설치하려면 %(min_space)sMB 메모리가 필요합니다.\n"
-"하지만 %(max_space)sMB만 사용 가능합니다.\n"
-"이러한 이유로 설치를 실패할 수도 있습니다.\n"
-"그래도 계속하겠습니까?"
-
-#: src/wubi/frontends/win32/installation_page.py:96
-#, python-format
-msgid "(%sGB free)"
-msgstr "(%sGB 사용 가능)"
-
-#: src/wubi/frontends/win32/installation_page.py:177
-msgid "Please select username and password for the new account"
-msgstr "새 계정을 만들기 위해 사용자 이름과 암호를 선택해 주십시오."
-
-#: src/wubi/frontends/win32/installation_page.py:193
-msgid "Installation drive:"
-msgstr "설치 드라이브:"
-
-#: src/wubi/frontends/win32/installation_page.py:199
-msgid "Installation size:"
-msgstr "설치 크기:"
-
-#: src/wubi/frontends/win32/installation_page.py:205
-msgid "Desktop environment:"
-msgstr "데스크탑 환경:"
-
-#: src/wubi/frontends/win32/installation_page.py:211
-msgid "Language:"
-msgstr "언어:"
-
-#: src/wubi/frontends/win32/installation_page.py:219
-msgid "Username:"
-msgstr "사용자 이름:"
-
-#: src/wubi/frontends/win32/installation_page.py:226
-msgid "Password:"
-msgstr "암호:"
-
-#: src/wubi/frontends/win32/installation_page.py:263
-#, python-format
-msgid "%s Installer"
-msgstr "%s 설치 프로그램"
-
-#: src/wubi/frontends/win32/installation_page.py:266
-#, python-format
-msgid "You are about to install %(distro)s-%(version)s"
-msgstr "%(distro)s-%(version)s 을 설치합니다."
-
-#: src/wubi/frontends/win32/installation_page.py:271
-#, python-format
-msgid ""
-"%(min_memory)sMB of memory are required for installation.\n"
-"Only %(total_memory)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"설치하려면 %(min_memory)sMB 메모리가 필요합니다.\n"
-"하지만 %(total_memory)sMB만 사용 가능합니다.\n"
-"이러한 이유로 설치를 실패할 수도 있습니다.\n"
-"그래도 계속하겠습니까?"
-
-#: src/wubi/frontends/win32/installation_page.py:313
-msgid "Please enter a valid username"
-msgstr "올바른 사용자 이름을 입력해 주십시오."
-
-#: src/wubi/frontends/win32/installation_page.py:315
-msgid "Please use all lower cases in the username."
-msgstr "사용자 이름은 모두 소문자로 작성해 주십시오."
-
-#: src/wubi/frontends/win32/installation_page.py:317
-msgid "Please do not use spaces in the username."
-msgstr "사용자 이름에 공백을 사용하지 말아 주십시오."
-
-#: src/wubi/frontends/win32/installation_page.py:319
-msgid "Your username must start with a lower-case letter."
-msgstr ""
-
-#: src/wubi/frontends/win32/installation_page.py:321
-msgid ""
-"Your username must contain only lower-case letters, numbers, hyphens, and "
-"underscores."
-msgstr ""
-
-#: src/wubi/frontends/win32/installation_page.py:323
-msgid "The selected username is reserved, please select a different one."
-msgstr "이 사용자명은 사용할 수 없습니다. 다른 이름을 선택하십시오."
-
-#: src/wubi/frontends/win32/installation_page.py:325
-msgid "Please enter a valid password."
-msgstr "올바른 암호를 입력해 주십시오."
-
-#: src/wubi/frontends/win32/installation_page.py:327
-msgid "Please do not use spaces in the password."
-msgstr "암호에 공백을 사용하지 말아 주십시오."
-
-#: src/wubi/frontends/win32/installation_page.py:329
-msgid "Passwords do not match."
-msgstr "암호가 일치하지 않습니다."
-
-#: src/wubi/frontends/win32/progress_page.py:40
-msgid "Please wait"
-msgstr "잠시 기다리십시오."
-
-#: src/wubi/frontends/win32/progress_page.py:53
-msgid "Do not download, use a local file"
-msgstr "내려 받지 않고 로컬 파일 사용"
-
-#: src/wubi/frontends/win32/progress_page.py:66
-#, python-format
-msgid "Remaining time approximately %s"
-msgid_plural "Remaining time approximately %s"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/wubi/frontends/win32/frontend.py:51
-msgid "Are you sure you want to quit?"
-msgstr "정말 종료하겠습니까?"
-
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
 msgstr "접근성 프로파일"
@@ -429,6 +246,16 @@ msgstr "알맞은 접근성 프로파일을 선택해 주십시오."
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
 msgstr "다음 >>"
+
+#: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/cd_menu_page.py:38
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+#: src/wubi/frontends/win32/progress_page.py:44
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+msgid "Cancel"
+msgstr "취소"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
@@ -466,29 +293,41 @@ msgstr "이동성2"
 msgid "None"
 msgstr "없음"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr "< 뒤로"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 msgid "Finish"
 msgstr "끝내기"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:41
-#, python-format
-msgid "Completing the %s Setup Wizard"
-msgstr "%s 설치 마법사 완료"
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr "재부팅 필요"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:43
-msgid "You need to reboot to complete the installation"
-msgstr "설치 과정을 끝낸 다음, 재부팅을 해야합니다."
+#: src/wubi/frontends/win32/cd_finish_page.py:45
+msgid ""
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
+msgstr ""
+"라이브 CD로 시작하려면 시디롬에서 CD를 제거하지 말고 재부팅하십시오. 만약 CD"
+"로 부팅을 할 수 없으면, 마지막 옵션을 이용합니다."
 
-#: src/wubi/frontends/win32/installation_finish_page.py:44
 #: src/wubi/frontends/win32/cd_finish_page.py:47
+#: src/wubi/frontends/win32/installation_finish_page.py:44
 msgid "Reboot now"
 msgstr "지금 재부팅하기"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:45
-msgid "I want to manually reboot later"
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
 msgstr "나중에 재부팅하기"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr "시디 부팅에 관한 도움 얻기"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
@@ -542,30 +381,192 @@ msgstr ""
 "할 수 있으며, 웹브라우저, 오피스 프로그램, 인터넷 메신저를 비롯한 많은 프로그"
 "램들이 포함되어 있습니다."
 
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "< Back"
-msgstr "< 뒤로"
+#: src/wubi/frontends/win32/cdboot_page.py:32
+#, python-format
+msgid "%s CD Boot Helper"
+msgstr "%s CD 부트 안내자"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:43
-msgid "Reboot required"
-msgstr "재부팅 필요"
+#: src/wubi/frontends/win32/cdboot_page.py:43
+msgid "Not enough disk space to proceed"
+msgstr "디스크 공간이 부족합니다."
 
-#: src/wubi/frontends/win32/cd_finish_page.py:45
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+msgid "Accessibility"
+msgstr "접근성"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+msgid "Install"
+msgstr "설치하기"
+
+#: src/wubi/frontends/win32/cdboot_page.py:54
+msgid "Install CD boot helper"
+msgstr "CD 부트 안내자 설치"
+
+#: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
-"To start the Live CD you need to reboot your machine leaving the CD in the "
-"tray. If your machine cannot boot from the CD, the last option should work "
-"in most cases."
+"If your machine cannot boot off the CD, this program will install a new boot "
+"menu entry to help you boot from CD. In most cases this program is not "
+"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
+"\n"
+"Do you want to proceed and install the CD booter?"
 msgstr ""
-"라이브 CD로 시작하려면 시디롬에서 CD를 제거하지 말고 재부팅하십시오. 만약 CD"
-"로 부팅을 할 수 없으면, 마지막 옵션을 이용합니다."
+"당신의 컴퓨터가 CD 부팅을 할 수 없다면, 이 프로그램은 CD 부팅을 도와주기 위"
+"한 새로운 부트 메뉴 항목을 설치할 것입니다. 대부분의 경우 이프로그램은 필요"
+"치 않으며, 트레이 안의 CD-ROM과 함께 시스템을 재 시작하는 것으로 충분합니"
+"다.\n"
+"\n"
+"CD 부팅 도구를 설치 하시겠습니까?"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:48
-msgid "I want to manually reboot Later"
+#: src/wubi/frontends/win32/frontend.py:51
+msgid "Are you sure you want to quit?"
+msgstr "정말 종료하겠습니까?"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:41
+#, python-format
+msgid "Completing the %s Setup Wizard"
+msgstr "%s 설치 마법사 완료"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:43
+msgid "You need to reboot to complete the installation"
+msgstr "설치 과정을 끝낸 다음, 재부팅을 해야합니다."
+
+#: src/wubi/frontends/win32/installation_finish_page.py:45
+msgid "I want to manually reboot later"
 msgstr "나중에 재부팅하기"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:49
-msgid "Help me to boot from CD"
-msgstr "시디 부팅에 관한 도움 얻기"
+#: src/wubi/frontends/win32/installation_page.py:73
+#, python-format
+msgid ""
+"Only %sMB of disk space are available.\n"
+"At least 1024MB are required as a bare minimum. Quitting"
+msgstr ""
+"디스크 공간의 %sMB만 사용할 수 있습니다.\n"
+"최소 1024MB가 필요합니다. 종료합니다."
+
+#: src/wubi/frontends/win32/installation_page.py:77
+#, python-format
+msgid ""
+"%(min_space)sMB of disk size are required for installation.\n"
+"Only %(max_space)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"설치하려면 %(min_space)sMB 메모리가 필요합니다.\n"
+"하지만 %(max_space)sMB만 사용 가능합니다.\n"
+"이러한 이유로 설치를 실패할 수도 있습니다.\n"
+"그래도 계속하겠습니까?"
+
+#: src/wubi/frontends/win32/installation_page.py:97
+#, python-format
+msgid "(%sGB free)"
+msgstr "(%sGB 사용 가능)"
+
+#: src/wubi/frontends/win32/installation_page.py:179
+msgid "Please select username and password for the new account"
+msgstr "새 계정을 만들기 위해 사용자 이름과 암호를 선택해 주십시오."
+
+#: src/wubi/frontends/win32/installation_page.py:195
+msgid "Installation drive:"
+msgstr "설치 드라이브:"
+
+#: src/wubi/frontends/win32/installation_page.py:201
+msgid "Installation size:"
+msgstr "설치 크기:"
+
+#: src/wubi/frontends/win32/installation_page.py:207
+msgid "Desktop environment:"
+msgstr "데스크탑 환경:"
+
+#: src/wubi/frontends/win32/installation_page.py:213
+msgid "Language:"
+msgstr "언어:"
+
+#: src/wubi/frontends/win32/installation_page.py:224
+msgid "Username:"
+msgstr "사용자 이름:"
+
+#: src/wubi/frontends/win32/installation_page.py:232
+msgid "Password:"
+msgstr "암호:"
+
+#: src/wubi/frontends/win32/installation_page.py:274
+#, python-format
+msgid "%s Installer"
+msgstr "%s 설치 프로그램"
+
+#: src/wubi/frontends/win32/installation_page.py:277
+#, python-format
+msgid "You are about to install %(distro)s-%(version)s"
+msgstr "%(distro)s-%(version)s 을 설치합니다."
+
+#: src/wubi/frontends/win32/installation_page.py:282
+#, python-format
+msgid ""
+"%(min_memory)sMB of memory are required for installation.\n"
+"Only %(total_memory)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"설치하려면 %(min_memory)sMB 메모리가 필요합니다.\n"
+"하지만 %(total_memory)sMB만 사용 가능합니다.\n"
+"이러한 이유로 설치를 실패할 수도 있습니다.\n"
+"그래도 계속하겠습니까?"
+
+#: src/wubi/frontends/win32/installation_page.py:324
+#, fuzzy
+msgid "Please enter a valid username."
+msgstr "올바른 사용자 이름을 입력해 주십시오."
+
+#: src/wubi/frontends/win32/installation_page.py:326
+msgid "Please use all lower cases in the username."
+msgstr "사용자 이름은 모두 소문자로 작성해 주십시오."
+
+#: src/wubi/frontends/win32/installation_page.py:328
+msgid "Please do not use spaces in the username."
+msgstr "사용자 이름에 공백을 사용하지 말아 주십시오."
+
+#: src/wubi/frontends/win32/installation_page.py:330
+msgid "Your username must start with a lower-case letter."
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_page.py:332
+msgid ""
+"Your username must contain only lower-case letters, numbers, hyphens, and "
+"underscores."
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_page.py:334
+msgid "The selected username is reserved, please select a different one."
+msgstr "이 사용자명은 사용할 수 없습니다. 다른 이름을 선택하십시오."
+
+#: src/wubi/frontends/win32/installation_page.py:336
+msgid "Please enter a valid password."
+msgstr "올바른 암호를 입력해 주십시오."
+
+#: src/wubi/frontends/win32/installation_page.py:338
+msgid "Please do not use spaces in the password."
+msgstr "암호에 공백을 사용하지 말아 주십시오."
+
+#: src/wubi/frontends/win32/installation_page.py:340
+msgid "Passwords do not match."
+msgstr "암호가 일치하지 않습니다."
+
+#: src/wubi/frontends/win32/progress_page.py:40
+msgid "Please wait"
+msgstr "잠시 기다리십시오."
+
+#: src/wubi/frontends/win32/progress_page.py:53
+msgid "Do not download, use a local file"
+msgstr "내려 받지 않고 로컬 파일 사용"
+
+#: src/wubi/frontends/win32/progress_page.py:66
+#, python-format
+msgid "Remaining time approximately %s"
+msgid_plural "Remaining time approximately %s"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"

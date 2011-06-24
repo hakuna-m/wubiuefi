@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2011-04-04 11:04+0100\n"
+"POT-Creation-Date: 2011-06-24 10:56+0100\n"
 "PO-Revision-Date: 2010-07-19 00:29+0000\n"
 "Last-Translator: Purvesh R. Shah. <purveshrshah@gmail.com>\n"
 "Language-Team: Gujarati <gu@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Launchpad-Export-Date: 2011-04-04 10:00+0000\n"
 "X-Generator: Launchpad (build 12710)\n"
 
-#: src/wubi/application.py:64
+#: src/wubi/application.py:65
 #, python-format
 msgid ""
 "An error occurred:\n"
@@ -32,44 +32,24 @@ msgstr ""
 "%(error)s\n"
 "વધારે માહિતી માટે આ લોગ ફાઈલ જુવો :%(log)s"
 
-#: src/wubi/application.py:147 src/wubi/application.py:208
+#: src/wubi/application.py:148 src/wubi/application.py:213
 #, python-format
 msgid ""
 "A previous installation was detected in %s.\n"
 "Please uninstall that before continuing."
 msgstr "જુનું ઇન્સ્તાલએસન %s માં ર્રદ થયેલ છે."
 
-#: src/wubi/application.py:190
+#: src/wubi/application.py:195
 msgid "No CD detected, cannot run CD menu"
 msgstr "કોઈ CD મળેલ નથી, CD મેનુ ચાલવા અક્ષમ્ય"
 
-#: src/wubi/application.py:198
+#: src/wubi/application.py:203
 msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
 "કોઈ પ્રમાણિત CD મળેલ નથી \n"
 "CD બૂટ મદદગાર ફક્ત જીવંત CD જોડેજ વાપરી શકાય છે."
-
-#: src/wubi/backends/common/tasklist.py:256
-#: src/wubi/backends/common/tasklist.py:260
-msgid "0s"
-msgstr "0s"
-
-#: src/wubi/backends/common/tasklist.py:269
-#, python-format
-msgid "%ih"
-msgstr "%ih"
-
-#: src/wubi/backends/common/tasklist.py:271
-#, python-format
-msgid "%imin"
-msgstr "%imin"
-
-#: src/wubi/backends/common/tasklist.py:274
-#, python-format
-msgid "%is"
-msgstr "%is"
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:97
@@ -210,11 +190,31 @@ msgstr "%s થી ફાઈલો છુટી કરી રહયું છે.
 msgid "Checking %s"
 msgstr "%s તપાસી રહયું છે."
 
-#: src/wubi/backends/common/downloader.py:65
 #: src/wubi/backends/common/btdownloader.py:36
+#: src/wubi/backends/common/downloader.py:65
 #, python-format
 msgid "Downloading %s"
 msgstr "%s ડાઉનલોડ કરે છે"
+
+#: src/wubi/backends/common/tasklist.py:256
+#: src/wubi/backends/common/tasklist.py:260
+msgid "0s"
+msgstr "0s"
+
+#: src/wubi/backends/common/tasklist.py:269
+#, python-format
+msgid "%ih"
+msgstr "%ih"
+
+#: src/wubi/backends/common/tasklist.py:271
+#, python-format
+msgid "%imin"
+msgstr "%imin"
+
+#: src/wubi/backends/common/tasklist.py:274
+#, python-format
+msgid "%is"
+msgstr "%is"
 
 #: src/wubi/backends/win32/backend.py:150
 #, python-format
@@ -229,188 +229,6 @@ msgstr ""
 "ધ્યાન રાખો કે વેર્બોસે મોડ માં લોગ્સ માં પાસવર્ડ હોય છે.\n"
 "સીસ્ટમ હવે ફરી ચાલુ થશે."
 
-#: src/wubi/frontends/win32/cdboot_page.py:32
-#, python-format
-msgid "%s CD Boot Helper"
-msgstr "%s CD બૂટ મદદગાર"
-
-#: src/wubi/frontends/win32/cdboot_page.py:43
-msgid "Not enough disk space to proceed"
-msgstr "આગળ વધવા માટે પુરતી મુક્ત જગ્યા ડિસ્ક પર પ્રાપ્ય નથી."
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-msgid "Accessibility"
-msgstr "સુલભતા"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-msgid "Install"
-msgstr "સ્થાપન કરો"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/progress_page.py:44
-#: src/wubi/frontends/win32/accessibility_page.py:39
-#: src/wubi/frontends/win32/cd_menu_page.py:38
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-msgid "Cancel"
-msgstr "રદ્ કરો"
-
-#: src/wubi/frontends/win32/cdboot_page.py:54
-msgid "Install CD boot helper"
-msgstr "બૂટ મદદગાર ઇન્સ્તાલ કરો"
-
-#: src/wubi/frontends/win32/cdboot_page.py:56
-msgid ""
-"If your machine cannot boot off the CD, this program will install a new boot "
-"menu entry to help you boot from CD. In most cases this program is not "
-"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
-"\n"
-"Do you want to proceed and install the CD booter?"
-msgstr ""
-"જો તમે સીડીથી બહાર બુટ ન કરી શકો, તો આ કાર્યક્રમ તમને સીડી માંથી બુટ કરવા માટેની મદદ "
-"કરવા એક નવી બુટ મેનુ નોંધ સ્થાપિત કરશે. મોટે ભાગે આ કાર્યક્રમ આવશ્યક નથી, અને સીડીને ટ્રે "
-"માં રાખી કોમ્પ્યુટર ફરી શરૂ કરવું પર્યાપ્ત છે.\n"
-"\n"
-"શું તમે આગળ વધી સીડી બુટ કરનાર સ્થાપિત કરવા માગો છો?"
-
-#: src/wubi/frontends/win32/installation_page.py:73
-#, python-format
-msgid ""
-"Only %sMB of disk space are available.\n"
-"At least 1024MB are required as a bare minimum. Quitting"
-msgstr ""
-"ફક્ત %sMB જેટલીજ જગ્યા પ્રાપ્ય છે.\n"
-"લઘુતમ ૧૦૨૪ MB જરૂરી છે. બહાર નિકાળી રહયું છે."
-
-#: src/wubi/frontends/win32/installation_page.py:77
-#, python-format
-msgid ""
-"%(min_space)sMB of disk size are required for installation.\n"
-"Only %(max_space)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"%(min_space)sMB જેટલી જગ્યા ઇન્સ્ટોલેશન માટે જરૂરી છે. \n"
-"ફક્ત %(max_space)sMB પ્રાપ્ય છે. \n"
-"આવી સ્થિતિ માં ઇન્સ્ટોલેશન નાપાસ થઇ શકે છે.\n"
-"શું તોપણ તમે આગળ વધવા માંગો છો?"
-
-#: src/wubi/frontends/win32/installation_page.py:96
-#, python-format
-msgid "(%sGB free)"
-msgstr "(%sGB મુક્ત)"
-
-#: src/wubi/frontends/win32/installation_page.py:177
-msgid "Please select username and password for the new account"
-msgstr "મહેરબાની કરીને નવા ખાતા માટે વપરાશકર્તાનું નામ અને પાસવર્ડ પસંદ કરો"
-
-#: src/wubi/frontends/win32/installation_page.py:193
-msgid "Installation drive:"
-msgstr "ઇનસ્ટાલ ડ્રાઈવ"
-
-#: src/wubi/frontends/win32/installation_page.py:199
-msgid "Installation size:"
-msgstr "ઇનસ્ટાલ કદ"
-
-#: src/wubi/frontends/win32/installation_page.py:205
-msgid "Desktop environment:"
-msgstr "ડેસ્કટોપ વાતાવરણ."
-
-#: src/wubi/frontends/win32/installation_page.py:211
-msgid "Language:"
-msgstr "ભાષા:"
-
-#: src/wubi/frontends/win32/installation_page.py:219
-msgid "Username:"
-msgstr "વપરાશકર્તાનું નામ:"
-
-#: src/wubi/frontends/win32/installation_page.py:226
-msgid "Password:"
-msgstr "પાસવર્ડ:"
-
-#: src/wubi/frontends/win32/installation_page.py:263
-#, python-format
-msgid "%s Installer"
-msgstr "%s ઇનસ્ટાલર"
-
-#: src/wubi/frontends/win32/installation_page.py:266
-#, python-format
-msgid "You are about to install %(distro)s-%(version)s"
-msgstr "તમે હવે %(distro)s-%(version)s ઇનસ્ટાલ કરવા જઈ રહયા છો."
-
-#: src/wubi/frontends/win32/installation_page.py:271
-#, python-format
-msgid ""
-"%(min_memory)sMB of memory are required for installation.\n"
-"Only %(total_memory)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"%(min_memory)sMB જેટલી જગ્યા ઇન્સ્ટોલેશન માટે જરૂરી છે.\n"
-"ફક્ત %(total_memory)sMB પ્રાપ્ય છે.\n"
-"આવી સ્થિતિ માં ઇન્સ્ટોલેશન નાપાસ થઇ શકે છે.\n"
-"શું તોપણ તમે આગળ વધવા માંગો છો?"
-
-#: src/wubi/frontends/win32/installation_page.py:313
-msgid "Please enter a valid username"
-msgstr "મહેરબાની કરી એક માન્ય વપરાશકર્તા નામ નાખો"
-
-#: src/wubi/frontends/win32/installation_page.py:315
-msgid "Please use all lower cases in the username."
-msgstr "વપરાશકર્તા નામમાં બધા નાના અક્ષરો વાપરો."
-
-#: src/wubi/frontends/win32/installation_page.py:317
-msgid "Please do not use spaces in the username."
-msgstr "વપરાશકર્તા નામમાં સ્પેસ વાપરશો નહિ."
-
-#: src/wubi/frontends/win32/installation_page.py:319
-msgid "Your username must start with a lower-case letter."
-msgstr ""
-
-#: src/wubi/frontends/win32/installation_page.py:321
-msgid ""
-"Your username must contain only lower-case letters, numbers, hyphens, and "
-"underscores."
-msgstr ""
-
-#: src/wubi/frontends/win32/installation_page.py:323
-msgid "The selected username is reserved, please select a different one."
-msgstr "પસંદ કરેલ વપરાશકર્તા નામ કોઈ પેહલા પસંદ કરી ચૂકયું છે, નવું પસંદ કરો."
-
-#: src/wubi/frontends/win32/installation_page.py:325
-msgid "Please enter a valid password."
-msgstr "મહેરબાની કરી એક માન્ય પાસવર્ડ નાખો."
-
-#: src/wubi/frontends/win32/installation_page.py:327
-msgid "Please do not use spaces in the password."
-msgstr "પાસવર્ડ માં સ્પેસ વાપરશો નહિ."
-
-#: src/wubi/frontends/win32/installation_page.py:329
-msgid "Passwords do not match."
-msgstr "પાસવર્ડો બંધબેસતા નથી."
-
-#: src/wubi/frontends/win32/progress_page.py:40
-msgid "Please wait"
-msgstr "મહેરબાની કરીને રાહ જૂઓ"
-
-#: src/wubi/frontends/win32/progress_page.py:53
-msgid "Do not download, use a local file"
-msgstr "ડાઉનલોડ ના કરો, સ્થાનિક ફાઈલ વાપરો"
-
-#: src/wubi/frontends/win32/progress_page.py:66
-#, python-format
-msgid "Remaining time approximately %s"
-msgid_plural "Remaining time approximately %s"
-msgstr[0] "બાકી રહેલ અંદાજીત સમય %s"
-msgstr[1] "બાકી રહેલ અંદાજીત સમય %s"
-
-#: src/wubi/frontends/win32/frontend.py:51
-msgid "Are you sure you want to quit?"
-msgstr "શું તમે ખરેખર બહાર નીકળવા માંગો છો?"
-
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
 msgstr "એક્સેસિબિલિટી પ્રોફાઇલ"
@@ -422,6 +240,16 @@ msgstr "એક બંધબેસતી એક્સેસિબિલિટી 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
 msgstr "પાછળ >>"
+
+#: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/cd_menu_page.py:38
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+#: src/wubi/frontends/win32/progress_page.py:44
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+msgid "Cancel"
+msgstr "રદ્ કરો"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
@@ -459,29 +287,41 @@ msgstr "હલનચલન ૨"
 msgid "None"
 msgstr "કંઇ નહી"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr "< આગળ"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 msgid "Finish"
 msgstr "સમાપ્ત કરો"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:41
-#, python-format
-msgid "Completing the %s Setup Wizard"
-msgstr "%s સેટઅપ વિઝાર્ડ પૂર્ણ કરી રહયું છે"
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr "ફરી ચાલુ કરવું (રીબૂત) જરૂરી"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:43
-msgid "You need to reboot to complete the installation"
-msgstr "ઇન્સ્તોલેસન ખતમ કરવા માટે ફરી ચાલુ કરવું (રીબૂત) જરૂરી છે"
+#: src/wubi/frontends/win32/cd_finish_page.py:45
+msgid ""
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
+msgstr ""
+"જીવંત CD ચાલુ કરવા માટે તેને યંત્રમાં રાખીને ફરી ચાલુ કરવું (રીબૂત) જરૂરી છે. જો તમારું યંત્ર "
+"CD ચાલુ ના થતું હોઈ તો અંતિમ વિકલ્પ મોટા ભાગે કામ કરશે."
 
-#: src/wubi/frontends/win32/installation_finish_page.py:44
 #: src/wubi/frontends/win32/cd_finish_page.py:47
+#: src/wubi/frontends/win32/installation_finish_page.py:44
 msgid "Reboot now"
 msgstr "હવે ફરી ચાલુ કરો (રીબૂત)"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:45
-msgid "I want to manually reboot later"
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
 msgstr "હું જાતે ફરી ચાલુ (રીબૂત) કરવા માંગું છુ"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr "CD માં થી ચલાવવા (રીબૂત) માટે મને મદદ કરો"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
@@ -533,30 +373,191 @@ msgstr ""
 "%(distro)s એક મુક્ત સમુદાય દ્વારા બનાવેલ, લિન્ક્ષ આધારિત, વેબ બ્રૌઝેર, પ્રોડેકતીવીતી "
 "સોફ્ટવેર, ક્ષણિક સંદેશ અને બીજી ઘણી સેવાઓ યુક્ત સંચાલન પ્રણાલી છે."
 
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "< Back"
-msgstr "< આગળ"
+#: src/wubi/frontends/win32/cdboot_page.py:32
+#, python-format
+msgid "%s CD Boot Helper"
+msgstr "%s CD બૂટ મદદગાર"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:43
-msgid "Reboot required"
-msgstr "ફરી ચાલુ કરવું (રીબૂત) જરૂરી"
+#: src/wubi/frontends/win32/cdboot_page.py:43
+msgid "Not enough disk space to proceed"
+msgstr "આગળ વધવા માટે પુરતી મુક્ત જગ્યા ડિસ્ક પર પ્રાપ્ય નથી."
 
-#: src/wubi/frontends/win32/cd_finish_page.py:45
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+msgid "Accessibility"
+msgstr "સુલભતા"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+msgid "Install"
+msgstr "સ્થાપન કરો"
+
+#: src/wubi/frontends/win32/cdboot_page.py:54
+msgid "Install CD boot helper"
+msgstr "બૂટ મદદગાર ઇન્સ્તાલ કરો"
+
+#: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
-"To start the Live CD you need to reboot your machine leaving the CD in the "
-"tray. If your machine cannot boot from the CD, the last option should work "
-"in most cases."
+"If your machine cannot boot off the CD, this program will install a new boot "
+"menu entry to help you boot from CD. In most cases this program is not "
+"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
+"\n"
+"Do you want to proceed and install the CD booter?"
 msgstr ""
-"જીવંત CD ચાલુ કરવા માટે તેને યંત્રમાં રાખીને ફરી ચાલુ કરવું (રીબૂત) જરૂરી છે. જો તમારું યંત્ર "
-"CD ચાલુ ના થતું હોઈ તો અંતિમ વિકલ્પ મોટા ભાગે કામ કરશે."
+"જો તમે સીડીથી બહાર બુટ ન કરી શકો, તો આ કાર્યક્રમ તમને સીડી માંથી બુટ કરવા માટેની મદદ "
+"કરવા એક નવી બુટ મેનુ નોંધ સ્થાપિત કરશે. મોટે ભાગે આ કાર્યક્રમ આવશ્યક નથી, અને સીડીને ટ્રે "
+"માં રાખી કોમ્પ્યુટર ફરી શરૂ કરવું પર્યાપ્ત છે.\n"
+"\n"
+"શું તમે આગળ વધી સીડી બુટ કરનાર સ્થાપિત કરવા માગો છો?"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:48
-msgid "I want to manually reboot Later"
+#: src/wubi/frontends/win32/frontend.py:51
+msgid "Are you sure you want to quit?"
+msgstr "શું તમે ખરેખર બહાર નીકળવા માંગો છો?"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:41
+#, python-format
+msgid "Completing the %s Setup Wizard"
+msgstr "%s સેટઅપ વિઝાર્ડ પૂર્ણ કરી રહયું છે"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:43
+msgid "You need to reboot to complete the installation"
+msgstr "ઇન્સ્તોલેસન ખતમ કરવા માટે ફરી ચાલુ કરવું (રીબૂત) જરૂરી છે"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:45
+msgid "I want to manually reboot later"
 msgstr "હું જાતે ફરી ચાલુ (રીબૂત) કરવા માંગું છુ"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:49
-msgid "Help me to boot from CD"
-msgstr "CD માં થી ચલાવવા (રીબૂત) માટે મને મદદ કરો"
+#: src/wubi/frontends/win32/installation_page.py:73
+#, python-format
+msgid ""
+"Only %sMB of disk space are available.\n"
+"At least 1024MB are required as a bare minimum. Quitting"
+msgstr ""
+"ફક્ત %sMB જેટલીજ જગ્યા પ્રાપ્ય છે.\n"
+"લઘુતમ ૧૦૨૪ MB જરૂરી છે. બહાર નિકાળી રહયું છે."
+
+#: src/wubi/frontends/win32/installation_page.py:77
+#, python-format
+msgid ""
+"%(min_space)sMB of disk size are required for installation.\n"
+"Only %(max_space)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"%(min_space)sMB જેટલી જગ્યા ઇન્સ્ટોલેશન માટે જરૂરી છે. \n"
+"ફક્ત %(max_space)sMB પ્રાપ્ય છે. \n"
+"આવી સ્થિતિ માં ઇન્સ્ટોલેશન નાપાસ થઇ શકે છે.\n"
+"શું તોપણ તમે આગળ વધવા માંગો છો?"
+
+#: src/wubi/frontends/win32/installation_page.py:97
+#, python-format
+msgid "(%sGB free)"
+msgstr "(%sGB મુક્ત)"
+
+#: src/wubi/frontends/win32/installation_page.py:179
+msgid "Please select username and password for the new account"
+msgstr "મહેરબાની કરીને નવા ખાતા માટે વપરાશકર્તાનું નામ અને પાસવર્ડ પસંદ કરો"
+
+#: src/wubi/frontends/win32/installation_page.py:195
+msgid "Installation drive:"
+msgstr "ઇનસ્ટાલ ડ્રાઈવ"
+
+#: src/wubi/frontends/win32/installation_page.py:201
+msgid "Installation size:"
+msgstr "ઇનસ્ટાલ કદ"
+
+#: src/wubi/frontends/win32/installation_page.py:207
+msgid "Desktop environment:"
+msgstr "ડેસ્કટોપ વાતાવરણ."
+
+#: src/wubi/frontends/win32/installation_page.py:213
+msgid "Language:"
+msgstr "ભાષા:"
+
+#: src/wubi/frontends/win32/installation_page.py:224
+msgid "Username:"
+msgstr "વપરાશકર્તાનું નામ:"
+
+#: src/wubi/frontends/win32/installation_page.py:232
+msgid "Password:"
+msgstr "પાસવર્ડ:"
+
+#: src/wubi/frontends/win32/installation_page.py:274
+#, python-format
+msgid "%s Installer"
+msgstr "%s ઇનસ્ટાલર"
+
+#: src/wubi/frontends/win32/installation_page.py:277
+#, python-format
+msgid "You are about to install %(distro)s-%(version)s"
+msgstr "તમે હવે %(distro)s-%(version)s ઇનસ્ટાલ કરવા જઈ રહયા છો."
+
+#: src/wubi/frontends/win32/installation_page.py:282
+#, python-format
+msgid ""
+"%(min_memory)sMB of memory are required for installation.\n"
+"Only %(total_memory)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"%(min_memory)sMB જેટલી જગ્યા ઇન્સ્ટોલેશન માટે જરૂરી છે.\n"
+"ફક્ત %(total_memory)sMB પ્રાપ્ય છે.\n"
+"આવી સ્થિતિ માં ઇન્સ્ટોલેશન નાપાસ થઇ શકે છે.\n"
+"શું તોપણ તમે આગળ વધવા માંગો છો?"
+
+#: src/wubi/frontends/win32/installation_page.py:324
+#, fuzzy
+msgid "Please enter a valid username."
+msgstr "મહેરબાની કરી એક માન્ય વપરાશકર્તા નામ નાખો"
+
+#: src/wubi/frontends/win32/installation_page.py:326
+msgid "Please use all lower cases in the username."
+msgstr "વપરાશકર્તા નામમાં બધા નાના અક્ષરો વાપરો."
+
+#: src/wubi/frontends/win32/installation_page.py:328
+msgid "Please do not use spaces in the username."
+msgstr "વપરાશકર્તા નામમાં સ્પેસ વાપરશો નહિ."
+
+#: src/wubi/frontends/win32/installation_page.py:330
+msgid "Your username must start with a lower-case letter."
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_page.py:332
+msgid ""
+"Your username must contain only lower-case letters, numbers, hyphens, and "
+"underscores."
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_page.py:334
+msgid "The selected username is reserved, please select a different one."
+msgstr "પસંદ કરેલ વપરાશકર્તા નામ કોઈ પેહલા પસંદ કરી ચૂકયું છે, નવું પસંદ કરો."
+
+#: src/wubi/frontends/win32/installation_page.py:336
+msgid "Please enter a valid password."
+msgstr "મહેરબાની કરી એક માન્ય પાસવર્ડ નાખો."
+
+#: src/wubi/frontends/win32/installation_page.py:338
+msgid "Please do not use spaces in the password."
+msgstr "પાસવર્ડ માં સ્પેસ વાપરશો નહિ."
+
+#: src/wubi/frontends/win32/installation_page.py:340
+msgid "Passwords do not match."
+msgstr "પાસવર્ડો બંધબેસતા નથી."
+
+#: src/wubi/frontends/win32/progress_page.py:40
+msgid "Please wait"
+msgstr "મહેરબાની કરીને રાહ જૂઓ"
+
+#: src/wubi/frontends/win32/progress_page.py:53
+msgid "Do not download, use a local file"
+msgstr "ડાઉનલોડ ના કરો, સ્થાનિક ફાઈલ વાપરો"
+
+#: src/wubi/frontends/win32/progress_page.py:66
+#, python-format
+msgid "Remaining time approximately %s"
+msgid_plural "Remaining time approximately %s"
+msgstr[0] "બાકી રહેલ અંદાજીત સમય %s"
+msgstr[1] "બાકી રહેલ અંદાજીત સમય %s"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"

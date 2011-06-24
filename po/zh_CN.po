@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2011-04-04 11:04+0100\n"
+"POT-Creation-Date: 2011-06-24 10:56+0100\n"
 "PO-Revision-Date: 2010-12-26 08:46+0000\n"
 "Last-Translator: 英华 <wantinghard@gmail.com>\n"
 "Language-Team: Simplified Chinese <i18n-zh@googlegroups.com>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Launchpad-Export-Date: 2011-04-04 10:01+0000\n"
 "X-Generator: Launchpad (build 12710)\n"
 
-#: src/wubi/application.py:64
+#: src/wubi/application.py:65
 #, python-format
 msgid ""
 "An error occurred:\n"
@@ -33,7 +33,7 @@ msgstr ""
 "%(error)s\n"
 "了解详细信息，请查看日志文件：%(log)s"
 
-#: src/wubi/application.py:147 src/wubi/application.py:208
+#: src/wubi/application.py:148 src/wubi/application.py:213
 #, python-format
 msgid ""
 "A previous installation was detected in %s.\n"
@@ -42,37 +42,17 @@ msgstr ""
 "%s 检测到上次的安装。\n"
 "请先卸载，然后再继续。"
 
-#: src/wubi/application.py:190
+#: src/wubi/application.py:195
 msgid "No CD detected, cannot run CD menu"
 msgstr "未检测到光盘，无法运行光盘菜单"
 
-#: src/wubi/application.py:198
+#: src/wubi/application.py:203
 msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
 "没有发现可用的光盘。\n"
 "光盘启动帮助程序只能在 LiveCD 里运行。"
-
-#: src/wubi/backends/common/tasklist.py:256
-#: src/wubi/backends/common/tasklist.py:260
-msgid "0s"
-msgstr "0 秒"
-
-#: src/wubi/backends/common/tasklist.py:269
-#, python-format
-msgid "%ih"
-msgstr "%i 小时"
-
-#: src/wubi/backends/common/tasklist.py:271
-#, python-format
-msgid "%imin"
-msgstr "%i 分钟"
-
-#: src/wubi/backends/common/tasklist.py:274
-#, python-format
-msgid "%is"
-msgstr "%i 秒"
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:97
@@ -213,11 +193,31 @@ msgstr "从 %s 展开文件"
 msgid "Checking %s"
 msgstr "正在检查 %s"
 
-#: src/wubi/backends/common/downloader.py:65
 #: src/wubi/backends/common/btdownloader.py:36
+#: src/wubi/backends/common/downloader.py:65
 #, python-format
 msgid "Downloading %s"
 msgstr "正在下载 %s"
+
+#: src/wubi/backends/common/tasklist.py:256
+#: src/wubi/backends/common/tasklist.py:260
+msgid "0s"
+msgstr "0 秒"
+
+#: src/wubi/backends/common/tasklist.py:269
+#, python-format
+msgid "%ih"
+msgstr "%i 小时"
+
+#: src/wubi/backends/common/tasklist.py:271
+#, python-format
+msgid "%imin"
+msgstr "%i 分钟"
+
+#: src/wubi/backends/common/tasklist.py:274
+#, python-format
+msgid "%is"
+msgstr "%i 秒"
 
 #: src/wubi/backends/win32/backend.py:150
 #, python-format
@@ -234,186 +234,6 @@ msgstr ""
 "\n"
 "系统现在将重新启动。"
 
-#: src/wubi/frontends/win32/cdboot_page.py:32
-#, python-format
-msgid "%s CD Boot Helper"
-msgstr "%s 光盘启动帮助程序"
-
-#: src/wubi/frontends/win32/cdboot_page.py:43
-msgid "Not enough disk space to proceed"
-msgstr "没有足够的磁盘空间进行操作"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-msgid "Accessibility"
-msgstr "辅助功能"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-msgid "Install"
-msgstr "安装"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/progress_page.py:44
-#: src/wubi/frontends/win32/accessibility_page.py:39
-#: src/wubi/frontends/win32/cd_menu_page.py:38
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-msgid "Cancel"
-msgstr "取消"
-
-#: src/wubi/frontends/win32/cdboot_page.py:54
-msgid "Install CD boot helper"
-msgstr "安装光盘启动帮助程序"
-
-#: src/wubi/frontends/win32/cdboot_page.py:56
-msgid ""
-"If your machine cannot boot off the CD, this program will install a new boot "
-"menu entry to help you boot from CD. In most cases this program is not "
-"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
-"\n"
-"Do you want to proceed and install the CD booter?"
-msgstr ""
-"如果您的计算机无法从 CD 启动，本程序将会安装新的启动菜单项，用来帮您从 CD 启"
-"动。在大多数情况下，不需要本程序就能直接从 CD-Rom 启动。\n"
-"\n"
-"您想继续安装 CD 启动器吗？"
-
-#: src/wubi/frontends/win32/installation_page.py:73
-#, python-format
-msgid ""
-"Only %sMB of disk space are available.\n"
-"At least 1024MB are required as a bare minimum. Quitting"
-msgstr ""
-"只有 %sMB 可用磁盘空间。\n"
-"最小安装需要 1024MB 空间。退出"
-
-#: src/wubi/frontends/win32/installation_page.py:77
-#, python-format
-msgid ""
-"%(min_space)sMB of disk size are required for installation.\n"
-"Only %(max_space)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"安装需要 %(min_space)sM 的磁盘空间。\n"
-"但是现在只有 %(max_space)sM 可用磁盘空间。\n"
-"当前的安装方式下，可能会造成安装失败。\n"
-"仍然要继续吗？"
-
-#: src/wubi/frontends/win32/installation_page.py:96
-#, python-format
-msgid "(%sGB free)"
-msgstr "(%sGB 空闲)"
-
-#: src/wubi/frontends/win32/installation_page.py:177
-msgid "Please select username and password for the new account"
-msgstr "请为新帐户选择用户名称和密码"
-
-#: src/wubi/frontends/win32/installation_page.py:193
-msgid "Installation drive:"
-msgstr "目标驱动器："
-
-#: src/wubi/frontends/win32/installation_page.py:199
-msgid "Installation size:"
-msgstr "安装大小："
-
-#: src/wubi/frontends/win32/installation_page.py:205
-msgid "Desktop environment:"
-msgstr "桌面环境："
-
-#: src/wubi/frontends/win32/installation_page.py:211
-msgid "Language:"
-msgstr "语言："
-
-#: src/wubi/frontends/win32/installation_page.py:219
-msgid "Username:"
-msgstr "用户名："
-
-#: src/wubi/frontends/win32/installation_page.py:226
-msgid "Password:"
-msgstr "口令："
-
-#: src/wubi/frontends/win32/installation_page.py:263
-#, python-format
-msgid "%s Installer"
-msgstr "%s 安装程序"
-
-#: src/wubi/frontends/win32/installation_page.py:266
-#, python-format
-msgid "You are about to install %(distro)s-%(version)s"
-msgstr "您正要安装 %(distro)s %(version)s"
-
-#: src/wubi/frontends/win32/installation_page.py:271
-#, python-format
-msgid ""
-"%(min_memory)sMB of memory are required for installation.\n"
-"Only %(total_memory)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"安装需要 %(min_memory)sM 内存。\n"
-"现在可用内存只有 %(total_memory)sM。\n"
-"当前安装方式下，安装可能失败。\n"
-"仍然要继续吗？"
-
-#: src/wubi/frontends/win32/installation_page.py:313
-msgid "Please enter a valid username"
-msgstr "请输入有效的用户名称"
-
-#: src/wubi/frontends/win32/installation_page.py:315
-msgid "Please use all lower cases in the username."
-msgstr "请完全使用小写字母设置用户名称。"
-
-#: src/wubi/frontends/win32/installation_page.py:317
-msgid "Please do not use spaces in the username."
-msgstr "请勿在用户名称中使用空格。"
-
-#: src/wubi/frontends/win32/installation_page.py:319
-msgid "Your username must start with a lower-case letter."
-msgstr "您的用户名必须以小写字母开头。"
-
-#: src/wubi/frontends/win32/installation_page.py:321
-msgid ""
-"Your username must contain only lower-case letters, numbers, hyphens, and "
-"underscores."
-msgstr "您的用户名只能包含小写字母、数字、连字符和下划线。"
-
-#: src/wubi/frontends/win32/installation_page.py:323
-msgid "The selected username is reserved, please select a different one."
-msgstr "选择的用户名已保留为其它用途，请指定其他用户名。"
-
-#: src/wubi/frontends/win32/installation_page.py:325
-msgid "Please enter a valid password."
-msgstr "请输入有效密码。"
-
-#: src/wubi/frontends/win32/installation_page.py:327
-msgid "Please do not use spaces in the password."
-msgstr "请勿在密码中使用空格。"
-
-#: src/wubi/frontends/win32/installation_page.py:329
-msgid "Passwords do not match."
-msgstr "密码不一致。"
-
-#: src/wubi/frontends/win32/progress_page.py:40
-msgid "Please wait"
-msgstr "请稍候"
-
-#: src/wubi/frontends/win32/progress_page.py:53
-msgid "Do not download, use a local file"
-msgstr "不进行下载，使用本地文件"
-
-#: src/wubi/frontends/win32/progress_page.py:66
-#, python-format
-msgid "Remaining time approximately %s"
-msgid_plural "Remaining time approximately %s"
-msgstr[0] "剩余时间约为 %s"
-
-#: src/wubi/frontends/win32/frontend.py:51
-msgid "Are you sure you want to quit?"
-msgstr "您确定要退出吗？"
-
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
 msgstr "可用性配置"
@@ -425,6 +245,16 @@ msgstr "请选择合适的可用性配置"
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
 msgstr "下一步 >>"
+
+#: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/cd_menu_page.py:38
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+#: src/wubi/frontends/win32/progress_page.py:44
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+msgid "Cancel"
+msgstr "取消"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
@@ -462,29 +292,41 @@ msgstr "可行动性 2"
 msgid "None"
 msgstr "无"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr "< 上一步"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 msgid "Finish"
 msgstr "完成"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:41
-#, python-format
-msgid "Completing the %s Setup Wizard"
-msgstr "完成 %s 安装向导"
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr "需要重启"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:43
-msgid "You need to reboot to complete the installation"
-msgstr "安装后您需要重启动电脑"
+#: src/wubi/frontends/win32/cd_finish_page.py:45
+msgid ""
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
+msgstr ""
+"要从 Live CD 启动，您需要将 CD 放在光驱中并重启计算机。如果您的计算机无法从 "
+"CD 启动，最后一个选项应该在大多数情况下可用。"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:44
 #: src/wubi/frontends/win32/cd_finish_page.py:47
+#: src/wubi/frontends/win32/installation_finish_page.py:44
 msgid "Reboot now"
 msgstr "立即重启"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:45
-msgid "I want to manually reboot later"
-msgstr "我想稍后自己重启动"
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
+msgstr "我想稍后自己重启"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr "帮助我从光盘启动"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
@@ -536,30 +378,189 @@ msgstr ""
 "%(distro)s 是一个由社区开发的基于 Linux 的自由操作系统，它带有网页浏览器、生"
 "产软件、即时消息等许多软件。"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "< Back"
-msgstr "< 上一步"
+#: src/wubi/frontends/win32/cdboot_page.py:32
+#, python-format
+msgid "%s CD Boot Helper"
+msgstr "%s 光盘启动帮助程序"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:43
-msgid "Reboot required"
-msgstr "需要重启"
+#: src/wubi/frontends/win32/cdboot_page.py:43
+msgid "Not enough disk space to proceed"
+msgstr "没有足够的磁盘空间进行操作"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:45
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+msgid "Accessibility"
+msgstr "辅助功能"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+msgid "Install"
+msgstr "安装"
+
+#: src/wubi/frontends/win32/cdboot_page.py:54
+msgid "Install CD boot helper"
+msgstr "安装光盘启动帮助程序"
+
+#: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
-"To start the Live CD you need to reboot your machine leaving the CD in the "
-"tray. If your machine cannot boot from the CD, the last option should work "
-"in most cases."
+"If your machine cannot boot off the CD, this program will install a new boot "
+"menu entry to help you boot from CD. In most cases this program is not "
+"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
+"\n"
+"Do you want to proceed and install the CD booter?"
 msgstr ""
-"要从 Live CD 启动，您需要将 CD 放在光驱中并重启计算机。如果您的计算机无法从 "
-"CD 启动，最后一个选项应该在大多数情况下可用。"
+"如果您的计算机无法从 CD 启动，本程序将会安装新的启动菜单项，用来帮您从 CD 启"
+"动。在大多数情况下，不需要本程序就能直接从 CD-Rom 启动。\n"
+"\n"
+"您想继续安装 CD 启动器吗？"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:48
-msgid "I want to manually reboot Later"
-msgstr "我想稍后自己重启"
+#: src/wubi/frontends/win32/frontend.py:51
+msgid "Are you sure you want to quit?"
+msgstr "您确定要退出吗？"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:49
-msgid "Help me to boot from CD"
-msgstr "帮助我从光盘启动"
+#: src/wubi/frontends/win32/installation_finish_page.py:41
+#, python-format
+msgid "Completing the %s Setup Wizard"
+msgstr "完成 %s 安装向导"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:43
+msgid "You need to reboot to complete the installation"
+msgstr "安装后您需要重启动电脑"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:45
+msgid "I want to manually reboot later"
+msgstr "我想稍后自己重启动"
+
+#: src/wubi/frontends/win32/installation_page.py:73
+#, python-format
+msgid ""
+"Only %sMB of disk space are available.\n"
+"At least 1024MB are required as a bare minimum. Quitting"
+msgstr ""
+"只有 %sMB 可用磁盘空间。\n"
+"最小安装需要 1024MB 空间。退出"
+
+#: src/wubi/frontends/win32/installation_page.py:77
+#, python-format
+msgid ""
+"%(min_space)sMB of disk size are required for installation.\n"
+"Only %(max_space)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"安装需要 %(min_space)sM 的磁盘空间。\n"
+"但是现在只有 %(max_space)sM 可用磁盘空间。\n"
+"当前的安装方式下，可能会造成安装失败。\n"
+"仍然要继续吗？"
+
+#: src/wubi/frontends/win32/installation_page.py:97
+#, python-format
+msgid "(%sGB free)"
+msgstr "(%sGB 空闲)"
+
+#: src/wubi/frontends/win32/installation_page.py:179
+msgid "Please select username and password for the new account"
+msgstr "请为新帐户选择用户名称和密码"
+
+#: src/wubi/frontends/win32/installation_page.py:195
+msgid "Installation drive:"
+msgstr "目标驱动器："
+
+#: src/wubi/frontends/win32/installation_page.py:201
+msgid "Installation size:"
+msgstr "安装大小："
+
+#: src/wubi/frontends/win32/installation_page.py:207
+msgid "Desktop environment:"
+msgstr "桌面环境："
+
+#: src/wubi/frontends/win32/installation_page.py:213
+msgid "Language:"
+msgstr "语言："
+
+#: src/wubi/frontends/win32/installation_page.py:224
+msgid "Username:"
+msgstr "用户名："
+
+#: src/wubi/frontends/win32/installation_page.py:232
+msgid "Password:"
+msgstr "口令："
+
+#: src/wubi/frontends/win32/installation_page.py:274
+#, python-format
+msgid "%s Installer"
+msgstr "%s 安装程序"
+
+#: src/wubi/frontends/win32/installation_page.py:277
+#, python-format
+msgid "You are about to install %(distro)s-%(version)s"
+msgstr "您正要安装 %(distro)s %(version)s"
+
+#: src/wubi/frontends/win32/installation_page.py:282
+#, python-format
+msgid ""
+"%(min_memory)sMB of memory are required for installation.\n"
+"Only %(total_memory)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"安装需要 %(min_memory)sM 内存。\n"
+"现在可用内存只有 %(total_memory)sM。\n"
+"当前安装方式下，安装可能失败。\n"
+"仍然要继续吗？"
+
+#: src/wubi/frontends/win32/installation_page.py:324
+#, fuzzy
+msgid "Please enter a valid username."
+msgstr "请输入有效的用户名称"
+
+#: src/wubi/frontends/win32/installation_page.py:326
+msgid "Please use all lower cases in the username."
+msgstr "请完全使用小写字母设置用户名称。"
+
+#: src/wubi/frontends/win32/installation_page.py:328
+msgid "Please do not use spaces in the username."
+msgstr "请勿在用户名称中使用空格。"
+
+#: src/wubi/frontends/win32/installation_page.py:330
+msgid "Your username must start with a lower-case letter."
+msgstr "您的用户名必须以小写字母开头。"
+
+#: src/wubi/frontends/win32/installation_page.py:332
+msgid ""
+"Your username must contain only lower-case letters, numbers, hyphens, and "
+"underscores."
+msgstr "您的用户名只能包含小写字母、数字、连字符和下划线。"
+
+#: src/wubi/frontends/win32/installation_page.py:334
+msgid "The selected username is reserved, please select a different one."
+msgstr "选择的用户名已保留为其它用途，请指定其他用户名。"
+
+#: src/wubi/frontends/win32/installation_page.py:336
+msgid "Please enter a valid password."
+msgstr "请输入有效密码。"
+
+#: src/wubi/frontends/win32/installation_page.py:338
+msgid "Please do not use spaces in the password."
+msgstr "请勿在密码中使用空格。"
+
+#: src/wubi/frontends/win32/installation_page.py:340
+msgid "Passwords do not match."
+msgstr "密码不一致。"
+
+#: src/wubi/frontends/win32/progress_page.py:40
+msgid "Please wait"
+msgstr "请稍候"
+
+#: src/wubi/frontends/win32/progress_page.py:53
+msgid "Do not download, use a local file"
+msgstr "不进行下载，使用本地文件"
+
+#: src/wubi/frontends/win32/progress_page.py:66
+#, python-format
+msgid "Remaining time approximately %s"
+msgid_plural "Remaining time approximately %s"
+msgstr[0] "剩余时间约为 %s"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"

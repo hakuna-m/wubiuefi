@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2011-04-04 11:04+0100\n"
+"POT-Creation-Date: 2011-06-24 10:56+0100\n"
 "PO-Revision-Date: 2010-05-24 04:45+0000\n"
 "Last-Translator: SiraNokyoongtong <gumaraa@gmail.com>\n"
 "Language-Team: Thai <th@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Launchpad-Export-Date: 2011-04-04 10:01+0000\n"
 "X-Generator: Launchpad (build 12710)\n"
 
-#: src/wubi/application.py:64
+#: src/wubi/application.py:65
 #, python-format
 msgid ""
 "An error occurred:\n"
@@ -34,7 +34,7 @@ msgstr ""
 "\n"
 "สำหรับข้อมูลเพิ่มเติม โปรดดูแฟ้มปูม: %(log)s"
 
-#: src/wubi/application.py:147 src/wubi/application.py:208
+#: src/wubi/application.py:148 src/wubi/application.py:213
 #, python-format
 msgid ""
 "A previous installation was detected in %s.\n"
@@ -43,37 +43,17 @@ msgstr ""
 "ตรวจพบการติดตั้ง %s ครั้งก่อน\n"
 "โปรดถอดถอนมันก่อนดำเนินการต่อ"
 
-#: src/wubi/application.py:190
+#: src/wubi/application.py:195
 msgid "No CD detected, cannot run CD menu"
 msgstr "ไม่พบซีดี, ไม่สามารถเรียกใช้เมนูซีดี"
 
-#: src/wubi/application.py:198
+#: src/wubi/application.py:203
 msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
 "ไม่สามารถค้นหาซีดีที่ถูกต้อง\n"
 "ตัวช่วยบูตซีดีใช้ได้กับ Live CD เท่านั้น"
-
-#: src/wubi/backends/common/tasklist.py:256
-#: src/wubi/backends/common/tasklist.py:260
-msgid "0s"
-msgstr "0 วินาที"
-
-#: src/wubi/backends/common/tasklist.py:269
-#, python-format
-msgid "%ih"
-msgstr "%ih"
-
-#: src/wubi/backends/common/tasklist.py:271
-#, python-format
-msgid "%imin"
-msgstr "%imin"
-
-#: src/wubi/backends/common/tasklist.py:274
-#, python-format
-msgid "%is"
-msgstr "%is"
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:97
@@ -214,11 +194,31 @@ msgstr "กำลังแตกย่อยแฟ้มจาก %s"
 msgid "Checking %s"
 msgstr "กำลังตรวจสอบ %s"
 
-#: src/wubi/backends/common/downloader.py:65
 #: src/wubi/backends/common/btdownloader.py:36
+#: src/wubi/backends/common/downloader.py:65
 #, python-format
 msgid "Downloading %s"
 msgstr "กำลังดาวน์โหลด %s"
+
+#: src/wubi/backends/common/tasklist.py:256
+#: src/wubi/backends/common/tasklist.py:260
+msgid "0s"
+msgstr "0 วินาที"
+
+#: src/wubi/backends/common/tasklist.py:269
+#, python-format
+msgid "%ih"
+msgstr "%ih"
+
+#: src/wubi/backends/common/tasklist.py:271
+#, python-format
+msgid "%imin"
+msgstr "%imin"
+
+#: src/wubi/backends/common/tasklist.py:274
+#, python-format
+msgid "%is"
+msgstr "%is"
 
 #: src/wubi/backends/win32/backend.py:150
 #, python-format
@@ -235,186 +235,6 @@ msgstr ""
 "\n"
 "ระบบจะเริ่มใหม่ในตอนนี้"
 
-#: src/wubi/frontends/win32/cdboot_page.py:32
-#, python-format
-msgid "%s CD Boot Helper"
-msgstr "ตัวช่วยบูตซีดี %s"
-
-#: src/wubi/frontends/win32/cdboot_page.py:43
-msgid "Not enough disk space to proceed"
-msgstr "ไม่มีพื้นที่ดิสก์ว่างพอต่อการดำเนินการ"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-msgid "Accessibility"
-msgstr "สิ่งอำนวยความสะดวก"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-msgid "Install"
-msgstr "ติดตั้ง"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/progress_page.py:44
-#: src/wubi/frontends/win32/accessibility_page.py:39
-#: src/wubi/frontends/win32/cd_menu_page.py:38
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-msgid "Cancel"
-msgstr "ยกเลิก"
-
-#: src/wubi/frontends/win32/cdboot_page.py:54
-msgid "Install CD boot helper"
-msgstr "ติดตั้งตัวช่วยบูตซีดี"
-
-#: src/wubi/frontends/win32/cdboot_page.py:56
-msgid ""
-"If your machine cannot boot off the CD, this program will install a new boot "
-"menu entry to help you boot from CD. In most cases this program is not "
-"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
-"\n"
-"Do you want to proceed and install the CD booter?"
-msgstr ""
-"หากเครื่องของคุณไม่สามารถบูตผ่านซีดี โปรแกรมนี้จะติดตั้งเมนูใหม่เพื่อช่วยคุณบูตจากซีดี "
-"กรณีส่วนใหญ่แล้วโปรแกรมนี้ไม่มีความจำเป็น และมันเพียงพอแล้วที่จะเริ่มใหม่ด้วยซีดีรอมที่อยู่ในถาด\n"
-"\n"
-"คุณต้องการดำเนินการและติดตั้งตัวบูตซีดี?"
-
-#: src/wubi/frontends/win32/installation_page.py:73
-#, python-format
-msgid ""
-"Only %sMB of disk space are available.\n"
-"At least 1024MB are required as a bare minimum. Quitting"
-msgstr ""
-"มีพื้นที่ว่างบนดิสก์ %sMB เท่านั้นที่ใช้ได้\n"
-"ความต้องการขั้นต่ำคือ 1024MB กำลังออก"
-
-#: src/wubi/frontends/win32/installation_page.py:77
-#, python-format
-msgid ""
-"%(min_space)sMB of disk size are required for installation.\n"
-"Only %(max_space)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"ต้องการพื้นที่ดิสก์ %(min_space)sMB เพื่อติดตั้ง\n"
-"มีเพียง %(max_space)sMB เท่านั้นที่ใช้ได้\n"
-"การติดตั้งอาจล้มเหลวในสภาวะเช่นนี้\n"
-"คุณต้องการดำเนินการต่อไปหรือไม่?"
-
-#: src/wubi/frontends/win32/installation_page.py:96
-#, python-format
-msgid "(%sGB free)"
-msgstr "(ว่าง %sGB)"
-
-#: src/wubi/frontends/win32/installation_page.py:177
-msgid "Please select username and password for the new account"
-msgstr "โปรดเลือกชื่อผู้ใช้และรหัสผ่าน สำหรับบัญชีผู้ใช้ใหม่"
-
-#: src/wubi/frontends/win32/installation_page.py:193
-msgid "Installation drive:"
-msgstr "ไดรว์ที่จะติดตั้ง:"
-
-#: src/wubi/frontends/win32/installation_page.py:199
-msgid "Installation size:"
-msgstr "ขนาดที่ติดตั้ง:"
-
-#: src/wubi/frontends/win32/installation_page.py:205
-msgid "Desktop environment:"
-msgstr "สภาพแวดล้อมพื้นโต๊ะ:"
-
-#: src/wubi/frontends/win32/installation_page.py:211
-msgid "Language:"
-msgstr "ภาษา:"
-
-#: src/wubi/frontends/win32/installation_page.py:219
-msgid "Username:"
-msgstr "ชื่อผู้ใช้:"
-
-#: src/wubi/frontends/win32/installation_page.py:226
-msgid "Password:"
-msgstr "รหัสผ่าน:"
-
-#: src/wubi/frontends/win32/installation_page.py:263
-#, python-format
-msgid "%s Installer"
-msgstr "ตัวติดตั้ง %s"
-
-#: src/wubi/frontends/win32/installation_page.py:266
-#, python-format
-msgid "You are about to install %(distro)s-%(version)s"
-msgstr "คุณมีความต้องการติดตั้ง %(distro)s-%(version)s"
-
-#: src/wubi/frontends/win32/installation_page.py:271
-#, python-format
-msgid ""
-"%(min_memory)sMB of memory are required for installation.\n"
-"Only %(total_memory)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"ต้องการหน่วยความจำ %(min_memory)sMB เพื่อการติดตั้ง\n"
-"มีเพียง %(total_memory)sMB ที่ใช้ได้\n"
-"การติดตั้งอาจล้มเหลวภายใต้สภาวะเช่นนี้\n"
-"คุณต้องการดำเนินการต่อไปหรือไม่?"
-
-#: src/wubi/frontends/win32/installation_page.py:313
-msgid "Please enter a valid username"
-msgstr "โปรดป้อนชื่อผู้ใช้ที่ถูกต้อง"
-
-#: src/wubi/frontends/win32/installation_page.py:315
-msgid "Please use all lower cases in the username."
-msgstr "โปรดใช้ตัวพิมพ์เล็กในชื่อผู้ใช้"
-
-#: src/wubi/frontends/win32/installation_page.py:317
-msgid "Please do not use spaces in the username."
-msgstr "โปรดอย่าใช้เว้นวรรคในชื่อผู้ใช้"
-
-#: src/wubi/frontends/win32/installation_page.py:319
-msgid "Your username must start with a lower-case letter."
-msgstr ""
-
-#: src/wubi/frontends/win32/installation_page.py:321
-msgid ""
-"Your username must contain only lower-case letters, numbers, hyphens, and "
-"underscores."
-msgstr ""
-
-#: src/wubi/frontends/win32/installation_page.py:323
-msgid "The selected username is reserved, please select a different one."
-msgstr "ชื่อผู้ใช้ที่เลือกได้ถูกสงวนไว้ โปรดเลือกชื่ออื่น"
-
-#: src/wubi/frontends/win32/installation_page.py:325
-msgid "Please enter a valid password."
-msgstr "โปรดใส่รหัสผ่านที่ถูกต้อง"
-
-#: src/wubi/frontends/win32/installation_page.py:327
-msgid "Please do not use spaces in the password."
-msgstr "โปรดอย่าใช้เว้นวรรคในรหัสผ่าน"
-
-#: src/wubi/frontends/win32/installation_page.py:329
-msgid "Passwords do not match."
-msgstr "รหัสผ่านไม่ตรงกัน"
-
-#: src/wubi/frontends/win32/progress_page.py:40
-msgid "Please wait"
-msgstr "กรุณารอ"
-
-#: src/wubi/frontends/win32/progress_page.py:53
-msgid "Do not download, use a local file"
-msgstr "ไม่ดาวน์โหลด ใช้แฟ้มในเครื่อง"
-
-#: src/wubi/frontends/win32/progress_page.py:66
-#, python-format
-msgid "Remaining time approximately %s"
-msgid_plural "Remaining time approximately %s"
-msgstr[0] "เหลือเวลาอีกประมาณ %s"
-
-#: src/wubi/frontends/win32/frontend.py:51
-msgid "Are you sure you want to quit?"
-msgstr "คุณแน่ใจหรือไม่ที่จะออก?"
-
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
 msgstr "โปรไฟล์สิ่งอำนวยความสะดวก"
@@ -426,6 +246,16 @@ msgstr "โปรดเลือกโปรไฟล์สิ่งอำนว
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
 msgstr "ถัดไป >>"
+
+#: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/cd_menu_page.py:38
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+#: src/wubi/frontends/win32/progress_page.py:44
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+msgid "Cancel"
+msgstr "ยกเลิก"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
@@ -463,29 +293,41 @@ msgstr "Mobility2"
 msgid "None"
 msgstr "ไม่มี"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr "< ย้อนกลับ"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 msgid "Finish"
 msgstr "เสร็จสิ้น"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:41
-#, python-format
-msgid "Completing the %s Setup Wizard"
-msgstr "ตัวช่วยติดตั้ง %s เสร็จสมบูรณ์"
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr "ต้องการเริ่มระบบใหม่"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:43
-msgid "You need to reboot to complete the installation"
-msgstr "คุณต้องเริ่มระบบใหม่ เพื่อให้การติดตั้งสมบูรณ์"
+#: src/wubi/frontends/win32/cd_finish_page.py:45
+msgid ""
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
+msgstr ""
+"เพื่อเริ่มใช้ Live CD คุณจำเป็นต้องเริ่มระบบใหม่โดยปล่อยซีดีไว้ในถาด "
+"ถ้าเครื่องของคุณไม่สามารถบูตจากซีดีได้ ตัวเลือกสุดท้ายควรใช้ได้ในกรณีส่วนใหญ่"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:44
 #: src/wubi/frontends/win32/cd_finish_page.py:47
+#: src/wubi/frontends/win32/installation_finish_page.py:44
 msgid "Reboot now"
 msgstr "เริ่มใหม่เดี๋ยวนี้"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:45
-msgid "I want to manually reboot later"
-msgstr "ฉันต้องการเริ่มระบบใหม่ด้วยตัวเองภายหลัง"
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
+msgstr "ฉันต้องการเริ่มระบบใหม่ด้วยตัวเองในภายหลัง"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr "ช่วยฉันบูตจากซีดี"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
@@ -537,30 +379,189 @@ msgstr ""
 "%(distro)s นั้นเสรี พัฒนาโดยชุมชน เป็นระบบปฏิบัติการที่มีรากฐานมาจากลินุกซ์ "
 "มีพร้อมซึ่งโปรแกรมท่องเว็บ ซอฟต์แวร์เพื่อการทำงาน ตัวส่งข้อความด่วน และอื่น ๆ อีกมากมาย"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "< Back"
-msgstr "< ย้อนกลับ"
+#: src/wubi/frontends/win32/cdboot_page.py:32
+#, python-format
+msgid "%s CD Boot Helper"
+msgstr "ตัวช่วยบูตซีดี %s"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:43
-msgid "Reboot required"
-msgstr "ต้องการเริ่มระบบใหม่"
+#: src/wubi/frontends/win32/cdboot_page.py:43
+msgid "Not enough disk space to proceed"
+msgstr "ไม่มีพื้นที่ดิสก์ว่างพอต่อการดำเนินการ"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:45
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+msgid "Accessibility"
+msgstr "สิ่งอำนวยความสะดวก"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+msgid "Install"
+msgstr "ติดตั้ง"
+
+#: src/wubi/frontends/win32/cdboot_page.py:54
+msgid "Install CD boot helper"
+msgstr "ติดตั้งตัวช่วยบูตซีดี"
+
+#: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
-"To start the Live CD you need to reboot your machine leaving the CD in the "
-"tray. If your machine cannot boot from the CD, the last option should work "
-"in most cases."
+"If your machine cannot boot off the CD, this program will install a new boot "
+"menu entry to help you boot from CD. In most cases this program is not "
+"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
+"\n"
+"Do you want to proceed and install the CD booter?"
 msgstr ""
-"เพื่อเริ่มใช้ Live CD คุณจำเป็นต้องเริ่มระบบใหม่โดยปล่อยซีดีไว้ในถาด "
-"ถ้าเครื่องของคุณไม่สามารถบูตจากซีดีได้ ตัวเลือกสุดท้ายควรใช้ได้ในกรณีส่วนใหญ่"
+"หากเครื่องของคุณไม่สามารถบูตผ่านซีดี โปรแกรมนี้จะติดตั้งเมนูใหม่เพื่อช่วยคุณบูตจากซีดี "
+"กรณีส่วนใหญ่แล้วโปรแกรมนี้ไม่มีความจำเป็น และมันเพียงพอแล้วที่จะเริ่มใหม่ด้วยซีดีรอมที่อยู่ในถาด\n"
+"\n"
+"คุณต้องการดำเนินการและติดตั้งตัวบูตซีดี?"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:48
-msgid "I want to manually reboot Later"
-msgstr "ฉันต้องการเริ่มระบบใหม่ด้วยตัวเองในภายหลัง"
+#: src/wubi/frontends/win32/frontend.py:51
+msgid "Are you sure you want to quit?"
+msgstr "คุณแน่ใจหรือไม่ที่จะออก?"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:49
-msgid "Help me to boot from CD"
-msgstr "ช่วยฉันบูตจากซีดี"
+#: src/wubi/frontends/win32/installation_finish_page.py:41
+#, python-format
+msgid "Completing the %s Setup Wizard"
+msgstr "ตัวช่วยติดตั้ง %s เสร็จสมบูรณ์"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:43
+msgid "You need to reboot to complete the installation"
+msgstr "คุณต้องเริ่มระบบใหม่ เพื่อให้การติดตั้งสมบูรณ์"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:45
+msgid "I want to manually reboot later"
+msgstr "ฉันต้องการเริ่มระบบใหม่ด้วยตัวเองภายหลัง"
+
+#: src/wubi/frontends/win32/installation_page.py:73
+#, python-format
+msgid ""
+"Only %sMB of disk space are available.\n"
+"At least 1024MB are required as a bare minimum. Quitting"
+msgstr ""
+"มีพื้นที่ว่างบนดิสก์ %sMB เท่านั้นที่ใช้ได้\n"
+"ความต้องการขั้นต่ำคือ 1024MB กำลังออก"
+
+#: src/wubi/frontends/win32/installation_page.py:77
+#, python-format
+msgid ""
+"%(min_space)sMB of disk size are required for installation.\n"
+"Only %(max_space)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"ต้องการพื้นที่ดิสก์ %(min_space)sMB เพื่อติดตั้ง\n"
+"มีเพียง %(max_space)sMB เท่านั้นที่ใช้ได้\n"
+"การติดตั้งอาจล้มเหลวในสภาวะเช่นนี้\n"
+"คุณต้องการดำเนินการต่อไปหรือไม่?"
+
+#: src/wubi/frontends/win32/installation_page.py:97
+#, python-format
+msgid "(%sGB free)"
+msgstr "(ว่าง %sGB)"
+
+#: src/wubi/frontends/win32/installation_page.py:179
+msgid "Please select username and password for the new account"
+msgstr "โปรดเลือกชื่อผู้ใช้และรหัสผ่าน สำหรับบัญชีผู้ใช้ใหม่"
+
+#: src/wubi/frontends/win32/installation_page.py:195
+msgid "Installation drive:"
+msgstr "ไดรว์ที่จะติดตั้ง:"
+
+#: src/wubi/frontends/win32/installation_page.py:201
+msgid "Installation size:"
+msgstr "ขนาดที่ติดตั้ง:"
+
+#: src/wubi/frontends/win32/installation_page.py:207
+msgid "Desktop environment:"
+msgstr "สภาพแวดล้อมพื้นโต๊ะ:"
+
+#: src/wubi/frontends/win32/installation_page.py:213
+msgid "Language:"
+msgstr "ภาษา:"
+
+#: src/wubi/frontends/win32/installation_page.py:224
+msgid "Username:"
+msgstr "ชื่อผู้ใช้:"
+
+#: src/wubi/frontends/win32/installation_page.py:232
+msgid "Password:"
+msgstr "รหัสผ่าน:"
+
+#: src/wubi/frontends/win32/installation_page.py:274
+#, python-format
+msgid "%s Installer"
+msgstr "ตัวติดตั้ง %s"
+
+#: src/wubi/frontends/win32/installation_page.py:277
+#, python-format
+msgid "You are about to install %(distro)s-%(version)s"
+msgstr "คุณมีความต้องการติดตั้ง %(distro)s-%(version)s"
+
+#: src/wubi/frontends/win32/installation_page.py:282
+#, python-format
+msgid ""
+"%(min_memory)sMB of memory are required for installation.\n"
+"Only %(total_memory)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"ต้องการหน่วยความจำ %(min_memory)sMB เพื่อการติดตั้ง\n"
+"มีเพียง %(total_memory)sMB ที่ใช้ได้\n"
+"การติดตั้งอาจล้มเหลวภายใต้สภาวะเช่นนี้\n"
+"คุณต้องการดำเนินการต่อไปหรือไม่?"
+
+#: src/wubi/frontends/win32/installation_page.py:324
+#, fuzzy
+msgid "Please enter a valid username."
+msgstr "โปรดป้อนชื่อผู้ใช้ที่ถูกต้อง"
+
+#: src/wubi/frontends/win32/installation_page.py:326
+msgid "Please use all lower cases in the username."
+msgstr "โปรดใช้ตัวพิมพ์เล็กในชื่อผู้ใช้"
+
+#: src/wubi/frontends/win32/installation_page.py:328
+msgid "Please do not use spaces in the username."
+msgstr "โปรดอย่าใช้เว้นวรรคในชื่อผู้ใช้"
+
+#: src/wubi/frontends/win32/installation_page.py:330
+msgid "Your username must start with a lower-case letter."
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_page.py:332
+msgid ""
+"Your username must contain only lower-case letters, numbers, hyphens, and "
+"underscores."
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_page.py:334
+msgid "The selected username is reserved, please select a different one."
+msgstr "ชื่อผู้ใช้ที่เลือกได้ถูกสงวนไว้ โปรดเลือกชื่ออื่น"
+
+#: src/wubi/frontends/win32/installation_page.py:336
+msgid "Please enter a valid password."
+msgstr "โปรดใส่รหัสผ่านที่ถูกต้อง"
+
+#: src/wubi/frontends/win32/installation_page.py:338
+msgid "Please do not use spaces in the password."
+msgstr "โปรดอย่าใช้เว้นวรรคในรหัสผ่าน"
+
+#: src/wubi/frontends/win32/installation_page.py:340
+msgid "Passwords do not match."
+msgstr "รหัสผ่านไม่ตรงกัน"
+
+#: src/wubi/frontends/win32/progress_page.py:40
+msgid "Please wait"
+msgstr "กรุณารอ"
+
+#: src/wubi/frontends/win32/progress_page.py:53
+msgid "Do not download, use a local file"
+msgstr "ไม่ดาวน์โหลด ใช้แฟ้มในเครื่อง"
+
+#: src/wubi/frontends/win32/progress_page.py:66
+#, python-format
+msgid "Remaining time approximately %s"
+msgid_plural "Remaining time approximately %s"
+msgstr[0] "เหลือเวลาอีกประมาณ %s"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"

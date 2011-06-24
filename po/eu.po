@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2011-04-04 11:04+0100\n"
+"POT-Creation-Date: 2011-06-24 10:56+0100\n"
 "PO-Revision-Date: 2010-11-24 21:03+0000\n"
 "Last-Translator: Mikel Larreategi <larreategi@eibar.org>\n"
 "Language-Team: Basque <eu@li.org>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "X-Launchpad-Export-Date: 2011-04-04 10:00+0000\n"
 "X-Generator: Launchpad (build 12710)\n"
 
-#: src/wubi/application.py:64
+#: src/wubi/application.py:65
 #, python-format
 msgid ""
 "An error occurred:\n"
@@ -41,7 +41,7 @@ msgstr ""
 "\n"
 "Informazio gehiago eskuratzeko, txostenera jo: %(log)s"
 
-#: src/wubi/application.py:147 src/wubi/application.py:208
+#: src/wubi/application.py:148 src/wubi/application.py:213
 #, python-format
 msgid ""
 "A previous installation was detected in %s.\n"
@@ -50,37 +50,17 @@ msgstr ""
 "Aurreko instalazio bat detektatu da %s-n.\n"
 "Jarraitu aurretik, desinstalatu ezazu."
 
-#: src/wubi/application.py:190
+#: src/wubi/application.py:195
 msgid "No CD detected, cannot run CD menu"
 msgstr "Ez da CD-rik detektatu, ezin CD-menua abiarazi"
 
-#: src/wubi/application.py:198
+#: src/wubi/application.py:203
 msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
 "Ezin baliozko CD-rik aurkitu.\n"
 "Live CD bat behar da CD-abio laguntzailea erabiltzeko."
-
-#: src/wubi/backends/common/tasklist.py:256
-#: src/wubi/backends/common/tasklist.py:260
-msgid "0s"
-msgstr "0s"
-
-#: src/wubi/backends/common/tasklist.py:269
-#, python-format
-msgid "%ih"
-msgstr "%iord"
-
-#: src/wubi/backends/common/tasklist.py:271
-#, python-format
-msgid "%imin"
-msgstr "%imin"
-
-#: src/wubi/backends/common/tasklist.py:274
-#, python-format
-msgid "%is"
-msgstr "%is"
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:97
@@ -221,11 +201,31 @@ msgstr "%s-ko fitxategiak erauzten"
 msgid "Checking %s"
 msgstr "%s egiaztatzen"
 
-#: src/wubi/backends/common/downloader.py:65
 #: src/wubi/backends/common/btdownloader.py:36
+#: src/wubi/backends/common/downloader.py:65
 #, python-format
 msgid "Downloading %s"
 msgstr "%s deskargatzen"
+
+#: src/wubi/backends/common/tasklist.py:256
+#: src/wubi/backends/common/tasklist.py:260
+msgid "0s"
+msgstr "0s"
+
+#: src/wubi/backends/common/tasklist.py:269
+#, python-format
+msgid "%ih"
+msgstr "%iord"
+
+#: src/wubi/backends/common/tasklist.py:271
+#, python-format
+msgid "%imin"
+msgstr "%imin"
+
+#: src/wubi/backends/common/tasklist.py:274
+#, python-format
+msgid "%is"
+msgstr "%is"
 
 #: src/wubi/backends/win32/backend.py:150
 #, python-format
@@ -242,191 +242,6 @@ msgstr ""
 "\n"
 "Sistema berrabiaraziko da orain."
 
-#: src/wubi/frontends/win32/cdboot_page.py:32
-#, python-format
-msgid "%s CD Boot Helper"
-msgstr "%s CD-abio Laguuntzailea"
-
-#: src/wubi/frontends/win32/cdboot_page.py:43
-msgid "Not enough disk space to proceed"
-msgstr "Jarraitzeko disko-espazio nahikorik ez"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-msgid "Accessibility"
-msgstr "Erabilerraztasuna"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-msgid "Install"
-msgstr "Instalatu"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/progress_page.py:44
-#: src/wubi/frontends/win32/accessibility_page.py:39
-#: src/wubi/frontends/win32/cd_menu_page.py:38
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-msgid "Cancel"
-msgstr "Utzi"
-
-#: src/wubi/frontends/win32/cdboot_page.py:54
-msgid "Install CD boot helper"
-msgstr "CD-abio laguntzailea instalatu"
-
-#: src/wubi/frontends/win32/cdboot_page.py:56
-msgid ""
-"If your machine cannot boot off the CD, this program will install a new boot "
-"menu entry to help you boot from CD. In most cases this program is not "
-"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
-"\n"
-"Do you want to proceed and install the CD booter?"
-msgstr ""
-"Zure ordenagailuak ezin badu CD batetik sistema abiarazi, programa honek "
-"abio-menuko sarrera berri bat gehituko du, ahal dezazun. Kasu askotan, "
-"programa hau ez da beharrezkoa, eta nahikoa da irakurgailuan CDa sartuta "
-"duzula berrabiaraztea ordenagailua.\n"
-"\n"
-"Aurrera jarraitu eta CD-abiarazlea instalatu?"
-
-#: src/wubi/frontends/win32/installation_page.py:73
-#, python-format
-msgid ""
-"Only %sMB of disk space are available.\n"
-"At least 1024MB are required as a bare minimum. Quitting"
-msgstr ""
-"%sMB bakarrik daude libre diskoan.\n"
-"1024MB behar dituzu gutxienez. Irteten"
-
-#: src/wubi/frontends/win32/installation_page.py:77
-#, python-format
-msgid ""
-"%(min_space)sMB of disk size are required for installation.\n"
-"Only %(max_space)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"%(min_space)sMB behar dira instalaziorako.\n"
-"%(max_space)sMB bakarrik daude libre diskoan.\n"
-"Egoera honetan, instalazioak huts egin dezake.\n"
-"Halaere, jarraitu egin nahi al duzu?"
-
-#: src/wubi/frontends/win32/installation_page.py:96
-#, python-format
-msgid "(%sGB free)"
-msgstr "(%sGB libre)"
-
-#: src/wubi/frontends/win32/installation_page.py:177
-msgid "Please select username and password for the new account"
-msgstr "Hautatu itzazu kontu berriaren erabiltzaile-izena eta pasahitza"
-
-#: src/wubi/frontends/win32/installation_page.py:193
-msgid "Installation drive:"
-msgstr "Instalaziorako gailua:"
-
-#: src/wubi/frontends/win32/installation_page.py:199
-msgid "Installation size:"
-msgstr "Instalazioaren tamaina:"
-
-#: src/wubi/frontends/win32/installation_page.py:205
-msgid "Desktop environment:"
-msgstr "Mahaigaineko ingurunea:"
-
-#: src/wubi/frontends/win32/installation_page.py:211
-msgid "Language:"
-msgstr "Hizkuntza:"
-
-#: src/wubi/frontends/win32/installation_page.py:219
-msgid "Username:"
-msgstr "Erabiltzaile-izena:"
-
-#: src/wubi/frontends/win32/installation_page.py:226
-msgid "Password:"
-msgstr "Pasahitza:"
-
-#: src/wubi/frontends/win32/installation_page.py:263
-#, python-format
-msgid "%s Installer"
-msgstr "%s Instalatzailea"
-
-#: src/wubi/frontends/win32/installation_page.py:266
-#, python-format
-msgid "You are about to install %(distro)s-%(version)s"
-msgstr "%(distro)s-%(version)s instalatuko duzu"
-
-#: src/wubi/frontends/win32/installation_page.py:271
-#, python-format
-msgid ""
-"%(min_memory)sMB of memory are required for installation.\n"
-"Only %(total_memory)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"%(min_memory)sMB-eko memoria behar da instalaziorako.\n"
-"%(total_memory)sMB bakarrik daude erabilgarri.\n"
-"Egoera honetan, instalazioak huts egin dezake.\n"
-"Halaere, jarraitu egin nahi al duzu?"
-
-#: src/wubi/frontends/win32/installation_page.py:313
-msgid "Please enter a valid username"
-msgstr "Erabiltzaile-izen egoki bat sartu"
-
-#: src/wubi/frontends/win32/installation_page.py:315
-msgid "Please use all lower cases in the username."
-msgstr "Minuskulak bakarrik erabili erabiltzaile-izenean."
-
-#: src/wubi/frontends/win32/installation_page.py:317
-msgid "Please do not use spaces in the username."
-msgstr "Ez hutsunerik erabili erabiltzaile-izenean."
-
-#: src/wubi/frontends/win32/installation_page.py:319
-msgid "Your username must start with a lower-case letter."
-msgstr "Erabiltzaile-izena letra xehe batekin hasi behar da."
-
-#: src/wubi/frontends/win32/installation_page.py:321
-msgid ""
-"Your username must contain only lower-case letters, numbers, hyphens, and "
-"underscores."
-msgstr ""
-"Zure erabiltzaile-izenak letra xeheak, zenbakiak, gidoiak eta azpimarrak "
-"bakarrik izan ditzake."
-
-#: src/wubi/frontends/win32/installation_page.py:323
-msgid "The selected username is reserved, please select a different one."
-msgstr "Erreserbatuta dago erabiltzaile-izen hori, beste bat erabili ezazu."
-
-#: src/wubi/frontends/win32/installation_page.py:325
-msgid "Please enter a valid password."
-msgstr "Pasahitz egoki bat sartu."
-
-#: src/wubi/frontends/win32/installation_page.py:327
-msgid "Please do not use spaces in the password."
-msgstr "Ez hutsunerik erabili pasahitzean."
-
-#: src/wubi/frontends/win32/installation_page.py:329
-msgid "Passwords do not match."
-msgstr "Pasahitzak ez datoz bat."
-
-#: src/wubi/frontends/win32/progress_page.py:40
-msgid "Please wait"
-msgstr "Itxaron, mesedez"
-
-#: src/wubi/frontends/win32/progress_page.py:53
-msgid "Do not download, use a local file"
-msgstr "Ez deskargatu, fitxategi lokal bat erabili"
-
-#: src/wubi/frontends/win32/progress_page.py:66
-#, python-format
-msgid "Remaining time approximately %s"
-msgid_plural "Remaining time approximately %s"
-msgstr[0] "Falta den gutxi gora beherako denbora %s"
-msgstr[1] "Falta den gutxi gora beherako denbora %s"
-
-#: src/wubi/frontends/win32/frontend.py:51
-msgid "Are you sure you want to quit?"
-msgstr "Ziur zaude irten nahi duzula?"
-
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
 msgstr "Erabilerraztasun profila"
@@ -438,6 +253,16 @@ msgstr "Erabilerraztasun profil egokia hautatu ezazu"
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
 msgstr "Hurrengoa >>"
+
+#: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/cd_menu_page.py:38
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+#: src/wubi/frontends/win32/progress_page.py:44
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+msgid "Cancel"
+msgstr "Utzi"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
@@ -475,29 +300,42 @@ msgstr "Mugikortasuna2"
 msgid "None"
 msgstr "Batere ez"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr "< Atzera"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 msgid "Finish"
 msgstr "Amaitu"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:41
-#, python-format
-msgid "Completing the %s Setup Wizard"
-msgstr "%s Konfigurazio-Laguntzailea burutzen"
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr "Berrabiaraztea beharrezkoa"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:43
-msgid "You need to reboot to complete the installation"
-msgstr "Berrabiarazi egin beharko duzu instalazioa burutzeko"
+#: src/wubi/frontends/win32/cd_finish_page.py:45
+msgid ""
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
+msgstr ""
+"Live CDa abiarazteko, zure ordenagailua berrabiarazi beharko duzu, CDa "
+"sartuta duela. Zure ordenagailuak ezin badu CD batetik abiarazi, azken "
+"aukerak balio egin beharko lizuke."
 
-#: src/wubi/frontends/win32/installation_finish_page.py:44
 #: src/wubi/frontends/win32/cd_finish_page.py:47
+#: src/wubi/frontends/win32/installation_finish_page.py:44
 msgid "Reboot now"
 msgstr "Orain berrabiarazi"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:45
-msgid "I want to manually reboot later"
-msgstr "Geroago berraziarazi nahi dut"
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
+msgstr "Geroago eskuz berrabiarazi nahi dut"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr "CDtik abiarazteko laguntza"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
@@ -552,31 +390,194 @@ msgstr ""
 "oinarrituta dago, eta badu web-arakatzailea, produktibitate softwarea, "
 "istanteko mezularitza, etab."
 
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "< Back"
-msgstr "< Atzera"
+#: src/wubi/frontends/win32/cdboot_page.py:32
+#, python-format
+msgid "%s CD Boot Helper"
+msgstr "%s CD-abio Laguuntzailea"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:43
-msgid "Reboot required"
-msgstr "Berrabiaraztea beharrezkoa"
+#: src/wubi/frontends/win32/cdboot_page.py:43
+msgid "Not enough disk space to proceed"
+msgstr "Jarraitzeko disko-espazio nahikorik ez"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:45
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+msgid "Accessibility"
+msgstr "Erabilerraztasuna"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+msgid "Install"
+msgstr "Instalatu"
+
+#: src/wubi/frontends/win32/cdboot_page.py:54
+msgid "Install CD boot helper"
+msgstr "CD-abio laguntzailea instalatu"
+
+#: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
-"To start the Live CD you need to reboot your machine leaving the CD in the "
-"tray. If your machine cannot boot from the CD, the last option should work "
-"in most cases."
+"If your machine cannot boot off the CD, this program will install a new boot "
+"menu entry to help you boot from CD. In most cases this program is not "
+"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
+"\n"
+"Do you want to proceed and install the CD booter?"
 msgstr ""
-"Live CDa abiarazteko, zure ordenagailua berrabiarazi beharko duzu, CDa "
-"sartuta duela. Zure ordenagailuak ezin badu CD batetik abiarazi, azken "
-"aukerak balio egin beharko lizuke."
+"Zure ordenagailuak ezin badu CD batetik sistema abiarazi, programa honek "
+"abio-menuko sarrera berri bat gehituko du, ahal dezazun. Kasu askotan, "
+"programa hau ez da beharrezkoa, eta nahikoa da irakurgailuan CDa sartuta "
+"duzula berrabiaraztea ordenagailua.\n"
+"\n"
+"Aurrera jarraitu eta CD-abiarazlea instalatu?"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:48
-msgid "I want to manually reboot Later"
-msgstr "Geroago eskuz berrabiarazi nahi dut"
+#: src/wubi/frontends/win32/frontend.py:51
+msgid "Are you sure you want to quit?"
+msgstr "Ziur zaude irten nahi duzula?"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:49
-msgid "Help me to boot from CD"
-msgstr "CDtik abiarazteko laguntza"
+#: src/wubi/frontends/win32/installation_finish_page.py:41
+#, python-format
+msgid "Completing the %s Setup Wizard"
+msgstr "%s Konfigurazio-Laguntzailea burutzen"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:43
+msgid "You need to reboot to complete the installation"
+msgstr "Berrabiarazi egin beharko duzu instalazioa burutzeko"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:45
+msgid "I want to manually reboot later"
+msgstr "Geroago berraziarazi nahi dut"
+
+#: src/wubi/frontends/win32/installation_page.py:73
+#, python-format
+msgid ""
+"Only %sMB of disk space are available.\n"
+"At least 1024MB are required as a bare minimum. Quitting"
+msgstr ""
+"%sMB bakarrik daude libre diskoan.\n"
+"1024MB behar dituzu gutxienez. Irteten"
+
+#: src/wubi/frontends/win32/installation_page.py:77
+#, python-format
+msgid ""
+"%(min_space)sMB of disk size are required for installation.\n"
+"Only %(max_space)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"%(min_space)sMB behar dira instalaziorako.\n"
+"%(max_space)sMB bakarrik daude libre diskoan.\n"
+"Egoera honetan, instalazioak huts egin dezake.\n"
+"Halaere, jarraitu egin nahi al duzu?"
+
+#: src/wubi/frontends/win32/installation_page.py:97
+#, python-format
+msgid "(%sGB free)"
+msgstr "(%sGB libre)"
+
+#: src/wubi/frontends/win32/installation_page.py:179
+msgid "Please select username and password for the new account"
+msgstr "Hautatu itzazu kontu berriaren erabiltzaile-izena eta pasahitza"
+
+#: src/wubi/frontends/win32/installation_page.py:195
+msgid "Installation drive:"
+msgstr "Instalaziorako gailua:"
+
+#: src/wubi/frontends/win32/installation_page.py:201
+msgid "Installation size:"
+msgstr "Instalazioaren tamaina:"
+
+#: src/wubi/frontends/win32/installation_page.py:207
+msgid "Desktop environment:"
+msgstr "Mahaigaineko ingurunea:"
+
+#: src/wubi/frontends/win32/installation_page.py:213
+msgid "Language:"
+msgstr "Hizkuntza:"
+
+#: src/wubi/frontends/win32/installation_page.py:224
+msgid "Username:"
+msgstr "Erabiltzaile-izena:"
+
+#: src/wubi/frontends/win32/installation_page.py:232
+msgid "Password:"
+msgstr "Pasahitza:"
+
+#: src/wubi/frontends/win32/installation_page.py:274
+#, python-format
+msgid "%s Installer"
+msgstr "%s Instalatzailea"
+
+#: src/wubi/frontends/win32/installation_page.py:277
+#, python-format
+msgid "You are about to install %(distro)s-%(version)s"
+msgstr "%(distro)s-%(version)s instalatuko duzu"
+
+#: src/wubi/frontends/win32/installation_page.py:282
+#, python-format
+msgid ""
+"%(min_memory)sMB of memory are required for installation.\n"
+"Only %(total_memory)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"%(min_memory)sMB-eko memoria behar da instalaziorako.\n"
+"%(total_memory)sMB bakarrik daude erabilgarri.\n"
+"Egoera honetan, instalazioak huts egin dezake.\n"
+"Halaere, jarraitu egin nahi al duzu?"
+
+#: src/wubi/frontends/win32/installation_page.py:324
+#, fuzzy
+msgid "Please enter a valid username."
+msgstr "Erabiltzaile-izen egoki bat sartu"
+
+#: src/wubi/frontends/win32/installation_page.py:326
+msgid "Please use all lower cases in the username."
+msgstr "Minuskulak bakarrik erabili erabiltzaile-izenean."
+
+#: src/wubi/frontends/win32/installation_page.py:328
+msgid "Please do not use spaces in the username."
+msgstr "Ez hutsunerik erabili erabiltzaile-izenean."
+
+#: src/wubi/frontends/win32/installation_page.py:330
+msgid "Your username must start with a lower-case letter."
+msgstr "Erabiltzaile-izena letra xehe batekin hasi behar da."
+
+#: src/wubi/frontends/win32/installation_page.py:332
+msgid ""
+"Your username must contain only lower-case letters, numbers, hyphens, and "
+"underscores."
+msgstr ""
+"Zure erabiltzaile-izenak letra xeheak, zenbakiak, gidoiak eta azpimarrak "
+"bakarrik izan ditzake."
+
+#: src/wubi/frontends/win32/installation_page.py:334
+msgid "The selected username is reserved, please select a different one."
+msgstr "Erreserbatuta dago erabiltzaile-izen hori, beste bat erabili ezazu."
+
+#: src/wubi/frontends/win32/installation_page.py:336
+msgid "Please enter a valid password."
+msgstr "Pasahitz egoki bat sartu."
+
+#: src/wubi/frontends/win32/installation_page.py:338
+msgid "Please do not use spaces in the password."
+msgstr "Ez hutsunerik erabili pasahitzean."
+
+#: src/wubi/frontends/win32/installation_page.py:340
+msgid "Passwords do not match."
+msgstr "Pasahitzak ez datoz bat."
+
+#: src/wubi/frontends/win32/progress_page.py:40
+msgid "Please wait"
+msgstr "Itxaron, mesedez"
+
+#: src/wubi/frontends/win32/progress_page.py:53
+msgid "Do not download, use a local file"
+msgstr "Ez deskargatu, fitxategi lokal bat erabili"
+
+#: src/wubi/frontends/win32/progress_page.py:66
+#, python-format
+msgid "Remaining time approximately %s"
+msgid_plural "Remaining time approximately %s"
+msgstr[0] "Falta den gutxi gora beherako denbora %s"
+msgstr[1] "Falta den gutxi gora beherako denbora %s"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"

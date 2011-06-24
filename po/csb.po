@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2011-04-04 11:04+0100\n"
+"POT-Creation-Date: 2011-06-24 10:56+0100\n"
 "PO-Revision-Date: 2009-11-08 22:43+0000\n"
 "Last-Translator: Mark Kwidzińsczi <mark@linuxcsb.org>\n"
 "Language-Team: Kashubian <csb@li.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 "X-Launchpad-Export-Date: 2011-04-04 10:00+0000\n"
 "X-Generator: Launchpad (build 12710)\n"
 
-#: src/wubi/application.py:64
+#: src/wubi/application.py:65
 #, python-format
 msgid ""
 "An error occurred:\n"
@@ -42,7 +42,7 @@ msgstr ""
 "\n"
 "Wicy wëdowiédzë nalezesz w lopkù: %(log)s"
 
-#: src/wubi/application.py:147 src/wubi/application.py:208
+#: src/wubi/application.py:148 src/wubi/application.py:213
 #, python-format
 msgid ""
 "A previous installation was detected in %s.\n"
@@ -51,37 +51,17 @@ msgstr ""
 "W %s òsta nalazłô wczasniészô instalacëjô.\n"
 "Proszã jã òdinstalowac nigle póńdzesz dali."
 
-#: src/wubi/application.py:190
+#: src/wubi/application.py:195
 msgid "No CD detected, cannot run CD menu"
 msgstr "CD ni òsta nalazłô, ni mòże zrëszëc CD menu."
 
-#: src/wubi/application.py:198
+#: src/wubi/application.py:203
 msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
 "Ni mòże nalezc pasowny CD.\n"
 "Sztartowi pòmòcnik CD mòże bëc zrëszony blós z Live CD."
-
-#: src/wubi/backends/common/tasklist.py:256
-#: src/wubi/backends/common/tasklist.py:260
-msgid "0s"
-msgstr "0s"
-
-#: src/wubi/backends/common/tasklist.py:269
-#, python-format
-msgid "%ih"
-msgstr "%ih"
-
-#: src/wubi/backends/common/tasklist.py:271
-#, python-format
-msgid "%imin"
-msgstr "%imin"
-
-#: src/wubi/backends/common/tasklist.py:274
-#, python-format
-msgid "%is"
-msgstr "%is"
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:97
@@ -222,11 +202,31 @@ msgstr "Rozpakòwëwanié lopków z %s"
 msgid "Checking %s"
 msgstr "Sprôwdzanié %s"
 
-#: src/wubi/backends/common/downloader.py:65
 #: src/wubi/backends/common/btdownloader.py:36
+#: src/wubi/backends/common/downloader.py:65
 #, python-format
 msgid "Downloading %s"
 msgstr "Zladënk %s"
+
+#: src/wubi/backends/common/tasklist.py:256
+#: src/wubi/backends/common/tasklist.py:260
+msgid "0s"
+msgstr "0s"
+
+#: src/wubi/backends/common/tasklist.py:269
+#, python-format
+msgid "%ih"
+msgstr "%ih"
+
+#: src/wubi/backends/common/tasklist.py:271
+#, python-format
+msgid "%imin"
+msgstr "%imin"
+
+#: src/wubi/backends/common/tasklist.py:274
+#, python-format
+msgid "%is"
+msgstr "%is"
 
 #: src/wubi/backends/win32/backend.py:150
 #, python-format
@@ -243,189 +243,6 @@ msgstr ""
 "\n"
 "Systema zrëszë sã terô znowa."
 
-#: src/wubi/frontends/win32/cdboot_page.py:32
-#, python-format
-msgid "%s CD Boot Helper"
-msgstr "%s CD sztartowi pòmòcnik"
-
-#: src/wubi/frontends/win32/cdboot_page.py:43
-msgid "Not enough disk space to proceed"
-msgstr "Felëjë wòlnegò placu abë jisc dali"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-msgid "Accessibility"
-msgstr "Pòmòce przëstãpù"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-msgid "Install"
-msgstr "Instalëjë"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/progress_page.py:44
-#: src/wubi/frontends/win32/accessibility_page.py:39
-#: src/wubi/frontends/win32/cd_menu_page.py:38
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-msgid "Cancel"
-msgstr "Òprzestóń"
-
-#: src/wubi/frontends/win32/cdboot_page.py:54
-msgid "Install CD boot helper"
-msgstr "Instalacëjô sztartowégò pòmòcnika CD"
-
-#: src/wubi/frontends/win32/cdboot_page.py:56
-msgid ""
-"If your machine cannot boot off the CD, this program will install a new boot "
-"menu entry to help you boot from CD. In most cases this program is not "
-"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
-"\n"
-"Do you want to proceed and install the CD booter?"
-msgstr ""
-"Jeżlë twój kòmpùtr nie chce wësztartowac z CD, na programa dodô nowi wpisënk "
-"do sztartowégò menu abë dôc ce mòżnotã sztartowaniô z CD. W wikszoscë "
-"przëtrôfków nie je tegò nót ë sygô zrëszëc kòmpùtr z CD bënë nëkù.\n"
-"\n"
-"Chcesz jisc dali ë winstalowac zrëszôcza CD?"
-
-#: src/wubi/frontends/win32/installation_page.py:73
-#, python-format
-msgid ""
-"Only %sMB of disk space are available.\n"
-"At least 1024MB are required as a bare minimum. Quitting"
-msgstr ""
-"Je blós %sMB wòlnegò placu na cwiardi place.\n"
-"Je nót rówank minimalno 1024MB. Zakùńczenié"
-
-#: src/wubi/frontends/win32/installation_page.py:77
-#, python-format
-msgid ""
-"%(min_space)sMB of disk size are required for installation.\n"
-"Only %(max_space)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"%(min_space)sMB na diskù je nót do instalacëji.\n"
-"Blós %(max_space)sMB je przëstãpné.\n"
-"Przez to na instalacëjô na gwës sã nie darzy.\n"
-"Chcesz jisc nimò tegò dali?"
-
-#: src/wubi/frontends/win32/installation_page.py:96
-#, python-format
-msgid "(%sGB free)"
-msgstr "(%sGB wòlné)"
-
-#: src/wubi/frontends/win32/installation_page.py:177
-msgid "Please select username and password for the new account"
-msgstr "Proszã pòdac miono brëkòwnika ë parolã dlô nowégò kònta"
-
-#: src/wubi/frontends/win32/installation_page.py:193
-msgid "Installation drive:"
-msgstr "Instalacjowi nëk:"
-
-#: src/wubi/frontends/win32/installation_page.py:199
-msgid "Installation size:"
-msgstr "Instalacjowô miara:"
-
-#: src/wubi/frontends/win32/installation_page.py:205
-msgid "Desktop environment:"
-msgstr "Òkrãżé pùltu:"
-
-#: src/wubi/frontends/win32/installation_page.py:211
-msgid "Language:"
-msgstr "Jãzëk:"
-
-#: src/wubi/frontends/win32/installation_page.py:219
-msgid "Username:"
-msgstr "Miono brëkòwnika:"
-
-#: src/wubi/frontends/win32/installation_page.py:226
-msgid "Password:"
-msgstr "Parola:"
-
-#: src/wubi/frontends/win32/installation_page.py:263
-#, python-format
-msgid "%s Installer"
-msgstr "%s Instalownik"
-
-#: src/wubi/frontends/win32/installation_page.py:266
-#, python-format
-msgid "You are about to install %(distro)s-%(version)s"
-msgstr "Jes przë tim bë winstalowac %(distro)s-%(version)s"
-
-#: src/wubi/frontends/win32/installation_page.py:271
-#, python-format
-msgid ""
-"%(min_memory)sMB of memory are required for installation.\n"
-"Only %(total_memory)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"%(min_memory)sMB je nót do instalacëji.\n"
-"Blós %(total_memory)sMB je przëstãpné.\n"
-"Przez to na instalacëjô na gwës sã nie darzy.\n"
-"Chcesz jisc nimò tegò dali?"
-
-#: src/wubi/frontends/win32/installation_page.py:313
-msgid "Please enter a valid username"
-msgstr "Proszã wpisac pòprôwné miono brëkòwnika"
-
-#: src/wubi/frontends/win32/installation_page.py:315
-msgid "Please use all lower cases in the username."
-msgstr "Proszã ùżëwac blós môłëch lëterów w mionie brëkòwnika."
-
-#: src/wubi/frontends/win32/installation_page.py:317
-msgid "Please do not use spaces in the username."
-msgstr "Proszã nié ùżëwac spacëji w mionie brëkòwnika."
-
-#: src/wubi/frontends/win32/installation_page.py:319
-msgid "Your username must start with a lower-case letter."
-msgstr ""
-
-#: src/wubi/frontends/win32/installation_page.py:321
-msgid ""
-"Your username must contain only lower-case letters, numbers, hyphens, and "
-"underscores."
-msgstr ""
-
-#: src/wubi/frontends/win32/installation_page.py:323
-msgid "The selected username is reserved, please select a different one."
-msgstr "Wëbróné miono brëkòwnika ju je, proszã wëbrac jinszé."
-
-#: src/wubi/frontends/win32/installation_page.py:325
-msgid "Please enter a valid password."
-msgstr "Proszã wpisac pòprôwną parolã."
-
-#: src/wubi/frontends/win32/installation_page.py:327
-msgid "Please do not use spaces in the password."
-msgstr "Proszã nié brëkòwac spacëji w parolë."
-
-#: src/wubi/frontends/win32/installation_page.py:329
-msgid "Passwords do not match."
-msgstr "Parole ni są równé."
-
-#: src/wubi/frontends/win32/progress_page.py:40
-msgid "Please wait"
-msgstr "Proszã żdac"
-
-#: src/wubi/frontends/win32/progress_page.py:53
-msgid "Do not download, use a local file"
-msgstr "Ni ladëje niczegò, brëkùjë blós môlowich lopków"
-
-#: src/wubi/frontends/win32/progress_page.py:66
-#, python-format
-msgid "Remaining time approximately %s"
-msgid_plural "Remaining time approximately %s"
-msgstr[0] "Òstała jesz do kùńca %s"
-msgstr[1] "Òstałé jesz do kùńca kòl %s"
-msgstr[2] "Òstało jesz do kùńca kòl %s"
-
-#: src/wubi/frontends/win32/frontend.py:51
-msgid "Are you sure you want to quit?"
-msgstr "Chcesz na gwës zakùńczëc?"
-
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
 msgstr "Profil przëstãpnoscë"
@@ -437,6 +254,16 @@ msgstr "Proszã wëbrac pasowny profil przëstãpnoscë"
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
 msgstr "Dali >>"
+
+#: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/cd_menu_page.py:38
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+#: src/wubi/frontends/win32/progress_page.py:44
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+msgid "Cancel"
+msgstr "Òprzestóń"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
@@ -474,29 +301,42 @@ msgstr "Mòbilny profil 2"
 msgid "None"
 msgstr "Felënk"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr "< Nazôd"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 msgid "Finish"
 msgstr "Zakùńczë"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:41
-#, python-format
-msgid "Completing the %s Setup Wizard"
-msgstr "Zrëchtënk asystenta ùstôwù %s"
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr "Je nót zrëszëc kòmpùtr znowa"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:43
-msgid "You need to reboot to complete the installation"
-msgstr "Abë zakùńczëc instalacëjã je nót zrëszëc kòmpùtr znowa"
+#: src/wubi/frontends/win32/cd_finish_page.py:45
+msgid ""
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
+msgstr ""
+"Abë wësztartowac Live CD mùszisz zrëszëc kòmpùtr z CD bënë nëkù. Jeżlë twój "
+"kòmpùtr nie je w sztãdze zrëszëc z CD, to bãdze prôwdopòdobno dlô niegò "
+"slédnô òptacëjô do tegò dobrô."
 
-#: src/wubi/frontends/win32/installation_finish_page.py:44
 #: src/wubi/frontends/win32/cd_finish_page.py:47
+#: src/wubi/frontends/win32/installation_finish_page.py:44
 msgid "Reboot now"
 msgstr "Zrëszë terô znowa"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:45
-msgid "I want to manually reboot later"
-msgstr "Chcã pòzdze sóm kòmpùtr zrëszëc znowa"
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
+msgstr "Chcã pòzdze sóm zrëszëc kòmpùtr znowa"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr "Pòmòc w zrëszaniô z CD"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
@@ -550,31 +390,192 @@ msgstr ""
 "systemą, zamëkającą w se internetowi przezérnik, produktiwną softwôrą, "
 "internetowi kòmùnikator ë wiele wicy."
 
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "< Back"
-msgstr "< Nazôd"
+#: src/wubi/frontends/win32/cdboot_page.py:32
+#, python-format
+msgid "%s CD Boot Helper"
+msgstr "%s CD sztartowi pòmòcnik"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:43
-msgid "Reboot required"
-msgstr "Je nót zrëszëc kòmpùtr znowa"
+#: src/wubi/frontends/win32/cdboot_page.py:43
+msgid "Not enough disk space to proceed"
+msgstr "Felëjë wòlnegò placu abë jisc dali"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:45
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+msgid "Accessibility"
+msgstr "Pòmòce przëstãpù"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+msgid "Install"
+msgstr "Instalëjë"
+
+#: src/wubi/frontends/win32/cdboot_page.py:54
+msgid "Install CD boot helper"
+msgstr "Instalacëjô sztartowégò pòmòcnika CD"
+
+#: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
-"To start the Live CD you need to reboot your machine leaving the CD in the "
-"tray. If your machine cannot boot from the CD, the last option should work "
-"in most cases."
+"If your machine cannot boot off the CD, this program will install a new boot "
+"menu entry to help you boot from CD. In most cases this program is not "
+"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
+"\n"
+"Do you want to proceed and install the CD booter?"
 msgstr ""
-"Abë wësztartowac Live CD mùszisz zrëszëc kòmpùtr z CD bënë nëkù. Jeżlë twój "
-"kòmpùtr nie je w sztãdze zrëszëc z CD, to bãdze prôwdopòdobno dlô niegò "
-"slédnô òptacëjô do tegò dobrô."
+"Jeżlë twój kòmpùtr nie chce wësztartowac z CD, na programa dodô nowi wpisënk "
+"do sztartowégò menu abë dôc ce mòżnotã sztartowaniô z CD. W wikszoscë "
+"przëtrôfków nie je tegò nót ë sygô zrëszëc kòmpùtr z CD bënë nëkù.\n"
+"\n"
+"Chcesz jisc dali ë winstalowac zrëszôcza CD?"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:48
-msgid "I want to manually reboot Later"
-msgstr "Chcã pòzdze sóm zrëszëc kòmpùtr znowa"
+#: src/wubi/frontends/win32/frontend.py:51
+msgid "Are you sure you want to quit?"
+msgstr "Chcesz na gwës zakùńczëc?"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:49
-msgid "Help me to boot from CD"
-msgstr "Pòmòc w zrëszaniô z CD"
+#: src/wubi/frontends/win32/installation_finish_page.py:41
+#, python-format
+msgid "Completing the %s Setup Wizard"
+msgstr "Zrëchtënk asystenta ùstôwù %s"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:43
+msgid "You need to reboot to complete the installation"
+msgstr "Abë zakùńczëc instalacëjã je nót zrëszëc kòmpùtr znowa"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:45
+msgid "I want to manually reboot later"
+msgstr "Chcã pòzdze sóm kòmpùtr zrëszëc znowa"
+
+#: src/wubi/frontends/win32/installation_page.py:73
+#, python-format
+msgid ""
+"Only %sMB of disk space are available.\n"
+"At least 1024MB are required as a bare minimum. Quitting"
+msgstr ""
+"Je blós %sMB wòlnegò placu na cwiardi place.\n"
+"Je nót rówank minimalno 1024MB. Zakùńczenié"
+
+#: src/wubi/frontends/win32/installation_page.py:77
+#, python-format
+msgid ""
+"%(min_space)sMB of disk size are required for installation.\n"
+"Only %(max_space)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"%(min_space)sMB na diskù je nót do instalacëji.\n"
+"Blós %(max_space)sMB je przëstãpné.\n"
+"Przez to na instalacëjô na gwës sã nie darzy.\n"
+"Chcesz jisc nimò tegò dali?"
+
+#: src/wubi/frontends/win32/installation_page.py:97
+#, python-format
+msgid "(%sGB free)"
+msgstr "(%sGB wòlné)"
+
+#: src/wubi/frontends/win32/installation_page.py:179
+msgid "Please select username and password for the new account"
+msgstr "Proszã pòdac miono brëkòwnika ë parolã dlô nowégò kònta"
+
+#: src/wubi/frontends/win32/installation_page.py:195
+msgid "Installation drive:"
+msgstr "Instalacjowi nëk:"
+
+#: src/wubi/frontends/win32/installation_page.py:201
+msgid "Installation size:"
+msgstr "Instalacjowô miara:"
+
+#: src/wubi/frontends/win32/installation_page.py:207
+msgid "Desktop environment:"
+msgstr "Òkrãżé pùltu:"
+
+#: src/wubi/frontends/win32/installation_page.py:213
+msgid "Language:"
+msgstr "Jãzëk:"
+
+#: src/wubi/frontends/win32/installation_page.py:224
+msgid "Username:"
+msgstr "Miono brëkòwnika:"
+
+#: src/wubi/frontends/win32/installation_page.py:232
+msgid "Password:"
+msgstr "Parola:"
+
+#: src/wubi/frontends/win32/installation_page.py:274
+#, python-format
+msgid "%s Installer"
+msgstr "%s Instalownik"
+
+#: src/wubi/frontends/win32/installation_page.py:277
+#, python-format
+msgid "You are about to install %(distro)s-%(version)s"
+msgstr "Jes przë tim bë winstalowac %(distro)s-%(version)s"
+
+#: src/wubi/frontends/win32/installation_page.py:282
+#, python-format
+msgid ""
+"%(min_memory)sMB of memory are required for installation.\n"
+"Only %(total_memory)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"%(min_memory)sMB je nót do instalacëji.\n"
+"Blós %(total_memory)sMB je przëstãpné.\n"
+"Przez to na instalacëjô na gwës sã nie darzy.\n"
+"Chcesz jisc nimò tegò dali?"
+
+#: src/wubi/frontends/win32/installation_page.py:324
+#, fuzzy
+msgid "Please enter a valid username."
+msgstr "Proszã wpisac pòprôwné miono brëkòwnika"
+
+#: src/wubi/frontends/win32/installation_page.py:326
+msgid "Please use all lower cases in the username."
+msgstr "Proszã ùżëwac blós môłëch lëterów w mionie brëkòwnika."
+
+#: src/wubi/frontends/win32/installation_page.py:328
+msgid "Please do not use spaces in the username."
+msgstr "Proszã nié ùżëwac spacëji w mionie brëkòwnika."
+
+#: src/wubi/frontends/win32/installation_page.py:330
+msgid "Your username must start with a lower-case letter."
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_page.py:332
+msgid ""
+"Your username must contain only lower-case letters, numbers, hyphens, and "
+"underscores."
+msgstr ""
+
+#: src/wubi/frontends/win32/installation_page.py:334
+msgid "The selected username is reserved, please select a different one."
+msgstr "Wëbróné miono brëkòwnika ju je, proszã wëbrac jinszé."
+
+#: src/wubi/frontends/win32/installation_page.py:336
+msgid "Please enter a valid password."
+msgstr "Proszã wpisac pòprôwną parolã."
+
+#: src/wubi/frontends/win32/installation_page.py:338
+msgid "Please do not use spaces in the password."
+msgstr "Proszã nié brëkòwac spacëji w parolë."
+
+#: src/wubi/frontends/win32/installation_page.py:340
+msgid "Passwords do not match."
+msgstr "Parole ni są równé."
+
+#: src/wubi/frontends/win32/progress_page.py:40
+msgid "Please wait"
+msgstr "Proszã żdac"
+
+#: src/wubi/frontends/win32/progress_page.py:53
+msgid "Do not download, use a local file"
+msgstr "Ni ladëje niczegò, brëkùjë blós môlowich lopków"
+
+#: src/wubi/frontends/win32/progress_page.py:66
+#, python-format
+msgid "Remaining time approximately %s"
+msgid_plural "Remaining time approximately %s"
+msgstr[0] "Òstała jesz do kùńca %s"
+msgstr[1] "Òstałé jesz do kùńca kòl %s"
+msgstr[2] "Òstało jesz do kùńca kòl %s"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"

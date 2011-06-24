@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
-"POT-Creation-Date: 2011-04-04 11:04+0100\n"
+"POT-Creation-Date: 2011-06-24 10:56+0100\n"
 "PO-Revision-Date: 2011-01-16 13:50+0000\n"
 "Last-Translator: Arjuna Rao Chavala <arjunaraoc@gmail.com>\n"
 "Language-Team: Telugu translators\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Launchpad-Export-Date: 2011-04-04 10:01+0000\n"
 "X-Generator: Launchpad (build 12710)\n"
 
-#: src/wubi/application.py:64
+#: src/wubi/application.py:65
 #, python-format
 msgid ""
 "An error occurred:\n"
@@ -35,44 +35,24 @@ msgstr ""
 "\n"
 "మరిన్ని వివరాలకు చూడండి లాగ్ ఫైలు(లు): %(log)s"
 
-#: src/wubi/application.py:147 src/wubi/application.py:208
+#: src/wubi/application.py:148 src/wubi/application.py:213
 #, python-format
 msgid ""
 "A previous installation was detected in %s.\n"
 "Please uninstall that before continuing."
 msgstr "%s లో పాత స్థాపన కనుగొనబడింది. కొనసాగించేముందు, దానిని తొలగించాలి"
 
-#: src/wubi/application.py:190
+#: src/wubi/application.py:195
 msgid "No CD detected, cannot run CD menu"
 msgstr "CD కనబడలేదు, CD మెనూ నడుపుట వీలుకాదు"
 
-#: src/wubi/application.py:198
+#: src/wubi/application.py:203
 msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
 "సరియైన CD కనబడలేదు.\n"
 "CD బూట్ హెల్పర్  ప్రత్యక్షఅనుభవ(Live) CD  తో మాత్రమే వాడవచ్చు."
-
-#: src/wubi/backends/common/tasklist.py:256
-#: src/wubi/backends/common/tasklist.py:260
-msgid "0s"
-msgstr "0s"
-
-#: src/wubi/backends/common/tasklist.py:269
-#, python-format
-msgid "%ih"
-msgstr "%iగం"
-
-#: src/wubi/backends/common/tasklist.py:271
-#, python-format
-msgid "%imin"
-msgstr "%iనిమి"
-
-#: src/wubi/backends/common/tasklist.py:274
-#, python-format
-msgid "%is"
-msgstr "%iసె"
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:97
@@ -213,11 +193,31 @@ msgstr "%s నుండి ఫైళ్లను పొందుట"
 msgid "Checking %s"
 msgstr "%s నుతనిఖీచేయుట"
 
-#: src/wubi/backends/common/downloader.py:65
 #: src/wubi/backends/common/btdownloader.py:36
+#: src/wubi/backends/common/downloader.py:65
 #, python-format
 msgid "Downloading %s"
 msgstr "%s డౌనులోడు చేయు"
+
+#: src/wubi/backends/common/tasklist.py:256
+#: src/wubi/backends/common/tasklist.py:260
+msgid "0s"
+msgstr "0s"
+
+#: src/wubi/backends/common/tasklist.py:269
+#, python-format
+msgid "%ih"
+msgstr "%iగం"
+
+#: src/wubi/backends/common/tasklist.py:271
+#, python-format
+msgid "%imin"
+msgstr "%iనిమి"
+
+#: src/wubi/backends/common/tasklist.py:274
+#, python-format
+msgid "%is"
+msgstr "%iసె"
 
 #: src/wubi/backends/win32/backend.py:150
 #, python-format
@@ -232,187 +232,6 @@ msgstr ""
 "వేర్బోస్ క్రమం లో ఉన్నప్పుడు,వివరాలలో అనుమతి పదం కూడా ఉంటుందని గమనించగలరు.\n"
 " సిస్టం తక్షణమే తిరిగి బూట్ అవుతుంది."
 
-#: src/wubi/frontends/win32/cdboot_page.py:32
-#, python-format
-msgid "%s CD Boot Helper"
-msgstr "%s CD బూట్ సహయకి"
-
-#: src/wubi/frontends/win32/cdboot_page.py:43
-msgid "Not enough disk space to proceed"
-msgstr "కొనసాగటానికి  చాలినంత ఖాళీ డిస్క్ లేదు."
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-msgid "Accessibility"
-msgstr "అనుకూలపరచుట"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-msgid "Install"
-msgstr "స్థాపించు"
-
-#: src/wubi/frontends/win32/cdboot_page.py:46
-#: src/wubi/frontends/win32/installation_page.py:181
-#: src/wubi/frontends/win32/progress_page.py:44
-#: src/wubi/frontends/win32/accessibility_page.py:39
-#: src/wubi/frontends/win32/cd_menu_page.py:38
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-#: src/wubi/frontends/win32/uninstallation_page.py:45
-msgid "Cancel"
-msgstr "రద్దు"
-
-#: src/wubi/frontends/win32/cdboot_page.py:54
-msgid "Install CD boot helper"
-msgstr "CD బూట్ సహయకి  స్థాపన"
-
-#: src/wubi/frontends/win32/cdboot_page.py:56
-msgid ""
-"If your machine cannot boot off the CD, this program will install a new boot "
-"menu entry to help you boot from CD. In most cases this program is not "
-"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
-"\n"
-"Do you want to proceed and install the CD booter?"
-msgstr ""
-"మీ యంత్రము CD నుండి బూట్ కాకపోతే, ఈ ప్రోగ్రామ్  కొత్త బూట్ మెనూ నమోదు చేసి CD బూట్ చేయటానికి "
-"తోడ్పడుతుంది. చాలా సందర్భాలలో యిది అవసరము లేదు. ట్రేలో CD పెట్టి తిరిగి ప్రారంభించితే చాలు.\n"
-"\n"
-"CD బూటర్ ని స్థాపించుటకు కొనసాగాలనుకుంటున్నారా?"
-
-#: src/wubi/frontends/win32/installation_page.py:73
-#, python-format
-msgid ""
-"Only %sMB of disk space are available.\n"
-"At least 1024MB are required as a bare minimum. Quitting"
-msgstr ""
-"డిస్క్ జాగా %sMB  మాత్రమే వున్నది.\n"
-"కనీసం 1024MB కావాలి. నిష్క్రమించుతున్నా"
-
-#: src/wubi/frontends/win32/installation_page.py:77
-#, python-format
-msgid ""
-"%(min_space)sMB of disk size are required for installation.\n"
-"Only %(max_space)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"%(min_space)sMB డిస్క్ పరిమాణం స్థాపనకు కావాలి.\n"
-"%(max_space)sMB మాత్రమే వుంది.\n"
-"అటువంటప్పుడు స్థాపన వైఫల్యం చెందవచ్చు.\n"
-"ఎలాగైనా కొనసాగాలనుకుంటున్నారా?"
-
-#: src/wubi/frontends/win32/installation_page.py:96
-#, python-format
-msgid "(%sGB free)"
-msgstr "(%sGB ఖాళీ)"
-
-#: src/wubi/frontends/win32/installation_page.py:177
-msgid "Please select username and password for the new account"
-msgstr "కొత్త ఖాతా కొరకు వాడుకరి పేరు మరియు సంకేతపదం ఎంపికచేయి"
-
-#: src/wubi/frontends/win32/installation_page.py:193
-msgid "Installation drive:"
-msgstr "స్థాపన డ్రైవ్:"
-
-#: src/wubi/frontends/win32/installation_page.py:199
-msgid "Installation size:"
-msgstr "స్థాపన పరిమాణం:"
-
-#: src/wubi/frontends/win32/installation_page.py:205
-msgid "Desktop environment:"
-msgstr "రంగస్థల పర్యావరణం:"
-
-#: src/wubi/frontends/win32/installation_page.py:211
-msgid "Language:"
-msgstr "భాష:"
-
-#: src/wubi/frontends/win32/installation_page.py:219
-msgid "Username:"
-msgstr "వాడుకరిపేరు:"
-
-#: src/wubi/frontends/win32/installation_page.py:226
-msgid "Password:"
-msgstr "సంకేతపదం:"
-
-#: src/wubi/frontends/win32/installation_page.py:263
-#, python-format
-msgid "%s Installer"
-msgstr "%s స్థాపకి"
-
-#: src/wubi/frontends/win32/installation_page.py:266
-#, python-format
-msgid "You are about to install %(distro)s-%(version)s"
-msgstr "%(distro)s-%(version)s స్థాపన చేయబోతున్నారు"
-
-#: src/wubi/frontends/win32/installation_page.py:271
-#, python-format
-msgid ""
-"%(min_memory)sMB of memory are required for installation.\n"
-"Only %(total_memory)sMB are available.\n"
-"The installation may fail in such circumstances.\n"
-"Do you wish to continue anyway?"
-msgstr ""
-"%(min_memory)sMB డిస్క్ పరిమాణం స్థాపనకు కావాలి.\n"
-"%(total_memory)sMB మాత్రమే వుంది.\n"
-"అటువంటప్పుడు స్థాపన వైఫల్యం చెందవచ్చు.\n"
-"ఎలాగైనా కొనసాగాలనుకుంటున్నారా?"
-
-#: src/wubi/frontends/win32/installation_page.py:313
-msgid "Please enter a valid username"
-msgstr "దయచేసి సరియైన వాడుకరిపేరును ప్రవేశపెట్టండి"
-
-#: src/wubi/frontends/win32/installation_page.py:315
-msgid "Please use all lower cases in the username."
-msgstr "వాడుకరిపేరులో చిన్న(lowercase) అక్షరాలను మాత్రమే వాడండి."
-
-#: src/wubi/frontends/win32/installation_page.py:317
-msgid "Please do not use spaces in the username."
-msgstr "దయచేసి  వాడుకరిపేరులో ఖాళీలను వాడవద్దు."
-
-#: src/wubi/frontends/win32/installation_page.py:319
-msgid "Your username must start with a lower-case letter."
-msgstr "మీ వాడుకరిపేరు చిన్నఅక్షరముతో ప్రారంభించు"
-
-#: src/wubi/frontends/win32/installation_page.py:321
-msgid ""
-"Your username must contain only lower-case letters, numbers, hyphens, and "
-"underscores."
-msgstr "మీ వాడుకరిపేరులో చిన్న అక్షరాలు, అంకెలు,హైఫెన్లు మరియు అండర్స్కోర్లు మాత్రమే వుండాలి."
-
-#: src/wubi/frontends/win32/installation_page.py:323
-msgid "The selected username is reserved, please select a different one."
-msgstr "ఎంపికచేసిన వాడుకరిపేరు అందుబాటులో లేదు.వేరొకటి ఎంపిక చేయండి."
-
-#: src/wubi/frontends/win32/installation_page.py:325
-msgid "Please enter a valid password."
-msgstr "దయచేసి సరియైన సంకేతపదంను ప్రవేశపెట్టండి."
-
-#: src/wubi/frontends/win32/installation_page.py:327
-msgid "Please do not use spaces in the password."
-msgstr "దయచేసి  సంకేతపదంలో ఖాళీలను వాడవద్దు."
-
-#: src/wubi/frontends/win32/installation_page.py:329
-msgid "Passwords do not match."
-msgstr "సంకేతపదాలు సరితూగటంలేదు"
-
-#: src/wubi/frontends/win32/progress_page.py:40
-msgid "Please wait"
-msgstr "దయచేసి వేచి ఉండండి"
-
-#: src/wubi/frontends/win32/progress_page.py:53
-msgid "Do not download, use a local file"
-msgstr "డౌనులోడు వద్దు, స్థానిక ఫైల్ వాడు."
-
-#: src/wubi/frontends/win32/progress_page.py:66
-#, python-format
-msgid "Remaining time approximately %s"
-msgid_plural "Remaining time approximately %s"
-msgstr[0] "మిగిలిన సమయం సుమారుగా %s"
-msgstr[1] "మిగిలిన సమయం సుమారుగా %s"
-
-#: src/wubi/frontends/win32/frontend.py:51
-msgid "Are you sure you want to quit?"
-msgstr "మీరు నిష్క్రమించుట నిజంగా చేయదలచారా?"
-
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
 msgstr "అనుకూలపరచుటకు లక్షణాలు"
@@ -424,6 +243,16 @@ msgstr "అనుకూలపరచుటకు లక్షణాలను ఎ�
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
 msgstr "తదుపరి >>"
+
+#: src/wubi/frontends/win32/accessibility_page.py:39
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/cd_menu_page.py:38
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+#: src/wubi/frontends/win32/progress_page.py:44
+#: src/wubi/frontends/win32/uninstallation_page.py:45
+msgid "Cancel"
+msgstr "రద్దు"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
@@ -461,29 +290,41 @@ msgstr "కదలిక2"
 msgid "None"
 msgstr "ఏదీకాదు"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/cd_finish_page.py:35
+msgid "< Back"
+msgstr "< వెనక్కి"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:35
+#: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 msgid "Finish"
 msgstr "ముగించు"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:41
-#, python-format
-msgid "Completing the %s Setup Wizard"
-msgstr "%s సిద్ధపరచు విజర్డు పూర్తవుతున్నది."
+#: src/wubi/frontends/win32/cd_finish_page.py:43
+msgid "Reboot required"
+msgstr "తిరిగి ప్రారంభం (రీబూట్) అవసరము"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:43
-msgid "You need to reboot to complete the installation"
-msgstr "స్థాపన పూర్తిచేయటానికి తిరిగి ప్రారంభించాలి"
+#: src/wubi/frontends/win32/cd_finish_page.py:45
+msgid ""
+"To start the Live CD you need to reboot your machine leaving the CD in the "
+"tray. If your machine cannot boot from the CD, the last option should work "
+"in most cases."
+msgstr ""
+"ప్రత్యక్ష అనుభవ CD ప్రారంభానికి, CD ని యంత్రములో వదలి తిరిగి ప్రారంభించండి. మీ యంత్రము CD  నుండి "
+"బూట్ చేయలేకపోతే, చివరి ఐచ్ఛికము చాలాసార్లు పనిచేస్తుంది."
 
-#: src/wubi/frontends/win32/installation_finish_page.py:44
 #: src/wubi/frontends/win32/cd_finish_page.py:47
+#: src/wubi/frontends/win32/installation_finish_page.py:44
 msgid "Reboot now"
 msgstr "ఇప్పుడు తిరిగి ప్రారంభించు"
 
-#: src/wubi/frontends/win32/installation_finish_page.py:45
-msgid "I want to manually reboot later"
+#: src/wubi/frontends/win32/cd_finish_page.py:48
+msgid "I want to manually reboot Later"
 msgstr "నేను మానవీయంగా తరువాత తిరిగి ప్రారంభించుతాను"
+
+#: src/wubi/frontends/win32/cd_finish_page.py:49
+msgid "Help me to boot from CD"
+msgstr "CD నుండి బూట్ చేయుటకు నాకు సహాయపడండి."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
@@ -534,30 +375,190 @@ msgstr ""
 "%(distro)s ఒక స్వతంత్ర సముదాయం అభివృద్ధి చేసిన, లినక్స్ ఆధారిత నిర్వహణ వ్యవస్థ. దీనిలో వెబ్ విహరిణి, "
 "వుత్పాదకత సాఫ్ట్వేర్, సత్వర సందేశిని ఇంకా చాలా సౌలభ్యాలున్న అనువర్తనాలున్నాయి."
 
-#: src/wubi/frontends/win32/cd_finish_page.py:35
-msgid "< Back"
-msgstr "< వెనక్కి"
+#: src/wubi/frontends/win32/cdboot_page.py:32
+#, python-format
+msgid "%s CD Boot Helper"
+msgstr "%s CD బూట్ సహయకి"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:43
-msgid "Reboot required"
-msgstr "తిరిగి ప్రారంభం (రీబూట్) అవసరము"
+#: src/wubi/frontends/win32/cdboot_page.py:43
+msgid "Not enough disk space to proceed"
+msgstr "కొనసాగటానికి  చాలినంత ఖాళీ డిస్క్ లేదు."
 
-#: src/wubi/frontends/win32/cd_finish_page.py:45
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+msgid "Accessibility"
+msgstr "అనుకూలపరచుట"
+
+#: src/wubi/frontends/win32/cdboot_page.py:46
+#: src/wubi/frontends/win32/installation_page.py:183
+msgid "Install"
+msgstr "స్థాపించు"
+
+#: src/wubi/frontends/win32/cdboot_page.py:54
+msgid "Install CD boot helper"
+msgstr "CD బూట్ సహయకి  స్థాపన"
+
+#: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
-"To start the Live CD you need to reboot your machine leaving the CD in the "
-"tray. If your machine cannot boot from the CD, the last option should work "
-"in most cases."
+"If your machine cannot boot off the CD, this program will install a new boot "
+"menu entry to help you boot from CD. In most cases this program is not "
+"needed, and it is sufficient to reboot with the CD-Rom in the tray.\n"
+"\n"
+"Do you want to proceed and install the CD booter?"
 msgstr ""
-"ప్రత్యక్ష అనుభవ CD ప్రారంభానికి, CD ని యంత్రములో వదలి తిరిగి ప్రారంభించండి. మీ యంత్రము CD  నుండి "
-"బూట్ చేయలేకపోతే, చివరి ఐచ్ఛికము చాలాసార్లు పనిచేస్తుంది."
+"మీ యంత్రము CD నుండి బూట్ కాకపోతే, ఈ ప్రోగ్రామ్  కొత్త బూట్ మెనూ నమోదు చేసి CD బూట్ చేయటానికి "
+"తోడ్పడుతుంది. చాలా సందర్భాలలో యిది అవసరము లేదు. ట్రేలో CD పెట్టి తిరిగి ప్రారంభించితే చాలు.\n"
+"\n"
+"CD బూటర్ ని స్థాపించుటకు కొనసాగాలనుకుంటున్నారా?"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:48
-msgid "I want to manually reboot Later"
+#: src/wubi/frontends/win32/frontend.py:51
+msgid "Are you sure you want to quit?"
+msgstr "మీరు నిష్క్రమించుట నిజంగా చేయదలచారా?"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:41
+#, python-format
+msgid "Completing the %s Setup Wizard"
+msgstr "%s సిద్ధపరచు విజర్డు పూర్తవుతున్నది."
+
+#: src/wubi/frontends/win32/installation_finish_page.py:43
+msgid "You need to reboot to complete the installation"
+msgstr "స్థాపన పూర్తిచేయటానికి తిరిగి ప్రారంభించాలి"
+
+#: src/wubi/frontends/win32/installation_finish_page.py:45
+msgid "I want to manually reboot later"
 msgstr "నేను మానవీయంగా తరువాత తిరిగి ప్రారంభించుతాను"
 
-#: src/wubi/frontends/win32/cd_finish_page.py:49
-msgid "Help me to boot from CD"
-msgstr "CD నుండి బూట్ చేయుటకు నాకు సహాయపడండి."
+#: src/wubi/frontends/win32/installation_page.py:73
+#, python-format
+msgid ""
+"Only %sMB of disk space are available.\n"
+"At least 1024MB are required as a bare minimum. Quitting"
+msgstr ""
+"డిస్క్ జాగా %sMB  మాత్రమే వున్నది.\n"
+"కనీసం 1024MB కావాలి. నిష్క్రమించుతున్నా"
+
+#: src/wubi/frontends/win32/installation_page.py:77
+#, python-format
+msgid ""
+"%(min_space)sMB of disk size are required for installation.\n"
+"Only %(max_space)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"%(min_space)sMB డిస్క్ పరిమాణం స్థాపనకు కావాలి.\n"
+"%(max_space)sMB మాత్రమే వుంది.\n"
+"అటువంటప్పుడు స్థాపన వైఫల్యం చెందవచ్చు.\n"
+"ఎలాగైనా కొనసాగాలనుకుంటున్నారా?"
+
+#: src/wubi/frontends/win32/installation_page.py:97
+#, python-format
+msgid "(%sGB free)"
+msgstr "(%sGB ఖాళీ)"
+
+#: src/wubi/frontends/win32/installation_page.py:179
+msgid "Please select username and password for the new account"
+msgstr "కొత్త ఖాతా కొరకు వాడుకరి పేరు మరియు సంకేతపదం ఎంపికచేయి"
+
+#: src/wubi/frontends/win32/installation_page.py:195
+msgid "Installation drive:"
+msgstr "స్థాపన డ్రైవ్:"
+
+#: src/wubi/frontends/win32/installation_page.py:201
+msgid "Installation size:"
+msgstr "స్థాపన పరిమాణం:"
+
+#: src/wubi/frontends/win32/installation_page.py:207
+msgid "Desktop environment:"
+msgstr "రంగస్థల పర్యావరణం:"
+
+#: src/wubi/frontends/win32/installation_page.py:213
+msgid "Language:"
+msgstr "భాష:"
+
+#: src/wubi/frontends/win32/installation_page.py:224
+msgid "Username:"
+msgstr "వాడుకరిపేరు:"
+
+#: src/wubi/frontends/win32/installation_page.py:232
+msgid "Password:"
+msgstr "సంకేతపదం:"
+
+#: src/wubi/frontends/win32/installation_page.py:274
+#, python-format
+msgid "%s Installer"
+msgstr "%s స్థాపకి"
+
+#: src/wubi/frontends/win32/installation_page.py:277
+#, python-format
+msgid "You are about to install %(distro)s-%(version)s"
+msgstr "%(distro)s-%(version)s స్థాపన చేయబోతున్నారు"
+
+#: src/wubi/frontends/win32/installation_page.py:282
+#, python-format
+msgid ""
+"%(min_memory)sMB of memory are required for installation.\n"
+"Only %(total_memory)sMB are available.\n"
+"The installation may fail in such circumstances.\n"
+"Do you wish to continue anyway?"
+msgstr ""
+"%(min_memory)sMB డిస్క్ పరిమాణం స్థాపనకు కావాలి.\n"
+"%(total_memory)sMB మాత్రమే వుంది.\n"
+"అటువంటప్పుడు స్థాపన వైఫల్యం చెందవచ్చు.\n"
+"ఎలాగైనా కొనసాగాలనుకుంటున్నారా?"
+
+#: src/wubi/frontends/win32/installation_page.py:324
+#, fuzzy
+msgid "Please enter a valid username."
+msgstr "దయచేసి సరియైన వాడుకరిపేరును ప్రవేశపెట్టండి"
+
+#: src/wubi/frontends/win32/installation_page.py:326
+msgid "Please use all lower cases in the username."
+msgstr "వాడుకరిపేరులో చిన్న(lowercase) అక్షరాలను మాత్రమే వాడండి."
+
+#: src/wubi/frontends/win32/installation_page.py:328
+msgid "Please do not use spaces in the username."
+msgstr "దయచేసి  వాడుకరిపేరులో ఖాళీలను వాడవద్దు."
+
+#: src/wubi/frontends/win32/installation_page.py:330
+msgid "Your username must start with a lower-case letter."
+msgstr "మీ వాడుకరిపేరు చిన్నఅక్షరముతో ప్రారంభించు"
+
+#: src/wubi/frontends/win32/installation_page.py:332
+msgid ""
+"Your username must contain only lower-case letters, numbers, hyphens, and "
+"underscores."
+msgstr "మీ వాడుకరిపేరులో చిన్న అక్షరాలు, అంకెలు,హైఫెన్లు మరియు అండర్స్కోర్లు మాత్రమే వుండాలి."
+
+#: src/wubi/frontends/win32/installation_page.py:334
+msgid "The selected username is reserved, please select a different one."
+msgstr "ఎంపికచేసిన వాడుకరిపేరు అందుబాటులో లేదు.వేరొకటి ఎంపిక చేయండి."
+
+#: src/wubi/frontends/win32/installation_page.py:336
+msgid "Please enter a valid password."
+msgstr "దయచేసి సరియైన సంకేతపదంను ప్రవేశపెట్టండి."
+
+#: src/wubi/frontends/win32/installation_page.py:338
+msgid "Please do not use spaces in the password."
+msgstr "దయచేసి  సంకేతపదంలో ఖాళీలను వాడవద్దు."
+
+#: src/wubi/frontends/win32/installation_page.py:340
+msgid "Passwords do not match."
+msgstr "సంకేతపదాలు సరితూగటంలేదు"
+
+#: src/wubi/frontends/win32/progress_page.py:40
+msgid "Please wait"
+msgstr "దయచేసి వేచి ఉండండి"
+
+#: src/wubi/frontends/win32/progress_page.py:53
+msgid "Do not download, use a local file"
+msgstr "డౌనులోడు వద్దు, స్థానిక ఫైల్ వాడు."
+
+#: src/wubi/frontends/win32/progress_page.py:66
+#, python-format
+msgid "Remaining time approximately %s"
+msgid_plural "Remaining time approximately %s"
+msgstr[0] "మిగిలిన సమయం సుమారుగా %s"
+msgstr[1] "మిగిలిన సమయం సుమారుగా %s"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
