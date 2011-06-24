@@ -520,6 +520,9 @@ class ComboBox(Widget):
     def add_item(self, text):
         self._send_message(CB_ADDSTRING, 0, unicode(text))
 
+    def clear(self):
+        self._send_message(CB_RESETCONTENT, 0, 0)
+
     def on_change(self):
         pass
 

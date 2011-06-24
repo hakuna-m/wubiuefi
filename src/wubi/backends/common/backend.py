@@ -714,6 +714,10 @@ class Backend(object):
             return
         previous_uninstaller = self.info.previous_uninstaller_path.lower()
         uninstaller = self.info.previous_uninstaller_path
+        command = [uninstaller, "--uninstall"]
+        # Propagate noninteractive mode to the uninstaller
+        if self.info.non_interactive:
+            command.append("--noninteractive")
         if 0 and previous_uninstaller.lower() == self.info.original_exe.lower():
             # This block is disabled as the functionality is achived via pylauncher
             if self.info.original_exe.lower().startswith(self.info.previous_target_dir.lower()):
@@ -723,13 +727,13 @@ class Backend(object):
                 uninstaller = uninstaller.name
                 copy_file(self.info.previous_uninstaller_path, uninstaller)
             log.info("Launching asynchronously previous uninstaller %s" % uninstaller)
-            run_nonblocking_command([uninstaller, "--uninstall"], show_window=True)
+            run_nonblocking_command(command, show_window=True)
             return True
         elif get_file_md5(self.info.original_exe) == get_file_md5(self.info.previous_uninstaller_path):
             log.info("This is the uninstaller running")
         else:
             log.info("Launching previous uninestaller %s" % uninstaller)
-            subprocess.call([uninstaller, "--uninstall"])
+            subprocess.call(command)
             # Note: the uninstaller is now non-blocking so we can just as well quit this running version
             # TBD: make this call synchronous by waiting for the children process of the uninstaller
             self.application.quit()
