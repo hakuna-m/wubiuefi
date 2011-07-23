@@ -80,6 +80,8 @@ class Backend(object):
             Task(self.create_uninstaller, description=_("Creating the uninstaller")),
             Task(self.download_diskimage, description=_("Downloading %(distro)s-%(version)s."
                  % dict(distro=self.info.distro.name, version=self.info.version))),
+            Task(self.extract_diskimage, description=_("Extracting")),
+            Task(self.expand_diskimage, description=_("Expanding")),
             ]
         else:
             tasks = [

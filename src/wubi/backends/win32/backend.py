@@ -34,6 +34,7 @@ from wubi.backends.common.mappings import country2tz, name2country, gmt2country,
 from os.path import abspath, isfile, isdir
 import mappings
 import shutil
+import subprocess
 import logging
 log = logging.getLogger('WindowsBackend')
 
@@ -430,6 +431,29 @@ class WindowsBackend(Backend):
             output_file = None
         if output_file and isfile(output_file):
             return output_file
+
+    def extract_diskimage(self, associated_task=None):
+        # TODO: try to pipe download stream into this.
+        dimage = self.info.distro.diskimage
+        sevenzip = self.info.iso_extractor
+        xz = join_path(self.info.disks_dir, dimage.split('/')[-1])
+        tarball = dimage.split('/')[-1].strip('.xz')
+        # 7-zip needs 7z.dll to read the xz format.
+        dec_xz = [sevenzip, 'e', '-i!' + tarball, '-so', xz]
+        dec_tar = [sevenzip, 'e', '-si', '-ttar', '-o' + self.info.disks_dir]
+        dec_xz_subp = subprocess.Popen(dec_xz, stdout=subprocess.PIPE)
+        dec_tar_subp = subprocess.Popen(dec_tar, stdin=dec_xz_subp.stdout)
+        dec_xz_subp.stdout.close()
+        dec_tar_subp.communicate()
+        # TODO: process error handling.
+
+    def expand_diskimage(self, associated_task=None):
+        # TODO: might use -p to get percentage to feed into progress.
+        root = join_path(self.info.disks_dir, 'root.disk')
+        resize2fs = join_path(self.info.bin_dir, 'resize2fs.exe')
+        resize_cmd = [resize2fs, '-f', root, '%dM' % self.info.installation_size_mb]
+        subprocess.call(resize_cmd, stdout=subprocess.PIPE)
+        # TODO: Remove arch.tar.xz, move wubildr into place.
 
     def get_usb_search_paths(self):
         '''
