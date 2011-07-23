@@ -452,7 +452,7 @@ class WindowsBackend(Backend):
         root = join_path(self.info.disks_dir, 'root.disk')
         resize2fs = join_path(self.info.bin_dir, 'resize2fs.exe')
         resize_cmd = [resize2fs, '-f', root, '%dM' % self.info.installation_size_mb]
-        subprocess.call(resize_cmd, stdout=subprocess.PIPE)
+        run_command(resize_cmd)
         # TODO: Remove arch.tar.xz, move wubildr into place.
 
     def get_usb_search_paths(self):
