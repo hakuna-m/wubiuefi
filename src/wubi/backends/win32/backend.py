@@ -466,7 +466,7 @@ class WindowsBackend(Backend):
             log.debug('Copying %s -> %s' % (src, dest))
             shutil.copytree(src, dest)
         src = join_path(self.info.disks_dir, 'wubildr')
-        shutil.copyfile(src, dest)
+        shutil.copyfile(src, join_path(dest, 'wubildr'))
         # Overwrite the copy that's in root_dir.
         for drive in self.info.drives:
             if drive.type not in ('removable', 'hd'):
