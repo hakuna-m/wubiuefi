@@ -446,6 +446,7 @@ class WindowsBackend(Backend):
         dec_xz_subp.stdout.close()
         dec_tar_subp.communicate()
         # TODO: process error handling.
+        # TODO: Checksum: http://tukaani.org/xz/xz-file-format.txt
 
     def expand_diskimage(self, associated_task=None):
         # TODO: might use -p to get percentage to feed into progress.
