@@ -47,11 +47,9 @@ def spawn_command(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
         startupinfo.wShowWindow = SW_HIDE
     # stdin, stdout, and stderr must not be None:
     # http://www.py2exe.org/index.cgi/Py2ExeSubprocessInteractions
-    process = subprocess.Popen(
-        command,
-        stderr=stderr, stdin=stdin, stdout=stdout,
-        startupinfo=startupinfo,
-        shell=False)
+    process = subprocess.Popen(command, stderr=stderr, stdin=stdin,
+                               stdout=stdout, startupinfo=startupinfo,
+                               shell=False)
     return process
 
 def run_command(command, show_window=False):

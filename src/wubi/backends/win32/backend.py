@@ -442,7 +442,7 @@ class WindowsBackend(Backend):
         dec_xz = [sevenzip, 'e', '-i!' + tarball, '-so', xz]
         dec_tar = [sevenzip, 'e', '-si', '-ttar', '-o' + self.info.disks_dir]
         dec_xz_subp = spawn_command(dec_xz)
-        dec_tar_subp = spawn_command(dec_tar, stdin=dec_xz)
+        dec_tar_subp = spawn_command(dec_tar, stdin=dec_xz_subp.stdout)
         dec_xz_subp.stdout.close()
         ret = dec_tar_subp.communicate()
         if dec_tar_subp.returncode != 0:
