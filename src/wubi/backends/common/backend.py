@@ -75,13 +75,22 @@ class Backend(object):
         self.cache_cd_path()
         if not self.cd_path and not self.iso_path:
             tasks = [
-            Task(self.select_target_dir, description=_("Selecting the target directory")),
-            Task(self.create_dir_structure, description=_("Creating the directories")),
-            Task(self.create_uninstaller, description=_("Creating the uninstaller")),
-            Task(self.download_diskimage, description=_("Downloading %(distro)s-%(version)s."
-                 % dict(distro=self.info.distro.name, version=self.info.version))),
+            Task(self.select_target_dir,
+                 description=_("Selecting the target directory")),
+            Task(self.create_dir_structure,
+                 description=_("Creating the directories")),
+            Task(self.create_uninstaller,
+                 description=_("Creating the uninstaller")),
+            Task(self.download_diskimage,
+                 description=_("Downloading %(distro)s-%(version)s."
+                               % dict(distro=self.info.distro.name,
+                                      version=self.info.version))),
             Task(self.extract_diskimage, description=_("Extracting")),
             Task(self.expand_diskimage, description=_("Expanding")),
+            Task(self.modify_bootloader,
+                 description=_("Adding a new bootloader entry")),
+            Task(self.diskimage_bootloader,
+                 description=_("Installing the bootloader")),
             ]
         else:
             tasks = [

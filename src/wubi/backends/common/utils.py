@@ -35,10 +35,8 @@ def join_path(*args):
         args[0] = args[0] + os.path.sep
     return os.path.abspath(os.path.join(*args))
 
-def run_command(command, show_window=False):
-    '''
-    return stdout on success or raise error
-    '''
+def spawn_command(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                  stderr=subprocess.PIPE, show_window=False):
     STARTF_USESHOWWINDOW = 1
     SW_HIDE = 0
     if show_window:
@@ -47,11 +45,20 @@ def run_command(command, show_window=False):
         startupinfo = subprocess.STARTUPINFO()
         startupinfo.dwFlags |= STARTF_USESHOWWINDOW
         startupinfo.wShowWindow = SW_HIDE
+    # stdin, stdout, and stderr must not be None:
+    # http://www.py2exe.org/index.cgi/Py2ExeSubprocessInteractions
     process = subprocess.Popen(
         command,
-        stderr=subprocess.PIPE, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+        stderr=stderr, stdin=stdin, stdout=stdout,
         startupinfo=startupinfo,
         shell=False)
+    return process
+
+def run_command(command, show_window=False):
+    '''
+    return stdout on success or raise error
+    '''
+    process = spawn_command(command, show_window)
     process.stdin.close()
     output = process.stdout.read()
     errormsg = process.stderr.read()
@@ -67,17 +74,7 @@ def run_nonblocking_command(command, show_window=False):
     '''
     run command and return immediately
     '''
-    STARTF_USESHOWWINDOW = 1
-    SW_HIDE = 0
-    if show_window:
-        startupinfo = None
-    else:
-        startupinfo = subprocess.STARTUPINFO()
-        startupinfo.dwFlags |= STARTF_USESHOWWINDOW
-        startupinfo.wShowWindow = SW_HIDE
-    process = subprocess.Popen(
-        command,
-        startupinfo=startupinfo)
+    process = spawn_command(command, show_window)
     return process.pid
 
 def md5_password(password):

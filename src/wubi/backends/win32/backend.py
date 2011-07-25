@@ -29,7 +29,7 @@ from eject import eject_cd
 import registry
 from memory import get_total_memory_mb
 from wubi.backends.common.backend import Backend
-from wubi.backends.common.utils import run_command, replace_line_in_file, read_file, write_file, join_path, remove_line_in_file
+from wubi.backends.common.utils import run_command, spawn_command, replace_line_in_file, read_file, write_file, join_path, remove_line_in_file
 from wubi.backends.common.mappings import country2tz, name2country, gmt2country, country_gmt2tz, gmt2tz
 from os.path import abspath, isfile, isdir
 import mappings
@@ -441,20 +441,39 @@ class WindowsBackend(Backend):
         # 7-zip needs 7z.dll to read the xz format.
         dec_xz = [sevenzip, 'e', '-i!' + tarball, '-so', xz]
         dec_tar = [sevenzip, 'e', '-si', '-ttar', '-o' + self.info.disks_dir]
-        dec_xz_subp = subprocess.Popen(dec_xz, stdout=subprocess.PIPE)
-        dec_tar_subp = subprocess.Popen(dec_tar, stdin=dec_xz_subp.stdout)
+        dec_xz_subp = spawn_command(dec_xz)
+        dec_tar_subp = spawn_command(dec_tar, stdin=dec_xz)
         dec_xz_subp.stdout.close()
-        dec_tar_subp.communicate()
-        # TODO: process error handling.
+        ret = dec_tar_subp.communicate()
+        if dec_tar_subp.returncode != 0:
+            raise Exception, ('Extraction failed with code: %d' %
+                              dec_tar_subp.returncode)
         # TODO: Checksum: http://tukaani.org/xz/xz-file-format.txt
+        os.remove(xz)
 
     def expand_diskimage(self, associated_task=None):
         # TODO: might use -p to get percentage to feed into progress.
         root = join_path(self.info.disks_dir, 'root.disk')
         resize2fs = join_path(self.info.bin_dir, 'resize2fs.exe')
-        resize_cmd = [resize2fs, '-f', root, '%dM' % self.info.installation_size_mb]
+        resize_cmd = [resize2fs, '-f', root,
+                      '%dM' % self.info.installation_size_mb]
         run_command(resize_cmd)
-        # TODO: Remove arch.tar.xz, move wubildr into place.
+
+    def diskimage_bootloader(self, associated_task=None):
+        src = join_path(self.info.root_dir, 'winboot')
+        dest = join_path(self.info.target_dir, 'winboot')
+        if isdir(src):
+            log.debug('Copying %s -> %s' % (src, dest))
+            shutil.copytree(src, dest)
+        src = join_path(self.info.disks_dir, 'wubildr')
+        shutil.copyfile(src, dest)
+        # Overwrite the copy that's in root_dir.
+        for drive in self.info.drives:
+            if drive.type not in ('removable', 'hd'):
+                continue
+            dest = join_path(drive.path, 'wubildr')
+            shutil.copyfile(src, dest)
+        os.unlink(src)
 
     def get_usb_search_paths(self):
         '''
