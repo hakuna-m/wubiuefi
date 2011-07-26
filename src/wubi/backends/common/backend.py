@@ -81,6 +81,8 @@ class Backend(object):
                  description=_("Creating the directories")),
             Task(self.create_uninstaller,
                  description=_("Creating the uninstaller")),
+            Task(self.create_preseed_diskimage,
+                 description=_("Creating a preseed file")),
             Task(self.download_diskimage,
                  description=_("Downloading %(distro)s-%(version)s."
                                % dict(distro=self.info.distro.name,
@@ -579,6 +581,28 @@ class Backend(object):
         md5  = get_file_md5(file_path, associated_task)
         log.debug("  %s md5 = %s %s %s" % (file_path, md5, md5 == reference_md5 and "==" or "!=", reference_md5))
         return md5 == reference_md5
+
+    def create_preseed_diskimage(self):
+        source = join_path(self.info.data_dir, 'preseed.disk')
+        template = read_file(source)
+        password = md5_password(self.info.password)
+        dic = dict(
+            timezone = self.info.timezone,
+            password = password,
+            keyboard_variant = self.info.keyboard_variant,
+            keyboard_layout = self.info.keyboard_layout,
+            locale = self.info.locale,
+            user_full_name = self.info.user_full_name,
+            username = self.info.username)
+        for k,v in dic.items():
+            k = "$(%s)" % k
+            template = template.replace(k, v)
+        preseed_file = join_path(self.info.install_dir, "preseed.cfg")
+        write_file(preseed_file, template)
+
+        source = join_path(self.info.data_dir, "wubildr-disk.cfg")
+        target = join_path(self.info.install_dir, "wubildr-disk.cfg")
+        copy_file(source, target)
 
     def create_preseed_cdboot(self):
         source = join_path(self.info.data_dir, 'preseed.cdboot')
