@@ -73,7 +73,8 @@ class Backend(object):
 
     def get_installation_tasklist(self):
         self.cache_cd_path()
-        if not self.cd_path and not self.iso_path:
+        dimage = self.info.distro.diskimage
+        if dimage and not self.cd_path and not self.iso_path:
             tasks = [
             Task(self.select_target_dir,
                  description=_("Selecting the target directory")),
