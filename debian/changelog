@@ -18,6 +18,8 @@ wubi (11.10) UNRELEASED; urgency=low
     second stage of the installer.
   * Merge with the diskimage branch. Wubi now downloads and expands a
     ext3 disk image by default, negating the need for a second stage.
+  * Update Wubi icon. Still need to figure out why it's fuzzy in the
+    Windows 7 taskbar.
 
  -- Colin Watson <cjwatson@ubuntu.com>  Tue, 03 May 2011 21:57:25 +0100
 
