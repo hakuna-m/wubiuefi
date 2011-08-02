@@ -1,4 +1,4 @@
 #!/bin/sh
 root="$(cd ${0%/*}/../;pwd)"
 "$root"/tools/check_wine
-WINEPREFIX="$root"/wine wine $@
+WINEPREFIX="$root"/wine wine "$@"

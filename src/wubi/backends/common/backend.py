@@ -72,7 +72,31 @@ class Backend(object):
         gettext.install(self.info.application_name, localedir=self.info.translations_dir, unicode=True)
 
     def get_installation_tasklist(self):
-        tasks = [
+        self.cache_cd_path()
+        dimage = self.info.distro.diskimage
+        if dimage and not self.cd_path and not self.iso_path:
+            tasks = [
+            Task(self.select_target_dir,
+                 description=_("Selecting the target directory")),
+            Task(self.create_dir_structure,
+                 description=_("Creating the directories")),
+            Task(self.create_uninstaller,
+                 description=_("Creating the uninstaller")),
+            Task(self.create_preseed_diskimage,
+                 description=_("Creating a preseed file")),
+            Task(self.download_diskimage,
+                 description=_("Downloading %(distro)s-%(version)s."
+                               % dict(distro=self.info.distro.name,
+                                      version=self.info.version))),
+            Task(self.extract_diskimage, description=_("Extracting")),
+            Task(self.expand_diskimage, description=_("Expanding")),
+            Task(self.modify_bootloader,
+                 description=_("Adding a new bootloader entry")),
+            Task(self.diskimage_bootloader,
+                 description=_("Installing the bootloader")),
+            ]
+        else:
+            tasks = [
             Task(self.select_target_dir, description=_("Selecting the target directory")),
             Task(self.create_dir_structure, description=_("Creating the installation directories")),
             Task(self.uncompress_target_dir, description=_("Uncompressing files")),
@@ -319,6 +343,48 @@ class Backend(object):
         urls.sort(cmp)
         return urls
 
+    def cache_cd_path(self):
+        self.cd_path = None
+        if self.info.cd_distro \
+        and self.info.distro == self.info.cd_distro \
+        and self.info.cd_path \
+        and os.path.isdir(self.info.cd_path):
+            cd_path = self.info.cd_path
+        else:
+            self.cd_path = self.find_cd()
+
+        if not self.cd_path:
+            self.iso_path = None
+            if self.info.iso_distro \
+            and self.info.distro == self.info.iso_distro \
+            and os.path.isfile(self.info.iso_path):
+                self.iso_path = self.info.iso_path
+
+    def create_diskimage_dirs(self, associated_task=None):
+        self.info.disks_dir = join_path(self.info.target_dir, "disks")
+        self.info.disks_boot_dir = join_path(self.info.disks_dir, "boot")
+        dirs = [
+            self.info.target_dir,
+            self.info.disks_dir,
+            self.info.disks_boot_dir,
+            join_path(self.info.disks_boot_dir, "grub"),
+            ]
+        for d in dirs:
+            if not os.path.isdir(d):
+                log.debug("Creating dir %s" % d)
+                os.mkdir(d)
+
+    def download_diskimage(self, associated_task=None):
+        dimage = self.info.distro.diskimage
+        save_as = join_path(self.info.disks_dir, dimage.split('/')[-1])
+        if os.path.isfile(save_as):
+            os.unlink(save_as)
+        download = associated_task.add_subtask(
+            downloader.download,
+            is_required = True)
+        iso_path = download(dimage, save_as, web_proxy=self.info.web_proxy)
+        return associated_task.finish()
+
     def download_iso(self, associated_task=None):
         log.debug("Could not find any ISO or CD, downloading one now")
         self.info.cd_path = None
@@ -435,21 +501,7 @@ class Backend(object):
             return True
 
     def use_cd(self, associated_task):
-        cd_path = None
-        if self.info.cd_distro \
-        and self.info.distro == self.info.cd_distro \
-        and self.info.cd_path \
-        and os.path.isdir(self.info.cd_path):
-            cd_path = self.info.cd_path
-        else:
-            cd_path = self.find_cd()
-        #~ if cd_path:
-            #~ log.debug("Trying to use CD %s" % cd_path)
-            #~ check_cd = associated_task.add_subtask(
-                #~ self.check_cd,
-                #~ description = "Checking %s" % cd_path, )
-            #~ if not check_cd(cd_path):
-        if cd_path:
+        if self.cd_path:
             extract_iso = associated_task.add_subtask(
                 copy_file,
                 description = _("Extracting files from %s") % cd_path)
@@ -477,14 +529,7 @@ class Backend(object):
             return True
 
     def use_iso(self, associated_task):
-        iso_path = None
-        if self.info.iso_distro \
-        and self.info.distro == self.info.iso_distro \
-        and os.path.isfile(self.info.iso_path):
-            iso_path = self.info.iso_path
-        else:
-            iso_path = self.find_iso()
-        if iso_path:
+        if self.iso_path:
             log.debug("Trying to use ISO %s" % iso_path)
             return self.copy_iso(iso_path, associated_task)
 
@@ -537,6 +582,28 @@ class Backend(object):
         md5  = get_file_md5(file_path, associated_task)
         log.debug("  %s md5 = %s %s %s" % (file_path, md5, md5 == reference_md5 and "==" or "!=", reference_md5))
         return md5 == reference_md5
+
+    def create_preseed_diskimage(self):
+        source = join_path(self.info.data_dir, 'preseed.disk')
+        template = read_file(source)
+        password = md5_password(self.info.password)
+        dic = dict(
+            timezone = self.info.timezone,
+            password = password,
+            keyboard_variant = self.info.keyboard_variant,
+            keyboard_layout = self.info.keyboard_layout,
+            locale = self.info.locale,
+            user_full_name = self.info.user_full_name,
+            username = self.info.username)
+        for k,v in dic.items():
+            k = "$(%s)" % k
+            template = template.replace(k, v)
+        preseed_file = join_path(self.info.install_dir, "preseed.cfg")
+        write_file(preseed_file, template)
+
+        source = join_path(self.info.data_dir, "wubildr-disk.cfg")
+        target = join_path(self.info.install_dir, "wubildr-disk.cfg")
+        copy_file(source, target)
 
     def create_preseed_cdboot(self):
         source = join_path(self.info.data_dir, 'preseed.cdboot')

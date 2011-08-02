@@ -16,6 +16,8 @@ wubi (11.10) UNRELEASED; urgency=low
   [ Evan Dandrea ]
   * In Vista and newer versions of Windows, boot straight into the
     second stage of the installer.
+  * Merge with the diskimage branch. Wubi now downloads and expands a
+    ext3 disk image by default, negating the need for a second stage.
 
  -- Colin Watson <cjwatson@ubuntu.com>  Tue, 03 May 2011 21:57:25 +0100
 
