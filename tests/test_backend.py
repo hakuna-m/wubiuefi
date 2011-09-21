@@ -32,8 +32,10 @@ class BackendTests(unittest.TestCase):
              'http://www.ubuntu.com'),
             ('HKEY_LOCAL_MACHINE', 'registry-key', 'HelpLink',
              'http://www.ubuntu.com/support')]
-        # Patch away!
+        # Python2.3 doesn't have addCleanup (2.7), so we need to manage
+        # cleaning up after this mock ourselves.
         self.save_registry = registry.set_value
+        # Patch away!
         registry.set_value = mock.Mock()
     
     def tearDown(self):
