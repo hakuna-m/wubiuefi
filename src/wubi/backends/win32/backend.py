@@ -464,6 +464,7 @@ class WindowsBackend(Backend):
         # fsutil works in bytes.
         swap_size = self.info.swap_size_mb * 1024 * 1024
         create_cmd = ['fsutil', 'file', 'createnew', path, swap_size]
+        run_command(create_cmd)
 
     def diskimage_bootloader(self, associated_task=None):
         src = join_path(self.info.root_dir, 'winboot')
