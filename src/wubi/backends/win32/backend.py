@@ -456,7 +456,7 @@ class WindowsBackend(Backend):
         root = join_path(self.info.disks_dir, 'root.disk')
         resize2fs = join_path(self.info.bin_dir, 'resize2fs.exe')
         resize_cmd = [resize2fs, '-f', root,
-                      '%dM' % self.info.installation_size_mb]
+                      '%dM' % self.info.root_size_mb]
         run_command(resize_cmd)
 
     def create_swap_diskimage(self, associated_task=None):

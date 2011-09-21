@@ -89,6 +89,7 @@ class Backend(object):
                                % dict(distro=self.info.distro.name,
                                       version=self.info.version))),
             Task(self.extract_diskimage, description=_("Extracting")),
+            Task(self.choose_disk_sizes, description=_("Choosing disk sizes")),
             Task(self.expand_diskimage,
                  description=_("Expanding")),
             Task(self.create_swap_diskimage,
