@@ -7,7 +7,7 @@ COPYRIGHTYEAR = 2009
 AUTHOR = Agostino Russo
 EMAIL = agostino.russo@gmail.com
 
-all: build
+all: build check
 
 build: wubi
 
