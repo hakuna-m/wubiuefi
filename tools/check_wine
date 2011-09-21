@@ -106,6 +106,7 @@ make_wine(){
 	install_pycrypto
 	#~ install_pywin
 	install_subprocess
+	install_mock
 }
 
 if [ ! -e "$root/wine" ]; then
