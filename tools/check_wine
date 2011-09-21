@@ -81,7 +81,7 @@ install_ctypes(){
 install_mock(){
 	download "$mock_url" "/tmp/mock.zip" "$mock_md5"
 	unzip "/tmp/mock.zip" -d "/tmp"
-	cp "/tmp/mock-*/mock.py" "$python_site"
+	cp "/tmp/mock-0.3.1/mock.py" "$python_site"
 }
 
 install_subprocess(){
