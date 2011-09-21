@@ -114,6 +114,9 @@ check_wine: tools/check_wine
 unittest:
 	tools/pywine tools/test
 
+check:
+	tests/run
+
 runpy:
 	PYTHONPATH=src tools/pywine src/main.py --test
 
