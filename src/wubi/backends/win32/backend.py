@@ -459,6 +459,12 @@ class WindowsBackend(Backend):
                       '%dM' % self.info.installation_size_mb]
         run_command(resize_cmd)
 
+    def create_swap_diskimage(self, associated_task=None):
+        path = join_path(self.info.disks_dir, 'swap.disk')
+        # fsutil works in bytes.
+        swap_size = self.info.swap_size_mb * 1024 * 1024
+        create_cmd = ['fsutil', 'file', 'createnew', path, swap_size]
+
     def diskimage_bootloader(self, associated_task=None):
         src = join_path(self.info.root_dir, 'winboot')
         dest = join_path(self.info.target_dir, 'winboot')
