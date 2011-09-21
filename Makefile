@@ -114,7 +114,7 @@ check_wine: tools/check_wine
 unittest:
 	tools/pywine tools/test
 
-check:
+check: wubi
 	tests/run
 
 runpy:
