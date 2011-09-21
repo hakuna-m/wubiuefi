@@ -21,6 +21,7 @@ wubi (11.10) UNRELEASED; urgency=low
   * Update Wubi icon. Still need to figure out why it's fuzzy in the
     Windows 7 taskbar.
   * Pre-allocate the swap file in disk image installs.
+  * Add unit tests to wubi.
 
  -- Colin Watson <cjwatson@ubuntu.com>  Tue, 03 May 2011 21:57:25 +0100
 

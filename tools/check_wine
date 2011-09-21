@@ -18,6 +18,10 @@ ctypes_md5="9afe4b75240a8808a24df7a76b6081e3"
 subprocess_url="http://effbot.org/media/downloads/subprocess-0.1-20041012.win32-py2.3.exe"
 subprocess_md5="00a249ec321786b17b8bb87a4eebcaeb"
 
+# Unit test stuff
+mock_url="http://mock.googlecode.com/files/mock-0.3.1.zip"
+mock_md5="b9f800d9908c158b1e67149e1508571b"
+
 root="$(cd ${0%/*}/../;pwd)"
 export WINEPREFIX="$root"/wine
 python_site="$WINEPREFIX/drive_c/Python23/Lib/site-packages"
@@ -74,6 +78,12 @@ install_ctypes(){
     wine "/tmp/ctypes.exe"
 }
 
+install_mock(){
+	download "$mock_url" "/tmp/mock.zip" "$mock_md5"
+	unzip "/tmp/mock.zip" -d "/tmp"
+	cp "/tmp/mock-*/mock.py" "$python_site"
+}
+
 install_subprocess(){
 	echo "Installing subprocess..."
 	download "$subprocess_url" "/tmp/subprocess.exe" "$subprocess_md5"
@@ -96,6 +106,7 @@ make_wine(){
 	install_pycrypto
 	#~ install_pywin
 	install_subprocess
+	install_mock
 }
 
 if [ ! -e "$root/wine" ]; then
