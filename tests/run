@@ -1,0 +1,22 @@
+#!tools/pywine -O
+
+import unittest
+import os
+import sys
+
+if len(sys.argv) > 1:
+    filter = sys.argv[1]
+    sys.argv = sys.argv[0:1] + sys.argv[2:]
+else:
+    filter = ''
+
+tests = [t[:-3] for t in os.listdir('tests')
+         if t.startswith('test_') and t.endswith('.py') and filter in t]
+tests.sort()
+suite = unittest.TestLoader().loadTestsFromNames(tests)
+res = unittest.TextTestRunner(verbosity=2).run(suite)
+
+if res.errors or res.failures:
+    sys.exit(1)
+
+# vim:set ft=python:
