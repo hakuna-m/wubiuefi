@@ -462,7 +462,7 @@ class WindowsBackend(Backend):
     def create_swap_diskimage(self, associated_task=None):
         path = join_path(self.info.disks_dir, 'swap.disk')
         # fsutil works in bytes.
-        swap_size = self.info.swap_size_mb * 1024 * 1024
+        swap_size = '%d' % (self.info.swap_size_mb * 1024 * 1024)
         create_cmd = ['fsutil', 'file', 'createnew', path, swap_size]
         run_command(create_cmd)
 
