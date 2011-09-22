@@ -537,9 +537,22 @@ class WindowsBackend(Backend):
             log.debug('command >>%s' % ' '.join(command))
             output = None
         if not output: return []
+
         lines = output.split(os.linesep)
-        if lines < 10: return []
-        lines = lines[7:-3]
+        start = None
+        new_lines = []
+        for line in lines:
+            if line.startswith('---'):
+                if start is None:
+                    start = True
+                else:
+                    break
+            elif start:
+                new_lines.append(line)
+        if not new_lines:
+            return []
+        lines = new_lines
+
         file_info = [line.split() for line in lines]
         file_names = [os.path.normpath(x[-1]) for x in file_info]
         self.cache[iso_path] = file_names

@@ -42,7 +42,8 @@ class BackendTests(unittest.TestCase):
         registry.set_value = self.save_registry
 
     def test_create_uninstaller(self):
-        # We don't have decorators in Python 2.3
+        # We don't have decorators in Python 2.3, so we can't use mock.patch
+        # here.
         self.back.info.target_dir = '/tmp'
         self.back.info.registry_key = 'registry-key'
         self.back.info.distro = self.back.parse_isolist(
@@ -63,6 +64,12 @@ class BackendTests(unittest.TestCase):
         self.assert_(os.path.exists('/tmp/uninstall-wubi.exe'),
             'Did not install uninstaller binary.')
         os.remove('/tmp/uninstall-wubi.exe')
+
+    def test_get_iso_file(self):
+        # http://pad.lv/856340
+        expected = ['%02d' % x for x in range(1,51)]
+        self.assertEqual(expected,
+            self.back.get_iso_file_names('tests/data/small.iso'))
 
 if __name__ == '__main__':
     unittest.main()
