@@ -494,31 +494,10 @@ class WindowsBackend(Backend):
         '''
         paths = []
         paths += [os.path.dirname(self.info.original_exe)]
-        paths += [self.info.backup_dir]
         paths += [drive.path for drive in self.info.drives]
         paths += [os.environ.get('Desktop', None)]
         paths = [abspath(p) for p in paths if p and os.path.isdir(p)]
         return paths
-
-    def backup_iso(self, associated_task=None):
-        if not self.info.backup_iso:
-            return
-        backup_dir = self.info.previous_target_dir + "-backup"
-        install_dir = join_path(self.info.previous_target_dir, "install")
-        for f in os.listdir(install_dir):
-            f = join_path(install_dir, f)
-            if f.endswith('.iso') \
-            and os.path.isfile(f) \
-            and os.path.getsize(f) > 1000000:
-                log.debug("Backing up %s -> %s" % (f, backup_dir))
-                if not isdir(backup_dir):
-                    if isfile(backup_dir):
-                        log.error("The backup directory %s is a file, skipping ISO backup" % backup_dir)
-                        #TBD do something more sensible
-                        return
-                    os.mkdir(backup_dir)
-                target_path = join_path(backup_dir, os.path.basename(f))
-                shutil.move(f, target_path)
 
     def get_cd_search_paths(self):
         return [drive.path for drive in self.info.drives] # if drive.type == 'cd']

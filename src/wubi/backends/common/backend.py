@@ -147,7 +147,6 @@ class Backend(object):
 
     def get_uninstallation_tasklist(self):
         tasks = [
-            Task(self.backup_iso, _("Backup ISO")),
             Task(self.undo_bootloader, _("Remove bootloader entry")),
             Task(self.remove_target_dir, _("Remove target dir")),
             Task(self.remove_registry_key, _("Remove registry key")),]
@@ -236,7 +235,6 @@ class Backend(object):
 
     def create_dir_structure(self, associated_task=None):
         self.info.disks_dir = join_path(self.info.target_dir, "disks")
-        self.info.backup_dir = self.info.target_dir + "-backup"
         self.info.install_dir = join_path(self.info.target_dir, "install")
         self.info.install_boot_dir = join_path(self.info.install_dir, "boot")
         self.info.disks_boot_dir = join_path(self.info.disks_dir, "boot")
@@ -353,7 +351,7 @@ class Backend(object):
         and self.info.distro == self.info.cd_distro \
         and self.info.cd_path \
         and os.path.isdir(self.info.cd_path):
-            cd_path = self.info.cd_path
+            self.cd_path = self.info.cd_path
         else:
             self.cd_path = self.find_cd()
 
@@ -363,6 +361,8 @@ class Backend(object):
             and self.info.distro == self.info.iso_distro \
             and os.path.isfile(self.info.iso_path):
                 self.iso_path = self.info.iso_path
+            else:
+                self.iso_path = self.find_iso()
 
     def create_diskimage_dirs(self, associated_task=None):
         self.info.disks_dir = join_path(self.info.target_dir, "disks")
@@ -487,8 +487,7 @@ class Backend(object):
             self.check_iso,
             description = _("Checking installation files"))
         if check_iso(iso_path):
-            if os.path.dirname(iso_path) == dest \
-            or os.path.dirname(iso_path) == self.info.backup_dir:
+            if os.path.dirname(iso_path) == dest:
                 move_iso = associated_task.add_subtask(
                     shutil.move,
                     description = _("Copying installation files"))
@@ -534,8 +533,8 @@ class Backend(object):
 
     def use_iso(self, associated_task):
         if self.iso_path:
-            log.debug("Trying to use ISO %s" % iso_path)
-            return self.copy_iso(iso_path, associated_task)
+            log.debug("Trying to use ISO %s" % self.iso_path)
+            return self.copy_iso(self.iso_path, associated_task)
 
     def get_iso(self, associated_task=None):
         if self.get_prespecified_iso(associated_task) \
