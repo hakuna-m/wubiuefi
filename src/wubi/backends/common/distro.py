@@ -89,6 +89,19 @@ class Distro(object):
         else:
             return False
 
+    def is_valid_dimage(self, dimage_path, check_arch):
+        '''
+        Validate a disk image
+
+        TBD: Add more checks
+        '''
+        dimage_path = os.path.abspath(dimage_path)
+        log.debug('  checking %s diskimage %s' % (self.name, dimage_path))
+        if not os.path.isfile(dimage_path):
+            log.debug('    file does not exist')
+            return False
+        return True
+
     def is_valid_iso(self, iso_path, check_arch):
         iso_path = os.path.abspath(iso_path)
         log.debug('  checking %s ISO %s' % (self.name, iso_path))
