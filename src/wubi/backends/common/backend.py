@@ -37,8 +37,9 @@ from metalink import parse_metalink
 from tasklist import ThreadedTaskList, Task
 from distro import Distro
 from mappings import lang_country2linux_locale
-from utils import join_path, run_nonblocking_command, md5_password, copy_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unix_path, rm_tree
+from utils import join_path, run_nonblocking_command, md5_password, copy_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unix_path, rm_tree, spawn_command
 from signature import verify_gpg_signature
+from wubi import errors
 from os.path import abspath, dirname
 
 log = logging.getLogger("CommonBackend")
@@ -707,7 +708,15 @@ class Backend(object):
             log.debug("Cannot find %s" % self.info.previous_target_dir)
             return
         log.debug("Deleting %s" % self.info.previous_target_dir)
-        rm_tree(self.info.previous_target_dir)
+        try:
+            rm_tree(self.info.previous_target_dir)
+        except OSError, e:
+            if e.errno == 22:
+                log.exception('Unable to remove the target directory.')
+                # Invalid argument - likely a corrupt file.
+                cmd = spawn_command(['chkdsk', '/F'])
+                cmd.communicate(input='Y%s' % os.linesep)
+                raise errors.WubiCorruptionError
 
     def find_iso(self, associated_task=None):
         log.debug("Searching for local ISO")

@@ -25,6 +25,8 @@ wubi (11.10) UNRELEASED; urgency=low
   * Properly parse the output of 7z's iso listing (LP: #856340).
   * Removed unused Ubuntu Netbook images (symlinks).
   * Use the Plymouth splash (LP: #862007).
+  * Handle filesystem corruption when trying to uninstall Wubi
+    (LP: #869014).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Tue, 03 May 2011 21:57:25 +0100
 

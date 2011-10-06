@@ -21,6 +21,9 @@
 class WubiError(Exception):
     pass
 
+class WubiCorruptionError(Exception):
+    '''Corruption was detected on the filesystem.'''
+    pass
 
 class QuitException(Exception):
     '''

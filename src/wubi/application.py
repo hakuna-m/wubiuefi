@@ -25,6 +25,7 @@ from optparse import OptionParser
 #TBD import modules as required at runtime
 from wubi.backends.win32 import WindowsBackend
 from wubi.frontends.win32 import WindowsFrontend
+from wubi import errors
 import logging
 log = logging.getLogger("")
 
@@ -176,7 +177,15 @@ class Wubi(object):
         self.frontend = self.get_frontend()
         self.frontend.show_uninstallation_settings()
         log.info("Received settings")
-        self.frontend.run_tasks(self.backend.get_uninstallation_tasklist())
+        try:
+            self.frontend.run_tasks(self.backend.get_uninstallation_tasklist())
+        except errors.WubiCorruptionError:
+            # TODO we should present a reboot button along with this.
+            err = _("Files on your computer are corrupted. A disk check has "
+                    "been scheduled and will be performed at the next boot. "
+                    "Please reboot your computer now.")
+            self.frontend.show_error_message(err)
+            self.quit()
         log.info("Almost finished uninstalling")
         if not self.info.uninstall_before_install and not self.info.non_interactive:
             self.frontend.show_uninstallation_finish_page()
