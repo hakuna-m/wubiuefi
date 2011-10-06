@@ -272,6 +272,7 @@ class Wubi(object):
         parser.add_option("--accessibility", dest="accessibility", help="Accessibility")
         parser.add_option("--webproxy", dest="web_proxy", help="Web proxy")
         parser.add_option("--isopath", dest="iso_path", help="Use specified ISO")
+        parser.add_option("--dimagepath", dest="dimage_path", help="Use specified disk image")
         parser.add_option("--exefile", dest="original_exe", default=None, help="Used to indicate the original location of the executable in case of self-extracting files")
         parser.add_option("--log-file", dest="log_file", default=None, help="use the specified log file, if omitted a log is created in your temp directory, if the value is set to 'none' no log is created")
         parser.add_option("--interface", dest="use_frontend", default=None, help="use the specified user interface, ['win32']")

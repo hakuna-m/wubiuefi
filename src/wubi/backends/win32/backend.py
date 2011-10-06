@@ -434,10 +434,9 @@ class WindowsBackend(Backend):
 
     def extract_diskimage(self, associated_task=None):
         # TODO: try to pipe download stream into this.
-        dimage = self.info.distro.diskimage
         sevenzip = self.info.iso_extractor
-        xz = join_path(self.info.disks_dir, dimage.split('/')[-1])
-        tarball = dimage.split('/')[-1].strip('.xz')
+        xz = self.dimage_path
+        tarball = os.path.basename(self.dimage_path).strip('.xz')
         # 7-zip needs 7z.dll to read the xz format.
         dec_xz = [sevenzip, 'e', '-i!' + tarball, '-so', xz]
         dec_tar = [sevenzip, 'e', '-si', '-ttar', '-o' + self.info.disks_dir]
@@ -449,7 +448,9 @@ class WindowsBackend(Backend):
             raise Exception, ('Extraction failed with code: %d' %
                               dec_tar_subp.returncode)
         # TODO: Checksum: http://tukaani.org/xz/xz-file-format.txt
-        os.remove(xz)
+        # Only remove downloaded image
+        if not self.info.dimage_path:
+            os.remove(xz)
 
     def expand_diskimage(self, associated_task=None):
         # TODO: might use -p to get percentage to feed into progress.

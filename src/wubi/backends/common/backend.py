@@ -85,10 +85,8 @@ class Backend(object):
                  description=_("Creating the uninstaller")),
             Task(self.create_preseed_diskimage,
                  description=_("Creating a preseed file")),
-            Task(self.download_diskimage,
-                 description=_("Downloading %(distro)s-%(version)s."
-                               % dict(distro=self.info.distro.name,
-                                      version=self.info.version))),
+            Task(self.get_diskimage,
+                 description=_("Retrieving installation files")),
             Task(self.extract_diskimage, description=_("Extracting")),
             Task(self.choose_disk_sizes, description=_("Choosing disk sizes")),
             Task(self.expand_diskimage,
@@ -387,8 +385,10 @@ class Backend(object):
         download = associated_task.add_subtask(
             downloader.download,
             is_required = True)
-        iso_path = download(dimage, save_as, web_proxy=self.info.web_proxy)
-        return associated_task.finish()
+        self.dimage_path = download(dimage, save_as,
+                                    web_proxy=self.info.web_proxy)
+        if self.dimage_path:
+            return True
 
     def download_iso(self, associated_task=None):
         log.debug("Could not find any ISO or CD, downloading one now")
@@ -449,6 +449,23 @@ class Backend(object):
             log.exception("Cannot authenticate the metalink file, it might be corrupt")
         self.info.distro.metalink = parse_metalink(metalink)
 
+    def get_prespecified_diskimage(self, associated_task):
+        '''
+        Use a local disk image specificed on the command line
+        '''
+        if self.info.dimage_path \
+        and os.path.exists(self.info.dimage_path):
+            #TBD shall we do md5 check? Doesn't work well with daylies
+            #TBD if a specified disk image cannot be used notify the user
+            self.dimage_path = self.info.dimage_path
+            log.debug("Trying to use pre-specified disk image %s" % self.info.dimage_path)
+            is_valid_dimage = associated_task.add_subtask(
+                self.info.distro.is_valid_dimage,
+                description = _("Validating %s") % self.info.dimage_path)
+            if is_valid_dimage(self.info.dimage_path, self.info.check_arch):
+                self.info.cd_path = None
+                return True
+
     def get_prespecified_iso(self, associated_task):
         if self.info.iso_path \
         and os.path.exists(self.info.iso_path):
@@ -479,6 +496,18 @@ class Backend(object):
         distro = self.info.distros_dict.get((name.lower(), arch))
         self.info.distro = distro
 
+    def copy_diskimage(self, dimage_path, associated_task):
+        if not dimage_path:
+            return
+        dimage_name = self.info.distro.diskimage.split('/')[-1]
+        dest = os.path.join(self.info.disks_dir, dimage_name)
+        copy_dimage = associated_task.add_subtask(
+            copy_file,
+            description = _("Copying installation files"))
+        log.debug("Copying %s > %s" % (dimage_path, dest))
+        copy_dimage(dimage_path, dest)
+        return True
+
     def copy_iso(self, iso_path, associated_task):
         if not iso_path:
             return
@@ -508,16 +537,16 @@ class Backend(object):
         if self.cd_path:
             extract_iso = associated_task.add_subtask(
                 copy_file,
-                description = _("Extracting files from %s") % cd_path)
+                description = _("Extracting files from %s") % self.cd_path)
             self.info.iso_path = join_path(self.info.install_dir, "installation.iso")
             try:
-                extract_iso(cd_path, self.info.iso_path)
+                extract_iso(self.cd_path, self.info.iso_path)
             except Exception, err:
                 log.error(err)
                 self.info.cd_path = None
                 self.info.iso_path = None
                 return False
-            self.info.cd_path = cd_path
+            self.info.cd_path = self.cd_path
             #This will often fail before release as the CD might not match the latest daily ISO
             check_iso = associated_task.add_subtask(
                 self.check_iso,
@@ -536,6 +565,15 @@ class Backend(object):
         if self.iso_path:
             log.debug("Trying to use ISO %s" % self.iso_path)
             return self.copy_iso(self.iso_path, associated_task)
+
+    def get_diskimage(self, associated_task=None):
+        '''
+        Get a diskimage either locally or from the mirror
+        '''
+        if self.get_prespecified_diskimage(associated_task) \
+        or self.download_diskimage(associated_task):
+            return associated_task.finish()
+        raise Exception("Could not retrieve the required disk image files")
 
     def get_iso(self, associated_task=None):
         if self.get_prespecified_iso(associated_task) \
