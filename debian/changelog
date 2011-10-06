@@ -30,6 +30,8 @@ wubi (11.10) UNRELEASED; urgency=low
   * Add support for disk image installation (LP: #859696). Thanks
     Jean-Baptiste Lallement!
   * Correctly define cd_path (LP: #861702).
+  * Drop vt.handoff for 11.10.  We'll fix this by including the correct
+    GRUB modules in 12.04.
 
  -- Colin Watson <cjwatson@ubuntu.com>  Tue, 03 May 2011 21:57:25 +0100
 
