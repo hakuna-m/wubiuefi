@@ -24,6 +24,7 @@ wubi (11.10) UNRELEASED; urgency=low
   * Add unit tests to wubi.
   * Properly parse the output of 7z's iso listing (LP: #856340).
   * Removed unused Ubuntu Netbook images (symlinks).
+  * Use the Plymouth splash (LP: #862007).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Tue, 03 May 2011 21:57:25 +0100
 
