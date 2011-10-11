@@ -23,22 +23,6 @@ except NameError:
 from os import utime, rename, unlink    # capture these to bypass sandboxing
 from os import open as os_open
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def get_supported_platform():
     """Return this platform's maximum compatible version.
 
@@ -59,26 +43,6 @@ def get_supported_platform():
         except ValueError:
             pass    # not Mac OS X
     return plat
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 __all__ = [
     # Basic resource access and distribution/entry point discovery
@@ -201,8 +165,6 @@ macosVersionString = re.compile(r"macosx-(\d+)\.(\d+)-(.*)")
 darwinVersionString = re.compile(r"darwin-(\d+)\.(\d+)\.(\d+)-(.*)")
 get_platform = get_build_platform   # XXX backward compat
 
-
-
 def compatible_platforms(provided,required):
     """Can code for the `provided` platform run on the `required` platform?
 
@@ -253,7 +215,6 @@ def compatible_platforms(provided,required):
     # XXX Linux and other platforms' special cases should go here
     return False
 
-
 def run_script(dist_spec, script_name):
     """Locate distribution `dist_spec` and run its `script_name` script"""
     ns = sys._getframe(1).f_globals
@@ -284,7 +245,6 @@ def get_entry_info(dist, group, name):
     """Return the EntryPoint object for `group`+`name`, or ``None``"""
     return get_distribution(dist).get_entry_info(group, name)
 
-
 class IMetadataProvider:
 
     def has_metadata(name):
@@ -307,24 +267,6 @@ class IMetadataProvider:
 
     def run_script(script_name, namespace):
         """Execute the named script in the supplied namespace dictionary"""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class IResourceProvider(IMetadataProvider):
     """An object that provides access to package resources"""
@@ -352,20 +294,6 @@ class IResourceProvider(IMetadataProvider):
 
     def resource_listdir(resource_name):
         """List of resource names in the directory (like ``os.listdir()``)"""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class WorkingSet(object):
     """A collection of active distributions on sys.path (or a similar list)"""
@@ -399,14 +327,9 @@ class WorkingSet(object):
         for dist in find_distributions(entry, True):
             self.add(dist, entry, False)
 
-
     def __contains__(self,dist):
         """True if `dist` is the active distribution for its project"""
         return self.by_key.get(dist.key) == dist
-
-
-
-
 
     def find(self, req):
         """Find a distribution matching requirement `req`
@@ -446,8 +369,6 @@ class WorkingSet(object):
         ns.clear()
         ns['__name__'] = name
         self.require(requires)[0].run_script(script_name, ns)
-
-
 
     def __iter__(self):
         """Yield distributions for non-duplicate projects in the working set
@@ -609,10 +530,6 @@ class WorkingSet(object):
 
         return distributions, error_info
 
-
-
-
-
     def require(self, *requirements):
         """Ensure that distributions matching `requirements` are activated
 
@@ -630,7 +547,6 @@ class WorkingSet(object):
 
         return needed
 
-
     def subscribe(self, callback):
         """Invoke `callback` for all distributions (including existing ones)"""
         if callback in self.callbacks:
@@ -639,20 +555,9 @@ class WorkingSet(object):
         for dist in self:
             callback(dist)
 
-
     def _added_new(self, dist):
         for callback in self.callbacks:
             callback(dist)
-
-
-
-
-
-
-
-
-
-
 
 class Environment(object):
     """Searchable snapshot of distributions on a search path"""
@@ -735,7 +640,6 @@ class Environment(object):
                 if dist.key in self._cache:
                     _sort_dists(self._cache[dist.key])
 
-
     def best_match(self, req, working_set, installer=None):
         """Find distribution best matching `req` and usable on `working_set`
 
@@ -774,9 +678,6 @@ class Environment(object):
         for key in self._distmap.keys():
             if self[key]: yield key
 
-
-
-
     def __iadd__(self, other):
         """In-place addition of a distribution or environment"""
         if isinstance(other,Distribution):
@@ -791,14 +692,12 @@ class Environment(object):
 
     def __add__(self, other):
         """Add an environment or distribution to an environment"""
-        new = self.__class__([], platform=None, python=None)
+        ret = self.__class__([], platform=None, python=None)
         for env in self, other:
             new += env
-        return new
-
+        return ret
 
 AvailableDistributions = Environment    # XXX backward compatibility
-
 
 class ExtractionError(RuntimeError):
     """An error occurred extracting a resource
@@ -814,9 +713,6 @@ class ExtractionError(RuntimeError):
     original_error
         The exception instance that caused extraction to fail
     """
-
-
-
 
 class ResourceManager:
     """Manage resource extraction and packages"""
@@ -886,20 +782,6 @@ variable to point to an accessible directory.
         err.original_error = old_exc
         raise err
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     def get_cache_path(self, archive_name, names=()):
         """Return absolute location in cache for `archive_name` and `names`
 
@@ -923,24 +805,6 @@ variable to point to an accessible directory.
         self.cached_files[target_path] = 1
         return target_path
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     def postprocess(self, tempname, filename):
         """Perform any platform-specific postprocessing of `tempname`
 
@@ -960,27 +824,6 @@ variable to point to an accessible directory.
             # Make the resource executable
             mode = ((os.stat(tempname).st_mode) | 0555) & 07777
             os.chmod(tempname, mode)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     def set_extraction_path(self, path):
         """Set the base path where resources will be extracted to, if needed.
@@ -1020,8 +863,6 @@ variable to point to an accessible directory.
         directory used for extractions.
         """
         # XXX
-
-
 
 def get_default_cache():
     """Determine the default cache location
@@ -1071,7 +912,6 @@ def safe_name(name):
     """
     return re.sub('[^A-Za-z0-9.]+', '-', name)
 
-
 def safe_version(version):
     """Convert an arbitrary string to a standard version string
 
@@ -1081,7 +921,6 @@ def safe_version(version):
     version = version.replace(' ','.')
     return re.sub('[^A-Za-z0-9.]+', '-', version)
 
-
 def safe_extra(extra):
     """Convert an arbitrary string to a standard 'extra' name
 
@@ -1090,20 +929,12 @@ def safe_extra(extra):
     """
     return re.sub('[^A-Za-z0-9.]+', '_', extra).lower()
 
-
 def to_filename(name):
     """Convert a project or version name to its filename-escaped form
 
     Any '-' characters are currently replaced with '_'.
     """
     return name.replace('-','_')
-
-
-
-
-
-
-
 
 class NullProvider:
     """Try to implement resources and metadata for arbitrary PEP 302 loaders"""
@@ -1201,7 +1032,6 @@ class NullProvider:
 
 register_loader_type(object, NullProvider)
 
-
 class EggProvider(NullProvider):
     """Provider based on a virtual filesystem"""
 
@@ -1222,11 +1052,6 @@ class EggProvider(NullProvider):
                 break
             old = path
             path, base = os.path.split(path)
-
-
-
-
-
 
 class DefaultProvider(EggProvider):
     """Provides access to package resources in the filesystem"""
@@ -1252,7 +1077,6 @@ class DefaultProvider(EggProvider):
 
 register_loader_type(type(None), DefaultProvider)
 
-
 class EmptyProvider(NullProvider):
     """Provider that returns nothing for all requests"""
 
@@ -1265,9 +1089,6 @@ class EmptyProvider(NullProvider):
         pass
 
 empty_provider = EmptyProvider()
-
-
-
 
 class ZipProvider(EggProvider):
     """Resource support for zips and eggs"""
@@ -1410,29 +1231,6 @@ class ZipProvider(EggProvider):
 
 register_loader_type(zipimport.zipimporter, ZipProvider)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class FileMetadata(EmptyProvider):
     """Metadata handler for standalone PKG-INFO files
 
@@ -1459,21 +1257,6 @@ class FileMetadata(EmptyProvider):
     def get_metadata_lines(self,name):
         return yield_lines(self.get_metadata(name))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class PathMetadata(DefaultProvider):
     """Metadata provider for egg directories
 
@@ -1498,7 +1281,6 @@ class PathMetadata(DefaultProvider):
         self.module_path = path
         self.egg_info = egg_info
 
-
 class EggMetadata(ZipProvider):
     """Metadata provider for .egg files"""
 
@@ -1513,7 +1295,6 @@ class EggMetadata(ZipProvider):
         else:
             self.module_path = importer.archive
         self._setup_prefix()
-
 
 class ImpWrapper:
     """PEP 302 Importer that wraps Python's "normal" import algorithm"""
@@ -1535,7 +1316,6 @@ class ImpWrapper:
             return None
         return ImpLoader(file, filename, etc)
 
-
 class ImpLoader:
     """PEP 302 Loader that wraps Python's "normal" import algorithm"""
 
@@ -1552,9 +1332,6 @@ class ImpLoader:
         # Note: we don't set __loader__ because we want the module to look
         # normal; i.e. this is just a wrapper for standard import machinery
         return mod
-
-
-
 
 def get_importer(path_item):
     """Retrieve a PEP 302 "importer" for the given path item
@@ -1591,11 +1368,6 @@ except ImportError:
 else:
     ImpWrapper = ImpImporter    # Python 2.5, use pkgutil's implementation
     del ImpLoader, ImpImporter
-
-
-
-
-
 
 _distribution_finders = {}
 
@@ -1924,8 +1696,6 @@ class EntryPoint(object):
         map(working_set.add,
             working_set.resolve(self.dist.requires(self.extras),env,installer))
 
-
-
     #@classmethod
     def parse(cls, src, dist=None):
         """Parse a single entry point from string `src`
@@ -1959,13 +1729,6 @@ class EntryPoint(object):
             return cls(name.strip(), value.strip(), attrs, extras, dist)
 
     parse = classmethod(parse)
-
-
-
-
-
-
-
 
     #@classmethod
     def parse_group(cls, group, lines, dist=None):
@@ -2002,11 +1765,6 @@ class EntryPoint(object):
         return maps
 
     parse_map = classmethod(parse_map)
-
-
-
-
-
 
 class Distribution(object):
     """Wrap an actual or potential sys.path entry w/metadata"""
@@ -2086,9 +1844,6 @@ class Distribution(object):
                     "Missing 'Version:' header and/or PKG-INFO file", self
                 )
     version = property(version)
-
-
-
 
     #@property
     def _dep_map(self):
@@ -2195,24 +1950,6 @@ class Distribution(object):
         """Return the EntryPoint object for `group`+`name`, or ``None``"""
         return self.get_entry_map(group).get(name)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     def insert_on(self, path, loc = None):
         """Insert self.location in path before its nearest parent directory"""
 
@@ -2227,7 +1964,6 @@ class Distribution(object):
         bdir = os.path.dirname(nloc)
         npath= map(_normalize_cached, path)
 
-        bp = None
         for p, item in enumerate(npath):
             if item==nloc:
                 break
@@ -2251,8 +1987,6 @@ class Distribution(object):
                 p = np  # ha!
 
         return
-
-
 
     def check_version_conflict(self):
         if self.key=='setuptools':
@@ -2292,14 +2026,10 @@ class Distribution(object):
         kw.setdefault('metadata', self._provider)
         return self.__class__(**kw)
 
-
-
-
     #@property
     def extras(self):
         return [dep for dep in self._dep_map if dep]
     extras = property(extras)
-
 
 def issue_warning(*args,**kw):
     level = 1
@@ -2313,28 +2043,6 @@ def issue_warning(*args,**kw):
         pass
     from warnings import warn
     warn(stacklevel = level+1, *args, **kw)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 def parse_requirements(strs):
     """Yield ``Requirement`` objects for each specification in `strs`
@@ -2396,27 +2104,10 @@ def parse_requirements(strs):
         specs = [(op,safe_version(val)) for op,val in specs]
         yield Requirement(project_name, specs, extras)
 
-
 def _sort_dists(dists):
     tmp = [(dist.hashcmp,dist) for dist in dists]
     tmp.sort()
     dists[::-1] = [d for hc,d in tmp]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class Requirement:
     def __init__(self, project_name, specs, extras):
@@ -2458,7 +2149,6 @@ class Requirement:
         if last is None: last = True    # no rules encountered
         return last
 
-
     def __hash__(self):
         return self.__hash
 
@@ -2484,7 +2174,6 @@ state_machine = {
     '==':  'T..',
     '!=':  'F++',
 }
-
 
 def _get_mro(cls):
     """Get an mro for a type or classic class"""
@@ -2539,7 +2228,6 @@ def _mkstemp(*args,**kw):
         return mkstemp(*args,**kw)
     finally:
         os.open = old_open  # and then put it back
-
 
 # Set up global resource manager
 _manager = ResourceManager()

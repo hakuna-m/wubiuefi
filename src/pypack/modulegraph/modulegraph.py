@@ -21,12 +21,8 @@ import urllib
 import zipfile
 import zipimport
 
-from altgraph.Dot import Dot
 from altgraph.ObjectGraph import ObjectGraph
-from altgraph.GraphUtil import filter_stack
 from altgraph.compat import *
-
-import util
 
 READ_MODE = "U"  # universal line endings
 

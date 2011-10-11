@@ -22,7 +22,7 @@
 import sys
 import os
 import shutil
-from os.path import abspath, join, basename, dirname, exists
+from os.path import abspath, join, dirname
 
 SIGNATURE="@@@pylauncher@@@"
 

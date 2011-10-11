@@ -23,7 +23,7 @@ import os
 import shutil
 from modulegraph.find_modules import find_modules
 from modulegraph.modulegraph import SourceModule, Package, Script, Extension
-from os.path import abspath, join, basename, dirname, exists
+from os.path import basename, dirname
 import py_compile
 from optparse import OptionParser
 import logging
