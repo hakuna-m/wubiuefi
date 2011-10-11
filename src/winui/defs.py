@@ -22,10 +22,9 @@
 win32 constants, structures and functions
 '''
 
-from ctypes import *
-from ctypes.wintypes import *
+import ctypes
 
-INT = c_int
+INT = ctypes.c_int
 WINVER = 1280
 WM_USER = 1024
 PY_0U = 0
@@ -5071,39 +5070,39 @@ PBM_GETPOS      = (WM_USER+8)
 PBM_SETBARCOLOR = (WM_USER+9)
 PBM_SETBKCOLOR  = CCM_SETBKCOLOR
 
-HCURSOR = HICON
-WNDPROC = WINFUNCTYPE(c_long, c_int, c_uint, c_int, c_int)
+HCURSOR = ctypes.wintypes.HICON
+WNDPROC = ctypes.wintypes.WINFUNCTYPE(ctypes.c_long, ctypes.c_int, ctypes.c_uint, ctypes.c_int, ctypes.c_int)
 
-class PAINTSTRUCT(Structure):
-    _fields_ = [("hdc", HDC),
-                ("fErase", BOOL),
-                ("rcPaint", RECT),
-                ("fRestore", BOOL),
-                ("fIncUpdate", BOOL),
-                ("rgbReserved", LPCSTR * 32)]
+class PAINTSTRUCT(ctypes.Structure):
+    _fields_ = [("hdc", ctypes.wintypes.HDC),
+                ("fErase", ctypes.wintypes.BOOL),
+                ("rcPaint", ctypes.wintypes.RECT),
+                ("fRestore", ctypes.wintypes.BOOL),
+                ("fIncUpdate", ctypes.wintypes.BOOL),
+                ("rgbReserved", ctypes.wintypes.LPCSTR * 32)]
 
-class TCITEM(Structure):
-    _fields_ = [("mask", UINT),
-                ("dwState", DWORD),
-                ("dwStateMask", DWORD),
-                ("pszText", LPWSTR),
+class TCITEM(ctypes.Structure):
+    _fields_ = [("mask", ctypes.wintypes.UINT),
+                ("dwState", ctypes.wintypes.DWORD),
+                ("dwStateMask", ctypes.wintypes.DWORD),
+                ("pszText", ctypes.wintypes.LPWSTR),
                 ("cchTextMax", INT),
                 ("iImage", INT),
-                ("lParam", LPARAM)]
+                ("lParam", ctypes.wintypes.LPARAM)]
 
-class WNDCLASSEX(Structure):
-    _fields_ = [("cbSize", c_uint),
-                ('style', c_uint),
+class WNDCLASSEX(ctypes.Structure):
+    _fields_ = [("cbSize", ctypes.c_uint),
+                ('style', ctypes.c_uint),
                 ('lpfnWndProc', WNDPROC),
-                ('cbClsExtra', c_int),
-                ('cbWndExtra', c_int),
-                ('hInstance', c_int),
-                ('hIcon', c_int),
-                ('hCursor', c_int),
-                ('hbrBackground', c_int),
-                ('lpszMenuName', c_wchar_p),
-                ('lpszClassName', c_wchar_p),
-                ("hIconSm", c_int)]
+                ('cbClsExtra', ctypes.c_int),
+                ('cbWndExtra', ctypes.c_int),
+                ('hInstance', ctypes.c_int),
+                ('hIcon', ctypes.c_int),
+                ('hCursor', ctypes.c_int),
+                ('hbrBackground', ctypes.c_int),
+                ('lpszMenuName', ctypes.c_wchar_p),
+                ('lpszClassName', ctypes.c_wchar_p),
+                ("hIconSm", ctypes.c_int)]
 
     def __init__(self,
                  wndProc,
@@ -5122,17 +5121,17 @@ class WNDCLASSEX(Structure):
         if style is None:
             style = CS_HREDRAW | CS_VREDRAW
         if not instance:
-            instance = windll.kernel32.GetModuleHandleW(c_int(NULL))
+            instance = ctypes.wintypes.windll.kernel32.GetModuleHandleW(ctypes.c_int(NULL))
         if not icon:
-            icon = windll.user32.LoadIconW(c_int(NULL), c_int(IDI_APPLICATION))
+            icon = ctypes.wintypes.windll.user32.LoadIconW(ctypes.c_int(NULL), ctypes.c_int(IDI_APPLICATION))
         if not icon_sm:
             icon_sm = icon
         if not cursor:
-            cursor = windll.user32.LoadCursorW(c_int(NULL), c_int(IDC_ARROW))
+            cursor = ctypes.wintypes.windll.user32.LoadCursorW(ctypes.c_int(NULL), ctypes.c_int(IDC_ARROW))
         if not background:
             background = COLOR_WINDOW#+1 #windll.gdi32.GetStockObject(c_int(WHITE_BRUSH))
 
-        self.cbSize = sizeof(self)
+        self.cbSize = ctypes.sizeof(self)
         self.lpfnWndProc = WNDPROC(wndProc)
         self.style = style
         self.cbClsExtra = clsExtra
@@ -5147,24 +5146,24 @@ class WNDCLASSEX(Structure):
 
 def ErrorIfZero(handle):
     if handle == 0:
-        raise WinError()
+        raise ctypes.wintypes.WinError()
     else:
         return handle
 
-CreateWindowEx = windll.user32.CreateWindowExW
+CreateWindowEx = ctypes.wintypes.windll.user32.CreateWindowExW
 CreateWindowEx.restype = ErrorIfZero
-CreateWindowEx.argtypes = [c_int,
-   c_wchar_p,
-   c_wchar_p,
-   c_int,
-   c_int,
-   c_int,
-   c_int,
-   c_int,
-   c_int,
-   c_int,
-   c_int,
-   c_int]
+CreateWindowEx.argtypes = [ctypes.c_int,
+   ctypes.c_wchar_p,
+   ctypes.c_wchar_p,
+   ctypes.c_int,
+   ctypes.c_int,
+   ctypes.c_int,
+   ctypes.c_int,
+   ctypes.c_int,
+   ctypes.c_int,
+   ctypes.c_int,
+   ctypes.c_int,
+   ctypes.c_int]
 
 SELF_HWND = object() #on instanciation the value has to be replaced with self._hwnd
 PARENT_HWND = object() #on instanciation the value has to be replaced with self.parent._hwnd
@@ -5174,57 +5173,57 @@ APPLICATION_HINSTANCE = object() #on instanciation the value has to be replaced 
 def RGB(r,g,b):
     return r | (g<<8) | (b<<16)
 
-class LOGFONT(Structure):
-    _fields_ = [("lfHeight", LONG),
-                ("lfWidth", LONG),
-                ("lfEscapement", LONG),
-                ("lfOrientation", LONG),
-                ("lfWeight", LONG),
-                ("lfItalic", BYTE),
-                ("lfUnderline", BYTE),
-                ("lfStrikeOut", BYTE),
-                ("lfCharSet", BYTE),
-                ("lfOutPrecision", BYTE),
-                ("lfClipPrecision", BYTE),
-                ("lfQuality", BYTE),
-                ("lfPitchAndFamily", BYTE),
-                ("lfFaceName", c_wchar_p * LF_FACESIZE)]
+class LOGFONT(ctypes.Structure):
+    _fields_ = [("lfHeight", ctypes.wintypes.LONG),
+                ("lfWidth", ctypes.wintypes.LONG),
+                ("lfEscapement", ctypes.wintypes.LONG),
+                ("lfOrientation", ctypes.wintypes.LONG),
+                ("lfWeight", ctypes.wintypes.LONG),
+                ("lfItalic", ctypes.wintypes.BYTE),
+                ("lfUnderline", ctypes.wintypes.BYTE),
+                ("lfStrikeOut", ctypes.wintypes.BYTE),
+                ("lfCharSet", ctypes.wintypes.BYTE),
+                ("lfOutPrecision", ctypes.wintypes.BYTE),
+                ("lfClipPrecision", ctypes.wintypes.BYTE),
+                ("lfQuality", ctypes.wintypes.BYTE),
+                ("lfPitchAndFamily", ctypes.wintypes.BYTE),
+                ("lfFaceName", ctypes.c_wchar_p * LF_FACESIZE)]
 
-class LUID(Structure):
+class LUID(ctypes.Structure):
     _fields_ = [
         # C:/PROGRA~1/gccxml/bin/Vc6/Include/winnt.h 394
-        ('LowPart', DWORD),
-        ('HighPart', LONG),
+        ('LowPart', ctypes.wintypes.DWORD),
+        ('HighPart', ctypes.wintypes.LONG),
         ]
 
-class LUID_AND_ATTRIBUTES(Structure):
+class LUID_AND_ATTRIBUTES(ctypes.Structure):
     _fields_ = [
         # C:/PROGRA~1/gccxml/bin/Vc6/Include/winnt.h 3241
         ('Luid', LUID),
-        ('Attributes', DWORD),
+        ('Attributes', ctypes.wintypes.DWORD),
         ]
 
-class TOKEN_PRIVILEGES(Structure):
+class TOKEN_PRIVILEGES(ctypes.Structure):
     _fields_ = [
         # C:/PROGRA~1/gccxml/bin/Vc6/Include/winnt.h 4188
-        ('PrivilegeCount', DWORD),
+        ('PrivilegeCount', ctypes.wintypes.DWORD),
         ('Privileges', LUID_AND_ATTRIBUTES * 1),
         ]
 
-class LARGE_INTEGER(Structure):
+class LARGE_INTEGER(ctypes.Structure):
     _fields_ = [
-        ('QuadPart', c_longlong),
+        ('QuadPart', ctypes.c_longlong),
         ]
 
-CreateFileW = windll.kernel32.CreateFileW
-CloseHandle = windll.kernel32.CloseHandle
-SetFilePointerEx = windll.kernel32.SetFilePointerEx
-SetEndOfFile = windll.kernel32.SetEndOfFile
-GetVersion = windll.kernel32.GetVersion
-WriteFile = windll.kernel32.WriteFile
-OpenProcessToken = windll.Advapi32.OpenProcessToken
-GetCurrentProcess = windll.kernel32.GetCurrentProcess
-LookupPrivilegeValue = windll.Advapi32.LookupPrivilegeValueW
-AdjustTokenPrivileges = windll.Advapi32.AdjustTokenPrivileges
+CreateFileW = ctypes.wintypes.windll.kernel32.CreateFileW
+CloseHandle = ctypes.wintypes.windll.kernel32.CloseHandle
+SetFilePointerEx = ctypes.wintypes.windll.kernel32.SetFilePointerEx
+SetEndOfFile = ctypes.wintypes.windll.kernel32.SetEndOfFile
+GetVersion = ctypes.wintypes.windll.kernel32.GetVersion
+WriteFile = ctypes.wintypes.windll.kernel32.WriteFile
+OpenProcessToken = ctypes.wintypes.windll.Advapi32.OpenProcessToken
+GetCurrentProcess = ctypes.wintypes.windll.kernel32.GetCurrentProcess
+LookupPrivilegeValue = ctypes.wintypes.windll.Advapi32.LookupPrivilegeValueW
+AdjustTokenPrivileges = ctypes.wintypes.windll.Advapi32.AdjustTokenPrivileges
 
 SE_MANAGE_VOLUME_NAME = u"SeManageVolumePrivilege"

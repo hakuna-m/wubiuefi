@@ -24,6 +24,7 @@ Python wrappers around win32 widgets and window classes
 import defs
 import sys
 import os
+import ctypes
 
 __all__ = ["Window", "Frontend"]
 
@@ -49,11 +50,11 @@ def event_dispatcher(hwnd, message, wparam, lparam):
         result = handler((hwnd, message, wparam, lparam))
         if bool(result):
             return result
-    return defs.windll.user32.DefWindowProcW(
-        defs.c_int(hwnd),
-        defs.c_int(message),
-        defs.c_int(wparam),
-        defs.c_int(lparam))
+    return ctypes.wintypes.windll.user32.DefWindowProcW(
+        ctypes.c_int(hwnd),
+        ctypes.c_int(message),
+        ctypes.c_int(wparam),
+        ctypes.c_int(lparam))
 
 def event_handler(hwnd=None, message=None, wparam=None, lparam=None):
     '''
@@ -84,7 +85,7 @@ class BasicWindow(object):
         if not self.__class__._window_class_name_:
             self.__class__._window_class_name_ = self.__class__.__name__
             if icon:
-                self._icon = defs.windll.user32.LoadImageW(defs.NULL, unicode(icon, 'mbcs'), defs.IMAGE_ICON, 0, 0, defs.LR_LOADFROMFILE);
+                self._icon = ctypes.wintypes.windll.user32.LoadImageW(defs.NULL, unicode(icon, 'mbcs'), defs.IMAGE_ICON, 0, 0, defs.LR_LOADFROMFILE);
             self._register_window()
         self._create_window(x, y, width, height, text)
         self._register_handlers()
@@ -96,9 +97,9 @@ class BasicWindow(object):
                 self._window_class_name_,
                 self._window_class_style_,
                 icon=self._icon)
-        self._window_class_._atom_ = defs.windll.user32.RegisterClassExW(defs.byref(self._window_class_))
+        self._window_class_._atom_ = ctypes.wintypes.windll.user32.RegisterClassExW(ctypes.byref(self._window_class_))
         if not self._window_class_._atom_:
-            raise defs.WinError()
+            raise ctypes.wintypes.WinError()
 
     def _create_window(self, x=None, y=None, width=None, height=None, text=None):
         hmenu = defs.NULL
@@ -163,76 +164,76 @@ class Window(BasicWindow):
         self._background_brush = None
         self._default_background_brush = None
         self._text_color = None
-        self._null_brush = defs.windll.gdi32.GetStockObject(defs.NULL_BRUSH)
+        self._null_brush = ctypes.wintypes.windll.gdi32.GetStockObject(defs.NULL_BRUSH)
         self._gdi_disposables.append(self._null_brush)
         BasicWindow.__init__(self, parent, x, y, width, height, text, frontend, icon)
         self.set_font()
         self.update()
 
     def get_window_rect(self):
-        rect = defs.RECT()
-        defs.windll.user32.GetWindowRect(self._hwnd, defs.byref(rect))
+        rect = ctypes.wintypes.RECT()
+        ctypes.wintypes.windll.user32.GetWindowRect(self._hwnd, ctypes.byref(rect))
         return rect.left, rect.top, rect.right, rect.bottom
 
     def get_client_rect(self):
-        rect = defs.RECT()
-        defs.windll.user32.GetClientRect(self._hwnd, defs.byref(rect))
+        rect = ctypes.wintypes.RECT()
+        ctypes.wintypes.windll.user32.GetClientRect(self._hwnd, ctypes.byref(rect))
         return rect.left, rect.top, rect.right, rect.bottom
 
     def move(self, x, y):
-        if not defs.windll.user32.SetWindowPos(self._hwnd, defs.NULL, x, y, 0, 0,  defs.SWP_NOSIZE):
+        if not ctypes.wintypes.windll.user32.SetWindowPos(self._hwnd, defs.NULL, x, y, 0, 0,  defs.SWP_NOSIZE):
         #~ if not windll.user32.MoveWindow(self._hwnd, x, y, -1, -1, self._repaint_on_move_): #repaint
-            raise defs.WinError()
+            raise ctypes.wintypes.WinError()
 
     def resize(self, width, height):
-        if not defs.windll.user32.SetWindowPos(self._hwnd, defs.NULL, 0, 0, width, height, defs.SWP_NOMOVE):
-            raise defs.WinError()
+        if not ctypes.wintypes.windll.user32.SetWindowPos(self._hwnd, defs.NULL, 0, 0, width, height, defs.SWP_NOMOVE):
+            raise ctypes.wintypes.WinError()
 
     def show(self):
         #http://msdn.microsoft.com/en-us/library/ms633548.aspx
         self.on_show()
-        if not defs.windll.user32.ShowWindow(self._hwnd, defs.SW_SHOWNORMAL):
+        if not ctypes.wintypes.windll.user32.ShowWindow(self._hwnd, defs.SW_SHOWNORMAL):
             #raise WinError()
             pass
         self.update()
 
     def enable(self):
-        if not defs.windll.user32.EnableWindow(self._hwnd, True):
+        if not ctypes.wintypes.windll.user32.EnableWindow(self._hwnd, True):
             #raise WinError()
             pass
         self.update()
 
     def disable(self):
-        if not defs.windll.user32.EnableWindow(self._hwnd, False):
+        if not ctypes.wintypes.windll.user32.EnableWindow(self._hwnd, False):
             #raise WinError()
             pass
         self.update()
 
     def hide(self):
-        if not defs.windll.user32.ShowWindow(self._hwnd, defs.SW_HIDE):
+        if not ctypes.wintypes.windll.user32.ShowWindow(self._hwnd, defs.SW_HIDE):
             #~ raise WinError()
             pass
 
     def set_focus(self):
-        defs.windll.user32.SetFocus(self._hwnd)
+        ctypes.wintypes.windll.user32.SetFocus(self._hwnd)
 
     def update(self, full=False):
         if full:
-            defs.windll.user32.ShowWindow(self._hwnd, defs.SW_HIDE)
-            defs.windll.user32.ShowWindow(self._hwnd, defs.SW_SHOW)
-        if not defs.windll.user32.UpdateWindow(self._hwnd):
-            raise defs.WinError()
+            ctypes.wintypes.windll.user32.ShowWindow(self._hwnd, defs.SW_HIDE)
+            ctypes.wintypes.windll.user32.ShowWindow(self._hwnd, defs.SW_SHOW)
+        if not ctypes.wintypes.windll.user32.UpdateWindow(self._hwnd):
+            raise ctypes.wintypes.WinError()
 
     def get_text(self):
         buffer_max_len = 999
-        buffer = (defs.c_wchar * buffer_max_len)()
-        if defs.windll.user32.GetWindowTextW(self._hwnd, defs.byref(buffer), buffer_max_len):
+        buffer = (ctypes.c_wchar * buffer_max_len)()
+        if ctypes.wintypes.windll.user32.GetWindowTextW(self._hwnd, ctypes.byref(buffer), buffer_max_len):
             return unicode(buffer.value)
 
     def set_text(self, text):
         old_text = self.get_text()
-        if not defs.windll.user32.SetWindowTextW(self._hwnd, unicode(text)):
-            raise defs.WinError()
+        if not ctypes.wintypes.windll.user32.SetWindowTextW(self._hwnd, unicode(text)):
+            raise ctypes.wintypes.WinError()
         if old_text and old_text.rstrip() != text.rstrip():
             # without update, text is displayed on top of old text when background is transparent
             # TBD check _on_ctlcolorstatic whether that can be avoided
@@ -240,7 +241,7 @@ class Window(BasicWindow):
 
     def set_font(self, family='Tahoma', size=13, bold=False):
         weight = bold and defs.FW_BOLD or defs.FW_NORMAL
-        font = defs.windll.gdi32.CreateFontW(
+        font = ctypes.wintypes.windll.gdi32.CreateFontW(
             size, # height of font
             0, # average character width
             0, # angle of escapement
@@ -263,11 +264,11 @@ class Window(BasicWindow):
         if (red255, green255, blue255) == (None, None, None):
             self._background_color = None
             if self._default_background_brush:
-                defs.windll.user32.SetClassLongW(self._hwnd, defs.GCL_HBRBACKGROUND, self._default_background_brush)
+                ctypes.wintypes.windll.user32.SetClassLongW(self._hwnd, defs.GCL_HBRBACKGROUND, self._default_background_brush)
         else:
             self._background_color = defs.RGB(red255, blue255, green255)
-            self._background_brush = defs.windll.gdi32.CreateSolidBrush(self._background_color)
-            self._default_background_brush = defs.windll.user32.SetClassLongW(self._hwnd, defs.GCL_HBRBACKGROUND, self._background_brush)
+            self._background_brush = ctypes.wintypes.windll.gdi32.CreateSolidBrush(self._background_color)
+            self._default_background_brush = ctypes.wintypes.windll.user32.SetClassLongW(self._hwnd, defs.GCL_HBRBACKGROUND, self._background_brush)
             self._gdi_disposables.append(self._background_color)
             self._gdi_disposables.append(self._background_brush)
             self._gdi_disposables.append(self._default_background_brush)
@@ -299,12 +300,12 @@ class Window(BasicWindow):
         self._send_message(defs.WM_SETREDRAW, True, 0)
 
     def _send_message(self, message, wparam=0, lparam=0):
-        return defs.windll.user32.SendMessageW(self._hwnd, message, wparam, lparam)
+        return ctypes.wintypes.windll.user32.SendMessageW(self._hwnd, message, wparam, lparam)
 
     def _on_destroy(self, event):
         for x in self._gdi_disposables:
             try:
-                defs.windll.gdi32.DeleteObject(x)
+                ctypes.wintypes.windll.gdi32.DeleteObject(x)
             except:
                 pass
         self.on_destroy()
@@ -313,9 +314,9 @@ class Window(BasicWindow):
     def _on_ctlcolorstatic(self, event):
         hdc = event[2]
         if self._text_color:
-            defs.windll.gdi32.SetTextColor(hdc, self._text_color)
+            ctypes.wintypes.windll.gdi32.SetTextColor(hdc, self._text_color)
         if self._is_transparent_:
-            defs.windll.gdi32.SetBkMode(hdc, defs.TRANSPARENT)
+            ctypes.wintypes.windll.gdi32.SetBkMode(hdc, defs.TRANSPARENT)
             brush = self._null_brush
         else:
             brush = True
@@ -339,7 +340,7 @@ class Frontend(object):
 
     def __init__(self, main_window_class=None, **kargs):
         self._hwnd = None
-        self._hinstance = defs.windll.kernel32.GetModuleHandleW(defs.c_int(defs.NULL))
+        self._hinstance = ctypes.wintypes.windll.kernel32.GetModuleHandleW(ctypes.c_int(defs.NULL))
         kargs["frontend"] = self
         if not main_window_class:
             main_window_class = self._main_window_class_
@@ -351,8 +352,8 @@ class Frontend(object):
 
     def set_icon(self, icon_path):
         if icon_path and os.path.isfile(icon_path):
-            self.main_window._icon = defs.windll.user32.LoadImageW(defs.NULL, icon_path, defs.IMAGE_ICON, 0, 0, defs.LR_LOADFROMFILE);
-            defs.windll.user32.SendMessageW(self.main_window._hwnd, defs.WM_SETICON, defs.ICON_SMALL, self.main_window._icon)
+            self.main_window._icon = ctypes.wintypes.windll.user32.LoadImageW(defs.NULL, icon_path, defs.IMAGE_ICON, 0, 0, defs.LR_LOADFROMFILE);
+            ctypes.wintypes.windll.user32.SendMessageW(self.main_window._hwnd, defs.WM_SETICON, defs.ICON_SMALL, self.main_window._icon)
 
     def get_title(self):
         return self.main_window.get_text()
@@ -361,17 +362,17 @@ class Frontend(object):
         '''
         Starts the message processing
         '''
-        msg = defs.MSG()
-        pMsg = defs.pointer(msg)
+        msg = ctypes.wintypes.MSG()
+        pMsg = ctypes.pointer(msg)
         self._keep_running = True
         self.on_run()
-        while self._keep_running and defs.windll.user32.GetMessageW(pMsg, defs.NULL, 0, 0) > 0:
+        while self._keep_running and ctypes.wintypes.windll.user32.GetMessageW(pMsg, defs.NULL, 0, 0) > 0:
             #TBD if IsDialogMessage is used, other messages are not processed, for now doing a manual exception
             if self.main_window._hwnd == defs.NULL \
             or pMsg.contents.message in (defs.WM_COMMAND, defs.WM_PAINT, defs.WM_CTLCOLORSTATIC, defs.WM_DESTROY, defs.WM_QUIT) \
-            or not defs.windll.user32.IsDialogMessage(self.main_window._hwnd , pMsg):
-                defs.windll.user32.TranslateMessage(pMsg)
-                defs.windll.user32.DispatchMessageW(pMsg)
+            or not ctypes.wintypes.windll.user32.IsDialogMessage(self.main_window._hwnd , pMsg):
+                ctypes.wintypes.windll.user32.TranslateMessage(pMsg)
+                ctypes.wintypes.windll.user32.DispatchMessageW(pMsg)
 
     def stop(self):
         '''
@@ -379,7 +380,7 @@ class Frontend(object):
         '''
         self._keep_running = False
         #Post a message to unblock GetMessageW
-        defs.windll.user32.PostMessageW(self.main_window._hwnd, defs.WM_NULL, 0, 0)
+        ctypes.wintypes.windll.user32.PostMessageW(self.main_window._hwnd, defs.WM_NULL, 0, 0)
 
     def on_init(self):
         pass
@@ -391,14 +392,14 @@ class Frontend(object):
         '''
         Destroys the main window
         '''
-        defs.windll.user32.DestroyWindow(self.main_window._hwnd)
+        ctypes.wintypes.windll.user32.DestroyWindow(self.main_window._hwnd)
 
     def _quit(self):
         '''
         Really quit anything on the windows side,
         this is called by MainWindow.on_destroy
         '''
-        defs.windll.user32.PostQuitMessage(0)
+        ctypes.wintypes.windll.user32.PostQuitMessage(0)
         self.on_quit()
 
     def on_quit(self):
@@ -407,23 +408,23 @@ class Frontend(object):
     def show_error_message(self, message, title=None):
         if not title:
             title = self.get_title()
-        defs.windll.user32.MessageBoxW(self.main_window._hwnd, unicode(message), unicode(title), defs.MB_OK|defs.MB_ICONERROR)
+        ctypes.wintypes.windll.user32.MessageBoxW(self.main_window._hwnd, unicode(message), unicode(title), defs.MB_OK|defs.MB_ICONERROR)
 
     def show_info_message(self, message, title=None):
         if not title:
             title = self.get_title()
-        defs.windll.user32.MessageBoxW(self.main_window._hwnd, unicode(message), unicode(title), defs.MB_OK|defs.MB_ICONINFORMATION)
+        ctypes.wintypes.windll.user32.MessageBoxW(self.main_window._hwnd, unicode(message), unicode(title), defs.MB_OK|defs.MB_ICONINFORMATION)
 
     def ask_confirmation(self, message, title=None):
         if not title:
             title = self.get_title()
-        result = defs.windll.user32.MessageBoxW(self.main_window._hwnd, unicode(message), unicode(title), defs.MB_YESNO|defs.MB_ICONQUESTION)
+        result = ctypes.wintypes.windll.user32.MessageBoxW(self.main_window._hwnd, unicode(message), unicode(title), defs.MB_YESNO|defs.MB_ICONQUESTION)
         return result == defs.IDYES
 
     def ask_to_retry(self, message, title=None):
         if not title:
             title = self.get_title()
-        result = defs.windll.user32.MessageBoxW(self.main_window._hwnd, unicode(message), unicode(title), defs.MB_RETRYCANCEL)
+        result = ctypes.wintypes.windll.user32.MessageBoxW(self.main_window._hwnd, unicode(message), unicode(title), defs.MB_RETRYCANCEL)
         return result == defs.IDRETRY
 
 class MainWindow(Window):
@@ -492,7 +493,7 @@ class Tab(Widget):
         #~ self.InsertItem(index, item)
         #~ self._ResizeChild(child)
         #~ self.SetCurrentTab(index)
-        self._send_message(defs.TCM_INSERTITEM, position, defs.byref(item))
+        self._send_message(defs.TCM_INSERTITEM, position, ctypes.byref(item))
 
 class Tooltip(Widget):
     _window_class_name_ = u"SysTabControl32"
@@ -584,7 +585,7 @@ class Bitmap(StaticWidget):
     _window_ex_style_ = defs.WS_EX_TRANSPARENT
 
     def set_image(self, path, width=0, height=0):
-        himage = defs.windll.user32.LoadImageW(defs.NULL, path, defs.IMAGE_BITMAP, width, height, defs.LR_LOADFROMFILE);
+        himage = ctypes.wintypes.windll.user32.LoadImageW(defs.NULL, path, defs.IMAGE_BITMAP, width, height, defs.LR_LOADFROMFILE);
         self._gdi_disposables.append(himage)
         self._send_message(defs.STM_SETIMAGE, defs.IMAGE_BITMAP, himage)
 
@@ -593,7 +594,7 @@ class Icon(StaticWidget):
     _window_style_ = StaticWidget._window_style_|defs.SS_ICON
 
     def set_image(self, path, width=0, height=0):
-        himage = defs.windll.user32.LoadImageW(defs.NULL, path, defs.IMAGE_ICON, width, height, defs.LR_LOADFROMFILE);
+        himage = ctypes.wintypes.windll.user32.LoadImageW(defs.NULL, path, defs.IMAGE_ICON, width, height, defs.LR_LOADFROMFILE);
         self._gdi_disposables.append(himage)
         self._send_message(defs.STM_SETIMAGE, defs.IMAGE_ICON, himage)
 
