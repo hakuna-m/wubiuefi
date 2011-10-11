@@ -50,7 +50,6 @@ class DownloadProgress(object):
             self.associated_task.set_progress(0)
 
     def update(self, amount_read):
-        progress = 1.0*amount_read/float(self.length+1)
         if self.associated_task:
             if self.associated_task.set_progress(amount_read/1024):
                 return True #TBD cancel download

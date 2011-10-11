@@ -37,7 +37,7 @@ def eject_cd(cd_path):
         0, 0)
     if cd_handle:
         x = ctypes.c_int()
-        result = ctypes.windll.kernel32.DeviceIoControl(
+        ctypes.windll.kernel32.DeviceIoControl(
             cd_handle,
             IOCTL_STORAGE_EJECT_MEDIA,
             0, 0, 0, 0, ctypes.byref(x), 0)

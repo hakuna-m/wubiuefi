@@ -34,8 +34,8 @@ from wubi.backends.common.mappings import country2tz, name2country, gmt2country,
 from os.path import abspath, isfile, isdir
 import mappings
 import shutil
-import subprocess
 import logging
+import tempfile
 log = logging.getLogger('WindowsBackend')
 
 
@@ -77,7 +77,6 @@ class WindowsBackend(Backend):
         target_dir = join_path(self.info.target_drive.path, self.info.distro.installation_dir)
         target_dir.replace(' ', '_')
         target_dir.replace('__', '_')
-        gold_target_dir = target_dir
         if os.path.exists(target_dir):
             raise Exception("Cannot install into %s.\nThere is another file or directory with this name.\nPlease remove it before continuing." % target_dir)
         self.info.target_dir = target_dir
@@ -253,7 +252,6 @@ class WindowsBackend(Backend):
         eject_cd(self.info.cd_path)
 
     def get_windows_version(self):
-        windows_version = None
         full_version = sys.getwindowsversion()
         major, minor, build, platform, txt = full_version
         #platform.platform(), platform.system(), platform.release(), platform.version()
@@ -425,7 +423,7 @@ class WindowsBackend(Backend):
                 raise Exception('Cannot overwrite %s' % output_file)
         command = [self.info.iso_extractor, 'e', '-i!' + file_path, '-o' + output_dir, iso_path]
         try:
-            output = run_command(command)
+            run_command(command)
         except Exception, err:
             log.exception(err)
             output_file = None
@@ -443,7 +441,7 @@ class WindowsBackend(Backend):
         dec_xz_subp = spawn_command(dec_xz)
         dec_tar_subp = spawn_command(dec_tar, stdin=dec_xz_subp.stdout)
         dec_xz_subp.stdout.close()
-        ret = dec_tar_subp.communicate()
+        dec_tar_subp.communicate()
         if dec_tar_subp.returncode != 0:
             raise Exception, ('Extraction failed with code: %d' %
                               dec_tar_subp.returncode)

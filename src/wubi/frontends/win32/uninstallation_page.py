@@ -20,9 +20,7 @@
 
 from winui import ui
 from page import Page
-import os
 import logging
-import sys
 log = logging.getLogger("WinuiInstallationPage")
 
 class UninstallationPage(Page):
@@ -57,7 +55,6 @@ class UninstallationPage(Page):
             self.main,
             40, 40, self.main.width - 80, 30,
             msg)
-        install_dir = os.path.join(self.info.previous_target_dir, 'install')
 
     def on_uninstall(self):
         self.frontend.stop()

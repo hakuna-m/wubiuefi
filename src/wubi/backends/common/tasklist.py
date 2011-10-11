@@ -415,8 +415,6 @@ def test():
         associated_task.add_subtask(fsleep, "fsleepsub2")
 
     def callback(task, message):
-        tasklist = task.get_root()
-        #~ print message, "tasklist=" + tasklist.get_progress_info(), "task=" + task.get_progress_info()
         print message, task._get_weight(), task._get_completed(), task.weight, task.size, task.completed
 
     tasks = [

@@ -40,7 +40,7 @@ from mappings import lang_country2linux_locale
 from utils import join_path, run_nonblocking_command, md5_password, copy_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unix_path, rm_tree, spawn_command
 from signature import verify_gpg_signature
 from wubi import errors
-from os.path import abspath, dirname
+from os.path import abspath
 
 log = logging.getLogger("CommonBackend")
 
@@ -402,7 +402,6 @@ class Backend(object):
         file = self.info.distro.metalink.files[0]
         save_as = join_path(self.info.install_dir, file.name)
         urls = self.select_mirrors(file.urls)
-        iso =None
         for url in urls[:5]:
             if url.type == 'bittorrent':
                 if self.info.no_bittorrent:
@@ -511,7 +510,6 @@ class Backend(object):
     def copy_iso(self, iso_path, associated_task):
         if not iso_path:
             return
-        iso_name = os.path.basename(iso_path)
         dest = join_path(self.info.install_dir, "installation.iso")
         check_iso = associated_task.add_subtask(
             self.check_iso,

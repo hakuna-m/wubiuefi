@@ -127,7 +127,6 @@ class Page(ui.Page):
                 10, 0, 40, 20,
                 "Rev %s" % self.info.revision)
             self.revision_label.disable()
-            revision_label_width = 50
             self.line = ui.EtchedRectangle(
                 self.navigation,
                 50, sep_top,self.width - 60, sep_height)

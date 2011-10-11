@@ -135,7 +135,7 @@ def call_SetFileValidData(file_handle, size_bytes):
     except:
         log.debug("Could not load SetFileValidData.")
         return
-    result = SetFileValidData(file_handle, size_bytes)
+    SetFileValidData(file_handle, size_bytes)
 
 def zero_file(file_handle, clear_bytes):
    bytes_cleared = 0

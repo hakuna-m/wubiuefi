@@ -55,7 +55,6 @@ def download(url, filename, associated_task=None):
         if percent_completed:
             size = total_download/percent_completed
             percent_completed = size*percent_completed
-        current_speed = "%sKBps" % int(kargs.get("downRate", 0)/1024.0)
         if associated_task:
             associated_task.size = size
             if associated_task.set_progress(percent_completed):

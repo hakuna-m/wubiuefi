@@ -23,14 +23,10 @@ from page import Page
 from wubi.backends.common.mappings import reserved_usernames, lang_country2linux_locale, language2lang_country, lang_country2language
 import os
 import logging
-import sys
 import re
-import md5
 import gettext
 
 log = logging.getLogger("WinuiInstallationPage")
-if sys.version.startswith('2.3'):
-    from sets import Set as set
 
 reserved_usernames = [unicode(n) for n in reserved_usernames]
 re_username_first = re.compile("^[a-z]")
@@ -117,8 +113,6 @@ class InstallationPage(Page):
 
     def populate_size_list(self):
         target_drive = self.get_drive()
-        min_space_mb = self.info.distro.min_disk_space_mb
-        #this will be 1-2GB less than the disk free space, to have space for the ISO
         self.size_list_gb = []
         self.size_list.clear()
         for i in range(1, 31):
