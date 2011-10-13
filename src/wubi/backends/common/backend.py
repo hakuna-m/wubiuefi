@@ -388,12 +388,9 @@ class Backend(object):
                 is_required = False)
             self.dimage_path = download(diskimage, save_as,
                     web_proxy=proxy)
+            return True
         except Exception:
             log.exception('Cannot download disk image file %s:' % diskimage)
-
-        if self.dimage_path:
-            return True
-        else:
             return False
 
     def download_iso(self, associated_task=None):
