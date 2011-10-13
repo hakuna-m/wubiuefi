@@ -1,1 +1,4 @@
 *:*: undefined name '_'
+src/main.py:*: redefinition of unused 'application_name' from line *
+src/main.py:*: redefinition of unused 'version' from line *
+src/main.py:*: redefinition of unused 'revision' from line *
