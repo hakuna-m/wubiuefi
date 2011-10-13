@@ -383,14 +383,14 @@ class Backend(object):
         if os.path.isfile(save_as):
             os.unlink(save_as)
         try:
-            self.dimage_path = downloader.download(diskimage, save_as,
+            download = associated_task.add_subtask(
+                downloader.download,
+                is_required = False)
+            self.dimage_path = download(diskimage, save_as,
                     web_proxy=proxy)
+            return True
         except Exception:
             log.exception('Cannot download disk image file %s:' % diskimage)
-
-        if self.dimage_path:
-            return True
-        else:
             return False
 
     def download_iso(self, associated_task=None):
@@ -573,11 +573,10 @@ class Backend(object):
         '''
         if self.get_prespecified_diskimage(associated_task):
             return associated_task.finish()
-        try:
-            dimage = self.info.distro.diskimage
-            if self.download_diskimage(dimage, associated_task):
-                return associated_task.finish()
-        except:
+        dimage = self.info.distro.diskimage
+        if self.download_diskimage(dimage, associated_task):
+            return associated_task.finish()
+        else:
             dimage2 = self.info.distro.diskimage2
             if self.download_diskimage(dimage2, associated_task):
                 return associated_task.finish()
