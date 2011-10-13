@@ -1,3 +1,10 @@
+wubi (12.04) UNRELEASED; urgency=low
+
+  * Remove partially downloaded files that Windows does not consider
+    files when the bit torrent tracker falls over (LP: #873268).
+
+ -- Evan Dandrea <ev@ubuntu.com>  Thu, 13 Oct 2011 12:48:22 +0100
+
 wubi (11.10) oneiric; urgency=low
 
   [ Colin Watson ]

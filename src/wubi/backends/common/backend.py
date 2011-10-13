@@ -409,15 +409,21 @@ class Backend(object):
             if url.type == 'bittorrent':
                 if self.info.no_bittorrent:
                     continue
-                if os.path.isfile(save_as):
-                    os.unlink(save_as)
+                if os.path.exists(save_as):
+                    try:
+                        os.unlink(save_as)
+                    except OSError:
+                        logging.exception('Could not remove: %s' % save_as)
                 btdownload = associated_task.add_subtask(
                     btdownloader.download,
                     is_required = False)
                 iso_path = btdownload(url.url, save_as)
             else:
-                if os.path.isfile(save_as):
-                    os.unlink(save_as)
+                if os.path.exists(save_as):
+                    try:
+                        os.unlink(save_as)
+                    except OSError:
+                        logging.exception('Could not remove: %s' % save_as)
                 download = associated_task.add_subtask(
                     downloader.download,
                     is_required = True)
