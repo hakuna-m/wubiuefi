@@ -23,8 +23,8 @@ Allocates disk space for the virtual disk
 '''
 
 import ctypes
-from ctypes import c_long
-from winui.defs import *
+from ctypes import c_long, byref
+from winui import defs
 import sys
 import logging
 log = logging.getLogger('Virtualdisk')
@@ -44,25 +44,25 @@ def create_virtual_disk(path, size_mb):
     grant_privileges()
 
     # Create file
-    file_handle = CreateFileW(
+    file_handle = defs.CreateFileW(
         unicode(path),
-        GENERIC_READ | GENERIC_WRITE,
+        defs.GENERIC_READ | defs.GENERIC_WRITE,
         0,
-        NULL,
-        CREATE_ALWAYS,
-        FILE_ATTRIBUTE_NORMAL,
-        NULL)
-    if file_handle == INVALID_HANDLE_VALUE:
+        defs.NULL,
+        defs.CREATE_ALWAYS,
+        defs.FILE_ATTRIBUTE_NORMAL,
+        defs.NULL)
+    if file_handle == defs.INVALID_HANDLE_VALUE:
         log.exception("Failed to create file %s" % path)
 
     # Set pointer to end of file */
-    file_pos = LARGE_INTEGER()
+    file_pos = defs.LARGE_INTEGER()
     file_pos.QuadPart = size_mb*1024*1024
-    if not SetFilePointerEx(file_handle, file_pos, 0, FILE_BEGIN):
+    if not defs.SetFilePointerEx(file_handle, file_pos, 0, defs.FILE_BEGIN):
         log.exception("Failed to set file pointer to end of file")
 
     # Set end of file
-    if not SetEndOfFile(file_handle):
+    if not defs.SetEndOfFile(file_handle):
         log.exception("Failed to extend file. Not enough free space?")
 
     # Set valid data (if possible), ignore errors
@@ -70,11 +70,11 @@ def create_virtual_disk(path, size_mb):
 
     # Set pointer to beginning of file
     file_pos.QuadPart = 0
-    result = SetFilePointerEx(
+    result = defs.SetFilePointerEx(
                    file_handle,
                    file_pos,
-                   NULL,
-                   FILE_BEGIN)
+                   defs.NULL,
+                   defs.FILE_BEGIN)
     if not result:
         log.exception("Failed to set file pointer to beginning of file")
 
@@ -83,18 +83,18 @@ def create_virtual_disk(path, size_mb):
 
     # Set pointer to end - clear_bytes of file
     file_pos.QuadPart = size_mb*1024*1024 - clear_bytes
-    result = SetFilePointerEx(
+    result = defs.SetFilePointerEx(
                    file_handle,
                    file_pos,
-                   NULL,
-                   FILE_BEGIN)
+                   defs.NULL,
+                   defs.FILE_BEGIN)
     if not result:
         log.exception("Failed to set file pointer to end - clear_bytes of file")
 
     # Zero file
     zero_file(file_handle, clear_bytes)
 
-    CloseHandle(file_handle)
+    defs.CloseHandle(file_handle)
 
 def grant_privileges():
     # For version < Windows NT, no privileges are involved
@@ -108,18 +108,18 @@ def grant_privileges():
     #   on the process token. We don't attempt to strip the privilege afterward as that would
     #  introduce race conditions. */
     handle = ctypes.c_long(0)
-    if OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES|TOKEN_QUERY, byref(handle)):
-        luid = LUID()
-        if LookupPrivilegeValue(NULL, SE_MANAGE_VOLUME_NAME, byref(luid)):
-            tp = TOKEN_PRIVILEGES()
+    if defs.OpenProcessToken(defs.GetCurrentProcess(), defs.TOKEN_ADJUST_PRIVILEGES|defs.TOKEN_QUERY, byref(handle)):
+        luid = defs.LUID()
+        if defs.LookupPrivilegeValue(defs.NULL, defs.SE_MANAGE_VOLUME_NAME, byref(luid)):
+            tp = defs.TOKEN_PRIVILEGES()
             tp.PrivilegeCount = 1
             tp.Privileges[0].Luid = luid
-            tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED
-            if not AdjustTokenPrivileges(handle, FALSE, byref(tp), 0, NULL, NULL):
+            tp.Privileges[0].Attributes = defs.SE_PRIVILEGE_ENABLED
+            if not defs.AdjustTokenPrivileges(handle, defs.FALSE, byref(tp), 0, defs.NULL, defs.NULL):
                 log.debug("grant_privileges: AdjustTokenPrivileges() failed.")
         else:
             log.debug("grant_privileges: LookupPrivilegeValue() failed.")
-        CloseHandle(handle)
+        defs.CloseHandle(handle)
     else:
         log.debug("grant_privileges: OpenProcessToken() failed.")
 
@@ -147,12 +147,12 @@ def zero_file(file_handle, clear_bytes):
        bytes_to_write = buf_size
        if (bytes_to_write > clear_bytes - bytes_cleared):
            bytes_to_write = clear_bytes - bytes_cleared
-       result = WriteFile(
+       result = defs.WriteFile(
                    file_handle,
                    write_buf,
                    bytes_to_write,
                    byref(n_bytes_written),
-                   NULL)
+                   defs.NULL)
        if not result or not n_bytes_written.value:
            log.exception("WriteFile() failed!")
        bytes_cleared += n_bytes_written.value
