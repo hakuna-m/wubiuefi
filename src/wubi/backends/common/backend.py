@@ -377,18 +377,21 @@ class Backend(object):
                 log.debug("Creating dir %s" % d)
                 os.mkdir(d)
 
-    def download_diskimage(self, associated_task=None):
-        dimage = self.info.distro.diskimage
-        save_as = join_path(self.info.disks_dir, dimage.split('/')[-1])
+    def download_diskimage(self, diskimage, associated_task=None):
+        proxy = self.info.web_proxy
+        save_as = join_path(self.info.disks_dir, diskimage.split('/')[-1])
         if os.path.isfile(save_as):
             os.unlink(save_as)
-        download = associated_task.add_subtask(
-            downloader.download,
-            is_required = True)
-        self.dimage_path = download(dimage, save_as,
-                                    web_proxy=self.info.web_proxy)
+        try:
+            self.dimage_path = downloader.download(diskimage, save_as,
+                    web_proxy=proxy)
+        except Exception:
+            log.exception('Cannot download disk image file %s:' % diskimage)
+
         if self.dimage_path:
             return True
+        else:
+            return False
 
     def download_iso(self, associated_task=None):
         log.debug("Could not find any ISO or CD, downloading one now")
@@ -568,9 +571,17 @@ class Backend(object):
         '''
         Get a diskimage either locally or from the mirror
         '''
-        if self.get_prespecified_diskimage(associated_task) \
-        or self.download_diskimage(associated_task):
+        if self.get_prespecified_diskimage(associated_task):
             return associated_task.finish()
+        try:
+            dimage = self.info.distro.diskimage
+            if self.download_diskimage(dimage, associated_task):
+                return associated_task.finish()
+        except:
+            dimage2 = self.info.distro.diskimage2
+            if self.download_diskimage(dimage2, associated_task):
+                return associated_task.finish()
+
         raise Exception("Could not retrieve the required disk image files")
 
     def get_iso(self, associated_task=None):
