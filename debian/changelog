@@ -9,6 +9,7 @@ wubi (12.04) UNRELEASED; urgency=low
 
   [ Colin Watson ]
   * Bump to 12.04.
+  * Add Lubuntu support (LP: #907524).
 
  -- Evan Dandrea <ev@ubuntu.com>  Thu, 13 Oct 2011 12:48:22 +0100
 
