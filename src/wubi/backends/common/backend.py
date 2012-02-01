@@ -388,7 +388,7 @@ class Backend(object):
                 is_required = False)
             self.dimage_path = download(diskimage, save_as,
                     web_proxy=proxy)
-            return True
+            return self.dimage_path is not None
         except Exception:
             log.exception('Cannot download disk image file %s:' % diskimage)
             return False

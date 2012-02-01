@@ -11,7 +11,11 @@ wubi (12.04) UNRELEASED; urgency=low
   * Bump to 12.04.
   * Add Lubuntu support (LP: #907524).
 
- -- Evan Dandrea <ev@ubuntu.com>  Thu, 13 Oct 2011 12:48:22 +0100
+  [ Evan Dandrea ]
+  * Don't assume success if the disk image download fails without
+    raising an exception (LP: #924752).
+
+ -- Evan Dandrea <ev@ubuntu.com>  Wed, 01 Feb 2012 16:31:48 +0000
 
 wubi (11.10) oneiric; urgency=low
 
