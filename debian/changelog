@@ -1,5 +1,15 @@
 wubi (12.04) UNRELEASED; urgency=low
 
+  [ bcbc ]
+  * Correct NameError exceptions on missing attributes
+    when running CD boot helper or a CD is rejected (LP: #876154).
+  * Ignore Permission denied when copying wubildr everywhere
+    (LP: #862003)
+  * Don't fail if Windows' startup folder is missing or mis-
+    configured (LP: #910948)
+  * If bcdedit fails when uninstalling, it shouldn't be fatal
+    (LP: #925779)
+
   [ Evan Dandrea ]
   * Remove partially downloaded files that Windows does not consider
     files when the bit torrent tracker falls over (LP: #873268).

@@ -160,7 +160,11 @@ class WindowsBackend(Backend):
         shutil.copyfile(src, dest)
 
     def remove_existing_binary(self):
-        binary = os.path.join(self.get_startup_folder(), 'wubi.exe')
+        try:
+            binary = os.path.join(self.get_startup_folder(), 'wubi.exe')
+        except: # if the startup folder is missing, there is nothing to remove
+            return
+
         if os.path.exists(binary):
             try:
                 MOVEFILE_DELAY_UNTIL_REBOOT = 4
@@ -478,7 +482,10 @@ class WindowsBackend(Backend):
             if drive.type not in ('removable', 'hd'):
                 continue
             dest = join_path(drive.path, 'wubildr')
-            shutil.copyfile(src, dest)
+            try:
+                shutil.copyfile(src, dest)
+            except: # don't need to worry about failure here
+                pass
         os.unlink(src)
 
     def get_usb_search_paths(self):
@@ -741,12 +748,15 @@ class WindowsBackend(Backend):
             return
         log.debug("Removing bcd entry %s" % id)
         command = [bcdedit, '/delete', id , '/f']
-        run_command(command)
-        registry.set_value(
-            'HKEY_LOCAL_MACHINE',
-            self.info.registry_key,
-            'VistaBootDrive',
-            "")
+        try:
+            run_command(command)
+            registry.set_value(
+                'HKEY_LOCAL_MACHINE',
+                self.info.registry_key,
+                'VistaBootDrive',
+                "")
+        except Exception, err: #this shouldn't be fatal
+            log.error(err)
 
     def get_arch(self):
         cpuid = ctypes.windll.LoadLibrary(self.info.cpuid)
