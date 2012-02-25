@@ -1,6 +1,10 @@
 wubi (12.04) UNRELEASED; urgency=low
 
   [ bcbc ]
+  * Don't use the diskimage download when the target 
+    partition is FAT32 (LP: #882393).
+
+  [ bcbc ]
   * Correct NameError exceptions on missing attributes
     when running CD boot helper or a CD is rejected (LP: #876154).
   * Ignore Permission denied when copying wubildr everywhere
