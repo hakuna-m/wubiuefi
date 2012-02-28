@@ -1,6 +1,10 @@
 wubi (12.04) UNRELEASED; urgency=low
 
   [ bcbc ]
+  * Suppress "No Disk" popup errors for unsupported devices.
+    Thanks to William Bass for the patch (LP: #365881).
+
+  [ bcbc ]
   * Don't use the diskimage download when the target 
     partition is FAT32 (LP: #882393).
 
