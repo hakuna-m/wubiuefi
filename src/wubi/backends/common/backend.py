@@ -120,6 +120,7 @@ class Backend(object):
         return tasklist
 
     def get_cdboot_tasklist(self):
+        self.cache_cd_path()
         tasks = [
             Task(self.select_target_dir, description=_("Selecting the target directory")),
             Task(self.create_dir_structure, description=_("Creating the installation directories")),
@@ -345,6 +346,7 @@ class Backend(object):
         return urls
 
     def cache_cd_path(self):
+        self.iso_path = None
         self.cd_path = None
         if self.info.cd_distro \
         and self.info.distro == self.info.cd_distro \
@@ -355,7 +357,6 @@ class Backend(object):
             self.cd_path = self.find_cd()
 
         if not self.cd_path:
-            self.iso_path = None
             if self.info.iso_distro \
             and self.info.distro == self.info.iso_distro \
             and os.path.isfile(self.info.iso_path):
