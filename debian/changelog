@@ -3,6 +3,8 @@ wubi (12.04) UNRELEASED; urgency=low
   [ Evan Dandrea ]
   * Remove partially downloaded files that Windows does not consider
     files when the bit torrent tracker falls over (LP: #873268).
+  * Don't assume success if the disk image download fails without
+    raising an exception (LP: #924752).
 
   [ Stéphane Graber ]
   * Add Edubuntu support.
@@ -10,10 +12,6 @@ wubi (12.04) UNRELEASED; urgency=low
   [ Colin Watson ]
   * Bump to 12.04.
   * Add Lubuntu support (LP: #907524).
-
-  [ Evan Dandrea ]
-  * Don't assume success if the disk image download fails without
-    raising an exception (LP: #924752).
 
  -- Evan Dandrea <ev@ubuntu.com>  Wed, 01 Feb 2012 16:31:48 +0000
 
