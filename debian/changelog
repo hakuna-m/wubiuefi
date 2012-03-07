@@ -11,6 +11,8 @@ wubi (12.04) UNRELEASED; urgency=low
     (LP: #925779)
   * Don't use the diskimage download when the target 
     partition is FAT32 (LP: #882393).
+  * Suppress "No Disk" popup errors for unsupported devices.
+    Thanks to William Bass for the patch (LP: #365881).
 
   [ Evan Dandrea ]
   * Remove partially downloaded files that Windows does not consider

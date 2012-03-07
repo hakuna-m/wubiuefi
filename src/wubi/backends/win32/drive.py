@@ -32,6 +32,7 @@ class Drive(object):
     RAM = 6
 
     def __init__(self, letter):
+        ctypes.windll.kernel32.SetErrorMode(1) # suppress no disk error
         drive_path = letter.upper()
         if not drive_path.endswith(':'): drive_path += ':'
         self.path = drive_path
