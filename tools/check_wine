@@ -52,6 +52,13 @@ install_wine(){
 	#wineprefixcreate --prefix "$WINEPREFIX"
 }
 
+install_mingw32(){
+	if [ ! -x /usr/bin/i586-mingw32msvc-gcc -a ! -x /usr/local/bin/i586-mingw32msvc-gcc ]; then
+		echo "Installing mingw32..."
+		sudo apt-get install mingw32 #TBD do not assume apt
+	fi
+}
+
 install_unzip(){
 	if [ ! -x /usr/bin/unzip -a ! -x /usr/local/bin/unzip ]; then
 		echo "Installing unzip..."
@@ -100,6 +107,7 @@ install_pycrypto(){
 
 make_wine(){
 	install_wine
+	install_mingw32
 	install_python
 	install_ctypes
 	install_7z
