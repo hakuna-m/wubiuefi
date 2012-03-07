@@ -33,6 +33,9 @@ def compress(target_dir):
     #TBD the 7z compressor should be properly compiled
     cwd = os.getcwd()
     compressor = ajoin("C:", "Program Files", "7-Zip","7z.exe")
+    if not os.path.exists(compressor):
+        compressor = ajoin("C:", "Program Files (x86)", "7-Zip","7z.exe")
+
     cmd = '%s a -t7z -m0=lzma -mx=9 -mfb=256 -md=32m -ms=on ../archive.7z *'
     cmd = cmd % (compressor,)
     print cmd
