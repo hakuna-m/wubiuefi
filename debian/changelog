@@ -9,6 +9,8 @@ wubi (12.04) UNRELEASED; urgency=low
     configured (LP: #910948)
   * If bcdedit fails when uninstalling, it shouldn't be fatal
     (LP: #925779)
+  * Don't use the diskimage download when the target 
+    partition is FAT32 (LP: #882393).
 
   [ Evan Dandrea ]
   * Remove partially downloaded files that Windows does not consider

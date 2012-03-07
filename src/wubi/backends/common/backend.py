@@ -75,7 +75,8 @@ class Backend(object):
     def get_installation_tasklist(self):
         self.cache_cd_path()
         dimage = self.info.distro.diskimage
-        if dimage and not self.cd_path and not self.iso_path:
+        # don't use diskimage for a FAT32 target directory
+        if dimage and not self.cd_path and not self.iso_path and not self.info.target_drive.is_fat():
             tasks = [
             Task(self.select_target_dir,
                  description=_("Selecting the target directory")),
