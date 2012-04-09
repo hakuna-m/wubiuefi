@@ -19,6 +19,7 @@ wubi (12.04) UNRELEASED; urgency=low
     files when the bit torrent tracker falls over (LP: #873268).
   * Don't assume success if the disk image download fails without
     raising an exception (LP: #924752).
+  * Hide Wubi from the autorun page, per LP: #975251.
 
   [ Stéphane Graber ]
   * Add Edubuntu support.

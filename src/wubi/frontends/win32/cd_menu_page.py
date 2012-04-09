@@ -59,8 +59,8 @@ class CDMenuPage(Page):
 
         #wubi
         used = ((cd_drive.total_space_mb - cd_drive.free_space_mb)*1024*1024)
-        if self.info.force_wubi or \
-        self.info.cd_distro.min_iso_size <  used < self.info.cd_distro.max_iso_size:
+        # Hide Wubi from the autorun page, per bug #975251.
+        if self.info.force_wubi:
             y += lh + sep
             self.main.wubi_button = ui.FlatButton(self.main, x, y, bw, bh, _("Install inside Windows"))
             y += bh + 2
