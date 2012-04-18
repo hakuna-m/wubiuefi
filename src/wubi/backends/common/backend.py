@@ -810,7 +810,12 @@ class Backend(object):
             path = abspath(path)
             for distro in self.info.distros:
                 if distro.is_valid_cd(path, self.info.check_arch):
-                    return path, distro
+                    if self.info.original_exe[:2] != path[:2]:
+                        # We don't want to use the CD if it's inserted when the
+                        # user is running Wubi from disk.
+                        return None, None
+                    else:
+                        return path, distro
         return None, None
 
     def find_cd(self):

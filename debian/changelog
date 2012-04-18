@@ -20,6 +20,8 @@ wubi (12.04) UNRELEASED; urgency=low
   * Don't assume success if the disk image download fails without
     raising an exception (LP: #924752).
   * Hide Wubi from the autorun page, per LP: #975251.
+  * Do not use the CD by default if we are not running Wubi from that
+    same CD.
 
   [ Stéphane Graber ]
   * Add Edubuntu support.
