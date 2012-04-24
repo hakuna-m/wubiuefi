@@ -109,16 +109,6 @@ class Distro(object):
         if not os.path.isfile(iso_path):
             log.debug('    file does not exist')
             return False
-        file_size = os.path.getsize(iso_path)
-        if self.size and self.size != file_size:
-            log.debug('    wrong size: %s != %s' % (file_size, self.size))
-            return False
-        elif self.min_iso_size and file_size < self.min_iso_size:
-            log.debug('    wrong size: %s < %s' % (file_size, self.min_iso_size))
-            return False
-        elif self.max_iso_size and file_size > self.max_iso_size:
-            log.debug('    wrong size: %s > %s' % (file_size, self.max_iso_size))
-            return False
         files = self.backend.get_iso_file_names(iso_path)
         files = [f.strip().lower() for f in files]
         required_files = self.get_required_files()

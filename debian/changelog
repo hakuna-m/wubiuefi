@@ -22,6 +22,9 @@ wubi (12.04) UNRELEASED; urgency=low
   * Hide Wubi from the autorun page, per LP: #975251.
   * Do not use the CD by default if we are not running Wubi from that
     same CD.
+  * Remove the minimum ISO size check. This will fail on USB disks
+    written into ISOs as part of the CD boot helper. It's not entirely
+    clear why this was added in the first place.
 
   [ Stéphane Graber ]
   * Add Edubuntu support.
