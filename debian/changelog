@@ -24,7 +24,7 @@ wubi (12.04) UNRELEASED; urgency=low
     same CD.
   * Remove the minimum ISO size check. This will fail on USB disks
     written into ISOs as part of the CD boot helper. It's not entirely
-    clear why this was added in the first place.
+    clear why this was added in the first place (LP: #987402).
 
   [ Stéphane Graber ]
   * Add Edubuntu support.
