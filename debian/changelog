@@ -1,4 +1,4 @@
-wubi (12.04) UNRELEASED; urgency=low
+wubi (12.04) precise; urgency=low
 
   [ bcbc ]
   * Correct NameError exceptions on missing attributes
