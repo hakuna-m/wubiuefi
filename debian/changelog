@@ -1,3 +1,9 @@
+wubi (12.10) UNRELEASED; urgency=low
+
+  * Version bump to 12.10 (Quantal).
+
+ -- Evan Dandrea <ev@ubuntu.com>  Wed, 06 Jun 2012 14:54:06 +0100
+
 wubi (12.04) precise; urgency=low
 
   [ bcbc ]
