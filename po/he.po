@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2011-06-24 10:56+0100\n"
-"PO-Revision-Date: 2010-09-01 10:23+0000\n"
+"PO-Revision-Date: 2011-09-08 06:19+0000\n"
 "Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "Language: he\n"
@@ -23,8 +23,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-04-04 10:00+0000\n"
-"X-Generator: Launchpad (build 12710)\n"
+"X-Launchpad-Export-Date: 2012-09-27 13:48+0000\n"
+"X-Generator: Launchpad (build 16042)\n"
 
 #: src/wubi/application.py:65
 #, python-format
@@ -518,9 +518,8 @@ msgstr ""
 "האם ברצונך להמשיך בכל מקרה?"
 
 #: src/wubi/frontends/win32/installation_page.py:324
-#, fuzzy
 msgid "Please enter a valid username."
-msgstr "נא להזין שם משתמש תקני"
+msgstr "נא להזין שם משתמש תקני."
 
 #: src/wubi/frontends/win32/installation_page.py:326
 msgid "Please use all lower cases in the username."
@@ -532,13 +531,13 @@ msgstr "נא לא להשתמש ברווחים כחלק משם מהמשתמש."
 
 #: src/wubi/frontends/win32/installation_page.py:330
 msgid "Your username must start with a lower-case letter."
-msgstr ""
+msgstr "על שם המשתמש שלך להתחיל באות קטנה."
 
 #: src/wubi/frontends/win32/installation_page.py:332
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
-msgstr ""
+msgstr "על שם המשתמש שלך להכיל אותיות קטנות, מספרים, מקפים וקווים תחתיים בלבד."
 
 #: src/wubi/frontends/win32/installation_page.py:334
 msgid "The selected username is reserved, please select a different one."

@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2011-06-24 10:56+0100\n"
-"PO-Revision-Date: 2009-11-20 13:00+0000\n"
+"PO-Revision-Date: 2012-02-23 18:26+0000\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "Language: hu\n"
@@ -22,8 +22,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-04-04 10:00+0000\n"
-"X-Generator: Launchpad (build 12710)\n"
+"X-Launchpad-Export-Date: 2012-09-27 13:48+0000\n"
+"X-Generator: Launchpad (build 16042)\n"
 
 #: src/wubi/application.py:65
 #, python-format
@@ -523,9 +523,8 @@ msgstr ""
 "Mindenképp folytatja?"
 
 #: src/wubi/frontends/win32/installation_page.py:324
-#, fuzzy
 msgid "Please enter a valid username."
-msgstr "Adjon meg egy érvényes felhasználónevet"
+msgstr "Adjon meg egy érvényes felhasználónevet."
 
 #: src/wubi/frontends/win32/installation_page.py:326
 msgid "Please use all lower cases in the username."
@@ -537,13 +536,15 @@ msgstr "Ne használjon szóközt a felhasználónévben."
 
 #: src/wubi/frontends/win32/installation_page.py:330
 msgid "Your username must start with a lower-case letter."
-msgstr ""
+msgstr "A felhasználónevének kisbetűvel kell kezdődnie."
 
 #: src/wubi/frontends/win32/installation_page.py:332
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
 msgstr ""
+"A felhasználóneve csak kisbetűt, számokat, kötőjelet és aláhúzást "
+"tartalmazhat."
 
 #: src/wubi/frontends/win32/installation_page.py:334
 msgid "The selected username is reserved, please select a different one."

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2011-06-24 10:56+0100\n"
-"PO-Revision-Date: 2011-03-30 21:52+0000\n"
-"Last-Translator: megaribi <Unknown>\n"
+"PO-Revision-Date: 2011-09-19 13:53+0000\n"
+"Last-Translator: Samir Ribić <Unknown>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
 "Language: bs\n"
 "MIME-Version: 1.0\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2011-04-04 10:00+0000\n"
-"X-Generator: Launchpad (build 12710)\n"
+"X-Launchpad-Export-Date: 2012-09-27 13:48+0000\n"
+"X-Generator: Launchpad (build 16042)\n"
 
 #: src/wubi/application.py:65
 #, python-format
@@ -518,9 +518,8 @@ msgstr ""
 "Da li ipak želite da nastavite?"
 
 #: src/wubi/frontends/win32/installation_page.py:324
-#, fuzzy
 msgid "Please enter a valid username."
-msgstr "Unesite ispravno korisničko ime"
+msgstr "Unesite ispravno korisničko ime."
 
 #: src/wubi/frontends/win32/installation_page.py:326
 msgid "Please use all lower cases in the username."

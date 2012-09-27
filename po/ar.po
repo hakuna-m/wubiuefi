@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2011-06-24 10:56+0100\n"
-"PO-Revision-Date: 2011-01-27 20:56+0000\n"
-"Last-Translator: Ahmed Shams <Unknown>\n"
+"PO-Revision-Date: 2012-03-20 22:30+0000\n"
+"Last-Translator: Ibrahim Saed <ibraheem5000@gmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2011-04-04 10:01+0000\n"
-"X-Generator: Launchpad (build 12710)\n"
+"X-Launchpad-Export-Date: 2012-09-27 13:48+0000\n"
+"X-Generator: Launchpad (build 16042)\n"
 
 #: src/wubi/application.py:65
 #, python-format
@@ -64,7 +64,7 @@ msgstr "يختار الدليل الهدف"
 #: src/wubi/backends/common/backend.py:77
 #: src/wubi/backends/common/backend.py:98
 msgid "Creating the installation directories"
-msgstr "يختار أدلة التثبيت"
+msgstr "ينشىء أدلة التثبيت"
 
 #: src/wubi/backends/common/backend.py:78
 #: src/wubi/backends/common/backend.py:88
@@ -516,9 +516,8 @@ msgstr ""
 "هل ترغب في المتابعة بالرغم من ذلك؟"
 
 #: src/wubi/frontends/win32/installation_page.py:324
-#, fuzzy
 msgid "Please enter a valid username."
-msgstr "أدخل اسم مستخدم صالح من فضلك"
+msgstr "من فضلك أدخل اسم مُستخدم صالح."
 
 #: src/wubi/frontends/win32/installation_page.py:326
 msgid "Please use all lower cases in the username."
@@ -568,8 +567,12 @@ msgstr "لا تنزّل، استخدم ملفاً محلياً."
 #, python-format
 msgid "Remaining time approximately %s"
 msgid_plural "Remaining time approximately %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "الوقت المتبقي تقريباً %s"
+msgstr[1] "الوقت المتبقي تقريباً %s"
+msgstr[2] "الوقت المتبقي تقريباً %s"
+msgstr[3] "الوقت المتبقي تقريباً %s"
+msgstr[4] "الوقت المتبقي تقريباً %s"
+msgstr[5] "الوقت المتبقي تقريباً %s"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"

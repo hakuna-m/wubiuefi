@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: umenu\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2011-06-24 10:56+0100\n"
-"PO-Revision-Date: 2010-03-08 13:30+0000\n"
-"Last-Translator: Joshas <Unknown>\n"
+"PO-Revision-Date: 2011-08-11 15:02+0000\n"
+"Last-Translator: Mantas Kriaučiūnas <mantas@akl.lt>\n"
 "Language-Team: Lithuanian <lt@li.org>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
@@ -24,8 +24,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2011-04-04 10:00+0000\n"
-"X-Generator: Launchpad (build 12710)\n"
+"X-Launchpad-Export-Date: 2012-09-27 13:48+0000\n"
+"X-Generator: Launchpad (build 16042)\n"
 
 #: src/wubi/application.py:65
 #, python-format
@@ -60,18 +60,18 @@ msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
-"Nepavyko rasti teisingo CD.\n"
-"CD paleidimo pagelbiklis gali būti naudojamas tik su Live CD."
+"Nepavyko rasti tinkamo CD.\n"
+"CD paleidimo pagelbiklis gali būti naudojamas tik su Live CD ar DVD."
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:97
 msgid "Selecting the target directory"
-msgstr "Pasirinkite paskirties katalogą"
+msgstr "Pasirinkite paskirties aplanką"
 
 #: src/wubi/backends/common/backend.py:77
 #: src/wubi/backends/common/backend.py:98
 msgid "Creating the installation directories"
-msgstr "Kuriami diegimo katalogai"
+msgstr "Kuriami diegimo aplankai"
 
 #: src/wubi/backends/common/backend.py:78
 #: src/wubi/backends/common/backend.py:88
@@ -118,7 +118,7 @@ msgstr "Pridedamas naujas paleidyklės įrašas"
 #: src/wubi/backends/common/backend.py:86
 #: src/wubi/backends/common/backend.py:106
 msgid "Setting up installation boot menu"
-msgstr "Įdiegiamas diegimo paleidimo meniu"
+msgstr "Nustatoma diegimo paleidimo meniu"
 
 #: src/wubi/backends/common/backend.py:87
 msgid "Creating the virtual disks"
@@ -216,12 +216,12 @@ msgstr "0 s"
 #: src/wubi/backends/common/tasklist.py:269
 #, python-format
 msgid "%ih"
-msgstr "%i h"
+msgstr "%i val."
 
 #: src/wubi/backends/common/tasklist.py:271
 #, python-format
 msgid "%imin"
-msgstr "%i min"
+msgstr "%i min."
 
 #: src/wubi/backends/common/tasklist.py:274
 #, python-format
@@ -239,10 +239,10 @@ msgid ""
 msgstr ""
 "Diegimas nepavyko. Žurnalai išsaugoti čia: %s.\n"
 "\n"
-"Pastebėkite, kad išsamios informacijos režime žurnaluose gali būti "
+"Atminkite, kad išsamios informacijos režime žurnaluose gali būti "
 "slaptažodis.\n"
 "\n"
-"Operacinė sistema bus įkelta iš naujo."
+"Operacinė sistema bus paleista iš naujo."
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
@@ -310,11 +310,11 @@ msgstr "< Atgal"
 #: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 msgid "Finish"
-msgstr "Pabaiga"
+msgstr "Baigti"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:43
 msgid "Reboot required"
-msgstr "Reikia įkelti OS iš naujo"
+msgstr "Reikia paleisti kompiuterį iš naujo"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:45
 msgid ""
@@ -322,22 +322,22 @@ msgid ""
 "tray. If your machine cannot boot from the CD, the last option should work "
 "in most cases."
 msgstr ""
-"Norėdami paleisti Live CD turite įkelti OS iš naujo palikę įdėtą CD. Jeigu "
-"jūsų kompiuteris negali pasileisti iš CD, paskutinis punktas turėtų jums "
-"tikti."
+"Norėdami paleisti Linux sistemą iš CD disko, turite paleisti kompiuterį iš "
+"naujo su įdėtu Linux CD ar DVD disku. Jeigu jūsų kompiuteris negali "
+"pasileisti iš CD ar DVD, pasirinkite paskutinį punktą."
 
 #: src/wubi/frontends/win32/cd_finish_page.py:47
 #: src/wubi/frontends/win32/installation_finish_page.py:44
 msgid "Reboot now"
-msgstr "Įkelti OS iš naujo dabar"
+msgstr "Paleisti kompiuterį iš naujo dabar"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:48
 msgid "I want to manually reboot Later"
-msgstr "Aš noriu įkrauti OS iš naujo vėliau"
+msgstr "Aš noriu paleisti kompiuterį iš naujo vėliau"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
 msgid "Help me to boot from CD"
-msgstr "Padėkite man paleisti iš CD"
+msgstr "Padėkite man paleisti iš CD ar DVD"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
@@ -346,7 +346,7 @@ msgstr "%s meniu"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:53
 msgid "Demo and full installation"
-msgstr "Demonstracija ir pilnas diegimas"
+msgstr "Demonstracija ir pilnas Linux diegimas"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:55
 #, python-format
@@ -355,13 +355,14 @@ msgid ""
 "the tray. You may perform a full installation from within the demo to "
 "install %(distro)s either alongside Windows or as the only operating system."
 msgstr ""
-"Išmėginkite %(distro)s be diegimo! Paprasčiausiai įkraukite OS iš naujo "
-"palikę CD dėkle. Jūs galite atlikti pilną %(distro)s diegimą greta Windows, "
-"arba kaip vienintelę operacinę sistemą iš demonstracijos."
+"Išmėginkite %(distro)s be diegimo! Paprasčiausiai paleiskite kompiuterį iš "
+"naujo palikę Linux CD diską dėkle. Jūs galite atlikti pilną %(distro)s "
+"diegimą greta dabar įdiegtos Windows sistemos, arba kaip vienintelę "
+"operacinę sistemą šiame kompiuteryje."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:65
 msgid "Install inside Windows"
-msgstr "Įdiegti į Windows"
+msgstr "Įdiegti Ubuntu į Windows"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:67
 #, python-format
@@ -371,9 +372,11 @@ msgid ""
 "or %(distro)s. Hibernation is not enabled in this mode and disk performance "
 "is slightly reduced."
 msgstr ""
-"Įdiekite ir šalinkite %(distro)s kaip bet kokią kitą programą be specialaus "
-"disko skirsnio. Jūs galėsite paleisti arba Windows, arba %(distro)s. "
-"Užmigdymas šiame režime neįjungtas, o disko našumas truputį sumažėjęs."
+"Įdiekite ir šalinkite %(distro)s kaip bet kokią kitą Windows programą (be "
+"specialaus standžiojo disko skirsnio). Kompiuterio įjungimo metu Jūs "
+"galėsite pasirinkti ką paleisti - ar Windows, ar %(distro)s. Šiuo atveju bus "
+"išjungtas kompiuterio užmigdymas dirbant su Linux, o disko našumas bus šiek "
+"tiek mažesnis."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:74
 msgid "Learn more"
@@ -386,9 +389,9 @@ msgid ""
 "complete with a web browser, productivity software, instant messaging, and "
 "much more."
 msgstr ""
-"%(distro)s yra nemokama, bendruomenės kuriama, Linux paremta operacinė "
-"sistema su žiniatinklio naršykle, našumo programine įranga, žinučių siuntimu "
-"ir daug daugiau."
+"%(distro)s yra nemokama, saugi, bendruomenės kuriama, Linux paremta "
+"operacinė sistema su interneto naršykle, biuro (darbo su dokumentais) "
+"programine įranga, pokalbių programomis ir daug daugiau."
 
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
@@ -397,7 +400,7 @@ msgstr "%s CD paleidimo pagelbiklis"
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
-msgstr "Neužtenka vietos diske tęsti toliau"
+msgstr "Neužtenka vietos diske įdiegimui"
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:183
@@ -421,12 +424,12 @@ msgid ""
 "\n"
 "Do you want to proceed and install the CD booter?"
 msgstr ""
-"Jei jūsų kompiuteris negali įsikrauti iš kompaktinio disko, ši programa "
-"įdiegs naują įkrovos meniu įrašą, įkrausiantį kompiuterį iš kompaktinio "
-"disko. Dažniausiai tai nėra reikalinga, pakanka perkrauti kompiuterį "
-"neišėmus kompaktinio disko.\n"
+"Jei šis kompiuteris negali paleisti operacinės sistemos iš CD ar DVD disko, "
+"ši programa papildys paleidimo meniu, kad Linux sistema galėtų pasileisti iš "
+"CD ar DVD. Dažniausiai tai nėra reikalinga, pakanka paleisti kompiuterį iš "
+"naujo neišėmus Linux CD disko.\n"
 "\n"
-"Ar norite tęsti ir įdiegti įkrovos iš kompaktinio disko paleidyklę?"
+"Ar norite tęsti ir papildyti paleidimo meniu Linux CD disko paleidykle?"
 
 #: src/wubi/frontends/win32/frontend.py:51
 msgid "Are you sure you want to quit?"
@@ -439,11 +442,11 @@ msgstr "Baigiama %s diegimo programa"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
-msgstr "Diegimui pabaigti reikia įkelti OS iš naujo"
+msgstr "Diegimą pabaigsite paleidę kompiuterį iš naujo"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
-msgstr "Aš noriu įkrauti OS iš naujo vėliau"
+msgstr "Aš noriu paleisti kompiuterį iš naujo vėliau"
 
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
@@ -524,9 +527,8 @@ msgstr ""
 "Ar vistiek norite tęsti?"
 
 #: src/wubi/frontends/win32/installation_page.py:324
-#, fuzzy
 msgid "Please enter a valid username."
-msgstr "Įveskite teisingą naudotojo vardą"
+msgstr "Įveskite tinkamą naudotojo vardą."
 
 #: src/wubi/frontends/win32/installation_page.py:326
 msgid "Please use all lower cases in the username."
@@ -538,13 +540,15 @@ msgstr "Naudotojo varde nenaudokite tarpų."
 
 #: src/wubi/frontends/win32/installation_page.py:330
 msgid "Your username must start with a lower-case letter."
-msgstr ""
+msgstr "Naudotojo vardas turi prasidėti mažąja raide."
 
 #: src/wubi/frontends/win32/installation_page.py:332
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
 msgstr ""
+"Naudotojo varde naudokite tik iš mažąsias raides, skaičius bei paprastus ar "
+"apatinius brūkšnelius."
 
 #: src/wubi/frontends/win32/installation_page.py:334
 msgid "The selected username is reserved, please select a different one."
@@ -552,7 +556,7 @@ msgstr "Pasirinktas naudotojo vardas yra rezervuotas, pasirinkite kitą."
 
 #: src/wubi/frontends/win32/installation_page.py:336
 msgid "Please enter a valid password."
-msgstr "Įveskite teisingą slaptažodį."
+msgstr "Įveskite tinkamą slaptažodį."
 
 #: src/wubi/frontends/win32/installation_page.py:338
 msgid "Please do not use spaces in the password."

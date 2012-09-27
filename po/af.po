@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2011-06-24 10:56+0100\n"
-"PO-Revision-Date: 2008-04-24 22:06+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2012-09-03 09:01+0000\n"
+"Last-Translator: Dawid de Jager <Unknown>\n"
 "Language-Team: Afrikaans <af@li.org>\n"
 "Language: af\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-04-04 10:00+0000\n"
-"X-Generator: Launchpad (build 12710)\n"
+"X-Launchpad-Export-Date: 2012-09-27 13:48+0000\n"
+"X-Generator: Launchpad (build 16042)\n"
 
 #: src/wubi/application.py:65
 #, python-format
@@ -427,7 +427,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:179
 msgid "Please select username and password for the new account"
-msgstr ""
+msgstr "Kies asseblief die gebruikersnaam en wagwoord vir die nuwe rekening"
 
 #: src/wubi/frontends/win32/installation_page.py:195
 msgid "Installation drive:"
@@ -443,15 +443,15 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:213
 msgid "Language:"
-msgstr ""
+msgstr "Taal:"
 
 #: src/wubi/frontends/win32/installation_page.py:224
 msgid "Username:"
-msgstr ""
+msgstr "Gebruikersnaam:"
 
 #: src/wubi/frontends/win32/installation_page.py:232
 msgid "Password:"
-msgstr ""
+msgstr "Wagwoord:"
 
 #: src/wubi/frontends/win32/installation_page.py:274
 #, python-format
@@ -478,11 +478,11 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:326
 msgid "Please use all lower cases in the username."
-msgstr ""
+msgstr "Gebruik asseblief net kleinletters in die gebruikersnaam."
 
 #: src/wubi/frontends/win32/installation_page.py:328
 msgid "Please do not use spaces in the username."
-msgstr ""
+msgstr "Moet asseblief nie spasies in die gebruikersnaam gebruik nie."
 
 #: src/wubi/frontends/win32/installation_page.py:330
 msgid "Your username must start with a lower-case letter."
@@ -500,15 +500,15 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:336
 msgid "Please enter a valid password."
-msgstr ""
+msgstr "Voer asseblief 'n geldige wagwoord in."
 
 #: src/wubi/frontends/win32/installation_page.py:338
 msgid "Please do not use spaces in the password."
-msgstr ""
+msgstr "Moet asseblief nie spasies in die wagwoord gebruik nie."
 
 #: src/wubi/frontends/win32/installation_page.py:340
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Wagwoorde stem nie ooreen nie."
 
 #: src/wubi/frontends/win32/progress_page.py:40
 msgid "Please wait"

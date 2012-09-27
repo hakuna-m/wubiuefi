@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2011-06-24 10:56+0100\n"
-"PO-Revision-Date: 2009-05-21 11:56+0000\n"
-"Last-Translator: Jihui Choi <jihui.choi@gmail.com>\n"
+"PO-Revision-Date: 2011-11-08 10:25+0000\n"
+"Last-Translator: MinSik CHO <Unknown>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2011-04-04 10:00+0000\n"
-"X-Generator: Launchpad (build 12710)\n"
+"X-Launchpad-Export-Date: 2012-09-27 13:48+0000\n"
+"X-Generator: Launchpad (build 16042)\n"
 
 #: src/wubi/application.py:65
 #, python-format
@@ -515,9 +515,8 @@ msgstr ""
 "그래도 계속하겠습니까?"
 
 #: src/wubi/frontends/win32/installation_page.py:324
-#, fuzzy
 msgid "Please enter a valid username."
-msgstr "올바른 사용자 이름을 입력해 주십시오."
+msgstr "알맞은 사용자 이름을 입력하세요."
 
 #: src/wubi/frontends/win32/installation_page.py:326
 msgid "Please use all lower cases in the username."
@@ -529,13 +528,14 @@ msgstr "사용자 이름에 공백을 사용하지 말아 주십시오."
 
 #: src/wubi/frontends/win32/installation_page.py:330
 msgid "Your username must start with a lower-case letter."
-msgstr ""
+msgstr "사용자 이름은 소문자로 시작하여야 합니다."
 
 #: src/wubi/frontends/win32/installation_page.py:332
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
 msgstr ""
+"사용자 이름은 소문자, 숫자, 하이픈 (-), 언더바 (_)로만 구성할 수 있습니다."
 
 #: src/wubi/frontends/win32/installation_page.py:334
 msgid "The selected username is reserved, please select a different one."
@@ -565,8 +565,7 @@ msgstr "내려 받지 않고 로컬 파일 사용"
 #, python-format
 msgid "Remaining time approximately %s"
 msgid_plural "Remaining time approximately %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "약 %s 초가 남았습니다."
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"

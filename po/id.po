@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2011-06-24 10:56+0100\n"
-"PO-Revision-Date: 2009-10-20 05:02+0000\n"
+"PO-Revision-Date: 2012-04-09 11:34+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <id@li.org>\n"
 "Language: id\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2011-04-04 10:00+0000\n"
-"X-Generator: Launchpad (build 12710)\n"
+"X-Launchpad-Export-Date: 2012-09-27 13:48+0000\n"
+"X-Generator: Launchpad (build 16042)\n"
 
 #: src/wubi/application.py:65
 #, python-format
@@ -516,9 +516,8 @@ msgstr ""
 "Apakah Anda ingin tetap melanjutkan?"
 
 #: src/wubi/frontends/win32/installation_page.py:324
-#, fuzzy
 msgid "Please enter a valid username."
-msgstr "Masukkan nama pengguna yang benar"
+msgstr "Silakan masukkan nama pengguna yang valid."
 
 #: src/wubi/frontends/win32/installation_page.py:326
 msgid "Please use all lower cases in the username."
@@ -530,13 +529,15 @@ msgstr "Jangan menggunakan spasi untuk nama pengguna."
 
 #: src/wubi/frontends/win32/installation_page.py:330
 msgid "Your username must start with a lower-case letter."
-msgstr ""
+msgstr "Nama pengguna Anda mesti diawali dengan huruf kecil."
 
 #: src/wubi/frontends/win32/installation_page.py:332
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
 msgstr ""
+"Nama pengguna Anda mesti memuat hanya huruf kecil, angka, tanda hubung, dan "
+"garis bawah."
 
 #: src/wubi/frontends/win32/installation_page.py:334
 msgid "The selected username is reserved, please select a different one."
@@ -566,8 +567,7 @@ msgstr "Jangan unduh, gunakan berkas lokal"
 #, python-format
 msgid "Remaining time approximately %s"
 msgid_plural "Remaining time approximately %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Waktu tersisa kurang lebih %s"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"

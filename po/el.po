@@ -16,15 +16,15 @@ msgstr ""
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2011-06-24 10:56+0100\n"
 "PO-Revision-Date: 2010-11-08 06:29+0000\n"
-"Last-Translator: Michael Kotsarinis <Unknown>\n"
+"Last-Translator: Michael Kotsarinis <mk73628@gmail.com>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-04-04 10:01+0000\n"
-"X-Generator: Launchpad (build 12710)\n"
+"X-Launchpad-Export-Date: 2012-09-27 13:48+0000\n"
+"X-Generator: Launchpad (build 16042)\n"
 
 #: src/wubi/application.py:65
 #, python-format
@@ -524,9 +524,8 @@ msgstr ""
 "Θέλετε να συνεχίσετε παρ' όλα αυτά;"
 
 #: src/wubi/frontends/win32/installation_page.py:324
-#, fuzzy
 msgid "Please enter a valid username."
-msgstr "Παρακαλούμε εισάγετε ένα έγκυρο όνομα χρήστη"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:326
 msgid "Please use all lower cases in the username."

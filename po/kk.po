@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2011-06-24 10:56+0100\n"
-"PO-Revision-Date: 2010-05-07 10:41+0000\n"
+"PO-Revision-Date: 2012-04-30 18:23+0000\n"
 "Last-Translator: jmb_kz <Unknown>\n"
 "Language-Team: Kazakh <kk@li.org>\n"
 "Language: kk\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2011-04-04 10:01+0000\n"
-"X-Generator: Launchpad (build 12710)\n"
+"X-Launchpad-Export-Date: 2012-09-27 13:48+0000\n"
+"X-Generator: Launchpad (build 16042)\n"
 
 #: src/wubi/application.py:65
 #, python-format
@@ -522,9 +522,8 @@ msgstr ""
 "Әрі қарай жалғастыруды қалайсыз ба?"
 
 #: src/wubi/frontends/win32/installation_page.py:324
-#, fuzzy
 msgid "Please enter a valid username."
-msgstr "Пайдаланушының атын дұрыс енгізіңіз"
+msgstr "Дұрыс пайдаланушы атын енгізіңіз."
 
 #: src/wubi/frontends/win32/installation_page.py:326
 msgid "Please use all lower cases in the username."
@@ -536,13 +535,15 @@ msgstr "Пайдаланушының атын енгізгенде бос оры
 
 #: src/wubi/frontends/win32/installation_page.py:330
 msgid "Your username must start with a lower-case letter."
-msgstr ""
+msgstr "Пайдаланушы аты кішкентай әріптен басталуы тиіс."
 
 #: src/wubi/frontends/win32/installation_page.py:332
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
 msgstr ""
+"Пайдаланушы аты тек кішкентай әріптерден, сандардан, дефис пен астыңғы "
+"сызықтан тұруы тиіс."
 
 #: src/wubi/frontends/win32/installation_page.py:334
 msgid "The selected username is reserved, please select a different one."

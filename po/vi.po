@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2011-06-24 10:56+0100\n"
-"PO-Revision-Date: 2009-04-18 13:31+0000\n"
-"Last-Translator: zeratulbk <congtumotsach@gmail.com>\n"
+"PO-Revision-Date: 2012-08-22 14:06+0000\n"
+"Last-Translator: Ngô Trung <ndtrung4419@gmail.com>\n"
 "Language-Team: Vietnamese <vi@li.org>\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2011-04-04 10:01+0000\n"
-"X-Generator: Launchpad (build 12710)\n"
+"X-Launchpad-Export-Date: 2012-09-27 13:48+0000\n"
+"X-Generator: Launchpad (build 16042)\n"
 
 #: src/wubi/application.py:65
 #, python-format
@@ -28,6 +28,11 @@ msgid ""
 "\n"
 "For more information, please see the log file: %(log)s"
 msgstr ""
+"Đã gặp lỗi sai:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"Để biết thêm thông tin, vui lòng xem tệp nhật ký: %(log)s"
 
 #: src/wubi/application.py:148 src/wubi/application.py:213
 #, python-format
@@ -35,16 +40,20 @@ msgid ""
 "A previous installation was detected in %s.\n"
 "Please uninstall that before continuing."
 msgstr ""
+"Đã phát hiện hệ thống cài đặt ở %s.\n"
+"Vui lòng tháo gỡ trước khi tiếp tục."
 
 #: src/wubi/application.py:195
 msgid "No CD detected, cannot run CD menu"
-msgstr ""
+msgstr "Không nhận thấy CD, không thể khởi hành trình đơn CD"
 
 #: src/wubi/application.py:203
 msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
+"Không tìm được CD hợp lệ.\n"
+"Trình giúp khởi động bằng CD chỉ hoạt động được với một live CD."
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:97
@@ -91,7 +100,7 @@ msgstr "Chọn cỡ Đĩa"
 #: src/wubi/backends/common/backend.py:84
 #: src/wubi/backends/common/backend.py:104
 msgid "Creating a preseed file"
-msgstr ""
+msgstr "Tạo một tệp làm hạt giống"
 
 #: src/wubi/backends/common/backend.py:85
 #: src/wubi/backends/common/backend.py:105
@@ -110,7 +119,7 @@ msgstr "Đang tạo các đĩa ảo"
 #: src/wubi/backends/common/backend.py:89
 #: src/wubi/backends/common/backend.py:108
 msgid "Ejecting the CD"
-msgstr ""
+msgstr "Đẩy đĩa CD ra"
 
 #: src/wubi/backends/common/backend.py:91
 #: src/wubi/frontends/win32/progress_page.py:39
@@ -124,7 +133,7 @@ msgstr "Trích xuất nội dung CD"
 
 #: src/wubi/backends/common/backend.py:110
 msgid "Installing CD boot helper"
-msgstr ""
+msgstr "Cài đặt trình trợ giúp khởi động bằng CD"
 
 #: src/wubi/backends/common/backend.py:115
 #: src/wubi/backends/common/backend.py:117
@@ -133,7 +142,7 @@ msgstr "Đang Khởi động lại"
 
 #: src/wubi/backends/common/backend.py:122
 msgid "Backup ISO"
-msgstr ""
+msgstr "Sao chép tệp ISO"
 
 #: src/wubi/backends/common/backend.py:123
 msgid "Remove bootloader entry"
@@ -194,17 +203,17 @@ msgstr "Đang tải %s"
 #: src/wubi/backends/common/tasklist.py:256
 #: src/wubi/backends/common/tasklist.py:260
 msgid "0s"
-msgstr "0g"
+msgstr "0giây"
 
 #: src/wubi/backends/common/tasklist.py:269
 #, python-format
 msgid "%ih"
-msgstr "%ig"
+msgstr "%igiờ"
 
 #: src/wubi/backends/common/tasklist.py:271
 #, python-format
 msgid "%imin"
-msgstr "%ip"
+msgstr "%iphút"
 
 #: src/wubi/backends/common/tasklist.py:274
 #, python-format
@@ -255,15 +264,15 @@ msgstr "Công cụ trợ giúp cho sự Nhìn thấy"
 
 #: src/wubi/frontends/win32/accessibility_page.py:51
 msgid "Visibility1"
-msgstr ""
+msgstr "Nhìn thấy1"
 
 #: src/wubi/frontends/win32/accessibility_page.py:52
 msgid "Visibility2"
-msgstr ""
+msgstr "Nhìn thấy2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:53
 msgid "Visibility3"
-msgstr ""
+msgstr "Nhìn thấy3"
 
 #: src/wubi/frontends/win32/accessibility_page.py:54
 msgid "Braille"
@@ -275,11 +284,11 @@ msgstr "Công cụ trợ giúp cơ động"
 
 #: src/wubi/frontends/win32/accessibility_page.py:58
 msgid "Mobility1"
-msgstr ""
+msgstr "Mobility1"
 
 #: src/wubi/frontends/win32/accessibility_page.py:59
 msgid "Mobility2"
-msgstr ""
+msgstr "Mobility2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:62
 msgid "None"
@@ -305,6 +314,9 @@ msgid ""
 "tray. If your machine cannot boot from the CD, the last option should work "
 "in most cases."
 msgstr ""
+"Để khởi động Live CD bạn cần đưa đĩa CD vào ổ CD trước khi khởi động lại máy "
+"tính. Nếu máy tính của bạn không khởi động được từ ổ CD,  hãy chọn mục cuối "
+"cùng."
 
 #: src/wubi/frontends/win32/cd_finish_page.py:47
 #: src/wubi/frontends/win32/installation_finish_page.py:44
@@ -317,7 +329,7 @@ msgstr "Tôi muốn tự khởi động lại sau"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
 msgid "Help me to boot from CD"
-msgstr ""
+msgstr "Giúp tôi khởi động từ đĩa CD"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
@@ -335,6 +347,9 @@ msgid ""
 "the tray. You may perform a full installation from within the demo to "
 "install %(distro)s either alongside Windows or as the only operating system."
 msgstr ""
+"Thử %(distro)s mà không cần cài đặt! Chỉ cần khởi động lại máy tính với "
+"chiếc đĩa CD trong ổ. Từ phiên bản chạy thử bạn sẽ có khả năng cài đặt đầy "
+"đủ %(distro)s song song với Windows hoặc một mình."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:65
 msgid "Install inside Windows"
@@ -348,6 +363,10 @@ msgid ""
 "or %(distro)s. Hibernation is not enabled in this mode and disk performance "
 "is slightly reduced."
 msgstr ""
+"Cài đặt và tháo gỡ %(distro)s giống như với bất kỳ ứng dụng nào khác, mà "
+"không cần phân vùng lại riêng. Bạn sẽ có khả năng khởi động máy tính dùng "
+"Windows hoặc %(distro)s. Tính năng ngủ đông sẽ không được kích hoạt trong "
+"trường hợp này và hiệt quả ghi/đọc ổ đĩa sẽ bị giảm một chút."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:74
 msgid "Learn more"
@@ -360,11 +379,14 @@ msgid ""
 "complete with a web browser, productivity software, instant messaging, and "
 "much more."
 msgstr ""
+"%(distro)s là một hệ điều hành tự do, do cộng đồng phát triển, dựa vào linux "
+"và có đầy đủ chức năng thông qua một trình duyệt web, phần mềm văn phòng, "
+"trình nhắn tin, và nhiều hơn nữa."
 
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
 msgid "%s CD Boot Helper"
-msgstr ""
+msgstr "%s trình Trợ giúp Khởi đông bằng CD"
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
@@ -373,7 +395,7 @@ msgstr "Không đủ dung lượng đĩa để tiếp tục"
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:183
 msgid "Accessibility"
-msgstr ""
+msgstr "Khả năng truy cập"
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:183
@@ -382,7 +404,7 @@ msgstr "Cài đặt"
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
-msgstr ""
+msgstr "Cài đặt trình trợ giúp khởi động bằng CD"
 
 #: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
@@ -406,7 +428,7 @@ msgstr "Bạn có chắc muốn thoát không?"
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
 msgid "Completing the %s Setup Wizard"
-msgstr ""
+msgstr "Đang hoàn thành trình Trợ giúp Cấu hình %s"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
@@ -423,7 +445,7 @@ msgid ""
 "At least 1024MB are required as a bare minimum. Quitting"
 msgstr ""
 "Chỉ có %sMB không gian đĩa có sẵn.\n"
-"Ít nhất 1024MB là yêu cầu tối thiểu. Đang thoát"
+"Cần it nhất 1024MB là yêu cầu tối thiểu. Đang thoát"
 
 #: src/wubi/frontends/win32/installation_page.py:77
 #, python-format
@@ -433,6 +455,10 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
+"Cần %(min_space)sMB ổ đĩa trống để cài đặt.\n"
+"Chỉ có sẵn %(max_space)sMB.\n"
+"Vì vậy việc cài đặt có thể thất bại.\n"
+"Mặc dù vậy, bạn có muốn tiếp tục không?"
 
 #: src/wubi/frontends/win32/installation_page.py:97
 #, python-format
@@ -445,11 +471,11 @@ msgstr "Vui lòng chọn tên người dùng và mật mã cho tài khoản mớ
 
 #: src/wubi/frontends/win32/installation_page.py:195
 msgid "Installation drive:"
-msgstr ""
+msgstr "Ổ đĩa để cài đặt:"
 
 #: src/wubi/frontends/win32/installation_page.py:201
 msgid "Installation size:"
-msgstr ""
+msgstr "Kích cỡ cài đặt:"
 
 #: src/wubi/frontends/win32/installation_page.py:207
 msgid "Desktop environment:"
@@ -470,12 +496,12 @@ msgstr "Mật khẩu:"
 #: src/wubi/frontends/win32/installation_page.py:274
 #, python-format
 msgid "%s Installer"
-msgstr ""
+msgstr "Trình cài đặt %s"
 
 #: src/wubi/frontends/win32/installation_page.py:277
 #, python-format
 msgid "You are about to install %(distro)s-%(version)s"
-msgstr ""
+msgstr "Bạn sắp cài đặt %(distro)s-%(version)s"
 
 #: src/wubi/frontends/win32/installation_page.py:282
 #, python-format
@@ -485,11 +511,14 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
+"Cần tối thiểu %(min_memory)sMB bộ nhới RAM để cài đặt.\n"
+"Chỉ có sẵn %(total_memory)sMB.\n"
+"Vì vậy việc cài đặt có thể thất bại.\n"
+"Mặc dù vậy, bạn có muốn tiếp tục không?"
 
 #: src/wubi/frontends/win32/installation_page.py:324
-#, fuzzy
 msgid "Please enter a valid username."
-msgstr "Vui lòng điền một tên hợp lý"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:326
 msgid "Please use all lower cases in the username."
@@ -501,13 +530,14 @@ msgstr "Bạn vui lòng không dùng phím cách khi đặt tên người dùng.
 
 #: src/wubi/frontends/win32/installation_page.py:330
 msgid "Your username must start with a lower-case letter."
-msgstr ""
+msgstr "Tên người dùng phải bắt đầu với một chữ nhỏ."
 
 #: src/wubi/frontends/win32/installation_page.py:332
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
 msgstr ""
+"Tên người dùng chỉ có thể dùng chữ nhỏ, chữ số, vạch ngăn và vạch dưới."
 
 #: src/wubi/frontends/win32/installation_page.py:334
 msgid "The selected username is reserved, please select a different one."
@@ -537,8 +567,7 @@ msgstr "Không tải về, sử dụng một tập tin cục bộ"
 #, python-format
 msgid "Remaining time approximately %s"
 msgid_plural "Remaining time approximately %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Thời gian còn lại khoảng %s"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
@@ -552,16 +581,16 @@ msgstr "%s vừa gỡ cài đặt thành công"
 #: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
 msgid "%s Uninstaller"
-msgstr ""
+msgstr "%s Trình tháo gỡ cài đặt"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:36
 msgid "Uninstallation required"
-msgstr ""
+msgstr "Cần tháo gỡ cài đặt cũ"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:38
 #, python-format
 msgid "You are about to uninstall %s"
-msgstr ""
+msgstr "Bạn sắp tháo gỡ cài đặt %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 msgid "Uninstall"
@@ -572,6 +601,8 @@ msgid ""
 "A previous installation was detected, it needs to be uninstalled before "
 "continuing"
 msgstr ""
+"Đã tìm thấy một phiên bản cũ cài đặt, bạn cần tháo gỡ cài đặt đó trước khi "
+"tiếp tục"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:54
 msgid "Are you sure you want to uninstall?"

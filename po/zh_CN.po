@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2011-06-24 10:56+0100\n"
-"PO-Revision-Date: 2010-12-26 08:46+0000\n"
-"Last-Translator: 英华 <wantinghard@gmail.com>\n"
+"PO-Revision-Date: 2011-05-06 16:23+0000\n"
+"Last-Translator: 杨同学 <Unknown>\n"
 "Language-Team: Simplified Chinese <i18n-zh@googlegroups.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2011-04-04 10:01+0000\n"
-"X-Generator: Launchpad (build 12710)\n"
+"X-Launchpad-Export-Date: 2012-09-27 13:48+0000\n"
+"X-Generator: Launchpad (build 16042)\n"
 
 #: src/wubi/application.py:65
 #, python-format
@@ -90,7 +90,7 @@ msgstr "检索安装文件"
 #: src/wubi/backends/common/backend.py:82
 #: src/wubi/backends/common/backend.py:103
 msgid "Extracting the kernel"
-msgstr "展开内核"
+msgstr "正在释放内核"
 
 #: src/wubi/backends/common/backend.py:83
 msgid "Choosing disk sizes"
@@ -128,7 +128,7 @@ msgstr "正在安装 %(distro)s %(version)s"
 
 #: src/wubi/backends/common/backend.py:102
 msgid "Extracting CD content"
-msgstr "展开 CD 内文件"
+msgstr "正在释放CD文件"
 
 #: src/wubi/backends/common/backend.py:110
 msgid "Installing CD boot helper"
@@ -460,7 +460,7 @@ msgstr "(%sGB 空闲)"
 
 #: src/wubi/frontends/win32/installation_page.py:179
 msgid "Please select username and password for the new account"
-msgstr "请为新帐户选择用户名称和密码"
+msgstr "请为新帐户选择用户名和密码"
 
 #: src/wubi/frontends/win32/installation_page.py:195
 msgid "Installation drive:"
@@ -494,7 +494,7 @@ msgstr "%s 安装程序"
 #: src/wubi/frontends/win32/installation_page.py:277
 #, python-format
 msgid "You are about to install %(distro)s-%(version)s"
-msgstr "您正要安装 %(distro)s %(version)s"
+msgstr "您将安装 %(distro)s %(version)s"
 
 #: src/wubi/frontends/win32/installation_page.py:282
 #, python-format
@@ -510,17 +510,16 @@ msgstr ""
 "仍然要继续吗？"
 
 #: src/wubi/frontends/win32/installation_page.py:324
-#, fuzzy
 msgid "Please enter a valid username."
-msgstr "请输入有效的用户名称"
+msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:326
 msgid "Please use all lower cases in the username."
-msgstr "请完全使用小写字母设置用户名称。"
+msgstr "请在用户名中全部使用小写字母。"
 
 #: src/wubi/frontends/win32/installation_page.py:328
 msgid "Please do not use spaces in the username."
-msgstr "请勿在用户名称中使用空格。"
+msgstr "请勿在用户名中使用空格。"
 
 #: src/wubi/frontends/win32/installation_page.py:330
 msgid "Your username must start with a lower-case letter."

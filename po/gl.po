@@ -10,16 +10,16 @@ msgstr ""
 "Project-Id-Version: wubi_wubi-gl\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2011-06-24 10:56+0100\n"
-"PO-Revision-Date: 2010-04-14 07:30+0000\n"
-"Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
+"PO-Revision-Date: 2012-09-26 07:58+0000\n"
+"Last-Translator: Antón Méixome <meixome@gmail.com>\n"
 "Language-Team: Galician <g11n@mancomun.org>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-04-04 10:01+0000\n"
-"X-Generator: Launchpad (build 12710)\n"
+"X-Launchpad-Export-Date: 2012-09-27 13:48+0000\n"
+"X-Generator: Launchpad (build 16042)\n"
 
 #: src/wubi/application.py:65
 #, python-format
@@ -326,7 +326,7 @@ msgstr "Reiniciar agora"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:48
 msgid "I want to manually reboot Later"
-msgstr "Quero reiniciar manualmente máis tarde"
+msgstr "Reiniciar manualmente máis tarde"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
 msgid "Help me to boot from CD"
@@ -430,7 +430,7 @@ msgstr "Está seguro de que quere saír?"
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
 msgid "Completing the %s Setup Wizard"
-msgstr "Completando o %s Asistente de instalación"
+msgstr "Completando o Asistente de instalación de %s"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
@@ -438,7 +438,7 @@ msgstr "Necesita reiniciar para completar a instalación"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
-msgstr "Quero reiniciar manualmente máis tarde"
+msgstr "Reiniciar manualmente máis tarde"
 
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
@@ -498,7 +498,7 @@ msgstr "Contrasinal:"
 #: src/wubi/frontends/win32/installation_page.py:274
 #, python-format
 msgid "%s Installer"
-msgstr "%s Instalador"
+msgstr "Instalador de %s"
 
 #: src/wubi/frontends/win32/installation_page.py:277
 #, python-format
@@ -519,9 +519,8 @@ msgstr ""
 "Quere continuar de todas maneiras?"
 
 #: src/wubi/frontends/win32/installation_page.py:324
-#, fuzzy
 msgid "Please enter a valid username."
-msgstr "Por favor, introduza un nome de usuario válido"
+msgstr "Introduza un nome de usuario correcto."
 
 #: src/wubi/frontends/win32/installation_page.py:326
 msgid "Please use all lower cases in the username."
@@ -533,13 +532,15 @@ msgstr "Por favor, non use espazos en branco no nome de usuario."
 
 #: src/wubi/frontends/win32/installation_page.py:330
 msgid "Your username must start with a lower-case letter."
-msgstr ""
+msgstr "O seu nome de usuario debe comezar cunha letra minúscula."
 
 #: src/wubi/frontends/win32/installation_page.py:332
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
 msgstr ""
+"O seu nome de usuario pode conter soamente letras en minúscula, números, "
+"guións e subliñados."
 
 #: src/wubi/frontends/win32/installation_page.py:334
 msgid "The selected username is reserved, please select a different one."
@@ -585,7 +586,7 @@ msgstr "%s desinstalouse correctamente"
 #: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
 msgid "%s Uninstaller"
-msgstr "%s Desinstalador"
+msgstr "Desinstalador de %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:36
 msgid "Uninstallation required"

@@ -1,7 +1,11 @@
 wubi (12.10) UNRELEASED; urgency=low
 
+  [ Evan Dandrea ]
   * Version bump to 12.10 (Quantal).
   * Drop Wubi for Xubuntu at the request of Pasi Lallinaho.
+
+  [ Colin Watson ]
+  * Update translations from Launchpad.
 
  -- Evan Dandrea <ev@ubuntu.com>  Wed, 06 Jun 2012 14:54:06 +0100
 

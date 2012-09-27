@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2011-06-24 10:56+0100\n"
-"PO-Revision-Date: 2009-05-22 23:34+0000\n"
-"Last-Translator: svv <skrypnychuk@gmail.com>\n"
+"PO-Revision-Date: 2012-03-02 11:05+0000\n"
+"Last-Translator: Сергій Найтінгейл <Unknown>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2011-04-04 10:01+0000\n"
-"X-Generator: Launchpad (build 12710)\n"
+"X-Launchpad-Export-Date: 2012-09-27 13:48+0000\n"
+"X-Generator: Launchpad (build 16042)\n"
 
 #: src/wubi/application.py:65
 #, python-format
@@ -29,6 +29,11 @@ msgid ""
 "\n"
 "For more information, please see the log file: %(log)s"
 msgstr ""
+"Трапилася помилка:\n"
+"\n"
+"%(error)s\n"
+"\n"
+"Для більш детальної інформації, будь ласка подивіться log file: %(log)s"
 
 #: src/wubi/application.py:148 src/wubi/application.py:213
 #, python-format
@@ -36,26 +41,30 @@ msgid ""
 "A previous installation was detected in %s.\n"
 "Please uninstall that before continuing."
 msgstr ""
+"Було виявлене попереднє встановлення %s.\n"
+"Будь ласка видаліть його перед тим як продовжити"
 
 #: src/wubi/application.py:195
 msgid "No CD detected, cannot run CD menu"
-msgstr "Не виявлено жодного КД, неможливо запустити меню компакт-диска"
+msgstr "Не виявлено жодного CD диску, неможливо запустити меню CD диску"
 
 #: src/wubi/application.py:203
 msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
+"Не знайдено жодного діючого CD.\n"
+"Лише помічник CD завантажувача може бути використаний разом з Live CD."
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:97
 msgid "Selecting the target directory"
-msgstr ""
+msgstr "Вибирання теки призначення"
 
 #: src/wubi/backends/common/backend.py:77
 #: src/wubi/backends/common/backend.py:98
 msgid "Creating the installation directories"
-msgstr ""
+msgstr "Створення тек встаноевлення"
 
 #: src/wubi/backends/common/backend.py:78
 #: src/wubi/backends/common/backend.py:88
@@ -74,11 +83,11 @@ msgstr "Створюється деінсталятор"
 #: src/wubi/backends/common/backend.py:424
 #: src/wubi/backends/common/backend.py:430
 msgid "Copying installation files"
-msgstr ""
+msgstr "Копіювання файлів інсталяції"
 
 #: src/wubi/backends/common/backend.py:81
 msgid "Retrieving installation files"
-msgstr ""
+msgstr "Витягування файлів інсталяції"
 
 #: src/wubi/backends/common/backend.py:82
 #: src/wubi/backends/common/backend.py:103
@@ -87,22 +96,22 @@ msgstr "Видобувається ядро"
 
 #: src/wubi/backends/common/backend.py:83
 msgid "Choosing disk sizes"
-msgstr ""
+msgstr "Вибирання розміру диска"
 
 #: src/wubi/backends/common/backend.py:84
 #: src/wubi/backends/common/backend.py:104
 msgid "Creating a preseed file"
-msgstr ""
+msgstr "Створення завантажувача"
 
 #: src/wubi/backends/common/backend.py:85
 #: src/wubi/backends/common/backend.py:105
 msgid "Adding a new bootloader entry"
-msgstr ""
+msgstr "Створення нового запису до завантажувача"
 
 #: src/wubi/backends/common/backend.py:86
 #: src/wubi/backends/common/backend.py:106
 msgid "Setting up installation boot menu"
-msgstr ""
+msgstr "Встановлення інсталяційного меню завантаження"
 
 #: src/wubi/backends/common/backend.py:87
 msgid "Creating the virtual disks"
@@ -111,7 +120,7 @@ msgstr "Створюються віртуальні диски"
 #: src/wubi/backends/common/backend.py:89
 #: src/wubi/backends/common/backend.py:108
 msgid "Ejecting the CD"
-msgstr "Витягається КД"
+msgstr "Витягається CD"
 
 #: src/wubi/backends/common/backend.py:91
 #: src/wubi/frontends/win32/progress_page.py:39
@@ -125,7 +134,7 @@ msgstr "Видобувається вміст КД"
 
 #: src/wubi/backends/common/backend.py:110
 msgid "Installing CD boot helper"
-msgstr ""
+msgstr "Встановлення помічника завантаження CD"
 
 #: src/wubi/backends/common/backend.py:115
 #: src/wubi/backends/common/backend.py:117
@@ -134,29 +143,29 @@ msgstr "Перезавантаження"
 
 #: src/wubi/backends/common/backend.py:122
 msgid "Backup ISO"
-msgstr ""
+msgstr "Резервне копіювання образу диску"
 
 #: src/wubi/backends/common/backend.py:123
 msgid "Remove bootloader entry"
-msgstr ""
+msgstr "Видалення запису зі завантажувача"
 
 #: src/wubi/backends/common/backend.py:124
 msgid "Remove target dir"
-msgstr ""
+msgstr "Видалення теки призначення"
 
 #: src/wubi/backends/common/backend.py:125
 msgid "Remove registry key"
-msgstr ""
+msgstr "Видалення ключа реєстру"
 
 #: src/wubi/backends/common/backend.py:126
 #, python-format
 msgid "Uninstalling %s"
-msgstr "Видаляється %s"
+msgstr "Вилучення %s"
 
 #: src/wubi/backends/common/backend.py:257
 #, python-format
 msgid "Checking CD %s"
-msgstr ""
+msgstr "Перевірка CD %s"
 
 #: src/wubi/backends/common/backend.py:283
 #: src/wubi/backends/common/backend.py:327
@@ -169,12 +178,12 @@ msgstr "Завантажується інформація про файли вс
 #: src/wubi/backends/common/backend.py:418
 #: src/wubi/backends/common/backend.py:468
 msgid "Checking installation files"
-msgstr "Перевіряються файли встановлення"
+msgstr "Перевіряються файли інсталяції"
 
 #: src/wubi/backends/common/backend.py:389
 #, python-format
 msgid "Validating %s"
-msgstr ""
+msgstr "Підтвердження %s"
 
 #: src/wubi/backends/common/backend.py:455
 #, python-format
@@ -190,12 +199,12 @@ msgstr "Перевіряється %s"
 #: src/wubi/backends/common/downloader.py:65
 #, python-format
 msgid "Downloading %s"
-msgstr ""
+msgstr "Завантаження %s"
 
 #: src/wubi/backends/common/tasklist.py:256
 #: src/wubi/backends/common/tasklist.py:260
 msgid "0s"
-msgstr ""
+msgstr "0с"
 
 #: src/wubi/backends/common/tasklist.py:269
 #, python-format
@@ -221,14 +230,19 @@ msgid ""
 "\n"
 "The system will now reboot."
 msgstr ""
+"Встановлення провалене. Лог-файли були збережені в: %s.\n"
+"\n"
+"Зауважте, що у verbose mode, лог-файли можуть містити пароль.\n"
+"\n"
+"Система зараз перезавантажиться."
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
-msgstr ""
+msgstr "Профіль доступности"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
 msgid "Please select the appropriate accessibility profile"
-msgstr ""
+msgstr "Будь ласка виберіть підходящий профіль доступности"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
@@ -246,39 +260,39 @@ msgstr "Скасувати"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
-msgstr ""
+msgstr "Засоби для людей з вадами зору"
 
 #: src/wubi/frontends/win32/accessibility_page.py:51
 msgid "Visibility1"
-msgstr ""
+msgstr "Видимість 1"
 
 #: src/wubi/frontends/win32/accessibility_page.py:52
 msgid "Visibility2"
-msgstr ""
+msgstr "Видимість 2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:53
 msgid "Visibility3"
-msgstr ""
+msgstr "Видимість 3"
 
 #: src/wubi/frontends/win32/accessibility_page.py:54
 msgid "Braille"
-msgstr ""
+msgstr "Шрифт Брайля"
 
 #: src/wubi/frontends/win32/accessibility_page.py:57
 msgid "Mobility Aids"
-msgstr ""
+msgstr "Засоби для людей з обмеженою руховою здатністю"
 
 #: src/wubi/frontends/win32/accessibility_page.py:58
 msgid "Mobility1"
-msgstr ""
+msgstr "Профіль рухів 1"
 
 #: src/wubi/frontends/win32/accessibility_page.py:59
 msgid "Mobility2"
-msgstr ""
+msgstr "Профіль рухів 2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:62
 msgid "None"
-msgstr ""
+msgstr "(Немає)"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 msgid "< Back"
@@ -300,6 +314,9 @@ msgid ""
 "tray. If your machine cannot boot from the CD, the last option should work "
 "in most cases."
 msgstr ""
+"Щоб запустити Live CD Ви потребуєте перезавантажити Ваш комп'ютер, залишаючи "
+"CD-диск у CD-ROMі. Якщо Ваш комп'ютер не може завантажитися із CD, то "
+"остання опція має спрацювати у більшості випадках."
 
 #: src/wubi/frontends/win32/cd_finish_page.py:47
 #: src/wubi/frontends/win32/installation_finish_page.py:44
@@ -312,7 +329,7 @@ msgstr "Я бажаю перезавантажити вручну пізніше
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
 msgid "Help me to boot from CD"
-msgstr ""
+msgstr "Допоможіть мені завантажитися із CD-диском"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
@@ -321,7 +338,7 @@ msgstr "%s Меню"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:53
 msgid "Demo and full installation"
-msgstr ""
+msgstr "Демо та повна інсталяція"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:55
 #, python-format
@@ -330,6 +347,10 @@ msgid ""
 "the tray. You may perform a full installation from within the demo to "
 "install %(distro)s either alongside Windows or as the only operating system."
 msgstr ""
+"Спробуйте %(distro)s без встановлення! Просто перезавантажте Ваш комп'ютер з "
+"CD-диском у дисководі. Ви можете виконати повну інсталяцію із "
+"демонстративної версії %(distro)s , разом із Windows чи як лише одну "
+"Операційну систему."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:65
 msgid "Install inside Windows"
@@ -343,6 +364,10 @@ msgid ""
 "or %(distro)s. Hibernation is not enabled in this mode and disk performance "
 "is slightly reduced."
 msgstr ""
+"Встановлюйте та видаляйте %(distro)s як звичайну програму без створення "
+"окремого розділу. Ви зможете завантажувати як Windows, так і %(distro)s. "
+"Втім, у даному режимі гібернацію буде вимкнуто, а продуктивність диску трохи "
+"зменшиться."
 
 #: src/wubi/frontends/win32/cd_menu_page.py:74
 msgid "Learn more"
@@ -355,15 +380,19 @@ msgid ""
 "complete with a web browser, productivity software, instant messaging, and "
 "much more."
 msgstr ""
+"%(distro)s — це вільна операційна система на базі ядра Linux, що "
+"розробляється спільнотою. Її вже вкомплектовано веб-браузером, пакетом "
+"офісних застосунків, програмою обміну миттєвими повідомленнями та іншим "
+"корисним ПЗ."
 
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
 msgid "%s CD Boot Helper"
-msgstr ""
+msgstr "%s Помічник завантажувача CD"
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
-msgstr ""
+msgstr "Не вистачає вільного місця для продовження"
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:183
@@ -377,7 +406,7 @@ msgstr "Встановити"
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
-msgstr ""
+msgstr "Встановити помічник завантажувача CD"
 
 #: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
@@ -387,6 +416,12 @@ msgid ""
 "\n"
 "Do you want to proceed and install the CD booter?"
 msgstr ""
+"Якщо у Вашого комп’ютера є проблеми з завантаженням з CD, програма додасть "
+"новий пункт в меню завантажувача, щоб допомогти Вам завантажити систему з "
+"даного носія. У більшості випадків ця програма не потрібна і цілком "
+"достатньо просто перезавантажити комп’ютер, залишивши диск у приводі.\n"
+"\n"
+"Встановити завантажувач з компакт-диску?"
 
 #: src/wubi/frontends/win32/frontend.py:51
 msgid "Are you sure you want to quit?"
@@ -395,7 +430,7 @@ msgstr "Ви дійсно бажаєте вийти?"
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
 msgid "Completing the %s Setup Wizard"
-msgstr ""
+msgstr "Завершення %s Майстра Встановлення"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
@@ -422,6 +457,10 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
+"%(min_space)sMB дискового простору потребується для встановлення\n"
+"Лише %(max_space)sMB доступно.\n"
+"Інсталяція може провалитися в таких обставинах\n"
+"Ви бажаєте продовжити у любому випадку?"
 
 #: src/wubi/frontends/win32/installation_page.py:97
 #, python-format
@@ -435,11 +474,11 @@ msgstr ""
 
 #: src/wubi/frontends/win32/installation_page.py:195
 msgid "Installation drive:"
-msgstr ""
+msgstr "Дисковод установки:"
 
 #: src/wubi/frontends/win32/installation_page.py:201
 msgid "Installation size:"
-msgstr ""
+msgstr "Розмір установки:"
 
 #: src/wubi/frontends/win32/installation_page.py:207
 msgid "Desktop environment:"
@@ -460,12 +499,12 @@ msgstr "Пароль:"
 #: src/wubi/frontends/win32/installation_page.py:274
 #, python-format
 msgid "%s Installer"
-msgstr ""
+msgstr "Встановлювач %s"
 
 #: src/wubi/frontends/win32/installation_page.py:277
 #, python-format
 msgid "You are about to install %(distro)s-%(version)s"
-msgstr ""
+msgstr "Ви збираєтесь встановити %(distro)s-%(version)s"
 
 #: src/wubi/frontends/win32/installation_page.py:282
 #, python-format
@@ -475,15 +514,18 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
+"Для встановлення необхідно  %(min_memory)sМБ дискового простору.\n"
+"Доступно лише %(total_memory)sМБ.\n"
+"Продовження може призвести до зупинки інсталяції.\n"
+"Ви впевнені, що бажаєте продовжити?"
 
 #: src/wubi/frontends/win32/installation_page.py:324
-#, fuzzy
 msgid "Please enter a valid username."
-msgstr "Будь ласка, введіть дійсне ім'я користувача"
+msgstr "Будь ласка, введіть правильне ім’я."
 
 #: src/wubi/frontends/win32/installation_page.py:326
 msgid "Please use all lower cases in the username."
-msgstr ""
+msgstr "Використовуйте лише малі літери"
 
 #: src/wubi/frontends/win32/installation_page.py:328
 msgid "Please do not use spaces in the username."
@@ -491,13 +533,15 @@ msgstr "Будь ласка, не використовуйте пробілів 
 
 #: src/wubi/frontends/win32/installation_page.py:330
 msgid "Your username must start with a lower-case letter."
-msgstr ""
+msgstr "Ім’я має починатись з маленької літери"
 
 #: src/wubi/frontends/win32/installation_page.py:332
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
 msgstr ""
+"Ім’я користувача може містити лише маленькі букви, цифри, дефіс та "
+"підкреслювання."
 
 #: src/wubi/frontends/win32/installation_page.py:334
 msgid "The selected username is reserved, please select a different one."
@@ -509,7 +553,7 @@ msgstr "Будь ласка, введіть дійсний пароль."
 
 #: src/wubi/frontends/win32/installation_page.py:338
 msgid "Please do not use spaces in the password."
-msgstr ""
+msgstr "Будь ласка, не використовуйте пробіли у паролі"
 
 #: src/wubi/frontends/win32/installation_page.py:340
 msgid "Passwords do not match."
@@ -521,14 +565,15 @@ msgstr "Будь ласка, зачекайте"
 
 #: src/wubi/frontends/win32/progress_page.py:53
 msgid "Do not download, use a local file"
-msgstr ""
+msgstr "Не завантажувати, використати локальний файл"
 
 #: src/wubi/frontends/win32/progress_page.py:66
 #, python-format
 msgid "Remaining time approximately %s"
 msgid_plural "Remaining time approximately %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Залишилось часу %s"
+msgstr[1] "Залишилось часу %s"
+msgstr[2] "Залишилось часу %s"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
@@ -542,7 +587,7 @@ msgstr "%s було успішно видалено"
 #: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
 msgid "%s Uninstaller"
-msgstr ""
+msgstr "Програма деінсталяції %s"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:36
 msgid "Uninstallation required"
@@ -569,4 +614,4 @@ msgstr "Ви дійсно бажаєте видалити?"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:62
 msgid "Backup the downloaded files (ISO)"
-msgstr ""
+msgstr "Резервне копіювання завантажених файлів (ISO)"

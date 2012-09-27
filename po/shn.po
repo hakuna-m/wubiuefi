@@ -1,29 +1,21 @@
-# #-#-#-#-#  sr.po (wubi)  #-#-#-#-#
-# Serbian translation for wubi
-# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# Shan translation for wubi
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
 # This file is distributed under the same license as the wubi package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
-#
-# #-#-#-#-#  sr.po (umenu)  #-#-#-#-#
-# Serbian translation for umenu
-# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
-# This file is distributed under the same license as the umenu package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: umenu\n"
+"Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2011-06-24 10:56+0100\n"
-"PO-Revision-Date: 2010-09-16 19:28+0000\n"
-"Last-Translator: Rancher <Unknown>\n"
-"Language-Team: Serbian <sr@li.org>\n"
-"Language: sr\n"
+"PO-Revision-Date: 2012-01-08 06:15+0000\n"
+"Last-Translator: Goldninjar <Unknown>\n"
+"Language-Team: Shan <shn@li.org>\n"
+"Language: shn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=2; plural=(n == 1) ? 0 : 1;\n"
 "X-Launchpad-Export-Date: 2012-09-27 13:48+0000\n"
 "X-Generator: Launchpad (build 16042)\n"
 
@@ -36,11 +28,11 @@ msgid ""
 "\n"
 "For more information, please see the log file: %(log)s"
 msgstr ""
-"Догодила се грешка:\n"
+"ပဵၼ်လွင်ႈၽိတ်းပိူင်ႈဝႆႉ ၼိုင်ႈဢၼ်။\n"
 "\n"
 "%(error)s\n"
 "\n"
-"За више информација, погледајте извештај: %(log)s"
+"ၶႅၼ်းတေႃႈပိုတ်ႇတူၺ်းတီႈ တွၼ်ႈတႃႇလူဢၢၼ်ႇလွင်ႈလိူင်ႈၼမ်၊ ၶႅၼ်းတေႃႈပိုတ်ႇတူၺ်းတီႈ %(log)s"
 
 #: src/wubi/application.py:148 src/wubi/application.py:213
 #, python-format
@@ -48,165 +40,165 @@ msgid ""
 "A previous installation was detected in %s.\n"
 "Please uninstall that before continuing."
 msgstr ""
-"Пронађена је претходна инсталација у %s.\n"
-"Деинсталирајте тај програм пре настављања."
+"လႆႈႁၼ်မီးဝႆႉ လွင်ႈသႂၢင်းဢွၼ်ႇတၢင်းဝႆႉတီႈ %s ။\n"
+"ၶႅၼ်းတေႃႈ မွတ်ႇလူပ်းပႅတ်ႈဢၼ်ၼၼ်ႉၸူဝ်ႈပႆႇသိုပ်ႇၵႂႃႇ။"
 
 #: src/wubi/application.py:195
 msgid "No CD detected, cannot run CD menu"
-msgstr "Диск није пронађен. Покретање менија није успело."
+msgstr "ဢမ်ႇလႆႈႁူႉႁၼ်မူၼ်ႉၶႅပ်း CD ၊  ဢမ်ႇၸၢင်ႈပိုတ်ႇ menu CD ။"
 
 #: src/wubi/application.py:203
 msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
-"Ниједан исправан диск није пронађен.\n"
-"Помагач у покретању диска се може користити само с живим диском."
+"ဢမ်ႇႁႃႁၼ်လႆႈ  မူၼ်ႉ သီႇတီဢၼ်ထုၵ်ႇမႅၼ်ႈဢၼ်လႂ်။\n"
+"CD boot helper  ၼႆႉၸႂ်ႉလႆႈလူၺ်ႈၸွမ်း Live CD  ဢၼ်လဵဝ်။"
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:97
 msgid "Selecting the target directory"
-msgstr "Бирање одредишног директоријума"
+msgstr "တိုၵ်ႉလိူၵ်ႈဢဝ် target directory  ယူႇ"
 
 #: src/wubi/backends/common/backend.py:77
 #: src/wubi/backends/common/backend.py:98
 msgid "Creating the installation directories"
-msgstr "Прављење инсталационих директоријума"
+msgstr "တိုၵ်ႉႁဵတ်းပၼ် Installation Directories  ယူႇ"
 
 #: src/wubi/backends/common/backend.py:78
 #: src/wubi/backends/common/backend.py:88
 #: src/wubi/backends/common/backend.py:99
 #: src/wubi/backends/common/backend.py:107
 msgid "Uncompressing files"
-msgstr "Отпакивање датотека"
+msgstr "Umcompressing files"
 
 #: src/wubi/backends/common/backend.py:79
 #: src/wubi/backends/common/backend.py:100
 msgid "Creating the uninstaller"
-msgstr "Прављење деинсталационог програма"
+msgstr "တိုၵ်ႉႁဵတ်းပၼ် uninstaller  ယူႇ"
 
 #: src/wubi/backends/common/backend.py:80
 #: src/wubi/backends/common/backend.py:101
 #: src/wubi/backends/common/backend.py:424
 #: src/wubi/backends/common/backend.py:430
 msgid "Copying installation files"
-msgstr "Умножавање инсталационих датотека"
+msgstr "တိုၵ်ႉၸၼ်ၽေ installation file  ၶဝ်ယူႇ"
 
 #: src/wubi/backends/common/backend.py:81
 msgid "Retrieving installation files"
-msgstr "Преузимање инсталационих датотека"
+msgstr "တိုၵ်ႉဢဝ် installation file  ၶဝ်ယူႇ"
 
 #: src/wubi/backends/common/backend.py:82
 #: src/wubi/backends/common/backend.py:103
 msgid "Extracting the kernel"
-msgstr "Отпакивање језгра"
+msgstr "တိုၵ်ႉ Extract  Kernel  ပၼ်ယူႇ"
 
 #: src/wubi/backends/common/backend.py:83
 msgid "Choosing disk sizes"
-msgstr "Бирање величине диска"
+msgstr "လိူၵ်ႈပၼ် Disk Size  ပၼ်လႄႈ။"
 
 #: src/wubi/backends/common/backend.py:84
 #: src/wubi/backends/common/backend.py:104
 msgid "Creating a preseed file"
-msgstr "Прављење датотеке за аутоматизацију инсталације"
+msgstr "တိုၵ်ႉႁဵတ်း Presseed File  ယူႇ"
 
 #: src/wubi/backends/common/backend.py:85
 #: src/wubi/backends/common/backend.py:105
 msgid "Adding a new bootloader entry"
-msgstr "Додавање новог уноса у покретачки програм"
+msgstr "တိုၵ်ႉသႂ်ႇ Bootloader Entry  ဢၼ်မႂ်ႇပၼ်ယူႇ"
 
 #: src/wubi/backends/common/backend.py:86
 #: src/wubi/backends/common/backend.py:106
 msgid "Setting up installation boot menu"
-msgstr "Постављање инсталационог менија за покретање система"
+msgstr "တိုၵ်ႉၵေႃႇသၢင်ႈပၼ် Boot Menu Installation  ယူႇ"
 
 #: src/wubi/backends/common/backend.py:87
 msgid "Creating the virtual disks"
-msgstr "Стварање виртуелних дискова"
+msgstr "တိုၵ်ႉႁဵတ်း Virtual Disks  ယူႇ။"
 
 #: src/wubi/backends/common/backend.py:89
 #: src/wubi/backends/common/backend.py:108
 msgid "Ejecting the CD"
-msgstr "Избацивање диска"
+msgstr "တိုၵ်ႉ Eject  ပၼ်မူၼ်ႉသီႇတီႇ(CD)  ယူႇ။"
 
 #: src/wubi/backends/common/backend.py:91
 #: src/wubi/frontends/win32/progress_page.py:39
 #, python-format
 msgid "Installing %(distro)s-%(version)s"
-msgstr "Инсталирање %(distro)s-%(version)s"
+msgstr "တိုၵ်ႉႁဵတ်း Install %(distro)s-%(version)s ယူႇ"
 
 #: src/wubi/backends/common/backend.py:102
 msgid "Extracting CD content"
-msgstr "Отпакивање садржаја диска"
+msgstr "တိုၵ်ႉ Extract  ပၼ်ၸိူဝ်းဢၼ်ပႃးမီးၼႂ်းမူၼ်ႉသီႇတီႇ(CD)  ယူႇ"
 
 #: src/wubi/backends/common/backend.py:110
 msgid "Installing CD boot helper"
-msgstr "Инсталирање помагача за покретање диска"
+msgstr "တိုၵ်ႉ Install  ပၼ် CD Boot Helper  ယူႇ"
 
 #: src/wubi/backends/common/backend.py:115
 #: src/wubi/backends/common/backend.py:117
 msgid "Rebooting"
-msgstr "Поновно покретање рачунара"
+msgstr "Rebooting"
 
 #: src/wubi/backends/common/backend.py:122
 msgid "Backup ISO"
-msgstr "Архивирање ISO датотеке"
+msgstr "Backup ISO"
 
 #: src/wubi/backends/common/backend.py:123
 msgid "Remove bootloader entry"
-msgstr "Уклони унос из покретачког програма"
+msgstr "တိုၵ်ႉဢဝ်ႇပႅတ်ႈ Bootloader Entry  ယူႇ"
 
 #: src/wubi/backends/common/backend.py:124
 msgid "Remove target dir"
-msgstr "Уклони одредишни директоријум"
+msgstr "တိုၵ်ႉဢဝ်ပႅတ်ႈ Target Dir  ယူႇ"
 
 #: src/wubi/backends/common/backend.py:125
 msgid "Remove registry key"
-msgstr "Уклони регистарски кључ"
+msgstr "တိုၵ်ႉဢဝ်ပႅတ်ႈ Registry Key  ယူႇ"
 
 #: src/wubi/backends/common/backend.py:126
 #, python-format
 msgid "Uninstalling %s"
-msgstr "Уклањање %s"
+msgstr "Uninstalling %s  ယူႇ"
 
 #: src/wubi/backends/common/backend.py:257
 #, python-format
 msgid "Checking CD %s"
-msgstr "Проверавање диска %s"
+msgstr "တိုၵ်ႉထတ်း CD %s  ယူႇ"
 
 #: src/wubi/backends/common/backend.py:283
 #: src/wubi/backends/common/backend.py:327
 #: src/wubi/backends/common/backend.py:363
 msgid "Downloading information on installation files"
-msgstr "Преузимање података о инсталационим датотекама"
+msgstr "တိုၵ်ႉ Download  သၢႆမၢႆလွင်ႈ Files  ဢၼ်တေ Install  ယူႇ"
 
 #: src/wubi/backends/common/backend.py:298
 #: src/wubi/backends/common/backend.py:355
 #: src/wubi/backends/common/backend.py:418
 #: src/wubi/backends/common/backend.py:468
 msgid "Checking installation files"
-msgstr "Проверавање инсталационих датотека"
+msgstr "တိုၵ်ႉထတ်း Files  ဢၼ်တေ Install  ယူႇ"
 
 #: src/wubi/backends/common/backend.py:389
 #, python-format
 msgid "Validating %s"
-msgstr "Проверавање %s"
+msgstr "Validating %s"
 
 #: src/wubi/backends/common/backend.py:455
 #, python-format
 msgid "Extracting files from %s"
-msgstr "Отпакивање датотека из %s"
+msgstr "တိုၵ်ႉ Extract  File  တီႈ %s  ယူႇ"
 
 #: src/wubi/backends/common/backend.py:531
 #, python-format
 msgid "Checking %s"
-msgstr "Проверавање %s"
+msgstr "တိုၵ်ႉထတ်း %s  ယူႇ"
 
 #: src/wubi/backends/common/btdownloader.py:36
 #: src/wubi/backends/common/downloader.py:65
 #, python-format
 msgid "Downloading %s"
-msgstr "Преузимање %s"
+msgstr "တိုၵ်ႉ Download %s  ယူႇ"
 
 #: src/wubi/backends/common/tasklist.py:256
 #: src/wubi/backends/common/tasklist.py:260
@@ -237,23 +229,23 @@ msgid ""
 "\n"
 "The system will now reboot."
 msgstr ""
-"Инсталација није успела. Извештаји су сачувани у: %s.\n"
+"Installation  ဢမ်ႇယဝ်ႉတူဝ်ႈလႆႈ။  သိမ်းဝႆႉ logs   ၶဝ်ဝႆႉတီႈၼႂ်း %s ။\n"
 "\n"
-"Упамтите да у verbose режиму извештаји могу садржати лозинку.\n"
+"မၢႆတွင်းဝႆႉ logs  ၼႂ်း mode verbose  ၼၼ်ႉတေမီးပႃး password  ၵေႃႈပဵၼ်လႆႈ။\n"
 "\n"
-"Систем ће се сада поново покренути."
+"System  ၼႆႉတေ  Reboot  ယဝ်ႉ ။"
 
 #: src/wubi/frontends/win32/accessibility_page.py:34
 msgid "Accessibility profile"
-msgstr "Профил доступности"
+msgstr "Accessibility profile"
 
 #: src/wubi/frontends/win32/accessibility_page.py:35
 msgid "Please select the appropriate accessibility profile"
-msgstr "Изаберите одговарајући профил доступности"
+msgstr "ၶႅၼ်းတေႃႈလိူၵ်ႈဢဝ် accessibility profile  ဢၼ်ထုၵ်ႇမႅၼ်ႈသေၵမ်း။"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 msgid "Next >>"
-msgstr "Напред >>"
+msgstr "Next >>"
 
 #: src/wubi/frontends/win32/accessibility_page.py:39
 #: src/wubi/frontends/win32/cd_finish_page.py:35
@@ -263,57 +255,57 @@ msgstr "Напред >>"
 #: src/wubi/frontends/win32/progress_page.py:44
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 msgid "Cancel"
-msgstr "Откажи"
+msgstr "Cancel"
 
 #: src/wubi/frontends/win32/accessibility_page.py:50
 msgid "Visibility Aids"
-msgstr "Видљивост помоћи"
+msgstr "Visibility Aids"
 
 #: src/wubi/frontends/win32/accessibility_page.py:51
 msgid "Visibility1"
-msgstr "Видљивост1"
+msgstr "Visibility1"
 
 #: src/wubi/frontends/win32/accessibility_page.py:52
 msgid "Visibility2"
-msgstr "Видљивост2"
+msgstr "Visibility2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:53
 msgid "Visibility3"
-msgstr "Видљивост3"
+msgstr "Visibility3"
 
 #: src/wubi/frontends/win32/accessibility_page.py:54
 msgid "Braille"
-msgstr "Брајеви"
+msgstr "Braille"
 
 #: src/wubi/frontends/win32/accessibility_page.py:57
 msgid "Mobility Aids"
-msgstr "Покретљивост помагала"
+msgstr "Mobility Aids"
 
 #: src/wubi/frontends/win32/accessibility_page.py:58
 msgid "Mobility1"
-msgstr "Покретљивост1"
+msgstr "Mobility1"
 
 #: src/wubi/frontends/win32/accessibility_page.py:59
 msgid "Mobility2"
-msgstr "Покретљивост2"
+msgstr "Mobility2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:62
 msgid "None"
-msgstr "Ништа"
+msgstr "ဢမ်လိူၵ်ႈသင်"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 msgid "< Back"
-msgstr "< Назад"
+msgstr "< Back"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:35
 #: src/wubi/frontends/win32/installation_finish_page.py:35
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:35
 msgid "Finish"
-msgstr "Крај"
+msgstr "ယဝ်ႉယဝ်"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:43
 msgid "Reboot required"
-msgstr "Неопходно је поновно покретање рачунара"
+msgstr "လူဝ်ႇလႆႈႁဵတ်း Reboot"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:45
 msgid ""
@@ -321,31 +313,30 @@ msgid ""
 "tray. If your machine cannot boot from the CD, the last option should work "
 "in most cases."
 msgstr ""
-"Да бисте покренули пробно коришћење оперативног система, неопходно је да "
-"поново покренете рачунар (не вадите диск). Ако рачунар не препозна диск, "
-"последња опција би требало да ради у већини случајева."
+"တႃႇတေတႄႇၸႂ်ႉ Live CD  ၸဝ်ႈၵဝ်ႇတေလူဝ်ႇႁဵတ်း Reboot ၶိုင်ႈၸဝ်ႈၵဝ်ႈသေ  ဢဝ် CD  သႂ်ႇဝႆႉ။  "
+"ပေႃးၶိုင်ႈၸဝ်ႈၵဝ်ႇဢမ်ႇ Boot  မႃးတီႈ CD  ဢၼ်လၢႆး Option  ထုၵ်ႇႁဵတ်းၵၢၼ်ပၼ်လိူင်ႈၵမ်ႉၼမ်။"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:47
 #: src/wubi/frontends/win32/installation_finish_page.py:44
 msgid "Reboot now"
-msgstr "Поново покрени систем сада"
+msgstr "ႁဵတ်း Reboot  တေႃႇလဵဝ်"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:48
 msgid "I want to manually reboot Later"
-msgstr "Желим касније да покренем рачунар"
+msgstr "ၸဝ်ႈၵဝ်ႇတေႁဵတ်း Reboot  ႁင်းၵူၺ်းဝၢႆးလင်"
 
 #: src/wubi/frontends/win32/cd_finish_page.py:49
 msgid "Help me to boot from CD"
-msgstr "Помоћ у покретању система са диска"
+msgstr "ၸွႆႈထႅမ်ၸဝ်ႈၵဝ်ႇတႃႇ Boot  မႃးတီႈ CD"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:34
 #, python-format
 msgid "%s Menu"
-msgstr "%s мени"
+msgstr "%s Menu"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:53
 msgid "Demo and full installation"
-msgstr "Пробна и пуна инсталација"
+msgstr "ၸၢမ်းၸႂ်ႉတူၺ်းသေသိုပ်ႇႁဵတ်း Install  ဢၼ်တဵမ်"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:55
 #, python-format
@@ -354,13 +345,13 @@ msgid ""
 "the tray. You may perform a full installation from within the demo to "
 "install %(distro)s either alongside Windows or as the only operating system."
 msgstr ""
-"Пробајте %(distro)s без инсталирања! Довољно је да поново покренете рачунар "
-"с овим диском и покренуће се пробни начин рада. Одатле можете да инсталирате "
-"оперативни систем %(distro)s уз Windows или као једини оперативни систем."
+"ဢမ်ႇႁဵတ်းပႃး Installation  သေၸၢမ်းၸႂ်ႉတူၺ်း %(distro)s  ဢဝ် CD  သႂ်ႇသေၶိုၼ်း Boot  "
+"ၶိုင်ႈၸဝ်ႈၵဝ်ႇ။  ၸဝ်ႈၵဝ်ႇတေႁဵတ်းလႆႈ Installation  ဢၼ်တဵမ်တီႈၼႂ်း Demo  တႃႇႁဵတ်း Install "
+"%(distro)s  ဢမ်ႇၼၼ်သႂၢင်းသႂ်ႇၸွမ်း Windows  ၊ ဢမ်ႇၼၼ်သႂၢင်းသႂ်ႇ OS  ဢၼ်လဵဝ်။"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:65
 msgid "Install inside Windows"
-msgstr "Инсталација унутар Windows-а"
+msgstr "ႁဵတ်း Install  ၼႂ်း Windows"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:67
 #, python-format
@@ -370,14 +361,14 @@ msgid ""
 "or %(distro)s. Hibernation is not enabled in this mode and disk performance "
 "is slightly reduced."
 msgstr ""
-"Инсталација и деинсталација оперативног система %(distro)s се врши као и код "
-"сваког другог програма, без потребе за нову партицију. Бићете у могућности "
-"да покренете или Windows или %(distro)s. Хибернација је онемогућена у овом "
-"режиму и перформансе диска су знатно умањене."
+"တႃႇ Install/uinstall %(distro)s  ၼၼ်ႉဢမ်ႇလူဝ်ႇၸႅၵ်ႇၽေ Partition  ပၼ်ႁင်းၶေႃ  "
+"တေဢဝ်ဢွၵ်ႇဢဝ်ၶဝ်ႈပႅတ်ႈမိူၼ်ၼင် Application  တင်ႇဢၼ်။  ၸဝ်ႈၵဝ်ႇတေ Boot  ၶဝ်ႈတီႈ Windows  ဢမ်ၼၼ်"
+"%(distro)s  လႆႈ။ Hibernation  တေဢမ်ႇပိုတ်ႇဝႆႉၼႂ်း Mode  ၼႆႉ၊ Disk Performace  "
+"ၵေႃႈတေယွမ်းဢိတ်းဢွၼ်ႇ။"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:74
 msgid "Learn more"
-msgstr "Сазнајте више"
+msgstr "သိုပ်ႇလဵပ်ႈႁဵၼ်းထႅင်ႈၼမ်ၼမ်"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:76
 #, python-format
@@ -386,33 +377,32 @@ msgid ""
 "complete with a web browser, productivity software, instant messaging, and "
 "much more."
 msgstr ""
-"%(distro)s је бесплатан оперативни систем заснован на Linux-у који се "
-"одржава од стране заједнице. Садржи потпуни скуп програма — интернет "
-"прегледач, канцеларијски програми, програм за брзу размену порука и још "
-"много тога другог."
+"%(distro)s  ၼႆႉ Free ။  ပဵၼ် Operation System  ဢၼ် Linux  ႁဵတ်းငဝ်ႈႁၢၵ်ႈ ယဝ်ႉဢိင်ၼိူဝ် "
+"Community  သေ Develope ဝႆႉ ။ Web Broswer, Productivity Software, Instant "
+"Messaging  ၸိူဝ်းၼႆႉဢမ်ၵႃးမီးပႃးတၢင်းၼမ်။"
 
 #: src/wubi/frontends/win32/cdboot_page.py:32
 #, python-format
 msgid "%s CD Boot Helper"
-msgstr "%s помагач за покретање диска"
+msgstr "%s CD Boot Helper"
 
 #: src/wubi/frontends/win32/cdboot_page.py:43
 msgid "Not enough disk space to proceed"
-msgstr "Нема довољно простора на диску"
+msgstr "Disk Space  ဢမ်ႇၵုမ်ႇတႃႇသိုပ်ႇႁဵတ်းၵႂႃႇၼႃႈ"
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:183
 msgid "Accessibility"
-msgstr "Доступност"
+msgstr "Accessibility"
 
 #: src/wubi/frontends/win32/cdboot_page.py:46
 #: src/wubi/frontends/win32/installation_page.py:183
 msgid "Install"
-msgstr "Инсталирај"
+msgstr "သႂၢင်း (Install)"
 
 #: src/wubi/frontends/win32/cdboot_page.py:54
 msgid "Install CD boot helper"
-msgstr "Инсталирај помагач за покретање диска"
+msgstr "တေႁဵတ်း Install CD Boot Helper"
 
 #: src/wubi/frontends/win32/cdboot_page.py:56
 msgid ""
@@ -422,29 +412,28 @@ msgid ""
 "\n"
 "Do you want to proceed and install the CD booter?"
 msgstr ""
-"Ако Ваш рачунар не може да покрене диск, овај програм ће инсталирати нови "
-"мени за покретање како би Вам помогли у тој намери. У већини случајева овај "
-"програм није неопходан и довољно је да поново покренете рачунар с диском у "
-"њему.\n"
+"ပေႃးၶိူင်ႈၸဝ်ႈၵဝ်ႇ ဢမ်ႇၸၢင်ႈ Boot မႃးတီႈ မူၼ်ႉ CDၸိူင် Program ၼႆႉတေၶိုၼ်းသႂၢင်း Install boot "
+"menu entry ဢၼ်မႂ်ႇတႃႇၸွႆႈထႅမ်ၸဝ်ႈၵဝ်ႇ တႃႇ Boot မႃးတီႈ မူၼ်ႉCD။ ၵမ်ႉၼမ်ၼမ် Program "
+"ဢၼ်ၼႆႉဢမ်ႇလူဝ်ႇသေ တိုၼ်းတေလႆႈၶိုၼ်း Reboot ၸွမ်း CD Rom။\n"
 "\n"
-"Да ли желите да инсталирате покретач диска?"
+"ၸဝ်ႈၵဝ်ႇၶႂ်ႉသိုပ်ႇႁဵတ်းသၢင်ႈၵႂႃႇသေ သႂၢင်း Install CD Booter ယူႇႁႃႉ။"
 
 #: src/wubi/frontends/win32/frontend.py:51
 msgid "Are you sure you want to quit?"
-msgstr "Желите ли да изађете?"
+msgstr "ၸဝ်ႈၵဝ်ႇၼႄႉၼွၼ်းယူႇႁႃႉဢၼ်တေၵိူတ်းယိုတ်းပႅတ်ႈၼၼ်ႉ?"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:41
 #, python-format
 msgid "Completing the %s Setup Wizard"
-msgstr "Довршавање %s водича за инсталацију"
+msgstr "%s Setup Wizard တိုၵ်ႉႁဵတ်းႁႂ်ႈယဝ်ႉတူဝ်ႈလီငၢမ်းယူႇ။"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:43
 msgid "You need to reboot to complete the installation"
-msgstr "Морате поново да покренете систем како би се инсталација завршила"
+msgstr "တွၼ်ႈတႃႇႁႂ်ႈလွင်ႈသႂၢင်း Installation ယဝ်ႉတူဝ်ႈလီငၢမ်းၼၼ်ႉ ၸဝ်ႈၵဝ်ႇတေလႆႈႁဵတ်း Reboot။"
 
 #: src/wubi/frontends/win32/installation_finish_page.py:45
 msgid "I want to manually reboot later"
-msgstr "Желим касније да покренем систем"
+msgstr "ဝၢႆးလင်မႃးၵွၼ်ႇ ၸဝ်ႈၵဝ်ႇၶႂ်ႉႁဵတ်း Reboot ႁင်းၵူၺ်း။"
 
 #: src/wubi/frontends/win32/installation_page.py:73
 #, python-format
@@ -452,8 +441,8 @@ msgid ""
 "Only %sMB of disk space are available.\n"
 "At least 1024MB are required as a bare minimum. Quitting"
 msgstr ""
-"Доступно је само %sMB слободног простора.\n"
-"Потребно је најмање 1024MB. Излажење"
+"Disk Space တေပဝ်ႇဝႆႉ %sMB ၵူၺ်း။\n"
+"တေလူဝ်ႇတီႈဢႄႇသူတ်း 1024MB လႄႈ တိုၵ်ႉႁဵတ်း Quit ယူႇ။"
 
 #: src/wubi/frontends/win32/installation_page.py:77
 #, python-format
@@ -463,54 +452,53 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
-"Потребно је најмање %(min_space)sMB слободног простора на диску за наставак "
-"инсталације.\n"
-"Доступно је само %(max_space)sMB.\n"
-"Инсталација вероватно неће успети у таквим околностима.\n"
-"Да ли ипак желите да наставите?"
+"တွၼ်ႈတႃႇတေႁဵတ်းလွင်ႈသႂၢင်း Install ၼၼ်ႉ Disk Size တေလႆႈမီး %(min_space)sMB။\n"
+"ယၢမ်းလဵဝ်တေၸႂ်ႉလႆႈ %(max_space)sMB ၵူၺ်း။\n"
+"ၸွမ်းၼင်ႇသၢႆငၢႆမီးၼင်ႇၼႆ လွင်ႈႁဵတ်းသၢင်ႈ သႂၢင်း Install ၸၢင်ႈတူၵ်းသူမ်း။\n"
+"ၸိူင်ႉႁိုဝ်ၵေႃႈယဝ်ႉၸွင်ႇၸဝ်ႈၵဝ်တေသိုပ်ႇႁဵတ်းၵႂႃႇ ?"
 
 #: src/wubi/frontends/win32/installation_page.py:97
 #, python-format
 msgid "(%sGB free)"
-msgstr "(%sGB слободно)"
+msgstr "(%sGB ပဝ်ႇဝႆႉ)"
 
 #: src/wubi/frontends/win32/installation_page.py:179
 msgid "Please select username and password for the new account"
-msgstr "Изаберите корисничко име и лозинку за нови налог"
+msgstr "ၶႅၼ်းတေႃႈလိူၵ်ႈပၼ် username လႄႈ password တႃႇ account မႂ်ႇ။"
 
 #: src/wubi/frontends/win32/installation_page.py:195
 msgid "Installation drive:"
-msgstr "Инсталациона јединица"
+msgstr "Installation Drive:"
 
 #: src/wubi/frontends/win32/installation_page.py:201
 msgid "Installation size:"
-msgstr "Величина инсталације:"
+msgstr "Installation Size:"
 
 #: src/wubi/frontends/win32/installation_page.py:207
 msgid "Desktop environment:"
-msgstr "Окружење радне површине:"
+msgstr "Desktop Environment:"
 
 #: src/wubi/frontends/win32/installation_page.py:213
 msgid "Language:"
-msgstr "Језик:"
+msgstr "ၶေႃႈၵႂၢမ်း-"
 
 #: src/wubi/frontends/win32/installation_page.py:224
 msgid "Username:"
-msgstr "Корисничко име:"
+msgstr "ၸိုဝ်ႈၽူႈၸႂ်ႉတိုဝ်း-"
 
 #: src/wubi/frontends/win32/installation_page.py:232
 msgid "Password:"
-msgstr "Лозинка:"
+msgstr "မၢႆလပ်ႉ-"
 
 #: src/wubi/frontends/win32/installation_page.py:274
 #, python-format
 msgid "%s Installer"
-msgstr "%s инсталациони програм"
+msgstr "%s Installer"
 
 #: src/wubi/frontends/win32/installation_page.py:277
 #, python-format
 msgid "You are about to install %(distro)s-%(version)s"
-msgstr "Управо ћете да инсталирате %(distro)s-%(version)s"
+msgstr "ၸဝ်ႈၵဝ်ႇတေသႂၢင်း Install %(distro)s-%(version)s"
 
 #: src/wubi/frontends/win32/installation_page.py:282
 #, python-format
@@ -520,104 +508,103 @@ msgid ""
 "The installation may fail in such circumstances.\n"
 "Do you wish to continue anyway?"
 msgstr ""
-"Потребно је најмање %(min_memory)sMB меморије за инсталацију.\n"
-"Доступно је само %(total_memory)sMB.\n"
-"Инсталација можда неће успети у таквим околностима.\n"
-"Да ли ипак желите да наставите?"
+"Memory %(min_memory)sMB တေလူဝ်ႇတႃႇႁဵတ်း Installation။\n"
+"ယၢမ်းလဵဝ်တေၸႂ်ႉလႆႈ %(total_memory)sMB ၵူၺ်း။\n"
+"ၸွမ်းၼင်ႇသၢႆငၢႆမီးၼင်ႇၼႆ လွင်ႈႁဵတ်းသၢင်ႈ သႂၢင်း Install ၸၢင်ႈတူၵ်းသူမ်း။\n"
+"ၸိူင်ႉႁိုဝ်ၵေႃႈယဝ်ႉၸွင်ႇၸဝ်ႈၵဝ်တေသိုပ်ႇႁဵတ်းၵႂႃႇ ?"
 
 #: src/wubi/frontends/win32/installation_page.py:324
 msgid "Please enter a valid username."
-msgstr ""
+msgstr "ၶႅၼ်းတေႃႈ သႂ်ႇၸိုဝ်ႈၽူႈၸႂ်ႉတိုဝ်းဢၼ်ထုၵ်ႇမႅၼ်ႈသေၵမ်း။"
 
 #: src/wubi/frontends/win32/installation_page.py:326
 msgid "Please use all lower cases in the username."
-msgstr "Користите само мала слова у корисничком имену."
+msgstr "ၶႅၼ်းတေႃႈၸႂ်ႉပၼ်လိၵ်ႈတူဝ်လဵၵ်ႉတီႈ ၸိုဝ်ႈၽူႈၸႂ်ႉတိုဝ်း။"
 
 #: src/wubi/frontends/win32/installation_page.py:328
 msgid "Please do not use spaces in the username."
-msgstr "Не користите размаке у корисничком имену."
+msgstr "ၶႅၼ်းတေႃႇယႃႇၸႂ်ႉ Space တီႈ ၸိုဝ်ႈၽူႈၸႂ်ႉတိုဝ်း။"
 
 #: src/wubi/frontends/win32/installation_page.py:330
 msgid "Your username must start with a lower-case letter."
-msgstr ""
+msgstr "ၸိုဝ်ႈၽူႈၸႂ်ႉတိုဝ်းၸဝ်ႈၵဝ်ႇၼၼ်ႉ ထုၵ်ႇလီတႄႇတႅမ်ႇဝႆႉ လိၵ်ႈတူဝ်လဵၵ်ႉ။"
 
 #: src/wubi/frontends/win32/installation_page.py:332
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
 msgstr ""
+"ၸိုဝ်ႈၽူႈၸႂ်ႉတိုဝ်းၸဝ်ႈၵဝ်ႇၼၼ်ႉ ထုၵ်ႇလီပႃး လိၵ်ႈတူဝ်လဵၵ်ႉ၊ မၢႆဢၢၼ်ႇ၊ Hyphens လႄႈ Underscores မဵဝ်းလဵဝ်။"
 
 #: src/wubi/frontends/win32/installation_page.py:334
 msgid "The selected username is reserved, please select a different one."
-msgstr "Корисничко име је већ заузето. Изаберите друго."
+msgstr "ၸိူဝ်ႈၽူႈၸႂ်ႉတိုဝ်း ဢၼ်လိူၵ်ႈဝႆႉၼၼ်ႉ တိုၵ်ႉၸႂ်ႉတိုဝ်းဝႆႉယူႇ၊ ၶႅၼ်းတေႃႈ လိူၵ်ႈဢၼ်ပႅၵ်ႇပိူင်ႈထႅင်ႈဢၼ်ၼိုင်ႈ။"
 
 #: src/wubi/frontends/win32/installation_page.py:336
 msgid "Please enter a valid password."
-msgstr "Унесите исправну лозинку."
+msgstr "ၶႅၼ်းတေႃႈ သႂ်ႇမၢႆလပ်ႉဢၼ်ထုၵ်ႇမႅၼ်ႈသေၵမ်း။"
 
 #: src/wubi/frontends/win32/installation_page.py:338
 msgid "Please do not use spaces in the password."
-msgstr "Не користите размаке у лозинки."
+msgstr "ၶႅၼ်းတေႃႇယႃႇၸႂ်ႉ Space တီႈ မၢႆလပ်း။"
 
 #: src/wubi/frontends/win32/installation_page.py:340
 msgid "Passwords do not match."
-msgstr "Лозинке се не поклапају."
+msgstr "မၢႆလပ်း မၼ်းဢမ်ႇထုၵ်ႇမိူၼ်ၵၼ်။"
 
 #: src/wubi/frontends/win32/progress_page.py:40
 msgid "Please wait"
-msgstr "Молимо, сачекајте..."
+msgstr "ၶႅၼ်းတေႃႈပႂ်ႉဝႆႉ"
 
 #: src/wubi/frontends/win32/progress_page.py:53
 msgid "Do not download, use a local file"
-msgstr "Не преузимај, већ користи локалну датотеку"
+msgstr "ဢမ်ၸၼ်လူင်း၊ တေၸႂ်ႉ local file ဢဝ်"
 
 #: src/wubi/frontends/win32/progress_page.py:66
 #, python-format
 msgid "Remaining time approximately %s"
 msgid_plural "Remaining time approximately %s"
-msgstr[0] "Преостаје приближно %s"
-msgstr[1] "Преостаје приближно %s"
-msgstr[2] "Преостаје приближно %s"
+msgstr[0] "ၶၢဝ်းယၢမ်းတေၵိုတ်းဝႆႉမွၵ်ႈ %s"
+msgstr[1] "ၶၢဝ်းယၢမ်းတေၵိုတ်းဝႆႉမွၵ်ႈ %s"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:41
 msgid "Uninstallation completed"
-msgstr "Деинсталација је завршена"
+msgstr "လွင်ႈ Uninstall ယဝ်ႉတူဝ်ႈလီငၢမ်းယဝ်ႉ။"
 
 #: src/wubi/frontends/win32/uninstallation_finish_page.py:43
 #, python-format
 msgid "%s has been successfully uninstalled"
-msgstr "%s је успешно уклоњен"
+msgstr "%s ၼႆႉ unstall ယဝ်ႉတူဝ်ႈလီငၢမ်းယဝ်ႉ။"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:32
 #, python-format
 msgid "%s Uninstaller"
-msgstr "%s деинсталациони програм"
+msgstr "%s Unstaller"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:36
 msgid "Uninstallation required"
-msgstr "Потребна је деинсталација"
+msgstr "လူဝ်ႇလႆႈႁဵတ်း Unstall"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:38
 #, python-format
 msgid "You are about to uninstall %s"
-msgstr "Управо ћете да уклоните %s"
+msgstr "ၸဝ်ႈၵဝ်ႇတေႁဵတ်း %s Uninstall"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:45
 msgid "Uninstall"
-msgstr "Уклони"
+msgstr "Uninstall"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:52
 msgid ""
 "A previous installation was detected, it needs to be uninstalled before "
 "continuing"
 msgstr ""
-"Пронађена је претходна инсталација. Потребно је да се изврши деинсталација "
-"пре настављања"
+"လွင်ႈသႂၢင်း Install ဢွၼ်တၢင်းလႆႈႁၼ်မီးဝႆႉ၊ ဢၼ်ၼၼ်ႉတေလႆႈႁဵတ်း Unstall ယဝ်ႉၸွင်ႇသိုပ်ႇႁဵတ်းၵႂႃႇထႅင်ႈ"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:54
 msgid "Are you sure you want to uninstall?"
-msgstr "Желите ли да уклоните програм?"
+msgstr "ၸဝ်ႈၵဝ်ႇၼႄႉၼွၼ်းယူႇႁႃႉ တေႁဵတ်း Uninstallၼၼ်ႉ?"
 
 #: src/wubi/frontends/win32/uninstallation_page.py:62
 msgid "Backup the downloaded files (ISO)"
-msgstr "Архивирај преузете датотеке (ISO)"
+msgstr "ႁဵတ်း Backup File(ISO) ဢၼ် ၸၼ်လူင်းဝႆႉၼၼ်ႉလႄႈ။"

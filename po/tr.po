@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: wubi\n"
 "Report-Msgid-Bugs-To: agostino.russo@gmail.com\n"
 "POT-Creation-Date: 2011-06-24 10:56+0100\n"
-"PO-Revision-Date: 2010-10-03 09:44+0000\n"
-"Last-Translator: Yiğit Ateş <yigitates@ceviri.ubuntu-tr.net>\n"
+"PO-Revision-Date: 2011-12-16 16:57+0000\n"
+"Last-Translator: Mesut Yaver <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2011-04-04 10:01+0000\n"
-"X-Generator: Launchpad (build 12710)\n"
+"X-Launchpad-Export-Date: 2012-09-27 13:48+0000\n"
+"X-Generator: Launchpad (build 16042)\n"
 
 #: src/wubi/application.py:65
 #, python-format
@@ -52,6 +52,8 @@ msgid ""
 "Could not find any valid CD.\n"
 "CD boot helper can only be used with a Live CD."
 msgstr ""
+"Geçerli bir CD bulunamadı.\n"
+"CD başlangıç yardımcısı sadece bir Çalışan CD ile kullanılabilir."
 
 #: src/wubi/backends/common/backend.py:76
 #: src/wubi/backends/common/backend.py:97
@@ -285,7 +287,7 @@ msgstr "Hareketlilik1"
 
 #: src/wubi/frontends/win32/accessibility_page.py:59
 msgid "Mobility2"
-msgstr "Mobility2"
+msgstr "Hareketlilik2"
 
 #: src/wubi/frontends/win32/accessibility_page.py:62
 msgid "None"
@@ -347,7 +349,7 @@ msgstr ""
 
 #: src/wubi/frontends/win32/cd_menu_page.py:65
 msgid "Install inside Windows"
-msgstr "Windows içinde kur."
+msgstr "Windows içinde kur"
 
 #: src/wubi/frontends/win32/cd_menu_page.py:67
 #, python-format
@@ -497,9 +499,8 @@ msgstr ""
 "Yine de kuruluma devam etmek istiyor musunuz?"
 
 #: src/wubi/frontends/win32/installation_page.py:324
-#, fuzzy
 msgid "Please enter a valid username."
-msgstr "Lütfen geçerli bir kullanıcı adı girin"
+msgstr "Lütfen geçerli bir kullanıcı adı girin."
 
 #: src/wubi/frontends/win32/installation_page.py:326
 msgid "Please use all lower cases in the username."
@@ -511,13 +512,14 @@ msgstr "Lütfen kullanıcı adında boşluk kullanmayın."
 
 #: src/wubi/frontends/win32/installation_page.py:330
 msgid "Your username must start with a lower-case letter."
-msgstr ""
+msgstr "Kullanıcı adınız küçük harfle başlamak zorundadır."
 
 #: src/wubi/frontends/win32/installation_page.py:332
 msgid ""
 "Your username must contain only lower-case letters, numbers, hyphens, and "
 "underscores."
 msgstr ""
+"Kullanıcı adınız sadece küçük harf, sayı, tire ve alt çizgi içermelidir."
 
 #: src/wubi/frontends/win32/installation_page.py:334
 msgid "The selected username is reserved, please select a different one."
