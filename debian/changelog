@@ -8,6 +8,7 @@ wubi (12.10) UNRELEASED; urgency=low
   * Update translations from Launchpad.
   * Adjust isolist.ini to reflect the move of Kubuntu releases to
     cdimage.ubuntu.com in 12.04.
+  * Add support for Tibetan.
 
  -- Evan Dandrea <ev@ubuntu.com>  Wed, 06 Jun 2012 14:54:06 +0100
 

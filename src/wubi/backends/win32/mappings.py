@@ -429,6 +429,7 @@ n2language = {
     1034 : "es", # Spanish
     1053 : "sv", # Swedish
     1054 : "th", # Thai
+    1105 : "bo", # Tibetan
     1055 : "tr", # Turkish
     1058 : "uk", # Ukrainian
 }
@@ -477,6 +478,7 @@ n2fulllanguage = {
     1034 : "Spanish",
     1053 : "Swedish",
     1054 : "Thai",
+    1105 : "Tibetan",
     1055 : "Turkish",
     1058 : "Ukrainian",
 }
