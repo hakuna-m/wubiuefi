@@ -10,7 +10,10 @@ wubi (12.10) UNRELEASED; urgency=low
     cdimage.ubuntu.com in 12.04.
   * Add support for Tibetan.
 
- -- Evan Dandrea <ev@ubuntu.com>  Wed, 06 Jun 2012 14:54:06 +0100
+  [ Howard Chan ]
+  * Added Ubuntu Studio option into Wubi (LP: #1070682)
+
+ -- Howard Chan <smartboyhw@gmail.com>  Thu, 15 Nov 2012 19:48:09 +0800
 
 wubi (12.04) precise; urgency=low
 
