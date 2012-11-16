@@ -3,6 +3,9 @@ wubi (13.04) UNRELEASED; urgency=low
   [ Howard Chan ]
   * Added Ubuntu Studio option into Wubi (LP: #1070682)
 
+  [ Colin Watson ]
+  * Bump to 13.04.
+
  -- Howard Chan <smartboyhw@gmail.com>  Thu, 15 Nov 2012 19:48:09 +0800
 
 wubi (12.10) quantal; urgency=low
