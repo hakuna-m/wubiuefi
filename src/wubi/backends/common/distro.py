@@ -182,12 +182,13 @@ class Distro(object):
         Ubuntu 9.04 "Jaunty Jackalope" - Alpha i386 (20090106)
         Ubuntu 9.04 "Jaunty Jackalope" - Alpha i386 (20090106.1)
         Ubuntu Split Name 9.04.1 "Jaunty Jackalope" - Final Release i386 (20090106.2)
+        Ubuntu-Studio 12.10 "Quantal Quetzal" - Release amd64 (20121017.1)
         '''
         log.debug("  parsing info from str=%s" % info)
         if not info:
             return
         info = disk_info_re.match(info)
-        name = info.group('name').replace('-', ' ')
+        name = info.group('name')
         version = info.group('version')
         subversion = info.group('subversion')
         arch = info.group('arch')
