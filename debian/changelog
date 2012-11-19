@@ -2,11 +2,13 @@ wubi (13.04) UNRELEASED; urgency=low
 
   [ Howard Chan ]
   * Added Ubuntu Studio option into Wubi (LP: #1070682)
+  * Changed code in /src/wubi/backends/common/distro.py to make Wubi not
+    replacing the correct distro name with the wrong one (LP: #1080090)  
 
   [ Colin Watson ]
   * Bump to 13.04.
 
- -- Howard Chan <smartboyhw@gmail.com>  Thu, 15 Nov 2012 19:48:09 +0800
+ -- Howard Chan <smartboyhw@gmail.com>  Sat, 17 Nov 2012 22:48:01 +0800
 
 wubi (12.10) quantal; urgency=low
 
