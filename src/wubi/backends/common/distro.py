@@ -193,7 +193,8 @@ class Distro(object):
         # Unfortunately, flavour names containing spaces seem to cause
         # problems elsewhere at the moment.  The .replace should be restored
         # as soon as this is fixed, because "Ubuntu Studio" is a more
-        # correct description than "Ubuntu-Studio".  See LP #1070682.
+        # correct description than "Ubuntu-Studio".  See LP
+        # #1070682/#1080090.
         name = info.group('name')
         version = info.group('version')
         subversion = info.group('subversion')
