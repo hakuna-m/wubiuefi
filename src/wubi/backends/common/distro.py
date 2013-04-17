@@ -188,14 +188,7 @@ class Distro(object):
         if not info:
             return
         info = disk_info_re.match(info)
-        # Should be:
-        #  name = info.group('name').replace('-', ' ')
-        # Unfortunately, flavour names containing spaces seem to cause
-        # problems elsewhere at the moment.  The .replace should be restored
-        # as soon as this is fixed, because "Ubuntu Studio" is a more
-        # correct description than "Ubuntu-Studio".  See LP
-        # #1070682/#1080090.
-        name = info.group('name')
+        name = info.group('name').replace('-', ' ')
         version = info.group('version')
         subversion = info.group('subversion')
         arch = info.group('arch')

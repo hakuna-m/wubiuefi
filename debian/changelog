@@ -8,7 +8,11 @@ wubi (13.04) UNRELEASED; urgency=low
   [ Colin Watson ]
   * Bump to 13.04.
 
- -- Howard Chan <smartboyhw@gmail.com>  Sat, 17 Nov 2012 22:48:01 +0800
+  [ Howard Chan ]
+  * Changed image files so that Ubuntu Studio is installable. Also added
+    back the original code in distro.py (LP: #1080090)
+
+ -- Howard Chan <smartboyhw@gmail.com>  Tue, 20 Nov 2012 18:00:30 +0800
 
 wubi (12.10) quantal; urgency=low
 
