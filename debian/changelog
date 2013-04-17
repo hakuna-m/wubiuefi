@@ -1,5 +1,9 @@
 wubi (13.04) UNRELEASED; urgency=low
 
+  [ bcbc ]
+  * Use vmlinuz.efi kernel on the amd64 Ubuntu ISO (LP: #1134770)
+  * Suppress use of disk images (LP: #1155704)
+  
   [ Howard Chan ]
   * Added Ubuntu Studio option into Wubi (LP: #1070682)
   * Changed code in /src/wubi/backends/common/distro.py to make Wubi not
