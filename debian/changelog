@@ -1,3 +1,9 @@
+wubi (13.10) UNRELEASED; urgency=low
+
+  * Specify vmlinuz.efi for Edubuntu.
+
+ -- Dmitrijs Ledkovs <dmitrij.ledkov@ubuntu.com>  Wed, 21 Aug 2013 17:56:20 +0100
+
 wubi (13.04) raring; urgency=low
 
   [ bcbc ]
