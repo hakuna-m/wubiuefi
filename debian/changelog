@@ -1,9 +1,9 @@
-wubi (13.10) UNRELEASED; urgency=low
+wubi (13.10) saucy; urgency=low
 
   * Specify vmlinuz.efi for Edubuntu.
   * Bump to 13.10
 
- -- Dmitrijs Ledkovs <dmitrij.ledkov@ubuntu.com>  Wed, 21 Aug 2013 17:56:20 +0100
+ -- Dmitrijs Ledkovs <dmitrij.ledkov@ubuntu.com>  Wed, 21 Aug 2013 17:59:05 +0100
 
 wubi (13.04) raring; urgency=low
 
