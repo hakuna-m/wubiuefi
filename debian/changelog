@@ -1,4 +1,4 @@
-wubi (13.04) UNRELEASED; urgency=low
+wubi (13.04) raring; urgency=low
 
   [ bcbc ]
   * Use vmlinuz.efi kernel on the amd64 Ubuntu ISO (LP: #1134770)
@@ -16,7 +16,7 @@ wubi (13.04) UNRELEASED; urgency=low
   * Changed image files so that Ubuntu Studio is installable. Also added
     back the original code in distro.py (LP: #1080090)
 
- -- Howard Chan <smartboyhw@gmail.com>  Tue, 20 Nov 2012 18:00:30 +0800
+ -- Dmitrijs Ledkovs <dmitrij.ledkov@ubuntu.com>  Wed, 21 Aug 2013 17:56:06 +0100
 
 wubi (12.10) quantal; urgency=low
 
