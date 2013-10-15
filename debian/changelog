@@ -2,6 +2,7 @@ wubi (13.10) saucy; urgency=low
 
   * Specify vmlinuz.efi for Edubuntu.
   * Bump to 13.10
+  * Bump cdimage fallback URLs & preseeds to saucy
 
  -- Dmitrijs Ledkovs <dmitrij.ledkov@ubuntu.com>  Wed, 21 Aug 2013 17:59:05 +0100
 
