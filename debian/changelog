@@ -21,6 +21,7 @@ wubi (13.10) saucy; urgency=low
 wubi (13.04) raring; urgency=low
 
   [ bcbc ]
+  * Prevent installation on EFI systems (LP: #694242)
   * Use vmlinuz.efi kernel on the amd64 Ubuntu ISO (LP: #1134770)
   * Suppress use of disk images (LP: #1155704)
   

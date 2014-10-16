@@ -72,6 +72,7 @@ class WindowsBackend(Backend):
         self.info.drives = self.get_drives()
         drives = [(d.path[:2].lower(), d) for d in self.info.drives]
         self.info.drives_dict = dict(drives)
+        self.info.efi = self.check_EFI()
 
     def select_target_dir(self):
         target_dir = join_path(self.info.target_drive.path, self.info.distro.installation_dir)
@@ -547,6 +548,27 @@ class WindowsBackend(Backend):
         registry.delete_key(
             'HKEY_LOCAL_MACHINE',
             self.info.registry_key)
+
+    def check_EFI(self):
+        efi = False
+        if self.info.bootloader == 'vista':
+            bcdedit = join_path(os.getenv('SystemDrive'), 'bcdedit.exe')
+            if not os.path.isfile(bcdedit):
+                bcdedit = join_path(os.environ['systemroot'], 'sysnative', 'bcdedit.exe')
+            if not os.path.isfile(bcdedit):
+                bcdedit = join_path(os.environ['systemroot'], 'System32', 'bcdedit.exe')
+            if not os.path.isfile(bcdedit):
+                log.error("Cannot find bcdedit")
+                return False
+            command = [bcdedit, '/enum']
+            result = run_command(command)
+            result = result.lower()
+            if "bootmgfw.efi" in result:
+                efi = True
+            if "winload.efi" in result:
+                efi = True
+        log.debug('EFI boot = %s' % efi)
+        return efi
 
     def modify_bootloader(self, associated_task):
         for drive in self.info.drives:

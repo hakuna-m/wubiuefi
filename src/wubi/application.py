@@ -151,6 +151,11 @@ class Wubi(object):
                 log.error(message)
                 self.get_frontend().show_error_message(message)
                 self.quit()
+        if self.info.efi:
+            message = "Wubi does not currently support EFI"
+            log.error(message)
+            self.get_frontend().show_error_message(message)
+            self.quit()
         log.info("Running the installer...")
         self.frontend = self.get_frontend()
         self.frontend.show_installation_settings()
