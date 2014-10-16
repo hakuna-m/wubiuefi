@@ -21,6 +21,7 @@
 
 import sys
 import os
+import subprocess
 import shutil
 from os.path import abspath, join, dirname
 
@@ -40,7 +41,8 @@ def compress(target_dir):
     cmd = cmd % (compressor,)
     print cmd
     os.chdir(target_dir)
-    os.system(cmd)
+    subprocess.call([compressor, "a", "-t7z", "-m0=lzma", "-mx=9", "-mfb=256",
+                     "-md=32m", "-ms=on", "../archive.7z", "*"])
     os.chdir(cwd)
 
 def cat(outfile, *infiles):
