@@ -1,6 +1,11 @@
 wubi (14.10) utopic; urgency=medium
 
+  [ Stéphane Graber ]
   * Bump to 14.10
+
+  [ Colin Watson ]
+  * Adjust grub-ntldr-img invocation to avoid implicit build-dependency on
+    grub-pc.
 
  -- Stéphane Graber <stgraber@ubuntu.com>  Thu, 16 Oct 2014 16:21:26 +0200
 

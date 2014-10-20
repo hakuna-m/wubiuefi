@@ -74,7 +74,7 @@ cpuid: src/cpuid/cpuid.c
 winboot2:
 	mkdir -p build/winboot
 	cp -f data/wubildr.cfg data/wubildr-bootstrap.cfg build/winboot/
-	grub-ntldr-img --grub2 --boot-file=wubildr -o build/winboot/wubildr.mbr
+	/usr/lib/grub/i386-pc/grub-ntldr-img --grub2 --boot-file=wubildr -o build/winboot/wubildr.mbr
 	cd build/winboot && tar cf wubildr.tar wubildr.cfg
 	mkdir -p build/grubutil
 	grub-mkimage -O i386-pc -c build/winboot/wubildr-bootstrap.cfg -m build/winboot/wubildr.tar -o build/grubutil/core.img \
