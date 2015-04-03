@@ -1,3 +1,11 @@
+wubi (15.04) vivid; urgency=low
+
+  [Hakuna Matata]
+   
+  * Bump to 15.04
+  * Use vmlinuz.efi on all amd64 ISOs except Ubuntu Studio
+  * Set confirm_nooverwrite on preseeds
+ 
 wubi (14.10) utopic; urgency=medium
 
   [ Stéphane Graber ]
