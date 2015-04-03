@@ -2,6 +2,15 @@ wubi (15.04) vivid; urgency=low
 
   [Hakuna Matata]
    
+  * loop-remount (LP: #1317437):
+    allow remounting of loop device as read-write
+    patch is necessary because of unreleased fix
+    https://code.launchpad.net/~noorez-kassam/ubuntu/utopic/initramfs-tools/fix-for-1317437
+
+wubi (15.04) vivid; urgency=low
+
+  [Hakuna Matata]
+   
   * Bump to 15.04
   * Use vmlinuz.efi on all amd64 ISOs except Ubuntu Studio
   * Set confirm_nooverwrite on preseeds
