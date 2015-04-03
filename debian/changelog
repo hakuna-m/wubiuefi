@@ -2,6 +2,13 @@ wubi (15.04) vivid; urgency=low
 
   [Hakuna Matata]
    
+  * Bypass Ubiquity bug (LP: #1385930):
+     Use libparted and parted_server version of 14.04
+
+wubi (15.04) vivid; urgency=low
+
+  [Hakuna Matata]
+   
   * loop-remount (LP: #1317437):
     allow remounting of loop device as read-write
     patch is necessary because of unreleased fix
