@@ -2,6 +2,14 @@ wubi (15.04) vivid; urgency=low
 
   [Hakuna Matata]
    
+  * EFI support
+  * Windows: BCD entries for UEFI, disable Hibernate and Fast Startup
+  * Ubuntu: GRUB for x86_64-efi platform
+
+wubi (15.04) vivid; urgency=low
+
+  [Hakuna Matata]
+   
   * Bypass Ubiquity bug (LP: #1385930):
      Use libparted and parted_server version of 14.04
 

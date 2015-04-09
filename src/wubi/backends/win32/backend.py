@@ -569,6 +569,62 @@ class WindowsBackend(Backend):
                 efi = True
         log.debug('EFI boot = %s' % efi)
         return efi
+     
+    def modify_EFI_folder(self, associated_task,bcdedit):
+        command = [bcdedit, '/enum', '{bootmgr}']
+        boot_drive = run_command(command)
+        boot_drive = boot_drive[boot_drive.index('partition=')+10:]
+        boot_drive = boot_drive[:boot_drive.index('\r')]
+        log.debug("EFI boot partition %s" % boot_drive)
+        # if EFI boot partition is mounted we use it
+        if boot_drive[1]==':':
+            efi_drive = boot_drive
+        else:
+            for efi_drive in 'HIJKLMNOPQRSTUVWXYZ':
+                drive = Drive(efi_drive)
+                if not drive.type:
+                    break
+            efi_drive = efi_drive + ':'
+            log.debug("Temporary EFI drive %s" % efi_drive)
+        if efi_drive != boot_drive:
+            run_command(['mountvol', efi_drive, '/s'])
+        src = join_path(self.info.root_dir, 'winboot','EFI')
+        src.replace(' ', '_')
+        src.replace('__', '_')
+        dest = join_path(efi_drive, 'EFI',self.info.target_dir[3:])
+        dest.replace(' ', '_')
+        dest.replace('__', '_')
+        if not os.path.exists(dest):
+            shutil.os.mkdir(dest)
+        dest = join_path(dest,'wubildr')
+        if os.path.exists(dest):
+            shutil.rmtree(dest)        
+        log.debug('Copying EFI folder %s -> %s' % (src, dest))
+        shutil.copytree(src,  dest)
+        if efi_drive != boot_drive:
+            run_command(['mountvol', efi_drive, '/d'])
+        efi_path = join_path(dest, 'shimx64.efi')[2:]     
+        return efi_path
+
+    def undo_EFI_folder(self, associated_task):
+        for efi_drive in 'HIJKLMNOPQRSTUVWXYZ':
+            drive = Drive(efi_drive)
+            if not drive.type:
+                break
+        efi_drive = efi_drive + ':'
+        log.debug("Temporary EFI drive %s" % efi_drive)
+        try: 
+            run_command(['mountvol', efi_drive, '/s'])
+            dest = join_path(efi_drive, 'EFI',self.info.previous_target_dir[3:],'wubildr')
+            dest.replace(' ', '_')
+            dest.replace('__', '_')
+            if os.path.exists(dest):
+                log.debug('Removing EFI folder %s' % dest)
+                shutil.rmtree(dest)
+            run_command(['mountvol', efi_drive, '/d'])
+        except Exception, err: #this shouldn't be fatal
+            log.error(err)            
+        return
 
     def modify_bootloader(self, associated_task):
         for drive in self.info.drives:
@@ -596,6 +652,11 @@ class WindowsBackend(Backend):
                 f = join_path(drive.path, f)
                 if os.path.isfile(f):
                     os.unlink(f)
+
+        if self.info.efi:
+            log.debug("Undo EFI boot")
+            self.undo_EFI_folder(associated_task) 
+            run_command(['powercfg', '/h', 'on'])
 
     def modify_bootini(self, drive, associated_task):
         log.debug("modify_bootini %s" % drive.path)
@@ -710,6 +771,24 @@ class WindowsBackend(Backend):
             return
         if registry.get_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'VistaBootDrive'):
             log.debug("BCD has already been modified")
+            return
+
+        if self.info.efi:
+            log.debug("EFI boot")
+            efi_path = self.modify_EFI_folder(associated_task,bcdedit)
+            run_command(['powercfg', '/h', 'off'])
+            command = [bcdedit, '/copy', '{bootmgr}', '/d', '%s' % self.info.distro.name]
+            id = run_command(command)
+            id = id[id.index('{'):id.index('}')+1]
+            run_command([bcdedit, '/set', id, 'path', efi_path])
+            run_command([bcdedit, '/set', '{fwbootmgr}', 'displayorder', id, '/addlast'])
+            run_command([bcdedit, '/set', '{fwbootmgr}', 'timeout', '10'])
+            run_command([bcdedit, '/set', '{fwbootmgr}', 'bootsequence', id])
+            registry.set_value(
+                'HKEY_LOCAL_MACHINE',
+                self.info.registry_key,
+                'VistaBootDrive',
+                id)
             return
 
         command = [bcdedit, '/create', '/d', '%s' % self.info.distro.name, '/application', 'bootsector']
