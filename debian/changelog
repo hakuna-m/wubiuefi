@@ -2,6 +2,12 @@ wubi (15.04) vivid; urgency=low
 
   [Hakuna Matata]
    
+  * systemd fix for not working mount-move commands in /bin/autopartition-loop  
+
+wubi (15.04) vivid; urgency=low
+
+  [Hakuna Matata]
+   
   * EFI support
   * Windows: BCD entries for UEFI, disable Hibernate and Fast Startup
   * Ubuntu: GRUB for x86_64-efi platform

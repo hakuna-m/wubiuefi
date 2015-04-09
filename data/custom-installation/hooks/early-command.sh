@@ -14,3 +14,9 @@ if [ -f /custom-installation/patch/$architecture/parted_server ]; then
         ln -s libparted.so.0.0.1 /root/lib/$architecture-linux-gnu/libparted.so.0
 fi
 
+if [ -f /custom-installation/patch/autopartition-loop ]; then
+	cp /custom-installation/patch/autopartition-loop  /root/bin/autopartition-loop
+fi
+
+
+

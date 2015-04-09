@@ -1,0 +1,379 @@
+#! /bin/sh
+
+. /lib/partman/lib/base.sh
+. /lib/partman/lib/resize.sh
+. /lib/partman/lib/recipes.sh
+
+# busybox wants mount -o move; util-linux wants mount --move. Sigh.
+if [ -d /lib/debian-installer ]; then
+        mount_private='-o private'
+	mount_move='-o move'
+else
+	mount_move='--move'
+        mount_private='--make-private'
+fi
+
+mount $mount_private /
+
+modprobe loop >/dev/null 2>&1 || true
+
+# Set up working directory.
+
+if type mktemp >/dev/null 2>&1; then
+	recipe_dir="$(mktemp -d /tmp/partman-auto-loop.XXXXXX)"
+	trap "rm -rf $recipe_dir" EXIT HUP INT QUIT TERM
+else
+	recipe_dir=/tmp
+fi
+
+# Fetch parameters.
+
+disk="$1"
+
+cd $disk
+
+if ! db_get partman-auto-loop/partition || [ -z "$RET" ]; then
+	logger -t partman-auto-loop "Error: No partition number specified in partman-auto-loop/partition"
+	exit 1
+fi
+partition="$RET"
+
+if ! db_get partman-auto-loop/recipe || [ -z "$RET" ]; then
+	logger -t partman-auto-loop "Error: No recipe specified in partman-auto-loop/recipe"
+	exit 1
+fi
+recipe="$RET"
+echo "$recipe" >"$recipe_dir/loop_recipe"
+
+# Find the requested partition.
+
+db_progress START 0 5 partman-auto/text/automatically_partition
+db_progress INFO partman-auto/progress/info
+
+partition_id=
+partition_fs=
+open_dialog PARTITIONS
+while { read_line num id size type fs path name; [ "$id" ]; }; do
+	if [ "$num" = "$partition" ]; then
+		partition_id="$id"
+		partition_fs="$fs"
+		# go ahead and read all remaining input
+	fi
+done
+close_dialog
+if [ -z "$partition_id" ]; then
+	logger -t partman-auto-loop "Error: Partition number $partition not found in $disk"
+	exit 1
+fi
+
+# Set up the requested partition in partman.
+
+existing=no
+for j in $(
+	for i in /lib/partman/valid_filesystems/*; do
+		[ -x $i ] || continue
+		$i $disk $partition_id existing
+	done
+); do
+	if [ "$j" = "$partition_fs" ]; then
+		existing=yes
+	fi
+done
+
+if [ "$existing" = no ]; then
+	logger -t partman-auto-loop "Error: No filesystem on $disk/$partition_id"
+	exit 1
+fi
+
+echo keep >$partition_id/method
+rm -f $partition_id/format
+>$partition_id/use_filesystem
+echo $partition_fs >$partition_id/filesystem
+mkdir -p $partition_id/options
+echo / >$partition_id/mountpoint
+update_partition $disk $partition_id
+
+# Is there enough space to perform the recipe?
+
+dev="$disk"
+oldid="$partition_id"
+
+recipe_new=
+firstword=
+imagepaths=
+for word in $(cat "$recipe_dir/loop_recipe"); do
+	case $word in
+		.)
+			recipe_new="${recipe_new:+$recipe_new }\$imagepath{ $firstword } $word"
+			firstword=
+			;;
+		*)
+			if [ "$firstword" ]; then
+				recipe_new="${recipe_new:+$recipe_new }$word"
+			else
+				firstword="$word"
+				imagepaths="${imagepaths:+$imagepaths }$word"
+			fi
+			;;
+	esac
+done
+echo "$recipe_new" >"$recipe_dir/loop_recipe_new"
+decode_recipe "$recipe_dir/loop_recipe_new" loop
+
+db_progress STEP 1
+
+fstab="$(
+	for i in /lib/partman/fstab.d/*; do
+		[ -x "$i" ] || continue
+		$i
+	done |
+	while read fs mp type options dump pass; do
+		case $mp in
+			(/)
+				echo $fs $mp $type $options $dump $pass
+				;;
+		esac
+	done
+)"
+
+if [ -z "$fstab" ]; then
+	logger -t partman-auto-loop "Error: No fstab output for $disk/$partition_id"
+	exit 1
+fi
+
+mkdir -p /target
+
+mountpoint="$(grep "^${fstab%% *} [^ ]* [^ ]* [^ ]*rw" /proc/mounts | cut -d ' ' -f2 | head -n1)" || mountpoint=
+if [ "$mountpoint" = /target ]; then
+	# nothing to do
+	:
+elif [ "$mountpoint" ]; then
+	if ! mount $mount_move "$mountpoint" /target; then
+		logger -t partman-auto-loop "Error: Failed to move $mountpoint to /target"
+		exit 1
+	fi
+	unmount_cmd='umount /target'
+else
+	for m in /lib/partman/mount.d/*; do
+		[ -x "$m" ] || continue
+
+		unmount_cmd="$($m "$fstab")"
+		if [ "$?" = 0 ]; then
+			break
+		fi
+	done
+fi
+if [ -d /run ]; then
+	mkdir -p /run/sendsigs.omit.d
+	pidof mount.ntfs >> /run/sendsigs.omit.d/ntfs-3g
+	pidof mount.ntfs-3g >> /run/sendsigs.omit.d/ntfs-3g
+fi
+
+# TODO: handle errors if no mount succeeded
+mkdir -p /host
+mount $mount_move /target /host # TODO error handling
+
+# Don't try to mount this again later.
+rm -f $partition_id/mountpoint
+
+# Ensure there is enough free space.
+check_free_space=false
+requires_disk_space(){
+    [ "$1" != 0 ] || return
+    path="$(echo "$*" | sed 's/.*\$imagepath{  *\([^ }]*\) *}.*/\1/')"
+    [ "$path" != "$*" ] || return
+    case $path in
+		/*)	;;
+		*)	path="/$path" ;;
+    esac
+    [ -f "/host$path" ] && return 
+    check_free_space=true
+}
+foreach_partition 'requires_disk_space $*' 
+
+# Skip resize_range check if images are already created.
+if [ $check_free_space = true ]; then
+    case $partition_fs in
+	linux-swap|fat16|fat32|hfs|hfs+|hfsx)
+		get_resize_range
+		;;
+	ext2|ext3|ext4)
+		if ! search-path tune2fs; then
+			logger -t partman-auto-loop "Error: tune2fs not found"
+			exit 1
+		fi
+		if ! search-path resize2fs; then
+			logger -t partman-auto-loop "Error: resize2fs not found"
+			exit 1
+		fi
+		if ! get_ext2_resize_range; then
+			logger -t partman-auto-loop "Error: Failed to get ext2 resize range for $disk/$partition_id"
+			exit 1
+		fi
+		;;
+	ntfs)
+		if ! search-path ntfsresize; then
+			logger -t partman-auto-loop "Error: ntfsresize not found"
+			exit 1
+		fi
+		if ! get_ntfs_resize_range; then
+			db_input critical partman-auto-loop/unclean_ntfs || true
+			db_go || true
+			logger -t partman-auto-loop "Error: Failed to get NTFS resize range for $disk/$partition_id"
+			reboot
+			exit 1
+		fi
+		;;
+	*)
+		logger -t partman-auto-loop "Cannot calculate free space on filesystems of type $partition_fs"
+		exit 1
+		;;
+    esac
+    free_size="$(expr \( "$cursize" - "$minsize" \) \* 9 / 10)"
+    # convert to megabytes
+    free_size="$(expr 0000000"$free_size" : '0*\(..*\)......$')"
+    if [ $(min_size) -gt $free_size ]; then
+        logger -t partman-auto-loop "Error: partman-auto-loop/recipe too large ($(min_size) > $free_size)"
+        exit 1
+    fi
+fi
+
+# Ensure that no old loop images are present and mountable.
+found_images=
+mkdir -p /tmpmountpoint
+for path in $imagepaths; do
+	case $path in
+		/*)	;;
+		*)	path="/$path" ;;
+	esac
+	if [ -e "/host$path" ]; then
+		if mount -t auto -o loop,ro /host$path /tmpmountpoint 2>/dev/null 3>&-; then
+			found_images="${found_images:+$found_images }$path"
+			umount /tmpmountpoint || true
+			rmdir /tmpmountpoint || true
+		fi
+	fi
+done
+if [ "$found_images" ]; then
+	db_progress STOP
+	db_subst partman-auto-loop/unclean_host PARTITION "$partition"
+	db_subst partman-auto-loop/unclean_host DISK "$disk"
+	db_subst partman-auto-loop/unclean_host IMAGES "$found_images"
+	db_input critical partman-auto-loop/unclean_host || true
+	db_capb
+	db_go || true
+	db_capb backup
+	umount /host || true
+	exit 1
+fi
+
+db_progress STEP 1
+
+expand_scheme
+
+db_progress STEP 1
+
+clean_method
+
+db_progress STEP 1
+
+setup_loop () {
+	[ "$1" != 0 ] || return
+	path="$(echo "$*" | sed 's/.*\$imagepath{  *\([^ }]*\) *}.*/\1/')"
+	[ "$path" != "$*" ] || return
+
+	case $path in
+		/*)	;;
+		*)	path="/$path" ;;
+	esac
+	if [ ! -f "/host$path" ]; then
+		mkdir -p "/host${path%/*}"
+		if [ "$4" = "linux-swap" ]; then
+			# swap requires a file with no holes
+			dd if=/dev/zero of="/host$path" bs="1000000" count="$1"
+		else
+			dd if=/dev/zero of="/host$path" bs="1000000" seek="$1" count=0
+		fi
+	fi
+	if ! losetup -f "/host$path"; then
+		shift
+		continue
+	fi
+	if [ "$4" = linux-swap ]; then
+		loops="/host$path"
+	else
+		loops="$(echo /dev/loop* /dev/loop/*)"
+	fi
+	for loop in $loops; do
+		[ -e "$loop" ] || continue
+		case $loop in
+			/dev/loop*)
+				loopfile="$(losetup "$loop")" || continue
+				# The following works with both busybox's
+				# losetup and util-linux's losetup. Yes,
+				# this is ugly.
+				loopfile="$(echo "$loopfile" | sed 's,.*\(/host/[^)]*\).*,\1,')"
+				;;
+			*)
+				loopfile="$loop"
+				;;
+		esac
+		[ "$loopfile" = "/host$path" ] || continue
+
+		dirname="$(echo "$loop" | sed 's:/:=:g')"
+		dev="$DEVICES/$dirname"
+
+		rm -rf "$dev"
+		mkdir "$dev" || autopartitioning_failed
+		printf "%s" "$loop" >"$dev/device"
+		printf "%s" "$1" >"$dev/size"
+		echo "Loopback on $loopfile" >"$dev/model"
+		echo "$loopfile" >"$dev/loop"
+
+		cd "$dev"
+		open_dialog OPEN "$(cat "$dev/device")"
+		read_line response
+		close_dialog
+		if [ "$response" = failed ]; then
+			cd /
+			rm -rf "$dev"
+			autopartitioning_failed
+		fi
+
+		open_dialog NEW_LABEL loop
+		close_dialog
+
+		# find the free space
+		open_dialog PARTITIONS
+		free_space=
+		while { read_line num id size type fs path name; [ "$id" ]; }; do
+			if [ "$fs" = free ]; then
+				free_space=$id
+				free_size=$size
+			fi
+		done
+		close_dialog
+
+		# create partition in the free space
+		[ "$free_space" ] || autopartitioning_failed
+		open_dialog NEW_PARTITION primary $4 $free_space full ${1}000001
+		read_line num id size type fs path name
+		close_dialog
+
+		shift; shift; shift; shift
+		setup_partition $id $*
+		break
+	done
+}
+
+foreach_partition 'setup_loop $*'
+
+db_progress STEP 1
+
+update_all
+
+apt-install lupin-support
+
+db_progress STOP
+
+exit 0
