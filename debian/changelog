@@ -1,8 +1,8 @@
-wubi (15.04) vivid; urgency=low
+wubi (15.10) wily; urgency=low
 
   [Hakuna Matata]
    
-  * systemd fix for not working mount-move commands in /bin/autopartition-loop  
+  * Bump to 15.10
 
 wubi (15.04) vivid; urgency=low
 
