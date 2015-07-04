@@ -2,6 +2,12 @@ wubi (15.10) wily; urgency=low
 
   [Hakuna Matata]
    
+  * Add support for Ubuntu MATE
+
+wubi (15.10) wily; urgency=low
+
+  [Hakuna Matata]
+   
   * Bump to 15.10
 
 wubi (15.04) vivid; urgency=low
