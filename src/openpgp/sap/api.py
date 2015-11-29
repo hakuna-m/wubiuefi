@@ -47,6 +47,7 @@ from os import linesep
 from openpgp.code import *
 
 import openpgp.sap.crypto as CRYPT
+import openpgp.sap.text as TXT
 
 from openpgp.sap.exceptions import *
 
@@ -1097,7 +1098,9 @@ def verify_msg(signed, key, **kw):
         if keypkt: # either the sigpkt specified a key or an fprint was forced
             assigned += 1
 
-            if CRYPT.verify(sig, target, keypkt, **opts):
+            if sig.body.alg_hash not in (HASH_MD5, HASH_SHA1):
+                saplog.warn("A signature from ID:%r has an unsupported hash algorithm:%s(%s)." % (signer_id, sig.body.alg_hash, TXT.alg_hash_msg(sig.body.alg_hash)))
+            elif CRYPT.verify(sig, target, keypkt, **opts):
                 saplog.info("Verified a signature from ID:%r." % signer_id)
                 ex_verified += 1
 

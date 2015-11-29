@@ -171,7 +171,7 @@ def hash_context(version, hashalg, sigtype, sigcontext, target, primary):
             import sha
             hashed_target = sha.new(context.read()).digest()
         else:
-            raise NotImplementedError, "Unsupported signature hash algorithm->(%s)" % sig.alg_hash
+            raise NotImplementedError, "Unsupported signature hash algorithm->(%s)" % hashalg
     finally:
         context.close()
 
@@ -194,7 +194,7 @@ def pad_rsa(alg_hash, hashed_msg, rsa_n_bit_length):
     elif HASH_SHA1 == alg_hash:
         prefix = '\x30\x21\x30\x09\x06\x05\x2b\x0E\x03\x02\x1A\x05\x00\x04\x14'
     else:
-        raise NotImplementedError, "Prefix unassigned for RSA signature hash->(%s)" % sig.alg_hash
+        raise NotImplementedError, "Prefix unassigned for RSA signature hash->(%s)" % alg_hash
     padlen = ((rsa_n_bit_length + 7)/8) - len(prefix) - len(hashed_msg) - 3
     padding = ''.join(['\xff' for x in range(padlen)])
     return ''.join(['\x00\x01', padding, '\x00', prefix, hashed_msg])

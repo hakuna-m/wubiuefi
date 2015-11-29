@@ -2,6 +2,12 @@ wubi (15.10) wily; urgency=low
 
   [Hakuna Matata]
    
+  * Error handling for signatures with unsupported hash algorithm
+
+wubi (15.10) wily; urgency=low
+
+  [Hakuna Matata]
+   
   * Add support for Ubuntu GNOME
 
 wubi (15.10) wily; urgency=low
