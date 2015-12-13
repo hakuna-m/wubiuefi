@@ -1,3 +1,9 @@
+wubi (16.04) xenial; urgency=low
+
+  [Hakuna Matata]
+   
+  * Bump to 16.04
+
 wubi (15.10) wily; urgency=low
 
   [Hakuna Matata]
