@@ -1,3 +1,4 @@
 build/*
 wine
 tools/buildtest
+*.pyo
