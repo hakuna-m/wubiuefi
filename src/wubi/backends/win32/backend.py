@@ -36,6 +36,7 @@ import mappings
 import shutil
 import logging
 import tempfile
+import struct
 log = logging.getLogger('WindowsBackend')
 
 
@@ -601,10 +602,36 @@ class WindowsBackend(Backend):
             shutil.rmtree(dest)        
         log.debug('Copying EFI folder %s -> %s' % (src, dest))
         shutil.copytree(src,  dest)
+        if self.get_efi_arch(associated_task,efi_drive)=="ia32":
+            efi_path = join_path(dest, 'grubia32.efi')[2:]
+        else:
+            efi_path = join_path(dest, 'shimx64.efi')[2:]
         if efi_drive != boot_drive:
             run_command(['mountvol', efi_drive, '/d'])
-        efi_path = join_path(dest, 'shimx64.efi')[2:]     
         return efi_path
+
+    def get_efi_arch(self, associated_task, efi_drive):
+        machine=0
+        bootmgfw=join_path(efi_drive,'EFI','Microsoft','Boot','bootmgfw.efi')
+        if os.path.exists(bootmgfw):
+            f=open(bootmgfw, 'rb')
+            s=f.read(2)
+            if s=='MZ':
+                f.seek(60)
+                s=f.read(4)
+                header_offset=struct.unpack("<L", s)[0]
+                f.seek(header_offset+4)
+                s=f.read(2)
+                machine=struct.unpack("<H", s)[0]
+            f.close()
+        if machine==332:
+            efi_arch = "ia32"
+        elif machine==34404:
+            efi_arch = "x64"
+        else:
+            efi_arch ="unknown"
+        log.debug("efi_arch=%s" % efi_arch)
+        return efi_arch
 
     def undo_EFI_folder(self, associated_task):
         for efi_drive in 'HIJKLMNOPQRSTUVWXYZ':

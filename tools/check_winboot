@@ -1,0 +1,41 @@
+#!/bin/sh
+
+if [ ! -e /usr/lib/grub/i386-pc/moddep.lst ]; then
+	echo "Installing grub-pc-bin"
+	sudo apt-get install grub-pc-bin #TBD do not assume apt
+fi
+if [ ! -e /usr/lib/grub/x86_64-efi/moddep.lst ]; then
+	echo "Installing grub-efi-amd64-bin"
+	sudo apt-get install grub-efi-amd64-bin #TBD do not assume apt
+fi
+if [ ! -e /usr/lib/grub/i386-efi/moddep.lst ]; then
+	echo "Installing grub-efi-ia32-bin"
+	sudo apt-get install grub-efi-ia32-bin #TBD do not assume apt
+fi
+if [ ! -e /usr/lib/shim/MokManager.efi.signed ]; then
+	echo "Installing shim..."
+	sudo apt-get install shim #TBD do not assume apt
+fi
+if [ ! -e /usr/lib/shim/shim.efi.signed ]; then
+	echo "Installing shim-signed..."
+	sudo apt-get install shim-signed #TBD do not assume apt
+fi
+if [ ! -e /usr/bin/sbsign ]; then
+	echo "Installing sbsigntool..."
+	sudo apt-get install sbsigntool #TBD do not assume apt
+fi
+if [ ! -e /usr/bin/openssl ];then
+	echo "Installing openssl..."
+	sudo apt-get install openssl #TBD do not assume apt
+fi
+if [ ! -e .key ];then
+	echo "generating new Secure Boot key..."
+	mkdir .key
+        openssl req -new -x509 -newkey rsa:2048 -keyout .key/$(whoami)_wubi.key \
+	-out  .key/$(whoami)_wubi.crt -nodes -days 3650 -subj "/CN="$(whoami)" Wubi/"
+	openssl x509 -in  .key/$(whoami)_wubi.crt -out  .key/$(whoami)_wubi.cer -outform DER
+fi
+
+
+
+

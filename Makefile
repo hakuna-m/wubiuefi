@@ -1,7 +1,7 @@
 export SHELL = sh
 PACKAGE = wubi
 ICON = data/images/Wubi.ico
-VERSION = $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g" | cut -d r -f 1)
+VERSION = $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g" | cut -d r -f 1) 
 REVISION = $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g" | cut -d r -f 2)
 COPYRIGHTYEAR = 2009
 AUTHOR = Agostino Russo
@@ -21,7 +21,7 @@ wubizip: wubi-pre-build
 	cp wine/drive_c/Python23/python.exe build/wubi #TBD
 	cd build; zip -r wubi.zip wubi
 
-wubi-pre-build: check_wine pylauncher winboot2 src/main.py src/wubi/*.py cpuid version.py translations
+wubi-pre-build: check_wine check_winboot pylauncher winboot2 src/main.py src/wubi/*.py cpuid version.py translations
 	rm -rf build/wubi
 	rm -rf build/bin
 	cp -a blobs build/bin
@@ -84,8 +84,17 @@ winboot2:
 	mkdir -p build/winboot/EFI
 	grub-mkimage -O x86_64-efi -c build/winboot/wubildr-bootstrap.cfg -m build/winboot/wubildr.tar -o build/winboot/EFI/grubx64.efi \
 		loadenv part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback search linux linuxefi boot minicmd cat cpuid chain halt help ls reboot \
-		echo test configfile gzio normal sleep memdisk tar font gfxterm gettext true efi_gop efi_uga video_bochs video_cirrus probe efifwsetup
+		echo test configfile gzio normal sleep memdisk tar font gfxterm gettext true efi_gop efi_uga video_bochs video_cirrus probe efifwsetup \
+		all_video gfxterm_background png gfxmenu
 	cp /usr/lib/shim/shim.efi.signed build/winboot/EFI/shimx64.efi
+	cp /usr/lib/shim/MokManager.efi.signed build/winboot/EFI/MokManager.efi
+	sbsign --key .key/*.key --cert .key/*.crt --output build/winboot/EFI/grubx64.efi build/winboot/EFI/grubx64.efi
+	grub-mkimage -O i386-efi -c build/winboot/wubildr-bootstrap.cfg -m build/winboot/wubildr.tar -o build/winboot/EFI/grubia32.efi \
+		loadenv part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback search linux linuxefi boot minicmd cat cpuid chain halt help ls reboot \
+		echo test configfile gzio normal sleep memdisk tar font gfxterm gettext true efi_gop efi_uga video_bochs video_cirrus probe efifwsetup \
+		all_video gfxterm_background png gfxmenu
+	sbsign --key .key/*.key --cert .key/*.crt --output build/winboot/EFI/grubia32.efi build/winboot/EFI/grubia32.efi
+	cp .key/*.cer build/winboot/EFI/.
 
 winboot: grub4dos grubutil
 	mkdir -p build/winboot
@@ -116,6 +125,9 @@ runbin: wubi
 check_wine: tools/check_wine
 	tools/check_wine
 
+check_winboot: tools/check_winboot
+	tools/check_winboot
+
 unittest:
 	tools/pywine tools/test
 
@@ -129,5 +141,5 @@ clean:
 	rm -rf dist/*
 	rm -rf build/*
 
-.PHONY: all build test wubi wubizip wubi-pre-build pot runpy runbin ckeck_wine unittest
+.PHONY: all build test wubi wubizip wubi-pre-build pot runpy runbin check_wine check_winboot unittest
 	7z translations version.py pylauncher winboot grubutil grub4dos

@@ -2,3 +2,4 @@ build/*
 wine
 tools/buildtest
 *.pyo
+.key

@@ -1,3 +1,10 @@
+wubi (16.04r301) xenial; urgency=low
+
+  [Hakuna Matata]
+   
+  * 32 bit UEFI support
+  * SecureBoot
+
 wubi (16.04r300) xenial; urgency=low
 
   [Hakuna Matata]
