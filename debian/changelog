@@ -1,3 +1,11 @@
+wubi (16.04r302) xenial; urgency=low
+
+  [Hakuna Matata]
+   
+  * Add Xubuntu
+  * Add Ubuntu Kylin
+  * Add new icons for Ubuntu GNOME
+
 wubi (16.04r301) xenial; urgency=low
 
   [Hakuna Matata]
