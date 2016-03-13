@@ -1,3 +1,11 @@
+wubi (15.10r303) wily; urgency=low
+
+  [Hakuna Matata]
+
+  * Fix Ubiquity bug (LP: #1385930)
+     Remove workaround from rev. 293
+     Add fix for parted >= 3.2 in autopartition-loop
+
 wubi (15.10r302) wily; urgency=low
 
   [Hakuna Matata]

@@ -347,18 +347,27 @@ setup_loop () {
 		open_dialog PARTITIONS
 		free_space=
 		while { read_line num id size type fs path name; [ "$id" ]; }; do
-			if [ "$fs" = free ]; then
-				free_space=$id
-				free_size=$size
-			fi
+			case $fs in
+				free|unknown)
+					free_space=$id
+					free_size=$size
+					free_fs=$fs
+					;;
+			esac
 		done
 		close_dialog
 
 		# create partition in the free space
 		[ "$free_space" ] || autopartitioning_failed
-		open_dialog NEW_PARTITION primary $4 $free_space full ${1}000001
-		read_line num id size type fs path name
-		close_dialog
+		if [ "$free_fs" = unknown ]; then
+			# parted >= 3.2 gives us a partition automatically
+			id=$free_space
+		else
+			# With parted < 3.2 we must create a partition manually
+			open_dialog NEW_PARTITION primary $4 $free_space full ${1}000001
+			read_line num id size type fs path name
+			close_dialog
+		fi
 
 		shift; shift; shift; shift
 		setup_partition $id $*
