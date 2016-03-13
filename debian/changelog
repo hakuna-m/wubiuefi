@@ -1,3 +1,11 @@
+wubi (16.04r303) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * Fix Ubiquity bug (LP: #1385930)
+     Remove workaround from rev. 293
+     Add fix for parted >= 3.2 in autopartition-loop
+
 wubi (16.04r302) xenial; urgency=low
 
   [Hakuna Matata]
