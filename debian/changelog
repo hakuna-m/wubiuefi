@@ -1,3 +1,10 @@
+wubi (14.04.4r304) trusty; urgency=low
+
+  [Hakuna Matata]
+
+  * Fix EFI error if bcdedit returns unknown device
+    https://github.com/hakuna-m/wubiuefi/issues/3
+
 wubi (14.04.4r302) trusty; urgency=low
 
   [Hakuna Matata]

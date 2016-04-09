@@ -574,7 +574,10 @@ class WindowsBackend(Backend):
     def modify_EFI_folder(self, associated_task,bcdedit):
         command = [bcdedit, '/enum', '{bootmgr}']
         boot_drive = run_command(command)
-        boot_drive = boot_drive[boot_drive.index('partition=')+10:]
+        if 'partition=' in boot_drive:
+            boot_drive = boot_drive[boot_drive.index('partition=')+10:]
+        else:
+            boot_drive = boot_drive[boot_drive.index('device')+24:]
         boot_drive = boot_drive[:boot_drive.index('\r')]
         log.debug("EFI boot partition %s" % boot_drive)
         # if EFI boot partition is mounted we use it
@@ -808,9 +811,12 @@ class WindowsBackend(Backend):
             id = run_command(command)
             id = id[id.index('{'):id.index('}')+1]
             run_command([bcdedit, '/set', id, 'path', efi_path])
-            run_command([bcdedit, '/set', '{fwbootmgr}', 'displayorder', id, '/addlast'])
-            run_command([bcdedit, '/set', '{fwbootmgr}', 'timeout', '10'])
-            run_command([bcdedit, '/set', '{fwbootmgr}', 'bootsequence', id])
+            try:
+                run_command([bcdedit, '/set', '{fwbootmgr}', 'displayorder', id, '/addlast'])
+                run_command([bcdedit, '/set', '{fwbootmgr}', 'timeout', '10'])
+                run_command([bcdedit, '/set', '{fwbootmgr}', 'bootsequence', id])
+            except Exception, err: #this shouldn't be fatal
+                log.error(err)
             registry.set_value(
                 'HKEY_LOCAL_MACHINE',
                 self.info.registry_key,
