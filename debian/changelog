@@ -1,3 +1,11 @@
+wubi (16.04r305) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * loop-remount (LP: #1317437):
+    additional fix for initramfs-tools updates
+    https://github.com/hakuna-m/wubiuefi/issues/5
+           
 wubi (16.04r304) xenial; urgency=low
 
   [Hakuna Matata]
