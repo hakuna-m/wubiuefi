@@ -1,3 +1,11 @@
+wubi (16.04r306) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * fix for make errors on Ubuntu 16.04
+    https://github.com/hakuna-m/wubiuefi/issues/7
+  * create empty folder for first 'make'
+ 
 wubi (16.04r305) xenial; urgency=low
 
   [Hakuna Matata]
