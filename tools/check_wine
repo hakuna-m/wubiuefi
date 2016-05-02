@@ -22,6 +22,11 @@ subprocess_md5="00a249ec321786b17b8bb87a4eebcaeb"
 mock_url="http://mock.googlecode.com/files/mock-0.3.1.zip"
 mock_md5="b9f800d9908c158b1e67149e1508571b"
 
+# Ubuntu packages for mingw32
+mingw32_url="http://archive.ubuntu.com/ubuntu/pool/universe/m/mingw32/mingw32_4.2.1.dfsg-2ubuntu1_"
+mingw32_binutils_url="http://archive.ubuntu.com/ubuntu/pool/universe/m/mingw32-binutils/mingw32-binutils_2.20-0.2ubuntu1_"
+mingw32_runtime_url="http://archive.ubuntu.com/ubuntu/pool/universe/m/mingw32-runtime/mingw32-runtime_3.15.2-0ubuntu1_all.deb"
+
 root="$(cd ${0%/*}/../;pwd)"
 export WINEPREFIX="$root"/wine
 python_site="$WINEPREFIX/drive_c/Python23/Lib/site-packages"
@@ -56,6 +61,14 @@ install_mingw32(){
 	if [ ! -x /usr/bin/i586-mingw32msvc-gcc -a ! -x /usr/local/bin/i586-mingw32msvc-gcc ]; then
 		echo "Installing mingw32..."
 		sudo apt-get install mingw32 #TBD do not assume apt
+	fi
+	if [ ! -x /usr/bin/i586-mingw32msvc-gcc -a ! -x /usr/local/bin/i586-mingw32msvc-gcc ]; then
+		echo "Installing mingw32 via dpkg..."
+		arch=$(dpkg --print-architecture)
+		wget "$mingw32_url$arch.deb" -P /tmp -O "/tmp/mingw32.deb"
+		wget "$mingw32_binutils_url$arch.deb" -P /tmp -O "/tmp/mingw32-binutils.deb"
+		wget "$mingw32_runtime_url" -P /tmp -O "/tmp/mingw32-runtime.deb"
+		sudo dpkg -i /tmp/mingw32*.deb
 	fi
 }
 

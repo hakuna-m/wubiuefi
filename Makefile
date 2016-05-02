@@ -115,6 +115,7 @@ grubutil: src/grubutil/grubinst/*
 
 # not compiling 7z at the moment, but source is used by pylauncher
 7z: src/7z/C/*.c
+	mkdir -p build/7z
 	cp -rf src/7z build
 
 runbin: wubi
