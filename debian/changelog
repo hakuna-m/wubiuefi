@@ -1,3 +1,11 @@
+wubi (15.10r306) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * fix for make errors on Ubuntu 15.10
+    https://github.com/hakuna-m/wubiuefi/issues/7
+  * create empty folder for first 'make'
+ 
 wubi (15.10r305) xenial; urgency=low
 
   [Hakuna Matata]
