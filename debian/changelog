@@ -1,3 +1,9 @@
+wubi (16.04r307) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * Add different Wubi configurations for various Ubuntu based distros/versions
+
 wubi (16.04r306) xenial; urgency=low
 
   [Hakuna Matata]

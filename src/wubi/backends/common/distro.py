@@ -24,7 +24,7 @@ import logging
 import re
 
 log = logging.getLogger('Distro')
-disk_info_re = '''(?P<name>[\w\s-]+) (?P<version>[\d.]+)(?: LTS)? \"(?P<codename>[\D]+)\" - (?P<subversion>[\D]+) (?P<arch>i386|amd64) \((?P<build>[\d.]+)\)'''
+disk_info_re = '''(?P<name>[\w\s-]+) (?P<version>[\d.]+)(?: LTS)? \"(?P<codename>[\D]+)\" - (?P<subversion>[\D]+) (?P<arch>i386|amd64) (?:\()?(?P<build>[\d.]+)(?:\))?'''
 disk_info_re = re.compile(disk_info_re)
 
 class Distro(object):
@@ -163,7 +163,7 @@ class Distro(object):
             log.debug('could not get info %s' % info)
             return False
         name, version, subversion, arch = info # used in backend as well
-        if self.name and name != self.name:
+        if self.name and name != self.name and self.version:
             log.debug('wrong name: %s != %s' % (name, self.name))
             return False
         if self.version and not (version == self.version or version.startswith(self.version + '.')):

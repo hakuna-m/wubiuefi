@@ -673,6 +673,10 @@ class Backend(object):
         if not os.path.exists(template_file):
             template_file = join_path(self.info.data_dir, 'preseed.lupin')
         template = read_file(template_file)
+        if self.info.distro.packages:
+            distro_packages_skip = ''
+        else:
+            distro_packages_skip = '#'
         partitioning = ""
         partitioning += "d-i partman-auto/disk string LIDISK\n"
         partitioning += "d-i partman-auto/method string loop\n"
@@ -700,6 +704,7 @@ class Backend(object):
             timezone = self.info.timezone,
             password = password,
             user_full_name = self.info.user_full_name,
+            distro_packages_skip  = distro_packages_skip,
             distro_packages = self.info.distro.packages,
             host_username = self.info.host_username,
             username = self.info.username,
