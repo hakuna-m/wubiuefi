@@ -1,3 +1,12 @@
+wubi (16.04r308) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * Skip mismatched iso files
+    https://github.com/hakuna-m/wubiuefi/issues/9
+  * pre-select local ISOs
+  * backward compatibility for efi patch
+
 wubi (16.04r307) xenial; urgency=low
 
   [Hakuna Matata]

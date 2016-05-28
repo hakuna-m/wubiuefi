@@ -110,6 +110,9 @@ class Distro(object):
             log.debug('    file does not exist')
             return False
         files = self.backend.get_iso_file_names(iso_path)
+        if not files:
+            log.debug('    does not contain any file')
+            return False
         files = [f.strip().lower() for f in files]
         required_files = self.get_required_files()
         for file in required_files:

@@ -788,7 +788,7 @@ class Backend(object):
 
     def find_any_iso(self):
         '''
-        look for USB keys with ISO or pre specified ISO
+        look for local ISOs or pre specified ISO
         '''
         #Use pre-specified ISO
         if self.info.iso_path \
@@ -798,9 +798,9 @@ class Backend(object):
                 if distro.is_valid_iso(self.info.iso_path, self.info.check_arch):
                     self.info.cd_path = None
                     return self.info.iso_path, distro
-        #Search USB devices
-        log.debug("Searching ISOs on USB devices")
-        for path in self.get_usb_search_paths():
+        #Search local ISOs
+        log.debug("Searching for local ISOs")
+        for path in self.get_iso_search_paths():
             path = join_path(path, '*.iso')
             isos = glob.glob(path)
             for iso in isos:

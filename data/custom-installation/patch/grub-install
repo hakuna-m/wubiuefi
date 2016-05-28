@@ -2,7 +2,7 @@
 set -e
 
 if [ -f /usr/sbin/grub-install.real ]; then
-   if cat /usr/sbin/grub-install | grep "will only work on BIOS" >/dev/null; then
+   if ! cat /usr/sbin/grub-install | grep "\-efi" >/dev/null; then
       if [ -f /usr/local/sbin/grub-install-efi ]; then
          cp -f /usr/local/sbin/grub-install-efi /usr/sbin/grub-install
       fi
