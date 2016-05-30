@@ -74,13 +74,13 @@ cpuid: src/cpuid/cpuid.c
 winboot2:
 	mkdir -p build/winboot
 	cp -f data/wubildr.cfg data/wubildr-bootstrap.cfg build/winboot/
-	/usr/lib/grub/i386-pc/grub-ntldr-img --grub2 --boot-file=wubildr -o build/winboot/wubildr.mbr
+	/usr/lib/grub/i386-pc/grub-ntldr-img --grub2 --boot-file=wubild2 -o build/winboot/wubild2.mbr
 	cd build/winboot && tar cf wubildr.tar wubildr.cfg
 	mkdir -p build/grubutil
 	grub-mkimage -O i386-pc -c build/winboot/wubildr-bootstrap.cfg -m build/winboot/wubildr.tar -o build/grubutil/core.img \
 		loadenv biosdisk part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback search linux boot minicmd cat cpuid chain halt help ls reboot \
 		echo test configfile gzio normal sleep memdisk tar font gfxterm gettext true vbe vga video_bochs video_cirrus probe
-	cat /usr/lib/grub/i386-pc/lnxboot.img build/grubutil/core.img > build/winboot/wubildr
+	cat /usr/lib/grub/i386-pc/lnxboot.img build/grubutil/core.img > build/winboot/wubild2
 	mkdir -p build/winboot/EFI
 	grub-mkimage -O x86_64-efi -c build/winboot/wubildr-bootstrap.cfg -m build/winboot/wubildr.tar -o build/winboot/EFI/grubx64.efi \
 		loadenv part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback search linux linuxefi boot minicmd cat cpuid chain halt help ls reboot \
@@ -99,10 +99,10 @@ winboot2:
 winboot: grub4dos grubutil
 	mkdir -p build/winboot
 	cp -f data/menu.winboot build/winboot/menu.lst
-	cp -f build/grub4dos/stage2/grldr build/winboot/wubildr
-	cp -f build/grub4dos/stage2/grub.exe build/winboot/wubildr.exe
-	dd if=build/winboot/wubildr of=build/winboot/wubildr.mbr bs=1 count=8192
-	cd build/winboot; ../grubutil/grubinst/grubinst -o -b=wubildr wubildr.mbr
+	cp -f build/grub4dos/stage2/grldr build/winboot/wubild2
+	cp -f build/grub4dos/stage2/grub.exe build/winboot/wubild2.exe
+	dd if=build/winboot/wubild2 of=build/winboot/wubild2.mbr bs=1 count=8192
+	cd build/winboot; ../grubutil/grubinst/grubinst -o -b=wubild2 wubild2.mbr
 
 grub4dos: src/grub4dos/*
 	cp -rf src/grub4dos build

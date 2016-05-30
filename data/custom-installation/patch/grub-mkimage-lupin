@@ -1,0 +1,193 @@
+#! /bin/sh -e
+
+# grub-install helper script for lupin. This script will upgrade
+# the grub bootloader installed on the host (wubildr).
+#
+# Copyright (C) Agostino Russo
+#
+# Lupin is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as
+# published by the Free Software Foundation; either version 2.1 of
+# the License, or (at your option) any later version.
+#
+# Lupin is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+newns () {
+    [ "$LUPIN_NEWNS" ] || exec /usr/lib/lupin-support/newns "$0" "$@"
+}
+
+# Look for wubildr on all partitions of BIOS-accessible disk devices.
+# We can safely ignore the hibernation case here, because the Windows boot
+# loader boots straight into Windows if Windows was hibernated.
+find_wubildr () {
+    local partitions=
+    for disk in $(grub-mkdevicemap -m - | cut -f2); do
+        disk="$(readlink -f "$disk")" || continue
+        sysdisk="/sys$(udevadm info -q path -n "$disk" 2>/dev/null)" || continue
+        for syspartition in "$sysdisk"/*[0-9]; do
+            [ -d "$syspartition" ] || continue
+            partition="/dev/$(udevadm info -q name -p "$syspartition" 2>/dev/null)" || continue
+            fs="$(grub-probe -t fs -d "$partition" 2>/dev/null)" || continue
+            [ "$fs" = fat ] || [ "$fs" = ntfs ] || continue
+            if [ "$(grub-fstest "$partition" ls /wubild2 2>/dev/null)" ]; then
+                partitions="${partitions:+$partitions }$partition"
+            fi
+        done
+    done
+    echo "$partitions"
+}
+
+parse_proc_mounts () {
+    while read -r line; do
+        set -- $line
+        printf '%s %s %s\n' "$(readlink -f "$1")" "$2" "$3"
+    done
+}
+
+unescape_mount () {
+    printf %s "$1" | \
+        sed 's/\\011/   /g; s/\\012/\n/g; s/\\040/ /g; s/\\134/\\/g'
+}
+
+newns "$@"
+
+prefix=
+test_only=false
+
+for option in "$@"; do
+    case "$option" in
+    --prefix=*)
+        prefix=`echo "$option" | sed 's/--prefix=//'` ;;
+    --test)
+	test_only=: ;;
+    esac
+done
+
+GRUB_DEVICE_BOOT="`grub-probe --target=device /boot`"
+case ${GRUB_DEVICE_BOOT} in
+  /dev/loop/*|/dev/loop[0-9])
+    loop_file=`losetup ${GRUB_DEVICE_BOOT} | sed -e "s/^[^(]*(\([^)]\+\)).*/\1/"`
+  ;;
+esac
+
+# Is /boot loop-mounted from a file on another filesystem?
+if [ "x${loop_file}" = x ] || [ ! -f "${loop_file}" ]; then
+  exit 1
+fi
+
+mtpt="${loop_file%/*}"
+while [ -n "$mtpt" ]; do
+    while read DEV MTPT FSTYPE OPTS REST; do
+        if [ "$MTPT" = "$mtpt" ]; then
+            loop_file=${loop_file#$MTPT}
+            host_mountpoint=$MTPT
+            break
+        fi
+    done < /proc/mounts
+    mtpt="${mtpt%/*}"
+    [ -z "$host_mountpoint" ] || break
+done
+
+if [ "x${host_mountpoint}" = x ]; then
+    exit 1
+fi
+
+target="${host_mountpoint}/wubild2"
+
+if $test_only; then
+    if [ -f "$target" ]; then
+        # Found on this partition
+        exit 0
+    elif [ "$(find_wubildr)" ]; then
+        # Found on some other partition
+        exit 0
+    else
+        # Not found
+        exit 1
+    fi
+fi
+
+wubildr_partitions="$(find_wubildr)"
+
+if [ ! -f "$target" ] && [ -z "$wubildr_partitions" ]; then
+    exit 1
+fi
+
+# TODO You might want to have this as a proper file somewhere in /usr/share
+tmp="$(mktemp -dt)"
+echo 'normal (memdisk)/wubildr.cfg' > "$tmp/wubildr-bootstrap.cfg"
+cat << EOF > "$tmp/wubildr.cfg"
+set show_panic_message=true
+if search -s -f -n $loop_file; then
+    if loopback loop0 $loop_file; then
+        set root=(loop0)
+        if [ -e /boot/grub/grub.cfg ]; then
+            set prefix=(loop0)/boot/grub
+            if configfile /boot/grub/grub.cfg; then
+                set show_panic_message=false
+            fi
+        elif [ -e /grub/grub.cfg ]; then
+                set prefix=(loop0)/grub
+                if configfile /grub/grub.cfg; then
+                    set show_panic_message=false
+                fi
+	else
+		if search -s -f -n /ubuntu2/install/wubildr-disk.cfg; then
+			if configfile /ubuntu2/install/wubildr-disk.cfg; then
+				set show_panic_message=false
+			fi
+		fi
+        fi
+    fi
+fi
+if [ \${show_panic_message} = true ]; then
+    echo "It is not possible to boot from the Ubuntu image."
+    echo "The Windows partition might be corrupted."
+    echo "Please reboot into Windows and run: chkdsk /r"
+    echo "Then try again."
+fi
+EOF
+(cd "$tmp" && tar cf wubildr.tar wubildr.cfg)
+
+# Watch the modules order!
+modules=" \
+    biosdisk part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback \
+    search linux boot echo test gzio normal memdisk tar probe configfile"
+
+# Ensure errors pass through the pipeline.
+s="$( ((grub-mkimage -O i386-pc ${prefix:+--prefix="$prefix"} -c "$tmp/wubildr-bootstrap.cfg" -m "$tmp/wubildr.tar" $modules; echo $? >&3) | cat /usr/lib/grub/i386-pc/lnxboot.img - > "$tmp/wubild2") 3>&1)"; [ "$s" = 0 ]
+
+if [ -f "$target" ]; then
+    cp -af "$tmp/wubild2" "$target.new"
+    mv -f "$target.new" "$target"
+fi
+
+grep ^/dev/ /proc/mounts | parse_proc_mounts >"$tmp/mounted-map"
+mkdir -p "$tmp/mnt"
+for partition in $wubildr_partitions; do
+    if grep -q "^$partition " "$tmp/mounted-map"; then
+        mpoint="$(grep "^$partition " "$tmp/mounted-map" | head -n1 | cut -d' ' -f2)"
+        mpoint="$(unescape_mount "$mpoint")"
+        if [ "$mpoint" = /host ]; then
+            continue
+        fi
+    else
+        mount "$partition" "$tmp/mnt" 2>/dev/null || continue
+        mpoint="$tmp/mnt"
+    fi
+    if [ -f "$mpoint/wubild2" ]; then
+        cp -af "$tmp/wubild2" "$mpoint/wubild2.new"
+        mv -f "$mpoint/wubild2.new" "$mpoint/wubild2"
+    fi
+    if ! grep -q "^$partition " "$tmp/mounted-map"; then
+        umount "$tmp/mnt" || true
+    fi
+done
+
+rm -rf --one-file-system "$tmp" || true

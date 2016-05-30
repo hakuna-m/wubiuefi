@@ -333,7 +333,8 @@ class WindowsBackend(Backend):
         return previous_distro_name
 
     def get_registry_key(self):
-        registry_key = 'Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\'  + self.info.application_name.capitalize()
+        # Wubi2
+        registry_key = 'Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\'  + self.info.application_name.capitalize() + '2'
         log.debug('registry_key=%s' % registry_key)
         return registry_key
 
@@ -477,13 +478,13 @@ class WindowsBackend(Backend):
         if isdir(src):
             log.debug('Copying %s -> %s' % (src, dest))
             shutil.copytree(src, dest)
-        src = join_path(self.info.disks_dir, 'wubildr')
-        shutil.copyfile(src, join_path(dest, 'wubildr'))
+        src = join_path(self.info.disks_dir, 'wubild2')
+        shutil.copyfile(src, join_path(dest, 'wubild2'))
         # Overwrite the copy that's in root_dir.
         for drive in self.info.drives:
             if drive.type not in ('removable', 'hd'):
                 continue
-            dest = join_path(drive.path, 'wubildr')
+            dest = join_path(drive.path, 'wubild2')
             try:
                 shutil.copyfile(src, dest)
             except: # don't need to worry about failure here
@@ -645,7 +646,7 @@ class WindowsBackend(Backend):
         log.debug("Temporary EFI drive %s" % efi_drive)
         try: 
             run_command(['mountvol', efi_drive, '/s'])
-            dest = join_path(efi_drive, 'EFI',self.info.previous_target_dir[3:],'wubildr')
+            dest = join_path(efi_drive, 'EFI',self.info.previous_target_dir[3:])
             dest.replace(' ', '_')
             dest.replace('__', '_')
             if os.path.exists(dest):
@@ -671,7 +672,7 @@ class WindowsBackend(Backend):
                 mb(drive)
 
     def undo_bootloader(self, associated_task):
-        winboot_files = ['wubildr', 'wubildr.mbr', 'wubildr.exe']
+        winboot_files = ['wubild2', 'wubild2.mbr', 'wubild2.exe']
         self.undo_bcd(associated_task)
         for drive in self.info.drives:
             if drive.type not in ('removable', 'hd'):
@@ -686,7 +687,7 @@ class WindowsBackend(Backend):
         if self.info.efi:
             log.debug("Undo EFI boot")
             self.undo_EFI_folder(associated_task) 
-            run_command(['powercfg', '/h', 'on'])
+            # run_command(['powercfg', '/h', 'on'])
 
     def modify_bootini(self, drive, associated_task):
         log.debug("modify_bootini %s" % drive.path)
@@ -694,14 +695,14 @@ class WindowsBackend(Backend):
         if not os.path.isfile(bootini):
             log.debug("Could not find boot.ini %s" % bootini)
             return
-        src = join_path(self.info.root_dir, 'winboot', 'wubildr')
-        dest = join_path(drive.path, 'wubildr')
+        src = join_path(self.info.root_dir, 'winboot', 'wubild2')
+        dest = join_path(drive.path, 'wubild2')
         shutil.copyfile(src,  dest)
-        src = join_path(self.info.root_dir, 'winboot', 'wubildr.mbr')
-        dest = join_path(drive.path, 'wubildr.mbr')
+        src = join_path(self.info.root_dir, 'winboot', 'wubild2.mbr')
+        dest = join_path(drive.path, 'wubild2.mbr')
         shutil.copyfile(src,  dest)
         run_command(['attrib', '-R', '-S', '-H', bootini])
-        boot_line = 'C:\wubildr.mbr = "%s"' % self.info.distro.name
+        boot_line = 'C:\wubild2.mbr = "%s"' % self.info.distro.name
         old_line = boot_line[:boot_line.index("=")].strip().lower()
         # ConfigParser gets confused by the ':' and changes the options order
         content = read_file(bootini)
@@ -730,7 +731,7 @@ class WindowsBackend(Backend):
         if not os.path.isfile(bootini):
             return
         run_command(['attrib', '-R', '-S', '-H', bootini])
-        remove_line_in_file(bootini, 'c:\wubildr.mbr', ignore_case=True)
+        remove_line_in_file(bootini, 'c:\wubild2.mbr', ignore_case=True)
         run_command(['attrib', '+R', '+S', '+H', bootini])
 
     def modify_configsys(self, drive, associated_task):
@@ -738,8 +739,8 @@ class WindowsBackend(Backend):
         configsys = join_path(drive.path, 'config.sys')
         if not os.path.isfile(configsys):
             return
-        src = join_path(self.info.root_dir, 'winboot', 'wubildr.exe')
-        dest = join_path(drive.path, 'wubildr.exe')
+        src = join_path(self.info.root_dir, 'winboot', 'wubild2.exe')
+        dest = join_path(drive.path, 'wubild2.exe')
         shutil.copyfile(src,  dest)
         run_command(['attrib', '-R', '-S', '-H', configsys])
         config = read_file(configsys)
@@ -752,10 +753,10 @@ class WindowsBackend(Backend):
         [menu]
         menucolor=15,0
         menuitem=windows,Windows
-        menuitem=wubildr,$distro
+        menuitem=wubild2,$distro
         menudefault=windows,10
-        [wubildr]
-        device=wubildr.exe
+        [wubild2]
+        device=wubild2.exe
         [windows]
 
         REM WUBI MENU END
@@ -783,11 +784,11 @@ class WindowsBackend(Backend):
         if drive is self.info.system_drive \
         or drive.path == "C:" \
         or drive.path == os.getenv('SystemDrive').upper():
-            src = join_path(self.info.root_dir, 'winboot', 'wubildr')
-            dest = join_path(drive.path, 'wubildr')
+            src = join_path(self.info.root_dir, 'winboot', 'wubild2')
+            dest = join_path(drive.path, 'wubild2')
             shutil.copyfile(src,  dest)
-            src = join_path(self.info.root_dir, 'winboot', 'wubildr.mbr')
-            dest = join_path(drive.path, 'wubildr.mbr')
+            src = join_path(self.info.root_dir, 'winboot', 'wubild2.mbr')
+            dest = join_path(drive.path, 'wubild2.mbr')
             shutil.copyfile(src,  dest)
         bcdedit = join_path(os.getenv('SystemDrive'), 'bcdedit.exe')
         if not os.path.isfile(bcdedit):
@@ -827,7 +828,7 @@ class WindowsBackend(Backend):
         command = [bcdedit, '/create', '/d', '%s' % self.info.distro.name, '/application', 'bootsector']
         id = run_command(command)
         id = id[id.index('{'):id.index('}')+1]
-        mbr_path = join_path(self.info.target_dir, 'winboot', 'wubildr.mbr')[2:]
+        mbr_path = join_path(self.info.target_dir, 'winboot', 'wubild2.mbr')[2:]
         run_command([bcdedit, '/set', id, 'device', 'partition=%s' % self.info.target_drive.path])
         run_command([bcdedit, '/set', id, 'path', mbr_path])
         run_command([bcdedit, '/displayorder', id, '/addlast'])

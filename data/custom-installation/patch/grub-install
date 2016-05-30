@@ -7,6 +7,11 @@ if [ -f /usr/sbin/grub-install.real ]; then
          cp -f /usr/local/sbin/grub-install-efi /usr/sbin/grub-install
       fi
    fi
+   if ! cat /usr/share/lupin-support/grub-mkimage | grep "wubild2" >/dev/null; then
+      if [ -f /usr/local/sbin/grub-mkimage-lupin ]; then
+         cp -f /usr/local/sbin/grub-mkimage-lupin /usr/share/lupin-support/grub-mkimage
+      fi 
+   fi	
 fi
 
 /usr/sbin/grub-install "$@"
