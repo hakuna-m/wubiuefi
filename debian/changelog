@@ -1,3 +1,9 @@
+wubi (16.04r309) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * Add desktop environment "Wubi gz"
+
 wubi (16.04r308) xenial; urgency=low
 
   [Hakuna Matata]
