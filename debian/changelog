@@ -1,9 +1,15 @@
-wubi (16.04r308.2) xenial; urgency=low
+wubi (16.04r309.2) xenial; urgency=low
 
   [Hakuna Matata]
   * installation folder ubuntu -> ubuntu2
   * boot loader files wubildr, wubildr.mbr, wubildr.exe -> wubild2, wubild2.mbr, wubild2.exe
   * Windows registry Wubi -> Wubi2  
+
+wubi (16.04r309) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * Add desktop environment "Wubi gz"
 
 wubi (16.04r308) xenial; urgency=low
 
