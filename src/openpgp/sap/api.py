@@ -1098,7 +1098,7 @@ def verify_msg(signed, key, **kw):
         if keypkt: # either the sigpkt specified a key or an fprint was forced
             assigned += 1
 
-            if sig.body.alg_hash not in (HASH_MD5, HASH_SHA1):
+            if sig.body.alg_hash not in (HASH_MD5, HASH_SHA1, HASH_SHA224, HASH_SHA256, HASH_SHA384, HASH_SHA512):
                 saplog.warn("A signature from ID:%r has an unsupported hash algorithm:%s(%s)." % (signer_id, sig.body.alg_hash, TXT.alg_hash_msg(sig.body.alg_hash)))
             elif CRYPT.verify(sig, target, keypkt, **opts):
                 saplog.info("Verified a signature from ID:%r." % signer_id)

@@ -1,3 +1,12 @@
+wubi (16.04r310) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * Migrate from Python 2.3 to 2.7
+  * Add support for SHA-2 (SHA224, SHA256, SHA384, SHA512)
+    * Add support for Ubuntu GPG signature with SHA512
+    * Add desktop environment "Wubi SHA256" with SHA256 checksums
+
 wubi (16.04r309) xenial; urgency=low
 
   [Hakuna Matata]
