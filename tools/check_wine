@@ -1,16 +1,16 @@
 #!/bin/sh
 
 #Required programs
-python_url="http://www.python.org/ftp/python/2.3.5/Python-2.3.5.exe"
-python_md5="ba6f9eb9da40ad23bc631a1f31149a01"
+python_url="https://www.python.org/ftp/python/2.7.11/python-2.7.11.msi"
+python_md5="241bf8e097ab4e1047d9bb4f59602095"
 p7zip_url="http://heanet.dl.sourceforge.net/sourceforge/sevenzip/7z464.exe"
 p7zip_md5="d2810e3dd4b60ab05fe7c29a50921efa"
-pywin_url="http://downloads.sourceforge.net/pywin32/pywin32-212.win32-py2.3.exe"
-pywin_md5="eceb1b2d9a0d854cb7c7dace13680fba"
+pywin_url="http://downloads.sourceforge.net/pywin32/pywin32-220.win32-py2.7.exe"
+pywin_md5="59be43a3f010602ce623612ecdf34908"
 
 #Compiled modules
-pycrypto_url="http://www.voidspace.org.uk/downloads/pycrypto-2.0.1.win32-py2.3.zip"
-pycrypto_md5="1556d8e51b18fee30f12e22abbf0e46f"
+pycrypto_url="http://www.voidspace.org.uk/downloads/pycrypto26/pycrypto-2.6.win32-py2.7.exe"
+pycrypto_md5="e7875e7f6bf0b23701bdd5ef1d8679cd"
 
 #2.3 modules (not needed in python 2.4+)
 ctypes_url="http://downloads.sourceforge.net/ctypes/ctypes-1.0.2.win32-py2.3.exe"
@@ -29,7 +29,7 @@ mingw32_runtime_url="http://archive.ubuntu.com/ubuntu/pool/universe/m/mingw32-ru
 
 root="$(cd ${0%/*}/../;pwd)"
 export WINEPREFIX="$root"/wine
-python_site="$WINEPREFIX/drive_c/Python23/Lib/site-packages"
+python_site="$WINEPREFIX/drive_c/Python27/Lib/site-packages"
 toolsdir="$root/tools"
 
 download(){
@@ -81,9 +81,9 @@ install_unzip(){
 
 install_python(){
 	echo "Installing python..."
-	download "$python_url" "/tmp/python.exe" "$python_md5"
-    #wine msiexec /i /tmp/${python_url##*/} /qb /ADDLOCAL=DefaultFeature /ALLUSERS=1
-	wine "/tmp/python.exe"
+	download "$python_url" "/tmp/python.msi" "$python_md5"
+    wine msiexec /i /tmp/python.msi /qb /ADDLOCAL=DefaultFeature /ALLUSERS=1
+	# wine "/tmp/python.exe"
 }
 
 install_pywin(){
@@ -112,21 +112,19 @@ install_subprocess(){
 
 install_pycrypto(){
 	echo "Installing pycrypto..."
-	download "$pycrypto_url" "/tmp/pycrypto.zip" "$pycrypto_md5"
-    install_unzip
-	unzip "/tmp/pycrypto.zip" -d "/tmp"
-	cp -a "/tmp/Crypto" "$python_site"
+	download "$pycrypto_url" "/tmp/pycrypto.exe" "$pycrypto_md5"
+    wine "/tmp/pycrypto.exe"
 }
 
 make_wine(){
 	install_wine
 	install_mingw32
 	install_python
-	install_ctypes
+	#~ install_ctypes
 	install_7z
 	install_pycrypto
 	#~ install_pywin
-	install_subprocess
+	#~ install_subprocess
 	install_mock
 }
 

@@ -9,8 +9,7 @@ their respective keys physically appear in the packet (same goes for
 secret keys, in fact it's more important since the order must be known
 to decrypt them properly).
 """
-import sha
-import md5
+import hashlib
 
 import openpgp.sap.util.strnum as STN
 
@@ -136,7 +135,7 @@ class PublicKeyBody:
             # set fingerprint
             if self.version in [2, 3]:
                 integer_data = self.RSA_n._int_d + self.RSA_e._int_d
-                self.fingerprint = md5.new(integer_data).hexdigest().upper()
+                self.fingerprint = hashlib.md5(integer_data).hexdigest().upper()
                 # see fingerprint/id notes in doc/NOTES.txt
                 self.id = STN.str2hex(self.RSA_n._int_d[-8:])
             elif 4 == self.version:
@@ -147,7 +146,7 @@ class PublicKeyBody:
                 lo = (chr(0xff & length)) # low order packet length
                 f.append(hi + lo) 
                 f.append(f_data)
-                self.fingerprint = sha.new(''.join(f)).hexdigest().upper()
+                self.fingerprint = hashlib.sha1(''.join(f)).hexdigest().upper()
                 # see fingerprint/id notes in doc/NOTES.txt
                 self.id = self.fingerprint[-16:]
 

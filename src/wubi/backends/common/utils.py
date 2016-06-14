@@ -20,7 +20,7 @@
 
 import sys
 import os
-import md5
+import hashlib
 import subprocess
 import shutil
 import random
@@ -79,12 +79,12 @@ def md5_password(password):
     salt_chars = './abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     salt = ''.join([random.choice(salt_chars) for i in range(5)])
 
-    hash = md5.new()
+    hash = hashlib.md5()
     hash.update(password)
     hash.update('$1$')
     hash.update(salt)
 
-    second_hash = md5.new()
+    second_hash = hashlib.md5()
     second_hash.update(password)
     second_hash.update(salt)
     second_hash.update(password)
@@ -106,7 +106,7 @@ def md5_password(password):
     hash = hash.digest()
 
     for i in xrange(1000):
-        nth_hash = md5.new()
+        nth_hash = hashlib.md5()
         if i % 2:
             nth_hash.update(password)
         else:
@@ -144,7 +144,7 @@ def md5_password(password):
 
     return ''.join(result)
 
-def get_file_md5(file_path, associated_task=None):
+def get_file_hash(file_path, hash_name='md5', associated_task=None):
     if not file_path or not os.path.isfile(file_path):
         return
     file_size = os.path.getsize(file_path)/(1024**2)
@@ -152,7 +152,7 @@ def get_file_md5(file_path, associated_task=None):
         associated_task.unit = "MB"
         associated_task.size = file_size
     file = open(file_path, "rb")
-    md5hash = md5.new()
+    hash = hashlib.new(hash_name)
     data_read = 0
     for i in range(file_size + 1):
         data = file.read(1024**2)
@@ -163,12 +163,12 @@ def get_file_md5(file_path, associated_task=None):
             if associated_task.set_progress(data_read):
                 file.close()
                 return
-        md5hash.update(data)
+        hash.update(data)
     file.close()
-    md5hash = md5hash.hexdigest()
+    hash = hash.hexdigest()
     if associated_task:
         associated_task.finish()
-    return md5hash
+    return hash
 
 def get_drive_space(drive_path):
     #Windows only

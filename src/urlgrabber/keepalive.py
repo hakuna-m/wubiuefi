@@ -485,7 +485,7 @@ def error_handler(url):
     keepalive_handler.close_all()
 
 def continuity(url):
-    import md5
+    import hashlib
     format = '%25s: %s'
     
     # first fetch the file with the normal http handler
@@ -494,7 +494,7 @@ def continuity(url):
     fo = urllib2.urlopen(url)
     foo = fo.read()
     fo.close()
-    m = md5.new(foo)
+    m = hashlib.md5(foo)
     print format % ('normal urllib', m.hexdigest())
 
     # now install the keepalive handler and try again
@@ -504,7 +504,7 @@ def continuity(url):
     fo = urllib2.urlopen(url)
     foo = fo.read()
     fo.close()
-    m = md5.new(foo)
+    m = hashlib.md5(foo)
     print format % ('keepalive read', m.hexdigest())
 
     fo = urllib2.urlopen(url)
@@ -514,7 +514,7 @@ def continuity(url):
         if f: foo = foo + f
         else: break
     fo.close()
-    m = md5.new(foo)
+    m = hashlib.md5(foo)
     print format % ('keepalive readline', m.hexdigest())
 
 def comp(N, url):

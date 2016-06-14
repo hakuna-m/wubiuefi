@@ -39,8 +39,7 @@ For now, ``k`` is just forced to be a 128-bit prime.
     silliness should be removed.
 """
 
-import sha
-import md5
+import hashlib
 
 from StringIO import StringIO
 
@@ -165,11 +164,23 @@ def hash_context(version, hashalg, sigtype, sigcontext, target, primary):
 
     try:
         if hashalg == HASH_MD5:
-            import md5
-            hashed_target = md5.new(context.read()).digest()
+            import hashlib
+            hashed_target = hashlib.md5(context.read()).digest()
         elif hashalg == HASH_SHA1:
-            import sha
-            hashed_target = sha.new(context.read()).digest()
+            import hashlib
+            hashed_target = hashlib.sha1(context.read()).digest()
+        elif hashalg == HASH_SHA224:
+            import hashlib
+            hashed_target = hashlib.sha224(context.read()).digest()
+        elif hashalg == HASH_SHA256:
+            import hashlib
+            hashed_target = hashlib.sha256(context.read()).digest()
+        elif hashalg == HASH_SHA384:
+            import hashlib
+            hashed_target = hashlib.sha384(context.read()).digest()
+        elif hashalg == HASH_SHA512:
+            import hashlib
+            hashed_target = hashlib.sha512(context.read()).digest()
         else:
             raise NotImplementedError, "Unsupported signature hash algorithm->(%s)" % hashalg
     finally:
@@ -193,6 +204,14 @@ def pad_rsa(alg_hash, hashed_msg, rsa_n_bit_length):
         prefix = '\x30\x20\x30\x0C\x06\x08\x2A\x86\x48\x86\xF7\x0D\x02\x05\x05\x00\x04\x10'
     elif HASH_SHA1 == alg_hash:
         prefix = '\x30\x21\x30\x09\x06\x05\x2b\x0E\x03\x02\x1A\x05\x00\x04\x14'
+    elif HASH_SHA224 == alg_hash:
+        prefix = '\x30\x2d\x30\x0d\x06\x09\x60\x86\x48\x01\x65\x03\x04\x02\x04\x05\x00\x04\x1c'
+    elif HASH_SHA256 == alg_hash:
+        prefix = '\x30\x31\x30\x0d\x06\x09\x60\x86\x48\x01\x65\x03\x04\x02\x01\x05\x00\x04\x20'
+    elif HASH_SHA384 == alg_hash:
+        prefix = '\x30\x41\x30\x0d\x06\x09\x60\x86\x48\x01\x65\x03\x04\x02\x02\x05\x00\x04\x30'
+    elif HASH_SHA512 == alg_hash:
+        prefix = '\x30\x51\x30\x0d\x06\x09\x60\x86\x48\x01\x65\x03\x04\x02\x03\x05\x00\x04\x40'
     else:
         raise NotImplementedError, "Prefix unassigned for RSA signature hash->(%s)" % alg_hash
     padlen = ((rsa_n_bit_length + 7)/8) - len(prefix) - len(hashed_msg) - 3
@@ -850,7 +869,7 @@ def decrypt(encpkt, passphrase='', sespkt=None, keypkt=None):
     elif PKT_SYMENCDATA == encpkt.tag.type:
 
         if None == key == algorithm: # non-integrity allows default key & alg
-            key = md5.new(passphrase).digest
+            key = hashlib.md5(passphrase).digest
             algorithm = SYM_IDEA
 
         clearmsg_d = decrypt_symmetric_resync(algorithm, key, encpkt.body.data)
@@ -959,7 +978,7 @@ def decrypt_secret_key(keypkt, passphrase=''):
                     k = string2key(keypkt.body.s2k, alg, passphrase)
 
                 else:
-                    k = md5.new(passphrase).digest()
+                    k = hashlib.md5(passphrase).digest()
 
                 # extra work required since MPIs integers are encrypted w/out
                 # their lengths

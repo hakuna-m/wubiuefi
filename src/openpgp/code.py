@@ -128,6 +128,7 @@ HASH_7         = 7
 HASH_SHA256    = 8
 HASH_SHA384    = 9
 HASH_SHA512    = 10
+HASH_SHA224    = 11
 HASH_100       = 100
 HASH_101       = 101
 HASH_102       = 102
