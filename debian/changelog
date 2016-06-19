@@ -1,3 +1,9 @@
+wubi (15.10r310) wily; urgency=low
+
+  [Hakuna Matata]
+
+  backport for 15.10
+
 wubi (16.04r310) xenial; urgency=low
 
   [Hakuna Matata]
