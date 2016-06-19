@@ -7,9 +7,5 @@ if [ -f /custom-installation/hooks/post-installer.sh ]; then
 	chmod +x /root/usr/lib/ubiquity/target-config/10post-installer
 fi
 
-if [ -f /custom-installation/patch/autopartition-loop ]; then
-	cp /custom-installation/patch/autopartition-loop  /root/bin/autopartition-loop
-fi
-
 
 
