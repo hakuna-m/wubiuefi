@@ -70,7 +70,7 @@ class Backend(object):
         if self.info.locale:
             locale.setlocale(locale.LC_ALL, self.info.locale)
             log.debug('user defined locale = %s' % self.info.locale)
-        gettext.install(self.info.application_name, localedir=self.info.translations_dir, unicode=True)
+        gettext.install(self.info.application_name, localedir=self.info.translations_dir, unicode=True, names=['ngettext'])
 
     def get_installation_tasklist(self):
         self.cache_cd_path()
