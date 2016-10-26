@@ -148,6 +148,7 @@ distclean: clean
 	find . -type f -name "*.pyo" -delete
 	find . -type f -name "*.pyc" -delete
 	rm -rf .key
+	rm -rf data/custom-installation/packages
 
 .PHONY: all build test wubi wubizip wubi-pre-build pot runpy runbin check_wine check_winboot unittest
 	7z translations version.py pylauncher winboot grubutil grub4dos
