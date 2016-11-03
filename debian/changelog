@@ -1,3 +1,10 @@
+wubi (16.10r317) yakkety; urgency=low
+
+  [Hakuna Matata]
+
+  * add support for NVMe devices
+    https://github.com/hakuna-m/wubiuefi/issues/26
+
 wubi (16.10r316) yakkety; urgency=low
 
   [Hakuna Matata]
