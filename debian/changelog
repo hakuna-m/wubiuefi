@@ -1,3 +1,10 @@
+wubi (16.10r318) yakkety; urgency=low
+
+  [Hakuna Matata]
+
+  * add boot options
+    https://github.com/hakuna-m/wubiuefi/issues/27
+
 wubi (16.10r317) yakkety; urgency=low
 
   [Hakuna Matata]
