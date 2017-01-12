@@ -11,5 +11,7 @@ if [ -f /custom-installation/patch/autopartition-loop ]; then
 	cp /custom-installation/patch/autopartition-loop  /root/bin/autopartition-loop
 fi
 
-
+if [ -f /custom-installation/patch/user-params ]; then
+	cp /custom-installation/patch/user-params  /root/bin/user-params
+fi
 

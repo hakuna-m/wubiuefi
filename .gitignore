@@ -4,3 +4,4 @@ tools/buildtest
 *.pyc
 *.pyo
 .key
+data/custom-installation/packages

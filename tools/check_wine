@@ -19,7 +19,7 @@ subprocess_url="http://effbot.org/media/downloads/subprocess-0.1-20041012.win32-
 subprocess_md5="00a249ec321786b17b8bb87a4eebcaeb"
 
 # Unit test stuff
-mock_url="http://mock.googlecode.com/files/mock-0.3.1.zip"
+mock_url="https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/mock/mock-0.3.1.zip"
 mock_md5="b9f800d9908c158b1e67149e1508571b"
 
 # Ubuntu packages for mingw32
@@ -29,7 +29,9 @@ mingw32_runtime_url="http://archive.ubuntu.com/ubuntu/pool/universe/m/mingw32-ru
 
 root="$(cd ${0%/*}/../;pwd)"
 export WINEPREFIX="$root"/wine
-python_site="$WINEPREFIX/drive_c/Python27/Lib/site-packages"
+program_dir="$WINEPREFIX/drive_c/Program"
+python_dir="$WINEPREFIX/drive_c/Python27"
+python_site="$python_dir/Lib/site-packages"
 toolsdir="$root/tools"
 
 download(){
@@ -116,18 +118,24 @@ install_pycrypto(){
     wine "/tmp/pycrypto.exe"
 }
 
-make_wine(){
+if [ ! -e "$root/wine" ]; then
 	install_wine
+fi
+if [ ! -x /usr/bin/i586-mingw32msvc-gcc -a ! -x /usr/local/bin/i586-mingw32msvc-gcc ]; then
 	install_mingw32
-	install_python
-	#~ install_ctypes
-	install_7z
-	install_pycrypto
+fi
+if [ ! -e "$python_dir/python.exe" ]; then
+        install_python
 	#~ install_pywin
 	#~ install_subprocess
+	#~ install_ctypes
+fi
+if [ ! -e "$python_site/Crypto" ]; then
+	install_pycrypto
+fi
+if [ ! -e "$python_site/mock.py" ]; then
 	install_mock
-}
-
-if [ ! -e "$root/wine" ]; then
-	make_wine
+fi
+if [ ! -e "$program_dir"*"/7-Zip/7z.exe" ]; then
+	install_7z
 fi

@@ -1,3 +1,66 @@
+wubi (16.04.2r319] xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * backport for 16.04.2
+
+wubi (16.10r319) yakkety; urgency=low
+
+  [Hakuna Matata]
+
+  * add Budgie-Remix as Wubi SHA256
+    https://github.com/hakuna-m/wubiuefi/issues/28
+
+wubi (16.10r318) yakkety; urgency=low
+
+  [Hakuna Matata]
+
+  * add boot options
+    https://github.com/hakuna-m/wubiuefi/issues/27
+
+wubi (16.10r317) yakkety; urgency=low
+
+  [Hakuna Matata]
+
+  * add support for NVMe devices
+    https://github.com/hakuna-m/wubiuefi/issues/26
+
+wubi (16.10r316) yakkety; urgency=low
+
+  [Hakuna Matata]
+
+  * add missing package lupin-support
+    https://github.com/hakuna-m/wubiuefi/issues/24
+
+wubi (16.10r315) yakkety; urgency=low
+
+  [Hakuna Matata]
+
+  * Links for final release, remove Mythbuntu 16.10
+  * Improve and update README file
+
+wubi (16.10r314) yakkety; urgency=low
+
+  [Hakuna Matata]
+   
+  * Bump to 16.10
+
+wubi (16.04r313) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * fix text translation of plural forms
+    https://github.com/hakuna-m/wubiuefi/issues/20
+
+wubi (16.04r312) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * https://github.com/hakuna-m/wubiuefi/issues/19
+    * update url for mock-0.3.1.zip
+    * add 'make distclean' to remove configuration
+    * more detailed checks for wine_check
+
 wubi (16.04.1r311) xenial; urgency=low
 
   [Hakuna Matata]

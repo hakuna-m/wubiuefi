@@ -17,3 +17,8 @@ if [ -f /custom-installation/patch/grub-install ] && [ -f /custom-installation/p
 	fi
 fi
 
+arch=$(dpkg --print-architecture)
+if [ ! -f /etc/grub.d/10_lupin ] && [ -f /custom-installation/packages/lupin-support/*$arch.deb ] ; then
+	mkdir -p /var/cache/driver-updates
+	cp /custom-installation/packages/lupin-support/*$arch.deb /var/cache/driver-updates/.
+fi
