@@ -685,8 +685,11 @@ class WindowsBackend(Backend):
 
         if self.info.efi:
             log.debug("Undo EFI boot")
-            self.undo_EFI_folder(associated_task) 
-            run_command(['powercfg', '/h', 'on'])
+            self.undo_EFI_folder(associated_task)
+            try:
+                run_command(['powercfg', '/h', 'on'])
+            except Exception, err: #this shouldn't be fatal
+                log.error(err)
 
     def modify_bootini(self, drive, associated_task):
         log.debug("modify_bootini %s" % drive.path)
@@ -806,7 +809,10 @@ class WindowsBackend(Backend):
         if self.info.efi:
             log.debug("EFI boot")
             efi_path = self.modify_EFI_folder(associated_task,bcdedit)
-            run_command(['powercfg', '/h', 'off'])
+            try:
+                run_command(['powercfg', '/h', 'off'])
+            except Exception, err: #this shouldn't be fatal
+                log.error(err)
             command = [bcdedit, '/copy', '{bootmgr}', '/d', '%s' % self.info.distro.name]
             id = run_command(command)
             id = id[id.index('{'):id.index('}')+1]
