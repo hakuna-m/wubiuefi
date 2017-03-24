@@ -1,3 +1,13 @@
+wubi (17.04r321) zesty; urgency=low
+
+  [Hakuna Matata]
+
+  * 'make' for new shim files
+    https://github.com/hakuna-m/wubiuefi/issues/45
+  * minor enhancements for 17.04
+    * adjust size of iso
+    * remove mythbuntu preseed
+
 wubi (17.04r320) zesty; urgency=low
 
   [Hakuna Matata]
