@@ -115,7 +115,13 @@ class InstallationPage(Page):
         target_drive = self.get_drive()
         self.size_list_gb = []
         self.size_list.clear()
-        for i in range(1, 31):
+        i_size_list = range(1, 33) + [64, 128, 256, 512]
+        if self.info.installation_size_mb:
+            i = int(self.info.installation_size_mb/1000)
+            if i not in i_size_list:
+               i_size_list.append(i)
+               i_size_list.sort()
+        for i in i_size_list:
             #~ log.debug("%s < %s and %s > %s" % (i * 1000 + self.info.distro.max_iso_size/1024**2 + 100 , target_drive.free_space_mb, i * 1000 , self.info.distro.min_disk_space_mb))
             if self.info.skip_size_check \
             or i * 1000 >= self.info.distro.min_disk_space_mb: #use 1000 as it is more conservative

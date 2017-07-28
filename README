@@ -24,7 +24,8 @@ confirm all the default choices in the installation screens that will appear.
  * make check_wine: creates the Wine environment if it doesn't exist.
  * make check_winboot: creates the environment for building and signing
    boot loaders if it doesn't exist.
- * make winboot: creates the boot loader files
+ * make winboot: creates the boot loader files (old version)
+ * make winboot2: creates the boot loader files (new version)
  * make clean: removes built files
  * make distclean: removes built files and environment
 

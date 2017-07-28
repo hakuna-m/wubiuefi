@@ -12,11 +12,7 @@ if [ ! -e /usr/lib/grub/i386-efi/moddep.lst ]; then
 	echo "Installing grub-efi-ia32-bin"
 	sudo apt-get install grub-efi-ia32-bin #TBD do not assume apt
 fi
-if [ ! -e /usr/lib/shim/MokManager.efi.signed ]; then
-	echo "Installing shim..."
-	sudo apt-get install shim #TBD do not assume apt
-fi
-if [ ! -e /usr/lib/shim/shim.efi.signed ]; then
+if [ ! -e /usr/lib/shim/shim.efi.signed ] && [ ! -e /usr/lib/shim/shimx64.efi.signed ]; then
 	echo "Installing shim-signed..."
 	sudo apt-get install shim-signed #TBD do not assume apt
 fi

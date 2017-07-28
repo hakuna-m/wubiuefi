@@ -86,8 +86,12 @@ winboot2:
 		loadenv part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback search linux linuxefi boot minicmd cat cpuid chain halt help ls reboot \
 		echo test configfile gzio normal sleep memdisk tar font gfxterm gettext true efi_gop efi_uga video_bochs video_cirrus probe efifwsetup \
 		all_video gfxterm_background png gfxmenu
-	cp /usr/lib/shim/shim.efi.signed build/winboot/EFI/shimx64.efi
-	cp /usr/lib/shim/MokManager.efi.signed build/winboot/EFI/MokManager.efi
+	cp /usr/lib/shim/shim.efi.signed build/winboot/EFI/shimx64.efi 2>/dev/null || \
+		cp /usr/lib/shim/shimx64.efi.signed build/winboot/EFI/shimx64.efi
+	cp /usr/lib/shim/MokManager.efi.signed build/winboot/EFI/MokManager.efi 2>/dev/null || \
+		cp /usr/lib/shim/mmx64.efi.signed build/winboot/EFI/mmx64.efi
+	cp /usr/lib/shim/fallback.efi.signed build/winboot/EFI/fallback.efi 2>/dev/null || \
+		cp /usr/lib/shim/fbx64.efi.signed build/winboot/EFI/fbx64.efi
 	sbsign --key .key/*.key --cert .key/*.crt --output build/winboot/EFI/grubx64.efi build/winboot/EFI/grubx64.efi
 	grub-mkimage -O i386-efi -c build/winboot/wubildr-bootstrap.cfg -m build/winboot/wubildr.tar -o build/winboot/EFI/grubia32.efi \
 		loadenv part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback search linux linuxefi boot minicmd cat cpuid chain halt help ls reboot \
@@ -151,4 +155,4 @@ distclean: clean
 	rm -rf data/custom-installation/packages
 
 .PHONY: all build test wubi wubizip wubi-pre-build pot runpy runbin check_wine check_winboot unittest
-	7z translations version.py pylauncher winboot grubutil grub4dos
+	7z translations version.py pylauncher winboot winboot2 grubutil grub4dos clean distclean

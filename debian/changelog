@@ -1,8 +1,35 @@
-wubi (16.04.2r319) xenial; urgency=low
+wubi (16.04.3r322) xenial; urgency=low
 
   [Hakuna Matata]
 
-  * backport for 16.04.2
+  * backport for 16.04.3
+
+wubi (17.04r322) zesty; urgency=low
+
+  [Hakuna Matata]
+
+  * disk size > 30 GB
+    https://github.com/hakuna-m/wubiuefi/issues/56
+
+wubi (17.04r321) zesty; urgency=low
+
+  [Hakuna Matata]
+
+  * 'make' for new shim files
+    https://github.com/hakuna-m/wubiuefi/issues/45
+  * minor enhancements for 17.04
+    * adjust size of iso
+    * remove mythbuntu preseed
+
+wubi (17.04r320) zesty; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 17.04
+    * add Ubuntu Budgie
+    * remove Mythbuntu
+  * error handling for powercfg
+    https://github.com/hakuna-m/wubiuefi/issues/43
 
 wubi (16.10r319) yakkety; urgency=low
 
