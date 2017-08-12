@@ -1,3 +1,10 @@
+wubi (17.04r323) zesty; urgency=low
+
+  [Hakuna Matata]
+
+  * Import commit from https://github.com/jacwib/wubiuefi
+    Update check_wine
+
 wubi (17.04r322) zesty; urgency=low
 
   [Hakuna Matata]
