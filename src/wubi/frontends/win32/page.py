@@ -42,7 +42,7 @@ class Page(ui.Page):
         language2 = language1 and language1.split('_')[0]
         log.info("appname=%s, localedir=%s, languages=%s",self.info.application_name, self.info.translations_dir, [language1, language2])
         translation = gettext.translation(self.info.application_name, localedir=self.info.translations_dir, languages=[language1, language2, "en_US", "en"])
-        translation.install(unicode=True)
+        translation.install(unicode=True, names=['ngettext'])
     def insert_vertical_image(self, bmp_file):
         self.vertical_image = ui.Bitmap(
             self,

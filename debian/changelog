@@ -2,6 +2,8 @@ wubi (17.04r323) zesty; urgency=low
 
   [Hakuna Matata]
 
+  * additional fix for text translations of plural forms 
+    https://github.com/hakuna-m/wubiuefi/issues/20
   * Import commit from https://github.com/jacwib/wubiuefi
     Update check_wine
 
