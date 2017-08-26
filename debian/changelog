@@ -1,3 +1,10 @@
+wubi (17.04r324.0) zesty; urgency=low
+
+  [Hakuna Matata]
+
+  * native disk driver support for GRUB2
+    https://github.com/hakuna-m/wubiuefi/issues/49
+
 wubi (17.04r323) zesty; urgency=low
 
   [Hakuna Matata]

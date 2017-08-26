@@ -85,7 +85,8 @@ winboot2:
 	grub-mkimage -O x86_64-efi -c build/winboot/wubildr-bootstrap.cfg -m build/winboot/wubildr.tar -o build/winboot/EFI/grubx64.efi \
 		loadenv part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback search linux linuxefi boot minicmd cat cpuid chain halt help ls reboot \
 		echo test configfile gzio normal sleep memdisk tar font gfxterm gettext true efi_gop efi_uga video_bochs video_cirrus probe efifwsetup \
-		all_video gfxterm_background png gfxmenu
+		all_video gfxterm_background png gfxmenu \
+		nativedisk pata ahci usbms ohci uhci ehci usb_keyboard
 	cp /usr/lib/shim/shim.efi.signed build/winboot/EFI/shimx64.efi 2>/dev/null || \
 		cp /usr/lib/shim/shimx64.efi.signed build/winboot/EFI/shimx64.efi
 	cp /usr/lib/shim/MokManager.efi.signed build/winboot/EFI/MokManager.efi 2>/dev/null || \
@@ -96,7 +97,8 @@ winboot2:
 	grub-mkimage -O i386-efi -c build/winboot/wubildr-bootstrap.cfg -m build/winboot/wubildr.tar -o build/winboot/EFI/grubia32.efi \
 		loadenv part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback search linux linuxefi boot minicmd cat cpuid chain halt help ls reboot \
 		echo test configfile gzio normal sleep memdisk tar font gfxterm gettext true efi_gop efi_uga video_bochs video_cirrus probe efifwsetup \
-		all_video gfxterm_background png gfxmenu
+		all_video gfxterm_background png gfxmenu \
+		nativedisk pata ahci usbms ohci uhci ehci usb_keyboard
 	sbsign --key .key/*.key --cert .key/*.crt --output build/winboot/EFI/grubia32.efi build/winboot/EFI/grubia32.efi
 	cp .key/*.cer build/winboot/EFI/.
 
