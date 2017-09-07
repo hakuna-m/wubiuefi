@@ -1,3 +1,12 @@
+wubi (17.04r325) zesty; urgency=low
+
+  [Hakuna Matata]
+
+  * Remove fallback.efi/fbx64.efi
+  * Replace shim 0.9+1474479173.6c180c6 with previous version
+    https://github.com/hakuna-m/wubiuefi/issues/64
+    https://github.com/hakuna-m/wubiuefi/issues/66
+
 wubi (17.04r323) zesty; urgency=low
 
   [Hakuna Matata]
