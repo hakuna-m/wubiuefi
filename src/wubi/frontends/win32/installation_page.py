@@ -295,7 +295,7 @@ class InstallationPage(Page):
         language4 = language3 and language3.split('.')[0]
         language5 = language4 and language4.split('_')[0]
         translation = gettext.translation(self.info.application_name, localedir=self.info.translations_dir, languages=[language1, language2, language3, language4, language5])
-        translation.install(unicode=True)
+        translation.install(unicode=True, names=[ngettext])
 
     def on_drive_change(self):
         self.info.target_drive = self.get_drive()

@@ -1,8 +1,26 @@
-wubi (16.04.3r322) xenial; urgency=low
+wubi (16.04.3r325) xenial; urgency=low
 
   [Hakuna Matata]
 
   * backport for 16.04.3
+
+wubi (17.04r325) zesty; urgency=low
+
+  [Hakuna Matata]
+
+  * Remove fallback.efi/fbx64.efi
+  * Replace shim 0.9+1474479173.6c180c6 with previous version
+    https://github.com/hakuna-m/wubiuefi/issues/64
+    https://github.com/hakuna-m/wubiuefi/issues/66
+
+wubi (17.04r323) zesty; urgency=low
+
+  [Hakuna Matata]
+
+  * additional fix for text translations of plural forms 
+    https://github.com/hakuna-m/wubiuefi/issues/20
+  * Import commit from https://github.com/jacwib/wubiuefi
+    Update check_wine
 
 wubi (17.04r322) zesty; urgency=low
 
