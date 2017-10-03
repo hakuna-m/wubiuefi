@@ -3,6 +3,8 @@ wubi (17.10r326) artful; urgency=low
   [Hakuna Matata]
 
   * Bump to 17.10
+  * add nvidia boot option
+    https://github.com/hakuna-m/wubiuefi/issues/57
 
 wubi (17.04r325) zesty; urgency=low
 
