@@ -62,7 +62,7 @@ class ProgressPage(Page):
         self.main.task_label.set_text(task.description)
         if task.get_percent_completed() > 0:
             self.main.subprogressbar.set_position(int(100*task.get_percent_completed()))
-            self.main.subtask_label.set_text(ngettext("Remaining time approximately %s","Remaining time approximately %s",task.estimate_remaining_time()) % task.estimate_remaining_time())
+            self.main.subtask_label.set_text(ngettext("Remaining time approximately %s","Remaining time approximately %s",task.estimate_remaining_time()[1]) % task.estimate_remaining_time()[0])
             self.main.subtask_label.show()
             self.main.subprogressbar.show()
         else:

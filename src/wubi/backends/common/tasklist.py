@@ -250,14 +250,14 @@ class Task(object):
 
     def estimate_remaining_time(self):
         '''
-        Remaining time in human readable format
+        Remaining time in human readable format + number for plural forms
         '''
         if self.end_time:
-            return _("0s")
+            return _("0s"),0
         end_time = self.estimate_end_time()
         secs = end_time - time.time()
         if secs <= 0:
-            return _("0s")
+            return _("0s"),0
         hours = int(secs/3600)
         secs = secs - hours*3600
         mins = int(secs/60)
@@ -267,13 +267,17 @@ class Task(object):
         message = []
         if hours:
             message.append(_("%ih") % hours)
+            plural_n = hours + mins
         if mins:
             message.append(_("%imin") % mins)
         if not hours:
+            plural_n = mins + secs
             if not mins or secs:
                 message.append(_("%is") % secs)
+        if plural_n > 1:
+            plural_n = 2
         message = " ".join(message)
-        return message
+        return message, plural_n
 
     def get_level(self):
         '''
@@ -292,7 +296,7 @@ class Task(object):
         message += "%i%% " % (self.get_percent_completed()*100)
         if self.get_speed():
             message += self.get_speed() + " "
-        message += self.estimate_remaining_time()
+        message += self.estimate_remaining_time()[0]
         message = message.strip()
         return message
 

@@ -1,3 +1,10 @@
+wubi (17.10r327) artful; urgency=low
+
+  [Hakuna Matata]
+
+  * fix plural forms for some locale settings
+    https://github.com/hakuna-m/wubiuefi/issues/77
+
 wubi (17.10r326) artful; urgency=low
 
   [Hakuna Matata]
