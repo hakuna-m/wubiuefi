@@ -1,5 +1,9 @@
 #!/bin/sh
 
+shim_signed_url="http://archive.ubuntu.com/ubuntu/pool/main/s/shim-signed/shim-signed_1.21.3+0.9+1465500757.14a5905.is.0.8-0ubuntu3_amd64.deb"
+shim_url="http://archive.ubuntu.com/ubuntu/pool/main/s/shim/shim_0.9+1465500757.14a5905.is.0.8-0ubuntu3_amd64.deb"
+shim_blacklist_md5="3aef9c72ad50faa8db576c01f85a0915"
+
 if [ ! -e /usr/lib/grub/i386-pc/moddep.lst ]; then
 	echo "Installing grub-pc-bin"
 	sudo apt-get install grub-pc-bin #TBD do not assume apt
@@ -12,13 +16,20 @@ if [ ! -e /usr/lib/grub/i386-efi/moddep.lst ]; then
 	echo "Installing grub-efi-ia32-bin"
 	sudo apt-get install grub-efi-ia32-bin #TBD do not assume apt
 fi
-if [ ! -e /usr/lib/shim/MokManager.efi.signed ]; then
-	echo "Installing shim..."
-	sudo apt-get install shim #TBD do not assume apt
-fi
-if [ ! -e /usr/lib/shim/shim.efi.signed ]; then
+if [ ! -e /usr/lib/shim/shim.efi.signed ] && [ ! -e /usr/lib/shim/shimx64.efi.signed ]; then
 	echo "Installing shim-signed..."
 	sudo apt-get install shim-signed #TBD do not assume apt
+fi
+if [ -e /usr/lib/shim/shimx64.efi.signed ] &&
+   [ "$(md5sum /usr/lib/shim/shimx64.efi.signed | cut -d ' ' -f 1)" = "$shim_blacklist_md5" ] && 
+   [ ! -e shim/shim.efi.signed ]; then
+	echo "Installed shim is blacklisted, downloading previous version of shim"
+	mkdir -p shim
+	wget "$shim_signed_url" -P /tmp -O "/tmp/shim-signed.deb"
+	dpkg -x /tmp/shim-signed.deb /tmp/shim
+	wget "$shim_url" -P /tmp -O "/tmp/shim.deb"
+	dpkg -x /tmp/shim.deb /tmp/shim
+	cp /tmp/shim/usr/lib/shim/*.efi.signed shim/.
 fi
 if [ ! -e /usr/bin/sbsign ]; then
 	echo "Installing sbsigntool..."
@@ -35,7 +46,11 @@ if [ ! -e .key ];then
 	-out  .key/$(whoami)_wubi.crt -nodes -days 3650 -subj "/CN="$(whoami)" Wubi/"
 	openssl x509 -in  .key/$(whoami)_wubi.crt -out  .key/$(whoami)_wubi.cer -outform DER
 fi
-
-
-
-
+if [ ! -e data/custom-installation/packages/lupin-support ]; then
+	echo "Downloading lupin-support packages"
+	mkdir -p data/custom-installation/packages/lupin-support
+	cd data/custom-installation/packages/lupin-support
+	apt-get download lupin-support:i386 #TBD do not assume apt
+	apt-get download lupin-support:amd64 #TBD do not assume apt
+	cd ../../../..
+fi

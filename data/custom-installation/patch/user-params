@@ -1,0 +1,104 @@
+#!/bin/sh
+if [ -z "$TESTSUITE" ]; then
+	CMDLINE=/proc/cmdline
+	ALIASES=/etc/preseed_aliases
+else
+	CMDLINE=user-params.in
+	ALIASES=user-params.aliases
+fi
+
+# sed out multi-word quoted value settings
+for item in $(sed -e 's/[^ =]*="[^"]*[ ][^"]*"//g' \
+		  -e "s/[^ =]*='[^']*[ ][^']*'//g" $CMDLINE); do
+	var="${item%=*}"
+	# Remove trailing '?' for debconf variables set with '?='
+	var="${var%\?}"
+
+	if [ "$item" = "--" ] || [ "$item" = "---" ]; then
+		inuser=1
+		collect=""
+	elif [ "$inuser" ]; then
+		# BOOT_IMAGE is added by syslinux
+		if [ "$var" = "BOOT_IMAGE" ]; then
+			continue
+		fi
+
+		# init is not generally useful to pass on
+		if [ "$var" = init ]; then
+			continue
+		fi
+
+		# suppress installer-specific parameters
+		if [ "$var" = BOOT_DEBUG ] || [ "$var" = DEBIAN_FRONTEND ] || \
+		   [ "$var" = INSTALL_MEDIA_DEV ] || [ "$var" = lowmem ] || \
+		   [ "$var" = noshell ]; then
+			continue
+		fi
+
+		# brltty settings shouldn't be passed since
+		# they are already recorded in /etc/brltty.conf
+		if [ "$var" = brltty ]; then
+			continue
+		fi
+
+		# ks is only useful to kickseed in the first stage.
+		if [ "$var" = ks ]; then
+			continue
+		fi
+
+		# We don't believe that vga= is needed to display a console
+		# any more now that we've switched to 640x400 by default,
+		# and it breaks suspend/resume. People can always type it in
+		# again at the installed boot loader if need be.
+		if [ "$var" = vga ]; then
+			continue
+		fi
+
+		# Sometimes used on the live CD for debugging initramfs-tools.
+		if [ "$var" = break ]; then
+			continue
+		fi
+
+		# Skip live-CD-specific crud
+		if [ "${var%-ubiquity}" != "$var" ] || \
+		   [ "$var" = noninteractive ]; then
+			continue
+		fi
+
+		# Skip debconf variables
+		varnoslash="${var##*/*}"
+		if [ "$varnoslash" = "" ]; then
+			continue
+		fi
+
+		# Skip module-specific variables
+		# varnodot="${var##*.*}"
+		# if [ "$varnodot" = "" ]; then
+		#	continue
+		# fi
+
+		# Skip preseed aliases
+		if [ -e "$ALIASES" ] && \
+		   grep -q "^$var[[:space:]]" "$ALIASES"; then
+			continue
+		fi
+
+		if [ -z "$collect" ]; then
+			collect="$item"
+		else
+			collect="$collect $item"
+		fi
+	fi
+done
+
+if [ -z "$TESTSUITE" ]; then
+	# Include default parameters
+	RET=`debconf-get debian-installer/add-kernel-opts || true`
+	if [ "$RET" ]; then
+	        collect="$collect $RET"
+	fi
+fi
+
+for word in $collect; do
+	echo "$word"
+done

@@ -7,8 +7,7 @@ to a normal installation.
 
 For more information see:
 
-http://wubi-installer.org
-http://wiki.ubuntu.com/WubiGuide
+https://github.com/hakuna-m/wubiuefi/wiki
 
 == Compiling ==
 
@@ -22,6 +21,13 @@ confirm all the default choices in the installation screens that will appear.
    Inside of Windows, unzip the archive, then run
    "python.exe main.py --verbose". You can edit any file inside of ./lib.
  * make pot: generates a gettext template (po/wubi.pot)
+ * make check_wine: creates the Wine environment if it doesn't exist.
+ * make check_winboot: creates the environment for building and signing
+   boot loaders if it doesn't exist.
+ * make winboot: creates the boot loader files (old version)
+ * make winboot2: creates the boot loader files (new version)
+ * make clean: removes built files
+ * make distclean: removes built files and environment
 
 == Code overview ==
 
@@ -45,7 +51,7 @@ stage)
 
 Wubi performs the following tasks
 
- * feteches information about the running system which will be used
+ * fetches information about the running system which will be used
 during installation
  * checks that the minimum installation requirements are met
  * retrieves required user information via a GUI
@@ -69,6 +75,8 @@ particular it must have .disk/info formatted like .disk/info in the Ubuntu ISO
  * you must provide a webserver with metalink file, metalink file md5
 checksums and signatures for the md5 sums
  * add your signing key to data/trustedkeys.gpg
+ * replace the generated dummy keys in .key with your signing keys for
+   Secure Boot
  * on the linux side, the distribution must be capable of booting and
 rebooting off a loop file, perform an automatic installation and accept
 the special boot parameters that indicate the local preseed file and ISO

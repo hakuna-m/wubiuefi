@@ -70,7 +70,7 @@ class Backend(object):
         if self.info.locale:
             locale.setlocale(locale.LC_ALL, self.info.locale)
             log.debug('user defined locale = %s' % self.info.locale)
-        gettext.install(self.info.application_name, localedir=self.info.translations_dir, unicode=True)
+        gettext.install(self.info.application_name, localedir=self.info.translations_dir, unicode=True, names=['ngettext'])
 
     def get_installation_tasklist(self):
         self.cache_cd_path()
@@ -765,7 +765,10 @@ class Backend(object):
             title1 = "Completing the Ubuntu installation.",
             title2 = "For more installation boot options, press `ESC' now...",
             normal_mode_title = "Normal mode",
+            pae_mode_title = "PAE mode",
             safe_graphic_mode_title = "Safe graphic mode",
+            intel_graphics_workarounds_title = "Intel graphics workarounds",
+            nvidia_graphics_workarounds_title = "Nvidia graphics workarounds",
             acpi_workarounds_title = "ACPI workarounds",
             verbose_mode_title = "Verbose mode",
             demo_mode_title =  "Demo mode",
