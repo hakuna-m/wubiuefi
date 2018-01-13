@@ -1,3 +1,10 @@
+wubi (17.10.1r327) artful; urgency=low
+
+  [Hakuna Matata]
+
+  * Change download links to 17.10.1 to use ISOs with fix for 
+    https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1734147
+
 wubi (17.10r327) artful; urgency=low
 
   [Hakuna Matata]
