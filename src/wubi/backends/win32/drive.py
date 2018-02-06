@@ -61,6 +61,18 @@ class Drive(object):
             filesystem = buf.value.lower()
         return filesystem
 
+    def get_volumename(self):
+        MAX_PATH = 255
+        if not hasattr(ctypes.windll.kernel32, "GetVolumeInformationA"):
+            return ""
+        volumename = ""
+        path = self.path[0] + ':\\'
+        buf = ctypes.create_string_buffer("", MAX_PATH)
+        ctypes.windll.kernel32.GetVolumeInformationA(path, buf, len(buf), None, None, None, None, 0)
+        if isinstance(buf.value, str):
+            volumename = buf.value.lower()
+        return volumename
+
     def get_space(self):
         drive_path = self.path
         freeuser = ctypes.c_int64()

@@ -1,3 +1,10 @@
+wubi (17.10.1r328) artful; urgency=low
+
+  [Hakuna Matata]
+
+  * Add rEFInd
+    https://github.com/hakuna-m/wubiuefi/issues/84
+
 wubi (17.10.1r327) artful; urgency=low
 
   [Hakuna Matata]

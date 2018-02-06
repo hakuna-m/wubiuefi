@@ -83,6 +83,11 @@ for item in $(sed -e 's/[^ =]*="[^"]*[ ][^"]*"//g' \
 			continue
 		fi
 
+		# Skip initrd which is added by rEFInd for EFI stub loader
+		if [ "$var" = "initrd" ]; then
+			continue
+		fi
+
 		if [ -z "$collect" ]; then
 			collect="$item"
 		else

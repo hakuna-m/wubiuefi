@@ -84,6 +84,8 @@ class WindowsBackend(Backend):
         self.info.target_dir = target_dir
         log.info('Installing into %s' % target_dir)
         self.info.icon = join_path(self.info.target_dir, self.info.distro.name + '.ico')
+        self.info.refind_icon = join_path(self.info.target_dir, self.info.distro.name + '.png')
+        self.info.refind_icon.replace(' ', '_')
 
     def uncompress_target_dir(self, associated_task):
         if self.info.target_drive.is_fat():
@@ -158,6 +160,10 @@ class WindowsBackend(Backend):
         replace_line_in_file(dest, 'msg=', msg)
         src = join_path(self.info.image_dir, self.info.distro.name + '.ico')
         dest = self.info.icon
+        log.debug('Copying %s -> %s' % (src, dest))
+        shutil.copyfile(src, dest)
+        src = join_path(self.info.image_dir, self.info.distro.name + '.png')
+        dest = self.info.refind_icon
         log.debug('Copying %s -> %s' % (src, dest))
         shutil.copyfile(src, dest)
 
@@ -592,7 +598,7 @@ class WindowsBackend(Backend):
             log.debug("Temporary EFI drive %s" % efi_drive)
         if efi_drive != boot_drive:
             run_command(['mountvol', efi_drive, '/s'])
-        src = join_path(self.info.root_dir, 'winboot','EFI')
+        src = join_path(self.info.target_dir, 'winboot','EFI')
         src.replace(' ', '_')
         src.replace('__', '_')
         dest = join_path(efi_drive, 'EFI',self.info.target_dir[3:])

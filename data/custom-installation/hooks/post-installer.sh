@@ -22,3 +22,11 @@ if [ ! -f /etc/grub.d/10_lupin ] && [ -f /custom-installation/packages/lupin-sup
 	mkdir -p /var/cache/driver-updates
 	cp /custom-installation/packages/lupin-support/*$arch.deb /var/cache/driver-updates/.
 fi
+
+if [ -f /custom-installation/patch/lupin-refind ] ; then
+	if [ -d /sys/firmware/efi ]; then
+		mkdir -p /target/etc/grub.d
+		cp /custom-installation/patch/lupin-refind /target/etc/grub.d/10_lupin_refind
+		chmod +x /target/etc/grub.d/10_lupin_refind
+	fi
+fi

@@ -65,6 +65,8 @@ class Backend(object):
         self.info.trusted_keys = join_path(self.info.data_dir, 'trustedkeys.gpg')
         self.info.application_icon = join_path(self.info.image_dir, self.info.application_name.capitalize() + ".ico")
         self.info.icon = self.info.application_icon
+        self.info.refind_icon = join_path(self.info.image_dir, self.info.application_name.capitalize() + ".png")
+        self.info.refind_icon = self.info.refind_icon.replace(' ', '_')
         self.info.iso_md5_hashes = {}
         log.debug('data_dir=%s' % self.info.data_dir)
         if self.info.locale:
@@ -110,8 +112,8 @@ class Backend(object):
             Task(self.extract_kernel, description=_("Extracting the kernel")),
             Task(self.choose_disk_sizes, description=_("Choosing disk sizes")),
             Task(self.create_preseed, description=_("Creating a preseed file")),
-            Task(self.modify_bootloader, description=_("Adding a new bootloader entry")),
             Task(self.modify_grub_configuration, description=_("Setting up installation boot menu")),
+            Task(self.modify_bootloader, description=_("Adding a new bootloader entry")),
             Task(self.create_virtual_disks, description=_("Creating the virtual disks")),
             Task(self.uncompress_files, description=_("Uncompressing files")),
             Task(self.eject_cd, description=_("Ejecting the CD")),
@@ -131,8 +133,8 @@ class Backend(object):
             Task(self.use_cd, description=_("Extracting CD content")),
             Task(self.extract_kernel, description=_("Extracting the kernel")),
             Task(self.create_preseed_cdboot, description=_("Creating a preseed file")),
-            Task(self.modify_bootloader, description=_("Adding a new bootloader entry")),
             Task(self.modify_grub_configuration, description=_("Setting up installation boot menu")),
+            Task(self.modify_bootloader, description=_("Adding a new bootloader entry")),
             Task(self.uncompress_files, description=_("Uncompressing files")),
             Task(self.eject_cd, description=_("Ejecting the CD")),
             ]
@@ -681,6 +683,20 @@ class Backend(object):
         target = join_path(self.info.install_dir, "wubildr-disk.cfg")
         copy_file(source, target)
 
+        source = join_path(self.info.data_dir, "refind-disk.cfg")
+        template = read_file(source)
+        dic = dict(
+            title = self.info.distro.name,
+            volume = self.info.target_drive.get_volumename(),
+            icon = unix_path(self.info.refind_icon),)
+        content = template
+        for k,v in dic.items():
+            k = "$(%s)" % k
+            content = content.replace(k, v)
+        target = join_path(self.info.target_dir, "winboot", "EFI", "refind-wubi.conf")
+        write_file(target, content)
+        self.modify_refind()
+
     def create_preseed_cdboot(self):
         source = join_path(self.info.data_dir, 'preseed.cdboot')
         target = join_path(self.info.custominstall, "preseed.cfg")
@@ -744,6 +760,8 @@ class Backend(object):
     def modify_grub_configuration(self):
         template_file = join_path(self.info.data_dir, 'grub.install.cfg')
         template = read_file(template_file)
+        refind_template_file = join_path(self.info.data_dir, 'refind-install.cfg')
+        refind_template = read_file(refind_template_file)
         if self.info.run_task == "cd_boot":
             isopath = ""
         ## TBD at the moment we are extracting the ISO, not the CD content
@@ -772,16 +790,38 @@ class Backend(object):
             acpi_workarounds_title = "ACPI workarounds",
             verbose_mode_title = "Verbose mode",
             demo_mode_title =  "Demo mode",
+            title = self.info.distro.name,
+            volume = self.info.target_drive.get_volumename(),
+            icon = unix_path(self.info.refind_icon),
             )
+        content = template
+        refind_content = refind_template
+        for k,v in dic.items():
+            k = "$(%s)" % k
+            content = content.replace(k, v)
+            refind_content = refind_content.replace(k, v)
+        if self.info.run_task == "cd_boot":
+            content = content.replace(" automatic-ubiquity", "")
+            content = content.replace(" iso-scan/filename=", "")
+            refind_content = refind_content.replace(" automatic-ubiquity", "")
+            refind_content = refind_content.replace(" iso-scan/filename=", "")
+        grub_config_file = join_path(self.info.install_boot_dir, "grub", "grub.cfg")
+        write_file(grub_config_file, content)
+        refind_config_file = join_path(self.info.target_dir, "winboot", "EFI", "refind-wubi.conf")
+        write_file(refind_config_file, refind_content)
+        self.modify_refind()
+
+    def modify_refind(self):
+        source = join_path(self.info.data_dir, "refind.conf")
+        target = join_path(self.info.target_dir, "winboot", "EFI", "refind.conf")
+        template = read_file(source)
+        dic = dict(
+            installation_dir = self.info.distro.installation_dir)
         content = template
         for k,v in dic.items():
             k = "$(%s)" % k
             content = content.replace(k, v)
-        if self.info.run_task == "cd_boot":
-            content = content.replace(" automatic-ubiquity", "")
-            content = content.replace(" iso-scan/filename=", "")
-        grub_config_file = join_path(self.info.install_boot_dir, "grub", "grub.cfg")
-        write_file(grub_config_file, content)
+        write_file(target, content)
 
     def remove_target_dir(self, associated_task=None):
         if not os.path.isdir(self.info.previous_target_dir):

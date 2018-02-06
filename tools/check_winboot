@@ -3,6 +3,8 @@
 shim_signed_url="http://archive.ubuntu.com/ubuntu/pool/main/s/shim-signed/shim-signed_1.21.3+0.9+1465500757.14a5905.is.0.8-0ubuntu3_amd64.deb"
 shim_url="http://archive.ubuntu.com/ubuntu/pool/main/s/shim/shim_0.9+1465500757.14a5905.is.0.8-0ubuntu3_amd64.deb"
 shim_blacklist_md5="3aef9c72ad50faa8db576c01f85a0915"
+refind_url="https://sourceforge.net/projects/refind/files/0.11.2/refind-bin-0.11.2.zip/download"
+refind_md5="fdb73e33432e70a7e4e4f47b2b295b87"
 
 if [ ! -e /usr/lib/grub/i386-pc/moddep.lst ]; then
 	echo "Installing grub-pc-bin"
@@ -46,6 +48,17 @@ if [ ! -e .key ];then
 	-out  .key/$(whoami)_wubi.crt -nodes -days 3650 -subj "/CN="$(whoami)" Wubi/"
 	openssl x509 -in  .key/$(whoami)_wubi.crt -out  .key/$(whoami)_wubi.cer -outform DER
 fi
+if [ ! -e refind/refind_x64.efi ]; then
+	echo "Downloading refind"
+	wget "$refind_url" -P /tmp -O "/tmp/refind.zip"
+	if [ ! "$(md5sum /tmp/refind.zip | cut -d ' ' -f 1)" = "$refind_md5" ]; then
+		echo "Invalid download for refind, md5 does not match"
+		exit 1
+	fi
+	unzip "/tmp/refind.zip" -d "/tmp"
+	mv /tmp/refind-bin-0.11.2/refind refind
+fi
+
 if [ ! -e data/custom-installation/packages/lupin-support ]; then
 	echo "Downloading lupin-support packages"
 	mkdir -p data/custom-installation/packages/lupin-support

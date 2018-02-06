@@ -6,3 +6,4 @@ tools/buildtest
 .key
 data/custom-installation/packages
 shim
+refind

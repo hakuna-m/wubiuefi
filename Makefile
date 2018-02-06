@@ -81,8 +81,8 @@ winboot2:
 		loadenv biosdisk part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback search linux boot minicmd cat cpuid chain halt help ls reboot \
 		echo test configfile gzio normal sleep memdisk tar font gfxterm gettext true vbe vga video_bochs video_cirrus probe
 	cat /usr/lib/grub/i386-pc/lnxboot.img build/grubutil/core.img > build/winboot/wubildr
-	mkdir -p build/winboot/EFI
-	grub-mkimage -O x86_64-efi -c build/winboot/wubildr-bootstrap.cfg -m build/winboot/wubildr.tar -o build/winboot/EFI/grubx64.efi \
+	mkdir -p build/winboot/EFI/grub
+	grub-mkimage -O x86_64-efi -c build/winboot/wubildr-bootstrap.cfg -m build/winboot/wubildr.tar -o build/winboot/EFI/grub/grubx64.efi \
 		loadenv part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback search linux linuxefi boot minicmd cat cpuid chain halt help ls reboot \
 		echo test configfile gzio normal sleep memdisk tar font gfxterm gettext true efi_gop efi_uga video_bochs video_cirrus probe efifwsetup \
 		all_video gfxterm_background png gfxmenu
@@ -92,12 +92,22 @@ winboot2:
 	cp /usr/lib/shim/MokManager.efi.signed build/winboot/EFI/MokManager.efi 2>/dev/null || \
 		cp shim/MokManager.efi.signed build/winboot/EFI/MokManager.efi 2>/dev/null || \
 		cp /usr/lib/shim/mmx64.efi.signed build/winboot/EFI/mmx64.efi
-	sbsign --key .key/*.key --cert .key/*.crt --output build/winboot/EFI/grubx64.efi build/winboot/EFI/grubx64.efi
-	grub-mkimage -O i386-efi -c build/winboot/wubildr-bootstrap.cfg -m build/winboot/wubildr.tar -o build/winboot/EFI/grubia32.efi \
+	sbsign --key .key/*.key --cert .key/*.crt --output build/winboot/EFI/grub/grubx64.efi build/winboot/EFI/grub/grubx64.efi
+	grub-mkimage -O i386-efi -c build/winboot/wubildr-bootstrap.cfg -m build/winboot/wubildr.tar -o build/winboot/EFI/grub/grubia32.efi \
 		loadenv part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback search linux linuxefi boot minicmd cat cpuid chain halt help ls reboot \
 		echo test configfile gzio normal sleep memdisk tar font gfxterm gettext true efi_gop efi_uga video_bochs video_cirrus probe efifwsetup \
 		all_video gfxterm_background png gfxmenu
+	sbsign --key .key/*.key --cert .key/*.crt --output build/winboot/EFI/grub/grubia32.efi build/winboot/EFI/grub/grubia32.efi
+	cp refind/refind_x64.efi build/winboot/EFI/grubx64.efi
+	sbsign --key .key/*.key --cert .key/*.crt --output build/winboot/EFI/grubx64.efi build/winboot/EFI/grubx64.efi
+	cp refind/refind_ia32.efi build/winboot/EFI/grubia32.efi
 	sbsign --key .key/*.key --cert .key/*.crt --output build/winboot/EFI/grubia32.efi build/winboot/EFI/grubia32.efi
+	for refind_dir in icons drivers_x64 drivers_ia32 ; do \
+		cp -r refind/$$refind_dir build/winboot/EFI/$$refind_dir ; \
+	done
+	for refind_file in build/winboot/EFI/*_x64/*.efi build/winboot/EFI/*_ia32/*.efi ; do \
+		sbsign --key .key/*.key --cert .key/*.crt --output $$refind_file $$refind_file ; \
+	done
 	cp .key/*.cer build/winboot/EFI/.
 
 winboot: grub4dos grubutil
@@ -154,6 +164,7 @@ distclean: clean
 	rm -rf .key
 	rm -rf data/custom-installation/packages
 	rm -rf shim
+	rm -rf refind
 
 .PHONY: all build test wubi wubizip wubi-pre-build pot runpy runbin check_wine check_winboot unittest
 	7z translations version.py pylauncher winboot winboot2 grubutil grub4dos clean distclean
