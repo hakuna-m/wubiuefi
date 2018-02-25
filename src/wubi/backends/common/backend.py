@@ -768,6 +768,7 @@ class Backend(object):
             pae_mode_title = "PAE mode",
             safe_graphic_mode_title = "Safe graphic mode",
             intel_graphics_workarounds_title = "Intel graphics workarounds",
+            nvidia_graphics_workarounds_title = "Nvidia graphics workarounds",
             acpi_workarounds_title = "ACPI workarounds",
             verbose_mode_title = "Verbose mode",
             demo_mode_title =  "Demo mode",

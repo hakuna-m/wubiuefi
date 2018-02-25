@@ -1,8 +1,23 @@
-wubi (16.04.3r325) xenial; urgency=low
+wubi (16.04.4r327) xenial; urgency=low
 
   [Hakuna Matata]
 
-  * backport for 16.04.3
+  * backport for 16.04.4
+
+wubi (17.10r327) artful; urgency=low
+
+  [Hakuna Matata]
+
+  * fix plural forms for some locale settings
+    https://github.com/hakuna-m/wubiuefi/issues/77
+
+wubi (17.10r326) artful; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 17.10
+  * add nvidia boot option
+    https://github.com/hakuna-m/wubiuefi/issues/57
 
 wubi (17.04r325) zesty; urgency=low
 
