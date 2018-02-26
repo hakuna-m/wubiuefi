@@ -1,3 +1,9 @@
+wubi (17.10.1r329) artful; urgency=low
+
+  [Hakuna Matata]
+
+  * Replace shim 0.9+1474479173.6c180c6 with newer version
+
 wubi (17.10.1r327) artful; urgency=low
 
   [Hakuna Matata]
