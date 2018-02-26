@@ -1,3 +1,9 @@
+wubi (16.04.4r329) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * Replace shim 0.9+1474479173.6c180c6 with newer version
+
 wubi (16.04.4r327) xenial; urgency=low
 
   [Hakuna Matata]
