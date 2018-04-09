@@ -1,3 +1,12 @@
+wubi (18.04r330) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 18.04
+  * Fix too many loop devices issue
+    https://github.com/hakuna-m/wubiuefi/issues/91
+    https://bugs.launchpad.net/ubuntu/+source/grub-installer/+bug/1762034
+
 wubi (17.10.1r329) artful; urgency=low
 
   [Hakuna Matata]
