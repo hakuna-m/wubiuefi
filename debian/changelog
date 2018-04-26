@@ -1,3 +1,10 @@
+wubi (18.04r331) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * change vmlinuz.efi to vmlinuz for 64 bit ISOs
+    https://github.com/hakuna-m/wubiuefi/issues/97
+
 wubi (18.04r330) bionic; urgency=low
 
   [Hakuna Matata]
