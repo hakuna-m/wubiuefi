@@ -1,7 +1,7 @@
 #!/bin/sh
 
-shim_signed_url="http://archive.ubuntu.com/ubuntu/pool/main/s/shim-signed/shim-signed_1.21.3+0.9+1465500757.14a5905.is.0.8-0ubuntu3_amd64.deb"
-shim_url="http://archive.ubuntu.com/ubuntu/pool/main/s/shim/shim_0.9+1465500757.14a5905.is.0.8-0ubuntu3_amd64.deb"
+shim_signed_url="http://archive.ubuntu.com/ubuntu/pool/main/s/shim-signed/shim-signed_1.33.1~16.04.1+13-0ubuntu2_amd64.deb"
+shim_url="http://archive.ubuntu.com/ubuntu/pool/main/s/shim/shim_13-0ubuntu2_amd64.deb"
 shim_blacklist_md5="3aef9c72ad50faa8db576c01f85a0915"
 refind_url="https://sourceforge.net/projects/refind/files/0.11.2/refind-bin-0.11.2.zip/download"
 refind_md5="fdb73e33432e70a7e4e4f47b2b295b87"
@@ -24,14 +24,15 @@ if [ ! -e /usr/lib/shim/shim.efi.signed ] && [ ! -e /usr/lib/shim/shimx64.efi.si
 fi
 if [ -e /usr/lib/shim/shimx64.efi.signed ] &&
    [ "$(md5sum /usr/lib/shim/shimx64.efi.signed | cut -d ' ' -f 1)" = "$shim_blacklist_md5" ] && 
-   [ ! -e shim/shim.efi.signed ]; then
-	echo "Installed shim is blacklisted, downloading previous version of shim"
+   ([ ! -e shim/shimx64.efi.signed ] || [ ! -e shim/mmx64.efi ]); then
+	echo "Installed shim is blacklisted, downloading new version of shim"
 	mkdir -p shim
 	wget "$shim_signed_url" -P /tmp -O "/tmp/shim-signed.deb"
 	dpkg -x /tmp/shim-signed.deb /tmp/shim
 	wget "$shim_url" -P /tmp -O "/tmp/shim.deb"
-	dpkg -x /tmp/shim.deb /tmp/shim
-	cp /tmp/shim/usr/lib/shim/*.efi.signed shim/.
+	ar p /tmp/shim.deb data.tar.xz | tar xvfJ - -C /tmp/shim
+	cp /tmp/shim/usr/lib/shim/shimx64.efi.signed shim/.
+	cp /tmp/shim/usr/lib/shim/mmx64.efi shim/.
 fi
 if [ ! -e /usr/bin/sbsign ]; then
 	echo "Installing sbsigntool..."

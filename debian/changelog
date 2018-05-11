@@ -1,3 +1,32 @@
+wubi (18.04r331.0) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * Merge branch master (18.04r331) into refind
+    https://github.com/hakuna-m/wubiuefi/issues/102
+
+wubi (18.04r331) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * change vmlinuz.efi to vmlinuz for 64 bit ISOs
+    https://github.com/hakuna-m/wubiuefi/issues/97
+
+wubi (18.04r330) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 18.04
+  * Fix too many loop devices issue
+    https://github.com/hakuna-m/wubiuefi/issues/91
+    https://bugs.launchpad.net/ubuntu/+source/grub-installer/+bug/1762034
+
+wubi (17.10.1r329) artful; urgency=low
+
+  [Hakuna Matata]
+
+  * Replace shim 0.9+1474479173.6c180c6 with newer version
+
 wubi (17.10.1r328) artful; urgency=low
 
   [Hakuna Matata]
