@@ -1,8 +1,37 @@
-wubi (17.10r327.2) artful; urgency=low
+wubi (18.04r331.2) bionic; urgency=low
 
   [Hakuna Matata]
 
-  * merge master (17.10r327) into ubuntu2 (16.04r310.2) 
+  * merge master (18.04r331) into ubuntu2 (17.10r327.2) 
+
+wubi (18.04r331) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * change vmlinuz.efi to vmlinuz for 64 bit ISOs
+    https://github.com/hakuna-m/wubiuefi/issues/97
+
+wubi (18.04r330) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 18.04
+  * Fix too many loop devices issue
+    https://github.com/hakuna-m/wubiuefi/issues/91
+    https://bugs.launchpad.net/ubuntu/+source/grub-installer/+bug/1762034
+
+wubi (17.10.1r329) artful; urgency=low
+
+  [Hakuna Matata]
+
+  * Replace shim 0.9+1474479173.6c180c6 with newer version
+
+wubi (17.10.1r327) artful; urgency=low
+
+  [Hakuna Matata]
+
+  * Change download links to 17.10.1 to use ISOs with fix for 
+    https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1734147
 
 wubi (17.10r327) artful; urgency=low
 

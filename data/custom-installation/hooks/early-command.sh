@@ -15,3 +15,9 @@ if [ -f /custom-installation/patch/user-params ]; then
 	cp /custom-installation/patch/user-params  /root/bin/user-params
 fi
 
+# create dummy loop device for autopartition-loop
+mkdir -p /tmp/loopdummy
+touch /tmp/loopdummy/loopdummy
+modprobe loop
+ln -s $(losetup -f) /dev/loopdummy
+losetup /dev/loopdummy /tmp/loopdummy/loopdummy

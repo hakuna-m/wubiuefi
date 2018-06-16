@@ -17,6 +17,12 @@ mount $mount_private /
 
 modprobe loop >/dev/null 2>&1 || true
 
+# detach dummy loop
+if [ -e /dev/loopdummy ]; then
+	losetup -d /dev/loopdummy
+	rm /dev/loopdummy
+fi
+
 # Set up working directory.
 
 if type mktemp >/dev/null 2>&1; then
