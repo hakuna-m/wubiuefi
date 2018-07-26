@@ -1,3 +1,10 @@
+wubi (18.04r332.2) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 18.04.1
+  * Wubi gz: change vmlinuz.efi to vmlinuz for 64 bit ISOs
+
 wubi (18.04r331.2) bionic; urgency=low
 
   [Hakuna Matata]
