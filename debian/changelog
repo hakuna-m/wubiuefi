@@ -1,3 +1,10 @@
+wubi (18.04.xr333) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * change initrd.lz to initrd
+    https://github.com/hakuna-m/wubiuefi/issues/112
+
 wubi (18.04.1r332) bionic; urgency=low
 
   [Hakuna Matata]
