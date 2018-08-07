@@ -1,3 +1,24 @@
+wubi (16.04.5r333) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * change initrd.lz to initrd
+    https://github.com/hakuna-m/wubiuefi/issues/112
+
+wubi (18.04.1r332) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 18.04.1
+  * Wubi gz: change vmlinuz.efi to vmlinuz for 64 bit ISOs
+
+wubi (18.04r331) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * change vmlinuz.efi to vmlinuz for 64 bit ISOs
+    https://github.com/hakuna-m/wubiuefi/issues/97
+
 wubi (16.04.5r329) xenial; urgency=low
 
   [Hakuna Matata]
