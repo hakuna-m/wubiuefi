@@ -1,3 +1,10 @@
+wubi (18.04.1r333) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * backport for 18.04.1
+    https://github.com/hakuna-m/wubiuefi/issues/115
+
 wubi (18.04.xr333) bionic; urgency=low
 
   [Hakuna Matata]
