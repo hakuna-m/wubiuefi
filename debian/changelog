@@ -1,3 +1,10 @@
+wubi (18.10r335) cosmic; urgency=low
+
+  [Hakuna Matata]
+
+  * New pattern for info file to work with more Ubuntu based distros
+    https://github.com/hakuna-m/wubiuefi/issues/124
+
 wubi (18.10r334) cosmic; urgency=low
 
   [Hakuna Matata]
