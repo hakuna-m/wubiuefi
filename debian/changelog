@@ -1,3 +1,9 @@
+wubi (18.04.2r333) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * backport for 18.04.2
+
 wubi (18.04.1r333) bionic; urgency=low
 
   [Hakuna Matata]
