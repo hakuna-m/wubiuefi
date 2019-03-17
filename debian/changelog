@@ -3,6 +3,7 @@ wubi (14.04.6r311) trusty; urgency=low
   [Hakuna Matata]
 
   * backport for 14.04.6
+    + Ubuntu Kylin 
 
 wubi (14.04.5r311) trusty; urgency=low
 
