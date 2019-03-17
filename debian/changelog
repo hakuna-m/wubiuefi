@@ -1,3 +1,9 @@
+wubi (16.04.6r333) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * backport for 16.04.6
+
 wubi (16.04.5r333) xenial; urgency=low
 
   [Hakuna Matata]
