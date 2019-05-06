@@ -14,5 +14,3 @@ if [ -f /usr/sbin/grub-install.real ]; then
    fi
 fi
 
-/usr/sbin/grub-install "$@"
-exit $?

@@ -1,3 +1,11 @@
+wubi (19.04r336) disco; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 19.04
+  * change lupin-support/grub-mkimage because of new sync error
+    https://github.com/hakuna-m/wubiuefi/issues/143
+
 wubi (18.10r335) cosmic; urgency=low
 
   [Hakuna Matata]
