@@ -1,3 +1,10 @@
+wubi (19.04r337) disco; urgency=low
+
+  [Hakuna Matata]
+
+  * copy wubildr also to root directory of target drive
+    https://github.com/hakuna-m/wubiuefi/issues/159
+
 wubi (19.04r336) disco; urgency=low
 
   [Hakuna Matata]
