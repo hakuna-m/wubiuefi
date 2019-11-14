@@ -5,7 +5,9 @@ wubi (19.10r338) eoan; urgency=low
   * Bump to 19.10
     https://github.com/hakuna-m/wubiuefi/issues/172
   * Update Python to 2.7.17 to avoid "empty certificate" error
-    https://bugs.python.org/issue26313  
+    https://bugs.python.org/issue26313
+  * fix for changed initramfs-tools
+    https://github.com/hakuna-m/wubiuefi/issues/169
 
 wubi (19.04r337) disco; urgency=low
 
