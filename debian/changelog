@@ -1,3 +1,10 @@
+wubi (19.10r339) focal; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 20.04
+    https://github.com/hakuna-m/wubiuefi/issues/190
+
 wubi (19.10r338) eoan; urgency=low
 
   [Hakuna Matata]
