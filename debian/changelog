@@ -1,9 +1,15 @@
-wubi (19.10r339) focal; urgency=low
+wubi (20.04r339) focal; urgency=low
 
   [Hakuna Matata]
 
   * Bump to 20.04
-    https://github.com/hakuna-m/wubiuefi/issues/190
+    https://github.com/hakuna-m/wubiuefi/issues/191
+  * Merge changes of LeapofAzzam for new Xubuntu logo
+    https://github.com/hakuna-m/wubiuefi/pull/173
+  * New pattern to work with version "20.04 LTS"
+    fix for changes of 18.10r335
+    https://github.com/hakuna-m/wubiuefi/issues/124
+  * New shim for blacklisted shim
 
 wubi (19.10r338) eoan; urgency=low
 
