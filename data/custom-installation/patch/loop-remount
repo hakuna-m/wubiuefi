@@ -16,8 +16,8 @@ esac
 
 filename="/usr/share/initramfs-tools/scripts/local"
 filename_initramfs="${DESTDIR}/scripts/local"
-oldvalue='mount ${roflag} -o loop -t ${FSTYPE} ${LOOPFLAGS} "/host/${LOOP#/}" ${rootmnt}'
-newvalue='loopdev=`losetup -f`; losetup ${loopdev} "/host/${LOOP#/}"; mount ${roflag} -t ${FSTYPE} ${LOOPFLAGS} ${loopdev} ${rootmnt}'
+oldvalue='mount ${roflag} -o loop -t ${FSTYPE} ${LOOPFLAGS} "/host/${LOOP#/}" '
+newvalue='loopdev=`losetup -f`; losetup ${loopdev} "/host/${LOOP#/}"; mount ${roflag} -t ${FSTYPE} ${LOOPFLAGS} ${loopdev} '
 
 if [ -f $filename ]; then
 	if cat $filename | grep "$oldvalue" >/dev/null; then

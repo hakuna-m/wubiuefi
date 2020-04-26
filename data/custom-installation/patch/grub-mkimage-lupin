@@ -161,7 +161,7 @@ modules=" \
     search linux boot echo test gzio normal memdisk tar probe configfile"
 
 # Ensure errors pass through the pipeline.
-s="$( ((grub-mkimage -O i386-pc ${prefix:+--prefix="$prefix"} -c "$tmp/wubildr-bootstrap.cfg" -m "$tmp/wubildr.tar" $modules; echo $? >&3) | cat /usr/lib/grub/i386-pc/lnxboot.img - > "$tmp/wubild2") 3>&1)"; [ "$s" = 0 ]
+s="$( ((grub-mkimage -O i386-pc ${prefix:+--prefix="$prefix"} -c "$tmp/wubildr-bootstrap.cfg" -m "$tmp/wubildr.tar" $modules -o "$tmp/wubildro"; echo $? >&3; cat "$tmp/wubildro" 2>&3) | cat /usr/lib/grub/i386-pc/lnxboot.img - > "$tmp/wubild2") 3>&1)"; [ "$s" = 0 ]
 
 if [ -f "$target" ]; then
     cp -af "$tmp/wubild2" "$target.new"

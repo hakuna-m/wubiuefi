@@ -15,8 +15,15 @@ if [ -f /custom-installation/patch/grub-install ] && [ -f /custom-installation/p
 		cp /custom-installation/patch/grub-install-efi /target/usr/local/sbin/grub-install-efi
 		chmod +x /target/usr/local/sbin/grub-install-efi
 	fi
-        cp /custom-installation/patch/grub-mkimage-lupin /target/usr/local/sbin/grub-mkimage-lupin
-	chmod +x /target/usr/local/sbin/grub-mkimage-lupin
+	if [ -f /custom-installation/patch/grub-install ] ; then
+		cp /custom-installation/patch/grub-mkimage-lupin /target/usr/local/sbin/grub-mkimage-lupin
+		chmod +x /target/usr/local/sbin/grub-mkimage-lupin
+	fi
+	if [ -f /custom-installation/patch/lupin-grub-install ] ; then
+		mkdir -p /target/etc/grub.d
+		cp /custom-installation/patch/lupin-grub-install /target/etc/grub.d/10_lupin_grub_install
+		chmod +x /target/etc/grub.d/10_lupin_grub_install
+	fi
 fi
 
 arch=$(dpkg --print-architecture)

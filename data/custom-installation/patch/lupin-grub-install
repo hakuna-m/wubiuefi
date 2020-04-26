@@ -1,0 +1,16 @@
+#! /bin/sh
+set -e
+
+if [ -f /usr/sbin/grub-install.real ]; then
+   if ! cat /usr/sbin/grub-install | grep "\-efi" >/dev/null; then
+      if [ -f /usr/local/sbin/grub-install-efi ]; then
+         cp -f /usr/local/sbin/grub-install-efi /usr/sbin/grub-install
+      fi
+   fi
+   if ! cat /usr/share/lupin-support/grub-mkimage | grep "wubildro" >/dev/null; then
+      if [ -f /usr/local/sbin/grub-mkimage-lupin ]; then
+         cp -f /usr/local/sbin/grub-mkimage-lupin /usr/share/lupin-support/grub-mkimage
+      fi
+   fi
+fi
+

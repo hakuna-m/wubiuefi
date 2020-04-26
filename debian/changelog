@@ -1,4 +1,71 @@
-wubi (18.04.1r332.2) bionic; urgency=low
+wubi (20.04r339.2) focal; urgency=low
+
+  [Hakuna Matata]
+
+  * merge master (20.04r339) into ubuntu2 (18.04.1r332.2) 
+
+wubi (20.04r339) focal; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 20.04
+    https://github.com/hakuna-m/wubiuefi/issues/191
+  * Merge changes of LeapofAzzam for new Xubuntu logo
+    https://github.com/hakuna-m/wubiuefi/pull/173
+  * New pattern to work with version "20.04 LTS"
+    fix for changes of 18.10r335
+    https://github.com/hakuna-m/wubiuefi/issues/124
+  * New shim for blacklisted shim
+
+wubi (19.10r338) eoan; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 19.10
+    https://github.com/hakuna-m/wubiuefi/issues/172
+  * Update Python to 2.7.17 to avoid "empty certificate" error
+    https://bugs.python.org/issue26313
+  * fix for changed initramfs-tools
+    https://github.com/hakuna-m/wubiuefi/issues/169
+
+wubi (19.04r337) disco; urgency=low
+
+  [Hakuna Matata]
+
+  * copy wubildr also to root directory of target drive
+    https://github.com/hakuna-m/wubiuefi/issues/159
+
+wubi (19.04r336) disco; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 19.04
+  * change lupin-support/grub-mkimage because of new sync error
+    https://github.com/hakuna-m/wubiuefi/issues/143
+
+wubi (18.10r335) cosmic; urgency=low
+
+  [Hakuna Matata]
+
+  * New pattern for info file to work with more Ubuntu based distros
+    https://github.com/hakuna-m/wubiuefi/issues/124
+
+wubi (18.10r334) cosmic; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 18.10
+  * Lubuntu 18.10 has been temporarily disabled
+    https://github.com/hakuna-m/wubiuefi/issues/121
+
+wubi (18.04.xr333) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * change initrd.lz to initrd
+    https://github.com/hakuna-m/wubiuefi/issues/112
+
+wubi (18.04.1r332) bionic; urgency=low
 
   [Hakuna Matata]
 

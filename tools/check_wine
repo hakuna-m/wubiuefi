@@ -1,8 +1,8 @@
 #!/bin/sh
 
 #Required programs
-python_url="https://www.python.org/ftp/python/2.7.11/python-2.7.11.msi"
-python_md5="241bf8e097ab4e1047d9bb4f59602095"
+python_url="https://www.python.org/ftp/python/2.7.17/python-2.7.17.msi"
+python_md5="4cc27e99ad41cd3e0f2a50d9b6a34f79"
 p7zip_url="https://downloads.sourceforge.net/project/sevenzip/7-Zip/4.64/7z464.exe"
 p7zip_md5="d2810e3dd4b60ab05fe7c29a50921efa"
 pywin_url="http://downloads.sourceforge.net/pywin32/pywin32-220.win32-py2.7.exe"
