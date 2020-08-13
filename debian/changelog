@@ -1,3 +1,10 @@
+wubi (20.04r340) focal; urgency=low
+
+  [Hakuna Matata]
+
+  * Downgrade shim and mok (#194)
+  * Minor fix in post-installer.sh
+
 wubi (20.04r339) focal; urgency=low
 
   [Hakuna Matata]

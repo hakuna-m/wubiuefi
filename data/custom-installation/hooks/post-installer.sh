@@ -10,8 +10,8 @@ fi
 if [ -f /custom-installation/patch/grub-install ] && [ -f /custom-installation/patch/grub-install-efi ] ; then
 	mkdir -p /target/usr/local/sbin
 	cp /custom-installation/patch/grub-install /target/usr/local/sbin/grub-install
+	chmod +x /target/usr/local/sbin/grub-install
 	if [ -d /sys/firmware/efi ]; then
-		chmod +x /target/usr/local/sbin/grub-install
 		cp /custom-installation/patch/grub-install-efi /target/usr/local/sbin/grub-install-efi
 		chmod +x /target/usr/local/sbin/grub-install-efi
 	fi
