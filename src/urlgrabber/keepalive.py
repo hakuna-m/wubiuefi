@@ -347,7 +347,8 @@ class HTTPSHandler(KeepAliveHandler, urllib2.HTTPSHandler):
         return self.do_open(req)
 
     def _get_connection(self, host):
-        return self._ssl_factory.get_https_connection(host)
+        try: return self._ssl_factory.get_https_connection(host)
+        except AttributeError: return HTTPSConnection(host)
 
 class HTTPResponse(httplib.HTTPResponse):
     # we need to subclass HTTPResponse in order to

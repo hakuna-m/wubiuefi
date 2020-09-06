@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="http://download.eclipse.org/eclipse/metalink.xsl"?>
+<metalink version="3.0" xmlns="http://www.metalinker.org/">
+  <files>
+    <file name=" ">
+      <verification>
+        <hash type=" "> </hash>
+      </verification>
+      <resources maxconnections="1">
+	<url type="bittorrent" preference="200"> </url>
+	<url type="http"> </url>
+      </resources>
+    </file>
+  </files>
+</metalink>

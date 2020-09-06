@@ -284,6 +284,10 @@ class Backend(object):
             hash_name = 'sha' + str(hash_len)
         else:
             hash_name = 'md5'
+        if self.info.distro.metalink:
+           self.info.distro.metalink.files[0].hashes[0].type = hash_name
+           self.info.distro.metalink.files[0].hashes[0].hash = hashsum
+           return True
         hashsum2 = get_file_hash(metalink, hash_name)
         if hashsum != hashsum2:
             log.error("The %s of the metalink does not match (%s != %s)" % (hash_name, hashsum, hashsum2))
@@ -466,9 +470,17 @@ class Backend(object):
             except Exception, err:
                 log.error("Cannot download metalink file2 %s err=%s" % (url, err))
                 return
+        metalink_filename, metalink_extension = os.path.splitext(metalink)
+        if metalink_extension == '.list':
+            self.info.distro.metalink = parse_metalink(join_path(self.info.data_dir, 'list.metalink'))
+            metalink = metalink_filename + ".iso"
+            self.info.distro.metalink.files[0].name = os.path.basename(metalink)
+            self.info.distro.metalink.files[0].urls[0].url = base_url + "/" + self.info.distro.metalink.files[0].name + ".torrent"
+            self.info.distro.metalink.files[0].urls[1].url = base_url + "/" + self.info.distro.metalink.files[0].name
         if not self.check_metalink(metalink, base_url):
             log.exception("Cannot authenticate the metalink file, it might be corrupt")
-        self.info.distro.metalink = parse_metalink(metalink)
+        if not self.info.distro.metalink:
+            self.info.distro.metalink = parse_metalink(metalink)
 
     def get_prespecified_diskimage(self, associated_task):
         '''
