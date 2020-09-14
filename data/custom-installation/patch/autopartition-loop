@@ -23,6 +23,17 @@ if [ -e /dev/loopdummy ]; then
 	rm /dev/loopdummy
 fi
 
+# disable db_set to use preseed file instead
+filename_partman_efi='/usr/lib/partman/check.d/08biosgrub'
+oldvalue_partman_efi='db_set '
+newvalue_partman_efi='#b_set '
+
+if [ -f $filename_partman_efi ]; then
+	if cat $filename_partman_efi | grep "$oldvalue_partman_efi" >/dev/null; then
+		sed -i "s%$oldvalue_partman_efi%$newvalue_partman_efi%g" $filename_partman_efi
+	fi
+fi
+
 # Set up working directory.
 
 if type mktemp >/dev/null 2>&1; then

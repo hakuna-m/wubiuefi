@@ -1,3 +1,9 @@
+wubi (20.04r342) focal; urgency=low
+
+  [Hakuna Matata]
+
+  * skip "no EFI partition" messages and errors (#163)(#209)
+
 wubi (20.04r341) focal; urgency=low
 
   [Hakuna Matata]
