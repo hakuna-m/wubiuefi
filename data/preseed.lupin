@@ -35,8 +35,9 @@ d-i partman/choose_partition select finish
 d-i partman/confirm boolean true
 d-i partman/confirm_nooverwrite boolean true
 d-i partman/filter_mounted boolean false
+d-i partman-efi/no_efi boolean false
+d-i partman-partitioning/no_bootable_efi boolean false
 d-i ubiquity/partman-skip-unmount boolean true
-
 
 ## CLOCK AND TIME ZONE
 d-i clock-setup/utc boolean false

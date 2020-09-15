@@ -1,8 +1,14 @@
-wubi (20.04.1r341) focal; urgency=low
+wubi (20.04.1r342) focal; urgency=low
 
   [Hakuna Matata]
 
-  * Update to 20.04.1 (#226)
+  * Merge from master
+
+wubi (20.04r342) focal; urgency=low
+
+  [Hakuna Matata]
+
+  * skip "no EFI partition" messages and errors (#163)(#209)
 
 wubi (20.04r341) focal; urgency=low
 
