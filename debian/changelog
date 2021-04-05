@@ -1,3 +1,9 @@
+wubi (20.04.2.0r342) focal; urgency=low
+
+  [Hakuna Matata]
+
+  * isolist.ini for 20.04.2.0 
+
 wubi (20.04.1r342) focal; urgency=low
 
   [Hakuna Matata]
