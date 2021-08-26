@@ -1,14 +1,16 @@
-wubi (20.04.2.0r342) focal; urgency=low
-
-  [Hakuna Matata]
-
-  * isolist.ini for 20.04.2.0 
-
-wubi (20.04.1r342) focal; urgency=low
+wubi (20.04.3r343) focal; urgency=low
 
   [Hakuna Matata]
 
   * Merge from master
+  * isolist.ini for 20.04.3
+
+wubi (20.04r343) focal; urgency=low
+
+  [Hakuna Matata]
+
+  * new pattern for .disk/info
+    https://github.com/hakuna-m/wubiuefi/issues/282    
 
 wubi (20.04r342) focal; urgency=low
 
