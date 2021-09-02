@@ -1,3 +1,10 @@
+wubi (20.04r344) focal; urgency=low
+
+  [Hakuna Matata]
+
+  * new desktop environment "Wubi lz4"
+    https://github.com/hakuna-m/wubiuefi/issues/287 
+
 wubi (20.04r343) focal; urgency=low
 
   [Hakuna Matata]
