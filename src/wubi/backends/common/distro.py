@@ -191,9 +191,16 @@ class Distro(object):
         if not info:
             return
         info = disk_info_re.match(info)
-        name = info.group('name').replace('-', ' ')
-        version = info.group('version')
-        subversion = info.group('subversion')
-        arch = info.group('arch')
-        log.debug("  parsed info=%s" % info.groupdict())
+        if info is None:
+            name = ""
+            version = ""
+            subversion = ""
+            arch = self.arch
+            log.debug("  parsed info=None")
+        else:
+            name = info.group('name').replace('-', ' ')
+            version = info.group('version')
+            subversion = info.group('subversion')
+            arch = info.group('arch')
+            log.debug("  parsed info=%s" % info.groupdict())
         return name, version, subversion, arch
