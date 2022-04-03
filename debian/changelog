@@ -1,9 +1,17 @@
-wubi (20.04.3r343) focal; urgency=low
+wubi (20.04.4r344) focal; urgency=low
 
   [Hakuna Matata]
 
   * Merge from master
-  * isolist.ini for 20.04.3
+  * isolist.ini for 20.04.4
+
+wubi (20.04r344) focal; urgency=low
+
+  [Hakuna Matata]
+
+  * new desktop environment "Wubi lz4"
+  * error handling for unsupported pattern in .disk/info
+    https://github.com/hakuna-m/wubiuefi/issues/287 
 
 wubi (20.04r343) focal; urgency=low
 
