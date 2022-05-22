@@ -9,7 +9,7 @@ pywin_url="http://downloads.sourceforge.net/pywin32/pywin32-220.win32-py2.7.exe"
 pywin_md5="59be43a3f010602ce623612ecdf34908"
 
 #Compiled modules
-pycrypto_url="http://www.voidspace.org.uk/downloads/pycrypto26/pycrypto-2.6.win32-py2.7.exe"
+pycrypto_url="https://web.archive.org/web/20200502114359/http://www.voidspace.org.uk/downloads/pycrypto26/pycrypto-2.6.win32-py2.7.exe"
 pycrypto_md5="e7875e7f6bf0b23701bdd5ef1d8679cd"
 
 #2.3 modules (not needed in python 2.4+)

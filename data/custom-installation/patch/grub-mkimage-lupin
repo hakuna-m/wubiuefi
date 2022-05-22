@@ -18,10 +18,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-newns () {
-    [ "$LUPIN_NEWNS" ] || exec /usr/lib/lupin-support/newns "$0" "$@"
-}
-
 # Look for wubildr on all partitions of BIOS-accessible disk devices.
 # We can safely ignore the hibernation case here, because the Windows boot
 # loader boots straight into Windows if Windows was hibernated.
@@ -54,8 +50,6 @@ unescape_mount () {
     printf %s "$1" | \
         sed 's/\\011/   /g; s/\\012/\n/g; s/\\040/ /g; s/\\134/\\/g'
 }
-
-newns "$@"
 
 prefix=
 test_only=false

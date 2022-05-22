@@ -398,8 +398,6 @@ db_progress STEP 1
 
 update_all
 
-apt-install lupin-support
-
 db_progress STOP
 
 exit 0

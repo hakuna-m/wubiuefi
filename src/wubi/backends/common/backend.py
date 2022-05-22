@@ -741,7 +741,8 @@ class Backend(object):
             partitioning = partitioning,
             user_directory = user_directory,
             safe_host_username = safe_host_username,
-            host_os_name = host_os_name,)
+            host_os_name = host_os_name,
+            custom_installation_dir = unix_path(self.info.custominstall),)
         content = template
         for k,v in dic.items():
             k = "$(%s)" % k

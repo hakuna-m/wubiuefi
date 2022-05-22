@@ -47,11 +47,3 @@ if [ ! -e .key ];then
 	-out  .key/$(whoami)_wubi.crt -nodes -days 3650 -subj "/CN="$(whoami)" Wubi/"
 	openssl x509 -in  .key/$(whoami)_wubi.crt -out  .key/$(whoami)_wubi.cer -outform DER
 fi
-if [ ! -e data/custom-installation/packages/lupin-support ]; then
-	echo "Downloading lupin-support packages"
-	mkdir -p data/custom-installation/packages/lupin-support
-	cd data/custom-installation/packages/lupin-support
-	apt-get download lupin-support:i386 #TBD do not assume apt
-	apt-get download lupin-support:amd64 #TBD do not assume apt
-	cd ../../../..
-fi

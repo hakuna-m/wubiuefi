@@ -1,18 +1,126 @@
 #! /bin/sh
 set -e
 
-if [ -f /usr/sbin/grub-install.real ]; then
-   if ! cat /usr/sbin/grub-install | grep "\-efi" >/dev/null; then
-      if [ -f /usr/local/sbin/grub-install-efi ]; then
-         cp -f /usr/local/sbin/grub-install-efi /usr/sbin/grub-install
-      fi
-   fi
-   if ! cat /usr/share/lupin-support/grub-mkimage | grep "wubildro" >/dev/null; then
-      if [ -f /usr/local/sbin/grub-mkimage-lupin ]; then
-         cp -f /usr/local/sbin/grub-mkimage-lupin /usr/share/lupin-support/grub-mkimage
-      fi
-   fi
+# grub-install replacement for use in Wubi installations. This arranges for
+# the grub bootloader installed on the host (wubildr) to be reinstalled
+# rather than installing it to a boot sector.
+#
+# To get at the real MBR if you wish to do so, use /usr/sbin/grub-install
+# instead.
+#
+# Copyright (C) 2009, 2013 Canonical Ltd.
+#
+# Lupin is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# Lupin is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Lupin; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+
+want_passthrough () {
+    while [ $# -gt 0 ]; do
+	option="$1"
+	shift
+
+	case $option in
+	    -h|--help|-v|--version)
+		return 0
+		;;
+	    --debug-image)
+		debug_image="$1"
+		shift
+		;;
+	    --debug-image=*)
+		debug_image="${option#--debug-image=}"
+		;;
+	esac
+    done
+    return 1
+}
+
+if want_passthrough "$@" || ! /usr/local/sbin/grub-mkimage-lupin --test; then
+    /usr/sbin/grub-install "$@"
+    exit $?
 fi
 
-/usr/sbin/grub-install "$@"
-exit $?
+# The C rewrite of grub-install no longer offers --grub-probe or
+# --grub-mkimage options, so we now have to roll our own installation. This
+# is arguably clearer anyway, although it's unfortunately verbose.
+# On the other hand, there is relatively little need to track the real 
+# grub-install code, as it's now in a different language and most of it is
+# unused here anyway.
+
+pkgdatadir=/usr/share/grub
+localedir=/usr/share/locale
+grubdir=/boot/grub
+source_grubdir=/usr/lib/grub
+
+# delete existing files in /boot/grub
+for file in "$grubdir"/*.mod "$grubdir"/*.lst "$grubdir"/*.img "$grubdir"/efiemu??.o; do
+    if [ -f "$file" ] && [ "$(basename "$file")" != menu.lst ]; then
+        rm -f "$file"
+    fi
+done
+
+# delete existing files in /boot/grub/*-pc or /boot/grub/*-efi and install new ones
+for source_dir in "$source_grubdir"/*-pc "$source_grubdir"/*-efi; do
+    if [ -d "$source_dir" ]; then
+        echo "Installing for "$(basename "$source_dir")" platform." >&2
+        dest_grubdir="$grubdir"/"$(basename "$source_dir")"
+        mkdir -p "$dest_grubdir"
+        for file in "$dest_grubdir"/*.mod "$dest_grubdir"/*.lst "$dest_grubdir"/*.img "$dest_grubdir"/efiemu??.o; do
+            if [ -f "$file" ] && [ "$(basename "$file")" != menu.lst ]; then
+                rm -f "$file"
+            fi
+        done
+        for file in "$source_dir"/*.mod "$source_dir"/*.lst "$source_dir"/*.img "$source_dir"/efiemu??.o; do
+            if [ -f "$file" ]; then
+                cp -f "$file" "$dest_grubdir"
+            fi
+        done
+    fi
+done
+
+mkdir -p "$grubdir/locale"
+for dir in "$localedir"/* "$localedir-langpack"/*; do
+    if [ -f "$dir/LC_MESSAGES/grub.mo" ]; then
+	cp -f "$dir/LC_MESSAGES/grub.mo" "$grubdir/locale/${dir##*/}.mo"
+    fi
+done
+
+if [ -f "$pkgdatadir/themes/starfield/theme.txt" ]; then
+    mkdir -p "$grubdir/themes/starfield"
+    cp "$pkgdatadir/themes/starfield"/* "$grubdir/themes/starfield/"
+fi
+
+if [ -f "$pkgdatadir/unicode.pf2" ]; then
+    mkdir -p "$grubdir/fonts"
+    cp "$pkgdatadir/unicode.pf2" "$grubdir/fonts/"
+fi
+
+if [ ! -f "$grubdir/grubenv" ]; then
+    grub-editenv "$grubdir/grubenv" create
+fi
+
+if [ -d "$source_grubdir"/i386-pc ]; then 
+    /usr/local/sbin/grub-mkimage-lupin
+fi
+
+# If vestiges of GRUB Legacy still exist, tell the Debian packaging that
+# they can ignore them.
+if [ -e /boot/grub/stage2 ] && [ -e /boot/grub/menu.lst ]; then
+    touch /boot/grub/grub2-installed
+fi
+
+echo "Installation finished. No error reported." >&2
+echo >&2
+
+exit 0

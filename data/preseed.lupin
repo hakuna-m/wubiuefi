@@ -14,7 +14,9 @@ d-i netcfg/wireless_essid string essid
 d-i netcfg/wireless_wep string
 
 ## SHELL COMMANDS.
-d-i preseed/early_command string [ -x /custom-installation/hooks/early-command.sh ] && /custom-installation/hooks/early-command.sh
+d-i preseed/early_command string \
+    ( [ -x /isodevice$(custom_installation_dir)/hooks/early-command.sh ] && /isodevice$(custom_installation_dir)/hooks/early-command.sh $(custom_installation_dir)) || \
+    ( [ -x /root/isodevice$(custom_installation_dir)/hooks/early-command.sh ] && /root/isodevice$(custom_installation_dir)/hooks/early-command.sh $(custom_installation_dir))
 
 ## UBIQUITY
 ubiquity	ubiquity/summary	note

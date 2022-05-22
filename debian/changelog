@@ -1,3 +1,14 @@
+wubi (22.04r345) jammy; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 22.04
+  * workaround for missing boot option debian-installer/custom-installation=
+  * replacement for missing package lupin-support
+    https://github.com/hakuna-m/wubiuefi/issues/305
+  * Change link for www.voidspace.org.uk
+    https://github.com/hakuna-m/wubiuefi/issues/289
+
 wubi (20.04r344) focal; urgency=low
 
   [Hakuna Matata]
