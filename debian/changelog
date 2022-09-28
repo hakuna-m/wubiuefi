@@ -1,3 +1,10 @@
+wubi (22.04.1r345) jammy; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 22.04.1
+    https://github.com/hakuna-m/wubiuefi/issues/316
+
 wubi (22.04r345) jammy; urgency=low
 
   [Hakuna Matata]
