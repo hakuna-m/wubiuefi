@@ -1,5 +1,12 @@
 wubi (20.04.4r344) focal; urgency=low
 
+  [Niktendo]
+
+  * Bump to 20.04.5 and 20.04.6
+  * Removed offical i386 editions as they are not available anymore
+
+wubi (20.04.4r344) focal; urgency=low
+
   [Hakuna Matata]
 
   * Merge from master
