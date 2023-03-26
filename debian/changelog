@@ -4,7 +4,6 @@ wubi (22.04.1r345) jammy; urgency=low
 
   * Bump to 22.04.2
   * Removed offical i386 editions as they are not available anymore
-  * Removed daily jammy filelists cause of their discontinuation in favour of lunar
 
 wubi (22.04.1r345) jammy; urgency=low
 
