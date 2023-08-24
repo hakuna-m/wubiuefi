@@ -1,9 +1,11 @@
-wubi (20.04.4r344) focal; urgency=low
+wubi (20.04.6r344) focal; urgency=low
 
   [Niktendo]
 
   * Bump to 20.04.5 and 20.04.6
   * Removed offical i386 editions as they are not available anymore
+  * Removed daily focal filelists cause they are are deprecated
+  * Fix metalinks for Wubi lz4-i386 and Wubi lz4-amd64
 
 wubi (20.04.4r344) focal; urgency=low
 
