@@ -27,10 +27,10 @@ jobs:
 
       - name: Build
         run: |
-          cd wubiuefi-focal
+          cd ${{ github.workspace }}
           ls -la
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.2
         with:
           name: wubi20046r344.exe
-          path: ${{ github.workspace }}/file${{ github.event.inputs.ending }}
+          path: ${{ github.workspace }}/build/wubi.exe
