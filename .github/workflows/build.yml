@@ -1,11 +1,15 @@
 name: Build
 
 on:
-  workflow_dispatch:
-    inputs:
-      package:
-        description: "URL to special package to be included"
-        required: false
+  push:
+    branches:
+      - focal
+
+#  workflow_dispatch:
+#    inputs:
+#      package:
+#        description: "URL to special package to be included"
+#        required: false
 
 jobs:
   run:
