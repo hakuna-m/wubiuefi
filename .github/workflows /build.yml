@@ -1,0 +1,18 @@
+name: Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: "URL to special package to be included"
+        required: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y git make gettext
