@@ -1,4 +1,4 @@
-name: Build-Wubi-2004
+name: Build Wubi
 
 on:
   workflow_dispatch:
