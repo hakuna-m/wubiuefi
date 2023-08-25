@@ -1,6 +1,9 @@
 name: Build
 
 on:
+  push:
+    branches:
+      - focal
   workflow_dispatch:
     inputs:
       package:
