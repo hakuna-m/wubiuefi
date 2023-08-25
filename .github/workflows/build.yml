@@ -23,7 +23,7 @@ jobs:
 
       - name: Get additional packages
         run: |
-          if [ -e "${{ github.event.inputs.packages }}" ]; then
+          if [ -n "${{ github.event.inputs.packages }}" ]; then
           wget -P ${{ github.workspace }}/data/custom-installation/packages ${{ github.event.inputs.packages }}
           fi
 
