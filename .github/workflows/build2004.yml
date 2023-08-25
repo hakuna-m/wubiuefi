@@ -1,18 +1,14 @@
-name: Build
+name: Build-Wubi-2004
 
 on:
-  push:
-    branches:
-      - focal
-
-#  workflow_dispatch:
-#    inputs:
-#      package:
-#        description: "URL to special package to be included"
-#        required: false
+  workflow_dispatch:
+    inputs:
+      package:
+        description: "URL to additional packages to be included"
+        required: false
 
 jobs:
-  run:
+  Build-Wubi-2004:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,10 +21,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.6.0
 
+      - name: Get additional packages
+        run: |
+          wget -P ${{ github.workspace }}/data/custom-installation/packages ${{ github.event.inputs.package }}    
+
       - name: Build
         run: |
           cd ${{ github.workspace }}
-          ls -la
+          ls -la ./data/custom-installation/packages
+          
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.2
         with:
