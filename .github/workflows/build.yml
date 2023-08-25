@@ -3,8 +3,8 @@ name: Build-Wubi-2004
 on:
   workflow_dispatch:
     inputs:
-      package:
-        description: "URL to additional packages to be included"
+      packages:
+        description: "URLs to additional packages to be included"
         required: false
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
 
       - name: Get additional packages
         run: |
-          wget -P ${{ github.workspace }}/data/custom-installation/packages ${{ github.event.inputs.package }}    
+          wget -P ${{ github.workspace }}/data/custom-installation/packages ${{ github.event.inputs.packages }}
 
       - name: Build
         run: |

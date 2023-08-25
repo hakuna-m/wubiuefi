@@ -3,10 +3,8 @@
 #Required programs
 python_url="https://www.python.org/ftp/python/2.7.18/python-2.7.18.msi"
 python_md5="db6ad9195b3086c6b4cefb9493d738d2"
-p7zip_url="https://downloads.sourceforge.net/project/sevenzip/7-Zip/23.01/7z2301.msi"
-p7zip_md5="49780e0517aa248e7fd90f50674a2645"
-#p7zip_url="https://downloads.sourceforge.net/project/sevenzip/7-Zip/4.64/7z464.exe"
-#p7zip_md5="d2810e3dd4b60ab05fe7c29a50921efa"
+p7zip_url="https://downloads.sourceforge.net/project/sevenzip/7-Zip/9.20/7z920.msi"
+p7zip_md5="9bd44a22bffe0e4e0b71b8b4cf3a80e2"
 pywin_url="https://github.com/mhammond/pywin32/releases/download/b228/pywin32-228.win32-py2.7.exe"
 pywin_md5="fad14812307621e2704f99e3a5e1afb0"
 
