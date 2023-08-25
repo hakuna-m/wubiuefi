@@ -1,9 +1,6 @@
 name: Build
 
 on:
-  push:
-    branches:
-      - focal
   workflow_dispatch:
     inputs:
       package:
@@ -17,5 +14,19 @@ jobs:
     steps:
       - name: Install dependencies
         run: |
+          sudo dpkg --add-architecture i386
           sudo apt update
-          sudo apt install -y git make gettext
+          sudo apt install -y git make gettext unzip wget wine32:i386
+
+      - name: Checkout
+        uses: actions/checkout@v3.6.0
+
+      - name: Build
+        run: |
+          cd wubiuefi-focal
+          ls -la
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: wubi20046r344.exe
+          path: ${{ github.workspace }}/file${{ github.event.inputs.ending }}
