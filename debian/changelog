@@ -6,6 +6,7 @@ wubi (20.04.6r344) focal; urgency=low
   * Removed offical i386 editions as they are not available anymore
   * Removed daily focal filelists cause they are are deprecated
   * Fix metalinks for Wubi lz4-i386 and Wubi lz4-amd64
+  * new desktop environment "Wubi zstd"
 
 wubi (20.04.4r344) focal; urgency=low
 
