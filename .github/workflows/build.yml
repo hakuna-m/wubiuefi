@@ -1,0 +1,39 @@
+name: Build Wubi
+
+on:
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: "URLs to additional packages to be included"
+        required: false
+
+jobs:
+  Build-Wubi-2004:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt update
+          sudo apt install -y git make gettext unzip wget wine32:i386
+
+      - name: Checkout
+        uses: actions/checkout@v3.6.0
+
+      - name: Get additional packages
+        run: |
+          if [ -n "${{ github.event.inputs.packages }}" ]; then
+          wget -P ${{ github.workspace }}/data/custom-installation/packages ${{ github.event.inputs.packages }}
+          fi
+
+      - name: Build
+        run: |
+          cd ${{ github.workspace }}
+          make
+          
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: wubi20046r344.exe
+          path: ${{ github.workspace }}/build/wubi.exe

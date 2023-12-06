@@ -6,19 +6,19 @@ shim_blacklist_md5="f7a57b08bc7c1c85417ae4cea582d1d4"
 
 if [ ! -e /usr/lib/grub/i386-pc/moddep.lst ]; then
 	echo "Installing grub-pc-bin"
-	sudo apt-get install grub-pc-bin #TBD do not assume apt
+	sudo apt-get install -y grub-pc-bin #TBD do not assume apt
 fi
 if [ ! -e /usr/lib/grub/x86_64-efi/moddep.lst ]; then
 	echo "Installing grub-efi-amd64-bin"
-	sudo apt-get install grub-efi-amd64-bin #TBD do not assume apt
+	sudo apt-get install -y grub-efi-amd64-bin #TBD do not assume apt
 fi
 if [ ! -e /usr/lib/grub/i386-efi/moddep.lst ]; then
 	echo "Installing grub-efi-ia32-bin"
-	sudo apt-get install grub-efi-ia32-bin #TBD do not assume apt
+	sudo apt-get install -y grub-efi-ia32-bin #TBD do not assume apt
 fi
 if [ ! -e /usr/lib/shim/shim.efi.signed ] && [ ! -e /usr/lib/shim/shimx64.efi.signed ]; then
 	echo "Installing shim-signed..."
-	sudo apt-get install shim-signed #TBD do not assume apt
+	sudo apt-get install -y shim-signed #TBD do not assume apt
 fi
 if [ -e /usr/lib/shim/shimx64.efi.signed ] &&
    [ "$(md5sum /usr/lib/shim/shimx64.efi.signed | cut -d ' ' -f 1)" = "$shim_blacklist_md5" ] && 
@@ -34,11 +34,11 @@ if [ -e /usr/lib/shim/shimx64.efi.signed ] &&
 fi
 if [ ! -e /usr/bin/sbsign ]; then
 	echo "Installing sbsigntool..."
-	sudo apt-get install sbsigntool #TBD do not assume apt
+	sudo apt-get install -y sbsigntool #TBD do not assume apt
 fi
 if [ ! -e /usr/bin/openssl ];then
 	echo "Installing openssl..."
-	sudo apt-get install openssl #TBD do not assume apt
+	sudo apt-get install -y openssl #TBD do not assume apt
 fi
 if [ ! -e .key ];then
 	echo "generating new Secure Boot key..."
