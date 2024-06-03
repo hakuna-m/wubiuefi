@@ -504,6 +504,7 @@ class WindowsBackend(Backend):
         paths += [os.path.dirname(self.info.original_exe)]
         paths += [drive.path for drive in self.info.drives]
         paths += [os.environ.get('Desktop', None)]
+        paths += [os.getcwd()]
         paths = [abspath(p) for p in paths if p and os.path.isdir(p)]
         return paths
 
