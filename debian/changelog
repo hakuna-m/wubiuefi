@@ -1,3 +1,15 @@
+wubi (22.04.5r346) jammy; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 22.04.4
+    https://github.com/hakuna-m/wubiuefi/issues/348
+  * Change device name loop0 to loopw0 in wubildr.cfg to suppress "already exists" errors
+    https://github.com/hakuna-m/wubiuefi/issues/345
+  * Add version_find_latest in 10_lupin to support newer GRUB versions
+    https://github.com/hakuna-m/wubiuefi/issues/342
+    https://github.com/hakuna-m/wubiuefi/issues/341
+
 wubi (22.04.2r345) jammy; urgency=low
 
   [Hakuna Matata]

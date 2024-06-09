@@ -166,6 +166,57 @@ EOF
 EOF
 }
 
+lupin_version_test_numeric ()
+{
+  lupin_version_test_numeric_a="$1"
+  lupin_version_test_numeric_cmp="$2"
+  lupin_version_test_numeric_b="$3"
+  if [ "$lupin_version_test_numeric_a" = "$lupin_version_test_numeric_b" ] ; then
+    case "$lupin_version_test_numeric_cmp" in
+      ge|eq|le) return 0 ;;
+      gt|lt) return 1 ;;
+    esac
+  fi
+  if [ "$lupin_version_test_numeric_cmp" = "lt" ] ; then
+    lupin_version_test_numeric_c="$lupin_version_test_numeric_a"
+    lupin_version_test_numeric_a="$lupin_version_test_numeric_b"
+    lupin_version_test_numeric_b="$lupin_version_test_numeric_c"
+  fi
+  if (echo "$lupin_version_test_numeric_a" ; echo "$lupin_version_test_numeric_b") | version_sort | head -n 1 | grep -qx "$lupin_version_test_numeric_b" ; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+lupin_version_test_gt ()
+{
+  lupin_version_test_gt_a="`echo "$1" | sed -e "s/[^-]*-//"`"
+  lupin_version_test_gt_b="`echo "$2" | sed -e "s/[^-]*-//"`"
+  lupin_version_test_gt_cmp=gt
+  if [ "x$lupin_version_test_gt_b" = "x" ] ; then
+    return 0
+  fi
+  case "$lupin_version_test_gt_a:$lupin_version_test_gt_b" in
+    *.old:*.old) ;;
+    *.old:*) lupin_version_test_gt_a="`echo "$lupin_version_test_gt_a" | sed -e 's/\.old$//'`" ; lupin_version_test_gt_cmp=gt ;;
+    *:*.old) lupin_version_test_gt_b="`echo "$lupin_version_test_gt_b" | sed -e 's/\.old$//'`" ; lupin_version_test_gt_cmp=ge ;;
+  esac
+  lupin_version_test_numeric "$lupin_version_test_gt_a" "$lupin_version_test_gt_cmp" "$lupin_version_test_gt_b"
+  return "$?"
+}
+
+lupin_version_find_latest ()
+{
+  lupin_version_find_latest_a=""
+  for i in "$@" ; do
+    if lupin_version_test_gt "$i" "$lupin_version_find_latest_a" ; then
+      lupin_version_find_latest_a="$i"
+    fi
+  done
+  echo "$lupin_version_find_latest_a"
+}
+
 machine=`uname -m`
 case "x$machine" in
     xi?86 | xx86_64)
@@ -237,7 +288,7 @@ submenu_indentation=""
 
 is_first_entry=true
 while [ "x$list" != "x" ] ; do
-  linux=`version_find_latest $list`
+  linux=`lupin_version_find_latest $list`
   gettext_printf "Found linux image: %s\n" "$linux" >&2
   basename=`basename $linux`
   dirname=`dirname $linux`
